@@ -10,7 +10,14 @@ import javafx.stage.Stage;
 
 public class SceneManager {
   public enum Scenes {
-    Default
+    Lab,
+    LanguageInterpreter,
+    MealDelivery,
+    MedicalEquipment,
+    MedicineDelivery,
+    Security,
+    Default,
+    MapEditor
   }
 
   private static class Instance {
@@ -22,7 +29,18 @@ public class SceneManager {
 
   private SceneManager() {
     fileNames = new Hashtable<>();
+    fileNames.put(Scenes.Lab, "ServiceRequestPages/ServiceRequestPage.fxml");
+    fileNames.put(
+        Scenes.LanguageInterpreter,
+        "ServiceRequestPages/LanguageInterpreterServiceRequestPage.fxml");
+    fileNames.put(Scenes.MealDelivery, "ServiceRequestPages/MealDeliveryServiceRequestPage.fxml");
+    fileNames.put(
+        Scenes.MedicalEquipment, "ServiceRequestPages/MedicalEquipmentServiceRequestPage.fxml");
+    fileNames.put(
+        Scenes.MedicineDelivery, "ServiceRequestPages/MedicineDeliveryServiceRequestPage.fxml");
+    fileNames.put(Scenes.Security, "ServiceRequestPages/SecurityServiceRequestPage.fxml");
     fileNames.put(Scenes.Default, "DefaultPage.fxml");
+    fileNames.put(Scenes.MapEditor, "MapEditorPage.fxml");
   }
 
   public static SceneManager getInstance() {
