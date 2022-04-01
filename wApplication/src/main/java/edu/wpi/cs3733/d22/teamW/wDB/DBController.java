@@ -1,5 +1,4 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
-
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.*;
@@ -8,9 +7,8 @@ import java.util.Scanner;
 
 public class DBController {
 
-  private String dbName;
+  private String dbName = "myDB";
   private String connectionString;
-
   private Statement statement;
   private Connection connection;
 
@@ -18,23 +16,65 @@ public class DBController {
   private PreparedStatement insertMedEquip;
   private PreparedStatement insertMedEquipReq;
 
-  private String locationFileName;
-  private String medEquipFileName;
-  private String medEquipRequestFileName;
+  private String locationFileName = "edu/wpi/teamW/CSVs/TowerLocations.csv";
+  private String medEquipFileName = "edu/wpi/teamW/CSVs/MedicalEquipment.csv";
+  private String medEquipRequestFileName = "edu/wpi/teamW/CSVs/MedicalEquipmentRequest.csv";
 
-  public DBController(
-      String dbName,
-      String locationFileName,
-      String medEquipFileName,
-      String medEquipRequestFileName)
-      throws SQLException, ClassNotFoundException, FileNotFoundException {
+  private static DBController dbController;
+
+  static {
+    try {
+      dbController = new DBController();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void setDbName(String dbName) {
     this.dbName = dbName;
-    this.connectionString = "jdbc:derby:" + dbName + ";create=true";
-    this.locationFileName = locationFileName;
-    this.medEquipFileName = medEquipFileName;
-    this.medEquipRequestFileName = medEquipRequestFileName;
+  }
+
+  public static DBController getDBController(){
+    return  dbController;
+  }
+
+
+  private DBController()
+      throws SQLException, ClassNotFoundException, FileNotFoundException {
+    this.connectionString = "jdbc:derby:" + this.dbName + ";create=true";
     this.connect();
     this.createTables();
+  }
+
+  public ResultSet executeQuery(String sql){
+    try {
+      return statement.executeQuery(sql);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return null;
+  }
+
+  public int executeUpdate(String sql){
+    try {
+      return statement.executeUpdate(sql);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return -1;
+  }
+
+  public boolean execute(String sql){
+    try {
+      return statement.execute(sql);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return false;
   }
 
   /**
@@ -399,7 +439,7 @@ public class DBController {
     }
   }
 
-  public void addEntity(MedEquipRequest medEquipReq) throws SQLException {
+  public void addEntity(MedEquipRequest medEquipReq) {
     try {
       insertMedEquipReq.setInt(1, medEquipReq.getRequestID());
       insertMedEquipReq.setString(2, medEquipReq.getItemID());
@@ -413,7 +453,6 @@ public class DBController {
     } catch (SQLException e) {
       System.out.println("Connection failed. Check output console.");
       e.printStackTrace();
-      throw e;
     }
   }
 

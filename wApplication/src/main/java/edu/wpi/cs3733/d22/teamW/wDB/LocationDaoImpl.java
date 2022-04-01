@@ -9,12 +9,10 @@ import java.util.Locale;
 
 public class LocationDaoImpl implements LocationDao {
 
-  ArrayList<Location> locationList;
-  DBController dbController;
+  DBController dbController = DBController.getDBController();
+  ArrayList<Location> locationList = dbController.getLocationTable();
 
-  public LocationDaoImpl(DBController dbController) {
-    this.dbController = dbController;
-    this.locationList = dbController.getLocationTable();
+  public LocationDaoImpl() {
   }
 
   @Override

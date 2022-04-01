@@ -5,15 +5,26 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import edu.wpi.cs3733.d22.teamW.wDB.*;
 
 public class MedEquipDaoImpl implements MedEquipDao {
 
-  ArrayList<MedEquip> medEquipList;
-  DBController dbController;
 
-  public MedEquipDaoImpl(DBController dbController) {
+  DBController dbController = DBController.getDBController();
+  MedEquipRequestDaoImpl medEquipRequestDaoImpl;
+  ArrayList<MedEquip> medEquipList = dbController.getMedEquipTable();
+
+  public MedEquipDaoImpl() {
+  }
+
+  public MedEquipDaoImpl(DBController dbController, MedEquipRequestDaoImpl medEquipRequestDaoImpl) {
     this.dbController = dbController;
     this.medEquipList = dbController.getMedEquipTable();
+    this.medEquipRequestDaoImpl = medEquipRequestDaoImpl;
+  }
+
+  public void setMedEquipRequestDaoImpl(MedEquipRequestDaoImpl medEquipRequestDaoImpl){
+    this.medEquipRequestDaoImpl = medEquipRequestDaoImpl;
   }
 
   @Override
@@ -80,6 +91,11 @@ public class MedEquipDaoImpl implements MedEquipDao {
       System.out.println(String.format("Error Exporting to File %s", fileName));
       e.printStackTrace();
     }
+  }
+
+  public void setStatus(Integer status, String itemID){
+    medEquipList.get(getIndexOf(itemID)).setStatus(0);
+    dbController.executeUpdate(String.format("UPDATE MEDICALEQUIPMENT SET STATUS=%d WHERE MEDID= '%s'", status, itemID));
   }
 
   /**

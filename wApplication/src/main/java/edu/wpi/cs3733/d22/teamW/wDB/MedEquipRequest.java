@@ -9,20 +9,22 @@ public class MedEquipRequest extends Entity {
   // number of req
   // With 6 char, it will allow 36^6 = 2.18 billion
   Integer emergency;
+  String itemType;
   String itemID; // Medical Equipment item
   String nodeID; // Location
-  Integer status; // 0 not started; 1 in progress; 2 done; 3 cancelled
+  Integer status; // 0 enqueue; 1 in progress; 2 done; 3 clean; 4 cancelled
   String employeeName; // Will be changed to employee ID starting in sprint 1
 
   public MedEquipRequest(
-      Integer requestID, Integer emergency, String itemID, String nodeID, String employeeName) {
+      Integer requestID, Integer emergency, String itemType, String nodeID, String employeeName) {
     this.requestID = requestID;
     this.emergency = emergency;
-    this.itemID = itemID;
+    this.itemType = itemType;
     this.nodeID = nodeID;
     this.employeeName = employeeName;
     this.status = 0;
   }
+
 
   public MedEquipRequest(String[] medReqData) {
     try {
@@ -31,7 +33,7 @@ public class MedEquipRequest extends Entity {
       this.requestID = null;
     }
 
-    this.itemID = medReqData[1];
+    this.itemType = medReqData[1];
     this.nodeID = medReqData[2];
     this.employeeName = medReqData[3];
 
@@ -51,6 +53,7 @@ public class MedEquipRequest extends Entity {
   public void start() {
     if (this.status == 0) {
       this.status = 1;
+      this.itemID = itemID;
     } else {
       // Tells the user that it is in progress or completed
       // Could be a pop-up to the user when they click the start button or something
@@ -66,7 +69,10 @@ public class MedEquipRequest extends Entity {
   }
 
   public void cancel() {
-    this.status = 3;
+    if (this.status != 2) {
+      this.status = 3;
+    } else {
+    }
   }
 
   public String toCSVString() {
