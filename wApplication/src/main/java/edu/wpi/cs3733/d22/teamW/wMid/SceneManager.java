@@ -29,7 +29,7 @@ public class SceneManager {
 
   private SceneManager() {
     fileNames = new Hashtable<>();
-    fileNames.put(Scenes.Lab, "ServiceRequestPages/ServiceRequestPage.fxml");
+    fileNames.put(Scenes.Lab, "ServiceRequestPages/LabServiceRequestPage.fxml");
     fileNames.put(
         Scenes.LanguageInterpreter,
         "ServiceRequestPages/LanguageInterpreterServiceRequestPage.fxml");
