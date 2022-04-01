@@ -8,7 +8,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController"
+            fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MenuBarController"
             prefHeight="400.0" prefWidth="600.0">
 
 </AnchorPane>
