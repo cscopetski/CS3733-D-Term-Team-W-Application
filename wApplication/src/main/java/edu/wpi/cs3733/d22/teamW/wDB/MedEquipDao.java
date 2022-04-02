@@ -6,11 +6,11 @@ public interface MedEquipDao {
 
   ArrayList<MedEquip> getAllMedEquip();
 
-  void addMedEquip(String medID);
+  void addMedEquip(String inputID, String type, String nodeID, Integer status);
 
   void deleteMedEquip(String medID);
 
-  void changeMedEquip(String medID, String newLocationID, int newStatus);
+  void changeMedEquip(String inputID, String type, String nodeID, Integer status);
 
   void exportMedCSV(String fileName);
 }

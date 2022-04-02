@@ -34,6 +34,8 @@ public class DBController {
     }
   }
 
+  public
+
   public void setDbName(String dbName) {
     this.dbName = dbName;
   }
@@ -409,7 +411,7 @@ public class DBController {
     return 0;
   }
 
-  public void addEntity(Location location, String inputID) {
+  public void addEntity(Location newLocation, String inputID) {
     try {
       insertLocation.setString(1, inputID);
       for (int i = 2; i <= 3; i++) {

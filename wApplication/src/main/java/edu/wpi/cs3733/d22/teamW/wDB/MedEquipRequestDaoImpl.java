@@ -94,6 +94,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       medEquipRequestList.get(index).setItemID(newItemType);
       medEquipRequestList.get(index).setNodeID(newLocationID);
       medEquipRequestList.get(index).setEmployeeName(newEmployeeName);
+      DBController.getDBController().executeUpdate(String.format("UPDATE MEDICALEQUIPMENT SET(TYPE = 's', NODEID = 's', STATUS = %d) WHERE MEDID = %s", newItemType, newLocationID, ));
     }
   }
 

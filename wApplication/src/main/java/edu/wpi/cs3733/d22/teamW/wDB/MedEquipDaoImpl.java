@@ -11,20 +11,12 @@ public class MedEquipDaoImpl implements MedEquipDao {
 
 
   DBController dbController = DBController.getDBController();
-  MedEquipRequestDaoImpl medEquipRequestDaoImpl;
   ArrayList<MedEquip> medEquipList = dbController.getMedEquipTable();
 
   public MedEquipDaoImpl() {
   }
 
-  public MedEquipDaoImpl(DBController dbController, MedEquipRequestDaoImpl medEquipRequestDaoImpl) {
-    this.dbController = dbController;
-    this.medEquipList = dbController.getMedEquipTable();
-    this.medEquipRequestDaoImpl = medEquipRequestDaoImpl;
-  }
-
-  public void setMedEquipRequestDaoImpl(MedEquipRequestDaoImpl medEquipRequestDaoImpl){
-    this.medEquipRequestDaoImpl = medEquipRequestDaoImpl;
+  public void setMedEquipRequestDaoImpl(){
   }
 
   @Override
@@ -33,14 +25,14 @@ public class MedEquipDaoImpl implements MedEquipDao {
   }
 
   @Override
-  public void addMedEquip(String inputID) {
+  public void addMedEquip(String inputID, String type, String nodeID, Integer status) {
     MedEquip param = new MedEquip();
     int index = getIndexOf(inputID);
     if (index != -1) {
       System.out.println(
           "The database already contains a piece of medical equipment with the ID: " + inputID);
     } else {
-      MedEquip newMedEquip = new MedEquip(inputID, null, null, null);
+      MedEquip newMedEquip = new MedEquip(inputID, type, nodeID, status);
       medEquipList.add(newMedEquip);
       dbController.addEntity(param, inputID); // addition in database
     }
@@ -53,23 +45,20 @@ public class MedEquipDaoImpl implements MedEquipDao {
       System.out.println("The database does not contain medical equipment with the ID: " + medID);
     } else {
       medEquipList.remove(medEquipList.get(index));
-      try {
-        dbController.deleteLocation("MEDICALEQUIPMENT", medID);
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
+      DBController.getDBController().executeUpdate(String.format("DELETE FROM MEDICALEQUIPMENT WHERE MEDID='%s'", medID));
     }
   }
 
   @Override
-  public void changeMedEquip(String medID, String newLocationID, int newStatus) {
+  public void changeMedEquip(String medID, String type, String nodeID, Integer status) {
     int index = getIndexOf(medID);
     if (index == -1) {
       System.out.println(String.format("medID [%s] not found", medID));
     } else {
-      dbController.updateNodeFromMedEquipTable(medID, newLocationID, newStatus);
-      medEquipList.get(index).setNodeID(newLocationID);
-      medEquipList.get(index).setStatus(newStatus);
+      medEquipList.get(index).setType(type);
+      medEquipList.get(index).setNodeID(nodeID);
+      medEquipList.get(index).setStatus(status);
+      DBController.getDBController().executeUpdate(String.format("UPDATE MEDICALEQUIPMENT SET(TYPE = 's', NODEID = 's', STATUS = %d) WHERE MEDID = %s", type,nodeID,status,medID ));
     }
   }
 

@@ -6,9 +6,9 @@ public interface LocationDao {
 
   ArrayList<Location> getAllLocations();
 
-  void changeLocation(String nodeID, String newFloor, String newType);
+  void changeLocation(String inputID, int xCoord, int yCoord, String floor, String building, String nodeType, String longName, String shortName);
 
-  void addLocation(String nodeID);
+  void addLocation(String inputID, int xCoord, int yCoord, String floor, String building, String nodeType, String longName, String shortName);
 
   void deleteLocation(String nodeID);
 

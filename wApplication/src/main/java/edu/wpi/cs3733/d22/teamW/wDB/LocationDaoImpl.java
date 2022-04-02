@@ -21,15 +21,15 @@ public class LocationDaoImpl implements LocationDao {
   }
 
   @Override
-  public void addLocation(String inputID) {
+  public void addLocation(String inputID, int xCoord, int yCoord, String floor, String building, String nodeType, String longName, String shortName) {
     Location param = new Location();
     int index = getIndexOf(inputID);
     if (index != -1) {
       System.out.println("The database already contains a location with the ID: " + inputID);
     } else {
-      Location newLocation = new Location(inputID, null, null, null, null, null, null, null);
+      Location newLocation = new Location(inputID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
       locationList.add(newLocation);
-      dbController.addEntity(param, inputID); // addition in database
+      DBController.getDBController().executeUpdate(String.format("INSERT INTO LOCATIONS VALUES (%s,%d,%d, %s, %s, %s, %s, %s)",inputID, xCoord, yCoord, floor, building, nodeType, longName, shortName));
     }
   }
 
@@ -51,31 +51,35 @@ public class LocationDaoImpl implements LocationDao {
       System.out.println("The database does not contain a location with the ID: " + nodeID);
     } else {
       locationList.remove(locationList.get(index));
-      try {
-        dbController.deleteLocation("LOCATIONS", nodeID);
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
+      DBController.getDBController().executeUpdate(String.format("DELETE FROM LOCATION WHERE nodeID='%s'", nodeID));
     }
   }
 
   @Override
-  public void changeLocation(String nodeID, String newFloor, String newType) {
+  public void changeLocation(String nodeID, int xCoord, int yCoord, String floor, String building, String nodeType, String longName, String shortName) {
     // Check for valid data
-    if (!isValidFloor(newFloor)) {
+    if (!isValidFloor(floor)) {
       System.out.println("Invalid floor entered");
       return;
     }
-    if (!isValidNodeType(newType)) {
+    if (!isValidNodeType(nodeType)) {
       System.out.println("Invalid node type entered");
       return;
     }
-
     int nodeIndex = getIndexOf(nodeID);
     if (nodeIndex == -1) {
       System.out.println("Location to modify does not exist.");
       return;
-    } else {
+    }
+    locationList.get(nodeIndex).setxCoord(xCoord);
+    locationList.get(nodeIndex).setyCoord(yCoord);
+    locationList.get(nodeIndex).setFloor(floor);
+    locationList.get(nodeIndex).setBuilding(building);
+    locationList.get(nodeIndex).setNodeType(nodeType);
+    locationList.get(nodeIndex).setLongName(longName);
+    locationList.get(nodeIndex).setShortName(shortName);
+    DBController.getDBController().executeUpdate(String.format("UPDATE LOCATIONS SET (XCOORD = %d, YCOORD = %d, FLOOR = '%s', BUILDING = 's', NODETYPE = 's', LONGNAME = '%s', SHORTNAME = '%s') WHERE nodeID = %s",xCoord, yCoord, floor, building, nodeType, longName, shortName, nodeID));
+
       // Disabled automatic id updating per Matthew
       /*
       int newIDNumber = dbController.countFloorTypeFromTable(newFloor, newType) + 1;
@@ -91,15 +95,12 @@ public class LocationDaoImpl implements LocationDao {
       }
       String newID = "W" + newType + newIDNumberString + newFloor;
        */
-      locationList.get(nodeIndex).floor = newFloor;
-      locationList.get(nodeIndex).nodeType = newType;
       // Disabled automatic id updating per Matthew
       // locationList.get(modifyIndex).nodeID = newID;
-      dbController.updateNodeFromLocationTable(nodeID, newFloor, newType);
       // Disabled automatic id updating per Matthew
       // dbController.updateNodeIdFromLocationTable(modifyID, newID);
     }
-  }
+
 
   @Override
   public void exportLocationCSV(String fileName) {
