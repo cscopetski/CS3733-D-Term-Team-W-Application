@@ -1,10 +1,10 @@
 .button{
-    -fx-background-image: url(ServiceRequestWhite.png);
+    -fx-background-image: url(ServiceRequestIconWhite.png);
     -fx-background-color: transparent;
     -fx-background-size: contain;
     -fx-background-repeat: no-repeat ;
     -fx-background-position: center ;
-    -fx-background-size: 100% 100%;
+    -fx-background-radius: 26;
     -fx-text-fill: white ;
     -fx-font-weight: bold;
     -fx-font-size: 22pt;
@@ -16,6 +16,6 @@
     -fx-background-size: contain;
     -fx-background-repeat: no-repeat ;
     -fx-background-position: center ;
-    -fx-background-size: 100% 100%;
+    -fx-background-radius: 26;
     -fx-text-fill: black ;
 }

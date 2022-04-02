@@ -5,6 +5,7 @@
     -fx-background-repeat: no-repeat ;
     -fx-background-position: top ;
     -fx-background-size: 100% 100%;
+    -fx-background-radius: 26;
     -fx-text-fill: white ;
     -fx-font-weight: bold;
     -fx-font-size: 22pt;
@@ -17,5 +18,6 @@
     -fx-background-repeat: no-repeat ;
     -fx-background-position: center ;
     -fx-background-size: 100% 100%;
+    -fx-background-radius: 26;
     -fx-text-fill: black ;
 }
