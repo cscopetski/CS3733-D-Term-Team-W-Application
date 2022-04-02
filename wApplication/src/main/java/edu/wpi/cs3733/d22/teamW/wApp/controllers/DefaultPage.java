@@ -1,9 +1,9 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.Pane;
 
 public class DefaultPage {
@@ -11,77 +11,30 @@ public class DefaultPage {
   @FXML private Pane content;
 
   public void switchToMedicineDelivery(ActionEvent event) throws IOException {
-    content.getChildren().clear();
-    content
-        .getChildren()
-        .add(
-            FXMLLoader.load(
-                getClass()
-                    .getResource(
-                        "/edu/wpi/cs3733/d22/teamW/wApp/views/ServiceRequestPages/MedicineDeliveryServiceRequestPage.fxml")));
+    SceneManager.getInstance().setWindow(SceneManager.Scenes.MedicineDelivery, content);
   }
 
   public void switchToLab(ActionEvent event) throws IOException {
-    content.getChildren().clear();
-    content
-        .getChildren()
-        .add(
-            FXMLLoader.load(
-                getClass()
-                    .getResource(
-                        "/edu/wpi/cs3733/d22/teamW/wApp/views/ServiceRequestPages/LabServiceRequestPage.fxml")));
+    SceneManager.getInstance().setWindow(SceneManager.Scenes.Lab, content);
   }
 
   public void switchToMedicalEquipmentDelivery(ActionEvent event) throws IOException {
-    content.getChildren().clear();
-    content
-        .getChildren()
-        .add(
-            FXMLLoader.load(
-                getClass()
-                    .getResource(
-                        "edu/wpi/cs3733/d22/teamW/wApp/views/ServiceRequestPages/MedicalEquipmentServiceRequestPage.fxml")));
+    SceneManager.getInstance().setWindow(SceneManager.Scenes.MedicalEquipment, content);
   }
 
   public void switchToMealDelivery(ActionEvent event) throws IOException {
-    content.getChildren().clear();
-    content
-        .getChildren()
-        .add(
-            FXMLLoader.load(
-                getClass()
-                    .getResource(
-                        "/edu/wpi/cs3733/d22/teamW/wApp/views/ServiceRequestPages/MealDeliveryServiceRequestPage.fxml")));
+    SceneManager.getInstance().setWindow(SceneManager.Scenes.MealDelivery, content);
   }
 
   public void switchToLanguageInterpreter(ActionEvent event) throws IOException {
-    content.getChildren().clear();
-    content
-        .getChildren()
-        .add(
-            FXMLLoader.load(
-                getClass()
-                    .getResource(
-                        "/edu/wpi/cs3733/d22/teamW/wApp/views/ServiceRequestPages/LanguageInterpreterServiceRequestPage.fxml")));
+    SceneManager.getInstance().setWindow(SceneManager.Scenes.LanguageInterpreter, content);
   }
 
   public void switchToSecurity(ActionEvent event) throws IOException {
-    content.getChildren().clear();
-    content
-        .getChildren()
-        .add(
-            FXMLLoader.load(
-                getClass()
-                    .getResource(
-                        "/edu/wpi/cs3733/d22/teamW/wApp/views/ServiceRequestPages/SecurityServiceRequestPage.fxml")));
+    SceneManager.getInstance().setWindow(SceneManager.Scenes.Security, content);
   }
 
   public void switchToMapEditor(ActionEvent event) throws IOException {
-    content.getChildren().clear();
-    content
-        .getChildren()
-        .add(
-            FXMLLoader.load(
-                getClass().getResource("/edu/wpi/cs3733/d22/teamW/wApp/views/MapEditorPage.fxml")));
+    SceneManager.getInstance().setWindow(SceneManager.Scenes.Security, content);
   }
 }
