@@ -1,0 +1,28 @@
+.root{
+    white: #FFFFFF;
+}
+.menu-button{
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 26px;
+    -fx-border-width: 1px;
+    -fx-border-radius: 15px;
+    -fx-border-color: #013895;
+    -fx-padding: 5px 10px 5px 10px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+    -fx-transition-duration: 0.4s;
+
+}
+.menu-button:hover{
+    -fx-background-color: #013895;
+    -fx-background-radius: 26px;
+    -fx-border-width: 1px;
+    -fx-border-radius: 15px;
+    -fx-border-color: #013895;
+    -fx-padding: 5px 10px 5px 10px;
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
+.label:hover{
+    -fx-text-fill: white;
+}
