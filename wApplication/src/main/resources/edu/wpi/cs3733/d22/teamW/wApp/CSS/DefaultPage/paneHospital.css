@@ -1,5 +1,5 @@
 .body{
-    -fx-background-image: url(HospitalFull.jpg);
+    -fx-background-image: url(../../assets/HospitalFull.jpg);
     -fx-background-size: contain;
     -fx-background-repeat: no-repeat ;
     -fx-background-position: center ;

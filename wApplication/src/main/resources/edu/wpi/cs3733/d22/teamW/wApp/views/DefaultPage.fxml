@@ -18,7 +18,7 @@
 <AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DefaultPage">
 
     <children>
-      <Pane layoutX="322.0" layoutY="3.0" prefHeight="58.0" prefWidth="378.0" stylesheets="@../CSS/DefaultPage/mainBar.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane layoutX="322.0" layoutY="3.0" prefHeight="58.0" prefWidth="378.0" stylesheets="@../css/DefaultPage/mainBar.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
                 <MenuButton alignment="CENTER" layoutX="174.0" layoutY="6.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="113.0" text="Requests" textAlignment="CENTER" textOverrun="CLIP">
                     <items>
@@ -52,7 +52,7 @@
                      <center>
                         <Group BorderPane.alignment="CENTER">
                            <children>
-                              <Pane stylesheets="@../CSS/DefaultPage/buttonMapDisplay.css">
+                              <Pane stylesheets="@../css/DefaultPage/buttonMapDisplay.css">
                                  <children>
                                     <Button alignment="BOTTOM_CENTER" layoutX="-2.0" mnemonicParsing="false" prefHeight="254.0" prefWidth="240.0" text="Map Display" />
                                  </children>
@@ -68,16 +68,15 @@
                   </BorderPane>
                </items>
             </SplitPane>
-              <Text fill="WHITE" layoutX="74.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NEED A SERVICE REQUEST?">
+              <Text fill="WHITE" layoutX="110" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NEED A SERVICE REQUEST?">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Text>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5fd1b8" height="27.0" layoutY="36.0" stroke="#5fd1b8" strokeType="INSIDE" width="62.0" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5fd1b8" height="27.0" layoutX="36.0" layoutY="36.0" stroke="#5fd1b8" strokeType="INSIDE" width="62.0" />
          </children>
          <stylesheets>
-            <URL value="@../CSS/paneHospital.css" />
-            <URL value="@../CSS/DefaultPage/paneHospital.css" />
+            <URL value="@../css/DefaultPage/paneHospital.css" />
          </stylesheets>
       </AnchorPane>
     </children>
