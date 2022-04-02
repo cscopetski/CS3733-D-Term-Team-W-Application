@@ -37,4 +37,8 @@ public class DefaultPage {
   public void switchToMapEditor(ActionEvent event) throws IOException {
     SceneManager.getInstance().setWindow(SceneManager.Scenes.Security, content);
   }
+
+  public void exitProgram() {
+    System.exit(0);
+  }
 }
