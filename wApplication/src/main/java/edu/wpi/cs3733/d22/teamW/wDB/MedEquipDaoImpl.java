@@ -1,30 +1,41 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import edu.wpi.cs3733.d22.teamW.wDB.*;
+import java.io.*;
+import java.sql.*;
+import java.util.*;
 
 public class MedEquipDaoImpl implements MedEquipDao {
 
-
   DBController dbController = DBController.getDBController();
-  MedEquipRequestDaoImpl medEquipRequestDaoImpl;
-  ArrayList<MedEquip> medEquipList = dbController.getMedEquipTable();
+  ArrayList<MedEquip> medEquipList;
 
-  public MedEquipDaoImpl() {
+  public MedEquipDaoImpl() throws SQLException {
+    setMedEquipList();
   }
 
-  public MedEquipDaoImpl(DBController dbController, MedEquipRequestDaoImpl medEquipRequestDaoImpl) {
-    this.dbController = dbController;
-    this.medEquipList = dbController.getMedEquipTable();
-    this.medEquipRequestDaoImpl = medEquipRequestDaoImpl;
-  }
+  public void setMedEquipList() throws SQLException {
+    medEquipList = new ArrayList<>();
 
-  public void setMedEquipRequestDaoImpl(MedEquipRequestDaoImpl medEquipRequestDaoImpl){
-    this.medEquipRequestDaoImpl = medEquipRequestDaoImpl;
+    try {
+      ResultSet medEquipment = dbController.executeQuery("SELECT * FROM MEDICALEQUIPMENT");
+
+      // Size of num MedEquip fields
+      String[] medEquipData = new String[4];
+
+      while (medEquipment.next()) {
+
+        for (int i = 0; i < medEquipData.length; i++) {
+          medEquipData[i] = medEquipment.getString(i + 1);
+        }
+
+        medEquipList.add(new MedEquip(medEquipData));
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from medical equipment table failed");
+      e.printStackTrace();
+      throw(e);
+    }
   }
 
   @Override
@@ -93,9 +104,10 @@ public class MedEquipDaoImpl implements MedEquipDao {
     }
   }
 
-  public void setStatus(Integer status, String itemID){
+  public void setStatus(Integer status, String itemID) throws SQLException {
     medEquipList.get(getIndexOf(itemID)).setStatus(0);
-    dbController.executeUpdate(String.format("UPDATE MEDICALEQUIPMENT SET STATUS=%d WHERE MEDID= '%s'", status, itemID));
+    dbController.executeUpdate(
+        String.format("UPDATE MEDICALEQUIPMENT SET STATUS=%d WHERE MEDID= '%s'", status, itemID));
   }
 
   /**

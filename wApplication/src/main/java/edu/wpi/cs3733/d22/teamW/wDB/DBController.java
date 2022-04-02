@@ -1,9 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
+
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class DBController {
 
@@ -15,10 +13,6 @@ public class DBController {
   private PreparedStatement insertLocation;
   private PreparedStatement insertMedEquip;
   private PreparedStatement insertMedEquipReq;
-
-  private String locationFileName = "edu/wpi/teamW/CSVs/TowerLocations.csv";
-  private String medEquipFileName = "edu/wpi/teamW/CSVs/MedicalEquipment.csv";
-  private String medEquipRequestFileName = "edu/wpi/teamW/CSVs/MedicalEquipmentRequest.csv";
 
   private static DBController dbController;
 
@@ -34,47 +28,26 @@ public class DBController {
     }
   }
 
-  public void setDbName(String dbName) {
-    this.dbName = dbName;
+  public static DBController getDBController() {
+    return dbController;
   }
 
-  public static DBController getDBController(){
-    return  dbController;
-  }
-
-
-  private DBController()
-      throws SQLException, ClassNotFoundException, FileNotFoundException {
+  private DBController() throws SQLException, ClassNotFoundException, FileNotFoundException {
     this.connectionString = "jdbc:derby:" + this.dbName + ";create=true";
     this.connect();
     this.createTables();
   }
 
-  public ResultSet executeQuery(String sql){
-    try {
-      return statement.executeQuery(sql);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return null;
+  public ResultSet executeQuery(String sql) throws SQLException {
+    return statement.executeQuery(sql);
   }
 
-  public int executeUpdate(String sql){
-    try {
-      return statement.executeUpdate(sql);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return -1;
+  public int executeUpdate(String sql) throws SQLException {
+    return statement.executeUpdate(sql);
   }
 
-  public boolean execute(String sql){
-    try {
-      return statement.execute(sql);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return false;
+  public boolean execute(String sql) throws SQLException {
+    return statement.execute(sql);
   }
 
   /**
@@ -120,7 +93,7 @@ public class DBController {
    *
    * @throws SQLException if Location Table fails to be created
    */
-  private void createTables() throws SQLException, FileNotFoundException {
+  private void createTables() throws SQLException {
 
     if (statement == null) {
       System.out.println("Connection not established, cannot create table");
@@ -179,109 +152,11 @@ public class DBController {
         e.printStackTrace();
         throw (e);
       }
-
-      insertIntoLocationsTable(importCSV(locationFileName));
-      insertIntoMedEquipTable(importCSV(medEquipFileName));
-      insertIntoMedEquipReqTable(importCSV(medEquipRequestFileName));
     }
   }
 
-  private ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
-
-    InputStream in = getClass().getResourceAsStream("/" + fileName);
-    if (in == null) {
-      System.out.println("Failed to find file");
-      throw (new FileNotFoundException());
-    }
-    Scanner sc = new Scanner(in);
-    System.out.println("Found File");
-    // Skip headers
-    sc.next();
-
-    ArrayList<String[]> tokensList = new ArrayList<>();
-
-    while (sc.hasNextLine()) {
-      String line = "" + sc.nextLine();
-      if (!line.isEmpty()) {
-        String[] tokens = line.split(",");
-        tokensList.add(tokens);
-      }
-    }
-    sc.close(); // closes the scanner
-    return tokensList;
-  }
-
-  /**
-   * Inserts a list of locations objects into the Location table in the database
-   *
-   * @param tokens List of Location Objects to populate the Location Table
-   * @throws SQLException if insertion fails
+  /*
    */
-  private void insertIntoLocationsTable(ArrayList<String[]> tokens) throws SQLException {
-
-    ArrayList<Location> locationsList = new ArrayList<>();
-
-    for (String[] s : tokens) {
-      locationsList.add(new Location(s));
-    }
-
-    for (Location l : locationsList) {
-      // add location objects to database
-      try {
-        statement.execute("INSERT INTO LOCATIONS VALUES(" + l.toValuesString() + ")");
-      } catch (SQLException e) {
-        System.out.println("Connection failed. Check output console.");
-        e.printStackTrace();
-        throw (e);
-      }
-    }
-  }
-
-  /**
-   * Inserts a list of locations objects into the Location table in the database
-   *
-   * @param tokens List of Medical Equipment Objects to populate the Location Table
-   * @throws SQLException if insertion fails
-   */
-  private void insertIntoMedEquipTable(ArrayList<String[]> tokens) throws SQLException {
-    ArrayList<MedEquip> medEquipList = new ArrayList<>();
-
-    for (String[] s : tokens) {
-      medEquipList.add(new MedEquip(s));
-    }
-
-    for (MedEquip m : medEquipList) {
-      // add location objects to database
-      try {
-        statement.execute("INSERT INTO MEDICALEQUIPMENT VALUES(" + m.toValuesString() + ")");
-      } catch (SQLException e) {
-        System.out.println("Connection failed. Check output console.");
-        e.printStackTrace();
-        throw (e);
-      }
-    }
-  }
-
-  private void insertIntoMedEquipReqTable(ArrayList<String[]> tokens) throws SQLException {
-    ArrayList<MedEquipRequest> medEquipReqList = new ArrayList<>();
-
-    for (String[] s : tokens) {
-      medEquipReqList.add(new MedEquipRequest(s));
-    }
-
-    for (MedEquipRequest m : medEquipReqList) {
-      // add location objects to database
-      try {
-        statement.execute(
-            "INSERT INTO MEDICALEQUIPMENTREQUESTS VALUES(" + m.toValuesString() + ")");
-      } catch (SQLException e) {
-        System.out.println("Connection failed. Check output console.");
-        e.printStackTrace();
-        throw (e);
-      }
-    }
-  }
-
   /**
    * Deletes any Location in database that has the removeID as it's nodeID Author: Edison
    *
@@ -289,6 +164,7 @@ public class DBController {
    * @param nodeID
    * @throws SQLException
    */
+  /*
   public void deleteLocation(String table, String nodeID) throws SQLException {
     statement.executeUpdate(String.format("DELETE FROM %s WHERE nodeID='%s'", table, nodeID));
   }
@@ -303,6 +179,7 @@ public class DBController {
         String.format("UPDATE %s SET isEmergency=%d WHERE medReqID = %d", table, status, medReqID));
   }
 
+  */
   /**
    * Updates the floor and nodeType of a Location
    *
@@ -311,6 +188,7 @@ public class DBController {
    * @param newNodeType New type of the Location node
    * @author Hasan
    */
+  /*
   public void updateNodeFromLocationTable(String nodeID, String newFloor, String newNodeType) {
     try {
       statement.executeUpdate(
@@ -322,6 +200,7 @@ public class DBController {
     }
   }
 
+  */
   /**
    * Updates the location and status of a medical equipment
    *
@@ -330,6 +209,7 @@ public class DBController {
    * @param newStatus Updated status of the medical equipment
    * @author Hasan
    */
+  /*
   public void updateNodeFromMedEquipTable(String medID, String newLocationID, int newStatus) {
     try {
       statement.executeUpdate(
@@ -341,6 +221,7 @@ public class DBController {
     }
   }
 
+  */
   /**
    * Updates the item, location, and employee name of a medical equipment request
    *
@@ -349,6 +230,7 @@ public class DBController {
    * @param newLocationID ID of the new location for the request
    * @param newEmployeeName Name of the new employee for the request
    */
+  /*
   public void updateNodeFromMedicalEquipmentRequestsTable(
       int requestID, String newItemID, String newLocationID, String newEmployeeName) {
     try {
@@ -361,6 +243,7 @@ public class DBController {
     }
   }
 
+  */
   /**
    * Updates the nodeID of a Location based off of the new Floor and Type values Currently never
    * used because we commented out the lines that call this in the LocationController class Author:
@@ -369,6 +252,7 @@ public class DBController {
    * @param modifyID
    * @param newID
    */
+  /*
   public void updateNodeIdFromLocationTable(String modifyID, String newID) {
     try {
       statement.executeUpdate(
@@ -378,6 +262,7 @@ public class DBController {
     }
   }
 
+  */
   /**
    * Count the number of nodes one the same floor with the same type to update the nodeID when
    * changing the type and floor of said node
@@ -388,6 +273,7 @@ public class DBController {
    * @param type
    * @return
    */
+  /*
   public int countFloorTypeFromTable(String floor, String type) {
     ResultSet rs = null;
     try {
@@ -456,34 +342,19 @@ public class DBController {
     }
   }
 
+  */
   /**
    * Build the ArrayList of all Locations in database by looping through set of results (locations)
    * from SQL query
    *
    * @return ArrayList of all Locations in database
    */
+  /*
   public ArrayList<Location> getLocationTable() {
 
     ArrayList<Location> locationsList = new ArrayList<>();
 
-    try {
-      ResultSet locations = statement.executeQuery("SELECT * FROM LOCATIONS");
 
-      String[] locationData = new String[8];
-
-      while (locations.next()) {
-
-        for (int i = 0; i < locationData.length; i++) {
-          locationData[i] = locations.getString(i + 1);
-        }
-
-        locationsList.add(new Location(locationData));
-      }
-
-    } catch (SQLException e) {
-      System.out.println("Query from locations table failed");
-      e.printStackTrace();
-    }
 
     return locationsList;
   }
@@ -536,7 +407,7 @@ public class DBController {
       e.printStackTrace();
     }
     return medEquipRequestList;
-  }
+  }*/
   /**
    * closes the connection to the embedded database
    *

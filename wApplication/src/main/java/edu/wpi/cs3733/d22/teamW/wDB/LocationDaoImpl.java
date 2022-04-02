@@ -1,23 +1,44 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Locale;
+import java.io.*;
+import java.sql.*;
+import java.util.*;
 
 public class LocationDaoImpl implements LocationDao {
 
   DBController dbController = DBController.getDBController();
-  ArrayList<Location> locationList = dbController.getLocationTable();
+  ArrayList<Location> locationsList;
 
-  public LocationDaoImpl() {
+  public LocationDaoImpl() throws SQLException {
+    setLocationsList();
+  }
+
+  public void setLocationsList() throws SQLException {
+    locationsList = new ArrayList<>();
+
+    try {
+      ResultSet locations = dbController.executeQuery("SELECT * FROM LOCATIONS");
+
+      String[] locationData = new String[8];
+
+      while (locations.next()) {
+
+        for (int i = 0; i < locationData.length; i++) {
+          locationData[i] = locations.getString(i + 1);
+        }
+
+        locationsList.add(new Location(locationData));
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from locations table failed");
+      throw(e);
+    }
   }
 
   @Override
   public ArrayList<Location> getAllLocations() {
-    return this.locationList;
+    return this.locationsList;
   }
 
   @Override
@@ -28,7 +49,7 @@ public class LocationDaoImpl implements LocationDao {
       System.out.println("The database already contains a location with the ID: " + inputID);
     } else {
       Location newLocation = new Location(inputID, null, null, null, null, null, null, null);
-      locationList.add(newLocation);
+      locationsList.add(newLocation);
       dbController.addEntity(param, inputID); // addition in database
     }
   }
@@ -50,7 +71,7 @@ public class LocationDaoImpl implements LocationDao {
     if (index == -1) {
       System.out.println("The database does not contain a location with the ID: " + nodeID);
     } else {
-      locationList.remove(locationList.get(index));
+      locationsList.remove(locationsList.get(index));
       try {
         dbController.deleteLocation("LOCATIONS", nodeID);
       } catch (SQLException e) {
@@ -91,8 +112,8 @@ public class LocationDaoImpl implements LocationDao {
       }
       String newID = "W" + newType + newIDNumberString + newFloor;
        */
-      locationList.get(nodeIndex).floor = newFloor;
-      locationList.get(nodeIndex).nodeType = newType;
+      locationsList.get(nodeIndex).floor = newFloor;
+      locationsList.get(nodeIndex).nodeType = newType;
       // Disabled automatic id updating per Matthew
       // locationList.get(modifyIndex).nodeID = newID;
       dbController.updateNodeFromLocationTable(nodeID, newFloor, newType);
@@ -109,7 +130,7 @@ public class LocationDaoImpl implements LocationDao {
       pw.print("nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName");
 
       // print all locations
-      for (Location l : locationList) {
+      for (Location l : locationsList) {
         pw.println();
         pw.print(l.toCSVString());
       }
@@ -141,10 +162,10 @@ public class LocationDaoImpl implements LocationDao {
    * @return index of location or -1 if it does not exist
    */
   private int getIndexOf(String inputID) {
-    int size = locationList.size();
+    int size = locationsList.size();
     boolean found = false;
     for (int i = 0; i < size; i++) {
-      if (locationList.get(i).nodeID.equals(inputID)) {
+      if (locationsList.get(i).nodeID.equals(inputID)) {
         return i;
       }
     }
