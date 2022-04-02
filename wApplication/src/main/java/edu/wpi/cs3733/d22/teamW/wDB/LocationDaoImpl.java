@@ -1,34 +1,55 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Locale;
+import java.io.*;
+import java.sql.*;
+import java.util.*;
 
 public class LocationDaoImpl implements LocationDao {
 
   DBController dbController = DBController.getDBController();
-  ArrayList<Location> locationList = dbController.getLocationTable();
+  ArrayList<Location> locationsList;
 
-  public LocationDaoImpl() {
+  public LocationDaoImpl() throws SQLException {
+    setLocationsList();
+  }
+
+  public void setLocationsList() throws SQLException {
+    locationsList = new ArrayList<>();
+
+    try {
+      ResultSet locations = dbController.executeQuery("SELECT * FROM LOCATIONS");
+
+      String[] locationData = new String[8];
+
+      while (locations.next()) {
+
+        for (int i = 0; i < locationData.length; i++) {
+          locationData[i] = locations.getString(i + 1);
+        }
+
+        locationsList.add(new Location(locationData));
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from locations table failed");
+      throw(e);
+    }
   }
 
   @Override
   public ArrayList<Location> getAllLocations() {
-    return this.locationList;
+    return this.locationsList;
   }
 
   @Override
-  public void addLocation(String inputID, int xCoord, int yCoord, String floor, String building, String nodeType, String longName, String shortName) {
+  public void addLocation(String inputID, int xCoord, int yCoord, String floor, String building, String nodeType, String longName, String shortName) throws SQLException {
     Location param = new Location();
     int index = getIndexOf(inputID);
     if (index != -1) {
       System.out.println("The database already contains a location with the ID: " + inputID);
     } else {
       Location newLocation = new Location(inputID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
-      locationList.add(newLocation);
+      locationsList.add(newLocation);
       DBController.getDBController().executeUpdate(String.format("INSERT INTO LOCATIONS VALUES (%s,%d,%d, %s, %s, %s, %s, %s)",inputID, xCoord, yCoord, floor, building, nodeType, longName, shortName));
     }
   }
@@ -45,18 +66,18 @@ public class LocationDaoImpl implements LocationDao {
    * @throws SQLException
    */
   @Override
-  public void deleteLocation(String nodeID) {
+  public void deleteLocation(String nodeID) throws SQLException {
     int index = getIndexOf(nodeID);
     if (index == -1) {
       System.out.println("The database does not contain a location with the ID: " + nodeID);
     } else {
-      locationList.remove(locationList.get(index));
+      locationsList.remove(locationsList.get(index));
       DBController.getDBController().executeUpdate(String.format("DELETE FROM LOCATION WHERE nodeID='%s'", nodeID));
     }
   }
 
   @Override
-  public void changeLocation(String nodeID, int xCoord, int yCoord, String floor, String building, String nodeType, String longName, String shortName) {
+  public void changeLocation(String nodeID, int xCoord, int yCoord, String floor, String building, String nodeType, String longName, String shortName) throws SQLException {
     // Check for valid data
     if (!isValidFloor(floor)) {
       System.out.println("Invalid floor entered");
@@ -71,13 +92,13 @@ public class LocationDaoImpl implements LocationDao {
       System.out.println("Location to modify does not exist.");
       return;
     }
-    locationList.get(nodeIndex).setxCoord(xCoord);
-    locationList.get(nodeIndex).setyCoord(yCoord);
-    locationList.get(nodeIndex).setFloor(floor);
-    locationList.get(nodeIndex).setBuilding(building);
-    locationList.get(nodeIndex).setNodeType(nodeType);
-    locationList.get(nodeIndex).setLongName(longName);
-    locationList.get(nodeIndex).setShortName(shortName);
+    locationsList.get(nodeIndex).setxCoord(xCoord);
+    locationsList.get(nodeIndex).setyCoord(yCoord);
+    locationsList.get(nodeIndex).setFloor(floor);
+    locationsList.get(nodeIndex).setBuilding(building);
+    locationsList.get(nodeIndex).setNodeType(nodeType);
+    locationsList.get(nodeIndex).setLongName(longName);
+    locationsList.get(nodeIndex).setShortName(shortName);
     DBController.getDBController().executeUpdate(String.format("UPDATE LOCATIONS SET (XCOORD = %d, YCOORD = %d, FLOOR = '%s', BUILDING = 's', NODETYPE = 's', LONGNAME = '%s', SHORTNAME = '%s') WHERE nodeID = %s",xCoord, yCoord, floor, building, nodeType, longName, shortName, nodeID));
 
       // Disabled automatic id updating per Matthew
@@ -110,7 +131,7 @@ public class LocationDaoImpl implements LocationDao {
       pw.print("nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName");
 
       // print all locations
-      for (Location l : locationList) {
+      for (Location l : locationsList) {
         pw.println();
         pw.print(l.toCSVString());
       }
@@ -142,10 +163,10 @@ public class LocationDaoImpl implements LocationDao {
    * @return index of location or -1 if it does not exist
    */
   private int getIndexOf(String inputID) {
-    int size = locationList.size();
+    int size = locationsList.size();
     boolean found = false;
     for (int i = 0; i < size; i++) {
-      if (locationList.get(i).nodeID.equals(inputID)) {
+      if (locationsList.get(i).nodeID.equals(inputID)) {
         return i;
       }
     }

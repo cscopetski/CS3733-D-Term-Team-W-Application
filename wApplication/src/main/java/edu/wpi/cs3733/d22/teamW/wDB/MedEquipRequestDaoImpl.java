@@ -3,21 +3,43 @@ package edu.wpi.cs3733.d22.teamW.wDB;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
   DBController dbController = DBController.getDBController();
-  ArrayList<MedEquipRequest> medEquipRequestList = dbController.getMedEquipReqTable();
-  Integer x = 1;
+  ArrayList<MedEquipRequest> medEquipRequestList;
+  Integer requestIDTracker = 1;
 
   public MedEquipRequestDaoImpl() {
+    setMedEquipRequestList();
   }
 
-  public MedEquipRequestDaoImpl(MedEquipDaoImpl medEquipDaoImpl) {
-  }
+  public void setMedEquipRequestList() {
+    ArrayList<MedEquipRequest> medEquipRequestList = new ArrayList<>();
 
+    try {
+      ResultSet medEquipment = dbController.executeQuery("SELECT * FROM MEDICALEQUIPMENTREQUESTS");
+
+      // Size of num MedEquipRequest fields
+      String[] medEquipData = new String[6];
+
+      while (medEquipment.next()) {
+
+        for (int i = 0; i < medEquipData.length; i++) {
+          medEquipData[i] = medEquipment.getString(i + 1);
+        }
+
+        medEquipRequestList.add(new MedEquipRequest(medEquipData));
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from locations table failed");
+      e.printStackTrace();
+    }
+  }
 
   @Override
   public ArrayList<MedEquipRequest> getAllMedEquipRequests() {
@@ -47,14 +69,20 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
   @Override
   public void addMedEquipRequest(
       Integer emergency, String itemType, String employeeName, Location location) {
-    Integer ID = x++;
+    Integer ID = requestIDTracker++;
     MedEquipRequest param =
         new MedEquipRequest(ID, emergency, itemType, location.getNodeID(), employeeName);
     medEquipRequestList.add(param);
-    dbController.addEntity(param); // addition in database
+    //dbController.addEntity(param); // addition in database
     Integer count = 0;
     try {
-      count = dbController.executeQuery(String.format("SELECT COUNT (*) AS COUNT FROM MEDICALEQUIPMENT WHERE (STATUS = 0 AND TYPE = '%s'", itemType)).getInt("COUNT");
+      count =
+          dbController
+              .executeQuery(
+                  String.format(
+                      "SELECT COUNT (*) AS COUNT FROM MEDICALEQUIPMENT WHERE (STATUS = 0 AND TYPE = '%s'",
+                      itemType))
+              .getInt("COUNT");
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -68,33 +96,27 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
           String.format("The database does not contain a request with the ID: %d", requestID));
     } else {
       MedEquipRequest medReq = medEquipRequestList.get(index);
-      if(medReq.getStatus()==0){
+      if (medReq.getStatus() == 0) {
         medReq.cancel();
-      } else if(medReq.getStatus()==1){
+      } else if (medReq.getStatus() == 1) {
         medReq.cancel();
       }
-      try {
-        dbController.cancel("MEDICALEQUIPMENTREQUESTS", requestID);
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
+        //dbController.cancel("MEDICALEQUIPMENTREQUESTS", requestID);
     }
   }
 
   @Override
   public void changeMedEquipRequest(
-      int requestID, String newItemType, String newLocationID, String newEmployeeName) {
+      int requestID, String newItemType, String newLocationID, String newEmployeeName) throws SQLException {
     int index = getIndexOf(requestID);
     if (index == -1) {
       System.out.println(
           String.format("The database does not contain a request with the ID: %d", requestID));
     } else {
-      dbController.updateNodeFromMedicalEquipmentRequestsTable(
-          requestID, newItemType, newLocationID, newEmployeeName);
       medEquipRequestList.get(index).setItemID(newItemType);
       medEquipRequestList.get(index).setNodeID(newLocationID);
       medEquipRequestList.get(index).setEmployeeName(newEmployeeName);
-      DBController.getDBController().executeUpdate(String.format("UPDATE MEDICALEQUIPMENT SET(TYPE = 's', NODEID = 's', STATUS = %d) WHERE MEDID = %s", newItemType, newLocationID, ));
+      DBController.getDBController().executeUpdate(String.format("UPDATE MEDICALEQUIPMENT SET(TYPE = 's', NODEID = 's', STATUS = %d) WHERE MEDID = %s", newItemType, newLocationID, newEmployeeName, requestID));
     }
   }
 
@@ -106,11 +128,8 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
           String.format("The database does not contain a request with the ID: %d", requestID));
     } else {
       medEquipRequestList.get(index).setEmergency(1);
-      try {
-        dbController.setEmergency("MEDICALEQUIPMENTREQUESTS", requestID, true);
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
+        //dbController.setEmergency("MEDICALEQUIPMENTREQUESTS", requestID, true);
+
     }
   }
 
@@ -134,13 +153,15 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     }
   }
 
-  public void start(Integer requestID){
+  public void start(Integer requestID) throws SQLException {
     int index = getIndexOf(requestID);
     if (index == -1) {
       System.out.println(
-              String.format("The database does not contain a request with the ID: %d", requestID));
+          String.format("The database does not contain a request with the ID: %d", requestID));
     } else {
-      dbController.executeUpdate(String.format("UPDATE MEDICALEQUIPMENTREQUESTS SET STATUS = 1 WHERE REQUESTID = %d",requestID));
+      dbController.executeUpdate(
+          String.format(
+              "UPDATE MEDICALEQUIPMENTREQUESTS SET STATUS = 1 WHERE REQUESTID = %d", requestID));
 
       medEquipRequestList.get(index).start();
     }

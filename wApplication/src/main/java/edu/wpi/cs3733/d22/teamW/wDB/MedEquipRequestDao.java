@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface MedEquipRequestDao {
@@ -19,7 +20,7 @@ public interface MedEquipRequestDao {
   void cancelMedEquipRequest(int requestID);
 
   void changeMedEquipRequest(
-      int requestID, String newItemID, String newLocationID, String newEmployeeName);
+      int requestID, String newItemID, String newLocationID, String newEmployeeName) throws SQLException;
 
   void makeMedEquipEmergency(int requestID);
 

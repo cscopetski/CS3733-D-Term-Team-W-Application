@@ -25,7 +25,6 @@ public class MedEquipRequest extends Entity {
     this.status = 0;
   }
 
-
   public MedEquipRequest(String[] medReqData) {
     try {
       this.requestID = Integer.parseInt(medReqData[0]);
