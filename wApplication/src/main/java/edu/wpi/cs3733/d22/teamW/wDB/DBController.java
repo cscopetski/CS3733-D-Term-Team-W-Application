@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
-import java.io.FileNotFoundException;
 import java.sql.*;
 
 public class DBController {
@@ -14,29 +13,22 @@ public class DBController {
   private PreparedStatement insertMedEquip;
   private PreparedStatement insertMedEquipReq;
 
-  private static DBController dbController;
-
-  static {
-    try {
-      dbController = new DBController();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    } catch (ClassNotFoundException e) {
-      e.printStackTrace();
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    }
-  }
-
+  private static DBController dbController = new DBController();
 
   public static DBController getDBController() {
     return dbController;
   }
 
-  private DBController() throws SQLException, ClassNotFoundException, FileNotFoundException {
+  private DBController() {
     this.connectionString = "jdbc:derby:" + this.dbName + ";create=true";
-    this.connect();
-    this.createTables();
+    try {
+      this.connect();
+      this.createTables();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
   }
 
   public ResultSet executeQuery(String sql) throws SQLException {
@@ -143,12 +135,6 @@ public class DBController {
                 + "constraint MedEquipReq_PK primary key (medReqID,medID, nodeID),"
                 + "constraint MedEReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),"
                 + "constraint IsEmergency_check check (isEmergency = 0 or isEmergency = 1))");
-        insertLocation =
-            connection.prepareStatement("INSERT INTO LOCATIONS VALUES(?,?,?,?,?,?,?,?)");
-        insertMedEquip =
-            connection.prepareStatement("INSERT INTO MEDICALEQUIPMENT VALUES(?,?,?,?)");
-        insertMedEquipReq =
-            connection.prepareStatement("INSERT INTO MEDICALEQUIPMENTREQUESTS VALUES(?,?,?,?,?,?)");
       } catch (SQLException e) {
         System.out.println("Table Creation Failed. Check output console.");
         e.printStackTrace();

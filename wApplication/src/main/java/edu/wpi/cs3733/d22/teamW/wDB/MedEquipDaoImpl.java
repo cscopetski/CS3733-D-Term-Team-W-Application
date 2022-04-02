@@ -34,7 +34,7 @@ public class MedEquipDaoImpl implements MedEquipDao {
     } catch (SQLException e) {
       System.out.println("Query from medical equipment table failed");
       e.printStackTrace();
-      throw(e);
+      throw (e);
     }
   }
 
@@ -44,7 +44,8 @@ public class MedEquipDaoImpl implements MedEquipDao {
   }
 
   @Override
-  public void addMedEquip(String inputID, String type, String nodeID, Integer status) throws SQLException {
+  public void addMedEquip(String inputID, String type, String nodeID, Integer status)
+      throws SQLException {
     MedEquip param = new MedEquip();
     int index = getIndexOf(inputID);
     if (index != -1) {
@@ -53,7 +54,9 @@ public class MedEquipDaoImpl implements MedEquipDao {
     } else {
       MedEquip newMedEquip = new MedEquip(inputID, type, nodeID, status);
       medEquipList.add(newMedEquip);
-      dbController.executeUpdate(String.format("INSERT MEDICALEQUIPMENT VALUES (%s,%s,%s,%d)", inputID, type, nodeID,status));
+      dbController.executeUpdate(
+          String.format(
+              "INSERT MEDICALEQUIPMENT VALUES (%s,%s,%s,%d)", inputID, type, nodeID, status));
     }
   }
 
@@ -64,12 +67,14 @@ public class MedEquipDaoImpl implements MedEquipDao {
       System.out.println("The database does not contain medical equipment with the ID: " + medID);
     } else {
       medEquipList.remove(medEquipList.get(index));
-      DBController.getDBController().executeUpdate(String.format("DELETE FROM MEDICALEQUIPMENT WHERE MEDID='%s'", medID));
+      DBController.getDBController()
+          .executeUpdate(String.format("DELETE FROM MEDICALEQUIPMENT WHERE MEDID='%s'", medID));
     }
   }
 
   @Override
-  public void changeMedEquip(String medID, String type, String nodeID, Integer status) throws SQLException {
+  public void changeMedEquip(String medID, String type, String nodeID, Integer status)
+      throws SQLException {
     int index = getIndexOf(medID);
     if (index == -1) {
       System.out.println(String.format("medID [%s] not found", medID));
@@ -77,7 +82,11 @@ public class MedEquipDaoImpl implements MedEquipDao {
       medEquipList.get(index).setType(type);
       medEquipList.get(index).setNodeID(nodeID);
       medEquipList.get(index).setStatus(status);
-      DBController.getDBController().executeUpdate(String.format("UPDATE MEDICALEQUIPMENT SET(TYPE = 's', NODEID = 's', STATUS = %d) WHERE MEDID = %s", type,nodeID,status,medID ));
+      DBController.getDBController()
+          .executeUpdate(
+              String.format(
+                  "UPDATE MEDICALEQUIPMENT SET TYPE = '%s', NODEID = '%s', STATUS = %d WHERE MEDID = '%s'",
+                  type, nodeID, status, medID));
     }
   }
 
@@ -102,13 +111,15 @@ public class MedEquipDaoImpl implements MedEquipDao {
   }
 
   @Override
-  public String checkTypeAvailable(String type) {
+  public String checkTypeAvailable(String type) throws SQLException {
     for (MedEquip m : medEquipList) {
       if (m.getType().equals(type) && (m.getStatus() == 0)) {
+        changeMedEquip(m.getMedID(), m.getType(), m.getNodeID(), 1);
+
         return m.getMedID();
       }
     }
-    return null;
+    return (String) null;
   }
 
   public void setStatus(Integer status, String itemID) throws SQLException {

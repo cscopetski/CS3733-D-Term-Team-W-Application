@@ -7,9 +7,27 @@ public interface LocationDao {
 
   ArrayList<Location> getAllLocations();
 
-  void changeLocation(String inputID, int xCoord, int yCoord, String floor, String building, String nodeType, String longName, String shortName) throws SQLException;
+  void changeLocation(
+      String inputID,
+      int xCoord,
+      int yCoord,
+      String floor,
+      String building,
+      String nodeType,
+      String longName,
+      String shortName)
+      throws SQLException;
 
-  void addLocation(String inputID, int xCoord, int yCoord, String floor, String building, String nodeType, String longName, String shortName) throws SQLException;
+  void addLocation(
+      String inputID,
+      int xCoord,
+      int yCoord,
+      String floor,
+      String building,
+      String nodeType,
+      String longName,
+      String shortName)
+      throws SQLException;
 
   void deleteLocation(String nodeID) throws SQLException;
 

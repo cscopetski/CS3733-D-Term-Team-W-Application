@@ -1,18 +1,19 @@
 package edu.wpi.cs3733.d22.teamW.wMid;
 
-import edu.wpi.cs3733.d22.teamW.wDB.CSVController;
-import edu.wpi.cs3733.d22.teamW.wDB.DBController;
+import edu.wpi.cs3733.d22.teamW.wDB.*;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Main {
 
-  public static void main(String[] args) {
-    App.launch(App.class, args);
+  public static void main(String[] args) throws SQLException {
 
-    final String locationFileName = "edu/wpi/teamW/CSVs/TowerLocations.csv";
-    final String medEquipFileName = "edu/wpi/teamW/CSVs/MedicalEquipment.csv";
-    final String medEquipRequestFileName = "edu/wpi/teamW/CSVs/MedicalEquipmentRequest.csv";
+    // App.launch(App.class, args);
+
+    final String locationFileName = "TowerLocations.csv";
+    final String medEquipFileName = "MedicalEquipment.csv";
+    final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
 
     DBController.getDBController();
 
@@ -23,6 +24,23 @@ public class Main {
       csvController.populateTables();
     } catch (FileNotFoundException e) {
       e.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    ArrayList<String> fields = new ArrayList<>();
+
+    fields.add("BED");
+    fields.add("wSTOR001L1");
+    fields.add("JOE NAME");
+    fields.add("" + 0);
+    fields.add("0");
+
+    RequestFactory requestFactory =
+        new RequestFactory(
+            new MedEquipRequestController(new MedEquipRequestDaoImpl(), new MedEquipDaoImpl()));
+    try {
+      requestFactory.getRequest("MEDEQUIPREQUEST", fields);
     } catch (SQLException e) {
       e.printStackTrace();
     }

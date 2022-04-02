@@ -32,7 +32,7 @@ public class LocationDaoImpl implements LocationDao {
 
     } catch (SQLException e) {
       System.out.println("Query from locations table failed");
-      throw(e);
+      throw (e);
     }
   }
 
@@ -42,15 +42,27 @@ public class LocationDaoImpl implements LocationDao {
   }
 
   @Override
-  public void addLocation(String inputID, int xCoord, int yCoord, String floor, String building, String nodeType, String longName, String shortName) throws SQLException {
+  public void addLocation(
+      String inputID,
+      int xCoord,
+      int yCoord,
+      String floor,
+      String building,
+      String nodeType,
+      String longName,
+      String shortName)
+      throws SQLException {
     Location param = new Location();
     int index = getIndexOf(inputID);
     if (index != -1) {
       System.out.println("The database already contains a location with the ID: " + inputID);
     } else {
-      Location newLocation = new Location(inputID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
+      Location newLocation =
+          new Location(inputID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
       locationsList.add(newLocation);
-      DBController.getDBController().executeUpdate(String.format("INSERT INTO LOCATIONS VALUES (%s,%d,%d, %s, %s, %s, %s, %s)",inputID, xCoord, yCoord, floor, building, nodeType, longName, shortName));
+      DBController.getDBController()
+          .executeUpdate(
+              String.format("INSERT INTO LOCATIONS VALUES (%s)", newLocation.toValuesString()));
     }
   }
 
@@ -72,12 +84,22 @@ public class LocationDaoImpl implements LocationDao {
       System.out.println("The database does not contain a location with the ID: " + nodeID);
     } else {
       locationsList.remove(locationsList.get(index));
-      DBController.getDBController().executeUpdate(String.format("DELETE FROM LOCATION WHERE nodeID='%s'", nodeID));
+      DBController.getDBController()
+          .executeUpdate(String.format("DELETE FROM LOCATION WHERE nodeID='%s'", nodeID));
     }
   }
 
   @Override
-  public void changeLocation(String nodeID, int xCoord, int yCoord, String floor, String building, String nodeType, String longName, String shortName) throws SQLException {
+  public void changeLocation(
+      String nodeID,
+      int xCoord,
+      int yCoord,
+      String floor,
+      String building,
+      String nodeType,
+      String longName,
+      String shortName)
+      throws SQLException {
     // Check for valid data
     if (!isValidFloor(floor)) {
       System.out.println("Invalid floor entered");
@@ -99,29 +121,32 @@ public class LocationDaoImpl implements LocationDao {
     locationsList.get(nodeIndex).setNodeType(nodeType);
     locationsList.get(nodeIndex).setLongName(longName);
     locationsList.get(nodeIndex).setShortName(shortName);
-    DBController.getDBController().executeUpdate(String.format("UPDATE LOCATIONS SET (XCOORD = %d, YCOORD = %d, FLOOR = '%s', BUILDING = 's', NODETYPE = 's', LONGNAME = '%s', SHORTNAME = '%s') WHERE nodeID = %s",xCoord, yCoord, floor, building, nodeType, longName, shortName, nodeID));
+    DBController.getDBController()
+        .executeUpdate(
+            String.format(
+                "UPDATE LOCATIONS SET (XCOORD = %d, YCOORD = %d, FLOOR = '%s', BUILDING = 's', NODETYPE = 's', LONGNAME = '%s', SHORTNAME = '%s') WHERE nodeID = %s",
+                xCoord, yCoord, floor, building, nodeType, longName, shortName, nodeID));
 
-      // Disabled automatic id updating per Matthew
-      /*
-      int newIDNumber = dbController.countFloorTypeFromTable(newFloor, newType) + 1;
-      String newIDNumberString;
-      if (0 <= newIDNumber && newIDNumber <= 9) {
-          newIDNumberString = "00" + Integer.toString(newIDNumber);
-      } else if (10 <= newIDNumber && newIDNumber <= 99) {
-          newIDNumberString = "0" + Integer.toString(newIDNumber);
-      } else if (100 <= newIDNumber && newIDNumber <= 999) {
-          newIDNumberString = Integer.toString(newIDNumber);
-      } else {
-          newIDNumberString = "999";
-      }
-      String newID = "W" + newType + newIDNumberString + newFloor;
-       */
-      // Disabled automatic id updating per Matthew
-      // locationList.get(modifyIndex).nodeID = newID;
-      // Disabled automatic id updating per Matthew
-      // dbController.updateNodeIdFromLocationTable(modifyID, newID);
+    // Disabled automatic id updating per Matthew
+    /*
+    int newIDNumber = dbController.countFloorTypeFromTable(newFloor, newType) + 1;
+    String newIDNumberString;
+    if (0 <= newIDNumber && newIDNumber <= 9) {
+        newIDNumberString = "00" + Integer.toString(newIDNumber);
+    } else if (10 <= newIDNumber && newIDNumber <= 99) {
+        newIDNumberString = "0" + Integer.toString(newIDNumber);
+    } else if (100 <= newIDNumber && newIDNumber <= 999) {
+        newIDNumberString = Integer.toString(newIDNumber);
+    } else {
+        newIDNumberString = "999";
     }
-
+    String newID = "W" + newType + newIDNumberString + newFloor;
+     */
+    // Disabled automatic id updating per Matthew
+    // locationList.get(modifyIndex).nodeID = newID;
+    // Disabled automatic id updating per Matthew
+    // dbController.updateNodeIdFromLocationTable(modifyID, newID);
+  }
 
   @Override
   public void exportLocationCSV(String fileName) {

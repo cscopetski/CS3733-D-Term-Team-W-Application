@@ -1,13 +1,12 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
+import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-
 @Getter
 @Setter
-public class MedEquipRequest extends Entity implements Request{
+public class MedEquipRequest extends Entity implements Request {
   private Integer
       requestID; // Maybe switch to Hexatrigesimal uses 0-9 and then A to Z, so it allows a large
   // number of req
@@ -16,7 +15,7 @@ public class MedEquipRequest extends Entity implements Request{
   private String itemType;
   private String itemID; // Medical Equipment item
   private String nodeID; // Location
-  private Integer status; // 0 enqueue; 1 in progress; 2 done; 3 clean; 4 cancelled
+  private Integer status; // 0 enqueue; 1 in progress; 2 done; 3 cancelled
   private String employeeName; // Will be changed to employee ID starting in sprint 1
 
   public MedEquipRequest(
@@ -36,25 +35,27 @@ public class MedEquipRequest extends Entity implements Request{
       this.requestID = null;
     }
 
-    this.itemType = medReqData[1];
-    this.nodeID = medReqData[2];
-    this.employeeName = medReqData[3];
+    this.itemID = medReqData[1];
+    this.itemType = medReqData[2];
+    this.nodeID = medReqData[3];
+    this.employeeName = medReqData[4];
 
     try {
-      this.emergency = Integer.parseInt(medReqData[4]);
+      this.emergency = Integer.parseInt(medReqData[5]);
     } catch (NumberFormatException e) {
       this.emergency = 0;
     }
 
     try {
-      this.status = Integer.parseInt(medReqData[5]);
+      this.status = Integer.parseInt(medReqData[6]);
     } catch (NumberFormatException e) {
       this.status = 3;
     }
   }
 
-  public MedEquipRequest(Integer index, ArrayList<String> fields){
+  public MedEquipRequest(Integer index, ArrayList<String> fields) {
     this.requestID = index;
+    this.itemID = "NONE";
     this.itemType = fields.get(0);
     this.nodeID = fields.get(1);
     this.employeeName = fields.get(2);
@@ -70,14 +71,12 @@ public class MedEquipRequest extends Entity implements Request{
     } catch (NumberFormatException e) {
       this.status = 0;
     }
-
   }
-
 
   @Override
   public void start() {}
 
-  //TODO we also need to change this to our version of start
+  // TODO we also need to change this to our version of start
   public void start(String medID) {
     if (this.status == 0) {
       this.status = 1;
@@ -113,9 +112,13 @@ public class MedEquipRequest extends Entity implements Request{
   public String toValuesString() {
 
     return String.format(
-        "%d, '%s', '%s', '%s', %d, %d",
-        this.requestID, this.itemID, this.nodeID, this.employeeName, this.emergency, this.status);
+        "%d, '%s', '%s', '%s', '%s', %d, %d",
+        this.requestID,
+        this.itemID,
+        this.itemType,
+        this.nodeID,
+        this.employeeName,
+        this.emergency,
+        this.status);
   }
-
-
 }

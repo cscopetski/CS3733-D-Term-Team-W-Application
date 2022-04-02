@@ -25,13 +25,13 @@ public class CSVController {
 
   private ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
 
-    InputStream in = getClass().getResourceAsStream("/" + fileName);
+    InputStream in = getClass().getClassLoader().getResourceAsStream(fileName);
     if (in == null) {
-      System.out.println("Failed to find file");
+      System.out.println("Failed to find file " + fileName);
       throw (new FileNotFoundException());
     }
     Scanner sc = new Scanner(in);
-    System.out.println("Found File");
+    System.out.println("Found File" + fileName);
     // Skip headers
     sc.next();
 
@@ -59,14 +59,16 @@ public class CSVController {
     ArrayList<Location> locationsList = new ArrayList<>();
 
     for (String[] s : tokens) {
-      locationsList.add(new Location(s));
+      Location l = new Location(s);
+      locationsList.add(l);
     }
 
     for (Location l : locationsList) {
       // add location objects to database
       try {
-        DBController.getDBController()
-            .execute("INSERT INTO LOCATIONS VALUES(" + l.toValuesString() + ")");
+        String test = String.format("INSERT INTO LOCATIONS VALUES(%s)", l.toValuesString());
+
+        DBController.getDBController().execute(test);
       } catch (SQLException e) {
         System.out.println("Connection failed. Check output console.");
         e.printStackTrace();

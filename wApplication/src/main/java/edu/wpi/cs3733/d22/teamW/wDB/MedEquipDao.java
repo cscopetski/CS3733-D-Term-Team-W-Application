@@ -11,9 +11,10 @@ public interface MedEquipDao {
 
   void deleteMedEquip(String medID) throws SQLException;
 
-  void changeMedEquip(String inputID, String type, String nodeID, Integer status) throws SQLException;
+  void changeMedEquip(String inputID, String type, String nodeID, Integer status)
+      throws SQLException;
 
   void exportMedCSV(String fileName);
 
-  String checkTypeAvailable(String type);
+  String checkTypeAvailable(String type) throws SQLException;
 }
