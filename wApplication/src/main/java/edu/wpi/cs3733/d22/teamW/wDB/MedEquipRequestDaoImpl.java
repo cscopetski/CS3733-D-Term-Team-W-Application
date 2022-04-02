@@ -66,6 +66,8 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     return null;
   }
 
+  /*
+  //TODO do we need this??????
   @Override
   public void addMedEquipRequest(
       Integer emergency, String itemType, String employeeName, Location location) {
@@ -86,6 +88,14 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+  */
+
+  @Override
+  public void addMedEquipRequest(MedEquipRequest mer) throws SQLException {
+    medEquipRequestList.add(mer);
+    //dbController.addEntity(param); // addition in database
+    dbController.executeUpdate(String.format("INSERT MEDICALEQUIPMENTREQUESTS VALUES (%s)", mer.toValuesString()));
   }
 
   @Override
@@ -117,6 +127,24 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       medEquipRequestList.get(index).setNodeID(newLocationID);
       medEquipRequestList.get(index).setEmployeeName(newEmployeeName);
       DBController.getDBController().executeUpdate(String.format("UPDATE MEDICALEQUIPMENT SET(TYPE = 's', NODEID = 's', STATUS = %d) WHERE MEDID = %s", newItemType, newLocationID, newEmployeeName, requestID));
+    }
+  }
+
+  public void changeMedEquipRequest(MedEquipRequest mER) throws SQLException {
+    int index = getIndexOf(mER.getRequestID());
+    if (index == -1) {
+      System.out.println(
+              String.format("The database does not contain a request with the ID: %d", mER.getRequestID()));
+    } else {
+      MedEquipRequest listmER = medEquipRequestList.get(index);
+      listmER.setEmergency(mER.getEmergency());
+      listmER.setEmployeeName(mER.getEmployeeName());
+      listmER.setStatus(mER.getStatus());
+      listmER.setItemID(mER.getItemID());
+      listmER.setNodeID(mER.getNodeID());
+      listmER.setItemType(mER.getItemType());
+      DBController.getDBController().executeUpdate
+              (String.format("UPDATE MEDICALEQUIPMENTREQUESTS SET(MEDID = '%s' EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEENAME = '%s', ISEMERGENCY = %d , REQSTATUS = %d) WHERE MEDREQID = %d", listmER.getItemID(), listmER.getItemType(), listmER.getNodeID(), listmER.getEmployeeName(), listmER.getEmergency(), listmER.getStatus(), listmER.getRequestID()));
     }
   }
 

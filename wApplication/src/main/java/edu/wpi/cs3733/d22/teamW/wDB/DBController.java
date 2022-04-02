@@ -133,6 +133,7 @@ public class DBController {
             "CREATE TABLE MEDICALEQUIPMENTREQUESTS("
                 + "medReqID INT, "
                 + "medID varchar(25),"
+                + "equipType varchar(25),"
                 + "nodeID varchar(25),"
                 + "employeeName varchar(50),"
                 + "isEmergency INT,"

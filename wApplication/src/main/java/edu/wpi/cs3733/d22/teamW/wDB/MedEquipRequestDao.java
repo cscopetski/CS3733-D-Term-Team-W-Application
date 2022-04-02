@@ -15,7 +15,9 @@ public interface MedEquipRequestDao {
 
   ArrayList<MedEquipRequest> getNewAndInProgMedEquipRequests();
 
-  void addMedEquipRequest(Integer emergency, String medID, String employeeName, Location location);
+  //void addMedEquipRequest(Integer emergency, String medID, String employeeName, Location location);
+
+  void addMedEquipRequest(MedEquipRequest mer) throws SQLException;
 
   void cancelMedEquipRequest(int requestID);
 

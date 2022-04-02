@@ -1,19 +1,23 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
 import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
 
 @Getter
-public class MedEquipRequest extends Entity {
-  Integer
+@Setter
+public class MedEquipRequest extends Entity implements Request{
+  private Integer
       requestID; // Maybe switch to Hexatrigesimal uses 0-9 and then A to Z, so it allows a large
   // number of req
   // With 6 char, it will allow 36^6 = 2.18 billion
-  Integer emergency;
-  String itemType;
-  String itemID; // Medical Equipment item
-  String nodeID; // Location
-  Integer status; // 0 enqueue; 1 in progress; 2 done; 3 clean; 4 cancelled
-  String employeeName; // Will be changed to employee ID starting in sprint 1
+  private Integer emergency;
+  private String itemType;
+  private String itemID; // Medical Equipment item
+  private String nodeID; // Location
+  private Integer status; // 0 enqueue; 1 in progress; 2 done; 3 clean; 4 cancelled
+  private String employeeName; // Will be changed to employee ID starting in sprint 1
 
   public MedEquipRequest(
       Integer requestID, Integer emergency, String itemType, String nodeID, String employeeName) {
@@ -45,14 +49,39 @@ public class MedEquipRequest extends Entity {
     try {
       this.status = Integer.parseInt(medReqData[5]);
     } catch (NumberFormatException e) {
-      this.status = null;
+      this.status = 3;
     }
   }
 
-  public void start() {
+  public MedEquipRequest(Integer index, ArrayList<String> fields){
+    this.requestID = index;
+    this.itemType = fields.get(0);
+    this.nodeID = fields.get(1);
+    this.employeeName = fields.get(2);
+
+    try {
+      this.emergency = Integer.parseInt(fields.get(3));
+    } catch (NumberFormatException e) {
+      this.emergency = 0;
+    }
+
+    try {
+      this.status = Integer.parseInt(fields.get(4));
+    } catch (NumberFormatException e) {
+      this.status = 0;
+    }
+
+  }
+
+
+  @Override
+  public void start() {}
+
+  //TODO we also need to change this to our version of start
+  public void start(String medID) {
     if (this.status == 0) {
       this.status = 1;
-      this.itemID = itemID;
+      this.itemID = medID;
     } else {
       // Tells the user that it is in progress or completed
       // Could be a pop-up to the user when they click the start button or something
@@ -77,7 +106,7 @@ public class MedEquipRequest extends Entity {
   public String toCSVString() {
     return String.format(
         "%d,%d,%s,%s,%d,%s",
-        this.requestID, isEmergency(), this.itemID, this.nodeID, this.status, this.employeeName);
+        this.requestID, this.emergency, this.itemID, this.nodeID, this.status, this.employeeName);
   }
 
   @Override
@@ -88,51 +117,5 @@ public class MedEquipRequest extends Entity {
         this.requestID, this.itemID, this.nodeID, this.employeeName, this.emergency, this.status);
   }
 
-  public Integer getRequestID() {
-    return requestID;
-  }
 
-  public int isEmergency() {
-    return emergency;
-  }
-
-  public String getItemID() {
-    return itemID;
-  }
-
-  public String getNodeID() {
-    return nodeID;
-  }
-
-  public int getStatus() {
-    return status;
-  }
-
-  public String getEmployeeName() {
-    return employeeName;
-  }
-
-  public void setRequestID(Integer requestID) {
-    this.requestID = requestID;
-  }
-
-  public void setEmergency(Integer emergency) {
-    this.emergency = emergency;
-  }
-
-  public void setItemID(String itemID) {
-    this.itemID = itemID;
-  }
-
-  public void setNodeID(String nodeID) {
-    this.nodeID = nodeID;
-  }
-
-  public void setStatus(int status) {
-    this.status = status;
-  }
-
-  public void setEmployeeName(String employeeName) {
-    this.employeeName = employeeName;
-  }
 }
