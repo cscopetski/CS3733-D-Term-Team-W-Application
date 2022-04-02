@@ -10,20 +10,21 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="471.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
+<AnchorPane fx:id = "page" prefHeight="678.0" prefWidth="1021.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
    <children>
-      <MenuButton fx:id="floorMenu" layoutX="489.0" layoutY="30.0" mnemonicParsing="false" text="Change Floor">
+      <MenuButton fx:id="dropdown" layoutX="489.0" layoutY="30.0" mnemonicParsing="false" text="Change Floor">
         <items>
-          <MenuItem mnemonicParsing="false" onAction="#swapFloor1" text="Floor 1" fx:id = "F1"/>
-          <MenuItem mnemonicParsing="false" onAction="#swapFloor2" text="Floor 2" fx:id = "F2" />
-            <MenuItem mnemonicParsing="false" onAction="#swapFloor3" text="Floor 3" fx:id = "F3" />
-            <MenuItem mnemonicParsing="false" onAction="#swapFloorL1" text="Lower Floor 1" fx:id ="FL1" />
-            <MenuItem mnemonicParsing="false" onAction="#swapFloorL2" text="Lower Floor 2" fx:id = "FL2" />
+            <MenuItem fx:id="Side" mnemonicParsing="false" onAction="#swapSideView" text="Side View" />
+          <MenuItem fx:id="F1" mnemonicParsing="false" onAction="#swapFloor1" text="Floor 1" />
+          <MenuItem fx:id="F2" mnemonicParsing="false" onAction="#swapFloor2" text="Floor 2" />
+            <MenuItem fx:id="F3" mnemonicParsing="false" onAction="#swapFloor3" text="Floor 3" />
+            <MenuItem fx:id="FL1" mnemonicParsing="false" onAction="#swapFloorL1" text="Lower Floor 1" />
+            <MenuItem fx:id="FL2" mnemonicParsing="false" onAction="#swapFloorL2" text="Lower Floor 2" />
         </items>
       </MenuButton>
-      <ImageView fx:id="map" fitHeight="290.0" fitWidth="349.0" layoutX="324.0" layoutY="97.0" onMouseClicked="#addLocation">
+      <ImageView fx:id="mapList" fitHeight="470.0" fitWidth="559.0" layoutX="319.0" layoutY="55.0" onMouseClicked="#addLocation">
          <image>
-            <Image url="@../assets/Maps/F1.png" />
+            <Image url="@../assets/Maps/SideView.jpg" />
          </image>
       </ImageView>
       <TableView fx:id="LocTab" layoutX="106.0" layoutY="55.0" prefHeight="200.0" prefWidth="200.0">
