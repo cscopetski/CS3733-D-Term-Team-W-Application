@@ -25,7 +25,7 @@ public class App extends Application {
             new Image(
                 getClass()
                     .getResourceAsStream("/edu/wpi/cs3733/d22/teamW/wApp/assets/mgb_logo.png")));
-    SceneManager.getInstance().setScene(SceneManager.Scenes.Default);
+    SceneManager.getInstance().setWindow("DefaultPage.fxml");
   }
 
   @Override

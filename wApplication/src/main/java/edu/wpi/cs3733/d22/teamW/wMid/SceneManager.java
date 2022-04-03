@@ -18,6 +18,7 @@ public class SceneManager {
     MedicineDelivery,
     Security,
     Default,
+    MainMenu,
     MapEditor
   }
 
@@ -25,24 +26,11 @@ public class SceneManager {
     public static final SceneManager instance = new SceneManager();
   }
 
-  private final Dictionary<Scenes, String> fileNames;
   private Stage primaryStage;
+  private final Dictionary<Scenes, Pane> panes = new Hashtable<>();
+  private Scenes current;
 
-  private SceneManager() {
-    fileNames = new Hashtable<>();
-    fileNames.put(Scenes.Lab, "ServiceRequestPages/LabServiceRequestPage.fxml");
-    fileNames.put(
-        Scenes.LanguageInterpreter,
-        "ServiceRequestPages/LanguageInterpreterServiceRequestPage.fxml");
-    fileNames.put(Scenes.MealDelivery, "ServiceRequestPages/MealDeliveryServiceRequestPage.fxml");
-    fileNames.put(
-        Scenes.MedicalEquipment, "ServiceRequestPages/MedicalEquipmentServiceRequestPage.fxml");
-    fileNames.put(
-        Scenes.MedicineDelivery, "ServiceRequestPages/MedicineDeliveryServiceRequestPage.fxml");
-    fileNames.put(Scenes.Security, "ServiceRequestPages/SecurityServiceRequestPage.fxml");
-    fileNames.put(Scenes.Default, "DefaultPage.fxml");
-    fileNames.put(Scenes.MapEditor, "MapEditorPage.fxml");
-  }
+  private SceneManager() {}
 
   public static SceneManager getInstance() {
     return Instance.instance;
@@ -52,29 +40,32 @@ public class SceneManager {
     getInstance().primaryStage = primaryStage;
   }
 
+  public void putPane(Scenes scene, Pane pane) {
+    panes.put(scene, pane);
+    pane.setDisable(true);
+    pane.setVisible(false);
+  }
+
+  public void setPaneVisible(Scenes scene) {
+    if (current != null) {
+      panes.get(current).setVisible(false);
+      panes.get(current).setDisable(true);
+    }
+    current = scene;
+    panes.get(current).setVisible(true);
+    panes.get(current).setDisable(false);
+  }
+
   public Stage getPrimaryStage() {
     return primaryStage;
   }
 
-  public void setScene(Scenes sceneType) throws IOException {
+  public void setWindow(String fileName) throws IOException {
     Parent root =
-        FXMLLoader.load(
-            getClass()
-                .getResource("/edu/wpi/cs3733/d22/teamW/wApp/views/" + fileNames.get(sceneType)));
+        FXMLLoader.load(getClass().getResource("/edu/wpi/cs3733/d22/teamW/wApp/views/" + fileName));
     Scene scene = new Scene(root);
     primaryStage.setScene(scene);
     primaryStage.show();
-  }
-
-  public void setWindow(Scenes sceneType, Pane content) throws IOException {
-    content.getChildren().clear();
-    content
-        .getChildren()
-        .add(
-            FXMLLoader.load(
-                getClass()
-                    .getResource(
-                        "/edu/wpi/cs3733/d22/teamW/wApp/views/" + fileNames.get(sceneType))));
   }
 
   public Scene getScene() {

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@../css/DefaultPage/paneHospital.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MainMenuController">
+    <!--layoutY="98.0"-->
+    <AnchorPane  AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" styleClass="body">
+        <children>
+            <AnchorPane prefHeight="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <children>
+                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#5fd1b8" height="27.0" stroke="#5fd1b8" strokeType="INSIDE" width="62.0" AnchorPane.leftAnchor="10.0" AnchorPane.topAnchor="10.0" />
+                    <Text fill="WHITE" layoutX="62.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NEED A SERVICE REQUEST?" wrappingWidth="312.99609375" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="6.0">
+                        <font>
+                            <Font name="System Bold" size="24.0" />
+                        </font>
+                    </Text>
+                </children>
+            </AnchorPane>
+            <HBox style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <children>
+                    <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" prefHeight="254.0" prefWidth="240.0" onAction="#switchToMapDisplay" stylesheets="@../css/DefaultPage/buttonMapDisplay.css" text="Map Display" />
+                    <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" prefHeight="231.0" prefWidth="269.0" onAction="#switchToServiceRequest" stylesheets="@../css/DefaultPage/buttonServiceRequest.css" text="Service Request" />
+                </children>
+            </HBox>
+        </children>
+    </AnchorPane>
+</AnchorPane>
