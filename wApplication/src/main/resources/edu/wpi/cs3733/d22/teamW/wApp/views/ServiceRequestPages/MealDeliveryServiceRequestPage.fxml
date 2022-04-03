@@ -31,14 +31,19 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label style="-fx-font-weight: bold;" text="Menu" underline="true">
+                              <Label style="-fx-font-weight: bold;" text="Menu">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" top="10.0" />
+                                    <Insets top="10.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font size="20.0" />
                                  </font>
                               </Label>
+                              <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Tap on the icons to select a meal:" textAlignment="CENTER" wrappingWidth="180.0">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin>
+                              </Text>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
                                     <Button fx:id="menuButton1" maxHeight="160.0" maxWidth="150.0" minHeight="160.0" minWidth="150.0" mnemonicParsing="false" onAction="#menuSelection1" prefHeight="160.0" prefWidth="150.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/hiddenButtonForm.css">
@@ -50,7 +55,7 @@
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
                                                    <VBox.margin>
-                                                      <Insets left="10.0" />
+                                                      <Insets left="55.0" />
                                                    </VBox.margin>
                                                 </Label>
                                                 <ImageView fitHeight="130.0" fitWidth="150.0">
@@ -77,7 +82,7 @@
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
                                                    <VBox.margin>
-                                                      <Insets left="10.0" />
+                                                      <Insets left="55.0" />
                                                    </VBox.margin>
                                                 </Label>
                                                 <ImageView fitHeight="114.0" fitWidth="142.0">
@@ -104,7 +109,7 @@
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
                                                    <VBox.margin>
-                                                      <Insets left="10.0" />
+                                                      <Insets left="40.0" />
                                                    </VBox.margin>
                                                 </Label>
                                                 <ImageView fitHeight="120.0" fitWidth="120.0">
