@@ -4,7 +4,6 @@
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -16,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" style="-fx-alignment: center; " xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MealDeliveryServiceRequestController">
+<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MealDeliveryServiceRequestController">
     <children>
       <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -32,9 +31,9 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label style="-fx-font-weight: bold;" text="Menu">
+                              <Label style="-fx-font-weight: bold;" text="Menu" underline="true">
                                  <VBox.margin>
-                                    <Insets top="20.0" />
+                                    <Insets bottom="10.0" top="10.0" />
                                  </VBox.margin>
                                  <font>
                                     <Font size="20.0" />
@@ -42,44 +41,87 @@
                               </Label>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <VBox fx:id="menuVBox1" maxWidth="150.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/vBoxForm.css">
-                                       <children>
-                                          <CheckBox fx:id="option1" mnemonicParsing="false" onAction="#menuSelection1" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/checkBoxForm.css" text="Option 1" />
-                                          <ImageView fitHeight="150.0" fitWidth="150.0">
-                                             <image>
-                                                <Image url="@../../assets/burgerFoodItem.png" />
-                                             </image>
-                                             <VBox.margin>
-                                                <Insets right="20.0" />
-                                             </VBox.margin>
-                                          </ImageView>
-                                       </children>
-                                    </VBox>
-                                    <VBox fx:id="menuVBox2" maxHeight="150.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/vBoxForm.css">
-                                       <children>
-                                          <CheckBox fx:id="option2" mnemonicParsing="false" onAction="#menuSelection2" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/checkBoxForm.css" text="Option 2" />
-                                          <ImageView fitHeight="100.0" fitWidth="150.0">
-                                             <image>
-                                                <Image url="@../../assets/burritoFoodItem.png" />
-                                             </image>
-                                             <VBox.margin>
-                                                <Insets bottom="25.0" right="20.0" top="25.0" />
-                                             </VBox.margin>
-                                          </ImageView>
-                                       </children>
-                                    </VBox>
-                                    <VBox fx:id="menuVBox3" maxWidth="150.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/vBoxForm.css">
-                                       <children>
-                                          <CheckBox fx:id="option3" mnemonicParsing="false" onAction="#menuSelection3" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/checkBoxForm.css" text="Option 3" />
-                                          <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../assets/ramenFoodItem.png" />
-                                             </image>
-                                             <VBox.margin>
-                                                <Insets right="20.0" />
-                                             </VBox.margin></ImageView>
-                                       </children>
-                                    </VBox>
+                                    <Button fx:id="menuButton1" maxHeight="160.0" maxWidth="150.0" minHeight="160.0" minWidth="150.0" mnemonicParsing="false" onAction="#menuSelection1" prefHeight="160.0" prefWidth="150.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/hiddenButtonForm.css">
+                                       <graphic>
+                                          <VBox maxWidth="100.0" prefHeight="157.0" prefWidth="136.0">
+                                             <children>
+                                                <Label fx:id="menuLabel1" text="Burger">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <ImageView fitHeight="130.0" fitWidth="150.0">
+                                                   <image>
+                                                      <Image url="@../../assets/burgerFoodItem.png" />
+                                                   </image>
+                                                   <VBox.margin>
+                                                      <Insets />
+                                                   </VBox.margin>
+                                                </ImageView>
+                                             </children>
+                                          </VBox>
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets right="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="menuButton2" maxHeight="160.0" maxWidth="150.0" minHeight="160.0" minWidth="150.0" mnemonicParsing="false" onAction="#menuSelection2" prefHeight="100.0" prefWidth="120.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/hiddenButtonForm.css">
+                                       <graphic>
+                                          <VBox maxHeight="160.0" maxWidth="150.0" minHeight="148.0" minWidth="150.0" prefHeight="148.0" prefWidth="150.0">
+                                             <children>
+                                                <Label fx:id="menuLabel2" text="Burrito">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <ImageView fitHeight="114.0" fitWidth="142.0">
+                                                   <image>
+                                                      <Image url="@../../assets/burritoFoodItem.png" />
+                                                   </image>
+                                                   <VBox.margin>
+                                                      <Insets left="5.0" top="10.0" />
+                                                   </VBox.margin>
+                                                </ImageView>
+                                             </children>
+                                          </VBox>
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets right="20.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button fx:id="menuButton3" maxWidth="150.0" minHeight="160.0" minWidth="150.0" mnemonicParsing="false" onAction="#menuSelection3" prefHeight="160.0" prefWidth="150.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/hiddenButtonForm.css">
+                                       <graphic>
+                                          <VBox maxWidth="100.0" prefHeight="200.0" prefWidth="100.0">
+                                             <children>
+                                                <Label fx:id="menuLabel3" text="Ramen">
+                                                   <font>
+                                                      <Font name="System Bold" size="12.0" />
+                                                   </font>
+                                                   <VBox.margin>
+                                                      <Insets left="10.0" />
+                                                   </VBox.margin>
+                                                </Label>
+                                                <ImageView fitHeight="120.0" fitWidth="120.0">
+                                                   <image>
+                                                      <Image url="@../../assets/ramenFoodItem.png" />
+                                                   </image>
+                                                   <VBox.margin>
+                                                      <Insets top="10.0" />
+                                                   </VBox.margin>
+                                                </ImageView>
+                                             </children>
+                                          </VBox>
+                                       </graphic>
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Button>
                                  </children>
                               </HBox>
                               <Label style="-fx-font-weight: bold;" text="Additional Notes">
