@@ -76,6 +76,6 @@ public class DefaultPageController implements Initializable {
   }
 
   public void exitProgram() {
-    System.exit(0);
+    SceneManager.getInstance().exitApplication();
   }
 }
