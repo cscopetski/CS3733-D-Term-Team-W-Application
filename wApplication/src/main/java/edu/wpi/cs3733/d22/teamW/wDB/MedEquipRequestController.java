@@ -20,9 +20,11 @@ public class MedEquipRequestController implements RequestController {
   }
 
   @Override
+  //Should take in itemID to give to next request that needs item of that type (if there is one)
   public void checkFinish() {}
 
   @Override
+  //Get the next request and return it
   public Request getNext() {
     return null;
   }
