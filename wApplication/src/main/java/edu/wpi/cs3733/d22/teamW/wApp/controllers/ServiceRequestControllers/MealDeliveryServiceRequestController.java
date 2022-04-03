@@ -28,7 +28,5 @@ public class MealDeliveryServiceRequestController {
     option2.setSelected(false);
   }
 
-  public void submitButton(ActionEvent actionEvent) {
-
-  }
+  public void submitButton(ActionEvent actionEvent) {}
 }

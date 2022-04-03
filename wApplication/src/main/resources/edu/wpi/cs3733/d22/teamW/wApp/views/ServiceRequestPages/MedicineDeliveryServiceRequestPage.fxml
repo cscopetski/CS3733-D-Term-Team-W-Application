@@ -1,14 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+
 <AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicineDeliveryServiceRequestController">
     <children>
-        <Text layoutX="289.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine" />
+        <Text layoutX="3.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine Request Page" />
+      <VBox layoutX="220.0" layoutY="1.0" prefHeight="200.0" prefWidth="105.0">
+         <children>
+            <Label style="-fx-font-weight: bold;" text="Room Number">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField minWidth="120.0" prefWidth="100.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/textFieldForm.css">
+               <VBox.margin>
+                  <Insets bottom="20.0" top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <Label style="-fx-font-weight: bold;" text="Bed Number">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField stylesheets="@../../CSS/MealDeliveryServiceRequestPage/textFieldForm.css">
+               <VBox.margin>
+                  <Insets bottom="20.0" top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <Label style="-fx-font-weight: bold;" text="Time Preference">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="comboBox" prefWidth="150.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
+               <VBox.margin>
+                  <Insets bottom="20.0" top="10.0" />
+               </VBox.margin>
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:id="breakfast" fx:value="Breakfast" />
+                     <String fx:id="lunch" fx:value="Lunch" />
+                     <String fx:id="dinner" fx:value="Dinner" />
+                  </FXCollections>
+               </items>
+            </ComboBox>
+         </children>
+      </VBox>
     </children>
 </AnchorPane>
