@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane  xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DefaultPageController">
+<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DefaultPageController">
 
     <children>
       <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -44,16 +44,16 @@
                     </Pane>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-alignment: center;" VBox.vgrow="ALWAYS">
                <children>
-                   <fx:include fx:id="mainMenuPage" source="MainMenuPage.fxml"/>
-                   <fx:include fx:id="mapEditorPage" source="MapEditorPage.fxml" visible="false" disable="true"/>
-                   <fx:include fx:id="labServiceRequestPage" source="ServiceRequestPages/LabServiceRequestPage.fxml"/>
-                   <fx:include fx:id="languageInterpreterServiceRequestPage" source="ServiceRequestPages/LanguageInterpreterServiceRequestPage.fxml"/>
-                   <fx:include fx:id="mealDeliveryServiceRequestPage" source="ServiceRequestPages/MealDeliveryServiceRequestPage.fxml"/>
-                   <fx:include fx:id="medicalEquipmentServiceRequestPage" source="ServiceRequestPages/MedicalEquipmentServiceRequestPage.fxml"/>
-                   <fx:include fx:id="medicineDeliveryServiceRequestPage" source="ServiceRequestPages/MedicineDeliveryServiceRequestPage.fxml"/>
-                   <fx:include fx:id="securityServiceRequestPage" source="ServiceRequestPages/SecurityServiceRequestPage.fxml"/>
+                   <fx:include fx:id="mainMenuPage" source="MainMenuPage.fxml" />
+                   <fx:include fx:id="mapEditorPage" disable="true" source="MapEditorPage.fxml" visible="false" />
+                   <fx:include fx:id="labServiceRequestPage" source="ServiceRequestPages/LabServiceRequestPage.fxml" />
+                   <fx:include fx:id="languageInterpreterServiceRequestPage" source="ServiceRequestPages/LanguageInterpreterServiceRequestPage.fxml" />
+                   <fx:include fx:id="mealDeliveryServiceRequestPage" source="ServiceRequestPages/MealDeliveryServiceRequestPage.fxml" />
+                   <fx:include fx:id="medicalEquipmentServiceRequestPage" source="ServiceRequestPages/MedicalEquipmentServiceRequestPage.fxml" />
+                   <fx:include fx:id="medicineDeliveryServiceRequestPage" source="ServiceRequestPages/MedicineDeliveryServiceRequestPage.fxml" />
+                   <fx:include fx:id="securityServiceRequestPage" source="ServiceRequestPages/SecurityServiceRequestPage.fxml" />
                </children>
             </AnchorPane>
          </children>
