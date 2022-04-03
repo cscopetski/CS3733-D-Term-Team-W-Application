@@ -34,6 +34,11 @@ public class MedEquipRequestController implements RequestController {
 
   @Override
   public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException {
+    // Set status to in queue if it is not already included (from CSVs)
+    if(fields.size()==4){
+      fields.add("0");
+    }
+
     MedEquipRequest mER = new MedEquipRequest(num, fields);
     String itemID = checkStart(mER);
     if (itemID != null) {

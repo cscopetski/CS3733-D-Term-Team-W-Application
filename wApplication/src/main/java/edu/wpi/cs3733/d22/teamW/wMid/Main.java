@@ -34,7 +34,6 @@ public class Main {
     fields.add("wSTOR001L1");
     fields.add("JOE NAME");
     fields.add("" + 0);
-    fields.add("0");
 
     RequestFactory requestFactory =
         new RequestFactory(
