@@ -1,14 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<AnchorPane  xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MealDeliveryServiceRequestController">
+
+<AnchorPane prefHeight="226.0" prefWidth="363.0" style="-fx-alignment: center;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MealDeliveryServiceRequestController">
     <children>
-        <Text layoutX="289.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meal" />
+      <AnchorPane prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox layoutX="72.0" prefHeight="100.0" prefWidth="800.0" style="-fx-alignment: center;" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="40.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="MEAL DELIVERY SERVICE" textAlignment="CENTER" wrappingWidth="220.0">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Text>
+                  <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Hungry? We got the meals you need!" textAlignment="CENTER" wrappingWidth="220.0" />
+                  <HBox prefHeight="127.0" prefWidth="190.0" style="-fx-alignment: center;">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Label style="-fx-font-weight: bold;" text="Menu">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <VBox fx:id="menuVBox1" maxWidth="150.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/vBoxForm.css">
+                                       <children>
+                                          <CheckBox fx:id="option1" mnemonicParsing="false" onAction="#menuSelection1" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/checkBoxForm.css" text="Option 1" />
+                                          <ImageView fitHeight="150.0" fitWidth="150.0">
+                                             <image>
+                                                <Image url="@../../assets/burgerFoodItem.png" />
+                                             </image>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin>
+                                          </ImageView>
+                                       </children>
+                                    </VBox>
+                                    <VBox fx:id="menuVBox2" maxHeight="150.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/vBoxForm.css">
+                                       <children>
+                                          <CheckBox fx:id="option2" mnemonicParsing="false" onAction="#menuSelection2" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/checkBoxForm.css" text="Option 2" />
+                                          <ImageView fitHeight="100.0" fitWidth="150.0">
+                                             <image>
+                                                <Image url="@../../assets/burritoFoodItem.png" />
+                                             </image>
+                                             <VBox.margin>
+                                                <Insets bottom="25.0" right="20.0" top="25.0" />
+                                             </VBox.margin>
+                                          </ImageView>
+                                       </children>
+                                    </VBox>
+                                    <VBox fx:id="menuVBox3" maxWidth="150.0" prefHeight="200.0" prefWidth="100.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/vBoxForm.css">
+                                       <children>
+                                          <CheckBox fx:id="option3" mnemonicParsing="false" onAction="#menuSelection3" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/checkBoxForm.css" text="Option 3" />
+                                          <ImageView fitHeight="150.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../../assets/ramenFoodItem.png" />
+                                             </image>
+                                             <VBox.margin>
+                                                <Insets right="20.0" />
+                                             </VBox.margin></ImageView>
+                                       </children>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <Label style="-fx-font-weight: bold;" text="Additional Notes">
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <TextField prefWidth="200.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/textFieldForm.css">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" top="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="105.0">
+                           <children>
+                              <Label style="-fx-font-weight: bold;" text="Room Number">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
+                              <TextField minWidth="120.0" prefWidth="100.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/textFieldForm.css">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" top="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label style="-fx-font-weight: bold;" text="Bed Number">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
+                              <TextField stylesheets="@../../CSS/MealDeliveryServiceRequestPage/textFieldForm.css">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" top="10.0" />
+                                 </VBox.margin>
+                              </TextField>
+                              <Label style="-fx-font-weight: bold;" text="Time Preference">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font></Label>
+                              <ComboBox fx:id="comboBox" prefWidth="150.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" top="10.0" />
+                                 </VBox.margin>
+                                 <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                       <String fx:id="breakfast" fx:value="Breakfast" />
+                                       <String fx:id="lunch" fx:value="Lunch" />
+                                       <String fx:id="dinner" fx:value="Dinner" />
+                                    </FXCollections>
+                                 </items>
+                              </ComboBox>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <Button mnemonicParsing="false" onAction="#submitButton" scaleX="1.25" scaleY="1.25" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/buttonForm.css" text="Submit">
+                     <VBox.margin>
+                        <Insets bottom="40.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>
