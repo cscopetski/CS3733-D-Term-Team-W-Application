@@ -10,10 +10,10 @@ import javafx.scene.control.*;
 public class MedicalEquipmentServiceRequestController {
   Alert confirm =
       new Alert(
-          Alert.AlertType.CONFIRMATION,
-          "Would you like to confirm this request " + " ?",
-          ButtonType.OK,
-          ButtonType.CANCEL);
+          Alert.AlertType.NONE
+          );
+
+  
   Alert emptyFields =
       new Alert(
           Alert.AlertType.ERROR,
