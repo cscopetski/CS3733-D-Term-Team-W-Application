@@ -30,7 +30,8 @@ public class SceneManager {
     Security,
     Default,
     MainMenu,
-    MapEditor
+    MapEditor,
+    RequestList
   }
 
   private static class Instance {

@@ -28,6 +28,7 @@
                                     <MenuItem mnemonicParsing="false" onAction="#switchToLanguageInterpreter" text="Interpreters" />
                                     <MenuItem mnemonicParsing="false" onAction="#switchToSecurity" text="Security" />
                                     <MenuItem mnemonicParsing="false" onAction="#switchToMapEditor" text="Map Editor" />
+                                    <MenuItem mnemonicParsing="false" onAction="#switchToRequestList" text="Request List" />
                                 </items>
                             </MenuButton>
                             <Button layoutX="296.0" layoutY="15.0" mnemonicParsing="false" onAction="#exitProgram" prefHeight="27.0" prefWidth="62.0" text="Exit" textFill="WHITE" />
@@ -54,6 +55,7 @@
                    <fx:include fx:id="medicalEquipmentServiceRequestPage" source="ServiceRequestPages/MedicalEquipmentServiceRequestPage.fxml" />
                    <fx:include fx:id="medicineDeliveryServiceRequestPage" source="ServiceRequestPages/MedicineDeliveryServiceRequestPage.fxml" />
                    <fx:include fx:id="securityServiceRequestPage" source="ServiceRequestPages/SecurityServiceRequestPage.fxml" />
+                   <fx:include fx:id="requestListPage" source="ServiceRequestPages/RequestListPage.fxml" />
                </children>
             </AnchorPane>
          </children>

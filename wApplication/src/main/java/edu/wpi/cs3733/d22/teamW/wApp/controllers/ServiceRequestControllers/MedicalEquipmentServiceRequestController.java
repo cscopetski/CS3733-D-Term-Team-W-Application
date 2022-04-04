@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
 public class MedicalEquipmentServiceRequestController {
   Alert confirm =
@@ -24,8 +25,10 @@ public class MedicalEquipmentServiceRequestController {
   @FXML ComboBox<String> equipmentSelection;
   // location here
   @FXML TextField employeeName;
-  @FXML CheckBox emergencyLevel;
+  boolean emergencyLevel = false;
   int emergency;
+
+  @FXML Button emergencyB;
 
   RequestFactory requestFactory = RequestFactory.getRequestFactory();
   ArrayList<String> lastRequest;
@@ -40,7 +43,7 @@ public class MedicalEquipmentServiceRequestController {
         System.out.println(equipmentSelection.getValue());
         fields.add("wSTOR001L1"); // location
         fields.add(employeeName.getText());
-        if (emergencyLevel.isSelected()) {
+        if (emergencyLevel) {
           emergency = 1;
         } else {
           emergency = 0;
@@ -56,5 +59,21 @@ public class MedicalEquipmentServiceRequestController {
 
   public void cancelButton(ActionEvent actionEvent) {
     // MedicalEquipmentController.cancel(requestFactory.getRequest("MEDEQUIPREQUEST", fields));
+  }
+
+  public void emergencyClicked(MouseEvent mouseEvent) {
+    if (emergencyLevel) {
+      emergencyLevel = false;
+      emergencyB.getStylesheets().clear();
+      emergencyB
+          .getStylesheets()
+          .add("@../../CSS/MedicalEquipmentServiceRequestPage/emergencyButtonFalse.css");
+    } else {
+      emergencyLevel = true;
+      emergencyB.getStylesheets().clear();
+      emergencyB
+          .getStylesheets()
+          .add("@../../CSS/MedicalEquipmentServiceRequestPage/emergencyButtonTrue.css");
+    }
   }
 }

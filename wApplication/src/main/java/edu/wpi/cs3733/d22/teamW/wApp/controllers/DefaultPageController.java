@@ -19,6 +19,7 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane medicalEquipmentServiceRequestPage;
   @FXML public Pane medicineDeliveryServiceRequestPage;
   @FXML public Pane securityServiceRequestPage;
+  @FXML public Pane requestListPage;
 
   @FXML
   public void initialize(URL location, ResourceBundle rb) {
@@ -34,6 +35,7 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance()
         .putPane(SceneManager.Scenes.MedicineDelivery, medicineDeliveryServiceRequestPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Security, securityServiceRequestPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.RequestList, requestListPage);
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MainMenu);
 
     try {
@@ -69,6 +71,10 @@ public class DefaultPageController implements Initializable {
 
   public void switchToMapEditor(ActionEvent event) throws IOException {
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MapEditor);
+  }
+
+  public void switchToRequestList(ActionEvent event) throws IOException {
+    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestList);
   }
 
   public void switchToMainMenu(ActionEvent event) throws IOException {
