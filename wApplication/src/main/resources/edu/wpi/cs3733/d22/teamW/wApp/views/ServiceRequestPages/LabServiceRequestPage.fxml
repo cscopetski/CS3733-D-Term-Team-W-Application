@@ -1,11 +1,150 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LabServiceRequestController">
+<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LabServiceRequestController">
    <children>
-      <Text layoutX="289.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lab" />
+      <AnchorPane layoutX="6.0" layoutY="7.0" prefHeight="537.0" prefWidth="946.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="537.0" prefWidth="946.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Group>
+                     <children>
+                        <ImageView fitHeight="59.0" fitWidth="68.0" layoutX="402.0" layoutY="48.0">
+                           <image>
+                              <Image url="@../../assets/labIcon-01.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="282.0" layoutY="88.0" prefHeight="62.0" prefWidth="302.0" text="Lab Service Request ">
+                           <font>
+                              <Font name="System Bold" size="31.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="333.0" layoutY="131.0" prefHeight="39.0" prefWidth="207.0" text="Need to send lab request? We got you." textFill="#013895" />
+                     </children>
+                  </Group>
+                  <HBox alignment="CENTER" prefHeight="328.0" prefWidth="946.0">
+                     <children>
+                        <Pane prefHeight="328.0" prefWidth="291.0">
+                           <children>
+                              <Group>
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#009ca8" height="27.0" layoutY="27.0" stroke="#009ca8" strokeType="INSIDE" width="143.0" />
+                                    <Label layoutX="25.0" layoutY="27.0" text="REQUEST" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Group>
+                              <Group layoutX="39.0" layoutY="91.0">
+                                 <children>
+                                    <CheckBox mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" stylesheets="@../../CSS/LabServiceRequestPage/checkBox.css" text="Blood sample" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Gill Sans MT" size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox layoutY="27.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" stylesheets="@../../CSS/LabServiceRequestPage/checkBox.css" text="Urine samples" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Gill Sans MT" size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox layoutX="152.0" layoutY="27.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="108.0" stylesheets="@../../CSS/LabServiceRequestPage/checkBox.css" text="X-Rays" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Gill Sans MT" size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox layoutY="54.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" stylesheets="@../../CSS/LabServiceRequestPage/checkBox.css" text="CAT scans" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Gill Sans MT" size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox layoutX="152.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="108.0" stylesheets="@../../CSS/LabServiceRequestPage/checkBox.css" text="MRIs" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Gill Sans MT" size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                 </children>
+                              </Group>
+                              <Label layoutX="34.0" layoutY="57.0" text="Check the appropriate box(es)" textFill="#013895" />
+                              <Button fx:id="emergencyB" layoutX="34.0" layoutY="217.0" mnemonicParsing="false" onMouseClicked="#emergencyClicked" prefHeight="29.0" prefWidth="223.0" stylesheets="@../../CSS/LabServiceRequestPage/emergencyButton.css" text="Emergency Button" />
+                              <Label layoutX="31.0" layoutY="198.0" text="If you don't need it urgent then just ignore." textFill="#96a1b2" />
+                              <Label fx:id="undoLabel" layoutX="31.0" layoutY="257.0" onMouseClicked="#undoEmergency" stylesheets="@../../CSS/LabServiceRequestPage/undoEmergency.css" text="Undo Emergency" underline="true" />
+                           </children>
+                        </Pane>
+                        <Pane>
+                           <children>
+                              <Group>
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#013895" height="29.0" layoutX="3.0" layoutY="25.0" stroke="#013895" strokeType="INSIDE" width="159.0" />
+                                    <Label layoutX="21.0" layoutY="26.0" text="PATIENT INFO" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="29.0" layoutY="74.0" text="Name">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="29.0" layoutY="93.0" style="-fx-background-color: white; -fx-border-color: #013895;" />
+                                    <Label layoutX="29.0" layoutY="135.0" text="Address">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="29.0" layoutY="154.0" style="-fx-background-color: white; -fx-border-color: #013895;" />
+                                    <Label layoutX="199.0" layoutY="74.0" text="Gender">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="199.0" layoutY="135.0" text="Age">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="197.0" layoutY="154.0" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: white; -fx-border-color: #013895;" />
+                                    <ChoiceBox fx:id="genderChoiceBox" layoutX="197.0" layoutY="93.0" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: white; -fx-border-color: #013895;" />
+                                 </children>
+                              </Group>
+                              <Label layoutX="31.0" layoutY="192.0" prefHeight="19.0" prefWidth="49.0" text="Notes">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <TextArea layoutX="31.0" layoutY="211.0" prefHeight="81.0" prefWidth="251.0" style="-fx-background-color: white; -fx-border-color: #013895;" />
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="328.0" prefWidth="291.0">
+                           <children>
+                              <ImageView fitHeight="133.0" fitWidth="200.0" layoutX="54.0" layoutY="31.0">
+                                 <image>
+                                    <Image url="@../../assets/labTest.jpg" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="120.0" fitWidth="200.0" layoutX="53.0" layoutY="180.0">
+                                 <image>
+                                    <Image url="@../../assets/labTest2.jpg" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </HBox>
+                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="71.0" stylesheets="@../../CSS/LabServiceRequestPage/submitButton.css" text="Submit">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
