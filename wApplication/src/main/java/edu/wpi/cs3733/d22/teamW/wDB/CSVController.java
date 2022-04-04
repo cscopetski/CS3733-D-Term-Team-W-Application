@@ -123,22 +123,7 @@ public class CSVController {
 
       MedEquipRequest mER = (MedEquipRequest) requestFactory.getRequest("MEDEQUIPREQUEST", fields);
 
-      System.out.println(mER);
-
       medEquipReqList.add(mER);
     }
-    /*
-    for (MedEquipRequest m : medEquipReqList) {
-      // add location objects to database
-
-      try {
-        DBController.getDBController()
-            .execute("INSERT INTO MEDICALEQUIPMENTREQUESTS VALUES(" + m.toValuesString() + ")");
-      } catch (SQLException e) {
-        System.out.println("Connection failed. Check output console.");
-        e.printStackTrace();
-        throw (e);
-      }
-    }*/
   }
 }

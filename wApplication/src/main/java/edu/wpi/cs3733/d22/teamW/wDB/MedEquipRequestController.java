@@ -46,13 +46,9 @@ public class MedEquipRequestController implements RequestController {
     }
 
     // If the request does not have an item, aka has not been started
-    // TODO REMOVE THIS PRINT
-    System.out.println(mER.getItemID() + " " + mER.getStatus());
     if (mER.getItemID().equals("NONE") && mER.getStatus() == 0) {
-      System.out.println("CHECKING START FOR MER: " + mER.getRequestID());
       String itemID = checkStart(mER);
       if (itemID != null) {
-        System.out.println("Starting Request " + mER.getRequestID());
         mER.start(itemID);
       }
     }
