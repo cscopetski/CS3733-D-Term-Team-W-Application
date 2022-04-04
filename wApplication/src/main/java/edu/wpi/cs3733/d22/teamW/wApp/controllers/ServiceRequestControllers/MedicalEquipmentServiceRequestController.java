@@ -9,10 +9,11 @@ import javafx.scene.control.*;
 
 public class MedicalEquipmentServiceRequestController {
   Alert confirm =
-      new Alert(
-          Alert.AlertType.NONE
-          );
-
+          new Alert(
+                  Alert.AlertType.CONFIRMATION,
+                  "Would you like to confirm this request " + " ?",
+                  ButtonType.OK,
+                  ButtonType.CANCEL);
   
   Alert emptyFields =
       new Alert(
@@ -31,7 +32,7 @@ public class MedicalEquipmentServiceRequestController {
   public void submitButton(ActionEvent actionEvent) throws SQLException {
 
     if (!equipmentSelection.getValue().isEmpty() && !employeeName.getText().isEmpty()) {
-      confirm.show();
+      confirm.showAndWait();
       if (confirm.getResult() == ButtonType.OK) {
         System.out.println("confirm");
         ArrayList<String> fields = new ArrayList<String>();
