@@ -93,6 +93,7 @@ public class DBController {
       throw (new SQLException());
     } else {
       try {
+        statement.execute("DROP TABLE LABSERVICEREQUESTS");
         statement.execute("DROP TABLE MEDICALEQUIPMENTREQUESTS");
         statement.execute("DROP TABLE MEDICALEQUIPMENT");
         statement.execute("DROP TABLE LOCATIONS");

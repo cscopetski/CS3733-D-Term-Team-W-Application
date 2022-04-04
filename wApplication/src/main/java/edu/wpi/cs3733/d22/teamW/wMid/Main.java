@@ -14,11 +14,13 @@ public class Main {
     final String locationFileName = "TowerLocations.csv";
     final String medEquipFileName = "MedicalEquipment.csv";
     final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
+    final String labServiceRequestFileName = "LabRequests.csv";
 
     DBController.getDBController();
 
     CSVController csvController =
-        new CSVController(locationFileName, medEquipFileName, medEquipRequestFileName);
+        new CSVController(
+            locationFileName, medEquipFileName, medEquipRequestFileName, labServiceRequestFileName);
 
     try {
       csvController.populateEntityTables();
