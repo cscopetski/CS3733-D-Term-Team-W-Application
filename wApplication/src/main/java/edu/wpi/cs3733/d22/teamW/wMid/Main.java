@@ -28,6 +28,12 @@ public class Main {
       e.printStackTrace();
     }
 
+    MedEquipDaoImpl medi = new MedEquipDaoImpl();
+    MedEquipRequestDaoImpl merdi = new MedEquipRequestDaoImpl();
+    MedEquipRequestController merc = new MedEquipRequestController(merdi, medi);
+
+    RequestFactory requestFactory = new RequestFactory(merc);
+
     ArrayList<String> fields = new ArrayList<>();
 
     fields.add("BED");
@@ -35,13 +41,30 @@ public class Main {
     fields.add("JOE NAME");
     fields.add("" + 0);
 
-    RequestFactory requestFactory =
-        new RequestFactory(
-            new MedEquipRequestController(new MedEquipRequestDaoImpl(), new MedEquipDaoImpl()));
+    ArrayList<String> fields2 = new ArrayList<>();
+
+    fields2.add("XRY");
+    fields2.add("wSTOR001L1");
+    fields2.add("JOE2 NAME");
+    fields2.add("" + 0);
+
+    ArrayList<String> fields3 = new ArrayList<>();
+
+    fields3.add("XRY");
+    fields3.add("wSTOR001L1");
+    fields3.add("JOE2 NAME");
+    fields3.add("" + 0);
+
     try {
       requestFactory.getRequest("MEDEQUIPREQUEST", fields);
+      requestFactory.getRequest("MEDEQUIPREQUEST", fields2);
+      requestFactory.getRequest("MEDEQUIPREQUEST", fields3);
+
     } catch (SQLException e) {
       e.printStackTrace();
     }
+
+    Request test = requestFactory.findRequest(12);
+    merc.completeRequest(test);
   }
 }

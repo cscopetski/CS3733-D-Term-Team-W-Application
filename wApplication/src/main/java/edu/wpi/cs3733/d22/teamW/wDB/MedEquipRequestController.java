@@ -19,25 +19,65 @@ public class MedEquipRequestController implements RequestController {
     return medi.checkTypeAvailable(mER.getItemType());
   }
 
-  @Override
-  //Should take in itemID to give to next request that needs item of that type (if there is one)
-  public void checkFinish() {}
+  // TODO eventually make it set to dirty, for now is just a workaround
+  public void completeRequest(Request r) throws SQLException {
+    MedEquipRequest request = (MedEquipRequest) r;
+    request.complete();
+    merdi.changeMedEquipRequest(request);
+    medi.changeMedEquip(request.getItemID(), request.getItemType(), request.getNodeID(), 0);
+    checkNext(request.getItemID());
+  }
 
   @Override
-  //Get the next request and return it
-  public Request getNext() {
+  // Should take in itemID to give to next request that needs item of that type (if there is one)
+  public void checkNext(String itemID) throws SQLException {
+    MedEquipRequest nextReq = (MedEquipRequest) getNext(itemID);
+    if (nextReq != null) {
+      nextReq.setItemID(itemID);
+      checkStart(nextReq);
+      nextReq.start(itemID);
+      merdi.changeMedEquipRequest(nextReq);
+    }
+  }
+
+  @Override
+  // Get the next request and return it
+  public Request getNext(String itemID) {
+    String type = itemID.substring(0, 3).toUpperCase();
+    ArrayList<MedEquipRequest> list = merdi.getAllMedEquipRequests();
+    MedEquipRequest nextRequest;
+    for (MedEquipRequest mer : list) {
+      if (mer.getEmergency() == 1) {
+        if (mer.getItemType().equals(type) && mer.getStatus() == 0) {
+          nextRequest = mer;
+          return nextRequest;
+        }
+      }
+    }
+    for (MedEquipRequest mer : list) {
+      if (mer.getItemType().equals(type) && mer.getStatus() == 0) {
+        nextRequest = mer;
+        return nextRequest;
+      }
+    }
     return null;
   }
 
   @Override
-  public Request getRequest() {
+  public Request getRequest(Integer reqID) {
+    ArrayList<MedEquipRequest> list = merdi.getAllMedEquipRequests();
+    for (MedEquipRequest m : list) {
+      if (m.getRequestID() == reqID) {
+        return m;
+      }
+    }
     return null;
   }
 
   @Override
   public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException {
     // Set status to in queue if it is not already included (from CSVs)
-    if(fields.size()==4){
+    if (fields.size() == 4) {
       fields.add("0");
     }
 

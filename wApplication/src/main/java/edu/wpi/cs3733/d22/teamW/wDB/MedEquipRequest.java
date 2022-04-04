@@ -90,6 +90,8 @@ public class MedEquipRequest extends Entity implements Request {
   public void complete() {
     if (this.status == 1) {
       this.status = 2;
+      // TODO eventually make it set to dirty, for now is just a workaround
+
     } else {
       // The complete button should only appear if it is in progress
     }

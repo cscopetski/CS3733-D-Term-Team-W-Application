@@ -32,7 +32,7 @@ public class RequestFactory {
   }
 
   public Request findRequest(Integer requestID) {
-    return requests.get(requestID - 1);
+    return requests.get(requestID - 11);
   }
 
   public ArrayList<Request> getAllRequests() {

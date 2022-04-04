@@ -153,7 +153,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       DBController.getDBController()
           .executeUpdate(
               String.format(
-                  "UPDATE MEDICALEQUIPMENTREQUESTS SET(MEDID = '%s' EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEENAME = '%s', ISEMERGENCY = %d , REQSTATUS = %d) WHERE MEDREQID = %d",
+                  "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEENAME = '%s', ISEMERGENCY = %d , REQSTATUS = %d WHERE MEDREQID = %d",
                   listmER.getItemID(),
                   listmER.getItemType(),
                   listmER.getNodeID(),

@@ -6,11 +6,11 @@ import java.util.ArrayList;
 public interface RequestController {
   public String checkStart(Request request) throws SQLException;
 
-  public void checkFinish();
+  public void checkNext(String ID) throws SQLException;
 
-  public Request getNext();
+  public Request getNext(String ID);
 
-  public Request getRequest();
+  public Request getRequest(Integer ID);
 
   public Request addRequest(Integer i, ArrayList<String> fields) throws SQLException;
 }
