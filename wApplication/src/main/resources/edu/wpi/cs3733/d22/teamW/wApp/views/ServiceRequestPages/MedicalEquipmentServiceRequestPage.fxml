@@ -43,7 +43,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="employeeName">
+                              <TextField fx:id="employeeName" maxWidth="250.0">
                                  <VBox.margin>
                                     <Insets bottom="20.0" top="10.0" />
                                  </VBox.margin>
