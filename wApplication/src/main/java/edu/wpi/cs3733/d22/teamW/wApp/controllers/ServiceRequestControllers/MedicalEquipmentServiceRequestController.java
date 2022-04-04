@@ -28,17 +28,17 @@ public class MedicalEquipmentServiceRequestController {
   int emergency;
 
   RequestFactory requestFactory = RequestFactory.getRequestFactory();
+  ArrayList<String> lastRequest;
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
     System.out.println("Button Clicked");
     if ((equipmentSelection.getValue() != null) && !employeeName.getText().isEmpty()) {
       confirm.showAndWait();
       if (confirm.getResult() == ButtonType.OK) {
-        System.out.println("confirm");
         ArrayList<String> fields = new ArrayList<String>();
         fields.add(equipmentSelection.getValue());
         System.out.println(equipmentSelection.getValue());
-        fields.add("wSTOR001L1");
+        fields.add("wSTOR001L1"); // location
         fields.add(employeeName.getText());
         if (emergencyLevel.isSelected()) {
           emergency = 1;
@@ -46,13 +46,15 @@ public class MedicalEquipmentServiceRequestController {
           emergency = 0;
         }
         fields.add("" + emergency);
-        for (String e : fields) {
-          System.out.println(e);
-        }
         requestFactory.getRequest("MEDEQUIPREQUEST", fields);
+        lastRequest = fields;
       }
     } else {
       emptyFields.show();
     }
+  }
+
+  public void cancelButton(ActionEvent actionEvent) {
+    // MedicalEquipmentController.cancel(requestFactory.getRequest("MEDEQUIPREQUEST", fields));
   }
 }
