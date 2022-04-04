@@ -9,12 +9,12 @@ import javafx.scene.control.*;
 
 public class MedicalEquipmentServiceRequestController {
   Alert confirm =
-          new Alert(
-                  Alert.AlertType.CONFIRMATION,
-                  "Would you like to confirm this request " + " ?",
-                  ButtonType.OK,
-                  ButtonType.CANCEL);
-  
+      new Alert(
+          Alert.AlertType.CONFIRMATION,
+          "Would you like to confirm this request " + " ?",
+          ButtonType.OK,
+          ButtonType.CANCEL);
+
   Alert emptyFields =
       new Alert(
           Alert.AlertType.ERROR,
@@ -30,13 +30,14 @@ public class MedicalEquipmentServiceRequestController {
   RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
-
-    if (!equipmentSelection.getValue().isEmpty() && !employeeName.getText().isEmpty()) {
+    System.out.println("Button Clicked");
+    if ((equipmentSelection.getValue() != null) && !employeeName.getText().isEmpty()) {
       confirm.showAndWait();
       if (confirm.getResult() == ButtonType.OK) {
         System.out.println("confirm");
         ArrayList<String> fields = new ArrayList<String>();
         fields.add(equipmentSelection.getValue());
+        System.out.println(equipmentSelection.getValue());
         fields.add("wSTOR001L1");
         fields.add(employeeName.getText());
         if (emergencyLevel.isSelected()) {
