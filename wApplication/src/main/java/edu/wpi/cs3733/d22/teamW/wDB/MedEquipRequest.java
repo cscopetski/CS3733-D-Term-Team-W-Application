@@ -104,6 +104,11 @@ public class MedEquipRequest extends Entity implements Request {
     }
   }
 
+  @Override
+  public String getType() {
+    return "MEDICALEQUIPREQUEST";
+  }
+
   public String toCSVString() {
     return String.format(
         "%d,%d,%s,%s,%d,%s",

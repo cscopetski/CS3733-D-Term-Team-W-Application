@@ -9,4 +9,6 @@ public interface Request {
   public void complete();
 
   public void cancel();
+
+  public String getType();
 }
