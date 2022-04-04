@@ -48,7 +48,9 @@ public class SceneManager {
   }
 
   public void exitApplication() {
-    pages.get(current).controller.onUnload();
+    if (pages.get(current).controller != null) {
+      pages.get(current).controller.onUnload();
+    }
     System.exit(0);
   }
 
