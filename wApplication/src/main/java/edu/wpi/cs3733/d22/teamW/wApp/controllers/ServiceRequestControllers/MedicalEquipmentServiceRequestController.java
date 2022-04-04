@@ -67,15 +67,18 @@ public class MedicalEquipmentServiceRequestController {
     if (emergencyLevel) {
       emergencyLevel = false;
       emergencyB.getStylesheets().clear();
+
       emergencyB
           .getStylesheets()
-          .add("@../../CSS/MedicalEquipmentServiceRequestPage/emergencyButtonFalse.css");
+          .add(
+              "edu/wpi/cs3733/d22/teamW/wApp/CSS/MedicalEquipmentServiceRequestPage/emergencyButtonFalse.css");
     } else {
       emergencyLevel = true;
       emergencyB.getStylesheets().clear();
       emergencyB
           .getStylesheets()
-          .add("@../../CSS/MedicalEquipmentServiceRequestPage/emergencyButtonTrue.css");
+          .add(
+              "edu/wpi/cs3733/d22/teamW/wApp/CSS/MedicalEquipmentServiceRequestPage/emergencyButtonTrue.css");
     }
   }
 
