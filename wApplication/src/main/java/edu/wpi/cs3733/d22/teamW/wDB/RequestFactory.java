@@ -19,7 +19,7 @@ public class RequestFactory {
   // fields is every field except for request id and itemID
 
   public Request getRequest(String requestType, ArrayList<String> fields) throws SQLException {
-    int counter = requests.size();
+    int counter = requests.size() + 1;
     if (requestType.equalsIgnoreCase("MEDEQUIPREQUEST")) {
       Request mER = merc.addRequest(counter, fields);
       requests.add(mER);

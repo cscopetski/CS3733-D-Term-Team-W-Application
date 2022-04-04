@@ -24,12 +24,13 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       ResultSet medEquipment = dbController.executeQuery("SELECT * FROM MEDICALEQUIPMENTREQUESTS");
 
       // Size of num MedEquipRequest fields
-      String[] medEquipData = new String[7];
+      int size = 7;
+      ArrayList<String> medEquipData = new ArrayList<>();
 
       while (medEquipment.next()) {
 
-        for (int i = 0; i < medEquipData.length; i++) {
-          medEquipData[i] = medEquipment.getString(i + 1);
+        for (int i = 0; i < size; i++) {
+          medEquipData.add(i, medEquipment.getString(i + 1));
         }
 
         medEquipRequestList.add(new MedEquipRequest(medEquipData));
@@ -131,7 +132,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       DBController.getDBController()
           .executeUpdate(
               String.format(
-                  "UPDATE MEDICALEQUIPMENT SET(TYPE = 's', NODEID = 's', STATUS = %d) WHERE MEDID = %s",
+                  "UPDATE MEDICALEQUIPMENT SET TYPE = 's', NODEID = 's', STATUS = %d WHERE MEDID = %s",
                   newItemType, newLocationID, newEmployeeName, requestID));
     }
   }
@@ -153,7 +154,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       DBController.getDBController()
           .executeUpdate(
               String.format(
-                  "UPDATE MEDICALEQUIPMENTREQUESTS SET(MEDID = '%s' EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEENAME = '%s', ISEMERGENCY = %d , REQSTATUS = %d) WHERE MEDREQID = %d",
+                  "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEENAME = '%s', ISEMERGENCY = %d , REQSTATUS = %d WHERE MEDREQID = %d",
                   listmER.getItemID(),
                   listmER.getItemType(),
                   listmER.getNodeID(),

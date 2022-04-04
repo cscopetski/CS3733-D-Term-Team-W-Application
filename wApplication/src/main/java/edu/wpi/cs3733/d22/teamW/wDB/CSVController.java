@@ -10,6 +10,8 @@ public class CSVController {
   private String medEquipFileName;
   private String medEquipRequestFileName;
 
+  private RequestFactory requestFactory = null;
+
   public CSVController(
       String locationFileName, String medEquipFileName, String medEquipRequestFileName) {
     this.locationFileName = locationFileName;
@@ -17,9 +19,18 @@ public class CSVController {
     this.medEquipRequestFileName = medEquipRequestFileName;
   }
 
-  public void populateTables() throws FileNotFoundException, SQLException {
+  public void setRequestFactory(RequestFactory requestFactory) {
+    this.requestFactory = requestFactory;
+  }
+
+  public void populateEntityTables() throws FileNotFoundException, SQLException {
     insertIntoLocationsTable(importCSV(locationFileName));
     insertIntoMedEquipTable(importCSV(medEquipFileName));
+  }
+
+  public void populateRequestTables(RequestFactory requestFactory)
+      throws FileNotFoundException, SQLException {
+    setRequestFactory(requestFactory);
     insertIntoMedEquipReqTable(importCSV(medEquipRequestFileName));
   }
 
@@ -107,11 +118,19 @@ public class CSVController {
     ArrayList<MedEquipRequest> medEquipReqList = new ArrayList<>();
 
     for (String[] s : tokens) {
-      medEquipReqList.add(new MedEquipRequest(s));
-    }
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
 
+      MedEquipRequest mER = (MedEquipRequest) requestFactory.getRequest("MEDEQUIPREQUEST", fields);
+
+      System.out.println(mER);
+
+      medEquipReqList.add(mER);
+    }
+    /*
     for (MedEquipRequest m : medEquipReqList) {
       // add location objects to database
+
       try {
         DBController.getDBController()
             .execute("INSERT INTO MEDICALEQUIPMENTREQUESTS VALUES(" + m.toValuesString() + ")");
@@ -120,6 +139,6 @@ public class CSVController {
         e.printStackTrace();
         throw (e);
       }
-    }
+    }*/
   }
 }

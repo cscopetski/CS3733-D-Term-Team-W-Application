@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class Main {
 
-  public static void main(String[] args) throws SQLException {
+  public static void main(String[] args) throws SQLException, FileNotFoundException {
 
     // App.launch(App.class, args);
 
@@ -21,12 +21,18 @@ public class Main {
         new CSVController(locationFileName, medEquipFileName, medEquipRequestFileName);
 
     try {
-      csvController.populateTables();
+      csvController.populateEntityTables();
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (SQLException e) {
       e.printStackTrace();
     }
+
+    RequestFactory requestFactory =
+        new RequestFactory(
+            new MedEquipRequestController(new MedEquipRequestDaoImpl(), new MedEquipDaoImpl()));
+
+    csvController.populateRequestTables(requestFactory);
 
     ArrayList<String> fields = new ArrayList<>();
 
@@ -35,9 +41,6 @@ public class Main {
     fields.add("JOE NAME");
     fields.add("" + 0);
 
-    RequestFactory requestFactory =
-        new RequestFactory(
-            new MedEquipRequestController(new MedEquipRequestDaoImpl(), new MedEquipDaoImpl()));
     try {
       requestFactory.getRequest("MEDEQUIPREQUEST", fields);
     } catch (SQLException e) {

@@ -20,11 +20,11 @@ public class MedEquipRequestController implements RequestController {
   }
 
   @Override
-  //Should take in itemID to give to next request that needs item of that type (if there is one)
+  // Should take in itemID to give to next request that needs item of that type (if there is one)
   public void checkFinish() {}
 
   @Override
-  //Get the next request and return it
+  // Get the next request and return it
   public Request getNext() {
     return null;
   }
@@ -36,16 +36,25 @@ public class MedEquipRequestController implements RequestController {
 
   @Override
   public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException {
+    MedEquipRequest mER;
     // Set status to in queue if it is not already included (from CSVs)
-    if(fields.size()==4){
+    if (fields.size() == 4) {
       fields.add("0");
+      mER = new MedEquipRequest(num, fields);
+    } else {
+      mER = new MedEquipRequest(fields);
     }
 
-    MedEquipRequest mER = new MedEquipRequest(num, fields);
-    String itemID = checkStart(mER);
-    if (itemID != null) {
-      System.out.println("Starting Request " + mER.getRequestID());
-      mER.start(itemID);
+    // If the request does not have an item, aka has not been started
+    // TODO REMOVE THIS PRINT
+    System.out.println(mER.getItemID() + " " + mER.getStatus());
+    if (mER.getItemID().equals("NONE") && mER.getStatus() == 0) {
+      System.out.println("CHECKING START FOR MER: " + mER.getRequestID());
+      String itemID = checkStart(mER);
+      if (itemID != null) {
+        System.out.println("Starting Request " + mER.getRequestID());
+        mER.start(itemID);
+      }
     }
     merdi.addMedEquipRequest(mER);
     return mER;
