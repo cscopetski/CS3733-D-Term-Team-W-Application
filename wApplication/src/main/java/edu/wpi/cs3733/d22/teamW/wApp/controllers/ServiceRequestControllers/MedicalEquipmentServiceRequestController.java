@@ -1,8 +1,12 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
+
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -75,5 +79,9 @@ public class MedicalEquipmentServiceRequestController {
           .getStylesheets()
           .add("@../../CSS/MedicalEquipmentServiceRequestPage/emergencyButtonTrue.css");
     }
+  }
+
+  public void switchToRequestList(ActionEvent event) throws IOException {
+    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestList);
   }
 }

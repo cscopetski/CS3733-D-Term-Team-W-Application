@@ -118,6 +118,15 @@
                               </Pane>
                                         <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="You can drag the map to see and select availiable items " wrappingWidth="336.800048828125" />
                                         <Pane fx:id="map" prefHeight="311.0" prefWidth="384.0" />
+                              <BorderPane prefHeight="0.0" prefWidth="376.0">
+                                 <right>
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/buttonForm.css" text="Request List" BorderPane.alignment="CENTER">
+                                       <BorderPane.margin>
+                                          <Insets top="20.0" />
+                                       </BorderPane.margin>
+                                    </Button>
+                                 </right>
+                              </BorderPane>
                                     </children>
                                     <HBox.margin>
                                         <Insets left="20.0" />
