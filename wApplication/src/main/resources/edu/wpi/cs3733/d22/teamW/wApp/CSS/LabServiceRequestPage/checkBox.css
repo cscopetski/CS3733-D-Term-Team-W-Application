@@ -1,7 +1,6 @@
 .check-box .box {
 
     -fx-background-color: white;
-    -fx-cell-size: 4;
     -fx-border-color:#013895;
 
 }

@@ -1,3 +1,40 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
-public class LabServiceRequestController {}
+import javafx.event.Event;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
+import javax.swing.*;
+
+public class LabServiceRequestController {
+  @FXML Button emergencyB;
+  @FXML Label undoLabel;
+  @FXML ChoiceBox genderChoiceBox;
+
+  public void emergencyClicked(MouseEvent mouseEvent) {
+    // set emergency value to YES - or 1 sth
+    // changed button color to present the emergency thing
+    emergencyB.setStyle("-fx-background-color: #a40808; -fx-text-fill: white;");
+  }
+
+  public void undoEmergency(MouseEvent mouseEvent) {
+    // Undo the emergency value
+    // change button color again
+    emergencyB.setStyle(
+        "-fx-background-color: white; -fx-text-fill: #013895; -fx-border-color: #013895; -fx-border-radius: 26; -fx-border-width: 1");
+  }
+
+  // Gender choice box
+  private String[] gender = {"Female", "Male", "Other"};
+
+  public void initialize() {
+    genderChoiceBox.getItems().addAll(gender);
+    genderChoiceBox.setOnAction(this::getGender);
+  }
+
+  private void getGender(Event event) {
+    String myGender = (String) genderChoiceBox.getValue();
+  }
+}
