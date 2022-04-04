@@ -73,24 +73,24 @@
                                           <Insets right="20.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="menuButton2" maxHeight="160.0" maxWidth="150.0" minHeight="160.0" minWidth="150.0" mnemonicParsing="false" onAction="#menuSelection2" prefHeight="100.0" prefWidth="120.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/hiddenButtonForm.css">
+                                    <Button fx:id="menuButton2" maxWidth="150.0" minHeight="160.0" minWidth="150.0" mnemonicParsing="false" onAction="#menuSelection2" prefHeight="160.0" prefWidth="150.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/hiddenButtonForm.css">
                                        <graphic>
-                                          <VBox maxHeight="160.0" maxWidth="150.0" minHeight="148.0" minWidth="150.0" prefHeight="148.0" prefWidth="150.0">
+                                          <VBox maxWidth="100.0" prefHeight="200.0" prefWidth="100.0">
                                              <children>
                                                 <Label fx:id="menuLabel2" text="Burrito">
                                                    <font>
                                                       <Font name="System Bold" size="12.0" />
                                                    </font>
                                                    <VBox.margin>
-                                                      <Insets left="55.0" />
+                                                      <Insets left="40.0" />
                                                    </VBox.margin>
                                                 </Label>
-                                                <ImageView fitHeight="114.0" fitWidth="142.0">
+                                                <ImageView fitHeight="110.0" fitWidth="130.0">
                                                    <image>
                                                       <Image url="@../../assets/burritoFoodItem.png" />
                                                    </image>
                                                    <VBox.margin>
-                                                      <Insets left="5.0" top="10.0" />
+                                                      <Insets top="10.0" />
                                                    </VBox.margin>
                                                 </ImageView>
                                              </children>
