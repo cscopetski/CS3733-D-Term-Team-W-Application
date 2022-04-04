@@ -150,7 +150,7 @@
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
-                              <TextField minWidth="120.0" prefWidth="100.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/textFieldForm.css">
+                              <TextField fx:id="roomNum" minWidth="120.0" prefWidth="100.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/textFieldForm.css">
                                  <VBox.margin>
                                     <Insets bottom="20.0" top="10.0" />
                                  </VBox.margin>
@@ -159,7 +159,7 @@
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
-                              <TextField stylesheets="@../../CSS/MealDeliveryServiceRequestPage/textFieldForm.css">
+                              <TextField fx:id="bedNum" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/textFieldForm.css">
                                  <VBox.margin>
                                     <Insets bottom="20.0" top="10.0" />
                                  </VBox.margin>
@@ -168,7 +168,7 @@
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
-                              <ComboBox fx:id="comboBox" prefWidth="150.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
+                              <ComboBox fx:id="timeSelection" prefWidth="150.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
                                  <VBox.margin>
                                     <Insets bottom="20.0" top="10.0" />
                                  </VBox.margin>
