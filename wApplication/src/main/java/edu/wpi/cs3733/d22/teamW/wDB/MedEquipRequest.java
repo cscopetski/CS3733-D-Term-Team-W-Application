@@ -28,26 +28,26 @@ public class MedEquipRequest extends Entity implements Request {
     this.status = 0;
   }
 
-  public MedEquipRequest(String[] medReqData) {
+  public MedEquipRequest(ArrayList<String> medReqData) {
     try {
-      this.requestID = Integer.parseInt(medReqData[0]);
+      this.requestID = Integer.parseInt(medReqData.get(0));
     } catch (NumberFormatException e) {
       this.requestID = null;
     }
 
-    this.itemID = medReqData[1];
-    this.itemType = medReqData[2];
-    this.nodeID = medReqData[3];
-    this.employeeName = medReqData[4];
+    this.itemID = medReqData.get(1);
+    this.itemType = medReqData.get(2);
+    this.nodeID = medReqData.get(3);
+    this.employeeName = medReqData.get(4);
 
     try {
-      this.emergency = Integer.parseInt(medReqData[5]);
+      this.emergency = Integer.parseInt(medReqData.get(5));
     } catch (NumberFormatException e) {
       this.emergency = 0;
     }
 
     try {
-      this.status = Integer.parseInt(medReqData[6]);
+      this.status = Integer.parseInt(medReqData.get(6));
     } catch (NumberFormatException e) {
       this.status = 3;
     }

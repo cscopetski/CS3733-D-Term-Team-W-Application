@@ -63,6 +63,10 @@ public class MedEquipRequestController implements RequestController {
     return null;
   }
 
+
+
+
+
   @Override
   public Request getRequest(Integer reqID) {
     ArrayList<MedEquipRequest> list = merdi.getAllMedEquipRequests();
@@ -76,16 +80,21 @@ public class MedEquipRequestController implements RequestController {
 
   @Override
   public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException {
+    MedEquipRequest mER;
     // Set status to in queue if it is not already included (from CSVs)
     if (fields.size() == 4) {
       fields.add("0");
+      mER = new MedEquipRequest(num, fields);
+    } else {
+      mER = new MedEquipRequest(fields);
     }
 
-    MedEquipRequest mER = new MedEquipRequest(num, fields);
-    String itemID = checkStart(mER);
-    if (itemID != null) {
-      System.out.println("Starting Request " + mER.getRequestID());
-      mER.start(itemID);
+    // If the request does not have an item, aka has not been started
+    if (mER.getItemID().equals("NONE") && mER.getStatus() == 0) {
+      String itemID = checkStart(mER);
+      if (itemID != null) {
+        mER.start(itemID);
+      }
     }
     merdi.addMedEquipRequest(mER);
     return mER;

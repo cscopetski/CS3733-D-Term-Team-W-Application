@@ -8,7 +8,6 @@ public class RequestFactory {
   // must be a singleton so that the counter does not get messed up
 
   // check DB for existing requests when are using external DB and not embedded one
-  // TODO make this counter look at the CSV coming in
   private ArrayList<Request> requests = new ArrayList<>();
   private MedEquipRequestController merc;
 
@@ -19,7 +18,7 @@ public class RequestFactory {
   // fields is every field except for request id and itemID
 
   public Request getRequest(String requestType, ArrayList<String> fields) throws SQLException {
-    int counter = requests.size();
+    int counter = requests.size() + 1;
     if (requestType.equalsIgnoreCase("MEDEQUIPREQUEST")) {
       Request mER = merc.addRequest(counter, fields);
       requests.add(mER);
