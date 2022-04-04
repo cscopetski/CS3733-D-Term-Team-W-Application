@@ -36,7 +36,10 @@ public class CSVController {
 
   private ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
 
-    InputStream in = getClass().getClassLoader().getResourceAsStream(fileName);
+    InputStream in =
+        getClass()
+            .getClassLoader()
+            .getResourceAsStream("edu/wpi/cs3733/d22/teamW/wDB/CSVs/" + fileName);
     if (in == null) {
       System.out.println("Failed to find file " + fileName);
       throw (new FileNotFoundException());

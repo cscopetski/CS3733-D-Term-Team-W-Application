@@ -18,9 +18,10 @@
                <children>
                     <Pane prefHeight="58.0" prefWidth="378.0" stylesheets="@../CSS/DefaultPage/mainBar.css" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                         <children>
+                            <Button layoutX="52.0" layoutY="15.0" mnemonicParsing="false" onAction="#switchToMainMenu" prefHeight="27.0" prefWidth="113.0" text="Main Menu" textFill="WHITE" />
                             <MenuButton alignment="CENTER" layoutX="174.0" layoutY="6.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="113.0" text="Requests" textAlignment="CENTER" textOverrun="CLIP">
                                 <items>
-                                    <MenuItem mnemonicParsing="false" onAction="#switchToMainMenu" text="Main Menu" />
+                                    <!--<MenuItem mnemonicParsing="false" onAction="#switchToMainMenu" text="Main Menu" />-->
                                     <MenuItem mnemonicParsing="false" onAction="#switchToLab" text="Lab Services" />
                                     <MenuItem mnemonicParsing="false" onAction="#switchToMedicalEquipmentDelivery" text="Equipment" />
                                     <MenuItem mnemonicParsing="false" onAction="#switchToMedicineDelivery" text="Medicine" />
