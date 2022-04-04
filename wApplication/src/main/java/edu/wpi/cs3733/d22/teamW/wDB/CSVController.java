@@ -9,14 +9,19 @@ public class CSVController {
   private String locationFileName;
   private String medEquipFileName;
   private String medEquipRequestFileName;
+  private String labServiceRequestFileName;
 
   private RequestFactory requestFactory = null;
 
   public CSVController(
-      String locationFileName, String medEquipFileName, String medEquipRequestFileName) {
+      String locationFileName,
+      String medEquipFileName,
+      String medEquipRequestFileName,
+      String labServiceRequestFileName) {
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
     this.medEquipRequestFileName = medEquipRequestFileName;
+    this.labServiceRequestFileName = labServiceRequestFileName;
   }
 
   public void setRequestFactory(RequestFactory requestFactory) {
@@ -32,6 +37,7 @@ public class CSVController {
       throws FileNotFoundException, SQLException {
     setRequestFactory(requestFactory);
     insertIntoMedEquipReqTable(importCSV(medEquipRequestFileName));
+    insertIntoLabReqTable(importCSV(labServiceRequestFileName));
   }
 
   private ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
@@ -124,6 +130,20 @@ public class CSVController {
       MedEquipRequest mER = (MedEquipRequest) requestFactory.getRequest("MEDEQUIPREQUEST", fields);
 
       medEquipReqList.add(mER);
+    }
+  }
+
+  private void insertIntoLabReqTable(ArrayList<String[]> tokens) throws SQLException {
+    ArrayList<LabServiceRequest> labReqList = new ArrayList<>();
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+
+      LabServiceRequest lSR =
+          (LabServiceRequest) requestFactory.getRequest("LABSERVICEREQUEST", fields);
+
+      labReqList.add(lSR);
     }
   }
 }
