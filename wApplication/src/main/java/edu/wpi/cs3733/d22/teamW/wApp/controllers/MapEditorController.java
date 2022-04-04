@@ -32,6 +32,7 @@ public class MapEditorController {
   ArrayList<Circle> locDots = new ArrayList<>();
   Random rng = new Random();
   Integer size = 0;
+  private int currFloor = 0;
 
   public void addLocation(MouseEvent mouseEvent) {}
 
@@ -43,6 +44,8 @@ public class MapEditorController {
     dropdown.setText("Floor 1");
     mapList.setImage(img1);
     generateMarkers();
+    generateEquip();
+    currFloor = 1;
   }
 
   public void swapFloor2(ActionEvent actionEvent) {
@@ -51,6 +54,7 @@ public class MapEditorController {
     dropdown.setText("Floor 2");
     mapList.setImage(img2);
     generateMarkers();
+    currFloor = 2;
   }
 
   public void swapFloor3(ActionEvent actionEvent) {
@@ -59,6 +63,7 @@ public class MapEditorController {
     dropdown.setText("Floor 3");
     mapList.setImage(img3);
     generateMarkers();
+    currFloor = 3;
   }
 
   public void swapFloorL1(ActionEvent actionEvent) {
@@ -67,6 +72,7 @@ public class MapEditorController {
     dropdown.setText("Lower Floor 1");
     mapList.setImage(img4);
     generateMarkers();
+    currFloor = 4;
   }
 
   public void swapFloorL2(ActionEvent actionEvent) {
@@ -75,6 +81,7 @@ public class MapEditorController {
     dropdown.setText("Lower Floor 2");
     mapList.setImage(img5);
     generateMarkers();
+    currFloor = 5;
   }
 
   public void swapSideView(ActionEvent actionEvent) {
@@ -92,6 +99,41 @@ public class MapEditorController {
       circ.setCenterY((rng.nextDouble() * 470) + 55);
       locDots.add(circ);
       page.getChildren().add(circ);
+    }
+  }
+
+  private void generateEquip() {
+    size = 4;
+    for (int i = 0; i < size; i++) {
+      Circle circle = new Circle(5, Color.MEDIUMPURPLE);
+      circle.setCenterX((rng.nextDouble() * 559) + 319);
+      circle.setCenterY((rng.nextDouble() * 470) + 55);
+      locDots.add(circle);
+      page.getChildren().add(circle);
+    }
+    size = 1;
+    for (int i = 0; i < size; i++) {
+      Circle circle = new Circle(5, Color.GREEN);
+      circle.setCenterX((rng.nextDouble() * 559) + 319);
+      circle.setCenterY((rng.nextDouble() * 470) + 55);
+      locDots.add(circle);
+      page.getChildren().add(circle);
+    }
+    size = 6;
+    for (int i = 0; i < size; i++) {
+      Circle circle = new Circle(5, Color.YELLOW);
+      circle.setCenterX((rng.nextDouble() * 559) + 319);
+      circle.setCenterY((rng.nextDouble() * 470) + 55);
+      locDots.add(circle);
+      page.getChildren().add(circle);
+    }
+    size = 2;
+    for (int i = 0; i < size; i++) {
+      Circle circle = new Circle(5, Color.BLUE);
+      circle.setCenterX((rng.nextDouble() * 559) + 319);
+      circle.setCenterY((rng.nextDouble() * 470) + 55);
+      locDots.add(circle);
+      page.getChildren().add(circle);
     }
   }
 
