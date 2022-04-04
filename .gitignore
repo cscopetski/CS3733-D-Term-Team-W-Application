@@ -28,6 +28,9 @@ derby.log
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
 
+# Database Files
+wApplication/myDB/
+
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
