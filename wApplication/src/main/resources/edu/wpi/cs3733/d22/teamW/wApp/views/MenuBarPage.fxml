@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="30.0" prefWidth="100.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MenuBarController">
+    <children>
+        <ButtonBar prefHeight="30.0" prefWidth="200.0">
+            <buttons>
+                <Button mnemonicParsing="false" onAction="#switchToDefault" prefHeight="25.0" prefWidth="100.0" text="Main Menu" />
+                <MenuButton mnemonicParsing="false" prefWidth="100.0" text="Requests">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#switchToLab" text="Lab Services" />
+                        <MenuItem mnemonicParsing="false" onAction="#switchToMedicalEquipmentDelivery" text="Equipment" />
+                        <MenuItem mnemonicParsing="false" onAction="#switchToMedicineDelivery" text="Medicine" />
+                        <MenuItem mnemonicParsing="false" onAction="#switchToMealDelivery" text="Meals" />
+                        <MenuItem mnemonicParsing="false" onAction="#switchToLanguageInterpreter" text="Interpreters" />
+                        <MenuItem mnemonicParsing="false" onAction="#switchToSecurity" text="Security" />
+                        <MenuItem mnemonicParsing="false" onAction="#switchToMapEditor" text="Map Editor" />
+                    </items>
+                </MenuButton>
+            </buttons>
+        </ButtonBar>
+    </children>
+</AnchorPane>

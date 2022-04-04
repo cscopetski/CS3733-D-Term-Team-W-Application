@@ -1,19 +1,41 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.io.*;
+import java.sql.*;
+import java.util.*;
 
 public class MedEquipDaoImpl implements MedEquipDao {
 
+  DBController dbController = DBController.getDBController();
   ArrayList<MedEquip> medEquipList;
-  DBController dbController;
 
-  public MedEquipDaoImpl(DBController dbController) {
-    this.dbController = dbController;
-    this.medEquipList = dbController.getMedEquipTable();
+  public MedEquipDaoImpl() throws SQLException {
+    setMedEquipList();
+  }
+
+  public void setMedEquipList() throws SQLException {
+    medEquipList = new ArrayList<>();
+
+    try {
+      ResultSet medEquipment = dbController.executeQuery("SELECT * FROM MEDICALEQUIPMENT");
+
+      // Size of num MedEquip fields
+      String[] medEquipData = new String[4];
+
+      while (medEquipment.next()) {
+
+        for (int i = 0; i < medEquipData.length; i++) {
+          medEquipData[i] = medEquipment.getString(i + 1);
+        }
+
+        medEquipList.add(new MedEquip(medEquipData));
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from medical equipment table failed");
+      e.printStackTrace();
+      throw (e);
+    }
   }
 
   @Override
@@ -22,43 +44,49 @@ public class MedEquipDaoImpl implements MedEquipDao {
   }
 
   @Override
-  public void addMedEquip(String inputID) {
+  public void addMedEquip(String inputID, String type, String nodeID, Integer status)
+      throws SQLException {
     MedEquip param = new MedEquip();
     int index = getIndexOf(inputID);
     if (index != -1) {
       System.out.println(
           "The database already contains a piece of medical equipment with the ID: " + inputID);
     } else {
-      MedEquip newMedEquip = new MedEquip(inputID, null, null, null);
+      MedEquip newMedEquip = new MedEquip(inputID, type, nodeID, status);
       medEquipList.add(newMedEquip);
-      dbController.addEntity(param, inputID); // addition in database
+      dbController.executeUpdate(
+          String.format(
+              "INSERT MEDICALEQUIPMENT VALUES (%s,%s,%s,%d)", inputID, type, nodeID, status));
     }
   }
 
   @Override
-  public void deleteMedEquip(String medID) {
+  public void deleteMedEquip(String medID) throws SQLException {
     int index = getIndexOf(medID);
     if (index == -1) {
       System.out.println("The database does not contain medical equipment with the ID: " + medID);
     } else {
       medEquipList.remove(medEquipList.get(index));
-      try {
-        dbController.deleteLocation("MEDICALEQUIPMENT", medID);
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
+      DBController.getDBController()
+          .executeUpdate(String.format("DELETE FROM MEDICALEQUIPMENT WHERE MEDID='%s'", medID));
     }
   }
 
   @Override
-  public void changeMedEquip(String medID, String newLocationID, int newStatus) {
+  public void changeMedEquip(String medID, String type, String nodeID, Integer status)
+      throws SQLException {
     int index = getIndexOf(medID);
     if (index == -1) {
       System.out.println(String.format("medID [%s] not found", medID));
     } else {
-      dbController.updateNodeFromMedEquipTable(medID, newLocationID, newStatus);
-      medEquipList.get(index).setNodeID(newLocationID);
-      medEquipList.get(index).setStatus(newStatus);
+      medEquipList.get(index).setType(type);
+      medEquipList.get(index).setNodeID(nodeID);
+      medEquipList.get(index).setStatus(status);
+      DBController.getDBController()
+          .executeUpdate(
+              String.format(
+                  "UPDATE MEDICALEQUIPMENT SET TYPE = '%s', NODEID = '%s', STATUS = %d WHERE MEDID = '%s'",
+                  type, nodeID, status, medID));
     }
   }
 
@@ -80,6 +108,24 @@ public class MedEquipDaoImpl implements MedEquipDao {
       System.out.println(String.format("Error Exporting to File %s", fileName));
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public String checkTypeAvailable(String type) throws SQLException {
+    for (MedEquip m : medEquipList) {
+      if (m.getType().equals(type) && (m.getStatus() == 0)) {
+        changeMedEquip(m.getMedID(), m.getType(), m.getNodeID(), 1);
+
+        return m.getMedID();
+      }
+    }
+    return (String) null;
+  }
+
+  public void setStatus(Integer status, String itemID) throws SQLException {
+    medEquipList.get(getIndexOf(itemID)).setStatus(0);
+    dbController.executeUpdate(
+        String.format("UPDATE MEDICALEQUIPMENT SET STATUS=%d WHERE MEDID= '%s'", status, itemID));
   }
 
   /**

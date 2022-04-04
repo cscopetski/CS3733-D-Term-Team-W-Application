@@ -15,13 +15,16 @@ public interface MedEquipRequestDao {
 
   ArrayList<MedEquipRequest> getNewAndInProgMedEquipRequests();
 
-  void addMedEquipRequest(Integer emergency, String medID, String employeeName, Location location)
-      throws SQLException;
+  // void addMedEquipRequest(Integer emergency, String medID, String employeeName, Location
+  // location);
 
-  void deleteMedEquipRequest(int requestID);
+  void addMedEquipRequest(MedEquipRequest mer) throws SQLException;
+
+  void cancelMedEquipRequest(int requestID);
 
   void changeMedEquipRequest(
-      int requestID, String newItemID, String newLocationID, String newEmployeeName);
+      int requestID, String newItemID, String newLocationID, String newEmployeeName)
+      throws SQLException;
 
   void makeMedEquipEmergency(int requestID);
 
