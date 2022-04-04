@@ -16,7 +16,15 @@ public class MedEquipRequestController implements RequestController {
   @Override
   public String checkStart(Request request) throws SQLException {
     MedEquipRequest mER = (MedEquipRequest) request;
-    return medi.checkTypeAvailable(mER.getItemType());
+    String mERtype = mER.getItemType();
+    ArrayList<MedEquip> medEquipList = medi.getAllMedEquip();
+    for (MedEquip m : medEquipList) {
+      if (m.getType().equals(mERtype) && (m.getStatus() == 0)) {
+        medi.changeMedEquip(m.getMedID(), m.getType(), m.getNodeID(), 1);
+        return m.getMedID();
+      }
+    }
+    return (String) null;
   }
 
   // TODO eventually make it set to dirty, for now is just a workaround
