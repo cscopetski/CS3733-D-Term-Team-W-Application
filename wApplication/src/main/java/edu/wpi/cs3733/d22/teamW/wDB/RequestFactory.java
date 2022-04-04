@@ -39,7 +39,7 @@ public class RequestFactory {
       requests.add(mER);
       return mER;
     } else if (requestType.equalsIgnoreCase("LABSERVICEREQUEST")) {
-      return new LabServiceRequest();
+      return new LabServiceRequest(fields);
     } else {
       return null;
     }
