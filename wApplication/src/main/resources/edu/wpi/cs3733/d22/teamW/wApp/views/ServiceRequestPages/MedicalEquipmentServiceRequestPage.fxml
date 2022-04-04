@@ -57,10 +57,10 @@
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
                                                     <String fx:value="MRI" />
-                                                    <String fx:value="XRY" />
+                                                    <String fx:value="XRay" />
                                                     <String fx:value="BED" />
                                                     <String fx:value="REC" />
-                                                    <String fx:value="INP" />
+                                                    <String fx:value="Infusion Pump" />
                                                 </FXCollections>
                                             </items>
                                  <VBox.margin>
