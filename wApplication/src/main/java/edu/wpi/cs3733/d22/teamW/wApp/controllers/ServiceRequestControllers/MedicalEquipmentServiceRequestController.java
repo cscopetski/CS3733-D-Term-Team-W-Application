@@ -3,10 +3,8 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
-import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -70,18 +68,17 @@ public class MedicalEquipmentServiceRequestController {
       emergencyLevel = false;
       emergencyB.getStylesheets().clear();
 
-      emergencyB.getStylesheets().add(...);
+      emergencyB
+          .getStylesheets()
+          .add(
+              "edu/wpi/cs3733/d22/teamW/wApp/CSS/MedicalEquipmentServiceRequestPage/emergencyButtonFalse.css");
     } else {
       emergencyLevel = true;
       emergencyB.getStylesheets().clear();
-
-      InputStream in =
-          getClass()
-              .getClassLoader()
-              .getResourceAsStream(
-                  "/edu/wpi/cs3733/d22/teamW/wApp/assets/CSS/MedicalEquipmentServiceRequestPage/emergencyButtonTrue.css");
-
-      emergencyB.getStylesheets().add(...);
+      emergencyB
+          .getStylesheets()
+          .add(
+              "edu/wpi/cs3733/d22/teamW/wApp/CSS/MedicalEquipmentServiceRequestPage/emergencyButtonTrue.css");
     }
   }
 

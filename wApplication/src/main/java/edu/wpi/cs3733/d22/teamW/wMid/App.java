@@ -17,7 +17,11 @@ public class App extends Application {
   @Override
   public void start(Stage primaryStage) throws IOException {
     SceneManager.getInstance().setPrimaryStage(primaryStage);
+    // primaryStage.setFullScreen(true);
+
     primaryStage.setMaximized(true);
+    primaryStage.setResizable(false);
+    primaryStage.setAlwaysOnTop(true);
     primaryStage.setTitle("Mass General Brigham Service Requests");
     primaryStage
         .getIcons()
