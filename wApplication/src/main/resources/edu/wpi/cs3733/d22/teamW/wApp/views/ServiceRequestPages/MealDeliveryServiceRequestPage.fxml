@@ -10,20 +10,27 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MealDeliveryServiceRequestController">
     <children>
-      <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="60.0">
+      <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox layoutX="72.0" prefHeight="100.0" prefWidth="800.0" style="-fx-alignment: center;" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="40.0">
+            <VBox layoutX="72.0" prefHeight="100.0" prefWidth="800.0" style="-fx-alignment: center;" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="60.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="MEAL DELIVERY SERVICE" textAlignment="CENTER" wrappingWidth="220.0">
+                  <ImageView fitHeight="60.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/mealicon.png" />
+                     </image>
+                  </ImageView>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="MEAL DELIVERY SERVICE" textAlignment="CENTER" wrappingWidth="370.800048828125">
                      <font>
-                        <Font size="24.0" />
+                        <Font size="30.0" />
                      </font>
                   </Text>
                   <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Hungry? We got the meals you need!" textAlignment="CENTER" wrappingWidth="220.0" />
@@ -31,14 +38,19 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="100.0">
                            <children>
-                              <Label style="-fx-font-weight: bold;" text="Menu">
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font size="20.0" />
-                                 </font>
-                              </Label>
+                              <Pane maxHeight="30.0" maxWidth="60.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
+                                 <children>
+                                    <BorderPane maxHeight="30.0" maxWidth="60.0" prefHeight="200.0" prefWidth="200.0">
+                                       <center>
+                                          <Label style="-fx-font-weight: bold;" text="Menu" textFill="WHITE" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </Pane>
                               <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Tap on the icons to select a meal:" textAlignment="CENTER" wrappingWidth="180.0">
                                  <VBox.margin>
                                     <Insets bottom="10.0" />
@@ -146,10 +158,26 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="105.0">
                            <children>
+                              <Pane maxHeight="30.0" maxWidth="60.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
+                                 <children>
+                                    <BorderPane maxHeight="30.0" maxWidth="60.0" prefHeight="200.0" prefWidth="200.0">
+                                       <center>
+                                          <Label style="-fx-font-weight: bold;" text="Info" textFill="WHITE" BorderPane.alignment="CENTER">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                       </center>
+                                    </BorderPane>
+                                 </children>
+                              </Pane>
                               <Label style="-fx-font-weight: bold;" text="Room Number">
                                  <font>
                                     <Font size="14.0" />
-                                 </font></Label>
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding></Label>
                               <TextField fx:id="roomNum" minWidth="120.0" prefWidth="100.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/textFieldForm.css">
                                  <VBox.margin>
                                     <Insets bottom="20.0" top="10.0" />

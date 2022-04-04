@@ -16,13 +16,3 @@
     -fx-text-fill: white;
 
 }
-
-.button:pressed{
-    -fx-font-weight: bold;
-    -fx-background-color: #a40808;
-    -fx-background-radius: 26;
-    -fx-fontsize: 22;
-    -fx-text-fill: white;
-
-
-}

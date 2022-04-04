@@ -54,7 +54,7 @@
                                  <children>
                                     <BorderPane prefHeight="35.0" prefWidth="200.0">
                                        <center>
-                                                    <Pane maxHeight="30.0" maxWidth="60.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895;" BorderPane.alignment="CENTER">
+                                                    <Pane maxHeight="30.0" maxWidth="60.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
                                                         <children>
                                                             <BorderPane maxHeight="30.0" maxWidth="60.0" prefHeight="200.0" prefWidth="200.0">
                                                                 <center>
@@ -86,7 +86,7 @@
                                     </BorderPane>
                                     <BorderPane maxWidth="200.0" minWidth="300.0" prefHeight="200.0" prefWidth="304.0">
                                        <top>
-                                          <Pane maxHeight="30.0" maxWidth="80.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895;" BorderPane.alignment="CENTER">
+                                          <Pane maxHeight="30.0" maxWidth="80.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
                                              <children>
                                                 <BorderPane maxHeight="30.0" maxWidth="80.0" prefHeight="200.0" prefWidth="200.0">
                                                    <center>
