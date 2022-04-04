@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class SceneManager {
@@ -29,7 +30,7 @@ public class SceneManager {
 
   private SceneManager() {
     fileNames = new Hashtable<>();
-    fileNames.put(Scenes.Lab, "ServiceRequestPages/ServiceRequestPage.fxml");
+    fileNames.put(Scenes.Lab, "ServiceRequestPages/LabServiceRequestPage.fxml");
     fileNames.put(
         Scenes.LanguageInterpreter,
         "ServiceRequestPages/LanguageInterpreterServiceRequestPage.fxml");
@@ -63,6 +64,17 @@ public class SceneManager {
     Scene scene = new Scene(root);
     primaryStage.setScene(scene);
     primaryStage.show();
+  }
+
+  public void setWindow(Scenes sceneType, Pane content) throws IOException {
+    content.getChildren().clear();
+    content
+        .getChildren()
+        .add(
+            FXMLLoader.load(
+                getClass()
+                    .getResource(
+                        "/edu/wpi/cs3733/d22/teamW/wApp/views/" + fileNames.get(sceneType))));
   }
 
   public Scene getScene() {
