@@ -12,12 +12,7 @@ public class LabServiceRequestController {
   @FXML Button emergencyB;
   @FXML Label undoLabel;
   @FXML ChoiceBox genderChoiceBox;
-
-  public void emergencyClicked(MouseEvent mouseEvent) {
-    // set emergency value to YES - or 1 sth
-    // changed button color to present the emergency thing
-    emergencyB.setStyle("-fx-background-color: #a40808; -fx-text-fill: white;");
-  }
+  boolean emergencyLevel = false;
 
   public void undoEmergency(MouseEvent mouseEvent) {
     // Undo the emergency value
@@ -36,5 +31,22 @@ public class LabServiceRequestController {
 
   private void getGender(Event event) {
     String myGender = (String) genderChoiceBox.getValue();
+  }
+
+  public void emergencyClicked(MouseEvent mouseEvent) {
+    if (emergencyLevel) {
+      emergencyLevel = false;
+      emergencyB.getStylesheets().clear();
+
+      emergencyB
+          .getStylesheets()
+          .add("edu/wpi/cs3733/d22/teamW/wApp/CSS/LabServiceRequestPage/emergencyButtonFalse.css");
+    } else {
+      emergencyLevel = true;
+      emergencyB.getStylesheets().clear();
+      emergencyB
+          .getStylesheets()
+          .add("edu/wpi/cs3733/d22/teamW/wApp/CSS/LabServiceRequestPage/emergencyButtonTrue.css");
+    }
   }
 }

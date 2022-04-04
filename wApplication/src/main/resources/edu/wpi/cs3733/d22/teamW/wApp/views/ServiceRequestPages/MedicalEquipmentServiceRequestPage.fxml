@@ -17,13 +17,13 @@
 
 <AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicalEquipmentServiceRequestController">
     <children>
-        <AnchorPane prefHeight="473.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+        <AnchorPane prefHeight="473.0" prefWidth="940.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox layoutX="72.0" prefHeight="406.0" prefWidth="800.0" style="-fx-alignment: center;" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="0.0">
+                <VBox layoutX="72.0" prefHeight="406.0" prefWidth="800.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="80.0">
                     <children>
                         <HBox prefHeight="500.0" prefWidth="800.0" style="-fx-alignment: center;">
                             <children>
-                                <VBox maxWidth="250.0" minWidth="250.0" prefHeight="295.0" prefWidth="250.0">
+                                <VBox maxWidth="250.0" minWidth="275.0" prefHeight="295.0" prefWidth="250.0">
                                     <children>
                                         <Label prefHeight="30.0" prefWidth="220.0" style="-fx-font-weight: bold;" text="Medical Equipment">
                                             <VBox.margin>
@@ -75,7 +75,8 @@
                                                 <Insets bottom="20.0" top="10.0" />
                                             </VBox.margin>
                                         </ComboBox>
-                              <BorderPane prefHeight="39.0" prefWidth="265.0">
+                              <Label prefHeight="17.0" prefWidth="261.0" text="Click the button again to disable the emergency" textFill="#96a1b2" />
+                              <BorderPane maxWidth="250.0" prefHeight="39.0" prefWidth="265.0">
                                  <center>
                                               <Button id="emergencyB" fx:id="emergencyB" mnemonicParsing="false" onMouseClicked="#emergencyClicked" prefHeight="30.0" prefWidth="220.0" stylesheets="@../../CSS/MedicalEquipmentServiceRequestPage/emergencyButtonFalse.css" text="Emergency Button" BorderPane.alignment="CENTER">
                                        <BorderPane.margin>
@@ -84,7 +85,7 @@
                                     </Button>
                                  </center>
                                  <VBox.margin>
-                                    <Insets top="10.0" />
+                                    <Insets top="5.0" />
                                  </VBox.margin>
                               </BorderPane>
 
@@ -103,11 +104,11 @@
                                 </VBox>
                                 <VBox prefHeight="344.0" prefWidth="376.0">
                                     <children>
-                              <Pane maxHeight="30.0" maxWidth="125.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895;">
+                              <Pane maxHeight="30.0" maxWidth="125.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895;">
                                  <children>
                                     <BorderPane maxHeight="30.0" maxWidth="125.0" prefHeight="200.0" prefWidth="200.0">
                                        <center>
-                                          <Label style="-fx-font-weight: bold;" text="Map Interaction" textFill="WHITE" BorderPane.alignment="CENTER">
+                                          <Label prefWidth="106.0" style="-fx-font-weight: bold;" text="Map Interaction" textFill="WHITE" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
