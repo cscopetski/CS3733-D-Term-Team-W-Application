@@ -7,7 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 public abstract class LoadableController implements Initializable {
-  abstract SceneManager.Scenes GetSceneType();
+  protected abstract SceneManager.Scenes GetSceneType();
 
   @FXML
   public void initialize(URL location, ResourceBundle rb) {

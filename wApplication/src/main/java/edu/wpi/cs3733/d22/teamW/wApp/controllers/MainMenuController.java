@@ -13,7 +13,7 @@ public class MainMenuController extends LoadableController {
   }
 
   @Override
-  SceneManager.Scenes GetSceneType() {
+  public SceneManager.Scenes GetSceneType() {
     return SceneManager.Scenes.MainMenu;
   }
 
