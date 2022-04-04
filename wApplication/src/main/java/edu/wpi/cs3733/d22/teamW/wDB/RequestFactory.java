@@ -11,7 +11,22 @@ public class RequestFactory {
   private ArrayList<Request> requests = new ArrayList<>();
   private MedEquipRequestController merc;
 
-  public RequestFactory(MedEquipRequestController merc) {
+  private static RequestFactory requestFactory;
+
+  public static RequestFactory getRequestFactory(MedEquipRequestController merc) {
+
+    if (requestFactory == null) {
+      requestFactory = new RequestFactory(merc);
+    }
+    return requestFactory;
+  }
+
+  public static RequestFactory getRequestFactory() {
+
+    return requestFactory;
+  }
+
+  private RequestFactory(MedEquipRequestController merc) {
     this.merc = merc;
   }
 
@@ -31,7 +46,7 @@ public class RequestFactory {
   }
 
   public Request findRequest(Integer requestID) {
-    return requests.get(requestID - 11);
+    return requests.get(requestID - 1);
   }
 
   public ArrayList<Request> getAllRequests() {

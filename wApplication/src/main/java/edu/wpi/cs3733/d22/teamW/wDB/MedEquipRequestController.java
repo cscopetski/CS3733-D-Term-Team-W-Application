@@ -63,10 +63,6 @@ public class MedEquipRequestController implements RequestController {
     return null;
   }
 
-
-
-
-
   @Override
   public Request getRequest(Integer reqID) {
     ArrayList<MedEquipRequest> list = merdi.getAllMedEquipRequests();
@@ -91,8 +87,10 @@ public class MedEquipRequestController implements RequestController {
 
     // If the request does not have an item, aka has not been started
     if (mER.getItemID().equals("NONE") && mER.getStatus() == 0) {
+      // System.out.println("CHECKING REQUEST " + mER.getRequestID());
       String itemID = checkStart(mER);
       if (itemID != null) {
+        // System.out.println("STARTING REQUEST " + mER.getRequestID());
         mER.start(itemID);
       }
     }

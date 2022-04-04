@@ -5,7 +5,7 @@
       <driver-ref>derby.embedded</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.apache.derby.jdbc.EmbeddedDriver</jdbc-driver>
-      <jdbc-url>jdbc:derby:C:\Users\cckwp\OneDrive\Documents\GitHub\WumboWhowies\wApplication\myDB</jdbc-url>
+      <jdbc-url>jdbc:derby:C:\Users\crazy\OneDrive\WPI\2021-2022\Classes\D-Term\CS3733\Minimal Application\WumboWhowies\wApplication\myDB</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

@@ -28,16 +28,15 @@ public class Main {
       e.printStackTrace();
     }
 
-
     MedEquipDaoImpl medi = new MedEquipDaoImpl();
     MedEquipRequestDaoImpl merdi = new MedEquipRequestDaoImpl();
     MedEquipRequestController merc = new MedEquipRequestController(merdi, medi);
 
-    RequestFactory requestFactory = new RequestFactory(merc);
-
+    RequestFactory requestFactory = RequestFactory.getRequestFactory(merc);
 
     csvController.populateRequestTables(requestFactory);
 
+    // itemType, location(nodeID), employeeName, (String) isEmergency (0=no, 1=yes)
 
     ArrayList<String> fields = new ArrayList<>();
 
@@ -45,7 +44,6 @@ public class Main {
     fields.add("wSTOR001L1");
     fields.add("JOE NAME");
     fields.add("" + 0);
-
 
     ArrayList<String> fields2 = new ArrayList<>();
 
@@ -59,8 +57,7 @@ public class Main {
     fields3.add("XRY");
     fields3.add("wSTOR001L1");
     fields3.add("JOE2 NAME");
-    fields3.add("" + 0);
-
+    fields3.add("" + 1);
 
     try {
       requestFactory.getRequest("MEDEQUIPREQUEST", fields);
@@ -71,7 +68,11 @@ public class Main {
       e.printStackTrace();
     }
 
-    Request test = requestFactory.findRequest(12);
+    Request test = requestFactory.findRequest(5);
+    Request test2 = requestFactory.findRequest(12);
+    Request test3 = requestFactory.findRequest(13);
     merc.completeRequest(test);
+    merc.completeRequest(test2);
+    merc.completeRequest(test3);
   }
 }
