@@ -1,12 +1,10 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
-
+import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
