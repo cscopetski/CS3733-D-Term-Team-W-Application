@@ -27,6 +27,19 @@ public class MedEquipRequestController implements RequestController {
     return (String) null;
   }
 
+  public void cancelRequest(Request r) throws SQLException {
+    MedEquipRequest request = (MedEquipRequest) r;
+    if (request.getStatus() == 0) {
+      request.cancel();
+      merdi.changeMedEquipRequest(request);
+    } else if (request.getStatus() == 1) {
+      request.cancel();
+      merdi.changeMedEquipRequest(request);
+      medi.changeMedEquip(request.getItemID(), request.getItemType(), request.getNodeID(), 0);
+      checkNext(request.getItemID());
+    }
+  }
+
   // TODO eventually make it set to dirty, for now is just a workaround
   public void completeRequest(Request r) throws SQLException {
     MedEquipRequest request = (MedEquipRequest) r;
@@ -51,6 +64,7 @@ public class MedEquipRequestController implements RequestController {
   @Override
   // Get the next request and return it
   public Request getNext(String itemID) {
+    // String itemType = MedicalEquipmentController.getType(itemID);
     String type = itemID.substring(0, 3).toUpperCase();
     ArrayList<MedEquipRequest> list = merdi.getAllMedEquipRequests();
     MedEquipRequest nextRequest;
