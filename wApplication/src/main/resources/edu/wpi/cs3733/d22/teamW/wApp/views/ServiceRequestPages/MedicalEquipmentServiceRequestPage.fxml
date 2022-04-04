@@ -17,7 +17,7 @@
 
 <AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicalEquipmentServiceRequestController">
     <children>
-        <AnchorPane prefHeight="473.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane prefHeight="473.0" prefWidth="940.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <VBox layoutX="72.0" prefHeight="406.0" prefWidth="800.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="80.0">
                     <children>
@@ -104,11 +104,11 @@
                                 </VBox>
                                 <VBox prefHeight="344.0" prefWidth="376.0">
                                     <children>
-                              <Pane maxHeight="30.0" maxWidth="125.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895;">
+                              <Pane maxHeight="30.0" maxWidth="125.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895;">
                                  <children>
                                     <BorderPane maxHeight="30.0" maxWidth="125.0" prefHeight="200.0" prefWidth="200.0">
                                        <center>
-                                          <Label style="-fx-font-weight: bold;" text="Map Interaction" textFill="WHITE" BorderPane.alignment="CENTER">
+                                          <Label prefWidth="106.0" style="-fx-font-weight: bold;" text="Map Interaction" textFill="WHITE" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
