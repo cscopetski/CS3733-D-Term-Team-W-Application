@@ -43,7 +43,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField>
+                              <TextField fx:id="employeeName">
                                  <VBox.margin>
                                     <Insets bottom="20.0" top="10.0" />
                                  </VBox.margin>
@@ -56,16 +56,18 @@
                                         <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
-                                                    <String fx:id="breakfast" fx:value="Breakfast" />
-                                                    <String fx:id="lunch" fx:value="Lunch" />
-                                                    <String fx:id="dinner" fx:value="Dinner" />
+                                                    <String fx:value="MRI" />
+                                                    <String fx:value="XRY" />
+                                                    <String fx:value="BED" />
+                                                    <String fx:value="REC" />
+                                                    <String fx:value="INP" />
                                                 </FXCollections>
                                             </items>
                                  <VBox.margin>
                                     <Insets bottom="20.0" top="10.0" />
                                  </VBox.margin>
                                         </ComboBox>
-                              <CheckBox mnemonicParsing="false" text="Emergency?">
+                              <CheckBox fx:id="emergencyLevel" mnemonicParsing="false" text="Emergency?">
                                  <VBox.margin>
                                     <Insets bottom="20.0" />
                                  </VBox.margin>

@@ -9,8 +9,6 @@ public class Main {
 
   public static void main(String[] args) throws SQLException, FileNotFoundException {
 
-    // App.launch(App.class, args);
-
     final String locationFileName = "TowerLocations.csv";
     final String medEquipFileName = "MedicalEquipment.csv";
     final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
@@ -74,5 +72,6 @@ public class Main {
     merc.completeRequest(test);
     merc.completeRequest(test2);
     merc.completeRequest(test3);
+    App.launch(App.class, args);
   }
 }
