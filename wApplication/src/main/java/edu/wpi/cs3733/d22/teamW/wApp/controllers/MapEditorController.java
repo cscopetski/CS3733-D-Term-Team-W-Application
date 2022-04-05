@@ -230,9 +230,7 @@ public class MapEditorController {
     eqDots.clear();
   }
 
-  public void updateLocation(ActionEvent actionEvent) {
-
-  }
+  public void updateLocation(ActionEvent actionEvent) {}
 
   public void removeLocation(ActionEvent actionEvent) throws SQLException {
     if (!nodeIn.getText().isEmpty()) {

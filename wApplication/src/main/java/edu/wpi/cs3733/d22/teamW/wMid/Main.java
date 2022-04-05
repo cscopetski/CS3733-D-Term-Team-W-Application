@@ -76,21 +76,21 @@ public class Main {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-
-    Request test = requestFactory.findRequest(5);
-    Request test2 = requestFactory.findRequest(11);
-    Request test3 = requestFactory.findRequest(12);
-    Request test4 = requestFactory.findRequest(13);
-    // completes test
-    merc.completeRequest(test);
-    // Tries to cancel test but fails since it is completed
-    merc.cancelRequest(test);
-    // test 2 should be enqueue then cancelled starting test 3
-    merc.cancelRequest(test2);
-    merc.completeRequest(test2);
-    merc.cancelRequest(test3);
-    merc.completeRequest(test3);
-
+    /*
+        Request test = requestFactory.findRequest(5);
+        Request test2 = requestFactory.findRequest(11);
+        Request test3 = requestFactory.findRequest(12);
+        Request test4 = requestFactory.findRequest(13);
+        // completes test
+        merc.completeRequest(test);
+        // Tries to cancel test but fails since it is completed
+        merc.cancelRequest(test);
+        // test 2 should be enqueue then cancelled starting test 3
+        merc.cancelRequest(test2);
+        merc.completeRequest(test2);
+        merc.cancelRequest(test3);
+        merc.completeRequest(test3);
+    */
     App.launch(App.class, args);
   }
 }
