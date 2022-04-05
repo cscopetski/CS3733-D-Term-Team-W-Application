@@ -20,6 +20,7 @@ public abstract class Request {
   }
    */
 
+  public abstract Integer getStatus();
 
   public abstract void start();
 

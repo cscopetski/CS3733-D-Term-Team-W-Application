@@ -216,7 +216,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     int size = medEquipRequestList.size();
     boolean found = false;
     for (int i = 0; i < size; i++) {
-      if (medEquipRequestList.get(i).getRequestID().equals(inputID)) {
+      if (medEquipRequestList.get(i).getRequestID() == (inputID)) {
         return i;
       }
     }

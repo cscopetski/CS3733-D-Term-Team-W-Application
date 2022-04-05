@@ -67,6 +67,11 @@ public class MedEquipRequest extends Request implements Entity {
   }
 
   @Override
+  public Integer getStatus() {
+    return status;
+  }
+
+  @Override
   public void start() {}
 
   // TODO we also need to change this to our version of start
@@ -120,5 +125,37 @@ public class MedEquipRequest extends Request implements Entity {
         this.employeeName,
         this.emergency,
         this.status);
+  }
+
+  public int getRequestID() {
+    return requestID;
+  }
+
+  public Integer getEmergency() {
+  return emergency;
+  }
+
+  public void setEmergency(Integer emergency) {
+    this.emergency = emergency;
+  }
+
+  public void setEmployeeName(String name){
+    this.employeeName = name;
+  }
+
+  public void setStatus(Integer status){
+    this.status = status;
+  }
+
+  public void setNodeID(String nodeID){
+    this.nodeID = nodeID;
+  }
+
+  public String getNodeID(){
+    return this.nodeID;
+  }
+
+  public String getEmployeeName() {
+    return this.employeeName;
   }
 }
