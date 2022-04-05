@@ -196,7 +196,7 @@
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
-                              <ComboBox fx:id="timeSelection" prefWidth="150.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
+                              <ComboBox fx:id="timeSelection" prefWidth="150.0" stylesheets="@../../CSS/Universal%20CSS/comboBox.css">
                                  <VBox.margin>
                                     <Insets bottom="20.0" top="10.0" />
                                  </VBox.margin>
@@ -215,7 +215,7 @@
                         </VBox>
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" onAction="#submitButton" scaleX="1.25" scaleY="1.25" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/buttonForm.css" text="Submit">
+                  <Button mnemonicParsing="false" onAction="#submitButton" scaleX="1.25" scaleY="1.25" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Submit">
                      <VBox.margin>
                         <Insets bottom="40.0" />
                      </VBox.margin>

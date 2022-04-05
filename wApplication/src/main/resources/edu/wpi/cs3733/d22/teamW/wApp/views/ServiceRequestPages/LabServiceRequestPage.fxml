@@ -149,7 +149,7 @@
                         </Pane>
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="71.0" stylesheets="@../../CSS/LabServiceRequestPage/submitButton.css" text="Submit">
+                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="71.0" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Submit">
                      <font>
                         <Font size="14.0" />
                      </font>

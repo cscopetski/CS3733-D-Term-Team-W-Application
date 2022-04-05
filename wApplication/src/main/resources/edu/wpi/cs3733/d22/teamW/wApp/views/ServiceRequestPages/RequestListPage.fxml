@@ -106,7 +106,7 @@
                                     </BorderPane>
                                     <BorderPane prefHeight="70.0" prefWidth="300.0">
                                        <center>
-                                                    <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/RequestListPage/comboBoxForm.css" BorderPane.alignment="CENTER">
+                                                    <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/Universal%20CSS/comboBox.css" BorderPane.alignment="CENTER">
                                                         <items>
                                                             <FXCollections fx:factory="observableArrayList">
                                                                 <String fx:value="Lab" />
@@ -157,7 +157,7 @@
                                     <Insets top="10.0" />
                                 </VBox.margin>
                      <center>
-                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" stylesheets="@../../CSS/RequestListPage/buttonForm.css" text="Cancel" BorderPane.alignment="CENTER">
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Cancel" BorderPane.alignment="CENTER">
                            <BorderPane.margin>
                               <Insets bottom="20.0" />
                            </BorderPane.margin></Button>
