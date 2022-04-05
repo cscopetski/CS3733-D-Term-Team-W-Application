@@ -17,7 +17,6 @@ public class MedicineDeliveryServiceRequestController {
   @FXML Button addButton;
   @FXML Button submitButton;
 
-
   // Combo Boxes:
   @FXML ComboBox medNameCBox;
   @FXML ComboBox locationCBox;

@@ -52,7 +52,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="medNameCBox" prefHeight="28.0" prefWidth="272.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
+                        <ComboBox fx:id="medNameCBox" prefHeight="28.0" prefWidth="272.0" stylesheets="@../../CSS/Universal%20CSS/comboBox.css">
                            <VBox.margin>
                               <Insets bottom="10.0" top="5.0" />
                            </VBox.margin>
@@ -99,16 +99,16 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="requesterCBox" prefHeight="28.0" prefWidth="150.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
+                        <ComboBox fx:id="requesterCBox" prefHeight="28.0" prefWidth="150.0" stylesheets="@../../CSS/Universal%20CSS/comboBox.css">
                            <VBox.margin>
                               <Insets bottom="10.0" top="5.0" />
                            </VBox.margin>
                         </ComboBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <Button fx:id="addButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" stylesheets="@../../CSS/MedicineDeliveryServiceRequestPage/buttonForm.css" text="Add" />
+                              <Button fx:id="addButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Add" />
                               <Pane prefHeight="70.0" prefWidth="15.0" />
-                              <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="76.0" stylesheets="@../../CSS/MedicineDeliveryServiceRequestPage/buttonForm.css" text="Cancel" />
+                              <Button fx:id="cancelButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="76.0" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Cancel" />
                            </children>
                         </HBox>
                      </children>
@@ -120,7 +120,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="locationCBox" prefHeight="28.0" prefWidth="185.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
+                        <ComboBox fx:id="locationCBox" prefHeight="28.0" prefWidth="185.0" stylesheets="@../../CSS/Universal%20CSS/comboBox.css">
                            <VBox.margin>
                               <Insets bottom="10.0" top="5.0" />
                            </VBox.margin>
@@ -130,7 +130,7 @@
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="timePrefCBox" prefHeight="28.0" prefWidth="185.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
+                        <ComboBox fx:id="timePrefCBox" prefHeight="28.0" prefWidth="185.0" stylesheets="@../../CSS/Universal%20CSS/comboBox.css">
                            <VBox.margin>
                               <Insets bottom="5.0" top="5.0" />
                            </VBox.margin>
@@ -161,7 +161,7 @@
                </children>
             </HBox>
             <Pane prefHeight="15.0" prefWidth="940.0" />
-            <Button fx:id="submitButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" stylesheets="@../../CSS/MedicineDeliveryServiceRequestPage/buttonForm.css" text="Submit">
+            <Button fx:id="submitButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Submit">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin></Button>
