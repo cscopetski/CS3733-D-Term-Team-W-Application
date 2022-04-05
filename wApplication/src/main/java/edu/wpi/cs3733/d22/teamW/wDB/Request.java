@@ -26,6 +26,8 @@ public abstract class Request implements Entity{
   }
    */
 
+  public abstract Integer getStatus();
+
   public abstract void start();
 
   public abstract void start(String s);
