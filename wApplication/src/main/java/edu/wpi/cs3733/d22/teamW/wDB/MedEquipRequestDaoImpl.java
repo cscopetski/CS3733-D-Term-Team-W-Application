@@ -67,31 +67,6 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     return null;
   }
 
-  /*
-  //TODO do we need this??????
-  @Override
-  public void addMedEquipRequest(
-      Integer emergency, String itemType, String employeeName, Location location) {
-    Integer ID = requestIDTracker++;
-    MedEquipRequest param =
-        new MedEquipRequest(ID, emergency, itemType, location.getNodeID(), employeeName);
-    medEquipRequestList.add(param);
-    //dbController.addEntity(param); // addition in database
-    Integer count = 0;
-    try {
-      count =
-          dbController
-              .executeQuery(
-                  String.format(
-                      "SELECT COUNT (*) AS COUNT FROM MEDICALEQUIPMENT WHERE (STATUS = 0 AND TYPE = '%s'",
-                      itemType))
-              .getInt("COUNT");
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-  */
-
   @Override
   public void addMedEquipRequest(MedEquipRequest mer) throws SQLException {
     medEquipRequestList.add(mer);

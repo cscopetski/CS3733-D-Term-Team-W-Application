@@ -43,22 +43,52 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
   }
 
   @Override
-  public void addLabServiceRequest(LabServiceRequest lsr) {
-    
+  public void addLabServiceRequest(LabServiceRequest lsr) throws SQLException {
+    labServiceRequestList.add(lsr);
+    dbController.executeUpdate(
+        String.format("INSERT INTO LABSERVICEREQUESTS VALUES (%s)", lsr.toValuesString()));
   }
 
   @Override
   public void changeLabServiceRequest(
       Integer requestID,
       String labType,
-      Integer emergency,
       String nodeID,
-      Integer status,
-      String employeeName) {}
+      String employeeName,
+      Integer emergency,
+      Integer status)
+      throws SQLException {
+    int index = getIndexOf(requestID);
+    if (index == -1) {
+      System.out.println(
+          "The database dose not contain a lab service request with an ID of " + requestID);
+    } else {
+      labServiceRequestList.get(index).setLabType(labType);
+      labServiceRequestList.get(index).setEmergency(emergency);
+      labServiceRequestList.get(index).setNodeID(nodeID);
+      labServiceRequestList.get(index).setStatus(status);
+      labServiceRequestList.get(index).setEmployeeName(employeeName);
+      dbController.executeUpdate(
+          String.format(
+              "UPDATE LABSERVICEREQUESTS SET LABTYPE='%s', NODEID='%s', EMPLOYEENAME='%s', ISEMERGENCY=%d, REQSTATUS=%d WHERE LABREQID=%d",
+              labType, nodeID, employeeName, emergency, status, requestID));
+    }
+  }
 
   @Override
   public void deleteLabServiceRequest(Integer requestID) {}
 
   @Override
   public void exportLabServiceReqCSV(String filename) {}
+
+  private int getIndexOf(int inputID) {
+    int size = labServiceRequestList.size();
+    boolean found = false;
+    for (int i = 0; i < size; i++) {
+      if (labServiceRequestList.get(i).getRequestID() == (inputID)) {
+        return i;
+      }
+    }
+    return -1;
+  }
 }
