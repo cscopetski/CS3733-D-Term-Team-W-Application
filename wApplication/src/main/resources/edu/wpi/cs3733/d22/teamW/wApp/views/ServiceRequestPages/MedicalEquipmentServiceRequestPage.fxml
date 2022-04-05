@@ -130,7 +130,7 @@
                                  <right>
                                     <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/buttonForm.css" text="Request List" BorderPane.alignment="CENTER">
                                        <BorderPane.margin>
-                                          <Insets top="20.0" />
+                                          <Insets bottom="20.0" top="20.0" />
                                        </BorderPane.margin>
                                     </Button>
                                  </right>
