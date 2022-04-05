@@ -30,8 +30,12 @@ public class Main {
       e.printStackTrace();
     }
 
+    LocationDaoImpl locationDao = new LocationDaoImpl();
+    LocationController locationController = new LocationController(locationDao);
+
     MedEquipDaoImpl medi = new MedEquipDaoImpl();
     MedEquipRequestDaoImpl merdi = new MedEquipRequestDaoImpl();
+    MedEquipController medEquipController = new MedEquipController(medi, merdi);
     MedEquipRequestController merc = new MedEquipRequestController(merdi, medi);
 
     LabServiceRequestDaoImpl labServiceRequestDao = new LabServiceRequestDaoImpl();
@@ -86,5 +90,10 @@ public class Main {
     merc.completeRequest(test2);
     merc.cancelRequest(test3);
     merc.completeRequest(test3);
+
+    locationController.exportLocationsCSV("LOCATIONTEST.csv");
+    medEquipController.exportMedicalEquipmentCSV("MEDEQUIPTEST.csv");
+    merc.exportMedEquipRequestCSV("MEDEQUIPREQUESTTEST.csv");
+    lsrc.exportLabServiceRequestCSV("LABTEST.csv");
   }
 }

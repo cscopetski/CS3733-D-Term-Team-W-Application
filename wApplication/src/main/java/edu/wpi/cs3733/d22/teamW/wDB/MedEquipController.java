@@ -9,6 +9,11 @@ public class MedEquipController {
   private MedEquipRequestDaoImpl merdi;
   private RequestFactory rF = RequestFactory.getRequestFactory();
 
+  public MedEquipController(MedEquipDaoImpl medi, MedEquipRequestDaoImpl merdi) {
+    this.medi = medi;
+    this.merdi = merdi;
+  }
+
   public void markClean(MedEquip equip) throws SQLException {
     medi.changeMedEquip(equip.getMedID(), equip.getType(), equip.getNodeID(), 0);
   }
@@ -43,5 +48,9 @@ public class MedEquipController {
 
   public ArrayList<MedEquip> getAll() {
     return medi.getAllMedEquip();
+  }
+
+  public void exportMedicalEquipmentCSV(String filename) {
+    medi.exportMedCSV(filename);
   }
 }
