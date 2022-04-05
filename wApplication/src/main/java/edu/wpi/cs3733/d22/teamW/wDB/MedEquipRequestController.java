@@ -86,7 +86,7 @@ public class MedEquipRequestController implements RequestController {
   public Request getRequest(Integer reqID) {
     ArrayList<MedEquipRequest> list = merdi.getAllMedEquipRequests();
     for (MedEquipRequest m : list) {
-      if (m.getRequestID() == reqID) {
+      if (m.getRequestID().equals(reqID)) {
         return m;
       }
     }

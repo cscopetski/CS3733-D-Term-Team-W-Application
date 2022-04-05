@@ -16,7 +16,7 @@ public class LabServiceRequestController implements RequestController {
     ArrayList<LabServiceRequest> list = lsrdi.getAllLabServiceRequests();
 
     for (LabServiceRequest l : list) {
-      if (l.getRequestID() == reqID) {
+      if (l.getRequestID().equals(reqID)) {
         return l;
       }
     }
