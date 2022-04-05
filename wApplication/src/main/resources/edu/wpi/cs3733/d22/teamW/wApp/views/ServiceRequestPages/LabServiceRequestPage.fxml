@@ -73,7 +73,7 @@
                                  </children>
                               </Group>
                               <Label layoutX="40.0" layoutY="57.0" text="Check the appropriate box(es)" textFill="#013895" />
-                              <Label layoutX="64.0" layoutY="200.0" text="Reclick to undo the emergency" textFill="#96a1b2">
+                              <Label layoutX="64.0" layoutY="200.0" text="Toggle to undo the emergency" textFill="#96a1b2">
                                  <padding>
                                     <Insets bottom="5.0" />
                                  </padding></Label>
