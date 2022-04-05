@@ -25,12 +25,12 @@
                             <children>
                                 <VBox maxWidth="250.0" minWidth="275.0" prefHeight="295.0" prefWidth="250.0">
                                     <children>
-                                        <Label prefHeight="30.0" prefWidth="220.0" style="-fx-font-weight: bold;" text="Medical Equipment">
+                                        <Label prefHeight="30.0" prefWidth="278.0" text="Medical Equipment">
                                             <VBox.margin>
                                                 <Insets />
                                             </VBox.margin>
                                             <font>
-                                                <Font size="20.0" />
+                                                <Font name="System Bold" size="30.0" />
                                             </font>
                                         </Label>
                                         <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Select equpiment from the dropdown menu." wrappingWidth="265.1999969482422">
