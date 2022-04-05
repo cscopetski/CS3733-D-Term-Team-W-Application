@@ -16,11 +16,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="530.0" prefWidth="940.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicineDeliveryServiceRequestController">
     <children>
-        <Text layoutX="3.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Medicine Request Page" />
       <VBox alignment="CENTER" layoutY="11.0" prefHeight="530.0" prefWidth="940.0" AnchorPane.bottomAnchor="-11.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
          <children>
             <ImageView fitHeight="105.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
@@ -35,11 +33,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutY="27.0" prefHeight="13.0" prefWidth="516.0" text="Pills are on the way to your destination" textFill="#0b4199">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                  </Label>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutY="27.0" prefHeight="13.0" prefWidth="516.0" text="Pills are on the way to your destination" textFill="#0b4199" />
                   <Pane layoutX="151.0" layoutY="44.0" prefHeight="22.0" prefWidth="200.0" />
                </children>
             </Group>
@@ -161,7 +155,7 @@
                </children>
             </HBox>
             <Pane prefHeight="15.0" prefWidth="940.0" />
-            <Button fx:id="submitButton" alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Submit">
+            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#submitButton" prefHeight="25.0" prefWidth="85.0" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Submit">
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin></Button>
