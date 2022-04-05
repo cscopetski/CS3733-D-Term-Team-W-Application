@@ -11,6 +11,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.collections.FXCollections?>
 <AnchorPane fx:id="page" prefHeight="678.0" prefWidth="1021.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
    <children>
       <MenuButton fx:id="dropdown" layoutX="489.0" layoutY="30.0" mnemonicParsing="false" text="Change Floor">
@@ -29,11 +31,18 @@
          </image>
       </ImageView>
       <TableView fx:id="LocTab" layoutX="106.0" layoutY="55.0" prefHeight="200.0" prefWidth="200.0">
-        <columns>
-          <TableColumn prefWidth="60.000003814697266" text="Name" />
-          <TableColumn prefWidth="67.33336639404297" text="X Coord" />
-            <TableColumn prefWidth="70.00001525878906" text="Y Coord" />
-        </columns>
+          <columns>
+              <TableColumn prefWidth="109.0" text="nodeID">
+                  <cellValueFactory><PropertyValueFactory property="nodeID" /></cellValueFactory>
+              </TableColumn>
+              <TableColumn prefWidth="144.0" text="X-position">
+                  <cellValueFactory><PropertyValueFactory property="xCoord" /></cellValueFactory></TableColumn>
+              <TableColumn prefWidth="148.0" text="Y-position">
+                  <cellValueFactory><PropertyValueFactory property="yCoord" /></cellValueFactory></TableColumn>
+          </columns>
+          <items>
+              <FXCollections fx:factory="observableArrayList" />
+          </items>
       </TableView>
       <Button fx:id="refreshButton" layoutX="41.0" layoutY="418.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
       <TableView fx:id="EqTab" layoutX="106.0" layoutY="255.0" prefHeight="200.0" prefWidth="200.0">

@@ -35,6 +35,6 @@ public class DefaultPage {
   }
 
   public void switchToMapEditor(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setWindow(SceneManager.Scenes.Security, content);
+    SceneManager.getInstance().setWindow(SceneManager.Scenes.MapEditor, content);
   }
 }
