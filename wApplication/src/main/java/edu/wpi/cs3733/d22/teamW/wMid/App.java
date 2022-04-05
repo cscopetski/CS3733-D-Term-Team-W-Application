@@ -21,7 +21,7 @@ public class App extends Application {
 
     primaryStage.setMaximized(true);
     primaryStage.setResizable(true);
-    primaryStage.setAlwaysOnTop(true);
+    primaryStage.setAlwaysOnTop(false);
     primaryStage.setTitle("Mass General Brigham Service Requests");
     primaryStage
         .getIcons()

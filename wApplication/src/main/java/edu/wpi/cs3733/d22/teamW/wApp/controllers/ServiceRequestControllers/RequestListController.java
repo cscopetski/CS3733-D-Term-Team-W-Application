@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 
-public class RequestListPageController extends LoadableController {
+public class RequestListController extends LoadableController {
   @FXML private TableView<MedicalEquipmentSR> table;
 
   private ArrayList<MedicalEquipmentSR> sr = new ArrayList<>();
