@@ -38,11 +38,11 @@
                                                 <Insets bottom="20.0" />
                                             </VBox.margin>
                                         </Text>
-                              <Pane maxHeight="30.0" maxWidth="125.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
+                              <Pane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
                                  <children>
-                                    <BorderPane maxHeight="30.0" maxWidth="125.0" prefHeight="200.0" prefWidth="200.0">
+                                    <BorderPane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="200.0">
                                        <center>
-                                                    <Label style="-fx-font-weight: bold;" text="Employee Name" textFill="WHITE" BorderPane.alignment="CENTER">
+                                                    <Label style="-fx-font-weight: bold;" text="EMPLOYEE NAME" textFill="WHITE" BorderPane.alignment="CENTER">
                                                         <font>
                                                             <Font size="14.0" />
                                                         </font>
@@ -104,11 +104,11 @@
                                 </VBox>
                                 <VBox prefHeight="344.0" prefWidth="376.0">
                                     <children>
-                              <Pane maxHeight="30.0" maxWidth="125.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
+                              <Pane maxHeight="30.0" maxWidth="150.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
                                  <children>
-                                    <BorderPane maxHeight="30.0" maxWidth="125.0" prefHeight="200.0" prefWidth="200.0">
+                                    <BorderPane maxHeight="30.0" maxWidth="150.0" prefHeight="200.0" prefWidth="220.0">
                                        <center>
-                                          <Label prefWidth="106.0" style="-fx-font-weight: bold;" text="Map Interaction" textFill="WHITE" BorderPane.alignment="CENTER">
+                                          <Label prefWidth="130.0" style="-fx-font-weight: bold;" text="MAP INTERACTION" textAlignment="CENTER" textFill="WHITE" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>

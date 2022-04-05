@@ -42,7 +42,7 @@
                                  <children>
                                     <BorderPane maxHeight="30.0" maxWidth="60.0" prefHeight="200.0" prefWidth="200.0">
                                        <center>
-                                          <Label style="-fx-font-weight: bold;" text="Menu" textFill="WHITE" BorderPane.alignment="CENTER">
+                                          <Label style="-fx-font-weight: bold;" text="MENU" textFill="WHITE" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -162,7 +162,7 @@
                                  <children>
                                     <BorderPane maxHeight="30.0" maxWidth="60.0" prefHeight="200.0" prefWidth="200.0">
                                        <center>
-                                          <Label style="-fx-font-weight: bold;" text="Info" textFill="WHITE" BorderPane.alignment="CENTER">
+                                          <Label style="-fx-font-weight: bold;" text="INFO" textFill="WHITE" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>

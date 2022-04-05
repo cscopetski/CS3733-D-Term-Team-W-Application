@@ -87,7 +87,7 @@
                                                         <children>
                                                             <BorderPane maxHeight="30.0" maxWidth="60.0" prefHeight="200.0" prefWidth="200.0">
                                                                 <center>
-                                                                    <Label style="-fx-font-weight: bold;" text="Filter" textFill="WHITE" BorderPane.alignment="CENTER">
+                                                                    <Label style="-fx-font-weight: bold;" text="FILTER" textFill="WHITE" BorderPane.alignment="CENTER">
                                                                         <font>
                                                                             <Font size="14.0" />
                                                                         </font>
@@ -115,11 +115,11 @@
                                     </BorderPane>
                                     <BorderPane maxWidth="200.0" minWidth="300.0" prefHeight="200.0" prefWidth="304.0">
                                        <top>
-                                          <Pane maxHeight="30.0" maxWidth="80.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
+                                          <Pane maxHeight="30.0" maxWidth="90.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
                                              <children>
-                                                <BorderPane maxHeight="30.0" maxWidth="80.0" prefHeight="200.0" prefWidth="200.0">
+                                                <BorderPane maxHeight="30.0" maxWidth="90.0" prefHeight="200.0" prefWidth="200.0">
                                                    <center>
-                                                      <Label style="-fx-font-weight: bold;" text="More Info" textFill="WHITE" BorderPane.alignment="CENTER">
+                                                      <Label style="-fx-font-weight: bold;" text="MORE INFO" textFill="WHITE" BorderPane.alignment="CENTER">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
