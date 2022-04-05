@@ -44,6 +44,18 @@
                                  <Insets top="20.0" />
                               </VBox.margin>
                            </BorderPane>
+                                 <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToMealDelivery" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonMeal.css" text="Meal Service" BorderPane.alignment="CENTER" />
+                                    </center>
+                                    <VBox.margin>
+                                       <Insets top="20.0" />
+                                    </VBox.margin>
+                                 </BorderPane>
+                        </children>
+                     </VBox>
+                           <VBox prefHeight="200.0" prefWidth="250.0">
+                              <children>
                            <BorderPane prefHeight="200.0" prefWidth="200.0">
                               <center>
                                  <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToMedicineDelivery" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonMedicine.css" text="Medicine Delivery" BorderPane.alignment="CENTER" />
@@ -52,13 +64,29 @@
                                  <Insets top="20.0" />
                               </VBox.margin>
                            </BorderPane>
-                        </children>
-                     </VBox>
+                                 <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToLanguageInterpreter" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPag/buttonMeal.css" text="Language Interpreters" BorderPane.alignment="CENTER" />
+                                    </center>
+                                    <VBox.margin>
+                                       <Insets top="20.0" />
+                                    </VBox.margin>
+                                 </BorderPane>
+                              </children>
+                           </VBox>
                            <VBox prefHeight="200.0" prefWidth="250.0">
                               <children>
                                  <BorderPane prefHeight="200.0" prefWidth="200.0">
                                     <center>
-                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToMealDelivery" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonMeal.css" text="Meal Service" BorderPane.alignment="CENTER" />
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToMedicalEquipmentDelivery" prefHeight="300.0" prefWidth="200.0" text="Medical Equipment" BorderPane.alignment="CENTER" />
+                                    </center>
+                                    <VBox.margin>
+                                       <Insets top="20.0" />
+                                    </VBox.margin>
+                                 </BorderPane>
+                                 <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToSecurity" prefHeight="300.0" prefWidth="200.0" text="Security Services" BorderPane.alignment="CENTER" />
                                     </center>
                                     <VBox.margin>
                                        <Insets top="20.0" />

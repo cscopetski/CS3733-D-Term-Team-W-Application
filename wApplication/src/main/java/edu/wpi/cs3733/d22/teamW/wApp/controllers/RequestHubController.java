@@ -29,20 +29,4 @@ public class RequestHubController {
   public void switchToSecurity(ActionEvent event) throws IOException {
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Security);
   }
-
-  public void switchToMapEditor(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MapEditor);
-  }
-
-  public void switchToRequestList(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestList);
-  }
-
-  public void switchToRequestHub(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestHub);
-  }
-
-  public void switchToMainMenu(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MainMenu);
-  }
 }
