@@ -99,7 +99,8 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
       System.out.println(String.format("Error Exporting to File %s", fileName));
       e.printStackTrace();
     }
-    
+  }
+
   private int getIndexOf(int inputID) {
     int size = labServiceRequestList.size();
     boolean found = false;

@@ -68,13 +68,13 @@ public class LabServiceRequest extends Request implements Entity {
   @Override
   public String toCSVString() {
     return String.format(
-        "%d, %s, %d, %s, %d, %s", requestID, labType, emergency, nodeID, status, employeeName);
+        "%d,%s,%s,%s,%d,%d", requestID, labType, nodeID, employeeName, emergency, status);
   }
 
   @Override
   public String toValuesString() {
     return String.format(
-        "%d, '%s', %d, '%s', %d, '%s'",
-        requestID, labType, emergency, nodeID, status, employeeName);
+        "%d, '%s',  '%s', '%s', %d, %d",
+        requestID, labType, nodeID, employeeName, emergency, status);
   }
 }

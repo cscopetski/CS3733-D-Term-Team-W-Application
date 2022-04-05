@@ -73,10 +73,10 @@ public class Main {
       e.printStackTrace();
     }
 
-    /*Request test = requestFactory.findRequest(5);
-    Request test2 = requestFactory.findRequest(11);
-    Request test3 = requestFactory.findRequest(12);
-    Request test4 = requestFactory.findRequest(13);
+    Request test = requestFactory.findRequest(5);
+    Request test2 = requestFactory.findRequest(21);
+    Request test3 = requestFactory.findRequest(22);
+    Request test4 = requestFactory.findRequest(23);
     // completes test
     merc.completeRequest(test);
     // Tries to cancel test but fails since it is completed
@@ -85,6 +85,6 @@ public class Main {
     merc.cancelRequest(test2);
     merc.completeRequest(test2);
     merc.cancelRequest(test3);
-    merc.completeRequest(test3);*/
+    merc.completeRequest(test3);
   }
 }
