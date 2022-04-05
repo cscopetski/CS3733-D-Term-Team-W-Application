@@ -46,7 +46,7 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="medNameCBox" prefHeight="28.0" prefWidth="272.0" stylesheets="@../../CSS/Universal%20CSS/comboBox.css">
+                        <ComboBox fx:id="medNameCBox" prefHeight="28.0" prefWidth="272.0" stylesheets="@../../CSS/UniversalCSS/comboBox.css">
                            <VBox.margin>
                               <Insets bottom="10.0" top="5.0" />
                            </VBox.margin>

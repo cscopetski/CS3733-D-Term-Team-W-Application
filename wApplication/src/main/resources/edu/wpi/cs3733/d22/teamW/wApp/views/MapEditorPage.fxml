@@ -31,7 +31,7 @@
             <Image url="@../assets/Maps/SideView.jpg" />
          </image>
       </ImageView>
-      <TableView fx:id="LocTab" layoutX="106.0" layoutY="55.0" prefHeight="200.0" prefWidth="272.0" stylesheets="@../CSS/Universal%20CSS/tableView.css">
+      <TableView fx:id="LocTab" layoutX="106.0" layoutY="55.0" prefHeight="200.0" prefWidth="272.0" stylesheets="@../CSS/UniversalCSS/tableView.css">
           <columns>
               <TableColumn prefWidth="89.0" text="nodeID">
                   <cellValueFactory><PropertyValueFactory property="NodeID" /></cellValueFactory>
@@ -45,8 +45,8 @@
               <FXCollections fx:factory="observableArrayList" />
           </items>
       </TableView>
-      <Button fx:id="refreshButton" layoutX="41.0" layoutY="418.0" mnemonicParsing="false" onAction="#refresh" stylesheets="@../CSS/Universal%20CSS/button.css" text="Refresh" />
-      <TableView fx:id="EqTab" layoutX="106.0" layoutY="260.0" prefHeight="200.0" prefWidth="272.0" stylesheets="@../CSS/Universal%20CSS/tableView.css">
+      <Button fx:id="refreshButton" layoutX="41.0" layoutY="418.0" mnemonicParsing="false" onAction="#refresh" stylesheets="@../CSS/UniversalCSS/button.css" text="Refresh" />
+      <TableView fx:id="EqTab" layoutX="106.0" layoutY="260.0" prefHeight="200.0" prefWidth="272.0" stylesheets="@../CSS/UniversalCSS/tableView.css">
          <columns>
             <TableColumn prefWidth="60.000003814697266" text="Type"><cellValueFactory><PropertyValueFactory property="Type" /></cellValueFactory></TableColumn>
             <TableColumn prefWidth="75.0" text="medID">
@@ -79,13 +79,13 @@
       <Label layoutX="1037.0" layoutY="456.0" text="Recliner:" />
       <Circle fill="DODGERBLUE" layoutX="1110.0" layoutY="464.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
       <Label layoutX="1064.0" layoutY="282.0" text="Map Key:" />
-      <Button fx:id="updateButton" layoutX="280.0" layoutY="495.0" mnemonicParsing="false" onAction="#updateLocation" stylesheets="@../CSS/Universal%20CSS/button.css" text="Update" />
-      <Button fx:id="addButton" layoutX="50.0" layoutY="618.0" mnemonicParsing="false" onAction="#addLocation" stylesheets="@../CSS/Universal%20CSS/button.css" text="Add" />
-      <Button fx:id="removeButton" layoutX="213.0" layoutY="495.0" mnemonicParsing="false" onAction="#removeLocation" stylesheets="@../CSS/Universal%20CSS/button.css" text="Remove" />
+      <Button fx:id="updateButton" layoutX="280.0" layoutY="495.0" mnemonicParsing="false" onAction="#updateLocation" stylesheets="@../CSS/UniversalCSS/button.css" text="Update" />
+      <Button fx:id="addButton" layoutX="50.0" layoutY="618.0" mnemonicParsing="false" onAction="#addLocation" stylesheets="@../CSS/UniversalCSS/button.css" text="Add" />
+      <Button fx:id="removeButton" layoutX="213.0" layoutY="495.0" mnemonicParsing="false" onAction="#removeLocation" stylesheets="@../CSS/UniversalCSS/button.css" text="Remove" />
       <TextField fx:id="nodeIn" layoutX="50.0" layoutY="495.0" promptText="nodeID" />
       <TextField layoutX="50.0" layoutY="537.0" promptText="xCoord" fx:id="xIn" />
       <TextField fx:id="yIn" layoutX="50.0" layoutY="574.0" promptText="yCoord" />
-      <Button fx:id="resetButton" layoutX="23.0" layoutY="693.0" mnemonicParsing="false" onAction="#resetCSV" stylesheets="@../CSS/Universal%20CSS/button.css" text="Reset Map" />
-      <Button fx:id="exportButton" layoutX="109.0" layoutY="693.0" mnemonicParsing="false" onAction="#expCSV" stylesheets="@../CSS/Universal%20CSS/button.css" text="Export to CSV" />
+      <Button fx:id="resetButton" layoutX="23.0" layoutY="693.0" mnemonicParsing="false" onAction="#resetCSV" stylesheets="@../CSS/UniversalCSS/button.css" text="Reset Map" />
+      <Button fx:id="exportButton" layoutX="109.0" layoutY="693.0" mnemonicParsing="false" onAction="#expCSV" stylesheets="@../CSS/UniversalCSS/button.css" text="Export to CSV" />
    </children>
 </AnchorPane>

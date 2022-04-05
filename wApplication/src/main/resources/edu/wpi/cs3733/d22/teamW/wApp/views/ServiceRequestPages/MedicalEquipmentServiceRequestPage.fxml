@@ -68,7 +68,7 @@
                                                 <Font size="14.0" />
                                             </font>
                                         </Label>
-                                        <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/Universal%20CSS/comboBox.css">
+                                        <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/comboBox.css">
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
                                                     <String fx:value="MRI" />
@@ -102,10 +102,10 @@
 
                                         <BorderPane maxWidth="250.0" prefHeight="30.0" prefWidth="250.0">
                                             <left>
-                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Submit" BorderPane.alignment="CENTER" />
+                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/button.css" text="Submit" BorderPane.alignment="CENTER" />
                                             </left>
                                             <right>
-                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#cancelButton" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Cancel" BorderPane.alignment="CENTER" />
+                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#cancelButton" stylesheets="@../../CSS/UniversalCSS/button.css" text="Cancel" BorderPane.alignment="CENTER" />
                                             </right>
                                         </BorderPane>
                                     </children>
