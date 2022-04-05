@@ -1,8 +1,14 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public abstract class Request {
 
-  protected Integer requestID; // Maybe switch to Hexatrigesimal uses 0-9 and then A to Z, so it allows a large
+  protected Integer
+      requestID; // Maybe switch to Hexatrigesimal uses 0-9 and then A to Z, so it allows a large
   // number of req
   // With 6 char, it will allow 36^6 = 2.18 billion
   protected Integer emergency;

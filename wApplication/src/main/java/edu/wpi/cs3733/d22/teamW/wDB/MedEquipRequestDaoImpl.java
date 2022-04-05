@@ -37,7 +37,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       }
 
     } catch (SQLException e) {
-      System.out.println("Query from locations table failed");
+      System.out.println("Query from med equip request table failed");
       e.printStackTrace();
     }
   }
@@ -98,23 +98,6 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     // dbController.addEntity(param); // addition in database
     dbController.executeUpdate(
         String.format("INSERT INTO MEDICALEQUIPMENTREQUESTS VALUES (%s)", mer.toValuesString()));
-  }
-
-  @Override
-  public void cancelMedEquipRequest(int requestID) {
-    int index = getIndexOf(requestID);
-    if (index == -1) {
-      System.out.println(
-          String.format("The database does not contain a request with the ID: %d", requestID));
-    } else {
-      MedEquipRequest medReq = medEquipRequestList.get(index);
-      if (medReq.getStatus() == 0) {
-        medReq.cancel();
-      } else if (medReq.getStatus() == 1) {
-        medReq.cancel();
-      }
-      // dbController.cancel("MEDICALEQUIPMENTREQUESTS", requestID);
-    }
   }
 
   @Override
