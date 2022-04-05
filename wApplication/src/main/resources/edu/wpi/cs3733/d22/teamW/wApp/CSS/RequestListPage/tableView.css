@@ -31,8 +31,8 @@
 }
 
 .table-row-cell:hover {
-    -fx-background-color: #93f9b911;
-    -fx-text-background-color: red;
+    -fx-background-color: #013895;
+    -fx-text-background-color: white;
 }
 
 .table-view .virtual-flow .scroll-bar:vertical,
