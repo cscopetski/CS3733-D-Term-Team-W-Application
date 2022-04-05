@@ -66,7 +66,7 @@
                            </BorderPane>
                                  <BorderPane prefHeight="200.0" prefWidth="200.0">
                                     <center>
-                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToLanguageInterpreter" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPag/buttonMeal.css" text="Language Interpreters" BorderPane.alignment="CENTER" />
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToLanguageInterpreter" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonMeal.css" text="Language Interpreters" BorderPane.alignment="CENTER" />
                                     </center>
                                     <VBox.margin>
                                        <Insets top="20.0" />
