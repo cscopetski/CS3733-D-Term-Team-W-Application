@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -37,21 +37,17 @@
             </Group>
             <HBox alignment="CENTER" prefHeight="228.0" prefWidth="504.0">
                <children>
-                  <VBox prefHeight="228.0" prefWidth="295.0">
+                  <VBox prefHeight="230.0" prefWidth="295.0">
                      <children>
                         <Label style="-fx-font-weight: bold;" text="Medicine name:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="comboBox1" prefHeight="28.0" prefWidth="272.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
-                           <items>
-                              <FXCollections fx:factory="observableArrayList">
-                                 <String fx:id="breakfast1" fx:value="Breakfast" />
-                                 <String fx:id="lunch1" fx:value="Lunch" />
-                                 <String fx:id="dinner1" fx:value="Dinner" />
-                              </FXCollections>
-                           </items>
+                        <ComboBox fx:id="medNameCBox" prefHeight="28.0" prefWidth="272.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="5.0" />
+                           </VBox.margin>
                         </ComboBox>
                         <HBox prefHeight="65.0" prefWidth="254.0">
                            <children>
@@ -62,7 +58,10 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField minWidth="120.0" prefHeight="28.0" prefWidth="126.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/textFieldForm.css" />
+                                    <TextField minWidth="120.0" prefHeight="28.0" prefWidth="126.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/textFieldForm.css">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </VBox.margin></TextField>
                                  </children>
                                  <opaqueInsets>
                                     <Insets />
@@ -76,7 +75,10 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                    <TextField minWidth="120.0" prefHeight="28.0" prefWidth="126.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/textFieldForm.css" />
+                                    <TextField minWidth="120.0" prefHeight="28.0" prefWidth="126.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/textFieldForm.css">
+                                       <VBox.margin>
+                                          <Insets bottom="5.0" top="5.0" />
+                                       </VBox.margin></TextField>
                                  </children>
                               </VBox>
                            </children>
@@ -84,69 +86,66 @@
                               <Insets />
                            </opaqueInsets>
                         </HBox>
-                        <Label style="-fx-font-weight: bold;" text="Time Preference">
+                        <Label style="-fx-font-weight: bold;" text="Requester Name:">
                            <font>
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="comboBox" prefHeight="28.0" prefWidth="150.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
+                        <ComboBox fx:id="freeCBox" prefHeight="28.0" prefWidth="150.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
                            <VBox.margin>
-                              <Insets bottom="20.0" top="10.0" />
+                              <Insets bottom="10.0" top="5.0" />
                            </VBox.margin>
-                           <items>
-                              <FXCollections fx:factory="observableArrayList">
-                                 <String fx:id="breakfast" fx:value="Breakfast" />
-                                 <String fx:id="lunch" fx:value="Lunch" />
-                                 <String fx:id="dinner" fx:value="Dinner" />
-                              </FXCollections>
-                           </items>
                         </ComboBox>
                         <Button mnemonicParsing="false" stylesheets="@../../CSS/MedicineDeliveryServiceRequestPage/buttonForm.css" text="Add" />
                      </children>
                   </VBox>
-                  <VBox prefHeight="228.0" prefWidth="185.0">
+                  <VBox prefHeight="230.0" prefWidth="207.0">
                      <children>
                         <Label text="Location">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="comboBox11" prefHeight="28.0" prefWidth="185.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
-                           <items>
-                              <FXCollections fx:factory="observableArrayList">
-                                 <String fx:id="breakfast11" fx:value="Breakfast" />
-                                 <String fx:id="lunch11" fx:value="Lunch" />
-                                 <String fx:id="dinner11" fx:value="Dinner" />
-                              </FXCollections>
-                           </items>
+                        <ComboBox fx:id="locationCBox" prefHeight="28.0" prefWidth="185.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
+                           <VBox.margin>
+                              <Insets bottom="10.0" top="5.0" />
+                           </VBox.margin>
                         </ComboBox>
                         <Label text="Time Preferance">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <ComboBox fx:id="comboBox111" prefHeight="28.0" prefWidth="185.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
-                           <items>
-                              <FXCollections fx:factory="observableArrayList">
-                                 <String fx:id="breakfast111" fx:value="Breakfast" />
-                                 <String fx:id="lunch111" fx:value="Lunch" />
-                                 <String fx:id="dinner111" fx:value="Dinner" />
-                              </FXCollections>
-                           </items>
+                        <ComboBox fx:id="timePrefCBox" prefHeight="28.0" prefWidth="185.0" stylesheets="@../../CSS/MealDeliveryServiceRequestPage/comboBoxForm.css">
+                           <VBox.margin>
+                              <Insets bottom="5.0" top="5.0" />
+                           </VBox.margin>
                         </ComboBox>
                      </children>
                   </VBox>
-                  <VBox prefHeight="228.0" prefWidth="254.0">
+                  <VBox prefHeight="230.0" prefWidth="292.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="264.0" text="Your Order">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="293.0" text="Your Order">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
+                        <TableView prefHeight="200.0" prefWidth="291.0" stylesheets="@../../CSS/MedicineDeliveryServiceRequestPage/tableForm.css">
+                          <columns>
+                            <TableColumn prefWidth="150.0" text="Medicine" />
+                              <TableColumn prefWidth="70.0" text="Name" />
+                            <TableColumn minWidth="0.0" prefWidth="70.0" text="Quantity" />
+                          </columns>
+                        </TableView>
                      </children>
                   </VBox>
                </children>
             </HBox>
+            <Pane prefHeight="15.0" prefWidth="940.0" />
+            <Button alignment="CENTER" contentDisplay="RIGHT" mnemonicParsing="false" prefHeight="25.0" prefWidth="85.0" stylesheets="@../../CSS/MedicineDeliveryServiceRequestPage/buttonForm.css" text="Submit">
+               <VBox.margin>
+                  <Insets top="5.0" />
+               </VBox.margin></Button>
          </children>
       </VBox>
     </children>
