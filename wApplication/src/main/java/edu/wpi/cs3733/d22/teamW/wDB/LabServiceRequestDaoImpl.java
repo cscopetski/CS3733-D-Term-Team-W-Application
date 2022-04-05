@@ -43,9 +43,7 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
   }
 
   @Override
-  public void addLabServiceRequest(LabServiceRequest lsr) {
-    
-  }
+  public void addLabServiceRequest(LabServiceRequest lsr) {}
 
   @Override
   public void changeLabServiceRequest(

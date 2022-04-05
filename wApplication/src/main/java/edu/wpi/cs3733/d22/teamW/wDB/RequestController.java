@@ -4,11 +4,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface RequestController {
-  public String checkStart(Request request) throws SQLException;
 
-  public void checkNext(String ID) throws SQLException;
-
-  public Request getNext(String ID);
+  //  public String checkStart(Request request) throws SQLException;
+  //
+  //  public void checkNext(String ID) throws SQLException;
+  //
+  //  public Request getNext(String ID);
 
   public Request getRequest(Integer ID);
 

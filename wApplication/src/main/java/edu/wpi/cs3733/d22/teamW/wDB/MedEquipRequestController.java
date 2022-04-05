@@ -13,7 +13,6 @@ public class MedEquipRequestController implements RequestController {
     this.medi = medi;
   }
 
-  @Override
   public String checkStart(Request request) throws SQLException {
     MedEquipRequest mER = (MedEquipRequest) request;
     String mERtype = mER.getItemType();
@@ -49,7 +48,6 @@ public class MedEquipRequestController implements RequestController {
     checkNext(request.getItemID());
   }
 
-  @Override
   // Should take in itemID to give to next request that needs item of that type (if there is one)
   public void checkNext(String itemID) throws SQLException {
     MedEquipRequest nextReq = (MedEquipRequest) getNext(itemID);
@@ -61,7 +59,6 @@ public class MedEquipRequestController implements RequestController {
     }
   }
 
-  @Override
   // Get the next request and return it
   public Request getNext(String itemID) {
     // String itemType = MedicalEquipmentController.getType(itemID);
@@ -118,5 +115,9 @@ public class MedEquipRequestController implements RequestController {
     }
     merdi.addMedEquipRequest(mER);
     return mER;
+  }
+
+  public ArrayList<MedEquipRequest> getAllMedEquipRequests(){
+    return this.merdi.getAllMedEquipRequests();
   }
 }

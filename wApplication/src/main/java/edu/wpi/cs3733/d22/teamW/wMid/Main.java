@@ -34,7 +34,10 @@ public class Main {
     MedEquipRequestDaoImpl merdi = new MedEquipRequestDaoImpl();
     MedEquipRequestController merc = new MedEquipRequestController(merdi, medi);
 
-    RequestFactory requestFactory = RequestFactory.getRequestFactory(merc);
+    LabServiceRequestDaoImpl labServiceRequestDao = new LabServiceRequestDaoImpl();
+    LabServiceRequestController lsrc = new LabServiceRequestController(labServiceRequestDao);
+
+    RequestFactory requestFactory = RequestFactory.getRequestFactory(merc, lsrc);
 
     csvController.populateRequestTables(requestFactory);
 
@@ -70,7 +73,7 @@ public class Main {
       e.printStackTrace();
     }
 
-    Request test = requestFactory.findRequest(5);
+    /*Request test = requestFactory.findRequest(5);
     Request test2 = requestFactory.findRequest(11);
     Request test3 = requestFactory.findRequest(12);
     Request test4 = requestFactory.findRequest(13);
@@ -82,6 +85,6 @@ public class Main {
     merc.cancelRequest(test2);
     merc.completeRequest(test2);
     merc.cancelRequest(test3);
-    merc.completeRequest(test3);
+    merc.completeRequest(test3);*/
   }
 }
