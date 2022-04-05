@@ -47,9 +47,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   }
 
   @Override
-  public void onUnload() {
-
-  }
+  public void onUnload() {}
 
   public void createRequest() {
     // NEEDS LINK TO DB
