@@ -7,12 +7,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -28,7 +25,9 @@ public class MapEditorController {
   @FXML private MenuButton dropdown;
   @FXML private AnchorPane page;
   @FXML private TableView<Location> LocTab;
-
+  @FXML private TextField xIn;
+  @FXML private TextField yIn;
+  @FXML private TextField nodeIn;
   Image img1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F1.png");
   Image img2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F2.png");
   Image img3 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F3.png");
@@ -52,9 +51,36 @@ public class MapEditorController {
   private LocationController locationController = new LocationController(test);
   private ArrayList<Location> currFloorLoc = new ArrayList<>();
 
-  public void addLocation(MouseEvent mouseEvent) {}
+  public void addLocation() throws SQLException {
+    if (checkFull()) {
+      locationController.addLocation(
+          nodeIn.getText(),
+          Integer.valueOf(xIn.getText()),
+          Integer.valueOf(yIn.getText()),
+          currFloor,
+          null,
+          null,
+          null,
+          null);
+      xIn.clear();
+      nodeIn.clear();
+      yIn.clear();
+      refresh();
+    }
+  }
+
+  private boolean checkFull() {
+    System.out.println("test");
+    if (xIn.getText().isEmpty() && yIn.getText().isEmpty() && nodeIn.getText().isEmpty()) {
+      System.out.println("test1");
+      return false;
+    }
+    System.out.println("test2");
+    return true;
+  }
 
   public void refresh() {
+    removeMarkers();
     currFloorLoc.clear();
     ArrayList<edu.wpi.cs3733.d22.teamW.wDB.Location> locList = locationController.getAllLocations();
     for (int i = 0; i < locList.size(); i++) {
@@ -64,6 +90,7 @@ public class MapEditorController {
     }
     LocTab.getItems().clear();
     LocTab.getItems().addAll(currFloorLoc);
+    generateMarkers();
     // TODO once equipment is done, implement here
   }
 
@@ -130,8 +157,8 @@ public class MapEditorController {
     size = currFloorLoc.size();
     for (int i = 0; i < size; i++) {
       Circle circ = new Circle(5, Color.RED);
-      circ.setCenterX((currFloorLoc.get(i).getXCoord() * 0.155) + 319);
-      circ.setCenterY((currFloorLoc.get(i).getYCoord() * 0.170) + 55);
+      circ.setCenterX((currFloorLoc.get(i).getXCoord()) + 319);
+      circ.setCenterY((currFloorLoc.get(i).getYCoord()) + 55);
       locDots.add(circ);
       page.getChildren().add(circ);
     }
@@ -177,5 +204,21 @@ public class MapEditorController {
   private void removeMarkers() {
     page.getChildren().removeAll(locDots);
     locDots = new ArrayList<>();
+  }
+
+  public void updateLocation(ActionEvent actionEvent) {}
+
+  public void removeLocation(ActionEvent actionEvent) throws SQLException {
+    if (!nodeIn.getText().isEmpty()) {
+      locationController.deleteLocation(nodeIn.getText());
+      nodeIn.clear();
+      refresh();
+    }
+  }
+
+  public void resetCSV(ActionEvent actionEvent) {}
+
+  public void expCSV(ActionEvent actionEvent) {
+    test.exportLocationCSV("output.csv");
   }
 }
