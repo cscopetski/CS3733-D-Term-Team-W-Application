@@ -76,7 +76,16 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
   }
 
   @Override
-  public void deleteLabServiceRequest(Integer requestID) {}
+  public void deleteLabServiceRequest(Integer requestID) throws SQLException {
+    int index = getIndexOf(requestID);
+    if(index == -1) {
+      System.out.println(
+              "The database dose not contain a lab service request with an ID of " + requestID);
+    } else {
+      labServiceRequestList.remove(index);
+      dbController.executeUpdate(String.format("DELETE FROM LABSERVICEREQUESTS WHERE LABREQID=%d", requestID));
+    }
+  }
 
   @Override
   public void exportLabServiceReqCSV(String filename) {}
