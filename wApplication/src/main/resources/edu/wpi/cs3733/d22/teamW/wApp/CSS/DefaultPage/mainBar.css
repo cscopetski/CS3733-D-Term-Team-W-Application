@@ -42,11 +42,10 @@
     -fx-background-color: none;
     -fx-padding: 0px 0px 0px 10px;
 }
-
 .menu-item{
-    -fx-background-color: #013895;
+    -fx-background-color: white;
     -fx-background-radius: 15px;
-    -fx-border-color: none;
+    -fx-border-color: #5B5A5A;
     -fx-border-radius: 15px;
     -fx-border-width: 3px;
     -fx-spacing: 20px;
@@ -54,25 +53,36 @@
 
 .menu-item:hover,
 .menu-item:pressed {
-    -fx-background-color: white;
+    -fx-background-color: #013895;
     -fx-background-radius: 15px;
-    -fx-border-color: #5B5A5A;
+    -fx-border-color: #013895;
     -fx-border-radius: 15px;
     -fx-border-width: 3px;
+    -fx-spacing: 20px;
 }
 
-.menu-button .label,
+.menu-button .label {
+    -fx-font-weight: bold;
+    -fx-fontsize: 22px;
+    -fx-text-fill: -fx-button-first-font-color;
+}
+
 .menu-item .label {
     -fx-font-weight: bold;
     -fx-fontsize: 22px;
     -fx-text-fill: -fx-button-first-font-color;
 }
 
-.menu-button .label:hover,
-.menu-button .label:pressed,
-.menu-item .label:hover,
-.menu-item .label:pressed {
+.menu-button:hover .label,
+.menu-button:pressed .label{
     -fx-font-weight: bold;
     -fx-fontsize: 22px;
     -fx-text-fill: -fx-button-second-font-color;
+}
+
+.menu-item:hover .label,
+.menu-item:pressed .label {
+    -fx-font-weight: bold;
+    -fx-fontsize: 22px;
+    -fx-text-fill: -fx-button-first-font-color;
 }
