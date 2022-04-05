@@ -40,7 +40,7 @@ public class CSVController {
     insertIntoLabReqTable(importCSV(labServiceRequestFileName));
   }
 
-  private ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
+  public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
 
     InputStream in = getClass().getClassLoader().getResourceAsStream(fileName);
     if (in == null) {
@@ -71,7 +71,7 @@ public class CSVController {
    * @param tokens List of Location Objects to populate the Location Table
    * @throws SQLException if insertion fails
    */
-  private void insertIntoLocationsTable(ArrayList<String[]> tokens) throws SQLException {
+  public void insertIntoLocationsTable(ArrayList<String[]> tokens) throws SQLException {
 
     ArrayList<Location> locationsList = new ArrayList<>();
 

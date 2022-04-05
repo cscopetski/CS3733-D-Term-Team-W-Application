@@ -1,6 +1,9 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
+import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -12,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.stage.FileChooser;
 
 public class MapEditorController {
   @FXML private ImageView mapList;
@@ -28,6 +32,7 @@ public class MapEditorController {
   @FXML private TextField xIn;
   @FXML private TextField yIn;
   @FXML private TextField nodeIn;
+  @FXML private FileChooser fileChooser = new FileChooser();
   Image img1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F1.png");
   Image img2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F2.png");
   Image img3 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F3.png");
@@ -35,8 +40,11 @@ public class MapEditorController {
   Image img5 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/L2.png");
   Image img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/SideView.jpg");
   ArrayList<Circle> locDots = new ArrayList<>();
+  ArrayList<Circle> eqDots = new ArrayList<>();
   Random rng = new Random();
   Integer size = 0;
+  Integer xOffSet = 400;
+  Integer yOffSet = 60;
   private MedEquipDaoImpl medEquipDao;
 
   {
@@ -109,7 +117,7 @@ public class MapEditorController {
     LocTab.getItems().addAll(currFloorLoc);
     generateEquipList();
     generateMarkers();
-    // TODO once equipment is done, implement here
+    generateEquipMarkers();
   }
 
   public void swapFloor1(ActionEvent actionEvent) {
@@ -119,7 +127,6 @@ public class MapEditorController {
     System.out.println(F1.getText());
     dropdown.setText("Floor 1");
     mapList.setImage(img1);
-    generateMarkers();
   }
 
   public void swapFloor2(ActionEvent actionEvent) {
@@ -129,7 +136,6 @@ public class MapEditorController {
     System.out.println(F2.getText());
     dropdown.setText("Floor 2");
     mapList.setImage(img2);
-    generateMarkers();
   }
 
   public void swapFloor3(ActionEvent actionEvent) {
@@ -139,7 +145,6 @@ public class MapEditorController {
     System.out.println(F3.getText());
     dropdown.setText("Floor 3");
     mapList.setImage(img3);
-    generateMarkers();
   }
 
   public void swapFloorL1(ActionEvent actionEvent) {
@@ -149,7 +154,6 @@ public class MapEditorController {
     System.out.println(FL1.getText());
     dropdown.setText("Lower Floor 1");
     mapList.setImage(img4);
-    generateMarkers();
   }
 
   public void swapFloorL2(ActionEvent actionEvent) {
@@ -159,7 +163,6 @@ public class MapEditorController {
     System.out.println(FL2.getText());
     dropdown.setText("Lower Floor 2");
     mapList.setImage(img5);
-    generateMarkers();
   }
 
   public void swapSideView(ActionEvent actionEvent) {
@@ -174,8 +177,8 @@ public class MapEditorController {
     size = currFloorLoc.size();
     for (int i = 0; i < size; i++) {
       Circle circ = new Circle(5, Color.RED);
-      circ.setCenterX((currFloorLoc.get(i).getXCoord()) + 319);
-      circ.setCenterY((currFloorLoc.get(i).getYCoord()) + 55);
+      circ.setCenterX((currFloorLoc.get(i).getXCoord()) + xOffSet);
+      circ.setCenterY((currFloorLoc.get(i).getYCoord()) + yOffSet);
       locDots.add(circ);
       page.getChildren().add(circ);
     }
@@ -201,12 +204,35 @@ public class MapEditorController {
     EqTab.getItems().addAll(equipList);
   }
 
-  private void removeMarkers() {
-    page.getChildren().removeAll(locDots);
-    locDots = new ArrayList<>();
+  private void generateEquipMarkers() {
+    for (int i = 0; i < equipList.size(); i++) {
+      Circle circle = new Circle(3, Color.BLACK);
+      if (equipList.get(i).getType().equalsIgnoreCase("BED")) {
+        circle = new Circle(3, Color.BLUE);
+      } else if (equipList.get(i).getType().equalsIgnoreCase("XRY")) {
+        circle = new Circle(3, Color.GREEN);
+      } else if (equipList.get(i).getType().equalsIgnoreCase("INP")) {
+        circle = new Circle(3, Color.DARKVIOLET);
+      } else if (equipList.get(i).getType().equalsIgnoreCase("REC")) {
+        circle = new Circle(3, Color.YELLOW);
+      }
+      circle.setCenterX(equipList.get(i).getXCoord() + xOffSet);
+      circle.setCenterY(equipList.get(i).getYCoord() + yOffSet);
+      eqDots.add(circle);
+      page.getChildren().add(circle);
+    }
   }
 
-  public void updateLocation(ActionEvent actionEvent) {}
+  private void removeMarkers() {
+    page.getChildren().removeAll(locDots);
+    page.getChildren().removeAll(eqDots);
+    locDots.clear();
+    eqDots.clear();
+  }
+
+  public void updateLocation(ActionEvent actionEvent) {
+
+  }
 
   public void removeLocation(ActionEvent actionEvent) throws SQLException {
     if (!nodeIn.getText().isEmpty()) {
@@ -216,7 +242,26 @@ public class MapEditorController {
     }
   }
 
-  public void resetCSV(ActionEvent actionEvent) {}
+  public void resetCSV(ActionEvent actionEvent) throws SQLException, FileNotFoundException {
+    locationController.addLocation("HOLD", -1, -1, "HOLD", null, null, null, null);
+    ArrayList<MedEquip> eqList = equipController.getAll();
+    for (int i = 0; i < eqList.size(); i++) {
+      equipController.add(
+          eqList.get(i).getMedID(), eqList.get(i).getType(), "HOLD", eqList.get(i).getStatus());
+    }
+    File inputCSV = fileChooser.showOpenDialog(SceneManager.getInstance().getPrimaryStage());
+    final String locationFileName = inputCSV.getName();
+    final String medEquipFileName = "MedicalEquipment.csv";
+    final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
+    final String labServiceRequestFileName = "LabRequests.csv";
+    CSVController csvController =
+        new CSVController(
+            locationFileName, medEquipFileName, medEquipRequestFileName, labServiceRequestFileName);
+    locationController.clearLocations();
+    csvController.insertIntoLocationsTable(csvController.importCSV(locationFileName));
+    test.setLocationsList();
+    refresh();
+  }
 
   public void expCSV(ActionEvent actionEvent) {
     test.exportLocationCSV("output.csv");
