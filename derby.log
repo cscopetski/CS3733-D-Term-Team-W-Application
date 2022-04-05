@@ -1,79 +1,13 @@
-Mon Apr 04 22:14:43 UTC 2022 Thread[RMI TCP Connection(2)-127.0.0.1,5,RMI Runtime] Cleanup action starting
-java.sql.SQLException: Database 'C:\Users\cscop\OneDrive\WPI\2021-2022\Classes\D-Term\CS3733\Minimal Application\WumboWhowies\wApplication\myDB' not found.
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:115)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:141)
-	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Util.java:225)
-	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Util.java:220)
-	at org.apache.derby.impl.jdbc.EmbedConnection.newSQLException(EmbedConnection.java:3215)
-	at org.apache.derby.impl.jdbc.EmbedConnection.handleDBNotFound(EmbedConnection.java:772)
-	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(EmbedConnection.java:442)
-	at org.apache.derby.iapi.jdbc.InternalDriver$1.run(InternalDriver.java:660)
-	at org.apache.derby.iapi.jdbc.InternalDriver$1.run(InternalDriver.java:656)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at org.apache.derby.iapi.jdbc.InternalDriver.getNewEmbedConnection(InternalDriver.java:654)
-	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:300)
-	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:967)
-	at org.apache.derby.jdbc.EmbeddedDriver.connect(EmbeddedDriver.java:125)
-	at com.intellij.database.remote.jdbc.helpers.JdbcHelperImpl.connect(JdbcHelperImpl.java:639)
-	at com.intellij.database.remote.jdbc.impl.RemoteDriverImpl.connect(RemoteDriverImpl.java:54)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:359)
-	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
-	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:562)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:796)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:677)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:676)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-	at java.base/java.lang.Thread.run(Thread.java:829)
-Caused by: ERROR XJ004: Database 'C:\Users\cscop\OneDrive\WPI\2021-2022\Classes\D-Term\CS3733\Minimal Application\WumboWhowies\wApplication\myDB' not found.
-	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:300)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.wrapArgsForTransportAcrossDRDA(SQLExceptionFactory.java:170)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:75)
-	... 32 more
-============= begin nested exception, level (1) ===========
-ERROR XJ004: Database 'C:\Users\cscop\OneDrive\WPI\2021-2022\Classes\D-Term\CS3733\Minimal Application\WumboWhowies\wApplication\myDB' not found.
-	at org.apache.derby.shared.common.error.StandardException.newException(StandardException.java:300)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.wrapArgsForTransportAcrossDRDA(SQLExceptionFactory.java:170)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:75)
-	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(SQLExceptionFactory.java:141)
-	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Util.java:225)
-	at org.apache.derby.impl.jdbc.Util.generateCsSQLException(Util.java:220)
-	at org.apache.derby.impl.jdbc.EmbedConnection.newSQLException(EmbedConnection.java:3215)
-	at org.apache.derby.impl.jdbc.EmbedConnection.handleDBNotFound(EmbedConnection.java:772)
-	at org.apache.derby.impl.jdbc.EmbedConnection.<init>(EmbedConnection.java:442)
-	at org.apache.derby.iapi.jdbc.InternalDriver$1.run(InternalDriver.java:660)
-	at org.apache.derby.iapi.jdbc.InternalDriver$1.run(InternalDriver.java:656)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at org.apache.derby.iapi.jdbc.InternalDriver.getNewEmbedConnection(InternalDriver.java:654)
-	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:300)
-	at org.apache.derby.iapi.jdbc.InternalDriver.connect(InternalDriver.java:967)
-	at org.apache.derby.jdbc.EmbeddedDriver.connect(EmbeddedDriver.java:125)
-	at com.intellij.database.remote.jdbc.helpers.JdbcHelperImpl.connect(JdbcHelperImpl.java:639)
-	at com.intellij.database.remote.jdbc.impl.RemoteDriverImpl.connect(RemoteDriverImpl.java:54)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
-	at java.rmi/sun.rmi.server.UnicastServerRef.dispatch(UnicastServerRef.java:359)
-	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:200)
-	at java.rmi/sun.rmi.transport.Transport$1.run(Transport.java:197)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at java.rmi/sun.rmi.transport.Transport.serviceCall(Transport.java:196)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport.handleMessages(TCPTransport.java:562)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run0(TCPTransport.java:796)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.lambda$run$0(TCPTransport.java:677)
-	at java.base/java.security.AccessController.doPrivileged(Native Method)
-	at java.rmi/sun.rmi.transport.tcp.TCPTransport$ConnectionHandler.run(TCPTransport.java:676)
-	at java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)
-	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)
-	at java.base/java.lang.Thread.run(Thread.java:829)
-============= end nested exception, level (1) ===========
-Cleanup action completed
+----------------------------------------------------------------
+Tue Apr 05 00:26:28 UTC 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-017f-f71d-70dd-00000764a448 
+on database directory E:\CS3733-D22-Team-W\WumboWhowies\myDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@7aec35a 
+Loaded from file:/C:/Users/hasan/AppData/Roaming/JetBrains/IntelliJIdea2021.3/jdbc-drivers/Apache%20Derby/10.15.2.0/derby-10.15.2.0.jar
+java.vendor=JetBrains s.r.o.
+java.runtime.version=11.0.13+7-b1751.25
+user.dir=E:\CS3733-D22-Team-W\WumboWhowies
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
