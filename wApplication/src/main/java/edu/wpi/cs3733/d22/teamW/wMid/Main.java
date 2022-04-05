@@ -9,14 +9,18 @@ public class Main {
 
   public static void main(String[] args) throws SQLException, FileNotFoundException {
 
+    // App.launch(App.class, args);
+
     final String locationFileName = "TowerLocations.csv";
     final String medEquipFileName = "MedicalEquipment.csv";
     final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
+    final String labServiceRequestFileName = "LabRequests.csv";
 
     DBController.getDBController();
 
     CSVController csvController =
-        new CSVController(locationFileName, medEquipFileName, medEquipRequestFileName);
+        new CSVController(
+            locationFileName, medEquipFileName, medEquipRequestFileName, labServiceRequestFileName);
 
     try {
       csvController.populateEntityTables();
@@ -26,11 +30,18 @@ public class Main {
       e.printStackTrace();
     }
 
+    LocationDaoImpl locationDao = new LocationDaoImpl();
+    LocationController locationController = new LocationController(locationDao);
+
     MedEquipDaoImpl medi = new MedEquipDaoImpl();
     MedEquipRequestDaoImpl merdi = new MedEquipRequestDaoImpl();
+    MedEquipController medEquipController = new MedEquipController(medi, merdi);
     MedEquipRequestController merc = new MedEquipRequestController(merdi, medi);
 
-    RequestFactory requestFactory = RequestFactory.getRequestFactory(merc);
+    LabServiceRequestDaoImpl labServiceRequestDao = new LabServiceRequestDaoImpl();
+    LabServiceRequestController lsrc = new LabServiceRequestController(labServiceRequestDao);
+
+    RequestFactory requestFactory = RequestFactory.getRequestFactory(merc, lsrc);
 
     csvController.populateRequestTables(requestFactory);
 
@@ -67,9 +78,9 @@ public class Main {
     }
 
     Request test = requestFactory.findRequest(5);
-    Request test2 = requestFactory.findRequest(11);
-    Request test3 = requestFactory.findRequest(12);
-    Request test4 = requestFactory.findRequest(13);
+    Request test2 = requestFactory.findRequest(21);
+    Request test3 = requestFactory.findRequest(22);
+    Request test4 = requestFactory.findRequest(23);
     // completes test
     merc.completeRequest(test);
     // Tries to cancel test but fails since it is completed
@@ -79,6 +90,13 @@ public class Main {
     merc.completeRequest(test2);
     merc.cancelRequest(test3);
     merc.completeRequest(test3);
+
     App.launch(App.class, args);
+
+
+    locationController.exportLocationsCSV("LOCATIONTEST.csv");
+    medEquipController.exportMedicalEquipmentCSV("MEDEQUIPTEST.csv");
+    merc.exportMedEquipRequestCSV("MEDEQUIPREQUESTTEST.csv");
+    lsrc.exportLabServiceRequestCSV("LABTEST.csv");
   }
 }

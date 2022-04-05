@@ -43,4 +43,8 @@ public class LocationController {
   public ArrayList<Location> getAllLocations() {
     return ldi.getAllLocations();
   }
+
+  public void exportLocationsCSV(String filename) {
+    ldi.exportLocationCSV(filename);
+  }
 }
