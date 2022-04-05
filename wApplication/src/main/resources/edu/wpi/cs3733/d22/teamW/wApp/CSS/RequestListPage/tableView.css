@@ -33,6 +33,7 @@
 .table-row-cell:hover {
     -fx-background-color: #013895;
     -fx-text-background-color: white;
+    -fx-background-insets: 0px 11px 0px 0px;
 }
 
 .table-view .virtual-flow .scroll-bar:vertical,
@@ -61,4 +62,5 @@
 .table-row-cell:focused {
     -fx-background-color: #013895;
     -fx-background-radius: 15px;
+    -fx-background-insets: 0px 11px 0px 0px;
 }

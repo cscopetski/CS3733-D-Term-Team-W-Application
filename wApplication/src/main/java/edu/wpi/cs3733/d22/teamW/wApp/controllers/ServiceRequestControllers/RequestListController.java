@@ -22,6 +22,7 @@ public class RequestListController extends LoadableController {
 
   public void onLoad() {
     ArrayList<Request> requests = RequestFactory.getRequestFactory().getAllRequests();
+    sr.clear();
     for (int i = 0; i < requests.size(); i++) {
       Request r = requests.get(i);
       if (MedEquipRequest.class.equals(r.getClass())) {
@@ -32,6 +33,8 @@ public class RequestListController extends LoadableController {
 
     table.getItems().clear();
     table.getItems().addAll(sr);
+
+    table.getSelectionModel().clearSelection();
   }
 
   public void onUnload() {}
