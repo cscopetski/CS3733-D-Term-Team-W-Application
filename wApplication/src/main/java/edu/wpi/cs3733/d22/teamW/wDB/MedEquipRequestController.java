@@ -117,7 +117,11 @@ public class MedEquipRequestController implements RequestController {
     return mER;
   }
 
-  public ArrayList<MedEquipRequest> getAllMedEquipRequests(){
+  public ArrayList<MedEquipRequest> getAllMedEquipRequests() {
     return this.merdi.getAllMedEquipRequests();
+  }
+
+  public void exportMedEquipRequestCSV(String filename) {
+    merdi.exportMedReqCSV(filename);
   }
 }

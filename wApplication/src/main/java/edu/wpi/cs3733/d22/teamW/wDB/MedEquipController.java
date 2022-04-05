@@ -3,7 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wDB;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class MedicalEquipmentController {
+public class MedEquipController {
 
   private MedEquipDaoImpl medi;
   private MedEquipRequestDaoImpl merdi;
@@ -43,9 +43,5 @@ public class MedicalEquipmentController {
 
   public ArrayList<MedEquip> getAll() {
     return medi.getAllMedEquip();
-  }
-
-  public void exportMedicalEquipmentCSV(String filename) {
-    medi.exportMedCSV(filename);
   }
 }

@@ -38,7 +38,11 @@ public class LabServiceRequestController implements RequestController {
     return lSR;
   }
 
-  public ArrayList<LabServiceRequest> getAllLabServiceRequests(){
+  public ArrayList<LabServiceRequest> getAllLabServiceRequests() {
     return this.lsrdi.getAllLabServiceRequests();
+  }
+
+  public void exportLabServiceRequestCSV(String filename) {
+    lsrdi.exportLabServiceReqCSV(filename);
   }
 }
