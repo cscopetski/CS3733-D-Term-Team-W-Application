@@ -31,7 +31,8 @@ public class SceneManager {
     Default,
     MainMenu,
     MapEditor,
-    RequestList
+    RequestList,
+    RequestHub
   }
 
   private static class Instance {

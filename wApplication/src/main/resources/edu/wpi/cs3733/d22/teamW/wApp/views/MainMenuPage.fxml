@@ -24,7 +24,7 @@
             <HBox style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <children>
                     <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" prefHeight="254.0" prefWidth="240.0" onAction="#switchToMapDisplay" stylesheets="@../CSS/DefaultPage/buttonMapDisplay.css" text="Map Display" />
-                    <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" prefHeight="231.0" prefWidth="269.0" onAction="#switchToServiceRequest" stylesheets="@../CSS/DefaultPage/buttonServiceRequest.css" text="Service Request" />
+                    <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" prefHeight="231.0" prefWidth="269.0" onAction="#switchToRequestHub" stylesheets="@../CSS/DefaultPage/buttonServiceRequest.css" text="Service Request" />
                 </children>
             </HBox>
         </children>

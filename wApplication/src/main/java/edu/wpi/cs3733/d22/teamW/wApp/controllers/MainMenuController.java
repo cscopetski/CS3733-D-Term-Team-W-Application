@@ -4,8 +4,8 @@ import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import javafx.event.ActionEvent;
 
 public class MainMenuController extends LoadableController {
-  public void switchToServiceRequest(ActionEvent event) {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MedicalEquipment);
+  public void switchToRequestHub(ActionEvent event) {
+    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestHub);
   }
 
   public void switchToMapDisplay(ActionEvent event) {

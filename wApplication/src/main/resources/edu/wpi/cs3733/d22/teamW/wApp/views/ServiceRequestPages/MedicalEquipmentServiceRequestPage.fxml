@@ -75,7 +75,11 @@
                                                 <Insets bottom="20.0" top="10.0" />
                                             </VBox.margin>
                                         </ComboBox>
-                              <Label prefHeight="17.0" prefWidth="261.0" text="Click the button again to disable the emergency" textFill="#96a1b2" />
+                              <BorderPane maxWidth="250.0" prefHeight="17.0" prefWidth="250.0">
+                                 <center>
+                                    <Label prefHeight="17.0" prefWidth="140.0" style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" BorderPane.alignment="CENTER" />
+                                 </center>
+                              </BorderPane>
                               <BorderPane maxWidth="250.0" prefHeight="39.0" prefWidth="265.0">
                                  <center>
                                               <Button id="emergencyB" fx:id="emergencyB" mnemonicParsing="false" onMouseClicked="#emergencyClicked" prefHeight="30.0" prefWidth="220.0" stylesheets="@../../CSS/MedicalEquipmentServiceRequestPage/emergencyButtonFalse.css" text="Emergency Button" BorderPane.alignment="CENTER">
