@@ -1,79 +1,78 @@
-.root{
-    -fx-text-base-color: #FFFFFF;
+*{
+    -fx-button-first-font-color: #FFFFFF;
+    -fx-button-second-font-color: #5B5A5A;
 }
 
-.menu-button{
-    -fx-font-weight:bold;
-    -fx-text-alignment: center;
-    -fx-background-color: #FFFFFF;
-    -fx-background-radius: 26px;
-    -fx-border-width: 1px;
-    -fx-border-radius: 26px;
-    -fx-border-color: #013895;
-    -fx-border-insets: 5px;
-    -fx-background-insets: 5px;
+/*
+    .button: just a normal button
+    .menu-button: the button that opens the menu
+    .menu-item: the items inside the menu
+    .context-menu: the container of the menu-items
+*/
 
-}
-.menu-button:hover{
-    -fx-background-color: #013895;
-    -fx-background-radius: 26px;
-    -fx-border-width: 1px;
-    -fx-border-radius: 15px;
-    -fx-border-color: #013895;
-    -fx-padding: 5px 10px 5px 10px;
-    -fx-border-insets: 5px;
-    -fx-background-insets: 5px;
-
-}
-.menu-button.label:hover{
-    -fx-text-fill: white;
-}
-.label{
-    -fx-text-alignment: center;
-    -fx-fill: white;
-    -fx-text-weight: bold;
-}
+.menu-button,
 .button{
     -fx-font-weight: bold;
     -fx-background-color: #013895;
-    -fx-background-radius: 5;
-    -fx-fontsize: 22;
-    -fx-text-fill: white;
-    -fx-border-color: black;
-    -fx-border-radius: 5;
-    -fx-border-width: 1
-}
-.button:hover {
-    -fx-font-weight: bold;
-    -fx-background-color: white;
-    -fx-background-radius: 7;
-    -fx-fontsize: 22;
-    -fx-text-fill: #5B5A5A;
-    -fx-border-color: #5B5A5A;
-    -fx-border-radius: 5;
-    -fx-border-width: 3;
+    -fx-background-radius: 15px;
+    -fx-background-insets: 5px;
+    -fx-border-width: 0px;
+    -fx-fontsize: 22px;
+    -fx-text-fill: -fx-button-first-font-color;
 }
 
+
+.menu-button:hover,
+.menu-button:pressed,
+.button:hover,
 .button:pressed{
-    -fx-font-weight: bold;
     -fx-background-color: white;
-    -fx-background-radius: 5;
-    -fx-fontsize: 22;
-    -fx-text-fill: #5B5A5A;
+    -fx-background-radius: 15px;
+    -fx-background-insets: 5px;
     -fx-border-color: #5B5A5A;
-    -fx-border-radius: 5;
-    -fx-border-width: 3;
-
+    -fx-border-radius: 55px;
+    -fx-border-width: 3px;
+    -fx-border-insets: 5px;
+    -fx-font-weight: bold;
+    -fx-fontsize: 22px;
+    -fx-text-fill: -fx-button-second-font-color;
 }
 
-.button:focused{
-    -fx-font-weight: bold;
-    -fx-background-color: #b3e5fc;
-    -fx-background-radius: 5;
-    -fx-fontsize: 22;
-    -fx-text-fill: black;
-    -fx-border-color: #5B5A5A;
-    -fx-border-radius: 5;
-    -fx-border-width: 3;
+.context-menu {
+    -fx-background-color: none;
+    -fx-padding: 0px 0px 0px 10px;
+}
 
+.menu-item{
+    -fx-background-color: #013895;
+    -fx-background-radius: 15px;
+    -fx-border-color: none;
+    -fx-border-radius: 15px;
+    -fx-border-width: 3px;
+    -fx-spacing: 20px;
+}
+
+.menu-item:hover,
+.menu-item:pressed {
+    -fx-background-color: white;
+    -fx-background-radius: 15px;
+    -fx-border-color: #5B5A5A;
+    -fx-border-radius: 15px;
+    -fx-border-width: 3px;
+}
+
+.menu-button .label,
+.menu-item .label {
+    -fx-font-weight: bold;
+    -fx-fontsize: 22px;
+    -fx-text-fill: -fx-button-first-font-color;
+}
+
+.menu-button .label:hover,
+.menu-button .label:pressed,
+.menu-item .label:hover,
+.menu-item .label:pressed {
+    -fx-font-weight: bold;
+    -fx-fontsize: 22px;
+    -fx-text-fill: -fx-button-second-font-color;
 }
