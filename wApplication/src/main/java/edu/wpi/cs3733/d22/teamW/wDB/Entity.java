@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
-public abstract class Entity {
+public interface Entity {
 
-  public abstract String toCSVString();
+  String toCSVString();
 
-  public abstract String toValuesString();
+  String toValuesString();
 }

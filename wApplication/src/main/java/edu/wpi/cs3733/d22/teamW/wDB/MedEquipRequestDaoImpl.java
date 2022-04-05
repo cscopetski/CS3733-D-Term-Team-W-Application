@@ -37,7 +37,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       }
 
     } catch (SQLException e) {
-      System.out.println("Query from locations table failed");
+      System.out.println("Query from med equip request table failed");
       e.printStackTrace();
     }
   }
@@ -67,54 +67,12 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     return null;
   }
 
-  /*
-  //TODO do we need this??????
-  @Override
-  public void addMedEquipRequest(
-      Integer emergency, String itemType, String employeeName, Location location) {
-    Integer ID = requestIDTracker++;
-    MedEquipRequest param =
-        new MedEquipRequest(ID, emergency, itemType, location.getNodeID(), employeeName);
-    medEquipRequestList.add(param);
-    //dbController.addEntity(param); // addition in database
-    Integer count = 0;
-    try {
-      count =
-          dbController
-              .executeQuery(
-                  String.format(
-                      "SELECT COUNT (*) AS COUNT FROM MEDICALEQUIPMENT WHERE (STATUS = 0 AND TYPE = '%s'",
-                      itemType))
-              .getInt("COUNT");
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-  */
-
   @Override
   public void addMedEquipRequest(MedEquipRequest mer) throws SQLException {
     medEquipRequestList.add(mer);
     // dbController.addEntity(param); // addition in database
     dbController.executeUpdate(
         String.format("INSERT INTO MEDICALEQUIPMENTREQUESTS VALUES (%s)", mer.toValuesString()));
-  }
-
-  @Override
-  public void cancelMedEquipRequest(int requestID) {
-    int index = getIndexOf(requestID);
-    if (index == -1) {
-      System.out.println(
-          String.format("The database does not contain a request with the ID: %d", requestID));
-    } else {
-      MedEquipRequest medReq = medEquipRequestList.get(index);
-      if (medReq.getStatus() == 0) {
-        medReq.cancel();
-      } else if (medReq.getStatus() == 1) {
-        medReq.cancel();
-      }
-      // dbController.cancel("MEDICALEQUIPMENTREQUESTS", requestID);
-    }
   }
 
   @Override
@@ -183,7 +141,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print("medReqID,medID,nodeID,employeeName,isEmergency,status");
+      pw.print("medReqID,medID,equipType,nodeID,employeeName,isEmergency,status");
 
       // print all locations
       for (MedEquipRequest m : medEquipRequestList) {
@@ -216,7 +174,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     int size = medEquipRequestList.size();
     boolean found = false;
     for (int i = 0; i < size; i++) {
-      if (medEquipRequestList.get(i).getRequestID().equals(inputID)) {
+      if (medEquipRequestList.get(i).getRequestID() == (inputID)) {
         return i;
       }
     }

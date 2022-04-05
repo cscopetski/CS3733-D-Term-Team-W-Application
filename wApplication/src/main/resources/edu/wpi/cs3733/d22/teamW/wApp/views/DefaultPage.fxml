@@ -50,7 +50,7 @@
             <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-alignment: center;" VBox.vgrow="ALWAYS">
                <children>
                    <fx:include fx:id="mainMenuPage" source="MainMenuPage.fxml" />
-                   <fx:include fx:id="mapEditorPage" disable="true" source="MapEditorPage.fxml" visible="false" />
+                   <fx:include fx:id="mapEditorPage"  source="MapEditorPage.fxml"  />
                    <fx:include fx:id="labServiceRequestPage" source="ServiceRequestPages/LabServiceRequestPage.fxml" />
                    <fx:include fx:id="languageInterpreterServiceRequestPage" source="ServiceRequestPages/LanguageInterpreterServiceRequestPage.fxml" />
                    <fx:include fx:id="mealDeliveryServiceRequestPage" source="ServiceRequestPages/MealDeliveryServiceRequestPage.fxml" />

@@ -9,16 +9,18 @@ public class Main {
 
   public static void main(String[] args) throws SQLException, FileNotFoundException {
 
-    //
+    // App.launch(App.class, args);
 
     final String locationFileName = "TowerLocations.csv";
     final String medEquipFileName = "MedicalEquipment.csv";
     final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
+    final String labServiceRequestFileName = "LabRequests.csv";
 
     DBController.getDBController();
 
     CSVController csvController =
-        new CSVController(locationFileName, medEquipFileName, medEquipRequestFileName);
+        new CSVController(
+            locationFileName, medEquipFileName, medEquipRequestFileName, labServiceRequestFileName);
 
     try {
       csvController.populateEntityTables();
@@ -28,11 +30,18 @@ public class Main {
       e.printStackTrace();
     }
 
+    LocationDaoImpl locationDao = new LocationDaoImpl();
+    LocationController locationController = new LocationController(locationDao);
+
     MedEquipDaoImpl medi = new MedEquipDaoImpl();
     MedEquipRequestDaoImpl merdi = new MedEquipRequestDaoImpl();
+    MedEquipController medEquipController = new MedEquipController(medi, merdi);
     MedEquipRequestController merc = new MedEquipRequestController(merdi, medi);
 
-    RequestFactory requestFactory = RequestFactory.getRequestFactory(merc);
+    LabServiceRequestDaoImpl labServiceRequestDao = new LabServiceRequestDaoImpl();
+    LabServiceRequestController lsrc = new LabServiceRequestController(labServiceRequestDao);
+
+    RequestFactory requestFactory = RequestFactory.getRequestFactory(merc, lsrc);
 
     csvController.populateRequestTables(requestFactory);
 
