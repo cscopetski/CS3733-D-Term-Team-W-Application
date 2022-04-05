@@ -93,7 +93,6 @@ public class Main {
 
     App.launch(App.class, args);
 
-
     locationController.exportLocationsCSV("LOCATIONTEST.csv");
     medEquipController.exportMedicalEquipmentCSV("MEDEQUIPTEST.csv");
     merc.exportMedEquipRequestCSV("MEDEQUIPREQUESTTEST.csv");

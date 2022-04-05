@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.wDB.LocationController;
-import edu.wpi.cs3733.d22.teamW.wDB.LocationDaoImpl;
+import edu.wpi.cs3733.d22.teamW.wDB.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -25,6 +24,7 @@ public class MapEditorController {
   @FXML private MenuButton dropdown;
   @FXML private AnchorPane page;
   @FXML private TableView<Location> LocTab;
+  @FXML private TableView<medEquip> EqTab;
   @FXML private TextField xIn;
   @FXML private TextField yIn;
   @FXML private TextField nodeIn;
@@ -37,6 +37,17 @@ public class MapEditorController {
   ArrayList<Circle> locDots = new ArrayList<>();
   Random rng = new Random();
   Integer size = 0;
+  private MedEquipDaoImpl medEquipDao;
+
+  {
+    try {
+      medEquipDao = new MedEquipDaoImpl();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private MedEquipRequestDaoImpl medEquipRequestDao = new MedEquipRequestDaoImpl();
   private String currFloor = "0";
   private LocationDaoImpl test;
 
@@ -48,8 +59,12 @@ public class MapEditorController {
     }
   }
 
+  private MedEquipController equipController =
+      new MedEquipController(medEquipDao, medEquipRequestDao);
   private LocationController locationController = new LocationController(test);
   private ArrayList<Location> currFloorLoc = new ArrayList<>();
+  private ArrayList<String> currFloorNodeID = new ArrayList<>();
+  private ArrayList<medEquip> equipList = new ArrayList<>();
 
   public void addLocation() throws SQLException {
     if (checkFull()) {
@@ -82,14 +97,17 @@ public class MapEditorController {
   public void refresh() {
     removeMarkers();
     currFloorLoc.clear();
+    currFloorNodeID.clear();
     ArrayList<edu.wpi.cs3733.d22.teamW.wDB.Location> locList = locationController.getAllLocations();
     for (int i = 0; i < locList.size(); i++) {
       if (locList.get(i).getFloor().equalsIgnoreCase(currFloor)) {
         currFloorLoc.add(new Location(locList.get(i)));
+        currFloorNodeID.add(locList.get(i).getNodeID());
       }
     }
     LocTab.getItems().clear();
     LocTab.getItems().addAll(currFloorLoc);
+    generateEquipList();
     generateMarkers();
     // TODO once equipment is done, implement here
   }
@@ -102,7 +120,6 @@ public class MapEditorController {
     dropdown.setText("Floor 1");
     mapList.setImage(img1);
     generateMarkers();
-    generateEquip();
   }
 
   public void swapFloor2(ActionEvent actionEvent) {
@@ -164,41 +181,24 @@ public class MapEditorController {
     }
   }
 
-  private void generateEquip() {
-    /*
-    size = 4;
-    for (int i = 0; i < size; i++) {
-      Circle circle = new Circle(5, Color.MEDIUMPURPLE);
-      circle.setCenterX((rng.nextDouble() * 559) + 319);
-      circle.setCenterY((rng.nextDouble() * 470) + 55);
-      locDots.add(circle);
-      page.getChildren().add(circle);
+  private void generateEquipList() {
+    equipList.clear();
+    ArrayList<MedEquip> eqList = equipController.getAll();
+    for (int i = 0; i < eqList.size(); i++) {
+      for (int j = 0; j < currFloorNodeID.size(); j++) {
+        if (eqList.get(i).getNodeID().equalsIgnoreCase(currFloorNodeID.get(j))) {
+          equipList.add(
+              new medEquip(
+                  eqList.get(i).getMedID(),
+                  eqList.get(i).getType(),
+                  currFloorLoc.get(j).getXCoord(),
+                  currFloorLoc.get(j).getYCoord()));
+          break;
+        }
+      }
     }
-    size = 1;
-    for (int i = 0; i < size; i++) {
-      Circle circle = new Circle(5, Color.GREEN);
-      circle.setCenterX((rng.nextDouble() * 559) + 319);
-      circle.setCenterY((rng.nextDouble() * 470) + 55);
-      locDots.add(circle);
-      page.getChildren().add(circle);
-    }
-    size = 6;
-    for (int i = 0; i < size; i++) {
-      Circle circle = new Circle(5, Color.YELLOW);
-      circle.setCenterX((rng.nextDouble() * 559) + 319);
-      circle.setCenterY((rng.nextDouble() * 470) + 55);
-      locDots.add(circle);
-      page.getChildren().add(circle);
-    }
-    size = 2;
-    for (int i = 0; i < size; i++) {
-      Circle circle = new Circle(5, Color.BLUE);
-      circle.setCenterX((rng.nextDouble() * 559) + 319);
-      circle.setCenterY((rng.nextDouble() * 470) + 55);
-      locDots.add(circle);
-      page.getChildren().add(circle);
-    }
-     */
+    EqTab.getItems().clear();
+    EqTab.getItems().addAll(equipList);
   }
 
   private void removeMarkers() {

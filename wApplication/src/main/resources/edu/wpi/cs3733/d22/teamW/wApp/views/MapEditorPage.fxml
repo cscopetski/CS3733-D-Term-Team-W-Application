@@ -34,23 +34,36 @@
       <TableView fx:id="LocTab" layoutX="106.0" layoutY="55.0" prefHeight="200.0" prefWidth="272.0">
           <columns>
               <TableColumn prefWidth="89.0" text="nodeID">
-                  <cellValueFactory><PropertyValueFactory property="nodeID" /></cellValueFactory>
+                  <cellValueFactory><PropertyValueFactory property="NodeID" /></cellValueFactory>
               </TableColumn>
               <TableColumn prefWidth="93.0" text="X">
-                  <cellValueFactory><PropertyValueFactory property="xCoord" /></cellValueFactory></TableColumn>
+                  <cellValueFactory><PropertyValueFactory property="XCoord" /></cellValueFactory></TableColumn>
               <TableColumn prefWidth="89.0" text="Y">
-                  <cellValueFactory><PropertyValueFactory property="yCoord" /></cellValueFactory></TableColumn>
+                  <cellValueFactory><PropertyValueFactory property="YCoord" /></cellValueFactory></TableColumn>
           </columns>
           <items>
               <FXCollections fx:factory="observableArrayList" />
           </items>
       </TableView>
       <Button fx:id="refreshButton" layoutX="41.0" layoutY="418.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" />
-      <TableView fx:id="EqTab" layoutX="106.0" layoutY="255.0" prefHeight="200.0" prefWidth="201.0">
+      <TableView fx:id="EqTab" layoutX="106.0" layoutY="260.0" prefHeight="200.0" prefWidth="272.0">
          <columns>
-            <TableColumn prefWidth="60.000003814697266" text="Type" />
-            <TableColumn prefWidth="67.33336639404297" text="X Coord" />
-            <TableColumn prefWidth="70.00001525878906" text="Y Coord" />
+            <TableColumn prefWidth="60.000003814697266" text="Type"><cellValueFactory><PropertyValueFactory property="Type" /></cellValueFactory></TableColumn>
+            <TableColumn prefWidth="75.0" text="medID">
+               <cellValueFactory>
+                  <PropertyValueFactory property="MedID" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="70.00001525878906" text="Y Coord">
+               <cellValueFactory>
+                  <PropertyValueFactory property="YCoord" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="67.33336639404297" text="X Coord">
+               <cellValueFactory>
+                  <PropertyValueFactory property="XCoord" />
+               </cellValueFactory>
+            </TableColumn>
          </columns>
       </TableView>
       <Label layoutX="43.0" layoutY="87.0" text="Locations:" />
