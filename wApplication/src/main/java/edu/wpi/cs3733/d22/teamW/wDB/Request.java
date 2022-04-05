@@ -5,7 +5,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public abstract class Request implements Entity{
+public abstract class Request implements Entity {
 
   protected Integer
       requestID; // Maybe switch to Hexatrigesimal uses 0-9 and then A to Z, so it allows a large

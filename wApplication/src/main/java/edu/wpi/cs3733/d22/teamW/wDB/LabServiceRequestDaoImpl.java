@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -58,5 +61,22 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
   public void deleteLabServiceRequest(Integer requestID) {}
 
   @Override
-  public void exportLabServiceReqCSV(String filename) {}
+  public void exportLabServiceReqCSV(String fileName) {
+    File csvOutputFile = new File(fileName);
+    try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
+      // print Table headers
+      pw.print("labReqID,labType,nodeID,employeeName,isEmergency,status");
+
+      // print all locations
+      for (LabServiceRequest m : labServiceRequestList) {
+        pw.println();
+        pw.print(m.toCSVString());
+      }
+
+    } catch (FileNotFoundException e) {
+
+      System.out.println(String.format("Error Exporting to File %s", fileName));
+      e.printStackTrace();
+    }
+  }
 }

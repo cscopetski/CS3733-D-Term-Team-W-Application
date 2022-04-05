@@ -44,6 +44,11 @@ public class LabServiceRequest extends Request implements Entity {
   }
 
   @Override
+  public Integer getStatus() {
+    return this.status;
+  }
+
+  @Override
   public void start() {}
 
   @Override

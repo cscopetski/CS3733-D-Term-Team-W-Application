@@ -141,7 +141,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print("medReqID,medID,nodeID,employeeName,isEmergency,status");
+      pw.print("medReqID,medID,equipType,nodeID,employeeName,isEmergency,status");
 
       // print all locations
       for (MedEquipRequest m : medEquipRequestList) {

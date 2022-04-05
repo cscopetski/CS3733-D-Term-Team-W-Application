@@ -127,31 +127,31 @@ public class MedEquipRequest extends Request implements Entity {
         this.status);
   }
 
-  public int getRequestID() {
+  public Integer getRequestID() {
     return requestID;
   }
 
   public Integer getEmergency() {
-  return emergency;
+    return emergency;
   }
 
   public void setEmergency(Integer emergency) {
     this.emergency = emergency;
   }
 
-  public void setEmployeeName(String name){
+  public void setEmployeeName(String name) {
     this.employeeName = name;
   }
 
-  public void setStatus(Integer status){
+  public void setStatus(Integer status) {
     this.status = status;
   }
 
-  public void setNodeID(String nodeID){
+  public void setNodeID(String nodeID) {
     this.nodeID = nodeID;
   }
 
-  public String getNodeID(){
+  public String getNodeID() {
     return this.nodeID;
   }
 
