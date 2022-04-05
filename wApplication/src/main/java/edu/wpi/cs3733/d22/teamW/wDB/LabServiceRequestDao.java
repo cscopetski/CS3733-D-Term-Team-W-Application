@@ -17,7 +17,7 @@ public interface LabServiceRequestDao {
       Integer status)
       throws SQLException;
 
-  void deleteLabServiceRequest(Integer requestID);
+  void deleteLabServiceRequest(Integer requestID) throws SQLException;
 
   void exportLabServiceReqCSV(String filename);
 }

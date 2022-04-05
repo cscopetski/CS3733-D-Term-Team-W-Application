@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LabServiceRequest extends Request implements Entity {
+public class LabServiceRequest extends Request {
 
   private String labType;
 

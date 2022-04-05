@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class MedEquipRequest extends Request implements Entity {
+public class MedEquipRequest extends Request {
   private String itemType;
   private String itemID; // Medical Equipment item
 

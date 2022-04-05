@@ -85,7 +85,7 @@ public class LocationDaoImpl implements LocationDao {
     } else {
       locationsList.remove(locationsList.get(index));
       DBController.getDBController()
-          .executeUpdate(String.format("DELETE FROM LOCATION WHERE nodeID='%s'", nodeID));
+          .executeUpdate(String.format("DELETE FROM LOCATIONS WHERE nodeID='%s'", nodeID));
     }
   }
 
