@@ -21,9 +21,9 @@
     <children>
       <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox layoutX="72.0" prefHeight="100.0" prefWidth="800.0" style="-fx-alignment: center;" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="60.0">
+            <VBox layoutX="72.0" prefHeight="100.0" prefWidth="800.0" style="-fx-alignment: center;" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="80.0">
                <children>
-                  <ImageView fitHeight="60.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../assets/mealicon.png" />
                      </image>
