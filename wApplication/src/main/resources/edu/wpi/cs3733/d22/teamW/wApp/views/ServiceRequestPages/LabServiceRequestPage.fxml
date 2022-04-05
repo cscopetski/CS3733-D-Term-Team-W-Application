@@ -1,23 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.Group?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LabServiceRequestController">
+<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LabServiceRequestController">
    <children>
       <AnchorPane layoutX="6.0" layoutY="7.0" prefHeight="537.0" prefWidth="946.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -42,10 +33,10 @@
                      <children>
                         <Pane prefHeight="328.0" prefWidth="291.0">
                            <children>
-                              <Group>
+                              <Group layoutX="36.0" layoutY="3.0">
                                  <children>
                                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#009ca8" height="27.0" layoutY="27.0" stroke="#009ca8" strokeType="INSIDE" width="143.0" />
-                                    <Label layoutX="25.0" layoutY="27.0" text="REQUEST" textFill="WHITE">
+                                    <Label layoutX="18.0" layoutY="27.0" text="REQUEST" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -81,8 +72,8 @@
                                     </CheckBox>
                                  </children>
                               </Group>
-                              <Label layoutX="34.0" layoutY="57.0" text="Check the appropriate box(es)" textFill="#013895" />
-                              <Label layoutX="19.0" layoutY="200.0" text="Click the button again to disable the emergency" textFill="#96a1b2">
+                              <Label layoutX="40.0" layoutY="57.0" text="Check the appropriate box(es)" textFill="#013895" />
+                              <Label layoutX="64.0" layoutY="200.0" text="Toggle to undo the emergency" textFill="#96a1b2">
                                  <padding>
                                     <Insets bottom="5.0" />
                                  </padding></Label>
@@ -93,8 +84,8 @@
                            <children>
                               <Group>
                                  <children>
-                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#013895" height="29.0" layoutX="3.0" layoutY="25.0" stroke="#013895" strokeType="INSIDE" width="159.0" />
-                                    <Label layoutX="21.0" layoutY="26.0" text="PATIENT INFO" textFill="WHITE">
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#013895" height="29.0" layoutX="29.0" layoutY="25.0" stroke="#013895" strokeType="INSIDE" width="159.0" />
+                                    <Label layoutX="47.0" layoutY="26.0" text="PATIENT INFO" textFill="WHITE">
                                        <font>
                                           <Font name="System Bold" size="18.0" />
                                        </font>
@@ -149,7 +140,7 @@
                         </Pane>
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="71.0" stylesheets="@../../CSS/LabServiceRequestPage/submitButton.css" text="Submit">
+                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="71.0" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Submit">
                      <font>
                         <Font size="14.0" />
                      </font>
