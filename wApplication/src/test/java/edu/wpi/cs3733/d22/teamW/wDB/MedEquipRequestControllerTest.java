@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
@@ -9,6 +10,22 @@ import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class MedEquipRequestControllerTest {
+
+    DBController dbController;
+    CSVController csvController;
+    LocationDaoImpl locationDao;
+    LocationController locationController;
+
+    MedEquipDaoImpl medi;
+    MedEquipRequestDaoImpl merdi;
+    MedEquipController medEquipController;
+    MedEquipRequestController merc ;
+
+    LabServiceRequestDaoImpl labServiceRequestDao;
+    LabServiceRequestController lsrc;
+
+    RequestFactory requestFactory;
+
     @BeforeAll
     void setUp() throws SQLException, FileNotFoundException {
         final String locationFileName = "TowerLocations.csv";
@@ -16,9 +33,9 @@ class MedEquipRequestControllerTest {
         final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
         final String labServiceRequestFileName = "LabRequests.csv";
 
-        DBController.getDBController();
+        dbController = DBController.getDBController();
 
-        CSVController csvController =
+        csvController =
                 new CSVController(
                         locationFileName, medEquipFileName, medEquipRequestFileName, labServiceRequestFileName);
 
@@ -30,24 +47,31 @@ class MedEquipRequestControllerTest {
             e.printStackTrace();
         }
 
-        LocationDaoImpl locationDao = new LocationDaoImpl();
-        LocationController locationController = new LocationController(locationDao);
 
-        MedEquipDaoImpl medi = new MedEquipDaoImpl();
-        MedEquipRequestDaoImpl merdi = new MedEquipRequestDaoImpl();
-        MedEquipController medEquipController = new MedEquipController(medi, merdi);
-        MedEquipRequestController merc = new MedEquipRequestController(merdi, medi);
+    }
 
-        LabServiceRequestDaoImpl labServiceRequestDao = new LabServiceRequestDaoImpl();
-        LabServiceRequestController lsrc = new LabServiceRequestController(labServiceRequestDao);
+    @BeforeEach
+    void setup2() throws SQLException, FileNotFoundException {
+        locationDao = new LocationDaoImpl();
+        locationController = new LocationController(locationDao);
 
-        RequestFactory requestFactory = RequestFactory.getRequestFactory(merc, lsrc);
+        medi = new MedEquipDaoImpl();
+        merdi = new MedEquipRequestDaoImpl();
+        medEquipController = new MedEquipController(medi, merdi);
+        merc = new MedEquipRequestController(merdi, medi);
+
+        labServiceRequestDao = new LabServiceRequestDaoImpl();
+        lsrc = new LabServiceRequestController(labServiceRequestDao);
+
+        requestFactory = RequestFactory.getRequestFactory(merc, lsrc);
 
         csvController.populateRequestTables(requestFactory);
-}
+    }
+
     @Test
     void checkStart() {
-        
+        Request request = RequestFactory.getRequestFactory().findRequest(6);
+        String test = merc.checkStart();
     }
 
     @Test
