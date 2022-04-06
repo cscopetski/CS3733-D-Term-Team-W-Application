@@ -93,6 +93,7 @@ public class DBController {
       throw (new SQLException());
     } else {
       try {
+        statement.execute("DROP TABLE LABSERVICEREQUESTS");
         statement.execute("DROP TABLE MEDICALEQUIPMENTREQUESTS");
         statement.execute("DROP TABLE MEDICALEQUIPMENT");
         statement.execute("DROP TABLE LOCATIONS");
@@ -132,9 +133,22 @@ public class DBController {
                 + "reqStatus INT, "
                 + "constraint MedReq_MedEquip_FK foreign key (medID) references MEDICALEQUIPMENT(medID) on delete cascade,"
                 + "constraint MedReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID) on delete cascade," // TODO: might want to remove on delete cascade
-                + "constraint MedEquipReq_PK primary key (medReqID,medID, nodeID),"
+                + "constraint MedEquipReq_PK primary key (medReqID),"
                 + "constraint MedEReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),"
                 + "constraint IsEmergency_check check (isEmergency = 0 or isEmergency = 1))");
+        statement.execute(
+            "CREATE TABLE LABSERVICEREQUESTS(\n"
+                + "                labReqID INT,\n"
+                + "                labType varchar(25),\n"
+                + "                nodeID varchar(25),\n"
+                + "                employeeName varchar(50),\n"
+                + "                isEmergency INT,\n"
+                + "                reqStatus INT, \n"
+                + "                constraint LabReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID) on delete cascade,\n"
+                + "                constraint LabReq_PK primary key (labReqID),\n"
+                + "                constraint LabReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
+                + "                constraint LabIsEmergency_check check (isEmergency = 0 or isEmergency = 1))");
+
       } catch (SQLException e) {
         System.out.println("Table Creation Failed. Check output console.");
         e.printStackTrace();

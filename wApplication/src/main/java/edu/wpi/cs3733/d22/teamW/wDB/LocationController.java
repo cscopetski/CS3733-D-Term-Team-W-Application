@@ -43,4 +43,19 @@ public class LocationController {
   public ArrayList<Location> getAllLocations() {
     return ldi.getAllLocations();
   }
+
+  public void clearLocations() throws SQLException {
+    for (int i = 0; i < getAllLocations().size(); i++) {
+      if (getAllLocations().get(i).getNodeID().equalsIgnoreCase("HOLD")) {
+
+      } else {
+        deleteLocation(getAllLocations().get(i).nodeID);
+        i--;
+      }
+    }
+  }
+
+  public void exportLocationsCSV(String filename) {
+    ldi.exportLocationCSV(filename);
+  }
 }

@@ -20,6 +20,7 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane medicineDeliveryServiceRequestPage;
   @FXML public Pane securityServiceRequestPage;
   @FXML public Pane requestListPage;
+  @FXML public Pane requestHubPage;
 
   @FXML
   public void initialize(URL location, ResourceBundle rb) {
@@ -36,10 +37,11 @@ public class DefaultPageController implements Initializable {
         .putPane(SceneManager.Scenes.MedicineDelivery, medicineDeliveryServiceRequestPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Security, securityServiceRequestPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.RequestList, requestListPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.RequestHub, requestHubPage);
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MainMenu);
 
     try {
-      // SceneManager.getInstance().setWindow(SceneManager.Scenes.MainMenu);
+      // SceneManager.getInstance().setScene(SceneManager.Scenes.MainMenu);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -75,6 +77,10 @@ public class DefaultPageController implements Initializable {
 
   public void switchToRequestList(ActionEvent event) throws IOException {
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestList);
+  }
+
+  public void switchToRequestHub(ActionEvent event) throws IOException {
+    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestHub);
   }
 
   public void switchToMainMenu(ActionEvent event) throws IOException {

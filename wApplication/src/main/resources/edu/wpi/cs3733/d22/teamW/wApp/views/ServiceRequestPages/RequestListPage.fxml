@@ -21,150 +21,151 @@
     <children>
         <AnchorPane prefHeight="473.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
             <children>
-                    <VBox maxWidth="250.0" minWidth="250.0" prefHeight="295.0" prefWidth="250.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                        <children>
-                            <Label prefHeight="30.0" prefWidth="220.0" style="-fx-alignment: center;" text="Request List">
-                                <VBox.margin>
-                                    <Insets />
-                                </VBox.margin>
-                                <font>
-                                    <Font name="System Bold" size="20.0" />
-                                </font>
-                            </Label>
-                  <Label prefHeight="30.0" prefWidth="310.0" style="-fx-alignment: center;" text="Use the filter to sort requests. Select request to cancel it." textFill="#013895">
-                     <VBox.margin>
-                        <Insets bottom="20.0" />
-                     </VBox.margin>
-                  </Label>
-                  <BorderPane maxWidth="600.0" prefHeight="200.0" prefWidth="200.0">
-                     <center>
-                        <HBox maxHeight="400.0" maxWidth="800.0" minHeight="400.0" minWidth="800.0" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                           <children>
-                              <VBox minHeight="0.0" minWidth="440.0" prefHeight="400.0" prefWidth="100.0">
-                                 <children>
-                                    <Label prefHeight="17.0" prefWidth="271.0" style="-fx-alignment: center;" text="Click on the headers to change order of the items." textFill="#013895">
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                    </Label>
-                                    <TableView fx:id="table" minHeight="175.0" minWidth="440.0" prefHeight="380.0" prefWidth="440.0" stylesheets="@../../CSS/RequestListPage/tableView.css">
-                                      <columns>
-                                        <TableColumn resizable="false" text="Request ID">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="RequestID" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                        <TableColumn minWidth="15.0" prefWidth="130.0" resizable="false" text="Request Type">
-                                            <cellValueFactory>
-                                                <PropertyValueFactory property="RequestType" />
-                                            </cellValueFactory>
-                                        </TableColumn>
-                                          <TableColumn minWidth="15.0" prefWidth="150.0" resizable="false" text="Employee Name">
-                                              <cellValueFactory>
-                                                  <PropertyValueFactory property="EmployeeName" />
-                                              </cellValueFactory>
-                                          </TableColumn>
-                                          <TableColumn minWidth="20.0" prefWidth="60.0" resizable="false" text="Status">
-                                              <cellValueFactory>
-                                                  <PropertyValueFactory property="Status" />
-                                              </cellValueFactory>
-                                          </TableColumn>
-                                      </columns>
-                                       <VBox.margin>
-                                          <Insets />
-                                       </VBox.margin>
-                                       <columnResizePolicy>
-                                          <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                       </columnResizePolicy>
-                                    </TableView>
-                                 </children>
-                                 <HBox.margin>
-                                    <Insets right="20.0" />
-                                 </HBox.margin>
-                              </VBox>
-                              <VBox minWidth="300.0" prefHeight="200.0" prefWidth="100.0">
-                                 <children>
-                                    <BorderPane prefHeight="35.0" prefWidth="200.0">
-                                       <center>
-                                                    <Pane maxHeight="30.0" maxWidth="60.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
-                                                        <children>
-                                                            <BorderPane maxHeight="30.0" maxWidth="60.0" prefHeight="200.0" prefWidth="200.0">
-                                                                <center>
-                                                                    <Label style="-fx-font-weight: bold;" text="FILTER" textFill="WHITE" BorderPane.alignment="CENTER">
-                                                                        <font>
-                                                                            <Font size="14.0" />
-                                                                        </font>
-                                                                    </Label>
-                                                                </center>
-                                                            </BorderPane>
-                                                        </children>
-                                                    </Pane>
-                                       </center>
-                                       <VBox.margin>
-                                          <Insets top="20.0" />
-                                       </VBox.margin>
-                                    </BorderPane>
-                                    <BorderPane prefHeight="70.0" prefWidth="300.0">
-                                       <center>
-                                                    <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/Universal%20CSS/comboBox.css" BorderPane.alignment="CENTER">
-                                                        <items>
-                                                            <FXCollections fx:factory="observableArrayList">
-                                                                <String fx:value="Lab" />
-                                                                <String fx:value="Language Interpreter" />
-                                                                <String fx:value="Meal Delivery" />
-                                                                <String fx:value="Medical Equipment" />
-                                                                <String fx:value="Security" />
-                                                            </FXCollections>
-                                                        </items>
-                                                    </ComboBox>
-                                       </center>
-                                    </BorderPane>
-                                    <BorderPane maxWidth="200.0" minWidth="300.0" prefHeight="200.0" prefWidth="304.0">
-                                       <top>
-                                          <Pane maxHeight="30.0" maxWidth="90.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
-                                             <children>
-                                                <BorderPane maxHeight="30.0" maxWidth="90.0" prefHeight="200.0" prefWidth="200.0">
-                                                   <center>
-                                                      <Label style="-fx-font-weight: bold;" text="MORE INFO" textFill="WHITE" BorderPane.alignment="CENTER">
-                                                         <font>
-                                                            <Font size="14.0" />
-                                                         </font>
-                                                      </Label>
-                                                   </center>
+                <VBox maxWidth="250.0" minWidth="250.0" prefHeight="295.0" prefWidth="250.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <children>
+                        <Label prefHeight="30.0" prefWidth="220.0" style="-fx-alignment: center;" text="Request List">
+                            <VBox.margin>
+                                <Insets />
+                            </VBox.margin>
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label prefHeight="30.0" prefWidth="310.0" style="-fx-alignment: center;" text="Use the filter to sort requests. Select request to cancel it." textFill="#013895">
+                            <VBox.margin>
+                                <Insets bottom="20.0" />
+                            </VBox.margin>
+                        </Label>
+                        <BorderPane maxWidth="600.0" prefHeight="200.0" prefWidth="200.0">
+                            <center>
+                                <HBox maxHeight="400.0" maxWidth="800.0" minHeight="400.0" minWidth="800.0" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <VBox minHeight="0.0" minWidth="440.0" prefHeight="400.0" prefWidth="100.0">
+                                            <children>
+                                                <Label prefHeight="17.0" prefWidth="271.0" style="-fx-alignment: center;" text="Click on the headers to change order of the items." textFill="#013895">
+                                                    <VBox.margin>
+                                                        <Insets />
+                                                    </VBox.margin>
+                                                </Label>
+                                                <TableView fx:id="table" minHeight="175.0" minWidth="440.0" prefHeight="380.0" prefWidth="440.0" stylesheets="@../../CSS/UniversalCSS/tableView.css">
+                                                    <columns>
+                                                        <TableColumn resizable="false" text="Request ID">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="RequestID" />
+                                                            </cellValueFactory>
+                                                        </TableColumn>
+                                                        <TableColumn minWidth="15.0" prefWidth="130.0" resizable="false" text="Request Type">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="RequestType" />
+                                                            </cellValueFactory>
+                                                        </TableColumn>
+                                                        <TableColumn minWidth="15.0" prefWidth="150.0" resizable="false" text="Employee Name">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="EmployeeName" />
+                                                            </cellValueFactory>
+                                                        </TableColumn>
+                                                        <TableColumn minWidth="20.0" prefWidth="60.0" resizable="false" text="Status">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="Status" />
+                                                            </cellValueFactory>
+                                                        </TableColumn>
+                                                    </columns>
+                                                    <VBox.margin>
+                                                        <Insets />
+                                                    </VBox.margin>
+                                                    <columnResizePolicy>
+                                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                    </columnResizePolicy>
+                                                </TableView>
+                                            </children>
+                                            <HBox.margin>
+                                                <Insets right="20.0" />
+                                            </HBox.margin>
+                                        </VBox>
+                                        <VBox minWidth="300.0" prefHeight="200.0" prefWidth="100.0">
+                                            <children>
+                                                <BorderPane prefHeight="35.0" prefWidth="200.0">
+                                                    <center>
+                                                        <Pane maxHeight="30.0" maxWidth="60.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
+                                                            <children>
+                                                                <BorderPane maxHeight="30.0" maxWidth="60.0" prefHeight="200.0" prefWidth="200.0">
+                                                                    <center>
+                                                                        <Label style="-fx-font-weight: bold;" text="FILTER" textFill="WHITE" BorderPane.alignment="CENTER">
+                                                                            <font>
+                                                                                <Font size="14.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                    </center>
+                                                                </BorderPane>
+                                                            </children>
+                                                        </Pane>
+                                                    </center>
+                                                    <VBox.margin>
+                                                        <Insets top="20.0" />
+                                                    </VBox.margin>
                                                 </BorderPane>
-                                             </children>
-                                             <BorderPane.margin>
-                                                <Insets />
-                                             </BorderPane.margin>
-                                          </Pane>
-                                       </top>
-                                       <center>
-                                          <TextArea prefHeight="200.0" prefWidth="200.0" scaleZ="0.0" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" BorderPane.alignment="CENTER">
-                                             <BorderPane.margin>
-                                                <Insets top="10.0" />
-                                             </BorderPane.margin>
-                                          </TextArea>
-                                       </center>
-                                    </BorderPane>
-                                 </children>
-                              </VBox>
-                           </children>
-                        </HBox>
-                     </center>
-                  </BorderPane>
-                            <BorderPane prefHeight="39.0" prefWidth="265.0">
-                                <VBox.margin>
-                                    <Insets top="10.0" />
-                                </VBox.margin>
-                     <center>
-                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Cancel" BorderPane.alignment="CENTER">
-                           <BorderPane.margin>
-                              <Insets bottom="20.0" />
-                           </BorderPane.margin></Button>
-                     </center>
-                            </BorderPane>
-                        </children>
-                    </VBox>
+                                                <BorderPane prefHeight="70.0" prefWidth="300.0">
+                                                    <center>
+                                                        <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/comboBox.css" BorderPane.alignment="CENTER">
+                                                            <items>
+                                                                <FXCollections fx:factory="observableArrayList">
+                                                                    <String fx:value="Lab" />
+                                                                    <String fx:value="Language Interpreter" />
+                                                                    <String fx:value="Meal Delivery" />
+                                                                    <String fx:value="Medical Equipment" />
+                                                                    <String fx:value="Security" />
+                                                                </FXCollections>
+                                                            </items>
+                                                        </ComboBox>
+                                                    </center>
+                                                </BorderPane>
+                                                <BorderPane maxWidth="200.0" minWidth="300.0" prefHeight="200.0" prefWidth="304.0">
+                                                    <top>
+                                                        <Pane maxHeight="30.0" maxWidth="90.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
+                                                            <children>
+                                                                <BorderPane maxHeight="30.0" maxWidth="90.0" prefHeight="200.0" prefWidth="200.0">
+                                                                    <center>
+                                                                        <Label style="-fx-font-weight: bold;" text="MORE INFO" textFill="WHITE" BorderPane.alignment="CENTER">
+                                                                            <font>
+                                                                                <Font size="14.0" />
+                                                                            </font>
+                                                                        </Label>
+                                                                    </center>
+                                                                </BorderPane>
+                                                            </children>
+                                                            <BorderPane.margin>
+                                                                <Insets />
+                                                            </BorderPane.margin>
+                                                        </Pane>
+                                                    </top>
+                                                    <center>
+                                                        <TextArea prefHeight="200.0" prefWidth="200.0" scaleZ="0.0" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" BorderPane.alignment="CENTER">
+                                                            <BorderPane.margin>
+                                                                <Insets top="10.0" />
+                                                            </BorderPane.margin>
+                                                        </TextArea>
+                                                    </center>
+                                                </BorderPane>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                </HBox>
+                            </center>
+                        </BorderPane>
+                        <BorderPane prefHeight="39.0" prefWidth="265.0">
+                            <VBox.margin>
+                                <Insets top="10.0" />
+                            </VBox.margin>
+                            <center>
+                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" stylesheets="@../../CSS/UniversalCSS/button.css" text="Cancel" BorderPane.alignment="CENTER">
+                                    <BorderPane.margin>
+                                        <Insets bottom="20.0" />
+                                    </BorderPane.margin>
+                                </Button>
+                            </center>
+                        </BorderPane>
+                    </children>
+                </VBox>
             </children>
         </AnchorPane>
     </children>

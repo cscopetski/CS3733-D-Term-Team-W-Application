@@ -20,8 +20,6 @@ public interface MedEquipRequestDao {
 
   void addMedEquipRequest(MedEquipRequest mer) throws SQLException;
 
-  void cancelMedEquipRequest(int requestID);
-
   void changeMedEquipRequest(
       int requestID, String newItemID, String newLocationID, String newEmployeeName)
       throws SQLException;

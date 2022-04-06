@@ -13,9 +13,9 @@ public class MedicalEquipmentSR {
     return mer.getRequestID();
   }
 
-  public void setRequestID(Integer requestID) {
+  /*public void setRequestID(Integer requestID) {
     mer.setRequestID(requestID);
-  }
+  }*/
 
   public String getRequestType() {
     return "Medical Equipment";
@@ -24,16 +24,17 @@ public class MedicalEquipmentSR {
   public String getEmployeeName() {
     return mer.getEmployeeName();
   }
-
-  public void setEmployeeName(String employeeName) {
-    mer.setEmployeeName(employeeName);
-  }
-
+  /*
+    public void setEmployeeName(String employeeName) {
+      mer.setEmployeeName(employeeName);
+    }
+  */
   public int getStatus() {
     return mer.getStatus();
   }
-
+  /*
   public void setStatus(int status) {
     mer.setStatus(status);
   }
+  */
 }

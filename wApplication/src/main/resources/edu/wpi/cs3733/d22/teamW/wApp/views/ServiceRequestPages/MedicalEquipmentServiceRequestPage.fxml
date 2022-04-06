@@ -7,6 +7,8 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -21,23 +23,28 @@
             <children>
                 <VBox layoutX="72.0" prefHeight="406.0" prefWidth="800.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="80.0">
                     <children>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../assets/Icons/Icons-04.png" />
+                     </image>
+                  </ImageView>
+                            <Label prefHeight="30.0" prefWidth="278.0" text="Medical Equipment">
+                                <VBox.margin>
+                                    <Insets />
+                                </VBox.margin>
+                                <font>
+                                    <Font name="System Bold" size="30.0" />
+                                </font>
+                            </Label>
+                            <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Select equpiment from the dropdown menu." wrappingWidth="265.1999969482422">
+                                <VBox.margin>
+                                    <Insets bottom="20.0" />
+                                </VBox.margin>
+                            </Text>
                         <HBox prefHeight="500.0" prefWidth="800.0" style="-fx-alignment: center;">
                             <children>
                                 <VBox maxWidth="250.0" minWidth="275.0" prefHeight="295.0" prefWidth="250.0">
                                     <children>
-                                        <Label prefHeight="30.0" prefWidth="278.0" text="Medical Equipment">
-                                            <VBox.margin>
-                                                <Insets />
-                                            </VBox.margin>
-                                            <font>
-                                                <Font name="System Bold" size="30.0" />
-                                            </font>
-                                        </Label>
-                                        <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Select equpiment from the dropdown menu." wrappingWidth="265.1999969482422">
-                                            <VBox.margin>
-                                                <Insets bottom="20.0" />
-                                            </VBox.margin>
-                                        </Text>
                               <Pane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
                                  <children>
                                     <BorderPane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="200.0">
@@ -61,7 +68,7 @@
                                                 <Font size="14.0" />
                                             </font>
                                         </Label>
-                                        <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/Universal%20CSS/comboBox.css">
+                                        <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/comboBox.css">
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
                                                     <String fx:value="MRI" />
@@ -75,7 +82,11 @@
                                                 <Insets bottom="20.0" top="10.0" />
                                             </VBox.margin>
                                         </ComboBox>
-                              <Label prefHeight="17.0" prefWidth="261.0" text="Click the button again to disable the emergency" textFill="#96a1b2" />
+                              <BorderPane maxWidth="250.0" prefHeight="17.0" prefWidth="250.0">
+                                 <center>
+                                    <Label prefHeight="17.0" prefWidth="140.0" style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" BorderPane.alignment="CENTER" />
+                                 </center>
+                              </BorderPane>
                               <BorderPane maxWidth="250.0" prefHeight="39.0" prefWidth="265.0">
                                  <center>
                                               <Button id="emergencyB" fx:id="emergencyB" mnemonicParsing="false" onMouseClicked="#emergencyClicked" prefHeight="30.0" prefWidth="220.0" stylesheets="@../../CSS/MedicalEquipmentServiceRequestPage/emergencyButtonFalse.css" text="Emergency Button" BorderPane.alignment="CENTER">
@@ -91,10 +102,10 @@
 
                                         <BorderPane maxWidth="250.0" prefHeight="30.0" prefWidth="250.0">
                                             <left>
-                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Submit" BorderPane.alignment="CENTER" />
+                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/button.css" text="Submit" BorderPane.alignment="CENTER" />
                                             </left>
                                             <right>
-                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#cancelButton" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Cancel" BorderPane.alignment="CENTER" />
+                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#cancelButton" stylesheets="@../../CSS/UniversalCSS/button.css" text="Cancel" BorderPane.alignment="CENTER" />
                                             </right>
                                         </BorderPane>
                                     </children>
@@ -128,7 +139,7 @@
                                  </children></Pane>
                               <BorderPane prefHeight="0.0" prefWidth="376.0">
                                  <right>
-                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Request List" BorderPane.alignment="CENTER">
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/button.css" text="Request List" BorderPane.alignment="CENTER">
                                        <BorderPane.margin>
                                           <Insets bottom="20.0" top="20.0" />
                                        </BorderPane.margin>
