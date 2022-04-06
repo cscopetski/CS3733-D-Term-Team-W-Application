@@ -4,9 +4,9 @@ import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Random;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -42,7 +42,6 @@ public class MapEditorController {
   Image img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/SideView.jpg");
   ArrayList<Circle> locDots = new ArrayList<>();
   ArrayList<Circle> eqDots = new ArrayList<>();
-  Random rng = new Random();
   Integer size = 0;
   Integer xOffSet = 396;
   Integer yOffSet = 63;
@@ -79,8 +78,8 @@ public class MapEditorController {
     if (checkFull()) {
       locationController.addLocation(
           nodeIn.getText(),
-          Integer.valueOf(xIn.getText()),
-          Integer.valueOf(yIn.getText()),
+          Integer.parseInt(xIn.getText()),
+          Integer.parseInt(yIn.getText()),
           currFloor,
           null,
           null,
@@ -103,7 +102,8 @@ public class MapEditorController {
     return true;
   }
 
-  public void refresh() {
+  public void refresh() throws SQLException {
+    test.setLocationsList();
     removeMarkers();
     currFloorLoc.clear();
     currFloorNodeID.clear();
@@ -121,7 +121,7 @@ public class MapEditorController {
     generateEquipMarkers();
   }
 
-  public void swapFloor1(ActionEvent actionEvent) {
+  public void swapFloor1(ActionEvent actionEvent) throws SQLException {
     removeMarkers();
     currFloor = "1";
     refresh();
@@ -130,7 +130,7 @@ public class MapEditorController {
     mapList.setImage(img1);
   }
 
-  public void swapFloor2(ActionEvent actionEvent) {
+  public void swapFloor2(ActionEvent actionEvent) throws SQLException {
     removeMarkers();
     currFloor = "2";
     refresh();
@@ -139,7 +139,7 @@ public class MapEditorController {
     mapList.setImage(img2);
   }
 
-  public void swapFloor3(ActionEvent actionEvent) {
+  public void swapFloor3(ActionEvent actionEvent) throws SQLException {
     removeMarkers();
     currFloor = "3";
     refresh();
@@ -148,7 +148,7 @@ public class MapEditorController {
     mapList.setImage(img3);
   }
 
-  public void swapFloorL1(ActionEvent actionEvent) {
+  public void swapFloorL1(ActionEvent actionEvent) throws SQLException {
     currFloor = "L1";
     removeMarkers();
     refresh();
@@ -157,7 +157,7 @@ public class MapEditorController {
     mapList.setImage(img4);
   }
 
-  public void swapFloorL2(ActionEvent actionEvent) {
+  public void swapFloorL2(ActionEvent actionEvent) throws SQLException {
     currFloor = "L2";
     removeMarkers();
     refresh();
@@ -166,13 +166,13 @@ public class MapEditorController {
     mapList.setImage(img5);
   }
 
-  public void swapSideView(ActionEvent actionEvent) {
+  public void swapSideView(ActionEvent actionEvent) throws SQLException {
     removeMarkers();
+    currFloor = "0";
+    refresh();
     System.out.println(Side.getText());
     dropdown.setText("Side View");
     mapList.setImage(img);
-    currFloor = "0";
-    refresh();
   }
 
   private void generateMarkers() {
@@ -232,8 +232,15 @@ public class MapEditorController {
     eqDots.clear();
   }
 
-  public void updateLocation(ActionEvent actionEvent) {
-
+  public void updateLocation(ActionEvent actionEvent) throws IOException, SQLException {
+    if (!nodeIn.getText().isEmpty()) {
+      SceneManager.getInstance()
+          .putInformation(
+              SceneManager.getInstance().getPrimaryStage(), "updateLoc", nodeIn.getText());
+      Stage S = SceneManager.getInstance().openWindow("UpdateMapPage.fxml");
+      refresh();
+      nodeIn.clear();
+    }
   }
 
   public void removeLocation(ActionEvent actionEvent) throws SQLException {

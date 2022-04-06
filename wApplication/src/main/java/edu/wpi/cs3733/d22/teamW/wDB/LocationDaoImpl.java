@@ -124,7 +124,7 @@ public class LocationDaoImpl implements LocationDao {
     DBController.getDBController()
         .executeUpdate(
             String.format(
-                "UPDATE LOCATIONS SET (XCOORD = %d, YCOORD = %d, FLOOR = '%s', BUILDING = 's', NODETYPE = 's', LONGNAME = '%s', SHORTNAME = '%s') WHERE nodeID = %s",
+                "UPDATE LOCATIONS SET XCOORD = %d, YCOORD = %d, FLOOR = '%s', BUILDING = '%s', NODETYPE = '%s', LONGNAME = '%s', SHORTNAME = '%s' WHERE nodeID = '%s'",
                 xCoord, yCoord, floor, building, nodeType, longName, shortName, nodeID));
 
     // Disabled automatic id updating per Matthew
@@ -173,11 +173,15 @@ public class LocationDaoImpl implements LocationDao {
   }
 
   private boolean isValidFloor(String floor) {
+    return true;
+    /*
     return floor.equals("01")
         || floor.equals("02")
         || floor.equals("03")
         || floor.equals("L1")
         || floor.equals("L2");
+
+     */
   }
 
   /**
