@@ -1,14 +1,16 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
+import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
+import edu.wpi.cs3733.d22.teamW.wDB.MedEquipRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 public class MedicineDeliveryServiceRequestController extends LoadableController {
 
@@ -37,10 +39,13 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
           "18:30");
 
   // Tables:
-  @FXML TableView orderTable;
+  @FXML TableColumn medCol;
+  @FXML TableColumn nameCol;
+  @FXML TableColumn numCol;
+  @FXML private TableView<MedicalEquipmentSR> table;
 
   // Table Lists:
-  ObservableList<String> orders = FXCollections.observableArrayList();
+  private ArrayList<MedicalEquipmentSR> sr = new ArrayList<>();
 
   protected SceneManager.Scenes GetSceneType() {
     return SceneManager.Scenes.MedicineDelivery;
@@ -57,16 +62,32 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   }
 
   public void onLoad() {
+    populateTable();
     medNameCBox.setItems(meds);
     locationCBox.setItems(locations);
     timePrefCBox.setItems(times);
-    orderTable.setItems(orders);
   }
 
-  public void onUnload() {}
+  public void populateTable() {
+    ArrayList<Request> requests = RequestFactory.getRequestFactory().getAllRequests();
+    for (int i = 0; i < requests.size(); i++) {
+      Request r = requests.get(i);
+      if (MedEquipRequest.class.equals(r.getClass())) {
+        MedEquipRequest mer = (MedEquipRequest) r;
+        sr.add(new MedicalEquipmentSR(mer));
+      }
+    }
+
+    table.getItems().clear();
+    table.getItems().addAll(sr);
+  }
+
+  public void onUnload() {
+    clearFields();
+  }
 
   public void createRequest() {
-    orders.add(0, "hi");
+    //
   }
 
   public void submitButton() {
