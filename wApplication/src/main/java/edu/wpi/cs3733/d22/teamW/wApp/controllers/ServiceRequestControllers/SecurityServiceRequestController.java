@@ -22,14 +22,14 @@ public class SecurityServiceRequestController {
       emergencyB
           .getStylesheets()
           .add(
-              "edu/wpi/cs3733/d22/teamW/wApp/CSS/MedicalEquipmentServiceRequestPage/emergencyButtonFalse.css");
+              "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonFalse.css");
     } else {
       emergencyLevel = true;
       emergencyB.getStylesheets().clear();
       emergencyB
           .getStylesheets()
           .add(
-              "edu/wpi/cs3733/d22/teamW/wApp/CSS/MedicalEquipmentServiceRequestPage/emergencyButtonTrue.css");
+              "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonTrue.css");
     }
   }
 
