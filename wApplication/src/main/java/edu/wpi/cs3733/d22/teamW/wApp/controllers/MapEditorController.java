@@ -119,6 +119,9 @@ public class MapEditorController {
     generateEquipList();
     generateMarkers();
     generateEquipMarkers();
+
+    LocTab.getSelectionModel().clearSelection();
+    EqTab.getSelectionModel().clearSelection();
   }
 
   public void swapFloor1(ActionEvent actionEvent) throws SQLException {

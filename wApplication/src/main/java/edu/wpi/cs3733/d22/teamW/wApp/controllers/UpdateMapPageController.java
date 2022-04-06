@@ -11,10 +11,14 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class UpdateMapPageController implements Initializable {
+  public Button cancelButton;
+  public Button resetButton;
+  public Button updateButton;
   private String nodeID = "";
   @FXML private TextField nodeField;
   @FXML private TextField xField;
