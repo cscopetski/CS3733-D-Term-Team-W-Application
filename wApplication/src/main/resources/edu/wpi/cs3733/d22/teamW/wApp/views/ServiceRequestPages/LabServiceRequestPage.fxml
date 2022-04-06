@@ -103,18 +103,13 @@
                                        </font>
                                     </Label>
                                     <TextField layoutX="29.0" layoutY="154.0" style="-fx-background-color: white; -fx-border-color: #013895;" />
-                                    <Label layoutX="199.0" layoutY="74.0" text="Gender">
-                                       <font>
-                                          <Font name="System Bold" size="13.0" />
-                                       </font>
-                                    </Label>
+
                                     <Label layoutX="199.0" layoutY="135.0" text="Age">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Label>
                                     <TextField layoutX="197.0" layoutY="154.0" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: white; -fx-border-color: #013895;" />
-                                    <ChoiceBox fx:id="genderChoiceBox" layoutX="197.0" layoutY="93.0" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: white; -fx-border-color: #013895;" />
                                  </children>
                               </Group>
                               <Label layoutX="31.0" layoutY="192.0" prefHeight="19.0" prefWidth="49.0" text="Notes">
