@@ -30,9 +30,6 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   @FXML ComboBox timePrefCBox;
   @FXML ComboBox requesterCBox; // FREE BOX, NOT SURE WHAT TO DO
 
-  @FXML Button emergencyB;
-  boolean emergencyLevel = false;
-
   // ComboBox Lists:
   ObservableList<String> meds = FXCollections.observableArrayList("create list in DB");
   ObservableList<String> locations = FXCollections.observableArrayList("get from DB");
@@ -88,23 +85,6 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
     table.getItems().clear();
     table.getItems().addAll(sr);
-  }
-
-  public void emergencyClicked(MouseEvent mouseEvent) {
-    if (emergencyLevel) {
-      emergencyLevel = false;
-      emergencyB.getStylesheets().clear();
-
-      emergencyB
-          .getStylesheets()
-          .add("edu/wpi/cs3733/d22/teamW/wApp/CSS/LabServiceRequestPage/emergencyButtonFalse.css");
-    } else {
-      emergencyLevel = true;
-      emergencyB.getStylesheets().clear();
-      emergencyB
-          .getStylesheets()
-          .add("edu/wpi/cs3733/d22/teamW/wApp/CSS/LabServiceRequestPage/emergencyButtonTrue.css");
-    }
   }
 
   public void onUnload() {
