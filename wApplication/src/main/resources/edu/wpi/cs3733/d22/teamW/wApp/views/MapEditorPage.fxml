@@ -26,7 +26,7 @@
             <MenuItem fx:id="FL2" mnemonicParsing="false" onAction="#swapFloorL2" text="Lower Floor 2" />
         </items>
       </MenuButton>
-      <ImageView fx:id="mapList" fitHeight="610.0" fitWidth="600.0" layoutX="396.0" layoutY="63.0" onMouseClicked="#addLocation">
+      <ImageView fx:id="mapList" fitHeight="600.0" fitWidth="600.0" layoutX="396.0" layoutY="63.0" onMouseClicked="#addLocation">
          <image>
             <Image url="@../assets/Maps/SideView.jpg" />
          </image>
@@ -71,14 +71,14 @@
       <Circle fill="RED" layoutX="1110.0" layoutY="326.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fill="DODGERBLUE" layoutX="1110.0" layoutY="359.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
       <Circle fill="#00ff26" layoutX="1110.0" layoutY="392.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
-      <Circle fill="DODGERBLUE" layoutX="1110.0" layoutY="431.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
+      <Circle fill="#6b3198" layoutX="1110.0" layoutY="431.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
       <Label layoutX="1035.0" layoutY="318.0" text="Location:" />
       <Label layoutX="1059.0" layoutY="351.0" text="Bed:" />
       <Label layoutX="1059.0" layoutY="384.0" text="X-Ray:" />
       <Label layoutX="1008.0" layoutY="422.0" text="Infusion Pump:" />
       <Label layoutX="1037.0" layoutY="456.0" text="Recliner:" />
-      <Circle fill="DODGERBLUE" layoutX="1110.0" layoutY="464.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
-      <Label layoutX="1064.0" layoutY="282.0" text="Map Key:" />
+      <Circle fill="#f6ff00" layoutX="1110.0" layoutY="464.0" radius="13.0" stroke="BLACK" strokeType="INSIDE" />
+      <Label layoutX="1058.0" layoutY="280.0" text="Map Key:" />
       <Button fx:id="updateButton" layoutX="280.0" layoutY="495.0" mnemonicParsing="false" onAction="#updateLocation" stylesheets="@../CSS/UniversalCSS/button.css" text="Update" />
       <Button fx:id="addButton" layoutX="50.0" layoutY="618.0" mnemonicParsing="false" onAction="#addLocation" stylesheets="@../CSS/UniversalCSS/button.css" text="Add" />
       <Button fx:id="removeButton" layoutX="213.0" layoutY="495.0" mnemonicParsing="false" onAction="#removeLocation" stylesheets="@../CSS/UniversalCSS/button.css" text="Remove" />

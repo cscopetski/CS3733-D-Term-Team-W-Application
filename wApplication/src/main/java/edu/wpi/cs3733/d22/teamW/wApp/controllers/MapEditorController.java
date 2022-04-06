@@ -16,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class MapEditorController {
   @FXML private ImageView mapList;
@@ -43,8 +44,8 @@ public class MapEditorController {
   ArrayList<Circle> eqDots = new ArrayList<>();
   Random rng = new Random();
   Integer size = 0;
-  Integer xOffSet = 400;
-  Integer yOffSet = 60;
+  Integer xOffSet = 396;
+  Integer yOffSet = 63;
   private MedEquipDaoImpl medEquipDao;
 
   {
@@ -171,14 +172,15 @@ public class MapEditorController {
     dropdown.setText("Side View");
     mapList.setImage(img);
     currFloor = "0";
+    refresh();
   }
 
   private void generateMarkers() {
     size = currFloorLoc.size();
     for (int i = 0; i < size; i++) {
       Circle circ = new Circle(5, Color.RED);
-      circ.setCenterX((currFloorLoc.get(i).getXCoord()) + xOffSet);
-      circ.setCenterY((currFloorLoc.get(i).getYCoord()) + yOffSet);
+      circ.setCenterX((currFloorLoc.get(i).getXCoord() * 0.67) + xOffSet);
+      circ.setCenterY((currFloorLoc.get(i).getYCoord() * 0.67) + yOffSet);
       locDots.add(circ);
       page.getChildren().add(circ);
     }
@@ -216,8 +218,8 @@ public class MapEditorController {
       } else if (equipList.get(i).getType().equalsIgnoreCase("REC")) {
         circle = new Circle(3, Color.YELLOW);
       }
-      circle.setCenterX(equipList.get(i).getXCoord() + xOffSet);
-      circle.setCenterY(equipList.get(i).getYCoord() + yOffSet);
+      circle.setCenterX((equipList.get(i).getXCoord() * 0.67) + xOffSet - 1);
+      circle.setCenterY((equipList.get(i).getYCoord() * 0.67) + yOffSet - 1);
       eqDots.add(circle);
       page.getChildren().add(circle);
     }
@@ -230,7 +232,9 @@ public class MapEditorController {
     eqDots.clear();
   }
 
-  public void updateLocation(ActionEvent actionEvent) {}
+  public void updateLocation(ActionEvent actionEvent) {
+
+  }
 
   public void removeLocation(ActionEvent actionEvent) throws SQLException {
     if (!nodeIn.getText().isEmpty()) {

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.UpdateMapPageController">
+   <children>
+      <TextField fx:id="nodeField" layoutX="71.0" layoutY="55.0" />
+      <TextField layoutX="71.0" layoutY="97.0" fx:id="xField" />
+      <TextField fx:id="yField" layoutX="71.0" layoutY="139.0" />
+      <TextField fx:id="floorField" layoutX="71.0" layoutY="174.0" />
+      <TextField fx:id="typeField" layoutX="300.0" layoutY="97.0" />
+      <TextField fx:id="lnameField" layoutX="300.0" layoutY="139.0" />
+      <TextField fx:id="snameField" layoutX="300.0" layoutY="174.0" />
+      <TextField fx:id="buildingField" layoutX="300.0" layoutY="55.0" />
+      <Label layoutX="21.0" layoutY="59.0" text="NodeID:" />
+      <Label layoutX="21.0" layoutY="101.0" text="X Coord:" />
+      <Label layoutX="21.0" layoutY="143.0" text="Y Coord:" />
+      <Label layoutX="21.0" layoutY="178.0" text="Floor:" />
+      <Label layoutX="247.0" layoutY="59.0" text="Building:" />
+      <Label layoutX="256.0" layoutY="101.0" />
+      <Label layoutX="228.0" layoutY="143.0" text="Long Name:" />
+      <Label layoutX="227.0" layoutY="178.0" text="Short Name:" />
+      <Label layoutX="256.0" layoutY="101.0" text="Type:" />
+      <Button fx:id="updateButton" layoutX="132.0" layoutY="238.0" mnemonicParsing="false" onAction="#updateLoc" text="Update" />
+      <Button fx:id="clearButton" layoutX="259.0" layoutY="238.0" mnemonicParsing="false" onAction="#resetFields" text="Clear" />
+      <Button fx:id="cancelButton" layoutX="355.0" layoutY="238.0" mnemonicParsing="false" onAction="#cancelUpdate" text="Cancel Update" />
+   </children>
+   <stylesheets>
+      <URL value="@../CSS/Universal%20CSS/button.css" />
+      <URL value="@../CSS/MealDeliveryServiceRequestPage/textFieldForm.css" />
+      <URL value="@../CSS/Universal%20CSS/tableView.css" />
+   </stylesheets>
+</AnchorPane>
