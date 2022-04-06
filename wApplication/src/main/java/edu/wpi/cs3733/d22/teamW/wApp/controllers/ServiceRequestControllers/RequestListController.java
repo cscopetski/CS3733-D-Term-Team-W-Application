@@ -37,5 +37,6 @@ public class RequestListController extends LoadableController {
     table.getSelectionModel().clearSelection();
   }
 
+  @Override
   public void onUnload() {}
 }
