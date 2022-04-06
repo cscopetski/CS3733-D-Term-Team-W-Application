@@ -39,15 +39,33 @@ public class LabServiceRequestController implements RequestController {
   }
 
   public void start(LabServiceRequest request) throws SQLException {
-    lsrdi.changeLabServiceRequest(request.getRequestID(), request.getLabType(), request.nodeID, request.employeeName, request.emergency, 1);
+    lsrdi.changeLabServiceRequest(
+        request.getRequestID(),
+        request.getLabType(),
+        request.nodeID,
+        request.employeeName,
+        request.emergency,
+        1);
   }
 
   public void complete(LabServiceRequest request) throws SQLException {
-    lsrdi.changeLabServiceRequest(request.getRequestID(), request.getLabType(), request.nodeID, request.employeeName, request.emergency, 2);
+    lsrdi.changeLabServiceRequest(
+        request.getRequestID(),
+        request.getLabType(),
+        request.nodeID,
+        request.employeeName,
+        request.emergency,
+        2);
   }
 
   public void cancel(LabServiceRequest request) throws SQLException {
-    lsrdi.changeLabServiceRequest(request.getRequestID(), request.getLabType(), request.nodeID, request.employeeName, request.emergency, 3);
+    lsrdi.changeLabServiceRequest(
+        request.getRequestID(),
+        request.getLabType(),
+        request.nodeID,
+        request.employeeName,
+        request.emergency,
+        3);
   }
 
   public ArrayList<LabServiceRequest> getAllLabServiceRequests() {
