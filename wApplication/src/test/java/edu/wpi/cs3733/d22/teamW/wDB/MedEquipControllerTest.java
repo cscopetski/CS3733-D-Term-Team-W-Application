@@ -1,96 +1,240 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.FileNotFoundException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import org.junit.jupiter.api.*;
 
 class MedEquipControllerTest {
 
-    MedEquipRequestController merc;
-    MedEquipDaoImpl medi;
-    MedEquipController mec;
+  DBController dbController = DBController.getDBController();
+  CSVController csvController;
+  LocationDaoImpl locationDao;
+  LocationController locationController;
 
-    @BeforeAll
-    void setup() throws SQLException, FileNotFoundException {
-        final String locationFileName = "edu/wpi/cs3733/d22/teamW/wDB/CSVs/TowerLocations.csv";
-        final String medEquipFileName = "MedicalEquipment.csv";
-        final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
-        final String labServiceRequestFileName = "LabRequests.csv";
+  MedEquipDaoImpl medi;
+  MedEquipRequestDaoImpl merdi;
+  MedEquipController medEquipController;
+  MedEquipRequestController merc;
 
-        DBController.getDBController();
+  LabServiceRequestDaoImpl labServiceRequestDao;
+  LabServiceRequestController lsrc;
 
-        CSVController csvController =
-                new CSVController(
-                        locationFileName, medEquipFileName, medEquipRequestFileName, labServiceRequestFileName);
+  RequestFactory requestFactory;
 
-        try {
-            csvController.populateEntityTables();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+  @BeforeEach
+  void setUp() {
+    final String locationFileName = "TowerLocations.csv";
+    final String medEquipFileName = "MedicalEquipment.csv";
+    final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
+    final String labServiceRequestFileName = "LabRequests.csv";
 
-        LocationDaoImpl locationDao = new LocationDaoImpl();
-        LocationController locationController = new LocationController(locationDao);
+    csvController =
+        new CSVController(
+            locationFileName, medEquipFileName, medEquipRequestFileName, labServiceRequestFileName);
 
-        MedEquipDaoImpl medi = new MedEquipDaoImpl();
-        MedEquipRequestDaoImpl merdi = new MedEquipRequestDaoImpl();
-        MedEquipController medEquipController = new MedEquipController(medi, merdi);
-        merc = new MedEquipRequestController(merdi, medi);
+    try {
+      csvController.populateEntityTables();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    try {
+      locationDao = new LocationDaoImpl();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    locationController = new LocationController(locationDao);
 
-        LabServiceRequestDaoImpl labServiceRequestDao = new LabServiceRequestDaoImpl();
-        LabServiceRequestController lsrc = new LabServiceRequestController(labServiceRequestDao);
+    try {
+      medi = new MedEquipDaoImpl();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    merdi = new MedEquipRequestDaoImpl();
+    medEquipController = new MedEquipController(medi, merdi);
+    merc = new MedEquipRequestController(merdi, medi);
 
-        RequestFactory requestFactory = RequestFactory.getRequestFactory(merc, lsrc);
+    labServiceRequestDao = new LabServiceRequestDaoImpl();
+    lsrc = new LabServiceRequestController(labServiceRequestDao);
 
-        csvController.populateRequestTables(requestFactory);
+    requestFactory = RequestFactory.getRequestFactory(merc, lsrc);
 
+    try {
+      csvController.populateRequestTables(requestFactory);
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  void markClean() {
+    String equipID = "BED004";
+
+    MedEquip m = medEquipController.getMedEquip(equipID);
+    try {
+      medEquipController.markClean(m);
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
 
-    @Test
-    void markClean() {
+    assertEquals(m.getStatus(), 0);
 
+    ArrayList<MedEquip> medEquips = medi.getAllMedEquip();
+
+    int newStatus = -1;
+
+    for (MedEquip med : medEquips) {
+      if (med.getMedID().equals(equipID)) {
+        newStatus = med.getStatus();
+        break;
+      }
     }
 
-    @Test
-    void markInUse() {
+    assertEquals(0, newStatus);
+
+    try {
+      ResultSet r =
+          dbController.executeQuery(
+              String.format("SELECT STATUS FROM MEDICALEQUIPMENT WHERE MEDID = '%s'", equipID));
+
+      r.next();
+      int status = r.getInt("STATUS");
+
+      assertEquals(status, 0);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  void markInUse() {
+    String equipID = "BED001";
+
+    MedEquip m = medEquipController.getMedEquip(equipID);
+    try {
+      medEquipController.markInUse(m);
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
 
-    @Test
-    void markDirty() {
+    assertEquals(m.getStatus(), 1);
+
+    ArrayList<MedEquip> medEquips = medi.getAllMedEquip();
+
+    int newStatus = -1;
+
+    for (MedEquip med : medEquips) {
+      if (med.getMedID().equals(equipID)) {
+        newStatus = med.getStatus();
+        break;
+      }
     }
 
-    @Test
-    void add() {
+    assertEquals(1, newStatus);
+
+    try {
+      ResultSet r =
+          dbController.executeQuery(
+              String.format("SELECT STATUS FROM MEDICALEQUIPMENT WHERE MEDID = '%s'", equipID));
+
+      r.next();
+      int status = r.getInt("STATUS");
+
+      assertEquals(status, 1);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  void markDirty() {
+    String equipID = "BED001";
+
+    MedEquip m = medEquipController.getMedEquip(equipID);
+    try {
+      medEquipController.markDirty(m);
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
 
-    @Test
-    void delete() {
+    assertEquals(m.getStatus(), 2);
 
+    ArrayList<MedEquip> medEquips = medi.getAllMedEquip();
+
+    int newStatus = -1;
+
+    for (MedEquip med : medEquips) {
+      if (med.getMedID().equals(equipID)) {
+        newStatus = med.getStatus();
+        break;
+      }
     }
 
-    @Test
-    void getMedEquip() {
+    assertEquals(2, newStatus);
 
+    try {
+      ResultSet r =
+          dbController.executeQuery(
+              String.format("SELECT STATUS FROM MEDICALEQUIPMENT WHERE MEDID = '%s'", equipID));
+
+      r.next();
+      int status = r.getInt("STATUS");
+
+      assertEquals(status, 2);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @Test
+  void add() {}
+
+  @Test
+  void delete() {}
+
+  @Test
+  void getMedEquip() {}
+
+  @Test
+  void getAll() throws SQLException {
+    ArrayList<MedEquip> medEquips = medEquipController.getAll();
+
+    ArrayList<MedEquip> medDaoEquips = medi.getAllMedEquip();
+
+    for (int i = 0; i < medEquips.size(); i++) {
+
+      assertEquals(medEquips.get(i), medDaoEquips.get(i));
     }
 
-    @Test
-    void getAll() throws SQLException {
-        ArrayList<MedEquip>  medEquips = mec.getAll();
+    ResultSet resultSet =
+        DBController.getDBController().executeQuery("SELECT * FROM MEDICALEQUIPMENT");
 
-        ResultSet resultSet = DBController.getDBController().executeQuery("SELECT * FROM MEDICALEQUIPMENT");
+    ArrayList<MedEquip> medEquipList = new ArrayList<>();
 
+    String[] medEquipData = new String[4];
 
+    while (resultSet.next()) {
 
+      for (int i = 0; i < medEquipData.length; i++) {
+        medEquipData[i] = resultSet.getString(i + 1);
+      }
 
+      medEquipList.add(new MedEquip(medEquipData));
     }
 
-    @Test
-    void exportMedicalEquipmentCSV() {
+    for (int i = 0; i < medEquips.size(); i++) {
+
+      assertEquals(medEquips.get(i), medEquipList.get(i));
     }
+  }
+
+  @Test
+  void exportMedicalEquipmentCSV() {}
 }

@@ -76,4 +76,23 @@ public class MedEquip implements Entity {
   public void setStatus(Integer status) {
     this.status = status;
   }
+
+  @Override
+  public boolean equals(Object o) {
+
+    if (o == this) {
+      return true;
+    }
+
+    if (!(o instanceof MedEquip)) {
+      return false;
+    }
+
+    MedEquip m = (MedEquip) o;
+
+    return this.medID.equals(m.getMedID())
+        && this.type.equals(m.getType())
+        && this.nodeID.equals(m.getNodeID())
+        && this.status.equals(m.getStatus());
+  }
 }
