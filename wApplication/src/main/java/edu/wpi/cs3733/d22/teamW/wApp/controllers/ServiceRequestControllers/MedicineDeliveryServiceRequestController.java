@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
 public class MedicineDeliveryServiceRequestController extends LoadableController {
 
@@ -28,6 +29,9 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   @FXML ComboBox locationCBox;
   @FXML ComboBox timePrefCBox;
   @FXML ComboBox requesterCBox; // FREE BOX, NOT SURE WHAT TO DO
+
+  @FXML Button emergencyB;
+  boolean emergencyLevel = false;
 
   // ComboBox Lists:
   ObservableList<String> meds = FXCollections.observableArrayList("create list in DB");
@@ -103,5 +107,24 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
   public void setMeds(ObservableList<String> meds) {
     this.meds = meds;
+  }
+
+  public void emergencyClicked(MouseEvent mouseEvent) {
+    if (emergencyLevel) {
+      emergencyLevel = false;
+      emergencyB.getStylesheets().clear();
+
+      emergencyB
+          .getStylesheets()
+          .add(
+              "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonFalse.css");
+    } else {
+      emergencyLevel = true;
+      emergencyB.getStylesheets().clear();
+      emergencyB
+          .getStylesheets()
+          .add(
+              "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonTrue.css");
+    }
   }
 }
