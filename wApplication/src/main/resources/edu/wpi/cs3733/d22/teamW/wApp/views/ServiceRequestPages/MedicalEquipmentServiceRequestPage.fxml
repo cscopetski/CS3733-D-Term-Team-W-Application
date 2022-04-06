@@ -139,7 +139,7 @@
                                  </children></Pane>
                               <BorderPane prefHeight="0.0" prefWidth="376.0">
                                  <right>
-                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/Universal%20CSS/button.css" text="Request List" BorderPane.alignment="CENTER">
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/button.css" text="Request List" BorderPane.alignment="CENTER">
                                        <BorderPane.margin>
                                           <Insets bottom="20.0" top="20.0" />
                                        </BorderPane.margin>
