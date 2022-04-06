@@ -67,7 +67,7 @@
                               </BorderPane>
                               <BorderPane maxWidth="250.0" prefHeight="39.0" prefWidth="265.0">
                                  <center>
-                                    <Button id="emergencyB" fx:id="emergencyB" mnemonicParsing="false" onMouseClicked="#emergencyClicked" prefHeight="30.0" prefWidth="220.0" stylesheets="@../../CSS/MedicalEquipmentServiceRequestPage/emergencyButtonFalse.css" text="Emergency Button" BorderPane.alignment="CENTER">
+                                    <Button id="emergencyB" fx:id="emergencyB" mnemonicParsing="false" onMouseClicked="#emergencyClicked" prefHeight="30.0" prefWidth="220.0" stylesheets="@../../CSS/UniversalCSS/EmergencyButton/emergencyButtonFalse.css" text="Emergency Button" BorderPane.alignment="CENTER">
                                        <BorderPane.margin>
                                           <Insets bottom="20.0" />
                                        </BorderPane.margin>

@@ -132,10 +132,11 @@ public class SceneManager {
     Parent root =
         FXMLLoader.load(getClass().getResource("/edu/wpi/cs3733/d22/teamW/wApp/views/" + fileName));
     stage.setScene(new Scene(root));
-    stage.show();
     stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
 
     information.put(stage, new Hashtable<>());
+    stage.showAndWait();
+
     return stage;
   }
 

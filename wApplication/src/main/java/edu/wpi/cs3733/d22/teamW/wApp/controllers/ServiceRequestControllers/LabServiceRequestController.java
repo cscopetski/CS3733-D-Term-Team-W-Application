@@ -4,7 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
-import javax.swing.*;
 
 public class LabServiceRequestController {
   @FXML Button emergencyB;
@@ -27,13 +26,15 @@ public class LabServiceRequestController {
 
       emergencyB
           .getStylesheets()
-          .add("edu/wpi/cs3733/d22/teamW/wApp/CSS/LabServiceRequestPage/emergencyButtonFalse.css");
+          .add(
+              "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonFalse.css");
     } else {
       emergencyLevel = true;
       emergencyB.getStylesheets().clear();
       emergencyB
           .getStylesheets()
-          .add("edu/wpi/cs3733/d22/teamW/wApp/CSS/LabServiceRequestPage/emergencyButtonTrue.css");
+          .add(
+              "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonTrue.css");
     }
   }
 }

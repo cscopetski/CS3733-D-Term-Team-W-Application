@@ -91,6 +91,15 @@ public class Main {
         merc.cancelRequest(test3);
         merc.completeRequest(test3);
     */
+    locationController.changeLocation(
+        locationController.getAllLocations().get(0).getNodeID(),
+        Integer.parseInt("100"),
+        Integer.parseInt("100"),
+        "01",
+        "Tower",
+        "DEPT",
+        "TESTING",
+        "TEST");
     App.launch(App.class, args);
   }
 }
