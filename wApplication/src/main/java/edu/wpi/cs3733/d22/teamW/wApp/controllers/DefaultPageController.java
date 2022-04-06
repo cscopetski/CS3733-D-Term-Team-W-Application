@@ -41,7 +41,7 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MainMenu);
 
     try {
-      // SceneManager.getInstance().setWindow(SceneManager.Scenes.MainMenu);
+      // SceneManager.getInstance().setScene(SceneManager.Scenes.MainMenu);
     } catch (Exception e) {
       e.printStackTrace();
     }
