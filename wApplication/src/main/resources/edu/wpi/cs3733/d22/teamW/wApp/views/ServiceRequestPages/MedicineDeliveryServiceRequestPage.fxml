@@ -17,6 +17,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicineDeliveryServiceRequestController">
     <children>
       <VBox alignment="CENTER" layoutY="11.0" prefHeight="530.0" prefWidth="940.0" AnchorPane.bottomAnchor="-11.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="11.0">
@@ -143,11 +144,23 @@
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="orderTable" prefHeight="200.0" prefWidth="344.0" stylesheets="@../../CSS/MedicineDeliveryServiceRequestPage/tableForm.css">
+                        <TableView fx:id="table" prefHeight="200.0" prefWidth="344.0" stylesheets="@../../CSS/MedicineDeliveryServiceRequestPage/tableForm.css">
                           <columns>
-                            <TableColumn prefWidth="140.0" text="Medicine" />
-                              <TableColumn prefWidth="70.0" text="Name" />
-                            <TableColumn minWidth="0.0" prefWidth="70.0" text="Quantity" />
+                             <TableColumn fx:id="medCol" resizable= "false" prefWidth="140.0" text="Medicine" >
+                                <cellValueFactory>
+                                   <PropertyValueFactory property="MedVal" />
+                                </cellValueFactory>
+                             </TableColumn>
+                             <TableColumn fx:id="nameCol" resizable= "false" prefWidth="70.0" text="Name" >
+                                <cellValueFactory>
+                                   <PropertyValueFactory property="NameVal" />
+                                </cellValueFactory>
+                             </TableColumn>
+                             <TableColumn fx:id="numCol"  resizable= "false" minWidth="0.0" prefWidth="70.0" text="Quantity" >
+                                <cellValueFactory>
+                                   <PropertyValueFactory property="NumVal" />
+                                </cellValueFactory>
+                             </TableColumn>
                           </columns>
                         </TableView>
                      </children>
