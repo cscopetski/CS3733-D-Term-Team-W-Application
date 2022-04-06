@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DefaultPage"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DefaultPage">
+    <children>
+      <BorderPane prefHeight="30.0" prefWidth="110.0">
+         <center>
+                <MenuButton mnemonicParsing="false" prefWidth="100.0" text="Requests" BorderPane.alignment="CENTER">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#switchToLab" text="Lab Services" />
+                  <MenuItem mnemonicParsing="false" onAction="#switchToMedicalEquipmentDelivery" text="Equipment" />
+                        <MenuItem mnemonicParsing="false" onAction="#switchToMedicineDelivery" text="Medicine" />
+                        <MenuItem mnemonicParsing="false" onAction="#switchToMealDelivery" text="Meals" />
+                        <MenuItem mnemonicParsing="false" onAction="#switchToLanguageInterpreter" text="Interpreters" />
+                        <MenuItem mnemonicParsing="false" onAction="#switchToSecurity" text="Security" />
+                        <MenuItem mnemonicParsing="false" onAction="#switchToMapEditor" text="Map Editor" />
+                    </items>
+                </MenuButton>
+         </center>
+      </BorderPane>
+        <Text layoutX="281.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Default" />
+      <BorderPane layoutX="50.0" layoutY="50.0" prefHeight="400.0" prefWidth="600.0">
+         <center>
+            <Pane fx:id="content" />
+         </center>
+      </BorderPane>
+    </children>
 </AnchorPane>

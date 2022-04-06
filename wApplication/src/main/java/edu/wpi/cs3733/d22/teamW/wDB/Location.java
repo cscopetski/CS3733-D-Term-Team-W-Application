@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
-public class Location extends Entity {
+public class Location implements Entity {
 
   // Test
   String nodeID;

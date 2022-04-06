@@ -15,6 +15,4 @@ public interface MedEquipDao {
       throws SQLException;
 
   void exportMedCSV(String fileName);
-
-  String checkTypeAvailable(String type) throws SQLException;
 }

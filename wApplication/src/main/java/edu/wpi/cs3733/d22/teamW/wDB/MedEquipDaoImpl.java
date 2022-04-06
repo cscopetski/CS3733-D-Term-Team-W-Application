@@ -110,18 +110,6 @@ public class MedEquipDaoImpl implements MedEquipDao {
     }
   }
 
-  @Override
-  public String checkTypeAvailable(String type) throws SQLException {
-    for (MedEquip m : medEquipList) {
-      if (m.getType().equals(type) && (m.getStatus() == 0)) {
-        changeMedEquip(m.getMedID(), m.getType(), m.getNodeID(), 1);
-
-        return m.getMedID();
-      }
-    }
-    return (String) null;
-  }
-
   public void setStatus(Integer status, String itemID) throws SQLException {
     medEquipList.get(getIndexOf(itemID)).setStatus(0);
     dbController.executeUpdate(
