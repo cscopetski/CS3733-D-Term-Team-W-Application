@@ -119,6 +119,7 @@ public class SceneManager {
   public void putInformation(Stage stage, String infoName, Object info) {
     information.get(stage).put(infoName, info);
   }
+
   public Object getInformation(Stage stage, String infoName) {
     return information.get(stage).get(infoName);
   }
