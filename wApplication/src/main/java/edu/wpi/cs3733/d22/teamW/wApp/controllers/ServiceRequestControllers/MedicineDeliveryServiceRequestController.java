@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 
 public class MedicineDeliveryServiceRequestController extends LoadableController {
 
@@ -47,6 +48,10 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   // Table Lists:
   private ArrayList<MedicalEquipmentSR> sr = new ArrayList<>();
 
+  // other stuff:
+  boolean emergencyLevel = false;
+  @FXML Button emergencyB;
+
   protected SceneManager.Scenes GetSceneType() {
     return SceneManager.Scenes.MedicineDelivery;
   }
@@ -80,6 +85,23 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
     table.getItems().clear();
     table.getItems().addAll(sr);
+  }
+
+  public void emergencyClicked(MouseEvent mouseEvent) {
+    if (emergencyLevel) {
+      emergencyLevel = false;
+      emergencyB.getStylesheets().clear();
+
+      emergencyB
+          .getStylesheets()
+          .add("edu/wpi/cs3733/d22/teamW/wApp/CSS/LabServiceRequestPage/emergencyButtonFalse.css");
+    } else {
+      emergencyLevel = true;
+      emergencyB.getStylesheets().clear();
+      emergencyB
+          .getStylesheets()
+          .add("edu/wpi/cs3733/d22/teamW/wApp/CSS/LabServiceRequestPage/emergencyButtonTrue.css");
+    }
   }
 
   public void onUnload() {
