@@ -1,11 +1,11 @@
 ----------------------------------------------------------------
-Tue Apr 05 23:24:18 EDT 2022:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-017f-fce6-a22d-000003618368 
-on database directory E:\CS3733-D22-Team-W\WumboWhowies\myDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@30946e09 
-Loaded from file:/E:/.gradle/caches/modules-2/files-2.1/org.apache.derby/derby/10.14.2.0/7efad40ef52fbb1f08142f07a83b42d29e47d8ce/derby-10.14.2.0.jar
-java.vendor=Microsoft
-java.runtime.version=11.0.14.1+1-LTS
-user.dir=E:\CS3733-D22-Team-W\WumboWhowies
+Wed Apr 06 03:36:54 UTC 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-017f-fcf2-54ae-00000751d0a0 
+on database directory C:\Users\cscop\OneDrive\WPI\2021-2022\Classes\D-Term\CS3733\Minimal Application\WumboWhowies\myDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@7aec35a 
+Loaded from file:/C:/Users/cscop/AppData/Roaming/JetBrains/IntelliJIdea2021.2/jdbc-drivers/Apache%20Derby/10.15.2.0/derby-10.15.2.0.jar
+java.vendor=JetBrains s.r.o.
+java.runtime.version=11.0.12+7-b1504.28
+user.dir=C:\Users\cscop\OneDrive\WPI\2021-2022\Classes\D-Term\CS3733\Minimal Application\WumboWhowies
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
