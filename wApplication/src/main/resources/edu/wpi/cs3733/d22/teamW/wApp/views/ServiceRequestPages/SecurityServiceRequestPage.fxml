@@ -44,9 +44,9 @@
                            <children>
                               <Pane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
                                  <children>
-                                    <BorderPane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="200.0">
+                                    <BorderPane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="164.0">
                                        <center>
-                                          <Label style="-fx-font-weight: bold;" text="Room Number" textFill="WHITE" BorderPane.alignment="CENTER">
+                                          <Label style="-fx-font-weight: bold;" text="ROOM NUMBER" textFill="WHITE" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
