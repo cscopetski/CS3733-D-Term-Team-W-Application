@@ -56,7 +56,8 @@ public class MedEquipDaoImpl implements MedEquipDao {
       medEquipList.add(newMedEquip);
       dbController.executeUpdate(
           String.format(
-              "INSERT MEDICALEQUIPMENT VALUES (%s,%s,%s,%d)", inputID, type, nodeID, status));
+              "INSERT INTO MEDICALEQUIPMENT VALUES ('%s','%s','%s',%d)",
+              inputID, type, nodeID, status));
     }
   }
 

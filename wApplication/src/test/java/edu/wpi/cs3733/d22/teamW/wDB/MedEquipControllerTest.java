@@ -2,10 +2,11 @@ package edu.wpi.cs3733.d22.teamW.wDB;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 import org.junit.jupiter.api.*;
 
 class MedEquipControllerTest {
@@ -194,13 +195,116 @@ class MedEquipControllerTest {
   }
 
   @Test
-  void add() {}
+  void add() {
+
+    String medID = "XRY002";
+
+    String type = "XRY";
+
+    String nodeID = "FDEPT00101";
+
+    Integer status = 0;
+
+    try {
+      medEquipController.add(medID, type, nodeID, status);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    MedEquip listEquip = null;
+
+    for (MedEquip m : medi.getAllMedEquip()) {
+      if (m.getMedID().equals(medID)) {
+        listEquip = m;
+      }
+    }
+
+    assertEquals(listEquip, new MedEquip(medID, type, nodeID, status));
+
+    try {
+      ResultSet r =
+          dbController.executeQuery(
+              String.format(
+                  "SELECT COUNT (*) AS COUNT FROM MEDICALEQUIPMENT WHERE MEDID = '%s'", medID));
+      r.next();
+      assertEquals(r.getInt("COUNT"), 1);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 
   @Test
-  void delete() {}
+  void delete() {
+
+    String medID = "XRY001";
+
+    try {
+      medEquipController.delete(medID);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    MedEquip listEquip = null;
+
+    boolean found = false;
+
+    for (MedEquip m : medi.getAllMedEquip()) {
+      if (m.getMedID().equals(medID)) {
+        found = true;
+      }
+    }
+
+    assertEquals(found, false);
+
+    try {
+      ResultSet r =
+          dbController.executeQuery(
+              String.format(
+                  "SELECT COUNT (*) AS COUNT FROM MEDICALEQUIPMENT WHERE MEDID = '%s'", medID));
+      r.next();
+      assertEquals(r.getInt("COUNT"), 0);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 
   @Test
-  void getMedEquip() {}
+  void getMedEquip() {
+
+    String medID = "XRY001";
+
+    MedEquip med = medEquipController.getMedEquip(medID);
+
+    MedEquip listEquip = null;
+
+    boolean found = false;
+
+    for (MedEquip m : medi.getAllMedEquip()) {
+      if (m.getMedID().equals(medID)) {
+        listEquip = m;
+      }
+    }
+
+    assertEquals(listEquip, med);
+
+    try {
+      ResultSet r =
+          dbController.executeQuery(
+              String.format("SELECT * FROM MEDICALEQUIPMENT WHERE MEDID = '%s'", medID));
+      r.next();
+
+      String newMedID = r.getString("MEDID");
+      String type = r.getString("TYPE");
+      String nodeID = r.getString("NODEID");
+      Integer status = r.getInt("STATUS");
+
+      MedEquip newMed = new MedEquip(newMedID, type, nodeID, status);
+
+      assertEquals(newMed, med);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
 
   @Test
   void getAll() throws SQLException {
@@ -236,5 +340,52 @@ class MedEquipControllerTest {
   }
 
   @Test
-  void exportMedicalEquipmentCSV() {}
+  void exportMedicalEquipmentCSV() {
+
+    String fileName = "TESTMEDEQUIP.csv";
+    medEquipController.exportMedicalEquipmentCSV(fileName);
+    ArrayList<MedEquip> medList = medEquipController.getAll();
+    File file = new File(fileName);
+    InputStream in = null;
+    try {
+      in = new DataInputStream(new FileInputStream(file));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    if (in == null) {
+      System.out.println("Failed to find file " + fileName);
+    }
+
+    Scanner sc = new Scanner(in);
+    System.out.println("Found File" + fileName);
+    // Skip headers
+    sc.next();
+
+    ArrayList<String[]> tokensList = new ArrayList<>();
+
+    while (sc.hasNextLine()) {
+      String line = "" + sc.nextLine();
+      if (!line.isEmpty()) {
+        String[] tokens = line.split(",");
+        tokensList.add(tokens);
+      }
+    }
+    sc.close(); // closes the scanner
+
+    ArrayList<MedEquip> medEquipList = new ArrayList<>();
+
+    for (String[] s : tokensList) {
+
+      MedEquip med = new MedEquip(s);
+
+      medEquipList.add(med);
+    }
+
+    for (int i = 0; i < medList.size(); i++) {
+      MedEquip controllerMed = medList.get(i);
+      MedEquip csvMed = medEquipList.get(i);
+
+      assertEquals(controllerMed.equals(csvMed), true);
+    }
+  }
 }

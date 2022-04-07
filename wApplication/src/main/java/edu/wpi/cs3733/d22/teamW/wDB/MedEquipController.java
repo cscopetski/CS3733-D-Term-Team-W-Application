@@ -30,7 +30,7 @@ public class MedEquipController {
   }
 
   public void add(String inputID, String type, String nodeID, Integer status) throws SQLException {
-    medi.changeMedEquip(inputID, type, nodeID, status);
+    medi.addMedEquip(inputID, type, nodeID, status);
   }
 
   public void delete(String inputID) throws SQLException {
