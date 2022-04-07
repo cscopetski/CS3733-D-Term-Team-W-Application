@@ -2,9 +2,11 @@ package edu.wpi.cs3733.d22.teamW.wDB;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -78,6 +80,11 @@ class MedEquipRequestControllerTest {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
+
+  @AfterEach
+  void reset() {
+    requestFactory.resetRequestFactory();
   }
 
   @Test
@@ -223,5 +230,56 @@ class MedEquipRequestControllerTest {
       }
     }
     assertEquals(request.getRequestID(), 2);
+  }
+
+  @Test
+  void exportMedEquipRequestCSV() {
+
+    String fileName = "TESTMEDEQUIPREQUEST.csv";
+    merc.exportMedEquipRequestCSV(fileName);
+    ArrayList<MedEquipRequest> medReqList = merc.getAllMedEquipRequests();
+    File file = new File(fileName);
+    InputStream in = null;
+    try {
+      in = new DataInputStream(new FileInputStream(file));
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    }
+    if (in == null) {
+      System.out.println("Failed to find file " + fileName);
+    }
+
+    Scanner sc = new Scanner(in);
+    System.out.println("Found File" + fileName);
+    // Skip headers
+    sc.next();
+
+    ArrayList<String[]> tokensList = new ArrayList<>();
+
+    while (sc.hasNextLine()) {
+      String line = "" + sc.nextLine();
+      if (!line.isEmpty()) {
+        String[] tokens = line.split(",");
+        tokensList.add(tokens);
+      }
+    }
+    sc.close(); // closes the scanner
+
+    ArrayList<MedEquipRequest> medEquipReqList = new ArrayList<>();
+
+    for (String[] s : tokensList) {
+
+      MedEquipRequest medEquipRequest = new MedEquipRequest(s);
+
+      medEquipReqList.add(medEquipRequest);
+    }
+
+    for (int i = 0; i < medReqList.size(); i++) {
+      MedEquipRequest controllerMedReq = medReqList.get(i);
+      MedEquipRequest csvMedReq = medEquipReqList.get(i);
+      System.out.println(controllerMedReq.toValuesString());
+      System.out.println(csvMedReq.toValuesString());
+      assertEquals(controllerMedReq.equals(csvMedReq), true);
+    }
   }
 }

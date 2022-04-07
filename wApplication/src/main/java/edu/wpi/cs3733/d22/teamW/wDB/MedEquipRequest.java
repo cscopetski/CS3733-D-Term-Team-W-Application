@@ -66,6 +66,16 @@ public class MedEquipRequest extends Request {
     }
   }
 
+  public MedEquipRequest(String[] medEquipReqData) {
+    this.requestID = Integer.parseInt(medEquipReqData[0]);
+    this.itemID = medEquipReqData[1];
+    this.itemType = medEquipReqData[2];
+    this.nodeID = medEquipReqData[3];
+    this.employeeName = medEquipReqData[4];
+    this.emergency = Integer.parseInt(medEquipReqData[5]);
+    this.status = Integer.parseInt(medEquipReqData[6]);
+  }
+
   @Override
   public Integer getStatus() {
     return status;
@@ -109,8 +119,14 @@ public class MedEquipRequest extends Request {
 
   public String toCSVString() {
     return String.format(
-        "%d,%d,%s,%s,%d,%s",
-        this.requestID, this.emergency, this.itemID, this.nodeID, this.status, this.employeeName);
+        "%d,%s,%s,%s,%s,%d,%d",
+        this.requestID,
+        this.itemID,
+        this.itemType,
+        this.nodeID,
+        this.employeeName,
+        this.emergency,
+        this.status);
   }
 
   @Override
@@ -157,5 +173,23 @@ public class MedEquipRequest extends Request {
 
   public String getEmployeeName() {
     return this.employeeName;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (o == this) {
+      return true;
+    }
+    if (!(o instanceof MedEquipRequest)) {
+      return false;
+    }
+    MedEquipRequest m = (MedEquipRequest) o;
+    return this.requestID == m.getRequestID()
+        && this.status == m.getStatus()
+        && this.nodeID.equals(m.getNodeID())
+        && this.emergency == m.getEmergency()
+        && this.employeeName.equals(m.getEmployeeName())
+        && this.itemType.equals(m.getItemType())
+        && this.itemID.equals(m.getItemID());
   }
 }
