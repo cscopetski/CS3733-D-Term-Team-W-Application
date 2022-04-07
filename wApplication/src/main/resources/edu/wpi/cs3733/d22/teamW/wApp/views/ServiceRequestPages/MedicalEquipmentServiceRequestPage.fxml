@@ -58,7 +58,7 @@
                                     </BorderPane>
                                  </children>
                               </Pane>
-                                        <TextField fx:id="employeeName" maxWidth="250.0" style="-fx-border-color: #013895; -fx-border-radius: 4;">
+                                        <TextField fx:id="employeeName" maxWidth="250.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
                                             <VBox.margin>
                                                 <Insets bottom="20.0" top="10.0" />
                                             </VBox.margin>
@@ -68,7 +68,7 @@
                                                 <Font size="14.0" />
                                             </font>
                                         </Label>
-                                        <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/comboBox.css">
+                                        <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
                                                     <String fx:value="MRI" />
@@ -102,10 +102,10 @@
 
                                         <BorderPane maxWidth="250.0" prefHeight="30.0" prefWidth="250.0">
                                             <left>
-                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/button.css" text="Submit" BorderPane.alignment="CENTER" />
+                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" BorderPane.alignment="CENTER" />
                                             </left>
                                             <right>
-                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#cancelButton" stylesheets="@../../CSS/UniversalCSS/button.css" text="Cancel" BorderPane.alignment="CENTER" />
+                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#cancelButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Cancel" BorderPane.alignment="CENTER" />
                                             </right>
                                         </BorderPane>
                                     </children>
@@ -139,7 +139,7 @@
                                  </children></Pane>
                               <BorderPane prefHeight="0.0" prefWidth="376.0">
                                  <right>
-                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/button.css" text="Request List" BorderPane.alignment="CENTER">
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Request List" BorderPane.alignment="CENTER">
                                        <BorderPane.margin>
                                           <Insets bottom="20.0" top="20.0" />
                                        </BorderPane.margin>

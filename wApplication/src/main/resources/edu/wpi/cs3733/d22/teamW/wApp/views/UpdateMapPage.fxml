@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.UpdateMapPageController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.UpdateMapPageController">
    <children>
-      <TextField fx:id="nodeField" layoutX="135.0" layoutY="96.0"/>
-      <TextField layoutX="135.0" layoutY="138.0" fx:id="xField"/>
-      <TextField fx:id="yField" layoutX="135.0" layoutY="180.0"/>
-      <TextField fx:id="floorField" layoutX="135.0" layoutY="215.0"/>
-      <TextField fx:id="typeField" layoutX="364.0" layoutY="138.0" />
-      <TextField fx:id="lnameField" layoutX="364.0" layoutY="180.0"/>
-      <TextField fx:id="snameField" layoutX="364.0" layoutY="215.0"/>
-      <TextField fx:id="buildingField" layoutX="364.0" layoutY="96.0"/>
+      <TextField fx:id="nodeField" layoutX="135.0" layoutY="96.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+      <TextField layoutX="135.0" layoutY="138.0" stylesheets="@../CSS/UniversalCSS/Standard.css" fx:id="xField" />
+      <TextField fx:id="yField" layoutX="135.0" layoutY="180.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+      <TextField fx:id="floorField" layoutX="135.0" layoutY="215.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+      <TextField fx:id="typeField" layoutX="364.0" layoutY="138.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+      <TextField fx:id="lnameField" layoutX="364.0" layoutY="180.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+      <TextField fx:id="snameField" layoutX="364.0" layoutY="215.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+      <TextField fx:id="buildingField" layoutX="364.0" layoutY="96.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
       <Label layoutX="85.0" layoutY="100.0" text="NodeID:" />
       <Label layoutX="85.0" layoutY="142.0" text="X Coord:" />
       <Label layoutX="85.0" layoutY="184.0" text="Y Coord:" />
@@ -25,13 +24,8 @@
       <Label layoutX="292.0" layoutY="184.0" text="Long Name:" />
       <Label layoutX="291.0" layoutY="219.0" text="Short Name:" />
       <Label layoutX="320.0" layoutY="142.0" text="Type:" />
-      <Button fx:id="updateButton" layoutX="203.0" layoutY="279.0" mnemonicParsing="false" onAction="#updateLoc" stylesheets="@../CSS/UniversalCSS/button.css" text="Update" />
-      <Button fx:id="resetButton" layoutX="269.0" layoutY="279.0" mnemonicParsing="false" onAction="#resetFields" stylesheets="@../CSS/UniversalCSS/button.css" text="Reset" />
-      <Button fx:id="cancelButton" layoutX="324.0" layoutY="279.0" mnemonicParsing="false" onAction="#cancelUpdate" stylesheets="@../CSS/UniversalCSS/button.css" text="Exit" />
+      <Button fx:id="updateButton" layoutX="203.0" layoutY="279.0" mnemonicParsing="false" onAction="#updateLoc" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Update" />
+      <Button fx:id="resetButton" layoutX="269.0" layoutY="279.0" mnemonicParsing="false" onAction="#resetFields" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Reset" />
+      <Button fx:id="cancelButton" layoutX="324.0" layoutY="279.0" mnemonicParsing="false" onAction="#cancelUpdate" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Exit" />
    </children>
-   <stylesheets>
-      <URL value="@../CSS/UniversalCSS/button.css" />
-      <URL value="@../CSS/MealDeliveryServiceRequestPage/textFieldForm.css" />
-      <URL value="@../CSS/UniversalCSS/tableView.css" />
-   </stylesheets>
 </AnchorPane>
