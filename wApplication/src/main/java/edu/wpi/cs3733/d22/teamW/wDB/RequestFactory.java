@@ -28,6 +28,11 @@ public class RequestFactory {
     return requestFactory;
   }
 
+  public void resetRequestFactory() {
+    this.requests = new ArrayList<>();
+    this.requestFactory = null;
+  }
+
   private RequestFactory(MedEquipRequestController merc, LabServiceRequestController lsrc) {
     this.merc = merc;
     this.lsrc = lsrc;

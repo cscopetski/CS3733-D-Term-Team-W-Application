@@ -29,6 +29,12 @@ class MedEquipControllerTest {
   @BeforeEach
   void setUp() {
 
+    try {
+      dbController.createTables();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
     final String locationFileName = "TowerLocations.csv";
     final String medEquipFileName = "MedicalEquipment.csv";
     final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
@@ -77,11 +83,7 @@ class MedEquipControllerTest {
 
   @AfterEach
   void reset() {
-    try {
-      dbController.createTables();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+    requestFactory.resetRequestFactory();
   }
 
   @Test
@@ -318,6 +320,9 @@ class MedEquipControllerTest {
 
   @Test
   void getAll() throws SQLException {
+    merdi.setMedEquipRequestList();
+    labServiceRequestDao.setLabServiceRequestList();
+
     ArrayList<MedEquip> medEquips = medEquipController.getAll();
 
     ArrayList<MedEquip> medDaoEquips = medi.getAllMedEquip();
@@ -348,9 +353,6 @@ class MedEquipControllerTest {
       MedEquip controllerMed = medEquips.get(i);
       MedEquip database = medEquipList.get(i);
 
-      System.out.println(controllerMed.toCSVString());
-      System.out.println(database.toCSVString());
-
       assertEquals(controllerMed.equals(database), true);
     }
   }
@@ -359,7 +361,6 @@ class MedEquipControllerTest {
   void exportMedicalEquipmentCSV() {
 
     String fileName = "TESTMEDEQUIP.csv";
-    medEquipController.exportMedicalEquipmentCSV(fileName);
     ArrayList<MedEquip> medList = medEquipController.getAll();
     File file = new File(fileName);
     InputStream in = null;
