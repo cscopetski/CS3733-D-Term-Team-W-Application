@@ -75,6 +75,7 @@
                         <fx:include fx:id="securityServiceRequestPage" source="ServiceRequestPages/SecurityServiceRequestPage.fxml" />
                         <fx:include fx:id="requestListPage" source="ServiceRequestPages/RequestListPage.fxml" />
                         <fx:include fx:id="requestHubPage" source="RequestHubPage.fxml" />
+                        <fx:include fx:id="loginPage" source="LoginPage.fxml" />
                     </children>
                 </AnchorPane>
             </children>

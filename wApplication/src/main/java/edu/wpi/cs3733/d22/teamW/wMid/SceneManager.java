@@ -34,7 +34,8 @@ public class SceneManager {
     MainMenu,
     MapEditor,
     RequestList,
-    RequestHub
+    RequestHub,
+    Login
   }
 
   private static class Instance {
