@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.CustomControls.EmergencyButton?>
+<AnchorPane fx:id="ap"
+            xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.CustomControlTesting">
+<children>
+    <EmergencyButton fx:id="eb"/>
+</children>
+</AnchorPane>
