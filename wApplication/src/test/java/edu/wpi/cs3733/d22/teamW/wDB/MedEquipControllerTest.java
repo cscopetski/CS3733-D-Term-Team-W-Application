@@ -361,6 +361,7 @@ class MedEquipControllerTest {
   void exportMedicalEquipmentCSV() {
 
     String fileName = "TESTMEDEQUIP.csv";
+    medEquipController.exportMedicalEquipmentCSV(fileName);
     ArrayList<MedEquip> medList = medEquipController.getAll();
     File file = new File(fileName);
     InputStream in = null;

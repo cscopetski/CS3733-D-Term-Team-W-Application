@@ -89,28 +89,14 @@ class MedEquipRequestControllerTest {
 
   @Test
   void cancelRequest() throws SQLException {
-    merc.exportMedEquipRequestCSV("cancelRequest.csv");
     Request request = RequestFactory.getRequestFactory().findRequest(5);
     merc.cancelRequest(request);
     assertEquals(request.getStatus(), 3);
-    merc.exportMedEquipRequestCSV("cancelRequest2.csv");
-    System.out.println("List");
-    ArrayList<MedEquipRequest> list1 = merdi.getAllMedEquipRequests();
-    for (MedEquipRequest r : list1) {
-      System.out.println(r.toCSVString());
-    }
-    System.out.println("DB List");
-    medi.setMedEquipList();
-    ArrayList<MedEquipRequest> list2 = merdi.getAllMedEquipRequests();
-    for (MedEquipRequest r : list2) {
-      System.out.println(r.toCSVString());
-    }
   }
 
   @Test
   void completeRequest() throws SQLException {
 
-    merc.exportMedEquipRequestCSV("completeRequest1.csv");
     ArrayList<String> fields = new ArrayList<>();
 
     fields.add("XRY");
@@ -131,25 +117,13 @@ class MedEquipRequestControllerTest {
     fields3.add("wSTOR001L1");
     fields3.add("JOE2 NAME");
     fields3.add("" + 0);
-    merc.exportMedEquipRequestCSV("completeRequest2.csv");
     Request test2 = requestFactory.getRequest("MEDEQUIPREQUEST", fields);
     Request test3 = requestFactory.getRequest("MEDEQUIPREQUEST", fields2);
     Request test4 = requestFactory.getRequest("MEDEQUIPREQUEST", fields3);
 
     Request request = RequestFactory.getRequestFactory().findRequest(5);
     merc.completeRequest(request);
-    System.out.println("List");
-    ArrayList<MedEquipRequest> list1 = merdi.getAllMedEquipRequests();
-    for (MedEquipRequest r : list1) {
-      System.out.println(r.toCSVString());
-    }
-    System.out.println("DB List");
-    medi.setMedEquipList();
-    ArrayList<MedEquipRequest> list2 = merdi.getAllMedEquipRequests();
-    for (MedEquipRequest r : list2) {
-      System.out.println(r.toCSVString());
-    }
-    merc.exportMedEquipRequestCSV("completeRequest3.csv");
+
     assertEquals(request.getStatus(), 2);
     assertEquals(test3.getStatus(), 1);
   }
@@ -184,7 +158,6 @@ class MedEquipRequestControllerTest {
     Request request = RequestFactory.getRequestFactory().findRequest(5);
 
     merc.checkNext("XRY001");
-    merc.exportMedEquipRequestCSV("checkNext.csv");
     assertEquals(request.getStatus(), 1);
     assertEquals(test3.getRequestID(), 22);
     assertEquals(test3.getStatus(), 1);
@@ -216,31 +189,27 @@ class MedEquipRequestControllerTest {
     Request test2 = requestFactory.getRequest("MEDEQUIPREQUEST", fields);
     Request test3 = requestFactory.getRequest("MEDEQUIPREQUEST", fields2);
     Request test4 = requestFactory.getRequest("MEDEQUIPREQUEST", fields3);
-    merc.exportMedEquipRequestCSV("getNext1.csv");
     Request request2 = merc.getNext("XRY001");
-    merc.exportMedEquipRequestCSV("getNext2.csv");
     assertEquals(test3.getRequestID(), request2.getRequestID());
   }
 
   @Test
   void getRequest() {
     Request request = merc.getRequest(2);
-    merc.exportMedEquipRequestCSV("getRequest.csv");
     assertEquals(request.getRequestID(), 2);
   }
 
   @Test
   void addRequest() throws SQLException {
-    merc.exportMedEquipRequestCSV("addRequest1.csv");
     ArrayList<String> fields3 = new ArrayList<>();
 
     fields3.add("XRY");
     fields3.add("wSTOR001L1");
     fields3.add("JOE2 NAME");
     fields3.add("" + 0);
-    merc.exportMedEquipRequestCSV("addRequest2.csv");
+
     Request request = merc.addRequest(11, fields3);
-    merc.exportMedEquipRequestCSV("addRequest3.csv");
+
     assertEquals(request.getRequestID(), 11);
   }
 
@@ -253,7 +222,6 @@ class MedEquipRequestControllerTest {
         request = r;
       }
     }
-    merc.exportMedEquipRequestCSV("getAllMedEquipRequests.csv");
     assertEquals(request.getRequestID(), 2);
   }
 }
