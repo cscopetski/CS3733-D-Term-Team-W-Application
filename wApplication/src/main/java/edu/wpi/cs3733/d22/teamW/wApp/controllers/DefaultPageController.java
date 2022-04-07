@@ -92,4 +92,5 @@ public class DefaultPageController implements Initializable {
   public void exitProgram() {
     SceneManager.getInstance().exitApplication();
   }
+  
 }
