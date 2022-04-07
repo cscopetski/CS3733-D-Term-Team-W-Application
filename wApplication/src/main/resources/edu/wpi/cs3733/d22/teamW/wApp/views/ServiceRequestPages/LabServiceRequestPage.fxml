@@ -53,27 +53,27 @@
                               </Group>
                               <Group layoutX="39.0" layoutY="91.0">
                                  <children>
-                                    <CheckBox mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" stylesheets="@../../CSS/LabServiceRequestPage/checkBox.css" text="Blood sample" textAlignment="CENTER">
+                                    <CheckBox mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Blood sample" textAlignment="CENTER">
                                        <font>
                                           <Font name="Gill Sans MT" size="16.0" />
                                        </font>
                                     </CheckBox>
-                                    <CheckBox layoutY="27.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" stylesheets="@../../CSS/LabServiceRequestPage/checkBox.css" text="Urine samples" textAlignment="CENTER">
+                                    <CheckBox layoutY="27.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Urine samples" textAlignment="CENTER">
                                        <font>
                                           <Font name="Gill Sans MT" size="16.0" />
                                        </font>
                                     </CheckBox>
-                                    <CheckBox layoutX="152.0" layoutY="27.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="108.0" stylesheets="@../../CSS/LabServiceRequestPage/checkBox.css" text="X-Rays" textAlignment="CENTER">
+                                    <CheckBox layoutX="152.0" layoutY="27.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="108.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="X-Rays" textAlignment="CENTER">
                                        <font>
                                           <Font name="Gill Sans MT" size="16.0" />
                                        </font>
                                     </CheckBox>
-                                    <CheckBox layoutY="54.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" stylesheets="@../../CSS/LabServiceRequestPage/checkBox.css" text="CAT scans" textAlignment="CENTER">
+                                    <CheckBox layoutY="54.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="CAT scans" textAlignment="CENTER">
                                        <font>
                                           <Font name="Gill Sans MT" size="16.0" />
                                        </font>
                                     </CheckBox>
-                                    <CheckBox layoutX="152.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="108.0" stylesheets="@../../CSS/LabServiceRequestPage/checkBox.css" text="MRIs" textAlignment="CENTER">
+                                    <CheckBox layoutX="152.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="108.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="MRIs" textAlignment="CENTER">
                                        <font>
                                           <Font name="Gill Sans MT" size="16.0" />
                                        </font>
@@ -103,20 +103,20 @@
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextField layoutX="29.0" layoutY="93.0" style="-fx-background-color: white; -fx-border-color: #013895;" />
+                                    <TextField layoutX="29.0" layoutY="93.0" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
                                     <Label layoutX="29.0" layoutY="135.0" text="Address">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextField layoutX="29.0" layoutY="154.0" style="-fx-background-color: white; -fx-border-color: #013895;" />
+                                    <TextField layoutX="29.0" layoutY="154.0" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
 
                                     <Label layoutX="199.0" layoutY="135.0" text="Age">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Label>
-                                    <TextField layoutX="197.0" layoutY="154.0" prefHeight="25.0" prefWidth="84.0" style="-fx-background-color: white; -fx-border-color: #013895;" />
+                                    <TextField layoutX="197.0" layoutY="154.0" prefHeight="25.0" prefWidth="84.0" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
                                  </children>
                               </Group>
                               <Label layoutX="31.0" layoutY="192.0" prefHeight="19.0" prefWidth="49.0" text="Notes">
@@ -124,7 +124,7 @@
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <TextArea layoutX="31.0" layoutY="211.0" prefHeight="81.0" prefWidth="251.0" style="-fx-background-color: white; -fx-border-color: #013895;" />
+                              <TextArea layoutX="31.0" layoutY="211.0" prefHeight="81.0" prefWidth="251.0" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
                            </children>
                         </Pane>
                         <Pane prefHeight="328.0" prefWidth="291.0">
@@ -143,7 +143,7 @@
                         </Pane>
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="71.0" stylesheets="@../../CSS/UniversalCSS/button.css" text="Submit">
+                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="71.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit">
                      <font>
                         <Font size="14.0" />
                      </font>
