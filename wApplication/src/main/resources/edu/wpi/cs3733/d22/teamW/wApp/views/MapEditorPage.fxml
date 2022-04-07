@@ -77,7 +77,7 @@
       <TextField fx:id="yIn" layoutX="50.0" layoutY="574.0" promptText="yCoord" stylesheets="@../CSS/UniversalCSS/Standard.css" />
       <Button fx:id="resetButton" layoutX="23.0" layoutY="693.0" mnemonicParsing="false" onAction="#resetCSV" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Reset Map" />
       <Button fx:id="exportButton" layoutX="109.0" layoutY="693.0" mnemonicParsing="false" onAction="#expCSV" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Export to CSV" />
-      <MenuButton fx:id="dropdown" alignment="CENTER" layoutX="645.0" layoutY="30.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="130.0" stylesheets="@../CSS/DefaultPage/mainBar.css" text="Change Floor">
+      <MenuButton fx:id="dropdown" alignment="CENTER" layoutX="645.0" layoutY="30.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="130.0" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Change Floor">
         <items>
             <MenuItem fx:id="Side" mnemonicParsing="false" onAction="#swapSideView" text="Side View" />
           <MenuItem fx:id="F1" mnemonicParsing="false" onAction="#swapFloor1" text="Floor 1" />
