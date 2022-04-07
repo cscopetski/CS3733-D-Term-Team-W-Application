@@ -28,6 +28,7 @@ class MedEquipControllerTest {
 
   @BeforeEach
   void setUp() {
+
     final String locationFileName = "TowerLocations.csv";
     final String medEquipFileName = "MedicalEquipment.csv";
     final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
@@ -69,6 +70,15 @@ class MedEquipControllerTest {
       csvController.populateRequestTables(requestFactory);
     } catch (FileNotFoundException e) {
       e.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  @AfterEach
+  void reset() {
+    try {
+      dbController.createTables();
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -335,7 +345,13 @@ class MedEquipControllerTest {
 
     for (int i = 0; i < medEquips.size(); i++) {
 
-      assertEquals(medEquips.get(i), medEquipList.get(i));
+      MedEquip controllerMed = medEquips.get(i);
+      MedEquip database = medEquipList.get(i);
+
+      System.out.println(controllerMed.toCSVString());
+      System.out.println(database.toCSVString());
+
+      assertEquals(controllerMed.equals(database), true);
     }
   }
 

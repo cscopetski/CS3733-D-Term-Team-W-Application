@@ -86,7 +86,7 @@ public class DBController {
    *
    * @throws SQLException if Location Table fails to be created
    */
-  private void createTables() throws SQLException {
+  public void createTables() throws SQLException {
 
     if (statement == null) {
       System.out.println("Connection not established, cannot create table");
