@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,6 +27,13 @@ class MedEquipRequestControllerTest {
 
   @BeforeEach
   void setUp() {
+
+    try {
+      dbController.createTables();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
     final String locationFileName = "TowerLocations.csv";
     final String medEquipFileName = "MedicalEquipment.csv";
     final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
@@ -74,15 +80,6 @@ class MedEquipRequestControllerTest {
     }
   }
 
-  @AfterEach
-  void reset() {
-    try {
-      dbController.createTables();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-
   @Test
   void checkStart() throws SQLException {
     Request request = RequestFactory.getRequestFactory().findRequest(5);
@@ -97,10 +94,22 @@ class MedEquipRequestControllerTest {
     merc.cancelRequest(request);
     assertEquals(request.getStatus(), 3);
     merc.exportMedEquipRequestCSV("cancelRequest2.csv");
+    System.out.println("List");
+    ArrayList<MedEquipRequest> list1 = merdi.getAllMedEquipRequests();
+    for (MedEquipRequest r : list1) {
+      System.out.println(r.toCSVString());
+    }
+    System.out.println("DB List");
+    medi.setMedEquipList();
+    ArrayList<MedEquipRequest> list2 = merdi.getAllMedEquipRequests();
+    for (MedEquipRequest r : list2) {
+      System.out.println(r.toCSVString());
+    }
   }
 
   @Test
   void completeRequest() throws SQLException {
+
     merc.exportMedEquipRequestCSV("completeRequest1.csv");
     ArrayList<String> fields = new ArrayList<>();
 
@@ -129,6 +138,17 @@ class MedEquipRequestControllerTest {
 
     Request request = RequestFactory.getRequestFactory().findRequest(5);
     merc.completeRequest(request);
+    System.out.println("List");
+    ArrayList<MedEquipRequest> list1 = merdi.getAllMedEquipRequests();
+    for (MedEquipRequest r : list1) {
+      System.out.println(r.toCSVString());
+    }
+    System.out.println("DB List");
+    medi.setMedEquipList();
+    ArrayList<MedEquipRequest> list2 = merdi.getAllMedEquipRequests();
+    for (MedEquipRequest r : list2) {
+      System.out.println(r.toCSVString());
+    }
     merc.exportMedEquipRequestCSV("completeRequest3.csv");
     assertEquals(request.getStatus(), 2);
     assertEquals(test3.getStatus(), 1);
@@ -166,7 +186,8 @@ class MedEquipRequestControllerTest {
     merc.checkNext("XRY001");
     merc.exportMedEquipRequestCSV("checkNext.csv");
     assertEquals(request.getStatus(), 1);
-    assertEquals(test2.getRequestID(), 22);
+    assertEquals(test3.getRequestID(), 22);
+    assertEquals(test3.getStatus(), 1);
   }
 
   @Test
@@ -195,9 +216,9 @@ class MedEquipRequestControllerTest {
     Request test2 = requestFactory.getRequest("MEDEQUIPREQUEST", fields);
     Request test3 = requestFactory.getRequest("MEDEQUIPREQUEST", fields2);
     Request test4 = requestFactory.getRequest("MEDEQUIPREQUEST", fields3);
-
+    merc.exportMedEquipRequestCSV("getNext1.csv");
     Request request2 = merc.getNext("XRY001");
-    merc.exportMedEquipRequestCSV("getNext.csv");
+    merc.exportMedEquipRequestCSV("getNext2.csv");
     assertEquals(test3.getRequestID(), request2.getRequestID());
   }
 
