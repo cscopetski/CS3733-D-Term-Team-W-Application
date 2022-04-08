@@ -31,8 +31,10 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   @FXML ComboBox requesterCBox; // FREE BOX, NOT SURE WHAT TO DO
 
   // ComboBox Lists:
-  ObservableList<String> meds = FXCollections.observableArrayList("create list in DB");
-  ObservableList<String> locations = FXCollections.observableArrayList("get from DB");
+  ObservableList<String> meds = FXCollections.observableArrayList("Advil", "Tylenol");
+  ObservableList<String> locations =
+      FXCollections.observableArrayList("<Will be implemented from DB>");
+  ObservableList<String> names = FXCollections.observableArrayList("Edward", "Jason", "Joe");
   ObservableList<String> times =
       FXCollections.observableArrayList(
           "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00",
@@ -71,6 +73,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     medNameCBox.setItems(meds);
     locationCBox.setItems(locations);
     timePrefCBox.setItems(times);
+    requesterCBox.setItems(names);
   }
 
   public void populateTable() {
