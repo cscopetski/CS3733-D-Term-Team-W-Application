@@ -40,7 +40,7 @@ public class EmergencyButton extends Button {
     }
   }
 
-  protected void onAction(ActionEvent e) {
+  private void onAction(ActionEvent e) {
     setValue(!value);
   }
 }
