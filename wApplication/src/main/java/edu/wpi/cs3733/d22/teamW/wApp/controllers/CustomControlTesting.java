@@ -5,13 +5,16 @@ import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
 public class CustomControlTesting implements Initializable {
-  // @FXML public AnchorPane ap;
-  // @FXML public EmergencyButton eb;
+  // @FXML private TableView<SR> table;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    // ap.getChildren().add(new EmergencyButton());
+    /*ArrayList<Request> requests = RequestFactory.getRequestFactory().getAllRequests();
+    table
+        .getItems()
+        .addAll(
+            requests.stream()
+                .map(r -> (SR) (new MedicalEquipmentSR(r)))
+                .collect(Collectors.toList()));*/
   }
-  // @FXML public EmergencyButton eb;
-
 }

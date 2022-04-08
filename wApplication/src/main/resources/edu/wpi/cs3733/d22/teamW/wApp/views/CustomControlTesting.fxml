@@ -2,12 +2,15 @@
 
 <?import javafx.scene.layout.*?>
 
-<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.CustomControls.*?>
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.*?>
+
 <AnchorPane fx:id="ap"
             xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.CustomControlTesting">
-<children>
-    <EmergencyButton prefWidth='200' prefHeight='50'/>
-</children>
+    <HBox>
+        <EmergencyButton prefWidth='200' prefHeight='50'/>
+        <RequestTable prefWidth='500' prefHeight='500'/>
+    </HBox>
+
 </AnchorPane>

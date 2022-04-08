@@ -49,7 +49,7 @@
                                                 </Label>
                                                 <TableView fx:id="table" minHeight="175.0" minWidth="440.0" prefHeight="380.0" prefWidth="440.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
                                                     <columns>
-                                                        <TableColumn resizable="false" text="Request ID">
+                                                    <TableColumn resizable="false" text="Request ID">
                                                             <cellValueFactory>
                                                                 <PropertyValueFactory property="RequestID" />
                                                             </cellValueFactory>
