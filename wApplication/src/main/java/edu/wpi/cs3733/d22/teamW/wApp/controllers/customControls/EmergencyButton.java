@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d22.teamW.wApp.controllers.CustomControls;
+package edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
