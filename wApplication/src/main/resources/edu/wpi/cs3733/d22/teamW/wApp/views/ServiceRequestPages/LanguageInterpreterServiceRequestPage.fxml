@@ -17,6 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton?>
 <AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicalEquipmentServiceRequestController">
     <children>
         <AnchorPane prefHeight="473.0" prefWidth="940.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -106,11 +107,7 @@
                                         </BorderPane>
                                         <BorderPane maxWidth="250.0" prefHeight="39.0" prefWidth="265.0">
                                             <center>
-                                                <Button id="emergencyB" fx:id="emergencyB" mnemonicParsing="false" onMouseClicked="#emergencyClicked" prefHeight="30.0" prefWidth="220.0" stylesheets="@../../CSS/UniversalCSS/EmergencyButton/emergencyButtonFalse.css" text="Emergency Button" BorderPane.alignment="CENTER">
-                                                    <BorderPane.margin>
-                                                        <Insets bottom="20.0" />
-                                                    </BorderPane.margin>
-                                                </Button>
+                                                <EmergencyButton fx:id="emergencyB" layoutX="36.0" layoutY="222.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="220.0" />
                                             </center>
                                             <VBox.margin>
                                                 <Insets top="5.0" />
