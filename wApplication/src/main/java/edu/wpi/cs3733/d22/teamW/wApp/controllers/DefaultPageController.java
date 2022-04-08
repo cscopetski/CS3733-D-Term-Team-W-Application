@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 public class DefaultPageController implements Initializable {
@@ -21,9 +22,15 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane securityServiceRequestPage;
   @FXML public Pane requestListPage;
   @FXML public Pane requestHubPage;
+  @FXML public Pane loginPage;
+  @FXML public HBox menuBar;
 
   @FXML
   public void initialize(URL location, ResourceBundle rb) {
+
+    SceneManager.getInstance().putController(SceneManager.Scenes.Default, this);
+
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Login, loginPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.MainMenu, mainMenuPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.MapEditor, mapEditorPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Lab, labServiceRequestPage);
@@ -38,7 +45,7 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().putPane(SceneManager.Scenes.Security, securityServiceRequestPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.RequestList, requestListPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.RequestHub, requestHubPage);
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MainMenu);
+    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Login);
 
     try {
       // SceneManager.getInstance().setScene(SceneManager.Scenes.MainMenu);
