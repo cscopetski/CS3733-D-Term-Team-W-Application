@@ -1,13 +1,15 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
-import edu.wpi.cs3733.d22.teamW.wDB.MedDelivRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.Request;
 
-public class MedicineDeliverySR {
-  MedDelivRequest mdr;
+public class MedicineDeliverySR extends SR{
 
-  public MedicineDeliverySR(MedDelivRequest mdr) {
-    this.mdr = mdr;
+  public MedicineDeliverySR(Request r) {
+    super(r);
   }
 
-  // DUR DUR DUR, back end make this stuff
+  @Override
+  public String getRequestType() {
+    return "Medicine Delivery";
+  }
 }
