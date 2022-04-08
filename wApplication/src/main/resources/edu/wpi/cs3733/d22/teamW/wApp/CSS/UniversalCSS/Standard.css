@@ -159,7 +159,7 @@
 
 .table-view .column-header-background{
     -fx-background-color: #013895;
-    -fx-background-radius: 7px 7px 0px 0px;
+    -fx-background-radius: 7px 7px 5px 5px;
     -fx-background-insets: 0 11px 0 0;
     -fx-padding: 0 0 5px 0;
 }
@@ -180,7 +180,8 @@
 .table-row-cell:hover {
     -fx-background-color: #013895;
     -fx-text-background-color: white;
-    -fx-background-insets: 0px 11px 0px 0px;
+    -fx-background-radius: 5px;
+    /*-fx-background-insets: 0px 11px 0px 0px;*/
 }
 
 .table-view .virtual-flow .scroll-bar:vertical,
@@ -209,7 +210,7 @@
 .table-row-cell:focused {
     -fx-background-color: #013895;
     -fx-background-radius: 15px;
-    -fx-background-insets: 0px 11px 0px 0px;
+    /*-fx-background-insets: 0px 11px 0px 0px;*/
 }
 
 *{
