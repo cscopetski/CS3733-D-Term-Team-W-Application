@@ -17,6 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable?>
 <AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.RequestListController">
     <children>
         <AnchorPane prefHeight="473.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
@@ -47,36 +48,7 @@
                                                         <Insets />
                                                     </VBox.margin>
                                                 </Label>
-                                                <TableView fx:id="table" minHeight="175.0" minWidth="440.0" prefHeight="380.0" prefWidth="440.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-                                                    <columns>
-                                                        <TableColumn resizable="false" text="Request ID">
-                                                            <cellValueFactory>
-                                                                <PropertyValueFactory property="RequestID" />
-                                                            </cellValueFactory>
-                                                        </TableColumn>
-                                                        <TableColumn minWidth="15.0" prefWidth="130.0" resizable="false" text="Request Type">
-                                                            <cellValueFactory>
-                                                                <PropertyValueFactory property="RequestType" />
-                                                            </cellValueFactory>
-                                                        </TableColumn>
-                                                        <TableColumn minWidth="15.0" prefWidth="150.0" resizable="false" text="Employee Name">
-                                                            <cellValueFactory>
-                                                                <PropertyValueFactory property="EmployeeName" />
-                                                            </cellValueFactory>
-                                                        </TableColumn>
-                                                        <TableColumn minWidth="20.0" prefWidth="60.0" resizable="false" text="Status">
-                                                            <cellValueFactory>
-                                                                <PropertyValueFactory property="Status" />
-                                                            </cellValueFactory>
-                                                        </TableColumn>
-                                                    </columns>
-                                                    <VBox.margin>
-                                                        <Insets />
-                                                    </VBox.margin>
-                                                    <columnResizePolicy>
-                                                        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                                    </columnResizePolicy>
-                                                </TableView>
+                                                <RequestTable fx:id="rt" minHeight="175.0" minWidth="440.0" prefHeight="380.0" prefWidth="440.0"/>
                                             </children>
                                             <HBox.margin>
                                                 <Insets right="20.0" />
