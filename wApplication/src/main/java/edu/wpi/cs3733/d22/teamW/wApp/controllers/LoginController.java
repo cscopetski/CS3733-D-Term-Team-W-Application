@@ -26,9 +26,7 @@ public class LoginController extends LoadableController {
   }
 
   @Override
-  public void onLoad() {
-    background.setEffect(new GaussianBlur());
-  }
+  public void onLoad() {}
 
   @Override
   public void onUnload() {}
