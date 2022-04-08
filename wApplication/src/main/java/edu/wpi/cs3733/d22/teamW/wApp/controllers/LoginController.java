@@ -30,6 +30,8 @@ public class LoginController extends LoadableController {
   public void login() {
     // username.getText();
     // password.getText();
+    ((DefaultPageController) SceneManager.getInstance().getController(SceneManager.Scenes.Default))
+        .menuBar.setVisible(true);
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MainMenu);
   }
 }

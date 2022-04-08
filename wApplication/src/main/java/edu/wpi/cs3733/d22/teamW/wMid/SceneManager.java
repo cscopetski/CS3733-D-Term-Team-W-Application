@@ -15,11 +15,27 @@ import javafx.stage.WindowEvent;
 public class SceneManager {
   private class Page {
     public Pane pane;
-    public LoadableController controller;
+    public Object controller;
 
-    public Page(Pane pane, LoadableController controller) {
+    public Page(Pane pane, Object controller) {
       this.pane = pane;
       this.controller = controller;
+    }
+
+    public boolean tryOnLoad() {
+      if (controller != null && controller.getClass().equals(LoadableController.class)) {
+        ((LoadableController) controller).onLoad();
+        return true;
+      }
+      return false;
+    }
+
+    public boolean tryOnUnload() {
+      if (controller != null && controller.getClass().equals(LoadableController.class)) {
+        ((LoadableController) controller).onUnload();
+        return true;
+      }
+      return false;
     }
   }
 
@@ -56,7 +72,7 @@ public class SceneManager {
 
   public void exitApplication() {
     if (pages.get(current).controller != null) {
-      pages.get(current).controller.onUnload();
+      pages.get(current).tryOnUnload();
     }
     System.exit(0);
   }
@@ -77,7 +93,7 @@ public class SceneManager {
     }
   }
 
-  public void putController(Scenes scene, LoadableController controller) {
+  public void putController(Scenes scene, Object controller) {
     if (pages.get(scene) != null) {
       pages.get(scene).controller = controller;
     } else {
@@ -90,14 +106,14 @@ public class SceneManager {
       pages.get(current).pane.setVisible(false);
       pages.get(current).pane.setDisable(true);
       if (pages.get(current).controller != null) {
-        pages.get(current).controller.onUnload();
+        pages.get(current).tryOnUnload();
       }
     }
     current = scene;
     pages.get(current).pane.setVisible(true);
     pages.get(current).pane.setDisable(false);
     if (pages.get(current).controller != null) {
-      pages.get(current).controller.onLoad();
+      pages.get(current).tryOnLoad();
     }
   }
 
@@ -139,6 +155,10 @@ public class SceneManager {
     stage.showAndWait();
 
     return stage;
+  }
+
+  public Object getController(Scenes scene) {
+    return pages.get(scene).controller;
   }
 
   private void closeWindowEvent(WindowEvent e) {

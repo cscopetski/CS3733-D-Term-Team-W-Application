@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 public class DefaultPageController implements Initializable {
@@ -22,9 +23,13 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane requestListPage;
   @FXML public Pane requestHubPage;
   @FXML public Pane loginPage;
+  @FXML public HBox menuBar;
 
   @FXML
   public void initialize(URL location, ResourceBundle rb) {
+
+    SceneManager.getInstance().putController(SceneManager.Scenes.Default, this);
+
     SceneManager.getInstance().putPane(SceneManager.Scenes.Login, loginPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.MainMenu, mainMenuPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.MapEditor, mapEditorPage);
@@ -92,5 +97,4 @@ public class DefaultPageController implements Initializable {
   public void exitProgram() {
     SceneManager.getInstance().exitApplication();
   }
-  
 }

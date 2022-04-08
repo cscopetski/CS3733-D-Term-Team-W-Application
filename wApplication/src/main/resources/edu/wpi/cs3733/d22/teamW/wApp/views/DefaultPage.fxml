@@ -12,13 +12,12 @@
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DefaultPageController">
-
     <children>
         <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <AnchorPane>
                     <children>
-                        <HBox stylesheets="@../CSS/UniversalCSS/Standard.css" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
+                        <HBox fx:id="menuBar" stylesheets="@../CSS/UniversalCSS/Standard.css" visible="false" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
                             <children>
                                 <Button mnemonicParsing="false" onAction="#switchToMainMenu" prefHeight="30.0" prefWidth="113.0" text="Main Menu" textFill="WHITE">
                            <HBox.margin>
