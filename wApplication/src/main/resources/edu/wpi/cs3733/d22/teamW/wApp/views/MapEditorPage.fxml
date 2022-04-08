@@ -16,7 +16,7 @@
 
 <AnchorPane fx:id="page" style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
    <children>
-      <ImageView fx:id="mapList" fitHeight="600.0" fitWidth="600.0" layoutX="396.0" layoutY="63.0" onMouseClicked="#addLocation">
+      <ImageView fx:id="mapList" fitHeight="600.0" fitWidth="600.0" layoutX="396.0" layoutY="63.0" onMouseClicked="#addLocation2">
          <image>
             <Image url="@../assets/Maps/SideView.jpg" />
          </image>

@@ -1,0 +1,103 @@
+package edu.wpi.cs3733.d22.teamW.wApp.controllers;
+
+import edu.wpi.cs3733.d22.teamW.wDB.LocationController;
+import edu.wpi.cs3733.d22.teamW.wDB.LocationDaoImpl;
+import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.awt.*;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.Optional;
+import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+public class newLocationPageController implements Initializable {
+  public Button cancelButton;
+  public Button resetButton;
+  public Button addButton;
+  private String nodeID = "";
+  @FXML private TextField nodeField;
+  @FXML private TextField xField;
+  @FXML private TextField yField;
+  @FXML private TextField floorField;
+  @FXML private TextField typeField;
+  @FXML private TextField lnameField;
+  @FXML private TextField snameField;
+  @FXML private TextField buildingField;
+  private Point p;
+  @FXML private Alert confirmChoice = new Alert(Alert.AlertType.CONFIRMATION);
+  private LocationDaoImpl test;
+
+  {
+    try {
+      test = new LocationDaoImpl();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+  }
+
+  private LocationController locationController = new LocationController(test);
+
+  public void resetFields(ActionEvent actionEvent) throws SQLException {
+    onLoad();
+  }
+
+  public void addLoc(ActionEvent actionEvent) throws SQLException {
+    Optional<ButtonType> result = confirmChoice.showAndWait();
+    if (checkFull()) {
+      if (result.get() == ButtonType.OK) {
+        locationController.addLocation(
+            nodeField.getText(),
+            Integer.parseInt(xField.getText()),
+            Integer.parseInt(yField.getText()),
+            floorField.getText(),
+            buildingField.getText(),
+            typeField.getText(),
+            lnameField.getText(),
+            snameField.getText());
+      }
+    }
+  }
+
+  private boolean checkFull() {
+    if (nodeField.getText().isEmpty()
+        || xField.getText().isEmpty()
+        || floorField.getText().isEmpty()
+        || buildingField.getText().isEmpty()
+        || typeField.getText().isEmpty()
+        || lnameField.getText().isEmpty()
+        || snameField.getText().isEmpty()) {
+      return false;
+    }
+    return true;
+  }
+
+  public void cancelUpdate(ActionEvent actionEvent) {
+    ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
+  }
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    onLoad();
+  }
+
+  private void onLoad() {
+    p =
+        (Point)
+            SceneManager.getInstance()
+                .getInformation(SceneManager.getInstance().getPrimaryStage(), "addLoc");
+    xField.setText(p.x + "");
+    yField.setText(p.y + "");
+    floorField.setText(
+        (String)
+            SceneManager.getInstance()
+                .getInformation(SceneManager.getInstance().getPrimaryStage(), "floor"));
+  }
+}

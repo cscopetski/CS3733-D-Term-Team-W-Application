@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,6 +11,8 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -93,12 +96,9 @@ public class MapEditorController {
   }
 
   private boolean checkFull() {
-    System.out.println("test");
     if (xIn.getText().isEmpty() && yIn.getText().isEmpty() && nodeIn.getText().isEmpty()) {
-      System.out.println("test1");
       return false;
     }
-    System.out.println("test2");
     return true;
   }
 
@@ -184,6 +184,16 @@ public class MapEditorController {
       Circle circ = new Circle(5, Color.RED);
       circ.setCenterX((currFloorLoc.get(i).getXCoord() * 0.67) + xOffSet);
       circ.setCenterY((currFloorLoc.get(i).getYCoord() * 0.67) + yOffSet);
+      circ.setOnMouseClicked(
+          (event -> {
+            try {
+              testUpdate(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
+            } catch (SQLException e) {
+              e.printStackTrace();
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+          }));
       locDots.add(circ);
       page.getChildren().add(circ);
     }
@@ -246,6 +256,13 @@ public class MapEditorController {
     }
   }
 
+  public void testUpdate(String nodeID) throws SQLException, IOException {
+    SceneManager.getInstance()
+        .putInformation(SceneManager.getInstance().getPrimaryStage(), "updateLoc", nodeID);
+    Stage S = SceneManager.getInstance().openWindow("UpdateMapPage.fxml");
+    refresh();
+  }
+
   public void removeLocation(ActionEvent actionEvent) throws SQLException {
     if (!nodeIn.getText().isEmpty()) {
       locationController.deleteLocation(nodeIn.getText());
@@ -277,5 +294,19 @@ public class MapEditorController {
 
   public void expCSV(ActionEvent actionEvent) {
     test.exportLocationCSV("output.csv");
+  }
+
+  public void addLocation2(javafx.scene.input.MouseEvent mouseEvent)
+      throws IOException, SQLException {
+    Point p = new Point();
+    p.x = (int) mouseEvent.getX();
+    p.y = (int) mouseEvent.getY();
+    SceneManager.getInstance()
+        .putInformation(SceneManager.getInstance().getPrimaryStage(), "addLoc", p);
+    SceneManager.getInstance()
+        .putInformation(SceneManager.getInstance().getPrimaryStage(), "floor", currFloor);
+    Stage S = SceneManager.getInstance().openWindow("newLocationPage.fxml");
+    refresh();
+    nodeIn.clear();
   }
 }

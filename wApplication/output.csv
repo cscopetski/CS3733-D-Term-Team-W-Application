@@ -1,5 +1,5 @@
 nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName
-FDEPT00101, 224, 188, 1, Tower, DEPT, Center for International Medicine, CIM
+FDEPT00101, 100, 100, 01, Tower, DEPT, TESTING, TEST
 FDEPT00201, 217, 483, 1, Tower, DEPT, Bretholtz Center for Patients and Families, Bretholtz WR
 FDEPT00301, 328, 294, 1, Tower, DEPT, Multifaith Chapel, Chapel
 FDEPT00401, 401, 509, 1, Tower, DEPT, Sharf Admitting Center, Sharf Center
@@ -132,4 +132,3 @@ CHALL010L2, 737, 212, L2, Tower, HALL, Hallway 10 Floor L2, Hallway C010L2
 WELEV00LL2, 392, 287, L2, Tower, ELEV, Elevator L Floor L2, Elevator LL2
 WELEV00ML2, 427, 643, L2, Tower, ELEV, Elevator M Floor L2, Elevator ML2
 WHALL001L2, 352, 887, L2, Tower, HALL, Hallway Connector 1 Floor L2, Hallway W01L2
-HOLD, -1, -1, HOLD, null, null, null, null

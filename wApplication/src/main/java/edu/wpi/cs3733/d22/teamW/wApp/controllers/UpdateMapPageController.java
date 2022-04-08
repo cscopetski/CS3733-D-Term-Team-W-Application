@@ -6,12 +6,15 @@ import edu.wpi.cs3733.d22.teamW.wDB.LocationDaoImpl;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -28,6 +31,7 @@ public class UpdateMapPageController implements Initializable {
   @FXML private TextField lnameField;
   @FXML private TextField snameField;
   @FXML private TextField buildingField;
+  @FXML private Alert confirmChoice = new Alert(Alert.AlertType.CONFIRMATION);
   private LocationDaoImpl test;
 
   {
@@ -43,16 +47,19 @@ public class UpdateMapPageController implements Initializable {
   private LocationController locationController = new LocationController(test);
 
   public void updateLoc(ActionEvent actionEvent) throws SQLException {
-    locationController.changeLocation(
-        nodeField.getText(),
-        Integer.parseInt(xField.getText()),
-        Integer.parseInt(yField.getText()),
-        floorField.getText(),
-        buildingField.getText(),
-        typeField.getText(),
-        lnameField.getText(),
-        snameField.getText());
-    onLoad();
+    Optional<ButtonType> result = confirmChoice.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      locationController.changeLocation(
+          nodeField.getText(),
+          Integer.parseInt(xField.getText()),
+          Integer.parseInt(yField.getText()),
+          floorField.getText(),
+          buildingField.getText(),
+          typeField.getText(),
+          lnameField.getText(),
+          snameField.getText());
+      onLoad();
+    }
   }
 
   public void resetFields(ActionEvent actionEvent) throws SQLException {
@@ -81,6 +88,7 @@ public class UpdateMapPageController implements Initializable {
     buildingField.setText(loc.getBuilding());
     floorField.setText(loc.getFloor());
     lnameField.setText(loc.getLongName());
+    snameField.setText(loc.getShortName());
     test.setLocationsList();
   }
 
@@ -90,6 +98,14 @@ public class UpdateMapPageController implements Initializable {
       onLoad();
     } catch (SQLException e) {
       e.printStackTrace();
+    }
+  }
+
+  public void removeLoc(ActionEvent actionEvent) throws SQLException {
+    Optional<ButtonType> result = confirmChoice.showAndWait();
+    if (result.get() == ButtonType.OK) {
+      locationController.deleteLocation(loc.getNodeID());
+      cancelUpdate(actionEvent);
     }
   }
 }
