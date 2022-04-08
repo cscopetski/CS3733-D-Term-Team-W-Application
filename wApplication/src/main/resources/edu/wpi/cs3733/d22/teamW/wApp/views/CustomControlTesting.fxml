@@ -10,7 +10,7 @@
             fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.CustomControlTesting">
     <HBox>
         <EmergencyButton prefWidth='200' prefHeight='50'/>
-        <RequestTable prefWidth='500' prefHeight='500'/>
+        <RequestTable fx:id="table" prefWidth='500' prefHeight='500'/>
     </HBox>
 
 </AnchorPane>
