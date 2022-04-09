@@ -1,13 +1,12 @@
 package edu.wpi.cs3733.d22.teamW.wMid;
 
+import static edu.wpi.cs3733.d22.teamW.wMid.SceneManager.Transitions.TranslateY;
+
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import java.io.IOException;
 import java.util.Dictionary;
 import java.util.Hashtable;
-import javafx.animation.Interpolator;
-import javafx.animation.KeyFrame;
-import javafx.animation.KeyValue;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -67,7 +66,13 @@ public class SceneManager {
   private final Hashtable<Scenes, Page> pages = new Hashtable<>();
   private Scenes current;
 
-  private Hashtable<Stage, Dictionary<String, Object>> information = new Hashtable<>();
+  private final Hashtable<Stage, Dictionary<String, Object>> information = new Hashtable<>();
+
+  public enum Transitions {
+    TranslateY,
+    FadeOut,
+    Fade
+  }
 
   private SceneManager() {}
 
@@ -108,8 +113,7 @@ public class SceneManager {
 
   public void setPaneVisible(Scenes scene) {
 
-    if (current != null) {
-      translateSceneDown(current);
+    if (current != null) {;
       pages.get(current).pane.setVisible(false);
       pages.get(current).pane.setDisable(true);
       pages.get(current).tryOnUnload();
@@ -121,34 +125,47 @@ public class SceneManager {
     pages.get(current).tryOnLoad();
   }
 
-  public void translateSceneDown(Scenes scene) {
-    // start position of scene
-    pages.get(scene).pane.translateYProperty().set(0);
-
-    Timeline timeline = new Timeline();
-    KeyValue keyValue =
-        new KeyValue(
-            pages.get(scene).pane.translateYProperty(),
-            primaryStage.getHeight(), // end position of scene
-            Interpolator.EASE_IN);
-    KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
-    timeline.getKeyFrames().add(keyFrame);
-    timeline.play();
+  public void transitionTo(Scenes scene, Transitions transition) {
+    transitionTo(scene, transition, 500);
   }
 
-  public void translateSceneUp(Scenes scene) {
-    // start position of scene
-    pages.get(scene).pane.translateYProperty().set(0);
+  public void transitionTo(Scenes scene, Transitions transition, double duration) {
+    Transition tOld = null;
+    Transition tNew = null;
+    switch (transition) {
+      case TranslateY:
+        tOld = new TranslateTransition(Duration.millis(duration), pages.get(current).pane);
+        ((TranslateTransition) tOld).setByY(pages.get(current).pane.getHeight());
+        break;
+      case FadeOut:
+        tOld = new FadeTransition(Duration.millis(duration), pages.get(current).pane);
+        ((FadeTransition) tOld).setFromValue(1);
+        ((FadeTransition) tOld).setToValue(0);
+        break;
+      case Fade:
+        tOld = new FadeTransition(Duration.millis(duration), pages.get(current).pane);
+        ((FadeTransition) tOld).setFromValue(1);
+        ((FadeTransition) tOld).setToValue(0);
+        tNew = new FadeTransition(Duration.millis(duration), pages.get(scene).pane);
+        ((FadeTransition) tNew).setFromValue(0);
+        ((FadeTransition) tNew).setToValue(1);
+    }
+    // t.setOnFinished(e -> pages.get(current).pane.setVisible(false));
+    pages.get(current).pane.setDisable(true);
+    pages.get(current).tryOnUnload();
 
-    Timeline timeline = new Timeline();
-    KeyValue keyValue =
-        new KeyValue(
-            pages.get(scene).pane.translateYProperty(),
-            -1 * (primaryStage.getHeight()), // end position of scene
-            Interpolator.EASE_IN);
-    KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
-    timeline.getKeyFrames().add(keyFrame);
-    timeline.play();
+    current = scene;
+
+    pages.get(current).pane.setVisible(true);
+    pages.get(current).pane.setDisable(false);
+    pages.get(current).tryOnLoad();
+
+    if (tOld != null) {
+      tOld.play();
+    }
+    if (tNew != null) {
+      tNew.play();
+    }
   }
 
   public Stage getPrimaryStage() {

@@ -36,6 +36,7 @@ public class LoginController extends LoadableController {
   public void onUnload() {}
 
   public void login() {
+
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
       username.getText();
       password.getText();
@@ -43,7 +44,8 @@ public class LoginController extends LoadableController {
         ((DefaultPageController)
                 SceneManager.getInstance().getController(SceneManager.Scenes.Default))
             .menuBar.setVisible(true);
-        SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MainMenu);
+        SceneManager.getInstance()
+            .transitionTo(SceneManager.Scenes.MainMenu, SceneManager.Transitions.Fade);
       }
     } else {
       emptyFields.show();
