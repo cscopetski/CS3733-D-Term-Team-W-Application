@@ -11,6 +11,7 @@
     <HBox>
         <EmergencyButton prefWidth='200' prefHeight='50'/>
         <RequestTable fx:id="table" prefWidth='500' prefHeight='500'/>
+        <AutoCompleteInput></AutoCompleteInput>
     </HBox>
 
 </AnchorPane>
