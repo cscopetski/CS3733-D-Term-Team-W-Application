@@ -113,8 +113,8 @@ public class MedEquipRequest extends Request {
   }
 
   @Override
-  public String getRequestType() {
-    return "MEDICALEQUIPREQUEST";
+  public RequestType getRequestType() {
+    return RequestType.MedicalEquipmentRequest;
   }
 
   public String toCSVString() {

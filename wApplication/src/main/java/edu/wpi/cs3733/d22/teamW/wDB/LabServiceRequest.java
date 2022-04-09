@@ -52,17 +52,14 @@ public class LabServiceRequest extends Request {
   public void start() {}
 
   @Override
-  public void start(String s) {}
-
-  @Override
   public void complete() {}
 
   @Override
   public void cancel() {}
 
   @Override
-  public String getRequestType() {
-    return "LABSERVICEREQUEST";
+  public RequestType getRequestType() {
+    return RequestType.LabServiceRequest;
   }
 
   @Override

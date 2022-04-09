@@ -35,11 +35,9 @@ public abstract class Request implements Entity {
 
   public abstract void start();
 
-  public abstract void start(String s);
-
   public abstract void complete();
 
   public abstract void cancel();
 
-  public abstract String getRequestType();
+  public abstract RequestType getRequestType();
 }

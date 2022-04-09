@@ -75,6 +75,7 @@ public class Main {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    merc.completeRequest(requestFactory.findRequest(2));
     /*
         Request test = requestFactory.findRequest(5);
         Request test2 = requestFactory.findRequest(11);
