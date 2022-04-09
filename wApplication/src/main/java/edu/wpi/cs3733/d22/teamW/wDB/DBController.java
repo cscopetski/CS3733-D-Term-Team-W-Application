@@ -155,8 +155,12 @@ public class DBController {
                 + "firstName varchar(25), \n "
                 + "lastName varchar(25), \n "
                 + "employeeType varchar(25), \n "
-                + "username varchar(25), \n "
-                + "password varchar(25), \n "
+                + "email varchar(256), \n "
+                + "phonenumber varchar(25), \n "
+                + "address varchar(256), \n "
+                + "username varchar(256), \n "
+                + "password varchar(256), \n "
+                + "salt varchar(256), \n "
                 + "constraint Employees_PK primary key (employeeID),"
                 + "constraint username_uq unique(username))");
 

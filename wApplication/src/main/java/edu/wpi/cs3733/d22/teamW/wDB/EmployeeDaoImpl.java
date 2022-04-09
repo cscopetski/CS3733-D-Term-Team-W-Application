@@ -25,7 +25,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
       while (employees.next()) {
         ArrayList<String> employeeData = new ArrayList<String>();
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 10; i++) {
           employeeData.add(employees.getString(i + 1));
         }
 
@@ -45,10 +45,25 @@ public class EmployeeDaoImpl implements EmployeeDao {
       String firstname,
       String lastname,
       String type,
+      String email,
+      String phoneNumber,
+      String address,
       String username,
-      String password)
+      String password,
+      String salt)
       throws SQLException {
-    Employee newEmployee = new Employee(employeeID, firstname, lastname, type, username, password);
+    Employee newEmployee =
+        new Employee(
+            employeeID,
+            firstname,
+            lastname,
+            type,
+            email,
+            phoneNumber,
+            address,
+            username,
+            password,
+            salt);
     DBController.getDBController()
         .executeUpdate(
             String.format("INSERT INTO EMPLOYEES VALUES (%s)", newEmployee.toValuesString()));
@@ -66,14 +81,27 @@ public class EmployeeDaoImpl implements EmployeeDao {
       String firstname,
       String lastname,
       String type,
+      String email,
+      String phoneNumber,
+      String address,
       String username,
-      String password)
+      String password,
+      String salt)
       throws SQLException {
     DBController.getDBController()
         .executeUpdate(
             String.format(
-                "UPDATE EMPLOYEES SET FIRSTNAME = '%s', LASTNAME = '%s', EMPLOYEETYPE = '%s', USERNAME = '%s', PASSWORD = '%s' WHERE EMPLOYEEID = %d",
-                firstname, lastname, type, username, password, employeeID));
+                "UPDATE EMPLOYEES SET FIRSTNAME = '%s', LASTNAME = '%s', EMPLOYEETYPE = '%s', EMAIL = '%s', PHONENUMBER = '%s', ADDRESS = '%s', USERNAME = '%s', PASSWORD = '%s', SALT = '%s' WHERE EMPLOYEEID = %d",
+                firstname,
+                lastname,
+                type,
+                email,
+                phoneNumber,
+                address,
+                username,
+                password,
+                salt,
+                employeeID));
   }
 
   @Override
@@ -81,7 +109,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print("employeeID,firstname,lastname,employeetype,username,password");
+      pw.print(
+          "employeeID,firstname,lastname,employeetype,email,phonenumber,address,username,password,salt");
 
       // print all locations
       for (Employee e : getAllEmployees()) {

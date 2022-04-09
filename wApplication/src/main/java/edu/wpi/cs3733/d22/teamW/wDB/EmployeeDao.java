@@ -12,8 +12,12 @@ public interface EmployeeDao {
       String firstname,
       String lastname,
       String type,
+      String email,
+      String phoneNumber,
+      String address,
       String username,
-      String password)
+      String password,
+      String salt)
       throws SQLException;
 
   void deleteEmployee(Integer empID) throws SQLException;
@@ -23,11 +27,17 @@ public interface EmployeeDao {
       String firstname,
       String lastname,
       String type,
+      String email,
+      String phoneNumber,
+      String address,
       String username,
-      String password)
+      String password,
+      String salt)
       throws SQLException;
 
   void exportEmpCSV(String fileName);
+
+  // public String getSalt(Integer id);
 
   public Integer countUsernameOccurences(String s) throws SQLException;
 

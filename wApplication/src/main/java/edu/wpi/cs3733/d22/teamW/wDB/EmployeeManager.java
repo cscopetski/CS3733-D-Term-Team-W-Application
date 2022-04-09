@@ -31,10 +31,24 @@ public class EmployeeManager {
       String firstname,
       String lastname,
       String type,
+      String email,
+      String phoneNumber,
+      String address,
       String username,
-      String password)
+      String password,
+      String salt)
       throws SQLException {
-    ed.addEmployee(employeeID, firstname, lastname, type, username, password);
+    ed.addEmployee(
+        employeeID,
+        firstname,
+        lastname,
+        type,
+        email,
+        phoneNumber,
+        address,
+        username,
+        password,
+        salt);
   }
 
   public void deleteEmployee(Integer employeeID) throws SQLException {
@@ -46,10 +60,24 @@ public class EmployeeManager {
       String firstname,
       String lastname,
       String type,
+      String email,
+      String phoneNumber,
+      String address,
       String username,
-      String password)
+      String password,
+      String salt)
       throws SQLException {
-    ed.changeEmployee(employeeID, firstname, lastname, type, username, password);
+    ed.changeEmployee(
+        employeeID,
+        firstname,
+        lastname,
+        email,
+        phoneNumber,
+        address,
+        type,
+        username,
+        password,
+        salt);
   }
 
   public ArrayList<Employee> getAllEmployees() throws SQLException {

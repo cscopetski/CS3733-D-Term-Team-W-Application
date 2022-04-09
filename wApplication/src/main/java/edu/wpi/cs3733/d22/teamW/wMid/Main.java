@@ -2,8 +2,13 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import java.io.FileNotFoundException;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 
 public class Main {
 
@@ -104,15 +109,38 @@ public class Main {
     EmployeeDaoImpl edi = new EmployeeDaoImpl(DBController.getDBController());
 
     /*
-    edi.addEmployee(1, "Wilson", "Wong", "Teacher", "wwong1", "IluvCS!");
-    edi.addEmployee(2, "Matthew", "Spofford", "Coach", "mspoff", "goTeamW!!");
-    edi.changeEmployee(2, "Matthew", "Spofford", "SA", "mspoff1", "goTeamW!!!");
-    edi.addEmployee(3, "Wumbo", "Wong", "Teacher", "wwong2", "IluvCS!");
-    edi.deleteEmployee(1);
+    edi.addEmployee(
+        1,
+        "Wilson",
+        "Wong",
+        "Teacher",
+        "wwong2@wpi.edu",
+        "123-456 (789)",
+        "100 Institute Rd Worcester MA 01609",
+        "wwong2",
+        "IluvCS!",
+        "test");
+        */
+    // edi.deleteEmployee(1);
 
-    edi.addEmployee(4, "Wilson", "Wong", "Teacher", "admin", "admin");
-    edi.addEmployee(5, "Wilson", "Wong", "Prof", "staff", "staff");
     edi.exportEmpCSV("Employees.csv");
-    */
+  }
+
+  public static void testHash() {
+    String password = "password";
+    // [B@7085bdee
+    String saltString = "abcdefghijklmnop";
+    byte[] salt = saltString.getBytes();
+    KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
+    try {
+      SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+      byte[] hash = factory.generateSecret(spec).getEncoded();
+      String hashString = hash.toString();
+      System.out.println(String.format("HASH: %s", hashString));
+    } catch (InvalidKeySpecException e) {
+      e.printStackTrace();
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    }
   }
 }
