@@ -107,7 +107,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       MedEquipRequest listmER = medEquipRequestList.get(index);
       listmER.setEmergency(mER.getEmergency());
       listmER.setEmployeeName(mER.getEmployeeName());
-      listmER.setStatus(mER.getStatus());
+      listmER.setStatus(mER.getStatusInt());
       listmER.setItemID(mER.getItemID());
       listmER.setNodeID(mER.getNodeID());
       listmER.setItemType(mER.getItemType());
@@ -120,7 +120,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
                   listmER.getNodeID(),
                   listmER.getEmployeeName(),
                   listmER.getEmergency(),
-                  listmER.getStatus(),
+                  listmER.getStatusInt(),
                   listmER.getRequestID()));
     }
   }

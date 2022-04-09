@@ -44,15 +44,12 @@ public class LabServiceRequest extends Request {
   }
 
   @Override
-  public Integer getStatus() {
+  public Integer getStatusInt() {
     return this.status;
   }
 
   @Override
   public void start() {}
-
-  @Override
-  public void start(String s) {}
 
   @Override
   public void complete() {}
@@ -61,8 +58,8 @@ public class LabServiceRequest extends Request {
   public void cancel() {}
 
   @Override
-  public String getRequestType() {
-    return "LABSERVICEREQUEST";
+  public RequestType getRequestType() {
+    return RequestType.LabServiceRequest;
   }
 
   @Override

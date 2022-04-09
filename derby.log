@@ -1,3 +1,18 @@
+<<<<<<< HEAD
+----------------------------------------------------------------
+Sat Apr 09 03:32:46 UTC 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0180-0c61-9de1-000007608e90 
+on database directory C:\Users\cckwp\OneDrive\Documents\GitHub\WumboWhowies\wApplication\myDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@7aec35a 
+Loaded from file:/C:/Users/cckwp/AppData/Roaming/JetBrains/IntelliJIdea2021.3/jdbc-drivers/Apache%20Derby/10.15.2.0/derby-10.15.2.0.jar
+java.vendor=JetBrains s.r.o.
+java.runtime.version=11.0.13+7-b1751.25
+user.dir=C:\Users\cckwp\OneDrive\Documents\GitHub\WumboWhowies
+os.name=Windows 11
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+=======
 Thu Apr 07 00:59:29 EDT 2022 Thread[main,5,main] Cleanup action starting
 java.sql.SQLException: Failed to start database 'myDB' with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@30946e09, see the next exception for details.
 	at org.apache.derby.impl.jdbc.SQLExceptionFactory.getSQLException(Unknown Source)
@@ -203,3 +218,4 @@ ERROR XSDB6: Another instance of Derby may have already booted the database C:\U
 	at edu.wpi.cs3733.d22.teamW.wMid.Main.main(Main.java:19)
 ============= end nested exception, level (2) ===========
 Cleanup action completed
+>>>>>>> Refactoring-DB

@@ -136,6 +136,7 @@ public class LocationDaoImpl implements LocationDao {
 
     private boolean isValidFloor(String floor) {
         return true;
+
     /*
     return floor.equals("01")
         || floor.equals("02")
@@ -144,6 +145,5 @@ public class LocationDaoImpl implements LocationDao {
         || floor.equals("L2");
 
      */
-    }
-
+  }
 }

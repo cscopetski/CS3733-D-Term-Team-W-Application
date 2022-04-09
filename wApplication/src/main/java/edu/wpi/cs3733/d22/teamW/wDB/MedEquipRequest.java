@@ -77,7 +77,7 @@ public class MedEquipRequest extends Request {
   }
 
   @Override
-  public Integer getStatus() {
+  public Integer getStatusInt() {
     return status;
   }
 
@@ -113,8 +113,8 @@ public class MedEquipRequest extends Request {
   }
 
   @Override
-  public String getRequestType() {
-    return "MEDICALEQUIPREQUEST";
+  public RequestType getRequestType() {
+    return RequestType.MedicalEquipmentRequest;
   }
 
   public String toCSVString() {
@@ -185,7 +185,7 @@ public class MedEquipRequest extends Request {
     }
     MedEquipRequest m = (MedEquipRequest) o;
     return this.requestID == m.getRequestID()
-        && this.status == m.getStatus()
+        && this.status == m.getStatusInt()
         && this.nodeID.equals(m.getNodeID())
         && this.emergency == m.getEmergency()
         && this.employeeName.equals(m.getEmployeeName())

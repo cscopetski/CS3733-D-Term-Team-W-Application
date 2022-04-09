@@ -10,6 +10,8 @@ public class CSVController {
   private String medEquipFileName;
   private String medEquipRequestFileName;
   private String labServiceRequestFileName;
+  private String employeeFileName;
+  private String medRequestFileName;
 
   private RequestFactory requestFactory = null;
 
@@ -17,11 +19,15 @@ public class CSVController {
       String locationFileName,
       String medEquipFileName,
       String medEquipRequestFileName,
-      String labServiceRequestFileName) {
+      String labServiceRequestFileName,
+      String employeeFileName,
+      String medRequestFileName) {
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
     this.medEquipRequestFileName = medEquipRequestFileName;
     this.labServiceRequestFileName = labServiceRequestFileName;
+    this.employeeFileName = employeeFileName;
+    this.medRequestFileName= medRequestFileName;
   }
 
   public void setRequestFactory(RequestFactory requestFactory) {
@@ -31,6 +37,8 @@ public class CSVController {
   public void populateEntityTables() throws FileNotFoundException, SQLException {
     insertIntoLocationsTable(importCSV(locationFileName));
     insertIntoMedEquipTable(importCSV(medEquipFileName));
+    insertIntoEmpTable(importCSV(employeeFileName));
+    insertMedRequestTable(importCSV(medRequestFileName));
   }
 
   public void populateRequestTables(RequestFactory requestFactory)
@@ -130,23 +138,58 @@ public class CSVController {
       ArrayList<String> fields = new ArrayList<>();
       fields.addAll(Arrays.asList(s));
 
-      MedEquipRequest mER = (MedEquipRequest) requestFactory.getRequest("MEDEQUIPREQUEST", fields);
+      MedEquipRequest mER = (MedEquipRequest) requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
 
       medEquipReqList.add(mER);
     }
   }
 
   private void insertIntoLabReqTable(ArrayList<String[]> tokens) throws SQLException {
-    ArrayList<LabServiceRequest> labReqList = new ArrayList<>();
+    //ArrayList<LabServiceRequest> labReqList = new ArrayList<>();
 
     for (String[] s : tokens) {
       ArrayList<String> fields = new ArrayList<>();
       fields.addAll(Arrays.asList(s));
 
       LabServiceRequest lSR =
-          (LabServiceRequest) requestFactory.getRequest("LABSERVICEREQUEST", fields);
+          (LabServiceRequest) requestFactory.getRequest(RequestType.LabServiceRequest, fields);
 
-      labReqList.add(lSR);
+      //labReqList.add(lSR);
+    }
+  }
+
+  private void insertMedRequestTable(ArrayList<String[]> tokens) throws SQLException {
+    //ArrayList<MedRequest> medReqLists = new ArrayList<>();
+
+    for(String[] s : tokens){
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+
+      MedRequest mr = (MedRequest) requestFactory.getRequest(RequestType.MedicineDelivery, fields);
+
+       //medReqLists.add(mr);
+    }
+  }
+
+  private void insertIntoEmpTable(ArrayList<String[]> tokens) throws SQLException {
+    ArrayList<Employee> employees = new ArrayList<>();
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<String>();
+      fields.addAll(Arrays.asList(s));
+      employees.add(new Employee(fields));
+    }
+
+    for (Employee e : employees) {
+      // add location objects to database
+      try {
+        DBController.getDBController()
+            .execute("INSERT INTO EMPLOYEES VALUES(" + e.toValuesString() + ")");
+      } catch (SQLException s) {
+        System.out.println("Connection failed. Check output console.");
+        s.printStackTrace();
+        throw (s);
+      }
     }
   }
 }

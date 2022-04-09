@@ -15,12 +15,19 @@ public class Main {
     final String medEquipFileName = "MedicalEquipment.csv";
     final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
     final String labServiceRequestFileName = "LabRequests.csv";
+    final String employeesFileName = "Employees.csv";
+    final String medRequestFileName = "MedRequests.csv";
 
     DBController.getDBController();
 
     CSVController csvController =
         new CSVController(
-            locationFileName, medEquipFileName, medEquipRequestFileName, labServiceRequestFileName);
+            locationFileName,
+            medEquipFileName,
+            medEquipRequestFileName,
+            labServiceRequestFileName,
+            employeesFileName,
+                medRequestFileName);
 
     try {
       csvController.populateEntityTables();
@@ -30,18 +37,10 @@ public class Main {
       e.printStackTrace();
     }
 
-    LocationDaoImpl locationDao = new LocationDaoImpl();
-    LocationManager locationManager = new LocationManager(locationDao);
+    MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
 
-    MedEquipDaoImpl medi = new MedEquipDaoImpl();
-    MedEquipRequestDaoImpl merdi = new MedEquipRequestDaoImpl(statement);
-    MedEquipManager medEquipManager = new MedEquipManager(medi, merdi);
-    MedEquipRequestManager merc = new MedEquipRequestManager(merdi, medi);
 
-    LabServiceRequestDaoImpl labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
-    LabServiceRequestManager lsrc = new LabServiceRequestManager(labServiceRequestDao);
-
-    RequestFactory requestFactory = RequestFactory.getRequestFactory(merc, lsrc);
+    RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
     csvController.populateRequestTables(requestFactory);
 
@@ -69,13 +68,45 @@ public class Main {
     fields3.add("" + 0);
 
     try {
-      requestFactory.getRequest("MEDEQUIPREQUEST", fields);
-      requestFactory.getRequest("MEDEQUIPREQUEST", fields2);
-      requestFactory.getRequest("MEDEQUIPREQUEST", fields3);
-
+      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
+      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields2);
+      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields3);
     } catch (SQLException e) {
       e.printStackTrace();
     }
+
+    Request test = requestFactory.findRequest(5);
+    Request test2 = requestFactory.findRequest(21);
+    Request test3 = requestFactory.findRequest(22);
+    Request test4 = requestFactory.findRequest(23);
+    // completes test
+    merc.completeRequest(test);
+    // Tries to cancel test but fails since it is completed
+    merc.cancelRequest(test);
+    // test 2 should be enqueue then cancelled starting test 3
+    merc.cancelRequest(test2);
+    merc.completeRequest(test2);
+    merc.cancelRequest(test3);
+    merc.completeRequest(test3);
+
+    LocationManager.getLocationManager().exportLocationsCSV("LOCATIONTEST.csv");
+    MedEquipManager.getMedEquipManager().exportMedicalEquipmentCSV("MEDEQUIPTEST.csv");
+    merc.exportMedEquipRequestCSV("MEDEQUIPREQUESTTEST.csv");
+    LabServiceRequestManager.getLabServiceRequestManager().exportLabServiceRequestCSV("LABTEST.csv");
+
+    EmployeeDaoImpl edi = new EmployeeDaoImpl(DBController.getDBController());
+
+    /*
+    edi.addEmployee(1, "Wilson", "Wong", "Teacher", "wwong1", "IluvCS!");
+    edi.addEmployee(2, "Matthew", "Spofford", "Coach", "mspoff", "goTeamW!!");
+    edi.changeEmployee(2, "Matthew", "Spofford", "SA", "mspoff1", "goTeamW!!!");
+    edi.addEmployee(3, "Wumbo", "Wong", "Teacher", "wwong2", "IluvCS!");
+    edi.deleteEmployee(1);
+
+    edi.addEmployee(4, "Wilson", "Wong", "Teacher", "admin", "admin");
+    edi.addEmployee(5, "Wilson", "Wong", "Prof", "staff", "staff");
+    edi.exportEmpCSV("Employees.csv");
+    */
     /*
         Request test = requestFactory.findRequest(5);
         Request test2 = requestFactory.findRequest(11);
@@ -91,15 +122,16 @@ public class Main {
         merc.cancelRequest(test3);
         merc.completeRequest(test3);
     */
-    locationManager.changeLocation(
-        locationManager.getAllLocations().get(0).getNodeID(),
+    /*LocationManager.getLocationManager().changeLocation(
+        LocationManager.getLocationManager().getAllLocations().get(0).getNodeID(),
+
         Integer.parseInt("100"),
         Integer.parseInt("100"),
         "01",
         "Tower",
         "DEPT",
         "TESTING",
-        "TEST");
+        "TEST");*/
     App.launch(App.class, args);
   }
 }

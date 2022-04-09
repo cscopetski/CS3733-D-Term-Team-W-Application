@@ -112,6 +112,7 @@ public class DBController {
         statement.execute("DROP TABLE MEDICALEQUIPMENTREQUESTS");
         statement.execute("DROP TABLE MEDICALEQUIPMENT");
         statement.execute("DROP TABLE LOCATIONS");
+        statement.execute("DROP TABLE EMPLOYEES");
       } catch (SQLException e) {
 
       }
@@ -163,6 +164,16 @@ public class DBController {
                 + "                constraint LabReq_PK primary key (labReqID),\n"
                 + "                constraint LabReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
                 + "                constraint LabIsEmergency_check check (isEmergency = 0 or isEmergency = 1))");
+        statement.execute(
+            "CREATE TABLE EMPLOYEES(\n"
+                + "employeeID INT, \n "
+                + "firstname varchar(25), \n "
+                + "lastname varchar(25), \n "
+                + "employeetype varchar(25), \n "
+                + "username varchar(25), \n "
+                + "password varchar(25), \n "
+                + "constraint Employees_PK primary key (employeeID),"
+                + "constraint username_uq unique(username))");
 
       } catch (SQLException e) {
         System.out.println("Table Creation Failed. Check output console.");

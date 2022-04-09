@@ -9,19 +9,10 @@ public class RequestFactory {
 
   // check DB for existing requests when are using external DB and not embedded one
   private ArrayList<Request> requests = new ArrayList<>();
-  private MedEquipRequestManager merc;
-  private LabServiceRequestManager lsrc;
+  private MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
+  private LabServiceRequestManager lsrc = LabServiceRequestManager.getLabServiceRequestManager();
 
-  private static RequestFactory requestFactory;
-
-  public static RequestFactory getRequestFactory(
-          MedEquipRequestManager merc, LabServiceRequestManager lsrc) {
-
-    if (requestFactory == null) {
-      requestFactory = new RequestFactory(merc, lsrc);
-    }
-    return requestFactory;
-  }
+  private static RequestFactory requestFactory = new RequestFactory();
 
   public static RequestFactory getRequestFactory() {
 
@@ -33,20 +24,18 @@ public class RequestFactory {
     this.requestFactory = null;
   }
 
-  private RequestFactory(MedEquipRequestManager merc, LabServiceRequestManager lsrc) {
-    this.merc = merc;
-    this.lsrc = lsrc;
+  private RequestFactory() {
   }
 
   // fields is every field except for request id and itemID
 
-  public Request getRequest(String requestType, ArrayList<String> fields) throws SQLException {
+  public Request getRequest(RequestType requestType, ArrayList<String> fields) throws SQLException {
     int counter = requests.size() + 1;
-    if (requestType.equalsIgnoreCase("MEDEQUIPREQUEST")) {
+    if (requestType.equals(RequestType.MedicalEquipmentRequest)) {
       Request mER = merc.addRequest(counter, fields);
       requests.add(mER);
       return mER;
-    } else if (requestType.equalsIgnoreCase("LABSERVICEREQUEST")) {
+    } else if (requestType.equals(RequestType.LabServiceRequest)) {
       Request lSR = lsrc.addRequest(counter, fields);
       requests.add(lSR);
       return lSR;

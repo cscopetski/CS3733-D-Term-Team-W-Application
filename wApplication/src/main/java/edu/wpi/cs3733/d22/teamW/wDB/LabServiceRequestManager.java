@@ -49,6 +49,7 @@ public class LabServiceRequestManager implements RequestController {
   }
 
   public void start(LabServiceRequest request) throws SQLException {
+    request.start();
     lsrdi.changeLabServiceRequest(
         request.getRequestID(),
         request.getLabType(),
