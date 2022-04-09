@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="616.0" prefWidth="940.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapSideViewController">
+   <children>
+      <HBox prefHeight="616.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Pane prefHeight="602.0" prefWidth="421.0">
+               <children>
+                  <BorderPane layoutY="4.0" prefHeight="608.0" prefWidth="421.0">
+                     <center>
+                        <ScrollPane prefHeight="600.0" prefWidth="354.0" styleClass="body" stylesheets="@../CSS/MapSideView/scrollpane.css" BorderPane.alignment="CENTER">
+                           <content>
+                              <AnchorPane fx:id="towerMap" prefHeight="556.0" prefWidth="400.0" styleClass="body" stylesheets="@../CSS/MapSideView/scrollpane.css" />
+                           </content>
+                        </ScrollPane>
+                     </center>
+                     <right>
+                        <VBox prefHeight="595.0" prefWidth="23.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Group />
+                           </children>
+                        </VBox>
+                     </right>
+                     <bottom>
+                        <Pane prefHeight="54.0" prefWidth="393.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Slider fx:id="slider" layoutX="44.0" layoutY="6.0" prefHeight="54.0" prefWidth="268.0" />
+                              <Label layoutX="20.0" layoutY="6.0" text="Slide to the right to zoom">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </bottom>
+                  </BorderPane>
+               </children>
+            </Pane>
+         </children>
+      </HBox>
+   </children>
+</AnchorPane>

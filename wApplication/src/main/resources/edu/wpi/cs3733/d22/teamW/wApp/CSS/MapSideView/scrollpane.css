@@ -1,0 +1,5 @@
+.body{
+    -fx-background-image: url(../../assets/Maps/TowerSideView-01.png);
+    -fx-background-position: center ;
+    -fx-background-size: 100% 100%;
+}
