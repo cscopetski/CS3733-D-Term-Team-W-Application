@@ -15,12 +15,17 @@ public class Main {
     final String medEquipFileName = "MedicalEquipment.csv";
     final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
     final String labServiceRequestFileName = "LabRequests.csv";
+    final String employeesFileName = "Employees.csv";
 
     DBController.getDBController();
 
     CSVController csvController =
         new CSVController(
-            locationFileName, medEquipFileName, medEquipRequestFileName, labServiceRequestFileName);
+            locationFileName,
+            medEquipFileName,
+            medEquipRequestFileName,
+            labServiceRequestFileName,
+            employeesFileName);
 
     try {
       csvController.populateEntityTables();
@@ -95,5 +100,19 @@ public class Main {
     medEquipController.exportMedicalEquipmentCSV("MEDEQUIPTEST.csv");
     merc.exportMedEquipRequestCSV("MEDEQUIPREQUESTTEST.csv");
     lsrc.exportLabServiceRequestCSV("LABTEST.csv");
+
+    EmployeeDaoImpl edi = new EmployeeDaoImpl(DBController.getDBController());
+
+    /*
+    edi.addEmployee(1, "Wilson", "Wong", "Teacher", "wwong1", "IluvCS!");
+    edi.addEmployee(2, "Matthew", "Spofford", "Coach", "mspoff", "goTeamW!!");
+    edi.changeEmployee(2, "Matthew", "Spofford", "SA", "mspoff1", "goTeamW!!!");
+    edi.addEmployee(3, "Wumbo", "Wong", "Teacher", "wwong2", "IluvCS!");
+    edi.deleteEmployee(1);
+
+    edi.addEmployee(4, "Wilson", "Wong", "Teacher", "admin", "admin");
+    edi.addEmployee(5, "Wilson", "Wong", "Prof", "staff", "staff");
+    edi.exportEmpCSV("Employees.csv");
+    */
   }
 }
