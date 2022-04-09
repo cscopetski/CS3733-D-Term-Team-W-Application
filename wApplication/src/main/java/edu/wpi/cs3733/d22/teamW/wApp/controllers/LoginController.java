@@ -36,7 +36,6 @@ public class LoginController extends LoadableController {
   public void onUnload() {}
 
   public void login() {
-    // SceneManager.getInstance().translateSceneDown();
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
       username.getText();
       password.getText();

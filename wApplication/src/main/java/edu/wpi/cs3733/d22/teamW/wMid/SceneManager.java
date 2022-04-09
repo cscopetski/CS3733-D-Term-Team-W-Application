@@ -109,30 +109,26 @@ public class SceneManager {
   public void setPaneVisible(Scenes scene) {
 
     if (current != null) {
-      translateSceneUp();
-      // pages.get(current).pane.setVisible(false);
+      translateSceneDown(current);
+      pages.get(current).pane.setVisible(false);
       pages.get(current).pane.setDisable(true);
-      if (pages.get(current).controller != null) {
-        pages.get(current).tryOnUnload();
-      }
-      // translateSceneUp();
+      pages.get(current).tryOnUnload();
     }
+
     current = scene;
     pages.get(current).pane.setVisible(true);
     pages.get(current).pane.setDisable(false);
-    if (pages.get(current).controller != null) {
-      pages.get(current).tryOnLoad();
-    }
+    pages.get(current).tryOnLoad();
   }
 
-  public void translateSceneDown() {
+  public void translateSceneDown(Scenes scene) {
     // start position of scene
-    pages.get(current).pane.translateYProperty().set(0);
+    pages.get(scene).pane.translateYProperty().set(0);
 
     Timeline timeline = new Timeline();
     KeyValue keyValue =
         new KeyValue(
-            pages.get(current).pane.translateYProperty(),
+            pages.get(scene).pane.translateYProperty(),
             primaryStage.getHeight(), // end position of scene
             Interpolator.EASE_IN);
     KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
@@ -140,14 +136,14 @@ public class SceneManager {
     timeline.play();
   }
 
-  public void translateSceneUp() {
+  public void translateSceneUp(Scenes scene) {
     // start position of scene
-    pages.get(current).pane.translateYProperty().set(0);
+    pages.get(scene).pane.translateYProperty().set(0);
 
     Timeline timeline = new Timeline();
     KeyValue keyValue =
         new KeyValue(
-            pages.get(current).pane.translateYProperty(),
+            pages.get(scene).pane.translateYProperty(),
             -1 * (primaryStage.getHeight()), // end position of scene
             Interpolator.EASE_IN);
     KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
