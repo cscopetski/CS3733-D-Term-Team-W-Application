@@ -36,7 +36,7 @@ public class LoginController extends LoadableController {
   public void onUnload() {}
 
   public void login() {
-
+    // SceneManager.getInstance().translateSceneDown();
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
       username.getText();
       password.getText();
@@ -49,19 +49,5 @@ public class LoginController extends LoadableController {
     } else {
       emptyFields.show();
     }
-  }
-
-  public void hidePassword() {
-    if (!password.getText().isEmpty()) {
-      for (int i = 0; i < password.getText().length(); i++) {
-        String currLetter = Character.toString(password.getText().charAt(i));
-        if (!currLetter.equals("*")) {
-          passwordHidden.add(currLetter);
-        }
-        passwordShown.add("*");
-        password.setText(passwordShown.toString());
-      }
-    }
-    password.setText("*");
   }
 }

@@ -2,8 +2,13 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
 public class MainMenuController extends LoadableController {
+
+  @FXML Button buttonSR;
+
   public void switchToRequestHub(ActionEvent event) {
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestHub);
   }

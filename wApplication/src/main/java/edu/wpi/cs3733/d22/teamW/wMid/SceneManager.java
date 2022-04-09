@@ -4,6 +4,10 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import java.io.IOException;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,6 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 public class SceneManager {
   private class Page {
@@ -102,12 +107,15 @@ public class SceneManager {
   }
 
   public void setPaneVisible(Scenes scene) {
+
     if (current != null) {
-      pages.get(current).pane.setVisible(false);
+      translateSceneUp();
+      // pages.get(current).pane.setVisible(false);
       pages.get(current).pane.setDisable(true);
       if (pages.get(current).controller != null) {
         pages.get(current).tryOnUnload();
       }
+      // translateSceneUp();
     }
     current = scene;
     pages.get(current).pane.setVisible(true);
@@ -115,6 +123,36 @@ public class SceneManager {
     if (pages.get(current).controller != null) {
       pages.get(current).tryOnLoad();
     }
+  }
+
+  public void translateSceneDown() {
+    // start position of scene
+    pages.get(current).pane.translateYProperty().set(0);
+
+    Timeline timeline = new Timeline();
+    KeyValue keyValue =
+        new KeyValue(
+            pages.get(current).pane.translateYProperty(),
+            primaryStage.getHeight(), // end position of scene
+            Interpolator.EASE_IN);
+    KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
+    timeline.getKeyFrames().add(keyFrame);
+    timeline.play();
+  }
+
+  public void translateSceneUp() {
+    // start position of scene
+    pages.get(current).pane.translateYProperty().set(0);
+
+    Timeline timeline = new Timeline();
+    KeyValue keyValue =
+        new KeyValue(
+            pages.get(current).pane.translateYProperty(),
+            -1 * (primaryStage.getHeight()), // end position of scene
+            Interpolator.EASE_IN);
+    KeyFrame keyFrame = new KeyFrame(Duration.seconds(1), keyValue);
+    timeline.getKeyFrames().add(keyFrame);
+    timeline.play();
   }
 
   public Stage getPrimaryStage() {

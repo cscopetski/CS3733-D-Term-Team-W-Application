@@ -55,7 +55,7 @@
                                     <Font name="System Bold" size="16.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="password" maxWidth="250.0" onKeyPressed="#hidePassword" onKeyTyped="#hidePassword" prefWidth="250.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
+                              <TextField fx:id="password" maxWidth="250.0" prefWidth="250.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
                                  <VBox.margin>
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
