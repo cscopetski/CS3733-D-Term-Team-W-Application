@@ -70,8 +70,7 @@ class MedEquipRequestControllerTest {
 
     labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
     lsrc = new LabServiceRequestManager(labServiceRequestDao);
-
-    requestFactory = RequestFactory.getRequestFactory(merc, lsrc);
+    requestFactory = RequestFactory.getRequestFactory();
 
     try {
       csvController.populateRequestTables(requestFactory);
@@ -99,6 +98,8 @@ class MedEquipRequestControllerTest {
     Request request = RequestFactory.getRequestFactory().findRequest(5);
     merc.cancelRequest(request);
     assertEquals(request.getStatus(), 3);
+    assertEquals(request.getStatusInt(), 3);
+
   }
 
   @Test
@@ -124,15 +125,14 @@ class MedEquipRequestControllerTest {
     fields3.add("wSTOR001L1");
     fields3.add("JOE2 NAME");
     fields3.add("" + 0);
-    Request test2 = requestFactory.getRequest("MEDEQUIPREQUEST", fields);
-    Request test3 = requestFactory.getRequest("MEDEQUIPREQUEST", fields2);
-    Request test4 = requestFactory.getRequest("MEDEQUIPREQUEST", fields3);
+    Request test2 = requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
+    Request test3 = requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields2);
+    Request test4 = requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields3);
 
     Request request = RequestFactory.getRequestFactory().findRequest(5);
     merc.completeRequest(request);
-
-    assertEquals(request.getStatus(), 2);
-    assertEquals(test3.getStatus(), 1);
+    assertEquals(request.getStatusInt(), 2);
+    assertEquals(test3.getStatusInt(), 1);
   }
 
   @Test
@@ -165,9 +165,9 @@ class MedEquipRequestControllerTest {
     Request request = RequestFactory.getRequestFactory().findRequest(5);
 
     merc.checkNext("XRY001");
-    assertEquals(request.getStatus(), 1);
+    assertEquals(request.getStatusInt(), 1);
     assertEquals(test3.getRequestID(), 22);
-    assertEquals(test3.getStatus(), 1);
+    assertEquals(test3.getStatusInt(), 1);
   }
 
   @Test

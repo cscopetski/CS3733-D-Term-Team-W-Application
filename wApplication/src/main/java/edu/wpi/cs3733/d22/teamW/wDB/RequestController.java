@@ -11,7 +11,7 @@ public interface RequestController {
   //
   //  public Request getNext(String ID);
 
-  public Request getRequest(Integer ID);
-
+  public Request getRequest(Integer ID) throws SQLException;
+  public ArrayList<Request> getAllRequests() throws SQLException;
   public Request addRequest(Integer i, ArrayList<String> fields) throws SQLException;
 }

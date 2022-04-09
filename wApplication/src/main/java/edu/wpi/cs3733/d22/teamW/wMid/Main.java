@@ -16,6 +16,7 @@ public class Main {
     final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
     final String labServiceRequestFileName = "LabRequests.csv";
     final String employeesFileName = "Employees.csv";
+    final String medRequestFileName = "MedRequests.csv";
 
     DBController.getDBController();
 
@@ -25,7 +26,8 @@ public class Main {
             medEquipFileName,
             medEquipRequestFileName,
             labServiceRequestFileName,
-            employeesFileName);
+            employeesFileName,
+                medRequestFileName);
 
     try {
       csvController.populateEntityTables();
@@ -35,18 +37,10 @@ public class Main {
       e.printStackTrace();
     }
 
-    LocationDaoImpl locationDao = new LocationDaoImpl();
-    LocationManager locationManager = new LocationManager(locationDao);
+    MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
 
-    MedEquipDaoImpl medi = new MedEquipDaoImpl();
-    MedEquipRequestDaoImpl merdi = new MedEquipRequestDaoImpl(statement);
-    MedEquipManager medEquipManager = new MedEquipManager(medi, merdi);
-    MedEquipRequestManager merc = new MedEquipRequestManager(merdi, medi);
 
-    LabServiceRequestDaoImpl labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
-    LabServiceRequestManager lsrc = new LabServiceRequestManager(labServiceRequestDao);
-
-    RequestFactory requestFactory = RequestFactory.getRequestFactory(merc, lsrc);
+    RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
     csvController.populateRequestTables(requestFactory);
 
@@ -74,10 +68,9 @@ public class Main {
     fields3.add("" + 0);
 
     try {
-      requestFactory.getRequest("MEDEQUIPREQUEST", fields);
-      requestFactory.getRequest("MEDEQUIPREQUEST", fields2);
-      requestFactory.getRequest("MEDEQUIPREQUEST", fields3);
-
+      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
+      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields2);
+      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields3);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -96,10 +89,10 @@ public class Main {
     merc.cancelRequest(test3);
     merc.completeRequest(test3);
 
-    locationController.exportLocationsCSV("LOCATIONTEST.csv");
-    medEquipController.exportMedicalEquipmentCSV("MEDEQUIPTEST.csv");
+    LocationManager.getLocationManager().exportLocationsCSV("LOCATIONTEST.csv");
+    MedEquipManager.getMedEquipManager().exportMedicalEquipmentCSV("MEDEQUIPTEST.csv");
     merc.exportMedEquipRequestCSV("MEDEQUIPREQUESTTEST.csv");
-    lsrc.exportLabServiceRequestCSV("LABTEST.csv");
+    LabServiceRequestManager.getLabServiceRequestManager().exportLabServiceRequestCSV("LABTEST.csv");
 
     EmployeeDaoImpl edi = new EmployeeDaoImpl(DBController.getDBController());
 
@@ -129,15 +122,16 @@ public class Main {
         merc.cancelRequest(test3);
         merc.completeRequest(test3);
     */
-    locationManager.changeLocation(
-        locationManager.getAllLocations().get(0).getNodeID(),
+    /*LocationManager.getLocationManager().changeLocation(
+        LocationManager.getLocationManager().getAllLocations().get(0).getNodeID(),
+
         Integer.parseInt("100"),
         Integer.parseInt("100"),
         "01",
         "Tower",
         "DEPT",
         "TESTING",
-        "TEST");
+        "TEST");*/
     App.launch(App.class, args);
   }
 }
