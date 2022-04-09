@@ -2,14 +2,14 @@ package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Request;
 
-public class MealDeliverySR extends SR{
+public class MealDeliverySR extends SR {
 
-    public MealDeliverySR(Request r) {
-        super(r);
-    }
+  public MealDeliverySR(Request r) {
+    super(r);
+  }
 
-    @Override
-    public String getRequestType() {
-        return "Meal Delivery";
-    }
+  @Override
+  public String getRequestType() {
+    return "Meal Delivery";
+  }
 }

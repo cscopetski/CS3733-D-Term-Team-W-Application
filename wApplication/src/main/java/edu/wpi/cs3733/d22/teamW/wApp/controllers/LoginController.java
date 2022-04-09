@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.*;
@@ -12,6 +13,9 @@ public class LoginController extends LoadableController {
   @FXML Button loginButton;
   @FXML TextField username;
   @FXML TextField password;
+  ArrayList<String> passwordHidden;
+  ArrayList<String> passwordShown;
+
   Alert emptyFields =
       new Alert(
           Alert.AlertType.ERROR,
@@ -32,6 +36,7 @@ public class LoginController extends LoadableController {
   public void onUnload() {}
 
   public void login() {
+
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
       username.getText();
       password.getText();
@@ -44,5 +49,19 @@ public class LoginController extends LoadableController {
     } else {
       emptyFields.show();
     }
+  }
+
+  public void hidePassword() {
+    if (!password.getText().isEmpty()) {
+      for (int i = 0; i < password.getText().length(); i++) {
+        String currLetter = Character.toString(password.getText().charAt(i));
+        if (!currLetter.equals("*")) {
+          passwordHidden.add(currLetter);
+        }
+        passwordShown.add("*");
+        password.setText(passwordShown.toString());
+      }
+    }
+    password.setText("*");
   }
 }
