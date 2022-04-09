@@ -56,21 +56,21 @@ public class Main {
 
     fields.add("XRY");
     fields.add("wSTOR001L1");
-    fields.add("JOE NAME");
+    fields.add("2");
     fields.add("" + 0);
 
     ArrayList<String> fields2 = new ArrayList<>();
 
     fields2.add("XRY");
     fields2.add("wSTOR001L1");
-    fields2.add("JOE2 NAME");
+    fields2.add("2");
     fields2.add("" + 1);
 
     ArrayList<String> fields3 = new ArrayList<>();
 
     fields3.add("XRY");
     fields3.add("wSTOR001L1");
-    fields3.add("JOE2 NAME");
+    fields3.add("3");
     fields3.add("" + 0);
 
     try {

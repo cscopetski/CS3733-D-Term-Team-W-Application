@@ -57,7 +57,7 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
       Integer requestID,
       String labType,
       String nodeID,
-      String employeeName,
+      Integer employeeID,
       Integer emergency,
       Integer status)
       throws SQLException {
@@ -70,11 +70,11 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
       labServiceRequestList.get(index).setEmergency(emergency);
       labServiceRequestList.get(index).setNodeID(nodeID);
       labServiceRequestList.get(index).setStatus(status);
-      labServiceRequestList.get(index).setEmployeeName(employeeName);
+      labServiceRequestList.get(index).setEmployeeID(employeeID);
       dbController.executeUpdate(
           String.format(
-              "UPDATE LABSERVICEREQUESTS SET LABTYPE='%s', NODEID='%s', EMPLOYEENAME='%s', ISEMERGENCY=%d, REQSTATUS=%d WHERE LABREQID=%d",
-              labType, nodeID, employeeName, emergency, status, requestID));
+              "UPDATE LABSERVICEREQUESTS SET LABTYPE='%s', NODEID='%s', EMPLOYEEID='%s', ISEMERGENCY=%d, REQSTATUS=%d WHERE LABREQID=%d",
+              labType, nodeID, employeeID, emergency, status, requestID));
     }
   }
 

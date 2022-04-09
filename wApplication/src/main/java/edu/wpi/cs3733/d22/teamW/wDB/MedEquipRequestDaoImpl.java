@@ -77,7 +77,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
   @Override
   public void changeMedEquipRequest(
-      int requestID, String newItemType, String newLocationID, String newEmployeeName)
+      int requestID, String newItemType, String newLocationID, Integer newEmployeeID)
       throws SQLException {
     int index = getIndexOf(requestID);
     if (index == -1) {
@@ -86,12 +86,12 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     } else {
       medEquipRequestList.get(index).setItemID(newItemType);
       medEquipRequestList.get(index).setNodeID(newLocationID);
-      medEquipRequestList.get(index).setEmployeeName(newEmployeeName);
+      medEquipRequestList.get(index).setEmployeeID(newEmployeeID);
       DBController.getDBController()
           .executeUpdate(
               String.format(
                   "UPDATE MEDICALEQUIPMENT SET TYPE = 's', NODEID = 's', STATUS = %d WHERE MEDID = %s",
-                  newItemType, newLocationID, newEmployeeName, requestID));
+                  newItemType, newLocationID, newEmployeeID, requestID));
     }
   }
 
@@ -104,7 +104,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     } else {
       MedEquipRequest listmER = medEquipRequestList.get(index);
       listmER.setEmergency(mER.getEmergency());
-      listmER.setEmployeeName(mER.getEmployeeName());
+      listmER.setEmployeeID(mER.getEmployeeID());
       listmER.setStatus(mER.getStatus());
       listmER.setItemID(mER.getItemID());
       listmER.setNodeID(mER.getNodeID());
@@ -112,11 +112,11 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       DBController.getDBController()
           .executeUpdate(
               String.format(
-                  "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEENAME = '%s', ISEMERGENCY = %d , REQSTATUS = %d WHERE MEDREQID = %d",
+                  "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d WHERE MEDREQID = %d",
                   listmER.getItemID(),
                   listmER.getItemType(),
                   listmER.getNodeID(),
-                  listmER.getEmployeeName(),
+                  listmER.getEmployeeID(),
                   listmER.getEmergency(),
                   listmER.getStatus(),
                   listmER.getRequestID()));
@@ -141,7 +141,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print("medReqID,medID,equipType,nodeID,employeeName,isEmergency,status");
+      pw.print("medReqID,medID,equipType,nodeID,employeeID,isEmergency,status");
 
       // print all locations
       for (MedEquipRequest m : medEquipRequestList) {

@@ -26,7 +26,14 @@ public class EmployeeManager {
     return ed.passwordMatch(username, password);
   }
 
-  public void addEmployee(Integer employeeID, String firstname, String lastname, String type, String username, String password) throws SQLException {
+  public void addEmployee(
+      Integer employeeID,
+      String firstname,
+      String lastname,
+      String type,
+      String username,
+      String password)
+      throws SQLException {
     ed.addEmployee(employeeID, firstname, lastname, type, username, password);
   }
 
@@ -34,13 +41,18 @@ public class EmployeeManager {
     ed.deleteEmployee(employeeID);
   }
 
-  public void changeEmployee(Integer employeeID, String firstname, String lastname, String type, String username, String password) throws SQLException {
+  public void changeEmployee(
+      Integer employeeID,
+      String firstname,
+      String lastname,
+      String type,
+      String username,
+      String password)
+      throws SQLException {
     ed.changeEmployee(employeeID, firstname, lastname, type, username, password);
   }
 
   public ArrayList<Employee> getAllEmployees() throws SQLException {
     return ed.getAllEmployees();
   }
-
 }
-

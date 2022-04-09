@@ -31,6 +31,7 @@ public class LabServiceRequestController implements RequestController {
       fields.add("0");
       lSR = new LabServiceRequest(num, fields);
     } else {
+      System.out.println("Right before making lSR");
       lSR = new LabServiceRequest(fields);
     }
 
@@ -43,7 +44,7 @@ public class LabServiceRequestController implements RequestController {
         request.getRequestID(),
         request.getLabType(),
         request.nodeID,
-        request.employeeName,
+        request.employeeID,
         request.emergency,
         1);
   }
@@ -53,7 +54,7 @@ public class LabServiceRequestController implements RequestController {
         request.getRequestID(),
         request.getLabType(),
         request.nodeID,
-        request.employeeName,
+        request.employeeID,
         request.emergency,
         2);
   }
@@ -63,7 +64,7 @@ public class LabServiceRequestController implements RequestController {
         request.getRequestID(),
         request.getLabType(),
         request.nodeID,
-        request.employeeName,
+        request.employeeID,
         request.emergency,
         3);
   }
