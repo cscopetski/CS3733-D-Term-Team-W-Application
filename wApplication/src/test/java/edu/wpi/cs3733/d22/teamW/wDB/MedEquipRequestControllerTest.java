@@ -15,15 +15,15 @@ class MedEquipRequestControllerTest {
   DBController dbController = DBController.getDBController();
   CSVController csvController;
   LocationDaoImpl locationDao;
-  LocationController locationController;
+  LocationManager locationManager;
 
   MedEquipDaoImpl medi;
   MedEquipRequestDaoImpl merdi;
-  MedEquipController medEquipController;
-  MedEquipRequestController merc;
+  MedEquipManager medEquipManager;
+  MedEquipRequestManager merc;
 
   LabServiceRequestDaoImpl labServiceRequestDao;
-  LabServiceRequestController lsrc;
+  LabServiceRequestManager lsrc;
 
   RequestFactory requestFactory;
 
@@ -57,19 +57,19 @@ class MedEquipRequestControllerTest {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    locationController = new LocationController(locationDao);
+    locationManager = new LocationManager(locationDao);
 
     try {
       medi = new MedEquipDaoImpl();
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    merdi = new MedEquipRequestDaoImpl();
-    medEquipController = new MedEquipController(medi, merdi);
-    merc = new MedEquipRequestController(merdi, medi);
+    merdi = new MedEquipRequestDaoImpl(statement);
+    medEquipManager = new MedEquipManager(medi, merdi);
+    merc = new MedEquipRequestManager(merdi, medi);
 
-    labServiceRequestDao = new LabServiceRequestDaoImpl();
-    lsrc = new LabServiceRequestController(labServiceRequestDao);
+    labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
+    lsrc = new LabServiceRequestManager(labServiceRequestDao);
 
     requestFactory = RequestFactory.getRequestFactory(merc, lsrc);
 

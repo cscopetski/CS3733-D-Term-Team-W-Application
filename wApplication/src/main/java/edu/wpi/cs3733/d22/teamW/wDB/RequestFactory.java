@@ -9,13 +9,13 @@ public class RequestFactory {
 
   // check DB for existing requests when are using external DB and not embedded one
   private ArrayList<Request> requests = new ArrayList<>();
-  private MedEquipRequestController merc;
-  private LabServiceRequestController lsrc;
+  private MedEquipRequestManager merc;
+  private LabServiceRequestManager lsrc;
 
   private static RequestFactory requestFactory;
 
   public static RequestFactory getRequestFactory(
-      MedEquipRequestController merc, LabServiceRequestController lsrc) {
+          MedEquipRequestManager merc, LabServiceRequestManager lsrc) {
 
     if (requestFactory == null) {
       requestFactory = new RequestFactory(merc, lsrc);
@@ -33,7 +33,7 @@ public class RequestFactory {
     this.requestFactory = null;
   }
 
-  private RequestFactory(MedEquipRequestController merc, LabServiceRequestController lsrc) {
+  private RequestFactory(MedEquipRequestManager merc, LabServiceRequestManager lsrc) {
     this.merc = merc;
     this.lsrc = lsrc;
   }

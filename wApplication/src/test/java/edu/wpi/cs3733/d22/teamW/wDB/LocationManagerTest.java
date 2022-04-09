@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 
-class LocationControllerTest {
+class LocationManagerTest {
 
   @Test
   void changeLocation() {
@@ -16,7 +16,7 @@ class LocationControllerTest {
   void addLocation() {
     DBController.getDBController();
     try {
-      LocationController lc = new LocationController(new LocationDaoImpl());
+      LocationManager lc = new LocationManager(new LocationDaoImpl());
       Location addLoc =
           new Location("newLoc", 10, 10, "01", "testBuilding", "HALL", "test hall", "test");
       lc.addLocation("newLoc", 10, 10, "01", "testBuilding", "HALL", "test hall", "test");

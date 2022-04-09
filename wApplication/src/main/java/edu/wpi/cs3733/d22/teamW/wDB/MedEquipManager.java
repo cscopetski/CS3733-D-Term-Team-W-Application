@@ -3,19 +3,30 @@ package edu.wpi.cs3733.d22.teamW.wDB;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class MedEquipController {
+public class MedEquipManager {
 
-  private MedEquipDaoImpl medi;
-  private MedEquipRequestDaoImpl merdi;
-  private RequestFactory rF = RequestFactory.getRequestFactory();
+  private MedEquipDao medi;
 
-  public MedEquipController(MedEquipDaoImpl medi, MedEquipRequestDaoImpl merdi) {
+  private static MedEquipManager medEquipManager = new MedEquipManager();
+
+  private MedEquipManager() {
+
+  }
+
+  public static MedEquipManager getMedEquipManager(){
+    return medEquipManager;
+  }
+
+  public void setMedEquipDao(MedEquipDao medi){
     this.medi = medi;
-    this.merdi = merdi;
   }
 
   public void markClean(MedEquip equip) throws SQLException {
     medi.changeMedEquip(equip.getMedID(), equip.getType(), equip.getNodeID(), 0);
+  }
+
+  public void markClean(String medID, String type, String nodeID) throws SQLException {
+    medi.changeMedEquip(medID, type, nodeID, 0);
   }
 
   public void markInUse(MedEquip equip) throws SQLException {
@@ -46,7 +57,7 @@ public class MedEquipController {
     return null;
   }
 
-  public ArrayList<MedEquip> getAll() {
+  public ArrayList<MedEquip> getAllMedEquip() {
     return medi.getAllMedEquip();
   }
 

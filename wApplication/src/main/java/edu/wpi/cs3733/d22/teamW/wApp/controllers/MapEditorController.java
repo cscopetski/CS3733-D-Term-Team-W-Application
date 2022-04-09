@@ -55,7 +55,7 @@ public class MapEditorController {
     }
   }
 
-  private MedEquipRequestDaoImpl medEquipRequestDao = new MedEquipRequestDaoImpl();
+  private MedEquipRequestDaoImpl medEquipRequestDao = new MedEquipRequestDaoImpl(statement);
   private String currFloor = "0";
   private LocationDaoImpl test;
 
@@ -67,16 +67,16 @@ public class MapEditorController {
     }
   }
 
-  private MedEquipController equipController =
-      new MedEquipController(medEquipDao, medEquipRequestDao);
-  private LocationController locationController = new LocationController(test);
+  private MedEquipManager equipController =
+      new MedEquipManager(medEquipDao, medEquipRequestDao);
+  private LocationManager locationManager = new LocationManager(test);
   private ArrayList<Location> currFloorLoc = new ArrayList<>();
   private ArrayList<String> currFloorNodeID = new ArrayList<>();
   private ArrayList<medEquip> equipList = new ArrayList<>();
 
   public void addLocation() throws SQLException {
     if (checkFull()) {
-      locationController.addLocation(
+      locationManager.addLocation(
           nodeIn.getText(),
           Integer.parseInt(xIn.getText()),
           Integer.parseInt(yIn.getText()),
@@ -107,7 +107,7 @@ public class MapEditorController {
     removeMarkers();
     currFloorLoc.clear();
     currFloorNodeID.clear();
-    ArrayList<edu.wpi.cs3733.d22.teamW.wDB.Location> locList = locationController.getAllLocations();
+    ArrayList<edu.wpi.cs3733.d22.teamW.wDB.Location> locList = locationManager.getAllLocations();
     for (int i = 0; i < locList.size(); i++) {
       if (locList.get(i).getFloor().equalsIgnoreCase(currFloor)) {
         currFloorLoc.add(new Location(locList.get(i)));
@@ -188,7 +188,7 @@ public class MapEditorController {
 
   private void generateEquipList() {
     equipList.clear();
-    ArrayList<MedEquip> eqList = equipController.getAll();
+    ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
     for (int i = 0; i < eqList.size(); i++) {
       for (int j = 0; j < currFloorNodeID.size(); j++) {
         if (eqList.get(i).getNodeID().equalsIgnoreCase(currFloorNodeID.get(j))) {
@@ -245,15 +245,15 @@ public class MapEditorController {
 
   public void removeLocation(ActionEvent actionEvent) throws SQLException {
     if (!nodeIn.getText().isEmpty()) {
-      locationController.deleteLocation(nodeIn.getText());
+      locationManager.deleteLocation(nodeIn.getText());
       nodeIn.clear();
       refresh();
     }
   }
 
   public void resetCSV(ActionEvent actionEvent) throws SQLException, FileNotFoundException {
-    locationController.addLocation("HOLD", -1, -1, "HOLD", null, null, null, null);
-    ArrayList<MedEquip> eqList = equipController.getAll();
+    locationManager.addLocation("HOLD", -1, -1, "HOLD", null, null, null, null);
+    ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
     for (int i = 0; i < eqList.size(); i++) {
       equipController.add(
           eqList.get(i).getMedID(), eqList.get(i).getType(), "HOLD", eqList.get(i).getStatus());
@@ -266,7 +266,7 @@ public class MapEditorController {
     CSVController csvController =
         new CSVController(
             locationFileName, medEquipFileName, medEquipRequestFileName, labServiceRequestFileName);
-    locationController.clearLocations();
+    locationManager.clearLocations();
     csvController.insertIntoLocationsTable(csvController.importCSV(locationFileName));
     test.setLocationsList();
     refresh();

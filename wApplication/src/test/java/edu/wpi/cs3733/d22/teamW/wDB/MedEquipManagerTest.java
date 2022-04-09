@@ -9,20 +9,20 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import org.junit.jupiter.api.*;
 
-class MedEquipControllerTest {
+class MedEquipManagerTest {
 
   DBController dbController = DBController.getDBController();
   CSVController csvController;
   LocationDaoImpl locationDao;
-  LocationController locationController;
+  LocationManager locationManager;
 
   MedEquipDaoImpl medi;
   MedEquipRequestDaoImpl merdi;
-  MedEquipController medEquipController;
-  MedEquipRequestController merc;
+  MedEquipManager medEquipManager;
+  MedEquipRequestManager merc;
 
   LabServiceRequestDaoImpl labServiceRequestDao;
-  LabServiceRequestController lsrc;
+  LabServiceRequestManager lsrc;
 
   RequestFactory requestFactory;
 
@@ -56,19 +56,19 @@ class MedEquipControllerTest {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    locationController = new LocationController(locationDao);
+    locationManager = new LocationManager(locationDao);
 
     try {
       medi = new MedEquipDaoImpl();
     } catch (SQLException e) {
       e.printStackTrace();
     }
-    merdi = new MedEquipRequestDaoImpl();
-    medEquipController = new MedEquipController(medi, merdi);
-    merc = new MedEquipRequestController(merdi, medi);
+    merdi = new MedEquipRequestDaoImpl(statement);
+    medEquipManager = new MedEquipManager(medi, merdi);
+    merc = new MedEquipRequestManager(merdi, medi);
 
-    labServiceRequestDao = new LabServiceRequestDaoImpl();
-    lsrc = new LabServiceRequestController(labServiceRequestDao);
+    labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
+    lsrc = new LabServiceRequestManager(labServiceRequestDao);
 
     requestFactory = RequestFactory.getRequestFactory(merc, lsrc);
 
@@ -90,9 +90,9 @@ class MedEquipControllerTest {
   void markClean() {
     String equipID = "BED004";
 
-    MedEquip m = medEquipController.getMedEquip(equipID);
+    MedEquip m = medEquipManager.getMedEquip(equipID);
     try {
-      medEquipController.markClean(m);
+      medEquipManager.markClean(m);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -130,9 +130,9 @@ class MedEquipControllerTest {
   void markInUse() {
     String equipID = "BED001";
 
-    MedEquip m = medEquipController.getMedEquip(equipID);
+    MedEquip m = medEquipManager.getMedEquip(equipID);
     try {
-      medEquipController.markInUse(m);
+      medEquipManager.markInUse(m);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -170,9 +170,9 @@ class MedEquipControllerTest {
   void markDirty() {
     String equipID = "BED001";
 
-    MedEquip m = medEquipController.getMedEquip(equipID);
+    MedEquip m = medEquipManager.getMedEquip(equipID);
     try {
-      medEquipController.markDirty(m);
+      medEquipManager.markDirty(m);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -218,7 +218,7 @@ class MedEquipControllerTest {
     Integer status = 0;
 
     try {
-      medEquipController.add(medID, type, nodeID, status);
+      medEquipManager.add(medID, type, nodeID, status);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -251,7 +251,7 @@ class MedEquipControllerTest {
     String medID = "XRY001";
 
     try {
-      medEquipController.delete(medID);
+      medEquipManager.delete(medID);
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -285,7 +285,7 @@ class MedEquipControllerTest {
 
     String medID = "XRY001";
 
-    MedEquip med = medEquipController.getMedEquip(medID);
+    MedEquip med = medEquipManager.getMedEquip(medID);
 
     MedEquip listEquip = null;
 
@@ -323,7 +323,7 @@ class MedEquipControllerTest {
     merdi.setMedEquipRequestList();
     labServiceRequestDao.setLabServiceRequestList();
 
-    ArrayList<MedEquip> medEquips = medEquipController.getAll();
+    ArrayList<MedEquip> medEquips = medEquipManager.getAllMedEquip();
 
     ArrayList<MedEquip> medDaoEquips = medi.getAllMedEquip();
 
@@ -361,8 +361,8 @@ class MedEquipControllerTest {
   void exportMedicalEquipmentCSV() {
 
     String fileName = "TESTMEDEQUIP.csv";
-    medEquipController.exportMedicalEquipmentCSV(fileName);
-    ArrayList<MedEquip> medList = medEquipController.getAll();
+    medEquipManager.exportMedicalEquipmentCSV(fileName);
+    ArrayList<MedEquip> medList = medEquipManager.getAllMedEquip();
     File file = new File(fileName);
     InputStream in = null;
     try {

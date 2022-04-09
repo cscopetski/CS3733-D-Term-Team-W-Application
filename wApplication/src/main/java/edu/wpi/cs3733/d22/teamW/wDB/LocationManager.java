@@ -3,10 +3,20 @@ package edu.wpi.cs3733.d22.teamW.wDB;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class LocationController {
-  LocationDaoImpl ldi;
+public class LocationManager {
+  private LocationDao ldi;
 
-  public LocationController(LocationDaoImpl ldi) {
+  private static LocationManager locationManager = new LocationManager();
+
+  public static LocationManager getLocationManager(){
+    return locationManager;
+  }
+
+  private LocationManager() {
+
+  }
+
+  public void setLocationDao(LocationDao ldi){
     this.ldi = ldi;
   }
 

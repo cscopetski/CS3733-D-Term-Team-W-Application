@@ -3,12 +3,22 @@ package edu.wpi.cs3733.d22.teamW.wDB;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class LabServiceRequestController implements RequestController {
+public class LabServiceRequestManager implements RequestController {
 
-  private LabServiceRequestDaoImpl lsrdi;
+  private LabServiceRequestDao lsrdi;
 
-  public LabServiceRequestController(LabServiceRequestDaoImpl lsrdi) {
-    this.lsrdi = lsrdi;
+  private static LabServiceRequestManager labServiceRequestManager = new LabServiceRequestManager();
+
+  private LabServiceRequestManager() {
+
+  }
+
+  public static LabServiceRequestManager getLabServiceRequestManager(){
+    return labServiceRequestManager;
+  }
+
+  public void setLabServiceRequestDao(LabServiceRequestDao labServiceRequestDao){
+    this.lsrdi = labServiceRequestDao;
   }
 
   @Override

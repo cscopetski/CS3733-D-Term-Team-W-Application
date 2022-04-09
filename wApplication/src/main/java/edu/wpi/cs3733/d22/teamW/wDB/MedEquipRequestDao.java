@@ -24,6 +24,8 @@ public interface MedEquipRequestDao {
       int requestID, String newItemID, String newLocationID, String newEmployeeName)
       throws SQLException;
 
+  void changeMedEquipRequest(MedEquipRequest mER) throws SQLException;
+
   void makeMedEquipEmergency(int requestID);
 
   void exportMedReqCSV(String fileName);

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public interface MedEquipDao {
 
-  ArrayList<MedEquip> getAllMedEquip();
+  ArrayList<MedEquip> getAllMedEquip() throws SQLException;
 
   void addMedEquip(String inputID, String type, String nodeID, Integer status) throws SQLException;
 

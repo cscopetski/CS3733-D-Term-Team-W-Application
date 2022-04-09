@@ -31,15 +31,15 @@ public class Main {
     }
 
     LocationDaoImpl locationDao = new LocationDaoImpl();
-    LocationController locationController = new LocationController(locationDao);
+    LocationManager locationManager = new LocationManager(locationDao);
 
     MedEquipDaoImpl medi = new MedEquipDaoImpl();
-    MedEquipRequestDaoImpl merdi = new MedEquipRequestDaoImpl();
-    MedEquipController medEquipController = new MedEquipController(medi, merdi);
-    MedEquipRequestController merc = new MedEquipRequestController(merdi, medi);
+    MedEquipRequestDaoImpl merdi = new MedEquipRequestDaoImpl(statement);
+    MedEquipManager medEquipManager = new MedEquipManager(medi, merdi);
+    MedEquipRequestManager merc = new MedEquipRequestManager(merdi, medi);
 
-    LabServiceRequestDaoImpl labServiceRequestDao = new LabServiceRequestDaoImpl();
-    LabServiceRequestController lsrc = new LabServiceRequestController(labServiceRequestDao);
+    LabServiceRequestDaoImpl labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
+    LabServiceRequestManager lsrc = new LabServiceRequestManager(labServiceRequestDao);
 
     RequestFactory requestFactory = RequestFactory.getRequestFactory(merc, lsrc);
 
@@ -91,8 +91,8 @@ public class Main {
         merc.cancelRequest(test3);
         merc.completeRequest(test3);
     */
-    locationController.changeLocation(
-        locationController.getAllLocations().get(0).getNodeID(),
+    locationManager.changeLocation(
+        locationManager.getAllLocations().get(0).getNodeID(),
         Integer.parseInt("100"),
         Integer.parseInt("100"),
         "01",

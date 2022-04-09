@@ -3,14 +3,23 @@ package edu.wpi.cs3733.d22.teamW.wDB;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class MedEquipRequestController implements RequestController {
+public class MedEquipRequestManager implements RequestController {
 
-  private MedEquipRequestDaoImpl merdi;
-  private MedEquipDaoImpl medi;
+  private MedEquipRequestDao merdi;
+  private MedEquipManager medi = MedEquipManager.getMedEquipManager();
 
-  public MedEquipRequestController(MedEquipRequestDaoImpl merdi, MedEquipDaoImpl medi) {
+  private static MedEquipRequestManager medEquipRequestManager = new MedEquipRequestManager();
+
+  public static MedEquipRequestManager getMedEquipRequestManager(){
+    return medEquipRequestManager;
+  }
+
+  private MedEquipRequestManager() {
+
+  }
+
+  public void setMedEquipRequestDao(MedEquipRequestDao merdi){
     this.merdi = merdi;
-    this.medi = medi;
   }
 
   public String checkStart(Request request) throws SQLException {
@@ -19,7 +28,7 @@ public class MedEquipRequestController implements RequestController {
     ArrayList<MedEquip> medEquipList = medi.getAllMedEquip();
     for (MedEquip m : medEquipList) {
       if (m.getType().equals(mERtype) && (m.getStatus() == 0)) {
-        medi.changeMedEquip(m.getMedID(), m.getType(), m.getNodeID(), 1);
+        medi.markInUse(m);
         return m.getMedID();
       }
     }
@@ -34,7 +43,8 @@ public class MedEquipRequestController implements RequestController {
     } else if (request.getStatus() == 1) {
       request.cancel();
       merdi.changeMedEquipRequest(request);
-      medi.changeMedEquip(request.getItemID(), request.getItemType(), request.getNodeID(), 0);
+
+      medi.markClean(request.getItemID(), request.getItemType(), request.getNodeID());
       checkNext(request.getItemID());
     }
   }
@@ -44,7 +54,7 @@ public class MedEquipRequestController implements RequestController {
     MedEquipRequest request = (MedEquipRequest) r;
     request.complete();
     merdi.changeMedEquipRequest(request);
-    medi.changeMedEquip(request.getItemID(), request.getItemType(), request.getNodeID(), 0);
+    medi.markClean(request.getItemID(), request.getItemType(), request.getNodeID());
     checkNext(request.getItemID());
   }
 
