@@ -69,10 +69,9 @@ public class Main {
     fields3.add("" + 0);
 
     try {
-      requestFactory.getRequest("MEDEQUIPREQUEST", fields);
-      requestFactory.getRequest("MEDEQUIPREQUEST", fields2);
-      requestFactory.getRequest("MEDEQUIPREQUEST", fields3);
-
+      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
+      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields2);
+      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields3);
     } catch (SQLException e) {
       e.printStackTrace();
     }

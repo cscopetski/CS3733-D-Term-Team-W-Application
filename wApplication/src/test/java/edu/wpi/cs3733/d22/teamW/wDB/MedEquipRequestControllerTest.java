@@ -98,7 +98,7 @@ class MedEquipRequestControllerTest {
   void cancelRequest() throws SQLException {
     Request request = RequestFactory.getRequestFactory().findRequest(5);
     merc.cancelRequest(request);
-    assertEquals(request.getStatus(), 3);
+    assertEquals(request.getStatusInt(), 3);
   }
 
   @Test
@@ -131,8 +131,8 @@ class MedEquipRequestControllerTest {
     Request request = RequestFactory.getRequestFactory().findRequest(5);
     merc.completeRequest(request);
 
-    assertEquals(request.getStatus(), 2);
-    assertEquals(test3.getStatus(), 1);
+    assertEquals(request.getStatusInt(), 2);
+    assertEquals(test3.getStatusInt(), 1);
   }
 
   @Test
@@ -165,9 +165,9 @@ class MedEquipRequestControllerTest {
     Request request = RequestFactory.getRequestFactory().findRequest(5);
 
     merc.checkNext("XRY001");
-    assertEquals(request.getStatus(), 1);
+    assertEquals(request.getStatusInt(), 1);
     assertEquals(test3.getRequestID(), 22);
-    assertEquals(test3.getStatus(), 1);
+    assertEquals(test3.getStatusInt(), 1);
   }
 
   @Test

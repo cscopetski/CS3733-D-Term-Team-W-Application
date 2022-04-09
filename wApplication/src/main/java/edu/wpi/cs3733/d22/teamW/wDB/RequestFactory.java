@@ -40,13 +40,13 @@ public class RequestFactory {
 
   // fields is every field except for request id and itemID
 
-  public Request getRequest(String requestType, ArrayList<String> fields) throws SQLException {
+  public Request getRequest(RequestType requestType, ArrayList<String> fields) throws SQLException {
     int counter = requests.size() + 1;
-    if (requestType.equalsIgnoreCase("MEDEQUIPREQUEST")) {
+    if (requestType.equals(RequestType.MedicalEquipmentRequest)) {
       Request mER = merc.addRequest(counter, fields);
       requests.add(mER);
       return mER;
-    } else if (requestType.equalsIgnoreCase("LABSERVICEREQUEST")) {
+    } else if (requestType.equals(RequestType.LabServiceRequest)) {
       Request lSR = lsrc.addRequest(counter, fields);
       requests.add(lSR);
       return lSR;

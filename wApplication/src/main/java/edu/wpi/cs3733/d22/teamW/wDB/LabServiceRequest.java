@@ -44,7 +44,7 @@ public class LabServiceRequest extends Request {
   }
 
   @Override
-  public Integer getStatus() {
+  public Integer getStatusInt() {
     return this.status;
   }
 

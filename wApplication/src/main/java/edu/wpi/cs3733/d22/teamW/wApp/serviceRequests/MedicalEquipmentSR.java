@@ -30,7 +30,7 @@ public class MedicalEquipmentSR {
     }
   */
   public int getStatus() {
-    return mer.getStatus();
+    return mer.getStatusInt();
   }
   /*
   public void setStatus(int status) {

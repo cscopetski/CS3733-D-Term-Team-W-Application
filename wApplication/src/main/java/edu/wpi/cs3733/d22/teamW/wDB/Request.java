@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 public abstract class Request implements Entity {
 
+  protected String[] statusType = {"In Queue", "In Progress", "Completed", "Cancelled"};
   protected Integer
       requestID; // Maybe switch to Hexatrigesimal uses 0-9 and then A to Z, so it allows a large
   // number of req
@@ -26,7 +27,11 @@ public abstract class Request implements Entity {
   }
    */
 
-  public abstract Integer getStatus();
+  public abstract Integer getStatusInt();
+
+  public String getStatus(){
+    return statusType[this.getStatusInt()];
+  }
 
   public abstract void start();
 

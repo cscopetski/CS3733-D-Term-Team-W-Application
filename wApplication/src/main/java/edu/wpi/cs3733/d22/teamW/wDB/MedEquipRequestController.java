@@ -28,10 +28,10 @@ public class MedEquipRequestController implements RequestController {
 
   public void cancelRequest(Request r) throws SQLException {
     MedEquipRequest request = (MedEquipRequest) r;
-    if (request.getStatus() == 0) {
+    if (request.getStatusInt() == 0) {
       request.cancel();
       merdi.changeMedEquipRequest(request);
-    } else if (request.getStatus() == 1) {
+    } else if (request.getStatusInt() == 1) {
       request.cancel();
       merdi.changeMedEquipRequest(request);
       medi.changeMedEquip(request.getItemID(), request.getItemType(), request.getNodeID(), 0);
@@ -67,14 +67,14 @@ public class MedEquipRequestController implements RequestController {
     MedEquipRequest nextRequest;
     for (MedEquipRequest mer : list) {
       if (mer.getEmergency() == 1) {
-        if (mer.getItemType().equals(type) && mer.getStatus() == 0) {
+        if (mer.getItemType().equals(type) && mer.getStatusInt() == 0) {
           nextRequest = mer;
           return nextRequest;
         }
       }
     }
     for (MedEquipRequest mer : list) {
-      if (mer.getItemType().equals(type) && mer.getStatus() == 0) {
+      if (mer.getItemType().equals(type) && mer.getStatusInt() == 0) {
         nextRequest = mer;
         return nextRequest;
       }
@@ -105,7 +105,7 @@ public class MedEquipRequestController implements RequestController {
     }
 
     // If the request does not have an item, aka has not been started
-    if (mER.getItemID().equals("NONE") && mER.getStatus() == 0) {
+    if (mER.getItemID().equals("NONE") && mER.getStatusInt() == 0) {
       // System.out.println("CHECKING REQUEST " + mER.getRequestID());
       String itemID = checkStart(mER);
       if (itemID != null) {
