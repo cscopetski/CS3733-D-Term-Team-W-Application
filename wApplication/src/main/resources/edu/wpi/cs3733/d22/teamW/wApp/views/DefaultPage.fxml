@@ -1,34 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DefaultPage">
+<AnchorPane style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DefaultPageController">
+
     <children>
-      <BorderPane prefHeight="30.0" prefWidth="110.0">
-         <center>
-                <MenuButton mnemonicParsing="false" prefWidth="100.0" text="Requests" BorderPane.alignment="CENTER">
-                    <items>
-                        <MenuItem mnemonicParsing="false" onAction="#switchToLab" text="Lab Services" />
-                  <MenuItem mnemonicParsing="false" onAction="#switchToMedicalEquipmentDelivery" text="Equipment" />
-                        <MenuItem mnemonicParsing="false" onAction="#switchToMedicineDelivery" text="Medicine" />
-                        <MenuItem mnemonicParsing="false" onAction="#switchToMealDelivery" text="Meals" />
-                        <MenuItem mnemonicParsing="false" onAction="#switchToLanguageInterpreter" text="Interpreters" />
-                        <MenuItem mnemonicParsing="false" onAction="#switchToSecurity" text="Security" />
-                        <MenuItem mnemonicParsing="false" onAction="#switchToMapEditor" text="Map Editor" />
-                    </items>
-                </MenuButton>
-         </center>
-      </BorderPane>
-        <Text layoutX="281.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Default" />
-      <BorderPane layoutX="50.0" layoutY="50.0" prefHeight="400.0" prefWidth="600.0">
-         <center>
-            <Pane fx:id="content" />
-         </center>
-      </BorderPane>
+        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
+            <children>
+                <AnchorPane>
+                    <children>
+                        <HBox stylesheets="@../CSS/DefaultPage/mainBar.css" AnchorPane.rightAnchor="0.0"
+                              AnchorPane.topAnchor="6.0">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#switchToMainMenu" prefHeight="47.0"
+                                        prefWidth="113.0" text="Main Menu" textFill="WHITE"/>
+                                <Button mnemonicParsing="false" onAction="#switchToMapEditor" prefHeight="47.0"
+                                        prefWidth="113.0" text="Map Editor" textFill="WHITE"/>
+                                <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false"
+                                            prefHeight="47.0" prefWidth="113.0" text="Requests" textAlignment="CENTER"
+                                            textOverrun="CLIP">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToRequestHub"
+                                                  text="Request Hub"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToRequestList"
+                                                  text="Request List"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToLab" text="Lab Services"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToMedicalEquipmentDelivery"
+                                                  text="Equipment"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToMedicineDelivery"
+                                                  text="Medicine"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToMealDelivery"
+                                                  text="Meals"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToLanguageInterpreter"
+                                                  text="Interpreters"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToSecurity" text="Security"/>
+                                    </items>
+                                </MenuButton>
+                                <Button mnemonicParsing="false" onAction="#exitProgram" prefHeight="47.0"
+                                        prefWidth="113.0" text="Exit" textFill="WHITE"/>
+                            </children>
+                        </HBox>
+                        <Pane prefHeight="47.0" prefWidth="338.0" AnchorPane.leftAnchor="0.0"
+                              AnchorPane.topAnchor="0.0">
+                            <children>
+                                <ImageView fitHeight="27.0" fitWidth="200.0" layoutX="37.0" layoutY="12.0"
+                                           onMousePressed="#switchToMainMenu">
+                                    <image>
+                                        <Image url="@../assets/HospitalLogo.png"/>
+                                    </image>
+                                </ImageView>
+                            </children>
+                        </Pane>
+                    </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-alignment: center;" VBox.vgrow="ALWAYS">
+                    <children>
+                        <fx:include fx:id="mainMenuPage" source="MainMenuPage.fxml"/>
+                        <fx:include fx:id="mapEditorPage" source="MapEditorPage.fxml"/>
+                        <fx:include fx:id="labServiceRequestPage"
+                                    source="ServiceRequestPages/LabServiceRequestPage.fxml"/>
+                        <fx:include fx:id="languageInterpreterServiceRequestPage"
+                                    source="ServiceRequestPages/LanguageInterpreterServiceRequestPage.fxml"/>
+                        <fx:include fx:id="mealDeliveryServiceRequestPage"
+                                    source="ServiceRequestPages/MealDeliveryServiceRequestPage.fxml"/>
+                        <fx:include fx:id="medicalEquipmentServiceRequestPage"
+                                    source="ServiceRequestPages/MedicalEquipmentServiceRequestPage.fxml"/>
+                        <fx:include fx:id="medicineDeliveryServiceRequestPage"
+                                    source="ServiceRequestPages/MedicineDeliveryServiceRequestPage.fxml"/>
+                        <fx:include fx:id="securityServiceRequestPage"
+                                    source="ServiceRequestPages/SecurityServiceRequestPage.fxml"/>
+                        <fx:include fx:id="requestListPage" source="ServiceRequestPages/RequestListPage.fxml"/>
+                        <fx:include fx:id="requestHubPage" source="RequestHubPage.fxml"/>
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
     </children>
 </AnchorPane>

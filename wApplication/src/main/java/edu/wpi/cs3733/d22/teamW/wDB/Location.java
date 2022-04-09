@@ -102,7 +102,7 @@ public class Location implements Entity {
   @Override
   public String toCSVString() {
     return String.format(
-        "%s, %d, %d, %s, %s, %s, %s, %s",
+        "%s,%d,%d,%s,%s,%s,%s,%s",
         nodeID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
   }
 

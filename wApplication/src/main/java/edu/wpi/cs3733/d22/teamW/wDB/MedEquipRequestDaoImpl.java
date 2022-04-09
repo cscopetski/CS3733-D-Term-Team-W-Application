@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
@@ -13,7 +14,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
   ArrayList<MedEquipRequest> medEquipRequestList = new ArrayList<>();
   Integer requestIDTracker = 1;
 
-  public MedEquipRequestDaoImpl() {
+  public MedEquipRequestDaoImpl(Statement statement) {
     setMedEquipRequestList();
   }
 
@@ -94,6 +95,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
                   newItemType, newLocationID, newEmployeeName, requestID));
     }
   }
+
 
   public void changeMedEquipRequest(MedEquipRequest mER) throws SQLException {
     int index = getIndexOf(mER.getRequestID());

@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public interface LocationDao {
 
-  ArrayList<Location> getAllLocations();
+  ArrayList<Location> getAllLocations() throws SQLException;
 
   void changeLocation(
       String inputID,

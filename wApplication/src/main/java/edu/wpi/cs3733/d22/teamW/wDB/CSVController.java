@@ -44,9 +44,12 @@ public class CSVController {
     insertIntoLabReqTable(importCSV(labServiceRequestFileName));
   }
 
-  private ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
+  public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
 
-    InputStream in = getClass().getClassLoader().getResourceAsStream(fileName);
+    InputStream in =
+        getClass()
+            .getClassLoader()
+            .getResourceAsStream("edu/wpi/cs3733/d22/teamW/wDB/CSVs/" + fileName);
     if (in == null) {
       System.out.println("Failed to find file " + fileName);
       throw (new FileNotFoundException());
@@ -75,7 +78,7 @@ public class CSVController {
    * @param tokens List of Location Objects to populate the Location Table
    * @throws SQLException if insertion fails
    */
-  private void insertIntoLocationsTable(ArrayList<String[]> tokens) throws SQLException {
+  public void insertIntoLocationsTable(ArrayList<String[]> tokens) throws SQLException {
 
     ArrayList<Location> locationsList = new ArrayList<>();
 

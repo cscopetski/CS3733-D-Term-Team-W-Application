@@ -36,15 +36,15 @@ public class Main {
     }
 
     LocationDaoImpl locationDao = new LocationDaoImpl();
-    LocationController locationController = new LocationController(locationDao);
+    LocationManager locationManager = new LocationManager(locationDao);
 
     MedEquipDaoImpl medi = new MedEquipDaoImpl();
-    MedEquipRequestDaoImpl merdi = new MedEquipRequestDaoImpl();
-    MedEquipController medEquipController = new MedEquipController(medi, merdi);
-    MedEquipRequestController merc = new MedEquipRequestController(merdi, medi);
+    MedEquipRequestDaoImpl merdi = new MedEquipRequestDaoImpl(statement);
+    MedEquipManager medEquipManager = new MedEquipManager(medi, merdi);
+    MedEquipRequestManager merc = new MedEquipRequestManager(merdi, medi);
 
-    LabServiceRequestDaoImpl labServiceRequestDao = new LabServiceRequestDaoImpl();
-    LabServiceRequestController lsrc = new LabServiceRequestController(labServiceRequestDao);
+    LabServiceRequestDaoImpl labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
+    LabServiceRequestManager lsrc = new LabServiceRequestManager(labServiceRequestDao);
 
     RequestFactory requestFactory = RequestFactory.getRequestFactory(merc, lsrc);
 
@@ -114,5 +114,30 @@ public class Main {
     edi.addEmployee(5, "Wilson", "Wong", "Prof", "staff", "staff");
     edi.exportEmpCSV("Employees.csv");
     */
+    /*
+        Request test = requestFactory.findRequest(5);
+        Request test2 = requestFactory.findRequest(11);
+        Request test3 = requestFactory.findRequest(12);
+        Request test4 = requestFactory.findRequest(13);
+        // completes test
+        merc.completeRequest(test);
+        // Tries to cancel test but fails since it is completed
+        merc.cancelRequest(test);
+        // test 2 should be enqueue then cancelled starting test 3
+        merc.cancelRequest(test2);
+        merc.completeRequest(test2);
+        merc.cancelRequest(test3);
+        merc.completeRequest(test3);
+    */
+    locationManager.changeLocation(
+        locationManager.getAllLocations().get(0).getNodeID(),
+        Integer.parseInt("100"),
+        Integer.parseInt("100"),
+        "01",
+        "Tower",
+        "DEPT",
+        "TESTING",
+        "TEST");
+    App.launch(App.class, args);
   }
 }

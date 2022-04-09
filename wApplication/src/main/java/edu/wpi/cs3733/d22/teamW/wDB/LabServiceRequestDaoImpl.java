@@ -5,14 +5,17 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
 
-  DBController dbController = DBController.getDBController();
   ArrayList<LabServiceRequest> labServiceRequestList;
 
-  public LabServiceRequestDaoImpl() {
+  Statement statement;
+
+  public LabServiceRequestDaoImpl(Statement statement) {
+    this.statement = statement;
     setLabServiceRequestList();
   }
 
@@ -20,7 +23,7 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
     labServiceRequestList = new ArrayList<LabServiceRequest>();
 
     try {
-      ResultSet labServiceRequests = dbController.executeQuery("SELECT * FROM LABSERVICEREQUESTS");
+      ResultSet labServiceRequests = statement.executeQuery("SELECT * FROM LABSERVICEREQUESTS");
 
       // Size of num LabServiceRequest fields
       int size = 6;
@@ -48,7 +51,7 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
   @Override
   public void addLabServiceRequest(LabServiceRequest lsr) throws SQLException {
     labServiceRequestList.add(lsr);
-    dbController.executeUpdate(
+    statement.executeUpdate(
         String.format("INSERT INTO LABSERVICEREQUESTS VALUES (%s)", lsr.toValuesString()));
   }
 
@@ -71,7 +74,7 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
       labServiceRequestList.get(index).setNodeID(nodeID);
       labServiceRequestList.get(index).setStatus(status);
       labServiceRequestList.get(index).setEmployeeName(employeeName);
-      dbController.executeUpdate(
+      statement.executeUpdate(
           String.format(
               "UPDATE LABSERVICEREQUESTS SET LABTYPE='%s', NODEID='%s', EMPLOYEENAME='%s', ISEMERGENCY=%d, REQSTATUS=%d WHERE LABREQID=%d",
               labType, nodeID, employeeName, emergency, status, requestID));
@@ -86,7 +89,7 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
           "The database dose not contain a lab service request with an ID of " + requestID);
     } else {
       labServiceRequestList.remove(index);
-      dbController.executeUpdate(
+      statement.executeUpdate(
           String.format("DELETE FROM LABSERVICEREQUESTS WHERE LABREQID=%d", requestID));
     }
   }

@@ -1,0 +1,24 @@
+.button{
+    -fx-background-image: url(../../assets/ServiceRequestIconWhite.png);
+    -fx-background-color: transparent;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat ;
+    -fx-background-position: center ;
+    -fx-background-radius: 26;
+    -fx-text-fill: white ;
+    -fx-font-weight: bold;
+    -fx-font-size: 18pt;
+    -fx-opacity: 80%;
+
+}
+
+.button:hover{
+    -fx-background-image: url(../../assets/ServiceRequestIcon.png);
+    -fx-background-color: white;
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat ;
+    -fx-background-position: center ;
+    -fx-background-radius: 26;
+    -fx-text-fill: black ;
+    -fx-opacity: 80%;
+}
