@@ -1,8 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Location;
-import edu.wpi.cs3733.d22.teamW.wDB.LocationManager;
-import edu.wpi.cs3733.d22.teamW.wDB.LocationDaoImpl;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.sql.SQLException;
@@ -24,19 +23,10 @@ public class UpdateMapPageController implements Initializable {
   @FXML private TextField lnameField;
   @FXML private TextField snameField;
   @FXML private TextField buildingField;
-  private LocationDaoImpl test;
-
-  {
-    try {
-      test = new LocationDaoImpl();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
 
   Location loc;
 
-  private LocationManager locationManager = new LocationManager(test);
+  private LocationManager locationManager = LocationManager.getLocationManager();
 
   public void updateLoc(ActionEvent actionEvent) throws SQLException {
     locationManager.changeLocation(
@@ -77,7 +67,7 @@ public class UpdateMapPageController implements Initializable {
     buildingField.setText(loc.getBuilding());
     floorField.setText(loc.getFloor());
     lnameField.setText(loc.getLongName());
-    test.setLocationsList();
+    // loc.setLocationsList();
   }
 
   @Override

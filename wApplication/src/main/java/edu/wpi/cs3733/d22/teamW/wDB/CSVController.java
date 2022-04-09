@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
+import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
@@ -27,7 +29,7 @@ public class CSVController {
     this.medEquipRequestFileName = medEquipRequestFileName;
     this.labServiceRequestFileName = labServiceRequestFileName;
     this.employeeFileName = employeeFileName;
-    this.medRequestFileName= medRequestFileName;
+    this.medRequestFileName = medRequestFileName;
   }
 
   public void setRequestFactory(RequestFactory requestFactory) {
@@ -35,10 +37,9 @@ public class CSVController {
   }
 
   public void populateEntityTables() throws FileNotFoundException, SQLException {
+    insertIntoEmpTable(importCSV(employeeFileName));
     insertIntoLocationsTable(importCSV(locationFileName));
     insertIntoMedEquipTable(importCSV(medEquipFileName));
-    insertIntoEmpTable(importCSV(employeeFileName));
-    insertMedRequestTable(importCSV(medRequestFileName));
   }
 
   public void populateRequestTables(RequestFactory requestFactory)
@@ -46,6 +47,7 @@ public class CSVController {
     setRequestFactory(requestFactory);
     insertIntoMedEquipReqTable(importCSV(medEquipRequestFileName));
     insertIntoLabReqTable(importCSV(labServiceRequestFileName));
+    insertMedRequestTable(importCSV(medRequestFileName));
   }
 
   public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
@@ -138,14 +140,15 @@ public class CSVController {
       ArrayList<String> fields = new ArrayList<>();
       fields.addAll(Arrays.asList(s));
 
-      MedEquipRequest mER = (MedEquipRequest) requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
+      MedEquipRequest mER =
+          (MedEquipRequest) requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
 
       medEquipReqList.add(mER);
     }
   }
 
   private void insertIntoLabReqTable(ArrayList<String[]> tokens) throws SQLException {
-    //ArrayList<LabServiceRequest> labReqList = new ArrayList<>();
+    // ArrayList<LabServiceRequest> labReqList = new ArrayList<>();
 
     for (String[] s : tokens) {
       ArrayList<String> fields = new ArrayList<>();
@@ -154,20 +157,20 @@ public class CSVController {
       LabServiceRequest lSR =
           (LabServiceRequest) requestFactory.getRequest(RequestType.LabServiceRequest, fields);
 
-      //labReqList.add(lSR);
+      // labReqList.add(lSR);
     }
   }
 
   private void insertMedRequestTable(ArrayList<String[]> tokens) throws SQLException {
-    //ArrayList<MedRequest> medReqLists = new ArrayList<>();
+    // ArrayList<MedRequest> medReqLists = new ArrayList<>();
 
-    for(String[] s : tokens){
+    for (String[] s : tokens) {
       ArrayList<String> fields = new ArrayList<>();
       fields.addAll(Arrays.asList(s));
 
       MedRequest mr = (MedRequest) requestFactory.getRequest(RequestType.MedicineDelivery, fields);
 
-       //medReqLists.add(mr);
+      // medReqLists.add(mr);
     }
   }
 

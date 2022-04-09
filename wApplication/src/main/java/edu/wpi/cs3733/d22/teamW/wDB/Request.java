@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,7 +30,7 @@ public abstract class Request implements Entity {
 
   public abstract Integer getStatusInt();
 
-  public String getStatus(){
+  public String getStatus() {
     return statusType[this.getStatusInt()];
   }
 

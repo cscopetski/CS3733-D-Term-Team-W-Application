@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
@@ -106,10 +107,7 @@ public class MedEquipRequest extends Request {
   }
 
   public void cancel() {
-    if (this.status != 2) {
-      this.status = 3;
-    } else {
-    }
+    this.status = 3;
   }
 
   @Override

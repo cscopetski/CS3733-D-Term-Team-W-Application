@@ -1,22 +1,16 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.io.*;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Scanner;
 import org.junit.jupiter.api.*;
 
 class MedEquipManagerTest {
-
+  /*
   DBController dbController = DBController.getDBController();
   CSVController csvController;
   LocationDaoImpl locationDao;
   LocationManager locationManager;
 
-  MedEquipDaoImpl medi;
+  DBController.MedEquipDaoImpl medi;
   MedEquipRequestDaoImpl merdi;
   MedEquipManager medEquipManager;
   MedEquipRequestManager merc;
@@ -59,7 +53,7 @@ class MedEquipManagerTest {
     locationManager = new LocationManager(locationDao);
 
     try {
-      medi = new MedEquipDaoImpl();
+      medi = new DBController.MedEquipDaoImpl();
     } catch (SQLException e) {
       e.printStackTrace();
     }
@@ -406,4 +400,5 @@ class MedEquipManagerTest {
       assertEquals(controllerMed.equals(csvMed), true);
     }
   }
+  */
 }

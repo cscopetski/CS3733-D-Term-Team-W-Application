@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -24,8 +27,7 @@ public class RequestFactory {
     this.requestFactory = null;
   }
 
-  private RequestFactory() {
-  }
+  private RequestFactory() {}
 
   // fields is every field except for request id and itemID
 

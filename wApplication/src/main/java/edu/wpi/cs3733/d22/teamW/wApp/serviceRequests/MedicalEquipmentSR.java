@@ -29,7 +29,7 @@ public class MedicalEquipmentSR {
       mer.setEmployeeName(employeeName);
     }
   */
-  public int getStatus() {
+  public String getStatus() {
     return mer.getStatus();
   }
   /*

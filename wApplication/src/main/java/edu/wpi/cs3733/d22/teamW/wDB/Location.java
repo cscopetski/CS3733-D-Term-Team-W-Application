@@ -3,14 +3,14 @@ package edu.wpi.cs3733.d22.teamW.wDB;
 public class Location implements Entity {
 
   // Test
-  String nodeID;
-  Integer xCoord;
-  Integer yCoord;
-  String floor;
-  String building;
-  String nodeType;
-  String longName;
-  String shortName;
+  private String nodeID;
+  private Integer xCoord;
+  private Integer yCoord;
+  private String floor;
+  private String building;
+  private String nodeType;
+  private String longName;
+  private String shortName;
 
   public Location() {
     nodeID = null;

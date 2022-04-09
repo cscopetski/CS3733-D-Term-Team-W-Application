@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -45,31 +47,11 @@ public class MapEditorController {
   Integer size = 0;
   Integer xOffSet = 396;
   Integer yOffSet = 63;
-  private MedEquipDaoImpl medEquipDao;
 
-  {
-    try {
-      medEquipDao = new MedEquipDaoImpl();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-
-  private MedEquipRequestDaoImpl medEquipRequestDao = new MedEquipRequestDaoImpl(statement);
   private String currFloor = "0";
-  private LocationDaoImpl test;
 
-  {
-    try {
-      test = new LocationDaoImpl();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-
-  private MedEquipManager equipController =
-      new MedEquipManager(medEquipDao, medEquipRequestDao);
-  private LocationManager locationManager = new LocationManager(test);
+  private MedEquipManager equipController = MedEquipManager.getMedEquipManager();
+  private LocationManager locationManager = LocationManager.getLocationManager();
   private ArrayList<Location> currFloorLoc = new ArrayList<>();
   private ArrayList<String> currFloorNodeID = new ArrayList<>();
   private ArrayList<medEquip> equipList = new ArrayList<>();
@@ -103,7 +85,7 @@ public class MapEditorController {
   }
 
   public void refresh() throws SQLException {
-    test.setLocationsList();
+    // test.setLocationsList();
     removeMarkers();
     currFloorLoc.clear();
     currFloorNodeID.clear();
@@ -188,7 +170,12 @@ public class MapEditorController {
 
   private void generateEquipList() {
     equipList.clear();
-    ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
+    ArrayList<MedEquip> eqList = null;
+    try {
+      eqList = equipController.getAllMedEquip();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
     for (int i = 0; i < eqList.size(); i++) {
       for (int j = 0; j < currFloorNodeID.size(); j++) {
         if (eqList.get(i).getNodeID().equalsIgnoreCase(currFloorNodeID.get(j))) {
@@ -259,20 +246,27 @@ public class MapEditorController {
           eqList.get(i).getMedID(), eqList.get(i).getType(), "HOLD", eqList.get(i).getStatus());
     }
     File inputCSV = fileChooser.showOpenDialog(SceneManager.getInstance().getPrimaryStage());
-    final String locationFileName = inputCSV.getName();
+    final String locationFileName = "TowerLocations.csv";
     final String medEquipFileName = "MedicalEquipment.csv";
     final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
     final String labServiceRequestFileName = "LabRequests.csv";
+    final String employeesFileName = "Employees.csv";
+    final String medRequestFileName = "MedRequests.csv";
     CSVController csvController =
         new CSVController(
-            locationFileName, medEquipFileName, medEquipRequestFileName, labServiceRequestFileName);
+            locationFileName,
+            medEquipFileName,
+            medEquipRequestFileName,
+            labServiceRequestFileName,
+            employeesFileName,
+            medRequestFileName);
     locationManager.clearLocations();
     csvController.insertIntoLocationsTable(csvController.importCSV(locationFileName));
-    test.setLocationsList();
+    // test.setLocationsList();
     refresh();
   }
 
   public void expCSV(ActionEvent actionEvent) {
-    test.exportLocationCSV("output.csv");
+    locationManager.exportLocationsCSV("output.csv");
   }
 }
