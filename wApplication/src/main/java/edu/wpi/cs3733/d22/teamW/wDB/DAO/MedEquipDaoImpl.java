@@ -14,13 +14,12 @@ public class MedEquipDaoImpl implements MedEquipDao {
     dropTable();
   }
 
-  void dropTable() throws SQLException {
+  void dropTable() {
     try {
       statement.execute("DROP TABLE MEDICALEQUIPMENT");
       System.out.println("Dropped Medical Equipment Table");
     } catch (SQLException e) {
       System.out.println("Failed to drop Medical Equipment Table");
-      throw (e);
     }
   }
 
@@ -38,7 +37,6 @@ public class MedEquipDaoImpl implements MedEquipDao {
               + "constraint Status_check check (status = 0 or status = 1 or status = 2))");
     } catch (SQLException e) {
       System.out.println("Medical Equipment Table failed to be created!");
-      throw (e);
     }
   }
 
