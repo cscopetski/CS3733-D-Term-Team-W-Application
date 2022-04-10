@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Location;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import java.io.*;
 import java.sql.*;
 import java.util.*;

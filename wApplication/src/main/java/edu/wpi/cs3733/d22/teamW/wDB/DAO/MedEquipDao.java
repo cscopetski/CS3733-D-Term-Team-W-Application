@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
-import edu.wpi.cs3733.d22.teamW.wDB.MedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

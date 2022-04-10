@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Employee;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

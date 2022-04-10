@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -89,7 +90,7 @@ public class MapEditorController {
     removeMarkers();
     currFloorLoc.clear();
     currFloorNodeID.clear();
-    ArrayList<edu.wpi.cs3733.d22.teamW.wDB.Location> locList = locationManager.getAllLocations();
+    ArrayList<edu.wpi.cs3733.d22.teamW.wDB.entity.Location> locList = locationManager.getAllLocations();
     for (int i = 0; i < locList.size(); i++) {
       if (locList.get(i).getFloor().equalsIgnoreCase(currFloor)) {
         currFloorLoc.add(new Location(locList.get(i)));

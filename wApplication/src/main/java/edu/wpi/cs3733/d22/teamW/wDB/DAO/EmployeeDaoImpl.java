@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Employee;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

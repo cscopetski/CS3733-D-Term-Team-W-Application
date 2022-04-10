@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipDao;
-import edu.wpi.cs3733.d22.teamW.wDB.MedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -48,6 +48,7 @@ public class MedEquipManager {
     medi.deleteMedEquip(inputID);
   }
 
+  //TODO change to just use sql in impl
   public MedEquip getMedEquip(String medID) throws SQLException {
     for (MedEquip e : medi.getAllMedEquip()) {
       if (e.getMedID().equals(medID)) {

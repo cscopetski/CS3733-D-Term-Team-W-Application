@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.EmployeeDao;
-import edu.wpi.cs3733.d22.teamW.wDB.Employee;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -56,5 +56,9 @@ public class EmployeeManager {
 
   public ArrayList<Employee> getAllEmployees() throws SQLException {
     return ed.getAllEmployees();
+  }
+
+  public void exportEmpCSV(String filename) {
+    ed.exportEmpCSV(filename);
   }
 }

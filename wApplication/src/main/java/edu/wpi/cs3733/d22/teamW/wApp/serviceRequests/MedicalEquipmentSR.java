@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
-import edu.wpi.cs3733.d22.teamW.wDB.MedEquipRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 
 public class MedicalEquipmentSR {
   MedEquipRequest mer;

@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.LocationDao;
-import edu.wpi.cs3733.d22.teamW.wDB.Location;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import java.sql.SQLException;
 import java.util.ArrayList;
 

@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.io.*;
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ public class CSVController {
   private String employeeFileName;
   private String medRequestFileName;
 
-  private RequestFactory requestFactory = null;
+  private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
   public CSVController(
       String locationFileName,
@@ -32,19 +33,11 @@ public class CSVController {
     this.medRequestFileName = medRequestFileName;
   }
 
-  public void setRequestFactory(RequestFactory requestFactory) {
-    this.requestFactory = requestFactory;
-  }
-
-  public void populateEntityTables() throws FileNotFoundException, SQLException {
+  public void populateTables() throws FileNotFoundException, SQLException {
     insertIntoEmpTable(importCSV(employeeFileName));
     insertIntoLocationsTable(importCSV(locationFileName));
     insertIntoMedEquipTable(importCSV(medEquipFileName));
-  }
 
-  public void populateRequestTables(RequestFactory requestFactory)
-      throws FileNotFoundException, SQLException {
-    setRequestFactory(requestFactory);
     insertIntoMedEquipReqTable(importCSV(medEquipRequestFileName));
     insertIntoLabReqTable(importCSV(labServiceRequestFileName));
     insertMedRequestTable(importCSV(medRequestFileName));
@@ -63,7 +56,11 @@ public class CSVController {
     Scanner sc = new Scanner(in);
     System.out.println("Found File" + fileName);
     // Skip headers
-    sc.next();
+    try {
+      sc.next();
+    } catch (NoSuchElementException e) {
+      System.out.println(String.format("FILE %s IS EMPTY", fileName));
+    }
 
     ArrayList<String[]> tokensList = new ArrayList<>();
 

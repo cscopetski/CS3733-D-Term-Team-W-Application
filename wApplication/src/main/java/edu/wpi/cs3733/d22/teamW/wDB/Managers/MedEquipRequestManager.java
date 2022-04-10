@@ -1,9 +1,9 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipRequestDao;
-import edu.wpi.cs3733.d22.teamW.wDB.MedEquip;
-import edu.wpi.cs3733.d22.teamW.wDB.MedEquipRequest;
-import edu.wpi.cs3733.d22.teamW.wDB.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.sql.SQLException;
 import java.util.ArrayList;
