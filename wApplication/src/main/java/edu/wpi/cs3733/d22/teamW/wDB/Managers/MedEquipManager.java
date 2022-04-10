@@ -2,6 +2,8 @@ package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipDao;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -22,26 +24,29 @@ public class MedEquipManager {
   }
 
   public void markClean(MedEquip equip) throws SQLException {
-    medi.changeMedEquip(equip.getMedID(), equip.getType(), equip.getNodeID(), 0);
+    equip.setStatus(MedEquipStatus.Clean);
+    medi.changeMedEquip(equip.getMedID(), equip.getType(), equip.getNodeID(), MedEquipStatus.Clean);
   }
 
   public void markClean(String medID, String type, String nodeID) throws SQLException {
-    medi.changeMedEquip(medID, type, nodeID, 0);
+    medi.changeMedEquip(medID, type, nodeID, MedEquipStatus.Clean);
   }
 
   public void markInUse(MedEquip equip) throws SQLException {
-    medi.changeMedEquip(equip.getMedID(), equip.getType(), equip.getNodeID(), 1);
+    equip.setStatus(MedEquipStatus.InUse);
+    medi.changeMedEquip(equip.getMedID(), equip.getType(), equip.getNodeID(), MedEquipStatus.InUse);
   }
 
   public void markDirty(MedEquip equip) throws SQLException {
-    medi.changeMedEquip(equip.getMedID(), equip.getType(), equip.getNodeID(), 2);
+    equip.setStatus(MedEquipStatus.Dirty);
+    medi.changeMedEquip(equip.getMedID(), equip.getType(), equip.getNodeID(), MedEquipStatus.InUse);
     // Creates request to move it to dirty location
     // ArrayList<String> fields = {}
     // rF.getRequest("Cleaning Request", );
   }
 
   public void add(String inputID, String type, String nodeID, Integer status) throws SQLException {
-    medi.addMedEquip(inputID, type, nodeID, status);
+    medi.addMedEquip(inputID, type, nodeID, MedEquipStatus.getStatus(status));
   }
 
   public void delete(String inputID) throws SQLException {

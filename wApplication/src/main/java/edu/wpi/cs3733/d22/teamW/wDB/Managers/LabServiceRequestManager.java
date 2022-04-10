@@ -1,8 +1,12 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.LabServiceRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -40,45 +44,62 @@ public class LabServiceRequestManager implements RequestManager {
     LabServiceRequest lSR;
     // Set status to in queue if it is not already included (from CSVs)
     if (fields.size() == 4) {
-      fields.add("0");
+      fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
       lSR = new LabServiceRequest(num, fields);
     } else {
       lSR = new LabServiceRequest(fields);
     }
-
     lsrdi.addLabServiceRequest(lSR);
     return lSR;
   }
 
-  public void start(LabServiceRequest request) throws SQLException {
-    request.start();
+  public void start(Integer requestID) throws SQLException {
+    LabServiceRequest request = (LabServiceRequest) RequestFactory.getRequestFactory().findRequest(requestID);
+    request.setStatus(RequestStatus.InProgress);
     lsrdi.changeLabServiceRequest(
         request.getRequestID(),
         request.getLabType(),
         request.getNodeID(),
         request.getEmployeeName(),
         request.getEmergency(),
-        1);
+            RequestStatus.InProgress);
   }
 
-  public void complete(LabServiceRequest request) throws SQLException {
+  public void complete(Integer requestID) throws SQLException {
+    LabServiceRequest request = (LabServiceRequest) RequestFactory.getRequestFactory().findRequest(requestID);
+    request.setStatus(RequestStatus.Completed);
     lsrdi.changeLabServiceRequest(
         request.getRequestID(),
         request.getLabType(),
         request.getNodeID(),
         request.getEmployeeName(),
         request.getEmergency(),
-        2);
+            RequestStatus.Completed);
   }
 
-  public void cancel(LabServiceRequest request) throws SQLException {
+
+  public void cancel(Integer requestID) throws SQLException {
+    LabServiceRequest request = (LabServiceRequest) RequestFactory.getRequestFactory().findRequest(requestID);
+    request.setStatus(RequestStatus.Cancelled);
     lsrdi.changeLabServiceRequest(
         request.getRequestID(),
         request.getLabType(),
         request.getNodeID(),
         request.getEmployeeName(),
         request.getEmergency(),
-        3);
+            RequestStatus.Cancelled);
+  }
+
+  public void reQueue(Integer requestID) throws SQLException {
+    LabServiceRequest request = (LabServiceRequest) RequestFactory.getRequestFactory().findRequest(requestID);
+    request.setStatus(RequestStatus.Cancelled);
+    lsrdi.changeLabServiceRequest(
+            request.getRequestID(),
+            request.getLabType(),
+            request.getNodeID(),
+            request.getEmployeeName(),
+            request.getEmergency(),
+            RequestStatus.InQueue);
   }
 
   @Override

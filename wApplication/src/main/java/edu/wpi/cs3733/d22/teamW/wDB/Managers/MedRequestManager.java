@@ -1,12 +1,15 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class MedRequestManager implements RequestManager {
+public class MedRequestManager implements ServiceRequestManager {
   private static MedRequestManager mrm = new MedRequestManager();
   private MedRequestDao mrd;
 
@@ -20,8 +23,7 @@ public class MedRequestManager implements RequestManager {
     this.mrd = mrd;
   }
 
-  @Override
-  public Request addRequest(Integer num, ArrayList<String> fields) {
+  public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException {
     MedRequest mr;
 
     if (fields.size() == 4) {
@@ -30,52 +32,64 @@ public class MedRequestManager implements RequestManager {
     } else {
       mr = new MedRequest(fields);
     }
-
+    mrd.addMedRequest(mr);
     return mr;
   }
 
-  public void start(MedRequest request) throws SQLException {
-    request.start();
+  public void start(Integer requestID) throws SQLException {
+    MedRequest request = (MedRequest) RequestFactory.getRequestFactory().findRequest(requestID);
+    request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),
         request.getMedicine(),
         request.getNodeID(),
         request.getEmployeeName(),
         request.getEmergency(),
-        request.getStatusInt());
+        request.getStatus());
   }
 
-  public void complete(MedRequest request) throws SQLException {
-    request.complete();
+  public void complete(Integer requestID) throws SQLException {
+    MedRequest request = (MedRequest) RequestFactory.getRequestFactory().findRequest(requestID);
+    request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),
         request.getMedicine(),
         request.getNodeID(),
         request.getEmployeeName(),
         request.getEmergency(),
-        request.getStatusInt());
+        request.getStatus());
   }
 
-  public void cancel(MedRequest request) throws SQLException {
-    request.cancel();
+  public void cancel(Integer requestID) throws SQLException {
+    MedRequest request = (MedRequest) RequestFactory.getRequestFactory().findRequest(requestID);
+    request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),
         request.getMedicine(),
         request.getNodeID(),
         request.getEmployeeName(),
         request.getEmergency(),
-        request.getStatusInt());
+        request.getStatus());
   }
 
-  public void delete(MedRequest request) throws SQLException {
-    mrd.deleteMedRequest(request.getRequestID());
+  public void reQueue(Integer requestID) throws SQLException {
+    MedRequest request = (MedRequest) RequestFactory.getRequestFactory().findRequest(requestID);
+    request.setStatus(RequestStatus.InProgress);
+    mrd.changeMedRequest(
+            request.getRequestID(),
+            request.getMedicine(),
+            request.getNodeID(),
+            request.getEmployeeName(),
+            request.getEmergency(),
+            request.getStatus());
   }
+
 
   public void delete(Integer requestID) throws SQLException {
     mrd.deleteMedRequest(requestID);
   }
 
-  public void changeMedRequest(Integer id, String m, String n, String en, Integer ie, Integer rs)
+  public void changeMedRequest(Integer id, String m, String n, String en, Integer ie, RequestStatus rs)
       throws SQLException {
     mrd.changeMedRequest(id, m, n, en, ie, rs);
   }

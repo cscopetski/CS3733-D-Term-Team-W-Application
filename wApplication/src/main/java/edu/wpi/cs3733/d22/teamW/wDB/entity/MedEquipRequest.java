@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.util.ArrayList;
 import lombok.Getter;
@@ -19,7 +20,7 @@ public class MedEquipRequest extends Request {
     this.itemType = itemType;
     this.nodeID = nodeID;
     this.employeeName = employeeName;
-    this.status = 0;
+    this.status = RequestStatus.InQueue;
   }
 
   public MedEquipRequest(ArrayList<String> medReqData) {
@@ -41,9 +42,9 @@ public class MedEquipRequest extends Request {
     }
 
     try {
-      this.status = Integer.parseInt(medReqData.get(6));
+      this.status = RequestStatus.getRequestStatus(Integer.parseInt(medReqData.get(6)));
     } catch (NumberFormatException e) {
-      this.status = 3;
+      this.status = RequestStatus.Cancelled;
     }
   }
 
@@ -61,9 +62,9 @@ public class MedEquipRequest extends Request {
     }
 
     try {
-      this.status = Integer.parseInt(fields.get(4));
+      this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(4)));
     } catch (NumberFormatException e) {
-      this.status = 0;
+      this.status = RequestStatus.InQueue;
     }
   }
 
@@ -74,40 +75,7 @@ public class MedEquipRequest extends Request {
     this.nodeID = medEquipReqData[3];
     this.employeeName = medEquipReqData[4];
     this.emergency = Integer.parseInt(medEquipReqData[5]);
-    this.status = Integer.parseInt(medEquipReqData[6]);
-  }
-
-  @Override
-  public Integer getStatusInt() {
-    return status;
-  }
-
-  @Override
-  public void start() {}
-
-  // TODO we also need to change this to our version of start
-  public void start(String medID) {
-    if (this.status == 0) {
-      this.status = 1;
-      this.itemID = medID;
-    } else {
-      // Tells the user that it is in progress or completed
-      // Could be a pop-up to the user when they click the start button or something
-    }
-  }
-
-  public void complete() {
-    if (this.status == 1) {
-      this.status = 2;
-      // TODO eventually make it set to dirty, for now is just a workaround
-
-    } else {
-      // The complete button should only appear if it is in progress
-    }
-  }
-
-  public void cancel() {
-    this.status = 3;
+    this.status = RequestStatus.getRequestStatus(Integer.parseInt(medEquipReqData[6]));
   }
 
   @Override
@@ -124,7 +92,7 @@ public class MedEquipRequest extends Request {
         this.nodeID,
         this.employeeName,
         this.emergency,
-        this.status);
+        this.status.getValue());
   }
 
   @Override
@@ -138,7 +106,7 @@ public class MedEquipRequest extends Request {
         this.nodeID,
         this.employeeName,
         this.emergency,
-        this.status);
+        this.status.getValue());
   }
 
   public Integer getRequestID() {
@@ -155,10 +123,6 @@ public class MedEquipRequest extends Request {
 
   public void setEmployeeName(String name) {
     this.employeeName = name;
-  }
-
-  public void setStatus(Integer status) {
-    this.status = status;
   }
 
   public void setNodeID(String nodeID) {
@@ -183,7 +147,7 @@ public class MedEquipRequest extends Request {
     }
     MedEquipRequest m = (MedEquipRequest) o;
     return this.requestID == m.getRequestID()
-        && this.status == m.getStatusInt()
+        && this.status == m.getStatus()
         && this.nodeID.equals(m.getNodeID())
         && this.emergency == m.getEmergency()
         && this.employeeName.equals(m.getEmployeeName())

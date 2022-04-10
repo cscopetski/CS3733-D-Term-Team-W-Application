@@ -1,6 +1,9 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+
 import java.io.*;
 import java.sql.*;
 import java.util.*;
@@ -71,13 +74,13 @@ public class MedEquipDaoImpl implements MedEquipDao {
   }
 
   @Override
-  public void addMedEquip(String inputID, String type, String nodeID, Integer status)
+  public void addMedEquip(String inputID, String type, String nodeID, MedEquipStatus status)
       throws SQLException {
 
     statement.executeUpdate(
         String.format(
             "INSERT INTO MEDICALEQUIPMENT VALUES ('%s','%s','%s',%d)",
-            inputID, type, nodeID, status));
+            inputID, type, nodeID, status.getValue()));
   }
 
   @Override
@@ -86,12 +89,12 @@ public class MedEquipDaoImpl implements MedEquipDao {
   }
 
   @Override
-  public void changeMedEquip(String medID, String type, String nodeID, Integer status)
+  public void changeMedEquip(String medID, String type, String nodeID, MedEquipStatus status)
       throws SQLException {
     statement.executeUpdate(
         String.format(
             "UPDATE MEDICALEQUIPMENT SET TYPE = '%s', NODEID = '%s', STATUS = %d WHERE MEDID = '%s'",
-            type, nodeID, status, medID));
+            type, nodeID, status.getValue(), medID));
   }
 
   @Override

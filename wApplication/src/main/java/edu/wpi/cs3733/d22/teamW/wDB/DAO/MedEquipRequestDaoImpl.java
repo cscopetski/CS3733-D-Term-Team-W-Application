@@ -1,7 +1,10 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -107,13 +110,13 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
   @Override
   public void changeMedEquipRequest(
-      int requestID, String newItemType, String newLocationID, String newEmployeeName)
+          int requestID, String itemID, String itemType, String nodeID, String employeeName, Integer emergency, RequestStatus status)
       throws SQLException {
 
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDICALEQUIPMENT SET TYPE = 's', NODEID = 's', STATUS = %d WHERE MEDID = %s",
-            newItemType, newLocationID, newEmployeeName, requestID));
+                "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEENAME = '%s', ISEMERGENCY = %d , REQSTATUS = %d WHERE MEDREQID = %d",
+            itemID, itemType, nodeID, employeeName, emergency, status.getValue(), requestID));
   }
 
   public void changeMedEquipRequest(MedEquipRequest mER) throws SQLException {
@@ -142,6 +145,31 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
             mER.getEmergency(),
             mER.getStatusInt(),
             mER.getRequestID()));
+  }
+
+  @Override
+  public MedEquipRequest getRequest(Integer reqID) throws SQLException {
+    MedEquipRequest mr = null;
+    try {
+      ResultSet medEquipRequests =
+              statement.executeQuery(
+                      String.format("SELECT * FROM MEDREQUESTS WHERE REQUESTID = %d", reqID));
+
+      // Size of num LabServiceRequest fields
+      int size = 6;
+      ArrayList<String> medEquipRequestData = new ArrayList<String>();
+
+      while (medEquipRequests.next()) {
+
+        for (int i = 0; i < size; i++) {
+          medEquipRequestData.add(i, medEquipRequests.getString(i + 1));
+        }
+        mr = new MedEquipRequest(medEquipRequestData);
+      }
+    } catch (SQLException e) {
+      System.out.println("Query from medicine request table failed.");
+    }
+    return mr;
   }
 
   @Override

@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
+
 public class MedEquip implements Entity {
 
   private String medID;
@@ -8,7 +10,7 @@ public class MedEquip implements Entity {
 
   private String nodeID;
 
-  private Integer status;
+  private MedEquipStatus status;
 
   public MedEquip() {
     this.medID = null;
@@ -21,7 +23,7 @@ public class MedEquip implements Entity {
     this.medID = ID;
     this.type = type;
     this.nodeID = nodeID;
-    this.status = status;
+    this.status = MedEquipStatus.getStatus(status);
   }
 
   public MedEquip(String[] medEquipData) {
@@ -30,7 +32,7 @@ public class MedEquip implements Entity {
     this.type = medEquipData[1];
     this.nodeID = medEquipData[2];
     try {
-      this.status = Integer.parseInt(medEquipData[3]);
+      this.status = MedEquipStatus.getStatus(Integer.parseInt(medEquipData[3]));
     } catch (NumberFormatException e) {
       this.status = null;
     }
@@ -69,11 +71,11 @@ public class MedEquip implements Entity {
     this.nodeID = nodeID;
   }
 
-  public Integer getStatus() {
+  public MedEquipStatus getStatus() {
     return status;
   }
 
-  public void setStatus(Integer status) {
+  public void setStatus(MedEquipStatus status) {
     this.status = status;
   }
 

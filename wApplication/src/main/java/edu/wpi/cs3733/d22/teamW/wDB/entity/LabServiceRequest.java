@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.util.ArrayList;
 import lombok.Getter;
@@ -17,7 +18,7 @@ public class LabServiceRequest extends Request {
       String nodeID,
       String employeeName,
       Integer emergency,
-      Integer status) {
+      RequestStatus status) {
     this.requestID = requestID;
     this.labType = labType;
     this.nodeID = nodeID;
@@ -32,7 +33,7 @@ public class LabServiceRequest extends Request {
     this.nodeID = fields.get(2);
     this.employeeName = fields.get(3);
     this.emergency = Integer.parseInt(fields.get(4));
-    this.status = Integer.parseInt(fields.get(5));
+    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(5)));
   }
 
   public LabServiceRequest(Integer index, ArrayList<String> fields) {
@@ -41,22 +42,8 @@ public class LabServiceRequest extends Request {
     this.nodeID = fields.get(1);
     this.employeeName = fields.get(2);
     this.emergency = Integer.parseInt(fields.get(3));
-    this.status = Integer.parseInt(fields.get(4));
+    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(4)));
   }
-
-  @Override
-  public Integer getStatusInt() {
-    return this.status;
-  }
-
-  @Override
-  public void start() {}
-
-  @Override
-  public void complete() {}
-
-  @Override
-  public void cancel() {}
 
   @Override
   public RequestType getRequestType() {
@@ -66,13 +53,13 @@ public class LabServiceRequest extends Request {
   @Override
   public String toCSVString() {
     return String.format(
-        "%d,%s,%s,%s,%d,%d", requestID, labType, nodeID, employeeName, emergency, status);
+        "%d,%s,%s,%s,%d,%d", requestID, labType, nodeID, employeeName, emergency, status.getValue());
   }
 
   @Override
   public String toValuesString() {
     return String.format(
         "%d, '%s',  '%s', '%s', %d, %d",
-        requestID, labType, nodeID, employeeName, emergency, status);
+        requestID, labType, nodeID, employeeName, emergency, status.getValue());
   }
 }

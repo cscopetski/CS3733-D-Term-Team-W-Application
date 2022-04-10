@@ -2,6 +2,8 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -53,12 +55,12 @@ public class MedRequestDaoImpl implements MedRequestDao {
   }
 
   @Override
-  public void changeMedRequest(Integer id, String m, String n, String en, Integer ie, Integer rs)
+  public void changeMedRequest(Integer id, String m, String n, String en, Integer ie, RequestStatus rs)
       throws SQLException {
     statement.executeUpdate(
         String.format(
             "UPDATE MEDREQUESTS SET MEDICINE='%s', NODEID='%s', EMPLOYEENAME='%s', ISEMERGENCY=%d, REQSTATUS=%d WHERE REQUESTID=%d",
-            m, n, en, ie, rs, id));
+            m, n, en, ie, rs.getValue(), id));
   }
 
   @Override

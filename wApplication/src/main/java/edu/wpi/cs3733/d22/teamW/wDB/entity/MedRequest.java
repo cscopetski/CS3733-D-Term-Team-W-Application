@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.util.ArrayList;
 import lombok.Getter;
@@ -16,7 +17,7 @@ public class MedRequest extends Request {
       String nodeID,
       String employeeName,
       Integer emergency,
-      Integer status) {
+      RequestStatus status) {
     this.requestID = requestID;
     this.medicine = medicine;
     this.nodeID = nodeID;
@@ -31,7 +32,7 @@ public class MedRequest extends Request {
     this.nodeID = fields.get(2);
     this.employeeName = fields.get(3);
     this.emergency = Integer.parseInt(fields.get(4));
-    this.status = Integer.parseInt(fields.get(5));
+    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(5)));
   }
 
   public MedRequest(Integer index, ArrayList<String> fields) {
@@ -40,47 +41,22 @@ public class MedRequest extends Request {
     this.nodeID = fields.get(1);
     this.employeeName = fields.get(2);
     this.emergency = Integer.parseInt(fields.get(3));
-    this.status = Integer.parseInt(fields.get(4));
+    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(4)));
   }
 
   @Override
   public String toCSVString() {
     return String.format(
-        "%d,%s,%s,%s,%d,%d", requestID, medicine, nodeID, employeeName, emergency, status);
+        "%d,%s,%s,%s,%d,%d", requestID, medicine, nodeID, employeeName, emergency, status.getValue());
   }
 
   @Override
   public String toValuesString() {
     return String.format(
         "%d, '%s',  '%s', '%s', %d, %d",
-        requestID, medicine, nodeID, employeeName, emergency, status);
+        requestID, medicine, nodeID, employeeName, emergency, status.getValue());
   }
 
-  @Override
-  public Integer getStatusInt() {
-    return status;
-  }
-
-  @Override
-  public void start() {
-    if (status == 0) {
-      this.status = 1;
-    }
-  }
-
-  @Override
-  public void complete() {
-    if (status == 1) {
-      this.status = 2;
-    }
-  }
-
-  @Override
-  public void cancel() {
-    if (status != 2) {
-      this.status = 3;
-    }
-  }
 
   @Override
   public RequestType getRequestType() {
