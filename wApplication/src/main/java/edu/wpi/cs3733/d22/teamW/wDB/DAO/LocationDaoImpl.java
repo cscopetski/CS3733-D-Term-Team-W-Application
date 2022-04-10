@@ -14,13 +14,12 @@ public class LocationDaoImpl implements LocationDao {
     dropTable();
   }
 
-  private void dropTable() throws SQLException {
+  private void dropTable() {
     try {
       statement.execute("DROP TABLE LOCATIONS");
       System.out.println("Dropped Locations Table");
     } catch (SQLException e) {
       System.out.println("Failed Dropped Locations Table");
-      throw (e);
     }
   }
 
