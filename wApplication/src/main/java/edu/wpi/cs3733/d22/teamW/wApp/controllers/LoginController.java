@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,6 +17,7 @@ public class LoginController extends LoadableController {
   @FXML TextField password;
   ArrayList<String> passwordHidden;
   ArrayList<String> passwordShown;
+  EmployeeManager eM = EmployeeManager.getEmployeeManager();
 
   Alert emptyFields =
       new Alert(
@@ -35,12 +38,10 @@ public class LoginController extends LoadableController {
   @Override
   public void onUnload() {}
 
-  public void login() {
+  public void login() throws SQLException {
 
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
-      username.getText();
-      password.getText();
-      if (true) {
+      if (eM.passwordMatch(username.getText(), password.getText())) {
         ((DefaultPageController)
                 SceneManager.getInstance().getController(SceneManager.Scenes.Default))
             .menuBar.setVisible(true);
