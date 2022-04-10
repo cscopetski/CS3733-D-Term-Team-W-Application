@@ -7,9 +7,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
-import javax.swing.*;
 
 public class DefaultPageController implements Initializable {
 
@@ -24,6 +24,9 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane requestListPage;
   @FXML public Pane requestHubPage;
   @FXML public Pane loginPage;
+  @FXML public Pane helpPage;
+  @FXML public Pane aboutPage;
+  @FXML public Pane profilePage;
   @FXML public HBox menuBar;
 
   @FXML
@@ -46,6 +49,9 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().putPane(SceneManager.Scenes.Security, securityServiceRequestPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.RequestList, requestListPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.RequestHub, requestHubPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Help, helpPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.About, aboutPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Profile, profilePage);
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Login);
 
     try {
@@ -91,7 +97,7 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestHub);
   }
 
-  public void switchToMainMenu(ActionEvent event) throws IOException {
+  public void switchToMainMenu(MouseEvent event) throws IOException {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MainMenu);
   }
 
@@ -102,5 +108,17 @@ public class DefaultPageController implements Initializable {
 
   public void exitProgram() {
     SceneManager.getInstance().exitApplication();
+  }
+
+  public void switchToProfile(ActionEvent actionEvent) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Profile);
+  }
+
+  public void switchToAbout(ActionEvent actionEvent) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.About);
+  }
+
+  public void switchToHelp(ActionEvent actionEvent) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Help);
   }
 }

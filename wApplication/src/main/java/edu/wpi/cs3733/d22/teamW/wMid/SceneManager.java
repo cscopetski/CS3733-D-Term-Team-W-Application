@@ -55,7 +55,10 @@ public class SceneManager {
     MapEditor,
     RequestList,
     RequestHub,
-    Login
+    Login,
+    Help,
+    About,
+    Profile
   }
 
   private static class Instance {
