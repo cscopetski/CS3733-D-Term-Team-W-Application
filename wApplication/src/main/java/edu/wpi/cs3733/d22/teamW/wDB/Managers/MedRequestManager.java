@@ -5,7 +5,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -76,20 +75,20 @@ public class MedRequestManager implements ServiceRequestManager {
     MedRequest request = (MedRequest) RequestFactory.getRequestFactory().findRequest(requestID);
     request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
-            request.getRequestID(),
-            request.getMedicine(),
-            request.getNodeID(),
-            request.getEmployeeID(),
-            request.getEmergency(),
-            request.getStatus());
+        request.getRequestID(),
+        request.getMedicine(),
+        request.getNodeID(),
+        request.getEmployeeID(),
+        request.getEmergency(),
+        request.getStatus());
   }
-
 
   public void delete(Integer requestID) throws SQLException {
     mrd.deleteMedRequest(requestID);
   }
 
-  public void changeMedRequest(Integer id, String m, String n, Integer en, Integer ie, RequestStatus rs)
+  public void changeMedRequest(
+      Integer id, String m, String n, Integer en, Integer ie, RequestStatus rs)
       throws SQLException {
     mrd.changeMedRequest(id, m, n, en, ie, rs);
   }

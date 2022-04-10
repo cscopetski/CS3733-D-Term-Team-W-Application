@@ -3,13 +3,13 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface MedEquipRequestDao {
 
   ArrayList<Request> getAllMedEquipRequests() throws SQLException;
+
   ArrayList<MedEquipRequest> getTypeMedEquipRequests(String itemType) throws SQLException;
 
   //  ArrayList<MedEquipRequest> getNewMedEquipRequests();
@@ -25,7 +25,14 @@ public interface MedEquipRequestDao {
 
   void addMedEquipRequest(MedEquipRequest mer) throws SQLException;
 
-  void changeMedEquipRequest(int requestID,  String itemID, String itemType, String nodeID, String employeeName, Integer emergency,RequestStatus status)
+  void changeMedEquipRequest(
+      int requestID,
+      String itemID,
+      String itemType,
+      String nodeID,
+      Integer employeeID,
+      Integer emergency,
+      RequestStatus status)
       throws SQLException;
 
   void changeMedEquipRequest(MedEquipRequest mER) throws SQLException;
@@ -33,8 +40,4 @@ public interface MedEquipRequestDao {
   MedEquipRequest getRequest(Integer reqID) throws SQLException;
 
   void exportMedReqCSV(String fileName);
-
-  Integer countItemType(String itemType);
-
-
 }

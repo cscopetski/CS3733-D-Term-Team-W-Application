@@ -1,11 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Automation;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -17,7 +14,6 @@ import java.util.ArrayList;
 public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
   Statement statement;
-
 
   MedEquipRequestDaoImpl(Statement statement) throws SQLException {
     this.statement = statement;
@@ -112,13 +108,19 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
   @Override
   public void changeMedEquipRequest(
-          int requestID, String itemID, String itemType, String nodeID, String employeeName, Integer emergency, RequestStatus status)
+      int requestID,
+      String itemID,
+      String itemType,
+      String nodeID,
+      Integer employeeID,
+      Integer emergency,
+      RequestStatus status)
       throws SQLException {
 
     statement.executeUpdate(
         String.format(
-                "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEENAME = '%s', ISEMERGENCY = %d , REQSTATUS = %d WHERE MEDREQID = %d",
-            itemID, itemType, nodeID, employeeName, emergency, status.getValue(), requestID));
+            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d WHERE MEDREQID = %d",
+            itemID, itemType, nodeID, employeeID, emergency, status.getValue(), requestID));
   }
 
   public void changeMedEquipRequest(MedEquipRequest mER) throws SQLException {
@@ -154,8 +156,8 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     MedEquipRequest mr = null;
     try {
       ResultSet medEquipRequests =
-              statement.executeQuery(
-                      String.format("SELECT * FROM MEDREQUESTS WHERE REQUESTID = %d", reqID));
+          statement.executeQuery(
+              String.format("SELECT * FROM MEDREQUESTS WHERE REQUESTID = %d", reqID));
 
       // Size of num LabServiceRequest fields
       int size = 6;
@@ -179,7 +181,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print("medReqID,medID,equipType,nodeID,employeeName,isEmergency,status");
+      pw.print("medReqID,medID,equipType,nodeID,employeeID,isEmergency,status");
 
       // print all locations
       for (Request m : getAllMedEquipRequests()) {
@@ -194,13 +196,15 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     }
   }
 
-
   @Override
   public ArrayList<MedEquipRequest> getTypeMedEquipRequests(String itemType) throws SQLException {
     ArrayList<MedEquipRequest> medEquipRequestList = new ArrayList<>();
 
     try {
-      ResultSet medEquipment = statement.executeQuery(String.format("SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EQUIPTYPE='%s'", itemType));
+      ResultSet medEquipment =
+          statement.executeQuery(
+              String.format(
+                  "SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EQUIPTYPE='%s'", itemType));
 
       // Size of num MedEquipRequest fields
       int size = 7;
@@ -220,11 +224,5 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       throw (e);
     }
     return medEquipRequestList;
-  }
-
-  @Override
-  public Integer countItemType(String itemType){
-
-    return 0;
   }
 }

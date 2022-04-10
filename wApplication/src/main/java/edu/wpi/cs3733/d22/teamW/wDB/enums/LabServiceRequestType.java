@@ -3,7 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.enums;
 import java.awt.*;
 
 public enum LabServiceRequestType {
-  BloodSamples(0,"Blood Sample"),
+  BloodSamples(0, "Blood Sample"),
   UrineSamples(1, "Urine Sample"),
   XRays(2, "X-Rays"),
   CATScans(3, "CAT Scans"),
@@ -20,7 +20,7 @@ public enum LabServiceRequestType {
     return this.value;
   }
 
-  public String getString(){
+  public String getString() {
     return this.string;
   }
 }

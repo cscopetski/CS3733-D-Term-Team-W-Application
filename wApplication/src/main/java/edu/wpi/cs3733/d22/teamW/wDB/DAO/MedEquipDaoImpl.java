@@ -2,8 +2,6 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
-
 import java.io.*;
 import java.sql.*;
 import java.util.*;
@@ -70,13 +68,16 @@ public class MedEquipDaoImpl implements MedEquipDao {
 
     return medEquipList;
   }
+
   @Override
   public MedEquip getMedEquip(String medID) throws SQLException {
 
-    MedEquip medEquip= null;
+    MedEquip medEquip = null;
 
     try {
-      ResultSet medEquipment = statement.executeQuery(String.format("SELECT * FROM MEDICALEQUIPMENT WHERE MEDID = '%s'", medID));
+      ResultSet medEquipment =
+          statement.executeQuery(
+              String.format("SELECT * FROM MEDICALEQUIPMENT WHERE MEDID = '%s'", medID));
 
       // Size of num MedEquip fields
       String[] medEquipData = new String[4];

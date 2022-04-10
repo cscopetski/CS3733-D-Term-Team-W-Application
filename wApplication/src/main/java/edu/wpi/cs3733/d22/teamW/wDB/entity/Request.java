@@ -27,9 +27,7 @@ public abstract class Request implements Entity {
   }
    */
 
-
-
-  public Integer getStatusInt(){
+  public Integer getStatusInt() {
     return status.getValue();
   };
 

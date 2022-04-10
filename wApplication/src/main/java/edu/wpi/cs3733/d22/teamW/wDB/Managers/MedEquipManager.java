@@ -5,7 +5,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -17,7 +16,6 @@ public class MedEquipManager {
   private CleaningRequestManager crm = CleaningRequestManager.getCleaningRequestManager();
 
   private ArrayList<CleaningRequest> cleaningRequests = new ArrayList<>();
-
 
   private MedEquipManager() {}
 
@@ -42,6 +40,7 @@ public class MedEquipManager {
     equip.setStatus(MedEquipStatus.InUse);
     markInUse(equip.getMedID(), equip.getType(), equip.getNodeID());
   }
+
   public void markInUse(String medID, String type, String nodeID) throws SQLException {
     medi.changeMedEquip(medID, type, nodeID, MedEquipStatus.InUse);
   }
@@ -55,7 +54,7 @@ public class MedEquipManager {
     medi.changeMedEquip(medID, type, nodeID, MedEquipStatus.Dirty);
     CleaningRequest cr = crm.addRequest(medID);
     cleaningRequests.add(cr);
-    if(cleaningRequests.size() ==6){
+    if (cleaningRequests.size() == 6) {
       startCleaningRequests();
     }
   }
@@ -65,26 +64,26 @@ public class MedEquipManager {
     medi.changeMedEquip(medID, type, nodeID, MedEquipStatus.Dirty);
     CleaningRequest cr = crm.addRequest(medID);
     cleaningRequests.add(cr);
-    if(cleaningRequests.size() ==6){
+    if (cleaningRequests.size() == 6) {
       startCleaningRequests();
     }
   }
 
   public void startCleaningRequests() throws SQLException {
-    for (CleaningRequest e: cleaningRequests){
+    for (CleaningRequest e : cleaningRequests) {
       e.setStatus(RequestStatus.InProgress);
       crm.start(e.getRequestID());
     }
   }
 
   public void moveTo(String medID, String nodeID) throws SQLException {
-    MedEquip  medEquip = medi.getMedEquip(medID);
+    MedEquip medEquip = medi.getMedEquip(medID);
     medi.changeMedEquip(medID, medEquip.getType(), nodeID, medEquip.getStatus());
   }
 
   public MedEquip getNextFree(String itemType) throws SQLException {
-    for(MedEquip e: getAllMedEquip()){
-      if(e.getType().equals(itemType)&&e.getStatus().equals(MedEquipStatus.Clean)){
+    for (MedEquip e : getAllMedEquip()) {
+      if (e.getType().equals(itemType) && e.getStatus().equals(MedEquipStatus.Clean)) {
         return e;
       }
     }

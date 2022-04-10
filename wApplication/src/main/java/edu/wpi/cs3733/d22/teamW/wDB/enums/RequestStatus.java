@@ -18,13 +18,13 @@ public enum RequestStatus {
     return this.value;
   }
 
-  public String getString(){
+  public String getString() {
     return this.string;
   }
 
-  public static RequestStatus getRequestStatus(Integer num){
+  public static RequestStatus getRequestStatus(Integer num) {
     RequestStatus status = null;
-    switch(num){
+    switch (num) {
       case 0:
         status = InQueue;
         break;
@@ -44,5 +44,4 @@ public enum RequestStatus {
     }
     return status;
   }
-
 }

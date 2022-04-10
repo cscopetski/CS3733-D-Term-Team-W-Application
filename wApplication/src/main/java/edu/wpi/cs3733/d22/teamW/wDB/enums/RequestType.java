@@ -26,7 +26,7 @@ public enum RequestType {
     return this.value;
   }
 
-  public String getString(){
+  public String getString() {
     return this.string;
   }
 }

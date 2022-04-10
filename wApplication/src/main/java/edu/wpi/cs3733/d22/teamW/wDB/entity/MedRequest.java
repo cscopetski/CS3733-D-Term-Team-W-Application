@@ -53,9 +53,9 @@ public class MedRequest extends Request {
   @Override
   public String toValuesString() {
     return String.format(
-        "%d, '%s',  '%s', %d, %d, %d", requestID, medicine, nodeID, employeeID, emergency, status.getValue());
+        "%d, '%s',  '%s', %d, %d, %d",
+        requestID, medicine, nodeID, employeeID, emergency, status.getValue());
   }
-
 
   @Override
   public RequestType getRequestType() {
