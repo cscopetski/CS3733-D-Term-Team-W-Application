@@ -43,9 +43,11 @@ public class MapEditorController {
   Image img1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F1.png");
   Image img2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F2.png");
   Image img3 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F3.png");
-  Image img4 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/L1.png");
-  Image img5 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/L2.png");
+  Image imgL1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/L1.png");
+  Image imgL2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/L2.png");
   Image img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/SideView.jpg");
+  Image img4 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F4.png");
+  Image img5 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F5.png");
   ArrayList<Circle> locDots = new ArrayList<>();
   ArrayList<Circle> eqDots = new ArrayList<>();
   Integer size = 0;
@@ -86,7 +88,6 @@ public class MapEditorController {
   }
 
   public void refresh() throws SQLException {
-    // test.setLocationsList();
     removeMarkers();
     currFloorLoc.clear();
     currFloorNodeID.clear();
@@ -110,7 +111,7 @@ public class MapEditorController {
 
   public void swapFloor1(ActionEvent actionEvent) throws SQLException {
     removeMarkers();
-    currFloor = "1";
+    currFloor = "01";
     refresh();
     System.out.println(F1.getText());
     dropdown.setText("Floor 1");
@@ -119,7 +120,7 @@ public class MapEditorController {
 
   public void swapFloor2(ActionEvent actionEvent) throws SQLException {
     removeMarkers();
-    currFloor = "2";
+    currFloor = "02";
     refresh();
     System.out.println(F2.getText());
     dropdown.setText("Floor 2");
@@ -128,7 +129,7 @@ public class MapEditorController {
 
   public void swapFloor3(ActionEvent actionEvent) throws SQLException {
     removeMarkers();
-    currFloor = "3";
+    currFloor = "03";
     refresh();
     System.out.println(F3.getText());
     dropdown.setText("Floor 3");
@@ -141,7 +142,7 @@ public class MapEditorController {
     refresh();
     System.out.println(FL1.getText());
     dropdown.setText("Lower Floor 1");
-    mapList.setImage(img4);
+    mapList.setImage(imgL1);
   }
 
   public void swapFloorL2(ActionEvent actionEvent) throws SQLException {
@@ -150,7 +151,7 @@ public class MapEditorController {
     refresh();
     System.out.println(FL2.getText());
     dropdown.setText("Lower Floor 2");
-    mapList.setImage(img5);
+    mapList.setImage(imgL2);
   }
 
   public void swapSideView(ActionEvent actionEvent) throws SQLException {
@@ -304,5 +305,21 @@ public class MapEditorController {
     Stage S = SceneManager.getInstance().openWindow("newLocationPage.fxml");
     refresh();
     nodeIn.clear();
+  }
+
+  public void swapFloor4(ActionEvent actionEvent) throws SQLException {
+    currFloor = "04";
+    removeMarkers();
+    refresh();
+    dropdown.setText("Floor 4");
+    mapList.setImage(img4);
+  }
+
+  public void swapFloor5(ActionEvent actionEvent) throws SQLException {
+    currFloor = "05";
+    removeMarkers();
+    refresh();
+    dropdown.setText("Floor 5");
+    mapList.setImage(img5);
   }
 }

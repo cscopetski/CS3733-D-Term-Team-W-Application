@@ -14,6 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Circle?>
 
+<?import com.sun.javafx.scene.control.ContextMenuContent.MenuBox?>
 <AnchorPane fx:id="page" style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
    <children>
       <ImageView fx:id="mapList" fitHeight="600.0" fitWidth="600.0" layoutX="396.0" layoutY="63.0" onMouseClicked="#addLocation2">
@@ -83,6 +84,8 @@
           <MenuItem fx:id="F1" mnemonicParsing="false" onAction="#swapFloor1" text="Floor 1" />
           <MenuItem fx:id="F2" mnemonicParsing="false" onAction="#swapFloor2" text="Floor 2" />
             <MenuItem fx:id="F3" mnemonicParsing="false" onAction="#swapFloor3" text="Floor 3" />
+            <MenuItem fx:id="F4" mnemonicParsing="fase" onAction="#swapFloor4" text="Floor 4"></MenuItem>
+            <MenuItem fx:id="F5" mnemonicParsing="false" onAction="#swapFloor5" text="Floor 5" />
             <MenuItem fx:id="FL1" mnemonicParsing="false" onAction="#swapFloorL1" text="Lower Floor 1" />
             <MenuItem fx:id="FL2" mnemonicParsing="false" onAction="#swapFloorL2" text="Lower Floor 2" />
         </items>

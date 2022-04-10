@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.wDB.LocationController;
-import edu.wpi.cs3733.d22.teamW.wDB.LocationDaoImpl;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.awt.*;
 import java.net.URL;
@@ -33,17 +32,8 @@ public class newLocationPageController implements Initializable {
   @FXML private TextField buildingField;
   private Point p;
   @FXML private Alert confirmChoice = new Alert(Alert.AlertType.CONFIRMATION);
-  private LocationDaoImpl test;
 
-  {
-    try {
-      test = new LocationDaoImpl();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-
-  private LocationController locationController = new LocationController(test);
+  private LocationManager locationManager = LocationManager.getLocationManager();
 
   public void resetFields(ActionEvent actionEvent) throws SQLException {
     onLoad();
@@ -53,7 +43,7 @@ public class newLocationPageController implements Initializable {
     Optional<ButtonType> result = confirmChoice.showAndWait();
     if (checkFull()) {
       if (result.get() == ButtonType.OK) {
-        locationController.addLocation(
+        locationManager.addLocation(
             nodeField.getText(),
             Integer.parseInt(xField.getText()),
             Integer.parseInt(yField.getText()),

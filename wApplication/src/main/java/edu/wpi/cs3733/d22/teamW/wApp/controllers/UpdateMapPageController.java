@@ -31,16 +31,6 @@ public class UpdateMapPageController implements Initializable {
   @FXML private TextField snameField;
   @FXML private TextField buildingField;
   @FXML private Alert confirmChoice = new Alert(Alert.AlertType.CONFIRMATION);
-  private LocationDaoImpl test;
-
-  {
-    try {
-      test = new LocationDaoImpl();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
-
   Location loc;
 
   private LocationManager locationManager = LocationManager.getLocationManager();
@@ -49,7 +39,7 @@ public class UpdateMapPageController implements Initializable {
 
     Optional<ButtonType> result = confirmChoice.showAndWait();
     if (result.get() == ButtonType.OK) {
-      locationController.changeLocation(
+      locationManager.changeLocation(
           nodeField.getText(),
           Integer.parseInt(xField.getText()),
           Integer.parseInt(yField.getText()),
@@ -100,7 +90,6 @@ public class UpdateMapPageController implements Initializable {
     floorField.setText(loc.getFloor());
     lnameField.setText(loc.getLongName());
     snameField.setText(loc.getShortName());
-    test.setLocationsList();
 
     // loc.setLocationsList();
 
@@ -118,7 +107,7 @@ public class UpdateMapPageController implements Initializable {
   public void removeLoc(ActionEvent actionEvent) throws SQLException {
     Optional<ButtonType> result = confirmChoice.showAndWait();
     if (result.get() == ButtonType.OK) {
-      locationController.deleteLocation(loc.getNodeID());
+      locationManager.deleteLocation(loc.getNodeID());
       cancelUpdate(actionEvent);
     }
   }
