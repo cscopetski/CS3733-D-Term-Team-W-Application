@@ -81,7 +81,8 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
   }
 
   /**
-   * Generates the salt automatically and generates password with the given plaintext password
+   * If the salt is the string 'NEW', the salt will be randomly generated and the password will get
+   * hashed Otherwise the password and salt are just added normally
    *
    * @param employeeID
    * @param firstname
@@ -108,13 +109,13 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
       String password,
       String salt)
       throws SQLException {
-    salt = generateSalt();
-    try {
-      password = generateHash(password, salt);
-    } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
-    } catch (InvalidKeySpecException e) {
-      e.printStackTrace();
+    if (salt.equals("NEW")) {
+      salt = generateSalt();
+      try {
+        password = generateHash(password, salt);
+      } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+        e.printStackTrace();
+      }
     }
     Employee newEmployee =
         new Employee(

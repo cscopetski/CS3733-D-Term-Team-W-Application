@@ -2,12 +2,12 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import java.sql.*;
 
 public class DBController {
 
   private String dbName = "myDB";
-  private String connectionString;
   private Statement statement;
   private Connection connection;
 
@@ -32,9 +32,16 @@ public class DBController {
   }
 
   private DBController() {
-    this.connectionString = "jdbc:derby:" + this.dbName + ";create=true";
+    String connectionStringEmbedded = String.format("jdbc:derby:%s;create=true", this.dbName);
+    String connectionStringServer =
+        String.format("jdbc:derby://localhost:1527/%s;create=true", this.dbName);
+
     try {
-      this.connect();
+      if (DBConnectionMode.INSTANCE.getConnectionType()) {
+        this.connectEmbedded(connectionStringEmbedded);
+      } else {
+        this.connectServer(connectionStringServer);
+      }
 
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
@@ -42,7 +49,7 @@ public class DBController {
       LabServiceRequestDao labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
       MedEquipRequestDao medEquipRequestDao = new MedEquipRequestDaoImpl(statement);
       MedEquipDao medEquipDao = new MedEquipDaoImpl(statement);
-      EmployeeDao employeeDao = new EmployeeDaoImpl(statement);
+      EmployeeDao employeeDao = new EmployeeDaoSecureImpl(statement);
       LocationDao locationDao = new LocationDaoImpl(statement);
 
       // Assign Daos to Managers
@@ -55,7 +62,7 @@ public class DBController {
           .setLabServiceRequestDao(labServiceRequestDao);
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
-      ((EmployeeDaoImpl) employeeDao).createTable();
+      ((EmployeeDaoSecureImpl) employeeDao).createTable();
       ((LocationDaoImpl) locationDao).createTable();
       ((MedEquipDaoImpl) medEquipDao).createTable();
       ((LabServiceRequestDaoImpl) labServiceRequestDao).createTable();
@@ -81,10 +88,41 @@ public class DBController {
    * @throws SQLException if unable to connect to database
    * @throws ClassNotFoundException if Apache Derby installation not found
    */
-  private void connect() throws SQLException, ClassNotFoundException {
+  private void connectEmbedded(String connectionString)
+      throws SQLException, ClassNotFoundException {
     System.out.println("-------Embedded Apache Derby Connection Testing --------");
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+    } catch (ClassNotFoundException e) {
+      System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
+      System.out.println("For IntelliJ do the following:");
+      System.out.println("File | Project Structure, Modules, Dependency tab");
+      System.out.println("Add by clicking on the green plus icon on the right of the window");
+      System.out.println(
+          "Select JARs or directories. Go to the folder where the database JAR is located");
+      System.out.println("Click OK, now you can compile your program and run it.");
+      e.printStackTrace();
+      throw (e);
+    }
+    System.out.println("Apache Derby driver registered!");
+
+    try {
+      connection = DriverManager.getConnection(connectionString);
+      statement = connection.createStatement();
+
+    } catch (SQLException e) {
+      System.out.println("Connection failed. Check output console.");
+      e.printStackTrace();
+      throw (e);
+    }
+
+    System.out.println("Apache Derby connection established!");
+  }
+
+  private void connectServer(String connectionString) throws SQLException, ClassNotFoundException {
+    System.out.println("-------Client-Server Apache Derby Connection Testing --------");
+    try {
+      Class.forName("org.apache.derby.jdbc.ClientDriver");
     } catch (ClassNotFoundException e) {
       System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
       System.out.println("For IntelliJ do the following:");
