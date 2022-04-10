@@ -1,17 +1,14 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.CleaningRequestDao;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class CleaningRequestManager {
-
+    Automation automation = Automation.getAutomation();
     private CleaningRequestDao crd;
     private static CleaningRequestManager cleaningRequestManager = new CleaningRequestManager();
     private Integer counter = 0;
@@ -87,7 +84,9 @@ public class CleaningRequestManager {
             crd.changeCleaningRequest(requestID, cr.getItemID(), RequestStatus.Completed);
             MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
             MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), nodeID);
-            MedEquipRequestManager.getMedEquipRequestManager().startNext(item.getType());
+            if(automation.getAuto()) {
+                MedEquipRequestManager.getMedEquipRequestManager().startNext(item.getType());
+            }
         }
     }
 

@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipRequestDao;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Automation;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 
 public class MedEquipRequestManager implements RequestManager {
 
+    Automation automation = Automation.getAutomation();
     private MedEquipRequestDao merd;
     private MedEquipManager mem = MedEquipManager.getMedEquipManager();
 
@@ -124,7 +126,9 @@ public class MedEquipRequestManager implements RequestManager {
                     request.getEmployeeName(),
                     request.getEmergency(),
                     request.getStatus());
-            startNext(request.getItemType());
+            if(automation.getAuto()) {
+                startNext(request.getItemType());
+            }
         }
     }
 
@@ -227,7 +231,9 @@ public class MedEquipRequestManager implements RequestManager {
       }
     }*/
         merd.addMedEquipRequest(mER);
-        startNext(mER.getItemType());
+        if(automation.getAuto()) {
+            startNext(mER.getItemType());
+        }
         return mER;
     }
 

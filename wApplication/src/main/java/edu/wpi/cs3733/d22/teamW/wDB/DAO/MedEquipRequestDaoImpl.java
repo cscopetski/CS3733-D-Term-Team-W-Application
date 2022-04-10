@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Automation;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
   Statement statement;
+
 
   MedEquipRequestDaoImpl(Statement statement) throws SQLException {
     this.statement = statement;
