@@ -7,7 +7,6 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
@@ -28,6 +27,7 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane aboutPage;
   @FXML public Pane profilePage;
   @FXML public HBox menuBar;
+  @FXML public Pane buttonPane;
 
   @FXML
   public void initialize(URL location, ResourceBundle rb) {
@@ -97,12 +97,13 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestHub);
   }
 
-  public void switchToMainMenu(MouseEvent event) throws IOException {
+  public void switchToMainMenu() throws IOException {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MainMenu);
   }
 
   public void logOut(ActionEvent actionEvent) throws IOException {
     menuBar.setVisible(false);
+    buttonPane.setDisable(true);
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Login);
   }
 
