@@ -12,8 +12,6 @@ public class Main {
 
   public static void main(String[] args) throws SQLException, FileNotFoundException {
 
-    // App.launch(App.class, args);
-
     final String locationFileName = "TowerLocations.csv";
     final String medEquipFileName = "MedicalEquipment.csv";
     final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
@@ -181,5 +179,6 @@ public class Main {
        edi.exportEmpCSV("Employees.csv");
 
     */
+    App.launch(App.class, args);
   }
 }
