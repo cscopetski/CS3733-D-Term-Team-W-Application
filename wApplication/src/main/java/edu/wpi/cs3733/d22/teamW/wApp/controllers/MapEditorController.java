@@ -245,7 +245,7 @@ public class MapEditorController {
     ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
     for (int i = 0; i < eqList.size(); i++) {
       equipController.add(
-          eqList.get(i).getMedID(), eqList.get(i).getType(), "HOLD", eqList.get(i).getStatus());
+          eqList.get(i).getMedID(), eqList.get(i).getType(), "HOLD", eqList.get(i).getStatus().getValue());
     }
     File inputCSV = fileChooser.showOpenDialog(SceneManager.getInstance().getPrimaryStage());
     final String locationFileName = "TowerLocations.csv";

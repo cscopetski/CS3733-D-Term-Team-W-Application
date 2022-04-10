@@ -21,7 +21,6 @@ public class MedEquipRequest extends Request {
     this.nodeID = nodeID;
     this.employeeID = employeeID;
     this.status = RequestStatus.InQueue;
-    this.status = 0;
   }
 
   public MedEquipRequest(ArrayList<String> medReqData) {

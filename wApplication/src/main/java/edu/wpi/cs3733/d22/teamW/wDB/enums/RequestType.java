@@ -6,7 +6,7 @@ public enum RequestType {
   MedicineDelivery(2, "Medicine Delivery"),
   LanguageInterpreter(3, "Language Interpreter"),
   SanitationService(4, "Sanitation Service"),
-  LaundryService(5, "Laungry Service"),
+  LaundryService(5, "Laundry Service"),
   MealDelivery(6, "Meal Delivery"),
   GiftDelivery(7, "Gift Delivery"),
   ReligiousService(7, "Religious Service"),
