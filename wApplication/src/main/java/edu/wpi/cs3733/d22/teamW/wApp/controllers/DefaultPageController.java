@@ -55,43 +55,43 @@ public class DefaultPageController implements Initializable {
   }
 
   public void switchToMedicineDelivery(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MedicineDelivery);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicineDelivery);
   }
 
   public void switchToLab(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Lab);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Lab);
   }
 
   public void switchToMedicalEquipmentDelivery(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MedicalEquipment);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicalEquipment);
   }
 
   public void switchToMealDelivery(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MealDelivery);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MealDelivery);
   }
 
   public void switchToLanguageInterpreter(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.LanguageInterpreter);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.LanguageInterpreter);
   }
 
   public void switchToSecurity(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Security);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Security);
   }
 
   public void switchToMapEditor(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MapEditor);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MapEditor);
   }
 
   public void switchToRequestList(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestList);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 
   public void switchToRequestHub(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestHub);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestHub);
   }
 
   public void switchToMainMenu(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MainMenu);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MainMenu);
   }
 
   public void exitProgram() {

@@ -83,6 +83,6 @@ public class LanguageInterpreterServiceRequestController {
   }
 
   public void switchToRequestList(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestList);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 }

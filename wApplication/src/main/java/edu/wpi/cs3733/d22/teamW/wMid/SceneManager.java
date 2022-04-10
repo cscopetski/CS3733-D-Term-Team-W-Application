@@ -1,9 +1,12 @@
 package edu.wpi.cs3733.d22.teamW.wMid;
 
+import static edu.wpi.cs3733.d22.teamW.wMid.SceneManager.Transitions.TranslateY;
+
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import java.io.IOException;
 import java.util.Dictionary;
 import java.util.Hashtable;
+import javafx.animation.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -11,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
 
 public class SceneManager {
   private class Page {
@@ -62,7 +66,13 @@ public class SceneManager {
   private final Hashtable<Scenes, Page> pages = new Hashtable<>();
   private Scenes current;
 
-  private Hashtable<Stage, Dictionary<String, Object>> information = new Hashtable<>();
+  private final Hashtable<Stage, Dictionary<String, Object>> information = new Hashtable<>();
+
+  public enum Transitions {
+    TranslateY,
+    FadeOut,
+    Fade
+  }
 
   private SceneManager() {}
 
@@ -101,19 +111,68 @@ public class SceneManager {
     }
   }
 
+  /**
+   * DEPRECATED
+   *
+   * @param scene
+   */
   public void setPaneVisible(Scenes scene) {
-    if (current != null) {
+    if (current != null) {;
       pages.get(current).pane.setVisible(false);
       pages.get(current).pane.setDisable(true);
-      if (pages.get(current).controller != null) {
-        pages.get(current).tryOnUnload();
-      }
+      pages.get(current).tryOnUnload();
     }
+
     current = scene;
     pages.get(current).pane.setVisible(true);
     pages.get(current).pane.setDisable(false);
-    if (pages.get(current).controller != null) {
-      pages.get(current).tryOnLoad();
+    pages.get(current).tryOnLoad();
+  }
+
+  public void transitionTo(Scenes scene) {
+    transitionTo(scene, Transitions.Fade);
+  }
+
+  public void transitionTo(Scenes scene, Transitions transition) {
+    transitionTo(scene, transition, 250);
+  }
+
+  public void transitionTo(Scenes scene, Transitions transition, double duration) {
+    Transition tOld = null;
+    Transition tNew = null;
+    switch (transition) {
+      case TranslateY:
+        tOld = new TranslateTransition(Duration.millis(duration), pages.get(current).pane);
+        ((TranslateTransition) tOld).setByY(pages.get(current).pane.getHeight());
+        break;
+      case FadeOut:
+        tOld = new FadeTransition(Duration.millis(duration), pages.get(current).pane);
+        ((FadeTransition) tOld).setFromValue(1);
+        ((FadeTransition) tOld).setToValue(0);
+        break;
+      case Fade:
+        tOld = new FadeTransition(Duration.millis(duration), pages.get(current).pane);
+        ((FadeTransition) tOld).setFromValue(1);
+        ((FadeTransition) tOld).setToValue(0);
+        tNew = new FadeTransition(Duration.millis(duration), pages.get(scene).pane);
+        ((FadeTransition) tNew).setFromValue(0);
+        ((FadeTransition) tNew).setToValue(1);
+    }
+    // t.setOnFinished(e -> pages.get(current).pane.setVisible(false));
+    pages.get(current).pane.setDisable(true);
+    pages.get(current).tryOnUnload();
+
+    current = scene;
+
+    pages.get(current).pane.setVisible(true);
+    pages.get(current).pane.setDisable(false);
+    pages.get(current).tryOnLoad();
+
+    if (tOld != null) {
+      tOld.play();
+    }
+    if (tNew != null) {
+      tNew.play();
     }
   }
 
