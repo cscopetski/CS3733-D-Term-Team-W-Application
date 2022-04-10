@@ -18,7 +18,9 @@
 <?import javafx.scene.text.Font?>
 
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton?>
-<VBox alignment="CENTER" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicineDeliveryServiceRequestController">
+<?import javafx.scene.layout.AnchorPane?>
+
+<VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicineDeliveryServiceRequestController">
    <children>
       <ImageView fitHeight="105.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
          <image>
