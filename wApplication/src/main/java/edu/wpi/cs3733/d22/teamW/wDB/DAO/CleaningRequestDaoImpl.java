@@ -50,6 +50,32 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
     }
 
     @Override
+    public CleaningRequest getCleaningRequest(Integer requestID){
+        CleaningRequest cr = null;
+
+        try {
+            ResultSet cleanRequests = statement.executeQuery(String.format("SELECT * FROM CLEANINGREQUESTS WHERE REQID = %d", requestID));
+
+            // Size of num LabServiceRequest fields
+            int size = 6;
+            ArrayList<String> cleanRequestData = new ArrayList<String>();
+
+            while (cleanRequests.next()) {
+
+                for (int i = 0; i < size; i++) {
+                    cleanRequestData.add(i, cleanRequests.getString(i + 1));
+                }
+
+                cr = new CleaningRequest(cleanRequestData);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Query from cleaning request table failed.");
+        }
+        return cr;
+    }
+
+    @Override
     public ArrayList<CleaningRequest> getAllCleaningRequests() {
         ArrayList<CleaningRequest> cleanRequestList = new ArrayList<>();
 

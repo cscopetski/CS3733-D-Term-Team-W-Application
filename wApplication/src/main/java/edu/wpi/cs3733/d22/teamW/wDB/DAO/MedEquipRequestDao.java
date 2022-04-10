@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public interface MedEquipRequestDao {
 
   ArrayList<Request> getAllMedEquipRequests() throws SQLException;
+  ArrayList<MedEquipRequest> getTypeMedEquipRequests(String itemType) throws SQLException;
 
   //  ArrayList<MedEquipRequest> getNewMedEquipRequests();
   //
@@ -32,4 +33,8 @@ public interface MedEquipRequestDao {
   MedEquipRequest getRequest(Integer reqID) throws SQLException;
 
   void exportMedReqCSV(String fileName);
+
+  Integer countItemType(String itemType);
+
+
 }

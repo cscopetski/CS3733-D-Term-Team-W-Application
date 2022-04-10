@@ -14,6 +14,8 @@ public interface MedEquipDao {
 
   void deleteMedEquip(String medID) throws SQLException;
 
+  public MedEquip getMedEquip(String medID) throws SQLException;
+
   void changeMedEquip(String inputID, String type, String nodeID, MedEquipStatus status)
       throws SQLException;
 

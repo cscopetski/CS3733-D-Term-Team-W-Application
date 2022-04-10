@@ -191,4 +191,38 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       e.printStackTrace();
     }
   }
+
+
+  @Override
+  public ArrayList<MedEquipRequest> getTypeMedEquipRequests(String itemType) throws SQLException {
+    ArrayList<MedEquipRequest> medEquipRequestList = new ArrayList<>();
+
+    try {
+      ResultSet medEquipment = statement.executeQuery(String.format("SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EQUIPTYPE='%s'", itemType));
+
+      // Size of num MedEquipRequest fields
+      int size = 7;
+      ArrayList<String> medEquipData = new ArrayList<>();
+
+      while (medEquipment.next()) {
+
+        for (int i = 0; i < size; i++) {
+          medEquipData.add(i, medEquipment.getString(i + 1));
+        }
+
+        medEquipRequestList.add(new MedEquipRequest(medEquipData));
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from med equip request table failed");
+      throw (e);
+    }
+    return medEquipRequestList;
+  }
+
+  @Override
+  public Integer countItemType(String itemType){
+
+    return 0;
+  }
 }

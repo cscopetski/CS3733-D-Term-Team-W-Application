@@ -18,5 +18,7 @@ public interface CleaningRequestDao {
 
     void exportCleaningReqCSV(String filename);
 
+    CleaningRequest getCleaningRequest(Integer requestID);
+
     ArrayList<CleaningRequest> getAllCleaningRequests();
 }
