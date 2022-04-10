@@ -10,11 +10,11 @@ public class MainMenuController extends LoadableController {
   @FXML Button buttonSR;
 
   public void switchToRequestHub(ActionEvent event) {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestHub);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestHub);
   }
 
   public void switchToMapDisplay(ActionEvent event) {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MapEditor);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MapEditor);
   }
 
   @Override

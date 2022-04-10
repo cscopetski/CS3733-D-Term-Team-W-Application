@@ -83,6 +83,6 @@ public class MedicalEquipmentServiceRequestController {
   }
 
   public void switchToRequestList(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestList);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 }

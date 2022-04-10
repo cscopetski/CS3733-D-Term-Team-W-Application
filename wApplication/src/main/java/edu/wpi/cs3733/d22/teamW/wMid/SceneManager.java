@@ -111,8 +111,12 @@ public class SceneManager {
     }
   }
 
+  /**
+   * DEPRECATED
+   *
+   * @param scene
+   */
   public void setPaneVisible(Scenes scene) {
-
     if (current != null) {;
       pages.get(current).pane.setVisible(false);
       pages.get(current).pane.setDisable(true);
@@ -125,8 +129,12 @@ public class SceneManager {
     pages.get(current).tryOnLoad();
   }
 
+  public void transitionTo(Scenes scene) {
+    transitionTo(scene, Transitions.Fade);
+  }
+
   public void transitionTo(Scenes scene, Transitions transition) {
-    transitionTo(scene, transition, 500);
+    transitionTo(scene, transition, 250);
   }
 
   public void transitionTo(Scenes scene, Transitions transition, double duration) {
