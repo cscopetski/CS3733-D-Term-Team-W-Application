@@ -1,4 +1,4 @@
-medID,Type,Location(nodeID),Status
+medID,type,nodeID,status
 NONE,NONE,wSTOR0013,2
 BED001,BED,wSTOR0013,0
 BED002,BED,wSTOR0013,0

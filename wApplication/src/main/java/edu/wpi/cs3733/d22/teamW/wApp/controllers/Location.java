@@ -12,9 +12,9 @@ public class Location {
   String nodeType;
   String longName;
   String shortName;
-  edu.wpi.cs3733.d22.teamW.wDB.Location ogLoc;
+  edu.wpi.cs3733.d22.teamW.wDB.entity.Location ogLoc;
 
-  public Location(edu.wpi.cs3733.d22.teamW.wDB.Location Loc) {
+  public Location(edu.wpi.cs3733.d22.teamW.wDB.entity.Location Loc) {
     NodeID.set(Loc.getNodeID());
     XCoord.set(Loc.getxCoord());
     YCoord.set(Loc.getyCoord());

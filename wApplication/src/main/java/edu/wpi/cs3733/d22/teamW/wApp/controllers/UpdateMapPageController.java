@@ -1,8 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Location;
-import edu.wpi.cs3733.d22.teamW.wDB.LocationController;
-import edu.wpi.cs3733.d22.teamW.wDB.LocationDaoImpl;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.sql.SQLException;
@@ -44,9 +43,10 @@ public class UpdateMapPageController implements Initializable {
 
   Location loc;
 
-  private LocationController locationController = new LocationController(test);
+  private LocationManager locationManager = LocationManager.getLocationManager();
 
   public void updateLoc(ActionEvent actionEvent) throws SQLException {
+
     Optional<ButtonType> result = confirmChoice.showAndWait();
     if (result.get() == ButtonType.OK) {
       locationController.changeLocation(
@@ -60,6 +60,17 @@ public class UpdateMapPageController implements Initializable {
           snameField.getText());
       onLoad();
     }
+
+    locationManager.changeLocation(
+        nodeField.getText(),
+        Integer.parseInt(xField.getText()),
+        Integer.parseInt(yField.getText()),
+        floorField.getText(),
+        buildingField.getText(),
+        typeField.getText(),
+        lnameField.getText(),
+        snameField.getText());
+    onLoad();
   }
 
   public void resetFields(ActionEvent actionEvent) throws SQLException {
@@ -75,9 +86,9 @@ public class UpdateMapPageController implements Initializable {
         (String)
             SceneManager.getInstance()
                 .getInformation(SceneManager.getInstance().getPrimaryStage(), "updateLoc");
-    for (int i = 0; i < locationController.getAllLocations().size(); i++) {
-      if (locationController.getAllLocations().get(i).getNodeID().equalsIgnoreCase(locName)) {
-        loc = locationController.getAllLocations().get(i);
+    for (int i = 0; i < locationManager.getAllLocations().size(); i++) {
+      if (locationManager.getAllLocations().get(i).getNodeID().equalsIgnoreCase(locName)) {
+        loc = locationManager.getAllLocations().get(i);
         break;
       }
     }
@@ -90,6 +101,9 @@ public class UpdateMapPageController implements Initializable {
     lnameField.setText(loc.getLongName());
     snameField.setText(loc.getShortName());
     test.setLocationsList();
+
+    // loc.setLocationsList();
+
   }
 
   @Override
