@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
+import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.io.*;
 import java.sql.SQLException;
 import java.util.*;
@@ -10,34 +13,34 @@ public class CSVController {
   private String medEquipFileName;
   private String medEquipRequestFileName;
   private String labServiceRequestFileName;
+  private String employeeFileName;
+  private String medRequestFileName;
 
-  private RequestFactory requestFactory = null;
+  private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
   public CSVController(
       String locationFileName,
       String medEquipFileName,
       String medEquipRequestFileName,
-      String labServiceRequestFileName) {
+      String labServiceRequestFileName,
+      String employeeFileName,
+      String medRequestFileName) {
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
     this.medEquipRequestFileName = medEquipRequestFileName;
     this.labServiceRequestFileName = labServiceRequestFileName;
+    this.employeeFileName = employeeFileName;
+    this.medRequestFileName = medRequestFileName;
   }
 
-  public void setRequestFactory(RequestFactory requestFactory) {
-    this.requestFactory = requestFactory;
-  }
-
-  public void populateEntityTables() throws FileNotFoundException, SQLException {
+  public void populateTables() throws FileNotFoundException, SQLException {
+    insertIntoEmpTable(importCSV(employeeFileName));
     insertIntoLocationsTable(importCSV(locationFileName));
     insertIntoMedEquipTable(importCSV(medEquipFileName));
-  }
 
-  public void populateRequestTables(RequestFactory requestFactory)
-      throws FileNotFoundException, SQLException {
-    setRequestFactory(requestFactory);
     insertIntoMedEquipReqTable(importCSV(medEquipRequestFileName));
     insertIntoLabReqTable(importCSV(labServiceRequestFileName));
+    insertMedRequestTable(importCSV(medRequestFileName));
   }
 
   public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
@@ -53,7 +56,11 @@ public class CSVController {
     Scanner sc = new Scanner(in);
     System.out.println("Found File" + fileName);
     // Skip headers
-    sc.next();
+    try {
+      sc.next();
+    } catch (NoSuchElementException e) {
+      System.out.println(String.format("FILE %s IS EMPTY", fileName));
+    }
 
     ArrayList<String[]> tokensList = new ArrayList<>();
 
@@ -130,23 +137,59 @@ public class CSVController {
       ArrayList<String> fields = new ArrayList<>();
       fields.addAll(Arrays.asList(s));
 
-      MedEquipRequest mER = (MedEquipRequest) requestFactory.getRequest("MEDEQUIPREQUEST", fields);
+      MedEquipRequest mER =
+          (MedEquipRequest) requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
 
       medEquipReqList.add(mER);
     }
   }
 
   private void insertIntoLabReqTable(ArrayList<String[]> tokens) throws SQLException {
-    ArrayList<LabServiceRequest> labReqList = new ArrayList<>();
+    // ArrayList<LabServiceRequest> labReqList = new ArrayList<>();
 
     for (String[] s : tokens) {
       ArrayList<String> fields = new ArrayList<>();
       fields.addAll(Arrays.asList(s));
 
       LabServiceRequest lSR =
-          (LabServiceRequest) requestFactory.getRequest("LABSERVICEREQUEST", fields);
+          (LabServiceRequest) requestFactory.getRequest(RequestType.LabServiceRequest, fields);
 
-      labReqList.add(lSR);
+      // labReqList.add(lSR);
+    }
+  }
+
+  private void insertMedRequestTable(ArrayList<String[]> tokens) throws SQLException {
+    // ArrayList<MedRequest> medReqLists = new ArrayList<>();
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+
+      MedRequest mr = (MedRequest) requestFactory.getRequest(RequestType.MedicineDelivery, fields);
+
+      // medReqLists.add(mr);
+    }
+  }
+
+  private void insertIntoEmpTable(ArrayList<String[]> tokens) throws SQLException {
+    ArrayList<Employee> employees = new ArrayList<>();
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<String>();
+      fields.addAll(Arrays.asList(s));
+      employees.add(new Employee(fields));
+    }
+
+    for (Employee e : employees) {
+      // add location objects to database
+      try {
+        DBController.getDBController()
+            .execute("INSERT INTO EMPLOYEES VALUES(" + e.toValuesString() + ")");
+      } catch (SQLException s) {
+        System.out.println("Connection failed. Check output console.");
+        s.printStackTrace();
+        throw (s);
+      }
     }
   }
 }

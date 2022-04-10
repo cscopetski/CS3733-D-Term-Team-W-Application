@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -51,7 +52,7 @@ public class LanguageInterpreterServiceRequestController {
           emergency = 0;
         }
         fields.add("" + emergency);
-        requestFactory.getRequest("MEDEQUIPREQUEST", fields);
+        requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
         lastRequest = fields;
       }
     } else {

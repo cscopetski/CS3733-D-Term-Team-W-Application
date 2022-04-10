@@ -1,8 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Location;
-import edu.wpi.cs3733.d22.teamW.wDB.LocationController;
-import edu.wpi.cs3733.d22.teamW.wDB.LocationDaoImpl;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,22 +27,13 @@ public class UpdateMapPageController implements Initializable {
   @FXML private TextField lnameField;
   @FXML private TextField snameField;
   @FXML private TextField buildingField;
-  private LocationDaoImpl test;
-
-  {
-    try {
-      test = new LocationDaoImpl();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-  }
 
   Location loc;
 
-  private LocationController locationController = new LocationController(test);
+  private LocationManager locationManager = LocationManager.getLocationManager();
 
   public void updateLoc(ActionEvent actionEvent) throws SQLException {
-    locationController.changeLocation(
+    locationManager.changeLocation(
         nodeField.getText(),
         Integer.parseInt(xField.getText()),
         Integer.parseInt(yField.getText()),
@@ -68,9 +58,9 @@ public class UpdateMapPageController implements Initializable {
         (String)
             SceneManager.getInstance()
                 .getInformation(SceneManager.getInstance().getPrimaryStage(), "updateLoc");
-    for (int i = 0; i < locationController.getAllLocations().size(); i++) {
-      if (locationController.getAllLocations().get(i).getNodeID().equalsIgnoreCase(locName)) {
-        loc = locationController.getAllLocations().get(i);
+    for (int i = 0; i < locationManager.getAllLocations().size(); i++) {
+      if (locationManager.getAllLocations().get(i).getNodeID().equalsIgnoreCase(locName)) {
+        loc = locationManager.getAllLocations().get(i);
         break;
       }
     }
@@ -81,7 +71,7 @@ public class UpdateMapPageController implements Initializable {
     buildingField.setText(loc.getBuilding());
     floorField.setText(loc.getFloor());
     lnameField.setText(loc.getLongName());
-    test.setLocationsList();
+    // loc.setLocationsList();
   }
 
   @Override
