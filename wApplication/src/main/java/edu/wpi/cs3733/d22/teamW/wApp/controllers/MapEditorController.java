@@ -13,8 +13,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,7 +26,10 @@ import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class MapEditorController {
+public class MapEditorController extends LoadableController {
+  @FXML public ScrollPane scrollPane;
+  @FXML public Slider scaleSlider;
+  @FXML public Group scrollGroup;
   @FXML private ImageView mapList;
   @FXML private MenuItem F1;
   @FXML private MenuItem F2;
@@ -167,20 +172,19 @@ public class MapEditorController {
     size = currFloorLoc.size();
     for (int i = 0; i < size; i++) {
       Circle circ = new Circle(5, Color.RED);
-      circ.setCenterX((currFloorLoc.get(i).getXCoord() * 0.67) + xOffSet);
-      circ.setCenterY((currFloorLoc.get(i).getYCoord() * 0.67) + yOffSet);
+      circ.setCenterX((currFloorLoc.get(i).getXCoord() * 2.0 / 3.0));
+      circ.setCenterY((currFloorLoc.get(i).getYCoord() * 2.0 / 3.0));
+
       circ.setOnMouseClicked(
           (event -> {
             try {
               testUpdate(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
-            } catch (SQLException e) {
-              e.printStackTrace();
-            } catch (IOException e) {
+            } catch (SQLException | IOException e) {
               e.printStackTrace();
             }
           }));
       locDots.add(circ);
-      page.getChildren().add(circ);
+      scrollGroup.getChildren().add(circ);
     }
   }
 
@@ -224,13 +228,13 @@ public class MapEditorController {
       circle.setCenterX((equipList.get(i).getXCoord() * 0.67) + xOffSet - 1);
       circle.setCenterY((equipList.get(i).getYCoord() * 0.67) + yOffSet - 1);
       eqDots.add(circle);
-      page.getChildren().add(circle);
+      scrollGroup.getChildren().add(circle);
     }
   }
 
   private void removeMarkers() {
-    page.getChildren().removeAll(locDots);
-    page.getChildren().removeAll(eqDots);
+    scrollGroup.getChildren().removeAll(locDots);
+    scrollGroup.getChildren().removeAll(eqDots);
     locDots.clear();
     eqDots.clear();
   }
@@ -322,4 +326,28 @@ public class MapEditorController {
     dropdown.setText("Floor 5");
     mapList.setImage(img5);
   }
+
+  @Override
+  protected SceneManager.Scenes GetSceneType() {
+    return SceneManager.Scenes.MapEditor;
+  }
+
+  @Override
+  public void onLoad() {
+    scaleSlider.setMin(0.9);
+    scaleSlider.setMax(3.0);
+    scaleSlider.setValue(1.0);
+
+    scrollGroup.scaleXProperty().bind(scaleSlider.valueProperty());
+    scrollGroup.scaleYProperty().bind(scaleSlider.valueProperty());
+    mapList.autosize();
+    scrollGroup.autosize();
+
+    scrollPane.setPannable(true);
+    scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+    scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+  }
+
+  @Override
+  public void onUnload() {}
 }

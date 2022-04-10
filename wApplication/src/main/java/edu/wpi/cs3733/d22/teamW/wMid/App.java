@@ -20,8 +20,8 @@ public class App extends Application {
     // primaryStage.setFullScreen(true);
 
     primaryStage.setMaximized(true);
-    primaryStage.setResizable(true);
-    primaryStage.setAlwaysOnTop(false);
+    primaryStage.setResizable(false);
+    primaryStage.toFront();
     primaryStage.setTitle("Mass General Brigham Service Requests");
     primaryStage
         .getIcons()
