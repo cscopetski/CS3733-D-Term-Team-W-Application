@@ -53,11 +53,11 @@ public class MedRequestDaoImpl implements MedRequestDao {
   }
 
   @Override
-  public void changeMedRequest(Integer id, String m, String n, String en, Integer ie, Integer rs)
+  public void changeMedRequest(Integer id, String m, String n, Integer en, Integer ie, Integer rs)
       throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDREQUESTS SET MEDICINE='%s', NODEID='%s', EMPLOYEENAME='%s', ISEMERGENCY=%d, REQSTATUS=%d WHERE REQUESTID=%d",
+            "UPDATE MEDREQUESTS SET MEDICINE='%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d WHERE REQUESTID=%d",
             m, n, en, ie, rs, id));
   }
 

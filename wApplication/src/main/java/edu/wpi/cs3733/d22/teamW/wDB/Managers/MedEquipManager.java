@@ -48,7 +48,7 @@ public class MedEquipManager {
     medi.deleteMedEquip(inputID);
   }
 
-  //TODO change to just use sql in impl
+  // TODO change to just use sql in impl
   public MedEquip getMedEquip(String medID) throws SQLException {
     for (MedEquip e : medi.getAllMedEquip()) {
       if (e.getMedID().equals(medID)) {

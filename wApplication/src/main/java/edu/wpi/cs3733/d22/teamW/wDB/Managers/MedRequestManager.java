@@ -40,7 +40,7 @@ public class MedRequestManager implements RequestManager {
         request.getRequestID(),
         request.getMedicine(),
         request.getNodeID(),
-        request.getEmployeeName(),
+        request.getEmployeeID(),
         request.getEmergency(),
         request.getStatusInt());
   }
@@ -51,7 +51,7 @@ public class MedRequestManager implements RequestManager {
         request.getRequestID(),
         request.getMedicine(),
         request.getNodeID(),
-        request.getEmployeeName(),
+        request.getEmployeeID(),
         request.getEmergency(),
         request.getStatusInt());
   }
@@ -62,7 +62,7 @@ public class MedRequestManager implements RequestManager {
         request.getRequestID(),
         request.getMedicine(),
         request.getNodeID(),
-        request.getEmployeeName(),
+        request.getEmployeeID(),
         request.getEmergency(),
         request.getStatusInt());
   }
@@ -75,7 +75,7 @@ public class MedRequestManager implements RequestManager {
     mrd.deleteMedRequest(requestID);
   }
 
-  public void changeMedRequest(Integer id, String m, String n, String en, Integer ie, Integer rs)
+  public void changeMedRequest(Integer id, String m, String n, Integer en, Integer ie, Integer rs)
       throws SQLException {
     mrd.changeMedRequest(id, m, n, en, ie, rs);
   }

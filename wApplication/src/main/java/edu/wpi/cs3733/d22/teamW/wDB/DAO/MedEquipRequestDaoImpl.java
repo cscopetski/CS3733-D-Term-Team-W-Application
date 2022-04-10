@@ -36,7 +36,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
               + "medID varchar(25),"
               + "equipType varchar(25),"
               + "nodeID varchar(25),"
-              + "employeeName varchar(50),"
+              + "employeeID INT,"
               + "isEmergency INT,"
               + "reqStatus INT, "
               + "constraint MedReq_MedEquip_FK foreign key (medID) references MEDICALEQUIPMENT(medID),"
@@ -134,11 +134,11 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEENAME = '%s', ISEMERGENCY = %d , REQSTATUS = %d WHERE MEDREQID = %d",
+            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d WHERE MEDREQID = %d",
             mER.getItemID(),
             mER.getItemType(),
             mER.getNodeID(),
-            mER.getEmployeeName(),
+            mER.getEmployeeID(),
             mER.getEmergency(),
             mER.getStatusInt(),
             mER.getRequestID()));

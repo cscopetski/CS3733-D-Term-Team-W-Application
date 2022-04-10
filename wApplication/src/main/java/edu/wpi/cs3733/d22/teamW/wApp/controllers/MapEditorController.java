@@ -90,7 +90,8 @@ public class MapEditorController {
     removeMarkers();
     currFloorLoc.clear();
     currFloorNodeID.clear();
-    ArrayList<edu.wpi.cs3733.d22.teamW.wDB.entity.Location> locList = locationManager.getAllLocations();
+    ArrayList<edu.wpi.cs3733.d22.teamW.wDB.entity.Location> locList =
+        locationManager.getAllLocations();
     for (int i = 0; i < locList.size(); i++) {
       if (locList.get(i).getFloor().equalsIgnoreCase(currFloor)) {
         currFloorLoc.add(new Location(locList.get(i)));

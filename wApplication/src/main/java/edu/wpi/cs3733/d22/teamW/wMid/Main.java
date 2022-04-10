@@ -98,7 +98,7 @@ public class Main {
     LabServiceRequestManager.getLabServiceRequestManager()
         .exportLabServiceRequestCSV("LABTEST.csv");
 
-    EmployeeDaoImpl edi = new EmployeeDaoImpl(DBController.getDBController());
+    EmployeeManager edi = EmployeeManager.getEmployeeManager();
     /*
        edi.addEmployee(
            1,

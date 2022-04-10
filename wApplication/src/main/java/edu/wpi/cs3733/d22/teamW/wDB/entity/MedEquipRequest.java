@@ -73,7 +73,7 @@ public class MedEquipRequest extends Request {
     this.itemID = medEquipReqData[1];
     this.itemType = medEquipReqData[2];
     this.nodeID = medEquipReqData[3];
-    this.employeeName = medEquipReqData[4];
+    this.employeeID = Integer.parseInt(medEquipReqData[4]);
     this.emergency = Integer.parseInt(medEquipReqData[5]);
     this.status = Integer.parseInt(medEquipReqData[6]);
   }
@@ -187,7 +187,7 @@ public class MedEquipRequest extends Request {
         && this.status == m.getStatusInt()
         && this.nodeID.equals(m.getNodeID())
         && this.emergency == m.getEmergency()
-        && this.employeeName.equals(m.getEmployeeName())
+        && this.employeeID == m.getEmployeeID()
         && this.itemType.equals(m.getItemType())
         && this.itemID.equals(m.getItemID());
   }

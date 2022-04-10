@@ -33,11 +33,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
       statement.execute(
           "CREATE TABLE EMPLOYEES(\n"
               + "employeeID INT, \n "
-              + "firstname varchar(25), \n "
-              + "lastname varchar(25), \n "
-              + "employeetype varchar(25), \n "
-              + "username varchar(25), \n "
-              + "password varchar(25), \n "
+              + "firstName varchar(25), \n "
+              + "lastName varchar(25), \n "
+              + "employeeType varchar(25), \n "
+              + "email varchar(256), \n "
+              + "phonenumber varchar(25), \n "
+              + "address varchar(256), \n "
+              + "username varchar(256), \n "
+              + "password varchar(256), \n "
+              + "salt varchar(256), \n "
               + "constraint Employees_PK primary key (employeeID),"
               + "constraint username_uq unique(username))");
     } catch (SQLException e) {
@@ -96,9 +100,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
             username,
             password,
             salt);
-    statement
-        .executeUpdate(
-            String.format("INSERT INTO EMPLOYEES VALUES (%s)", newEmployee.toValuesString()));
+    statement.executeUpdate(
+        String.format("INSERT INTO EMPLOYEES VALUES (%s)", newEmployee.toValuesString()));
   }
 
   @Override
@@ -119,20 +122,19 @@ public class EmployeeDaoImpl implements EmployeeDao {
       String password,
       String salt)
       throws SQLException {
-    statement
-        .executeUpdate(
-            String.format(
-                "UPDATE EMPLOYEES SET FIRSTNAME = '%s', LASTNAME = '%s', EMPLOYEETYPE = '%s', EMAIL = '%s', PHONENUMBER = '%s', ADDRESS = '%s', USERNAME = '%s', PASSWORD = '%s', SALT = '%s' WHERE EMPLOYEEID = %d",
-                firstname,
-                lastname,
-                type,
-                email,
-                phoneNumber,
-                address,
-                username,
-                password,
-                salt,
-                employeeID));
+    statement.executeUpdate(
+        String.format(
+            "UPDATE EMPLOYEES SET FIRSTNAME = '%s', LASTNAME = '%s', EMPLOYEETYPE = '%s', EMAIL = '%s', PHONENUMBER = '%s', ADDRESS = '%s', USERNAME = '%s', PASSWORD = '%s', SALT = '%s' WHERE EMPLOYEEID = %d",
+            firstname,
+            lastname,
+            type,
+            email,
+            phoneNumber,
+            address,
+            username,
+            password,
+            salt,
+            employeeID));
   }
 
   @Override
