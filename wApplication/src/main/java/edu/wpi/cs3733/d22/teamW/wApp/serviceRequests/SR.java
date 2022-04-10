@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 
 public abstract class SR {
   private final Request REQUEST;
@@ -22,22 +22,11 @@ public abstract class SR {
   }
 
   public String getStatus() {
-    switch (REQUEST.getStatus()) {
-      case 0:
-        return "Enqueue";
-      case 1:
-        return "InProgress";
-      case 2:
-        return "Done";
-      case 3:
-        return "Cancelled";
-      default:
-        return "null";
-    }
+    return REQUEST.getStatus();
   }
 
-  public String getEmployeeName() {
-    return REQUEST.getEmployeeName();
+  public Integer getEmployeeName() {
+    return REQUEST.getEmployeeID();
   }
 
   public abstract String getRequestType();

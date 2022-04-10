@@ -1,9 +1,10 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 
 public class MedicalEquipmentSR extends SR {
+  MedEquipRequest mer;
 
   public MedicalEquipmentSR(Request r) {
     super(r);
