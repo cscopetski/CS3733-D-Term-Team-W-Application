@@ -19,16 +19,10 @@
                     <children>
                         <HBox fx:id="menuBar" stylesheets="@../CSS/UniversalCSS/Standard.css" visible="false" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#switchToMainMenu" prefHeight="30.0" prefWidth="113.0" text="Main Menu" textFill="WHITE">
-                           <HBox.margin>
-                              <Insets right="10.0" top="10.0" />
-                           </HBox.margin></Button>
-                                <Button mnemonicParsing="false" onAction="#switchToMapEditor" prefHeight="30.0" prefWidth="113.0" text="Map Editor" textFill="WHITE">
-                           <HBox.margin>
-                              <Insets right="10.0" top="10.0" />
-                           </HBox.margin></Button>
-                                <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Requests" textAlignment="CENTER" textOverrun="CLIP">
+                                <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Menu" textAlignment="CENTER" textOverrun="CLIP">
                                     <items>
+                              <MenuItem mnemonicParsing="false" onAction="#switchToMainMenu" text="Main Menu" />
+                              <MenuItem mnemonicParsing="false" onAction="#switchToMapEditor" text="Map Editor" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToRequestHub" text="Request Hub" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToRequestList" text="Request List" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToLab" text="Lab Services" />
@@ -42,10 +36,15 @@
                               <Insets right="10.0" top="10.0" />
                            </HBox.margin>
                                 </MenuButton>
-                                <Button mnemonicParsing="false" onAction="#exitProgram" prefHeight="30.0" prefWidth="113.0" text="Exit" textFill="WHITE">
+                                <Button mnemonicParsing="false" onAction="#logOut" prefHeight="30.0" prefWidth="113.0" text="Logout" textFill="WHITE">
                            <HBox.margin>
                               <Insets right="10.0" top="10.0" />
                            </HBox.margin></Button>
+                        <Button mnemonicParsing="false" onAction="#exitProgram" prefHeight="30.0" prefWidth="113.0" text="Exit" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </Button>
                             </children>
                      <padding>
                         <Insets bottom="10.0" />

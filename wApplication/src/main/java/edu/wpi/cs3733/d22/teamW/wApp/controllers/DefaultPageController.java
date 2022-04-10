@@ -9,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javax.swing.*;
 
 public class DefaultPageController implements Initializable {
 
@@ -92,6 +93,11 @@ public class DefaultPageController implements Initializable {
 
   public void switchToMainMenu(ActionEvent event) throws IOException {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MainMenu);
+  }
+
+  public void logOut(ActionEvent actionEvent) throws IOException {
+    menuBar.setVisible(false);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Login);
   }
 
   public void exitProgram() {

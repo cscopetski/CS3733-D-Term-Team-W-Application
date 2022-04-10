@@ -51,6 +51,8 @@ public class LoginController extends LoadableController {
             .menuBar.setVisible(true);
         SceneManager.getInstance()
             .transitionTo(SceneManager.Scenes.MainMenu, SceneManager.Transitions.FadeOut);
+        username.clear();
+        password.clear();
       } else if (!eM.usernameExists(username.getText())) {
         existCase.setVisible(true);
       } else {
