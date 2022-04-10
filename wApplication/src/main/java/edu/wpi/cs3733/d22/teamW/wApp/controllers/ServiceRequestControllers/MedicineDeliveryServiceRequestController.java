@@ -4,8 +4,12 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -76,7 +80,11 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     requesterCBox.setItems(names);
   }
 
-  public void populateTable() {
+  public void onUnload() {
+    clearFields();
+  }
+
+  private void populateTable() {
     ArrayList<Request> requests = RequestFactory.getRequestFactory().getAllRequests();
     for (int i = 0; i < requests.size(); i++) {
       Request r = requests.get(i);
@@ -90,27 +98,22 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     table.getItems().addAll(sr);
   }
 
-  public void onUnload() {
-    clearFields();
+  private void pushDataToDB() throws SQLException {
+    ArrayList<String> fields = new ArrayList<>();
+    fields.add(medCol.getText());
+    fields.add(nameCol.getText());
+    fields.add(numCol.getText());
+    RequestFactory.getRequestFactory().getRequest(RequestType.MedicineDelivery, fields);
   }
 
-  public void createRequest() {
-    //
+  public void createRequest() throws SQLException {
+    pushDataToDB();
+    populateTable();
   }
 
-  public void submitButton() {
+  public void submitButton() throws SQLException {
     createRequest();
     clearFields();
-  }
-
-  // getters and setters for combo box's list
-  // -unsure if needed
-  public ObservableList<String> getMeds() {
-    return meds;
-  }
-
-  public void setMeds(ObservableList<String> meds) {
-    this.meds = meds;
   }
 
   public void emergencyClicked(MouseEvent mouseEvent) {
