@@ -19,14 +19,18 @@
                     <children>
                         <HBox fx:id="menuBar" stylesheets="@../CSS/UniversalCSS/Standard.css" visible="false" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#switchToMainMenu" prefHeight="30.0" prefWidth="113.0" text="Main Menu" textFill="WHITE">
-                           <HBox.margin>
-                              <Insets right="10.0" top="10.0" />
-                           </HBox.margin></Button>
-                                <Button mnemonicParsing="false" onAction="#switchToMapEditor" prefHeight="30.0" prefWidth="113.0" text="Map Editor" textFill="WHITE">
-                           <HBox.margin>
-                              <Insets right="10.0" top="10.0" />
-                           </HBox.margin></Button>
+                                <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Menu" textAlignment="CENTER" textOverrun="CLIP">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToMainMenu" text="Main Menu" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToProfile" text="Account" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToAbout" text="About" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToHelp" text="Help" />
+                                        <MenuItem mnemonicParsing="false" onAction="#logOut" text="Log Out" />
+                                    </items>
+                                    <HBox.margin>
+                                        <Insets right="10.0" top="10.0" />
+                                    </HBox.margin>
+                                </MenuButton>
                                 <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Requests" textAlignment="CENTER" textOverrun="CLIP">
                                     <items>
                                         <MenuItem mnemonicParsing="false" onAction="#switchToRequestHub" text="Request Hub" />
@@ -38,20 +42,26 @@
                                         <MenuItem mnemonicParsing="false" onAction="#switchToLanguageInterpreter" text="Interpreters" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToSecurity" text="Security" />
                                     </items>
-                           <HBox.margin>
-                              <Insets right="10.0" top="10.0" />
-                           </HBox.margin>
+                                    <HBox.margin>
+                                        <Insets right="10.0" top="10.0" />
+                                    </HBox.margin>
                                 </MenuButton>
+                                <Button mnemonicParsing="false" onAction="#switchToMapEditor" prefHeight="30.0" prefWidth="113.0" text="Map Editor" textFill="WHITE">
+                                    <HBox.margin>
+                                        <Insets right="10.0" top="10.0" />
+                                    </HBox.margin>
+                                </Button>
                                 <Button mnemonicParsing="false" onAction="#exitProgram" prefHeight="30.0" prefWidth="113.0" text="Exit" textFill="WHITE">
-                           <HBox.margin>
-                              <Insets right="10.0" top="10.0" />
-                           </HBox.margin></Button>
+                                    <HBox.margin>
+                                        <Insets right="10.0" top="10.0" />
+                                    </HBox.margin>
+                                </Button>
                             </children>
-                     <padding>
-                        <Insets bottom="10.0" />
-                     </padding>
+                            <padding>
+                                <Insets bottom="10.0" />
+                            </padding>
                         </HBox>
-                        <Pane prefHeight="47.0" prefWidth="338.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Pane fx:id="buttonPane" disable="true" onMouseClicked="#switchToMainMenu" prefHeight="65.0" prefWidth="275.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <ImageView fitHeight="27.0" fitWidth="200.0" layoutX="37.0" layoutY="12.0" onMousePressed="#switchToMainMenu">
                                     <image>
@@ -66,6 +76,9 @@
                     <children>
                         <fx:include fx:id="mainMenuPage" source="MainMenuPage.fxml" />
                         <fx:include fx:id="mapEditorPage" source="MapEditorPage.fxml" />
+                        <fx:include fx:id="helpPage" source="HelpPage.fxml" />
+                        <fx:include fx:id="aboutPage" source="AboutPage.fxml" />
+                        <fx:include fx:id="profilePage" source="ProfilePage.fxml" />
                         <fx:include fx:id="labServiceRequestPage" source="ServiceRequestPages/LabServiceRequestPage.fxml" />
                         <fx:include fx:id="languageInterpreterServiceRequestPage" source="ServiceRequestPages/LanguageInterpreterServiceRequestPage.fxml" />
                         <fx:include fx:id="mealDeliveryServiceRequestPage" source="ServiceRequestPages/MealDeliveryServiceRequestPage.fxml" />
