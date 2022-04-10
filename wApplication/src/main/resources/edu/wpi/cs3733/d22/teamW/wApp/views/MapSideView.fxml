@@ -13,17 +13,13 @@
 
 <AnchorPane prefHeight="616.0" prefWidth="940.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapSideViewController">
    <children>
-      <HBox prefHeight="616.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox fx:id="sc" prefHeight="616.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Pane prefHeight="602.0" prefWidth="421.0">
                <children>
                   <BorderPane layoutY="4.0" prefHeight="608.0" prefWidth="421.0">
                      <center>
-                        <ScrollPane prefHeight="600.0" prefWidth="354.0" styleClass="body" stylesheets="@../CSS/MapSideView/scrollpane.css" BorderPane.alignment="CENTER">
-                           <content>
-                              <AnchorPane fx:id="towerMap" prefHeight="556.0" prefWidth="400.0" styleClass="body" stylesheets="@../CSS/MapSideView/scrollpane.css" />
-                           </content>
-                        </ScrollPane>
+                        <ScrollPane fx:id="scrollPane" prefHeight="600.0" prefWidth="354.0" styleClass="body" stylesheets="@../CSS/MapSideView/scrollpane.css" BorderPane.alignment="CENTER" />
                      </center>
                      <right>
                         <VBox prefHeight="595.0" prefWidth="23.0" BorderPane.alignment="CENTER">

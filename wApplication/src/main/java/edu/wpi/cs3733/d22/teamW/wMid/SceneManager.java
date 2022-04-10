@@ -49,6 +49,7 @@ public class SceneManager {
     Default,
     MainMenu,
     MapEditor,
+    MapSideView,
     RequestList,
     RequestHub,
     Login

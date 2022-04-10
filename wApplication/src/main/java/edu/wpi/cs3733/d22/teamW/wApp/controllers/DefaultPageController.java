@@ -24,12 +24,13 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane requestHubPage;
   @FXML public Pane loginPage;
   @FXML public HBox menuBar;
+  @FXML public Pane mapsideviewPage;
 
   @FXML
   public void initialize(URL location, ResourceBundle rb) {
 
     SceneManager.getInstance().putController(SceneManager.Scenes.Default, this);
-
+    SceneManager.getInstance().putPane(SceneManager.Scenes.MapSideView, mapsideviewPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Login, loginPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.MainMenu, mainMenuPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.MapEditor, mapEditorPage);
@@ -92,6 +93,10 @@ public class DefaultPageController implements Initializable {
 
   public void switchToMainMenu(ActionEvent event) throws IOException {
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MainMenu);
+  }
+
+  public void switchToMapSideView(ActionEvent event) throws IOException {
+    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MapSideView);
   }
 
   public void exitProgram() {
