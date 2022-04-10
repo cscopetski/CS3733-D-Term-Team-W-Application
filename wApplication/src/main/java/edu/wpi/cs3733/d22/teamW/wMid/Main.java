@@ -5,13 +5,8 @@ import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.io.FileNotFoundException;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 
 public class Main {
 
@@ -99,6 +94,22 @@ public class Main {
         .exportLabServiceRequestCSV("LABTEST.csv");
 
     EmployeeManager edi = EmployeeManager.getEmployeeManager();
+    edi.addEmployee(
+        7,
+        "Mr.",
+        "Secure",
+        "Security",
+        "security@hospital.com",
+        "(123)456789",
+        "somewhere",
+        "secur",
+        "secur",
+        "");
+    if (edi.passwordMatch("secur", "secur")) {
+      System.out.println("SECUR, SECUR MATCH");
+    } else {
+      System.out.println("NO MATCH");
+    }
     /*
        edi.addEmployee(
            1,
@@ -170,23 +181,5 @@ public class Main {
        edi.exportEmpCSV("Employees.csv");
 
     */
-  }
-
-  public static void testHash() {
-    String password = "password";
-    // [B@7085bdee
-    String saltString = "abcdefghijklmnop";
-    byte[] salt = saltString.getBytes();
-    KeySpec spec = new PBEKeySpec(password.toCharArray(), salt, 65536, 128);
-    try {
-      SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-      byte[] hash = factory.generateSecret(spec).getEncoded();
-      String hashString = hash.toString();
-      System.out.println(String.format("HASH: %s", hashString));
-    } catch (InvalidKeySpecException e) {
-      e.printStackTrace();
-    } catch (NoSuchAlgorithmException e) {
-      e.printStackTrace();
-    }
   }
 }
