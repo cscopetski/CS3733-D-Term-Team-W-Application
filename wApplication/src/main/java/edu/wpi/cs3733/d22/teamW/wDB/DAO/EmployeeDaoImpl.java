@@ -33,11 +33,15 @@ public class EmployeeDaoImpl implements EmployeeDao {
       statement.execute(
           "CREATE TABLE EMPLOYEES(\n"
               + "employeeID INT, \n "
-              + "firstname varchar(25), \n "
-              + "lastname varchar(25), \n "
-              + "employeetype varchar(25), \n "
-              + "username varchar(25), \n "
-              + "password varchar(25), \n "
+              + "firstName varchar(25), \n "
+              + "lastName varchar(25), \n "
+              + "employeeType varchar(25), \n "
+              + "email varchar(256), \n "
+              + "phonenumber varchar(25), \n "
+              + "address varchar(256), \n "
+              + "username varchar(256), \n "
+              + "password varchar(256), \n "
+              + "salt varchar(256), \n "
               + "constraint Employees_PK primary key (employeeID),"
               + "constraint username_uq unique(username))");
     } catch (SQLException e) {
@@ -57,7 +61,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
       while (employees.next()) {
         ArrayList<String> employeeData = new ArrayList<String>();
 
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 10; i++) {
           employeeData.add(employees.getString(i + 1));
         }
 
@@ -77,10 +81,25 @@ public class EmployeeDaoImpl implements EmployeeDao {
       String firstname,
       String lastname,
       String type,
+      String email,
+      String phoneNumber,
+      String address,
       String username,
-      String password)
+      String password,
+      String salt)
       throws SQLException {
-    Employee newEmployee = new Employee(employeeID, firstname, lastname, type, username, password);
+    Employee newEmployee =
+        new Employee(
+            employeeID,
+            firstname,
+            lastname,
+            type,
+            email,
+            phoneNumber,
+            address,
+            username,
+            password,
+            salt);
     statement.executeUpdate(
         String.format("INSERT INTO EMPLOYEES VALUES (%s)", newEmployee.toValuesString()));
   }
@@ -96,13 +115,26 @@ public class EmployeeDaoImpl implements EmployeeDao {
       String firstname,
       String lastname,
       String type,
+      String email,
+      String phoneNumber,
+      String address,
       String username,
-      String password)
+      String password,
+      String salt)
       throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE EMPLOYEES SET FIRSTNAME = '%s', LASTNAME = '%s', EMPLOYEETYPE = '%s', USERNAME = '%s', PASSWORD = '%s' WHERE EMPLOYEEID = %d",
-            firstname, lastname, type, username, password, employeeID));
+            "UPDATE EMPLOYEES SET FIRSTNAME = '%s', LASTNAME = '%s', EMPLOYEETYPE = '%s', EMAIL = '%s', PHONENUMBER = '%s', ADDRESS = '%s', USERNAME = '%s', PASSWORD = '%s', SALT = '%s' WHERE EMPLOYEEID = %d",
+            firstname,
+            lastname,
+            type,
+            email,
+            phoneNumber,
+            address,
+            username,
+            password,
+            salt,
+            employeeID));
   }
 
   @Override
@@ -110,7 +142,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print("employeeID,firstname,lastname,employeetype,username,password");
+      pw.print(
+          "employeeID,firstname,lastname,employeetype,email,phonenumber,address,username,password,salt");
 
       // print all locations
       for (Employee e : getAllEmployees()) {
@@ -144,7 +177,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     ResultSet rs =
         statement.executeQuery(
             String.format(
-                "SELECT COUNT(*) AS COUNT FROM EMPLOYEES WHERE USERNAME = '%s', PASSWORD = '%s'",
+                "SELECT COUNT(*) AS COUNT FROM EMPLOYEES WHERE USERNAME = '%s' AND PASSWORD = '%s'",
                 username, password));
     rs.next();
     return (rs.getInt("COUNT") == 1);

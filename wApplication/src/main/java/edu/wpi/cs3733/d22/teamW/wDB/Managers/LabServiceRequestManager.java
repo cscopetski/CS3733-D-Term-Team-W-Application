@@ -47,6 +47,7 @@ public class LabServiceRequestManager implements RequestManager {
       fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
       lSR = new LabServiceRequest(num, fields);
     } else {
+      System.out.println("Right before making lSR");
       lSR = new LabServiceRequest(fields);
     }
     lsrdi.addLabServiceRequest(lSR);
@@ -60,7 +61,7 @@ public class LabServiceRequestManager implements RequestManager {
         request.getRequestID(),
         request.getLabType(),
         request.getNodeID(),
-        request.getEmployeeName(),
+        request.getEmployeeID(),
         request.getEmergency(),
             RequestStatus.InProgress);
   }
@@ -72,7 +73,7 @@ public class LabServiceRequestManager implements RequestManager {
         request.getRequestID(),
         request.getLabType(),
         request.getNodeID(),
-        request.getEmployeeName(),
+        request.getEmployeeID(),
         request.getEmergency(),
             RequestStatus.Completed);
   }
@@ -85,7 +86,7 @@ public class LabServiceRequestManager implements RequestManager {
         request.getRequestID(),
         request.getLabType(),
         request.getNodeID(),
-        request.getEmployeeName(),
+        request.getEmployeeID(),
         request.getEmergency(),
             RequestStatus.Cancelled);
   }

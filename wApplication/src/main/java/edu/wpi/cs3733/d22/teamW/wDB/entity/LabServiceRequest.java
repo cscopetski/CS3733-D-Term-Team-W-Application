@@ -16,13 +16,13 @@ public class LabServiceRequest extends Request {
       Integer requestID,
       String labType,
       String nodeID,
-      String employeeName,
+      Integer employeeID,
       Integer emergency,
       RequestStatus status) {
     this.requestID = requestID;
     this.labType = labType;
     this.nodeID = nodeID;
-    this.employeeName = employeeName;
+    this.employeeID = employeeID;
     this.emergency = emergency;
     this.status = status;
   }
@@ -31,7 +31,7 @@ public class LabServiceRequest extends Request {
     this.requestID = Integer.parseInt(fields.get(0));
     this.labType = fields.get(1);
     this.nodeID = fields.get(2);
-    this.employeeName = fields.get(3);
+    this.employeeID = Integer.parseInt(fields.get(3));
     this.emergency = Integer.parseInt(fields.get(4));
     this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(5)));
   }
@@ -40,7 +40,7 @@ public class LabServiceRequest extends Request {
     this.requestID = index;
     this.labType = fields.get(0);
     this.nodeID = fields.get(1);
-    this.employeeName = fields.get(2);
+    this.employeeID = Integer.parseInt(fields.get(2));
     this.emergency = Integer.parseInt(fields.get(3));
     this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(4)));
   }
@@ -53,13 +53,13 @@ public class LabServiceRequest extends Request {
   @Override
   public String toCSVString() {
     return String.format(
-        "%d,%s,%s,%s,%d,%d", requestID, labType, nodeID, employeeName, emergency, status.getValue());
+        "%d,%s,%s,%d,%d,%d", requestID, labType, nodeID, employeeID, emergency, status.getValue());
   }
 
   @Override
   public String toValuesString() {
     return String.format(
-        "%d, '%s',  '%s', '%s', %d, %d",
-        requestID, labType, nodeID, employeeName, emergency, status.getValue());
+        "%d, '%s',  '%s', %d, %d, %d",
+        requestID, labType, nodeID, employeeID, emergency, status.getValue());
   }
 }

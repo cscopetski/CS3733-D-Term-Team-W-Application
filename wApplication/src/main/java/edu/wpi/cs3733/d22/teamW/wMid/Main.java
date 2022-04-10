@@ -48,21 +48,21 @@ public class Main {
 
     fields.add("XRY");
     fields.add("wSTOR001L1");
-    fields.add("JOE NAME");
+    fields.add("2");
     fields.add("" + 0);
 
     ArrayList<String> fields2 = new ArrayList<>();
 
     fields2.add("XRY");
     fields2.add("wSTOR001L1");
-    fields2.add("JOE2 NAME");
+    fields2.add("2");
     fields2.add("" + 1);
 
     ArrayList<String> fields3 = new ArrayList<>();
 
     fields3.add("XRY");
     fields3.add("wSTOR001L1");
-    fields3.add("JOE2 NAME");
+    fields3.add("3");
     fields3.add("" + 0);
 
     try {
@@ -94,40 +94,92 @@ public class Main {
         .exportLabServiceRequestCSV("LABTEST.csv");
 
     EmployeeManager edi = EmployeeManager.getEmployeeManager();
-    edi.addEmployee(1, "Wilson", "Wong", "Teacher", "wwong1", "IluvCS!");
-    edi.addEmployee(2, "Matthew", "Spofford", "Coach", "mspoff", "goTeamW!!");
-    edi.changeEmployee(2, "Matthew", "Spofford", "SA", "mspoff1", "goTeamW!!!");
-    edi.addEmployee(3, "Wumbo", "Wong", "Teacher", "wwong2", "IluvCS!");
-    edi.deleteEmployee(1);
+    edi.addEmployee(
+        7,
+        "Mr.",
+        "Secure",
+        "Security",
+        "security@hospital.com",
+        "(123)456789",
+        "somewhere",
+        "secur",
+        "secur",
+        "");
+    if (edi.passwordMatch("secur", "secur")) {
+      System.out.println("SECUR, SECUR MATCH");
+    } else {
+      System.out.println("NO MATCH");
+    }
+    /*
+       edi.addEmployee(
+           1,
+           "N/A",
+           "Staff",
+           "Staff Member",
+           "staff@hospital.com",
+           "(123)4567890",
+           "Mass General",
+           "staff",
+           "staff",
+           "salt");
+       edi.addEmployee(
+           2,
+           "N/A",
+           "Administrator",
+           "admin",
+           "admin@hospital.com",
+           "(123)4567890",
+           "Office",
+           "admin",
+           "admin",
+           "salt");
+       edi.addEmployee(
+           3,
+           "Caleb",
+           "Scopetski",
+           "Doctor",
+           "N/A",
+           "(123)4567890",
+           "NeVer LeFt MaSs",
+           "Scoop",
+           "backEndGang",
+           "salt");
+       edi.addEmployee(
+           4,
+           "Edison",
+           "Zhang",
+           "Janitor",
+           "N/A",
+           "(123)4567890",
+           "Jamaica",
+           "ezhang",
+           "broMyASSSSS",
+           "salt");
+       edi.addEmployee(
+           5,
+           "Charlie",
+           "K-W",
+           "Nurse",
+           "N/A",
+           "(123)4567890",
+           "The North",
+           "charkw",
+           "Ih8Testing",
+           "salt");
+       edi.addEmployee(
+           6,
+           "Hasan",
+           "G",
+           "Lab Technician",
+           "N/A",
+           "(123)4567890",
+           "Bikini Bottom",
+           "hzgan",
+           "spongeBob",
+           "salt");
 
-    edi.addEmployee(4, "Wilson", "Wong", "Teacher", "admin", "admin");
-    edi.addEmployee(5, "Wilson", "Wong", "Prof", "staff", "staff");
-    edi.exportEmpCSV("Employees.csv");
+       edi.exportEmpCSV("Employees.csv");
 
-    /*Request test = requestFactory.findRequest(5);
-    Request test2 = requestFactory.findRequest(11);
-    Request test3 = requestFactory.findRequest(12);
-    Request test4 = requestFactory.findRequest(13);
-    // completes test
-    merc.completeRequest(test);
-    // Tries to cancel test but fails since it is completed
-    merc.cancelRequest(test);
-    // test 2 should be enqueue then cancelled starting test 3
-    merc.cancelRequest(test2);
-    merc.completeRequest(test2);
-    merc.cancelRequest(test3);
-    merc.completeRequest(test3);
-
-    /*LocationManager.getLocationManager().changeLocation(
-    LocationManager.getLocationManager().getAllLocations().get(0).getNodeID(),
-
-    Integer.parseInt("100"),
-    Integer.parseInt("100"),
-    "01",
-    "Tower",
-    "DEPT",
-    "TESTING",
-    "TEST");*/
-    // App.launch(App.class, args);
+    */
   }
 }

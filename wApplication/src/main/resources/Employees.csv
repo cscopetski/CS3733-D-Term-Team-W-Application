@@ -1,5 +1,7 @@
-employeeID,firstname,lastname,employeetype,username,password
-2,Matthew,Spofford,SA,mspoff1,goTeamW!!!
-3,Wumbo,Wong,Teacher,wwong2,IluvCS!
-4,Wilson,Wong,Teacher,admin,admin
-5,Wilson,Wong,Prof,staff,staff
+employeeID,firstname,lastname,employeetype,email,phonenumber,address,username,password,salt
+1,N/A,Staff,Staff Member,staff@hospital.com,(123)4567890,Mass General,staff,staff,salt
+2,N/A,Administrator,admin,admin@hospital.com,(123)4567890,Office,admin,admin,salt
+3,Caleb,Scopetski,Doctor,N/A,(123)4567890,NeVer LeFt MaSs,Scoop,backEndGang,salt
+4,Edison,Zhang,Janitor,N/A,(123)4567890,Jamaica,ezhang,broMyASSSSS,salt
+5,Charlie,K-W,Nurse,N/A,(123)4567890,The North,charkw,Ih8Testing,salt
+6,Hasan,G,Lab Technician,N/A,(123)4567890,Bikini Bottom,hzgan,spongeBob,salt

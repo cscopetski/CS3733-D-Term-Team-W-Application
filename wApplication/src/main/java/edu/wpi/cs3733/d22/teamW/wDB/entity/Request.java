@@ -15,7 +15,7 @@ public abstract class Request implements Entity {
   protected Integer emergency;
   protected String nodeID; // Location
   protected RequestStatus status; // 0 enqueue; 1 in progress; 2 done; 3 cancelled
-  protected String employeeName; // Will be changed to employee ID starting in sprint 1
+  protected Integer employeeID; // Will be changed to employee ID starting in sprint 1
 
   /*
   public Request(Integer requestID, Integer emergency, String nodeID, Integer status, String employeeName) {

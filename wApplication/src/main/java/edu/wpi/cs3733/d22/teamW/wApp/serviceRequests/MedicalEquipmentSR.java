@@ -21,8 +21,8 @@ public class MedicalEquipmentSR {
     return "Medical Equipment";
   }
 
-  public String getEmployeeName() {
-    return mer.getEmployeeName();
+  public Integer getEmployeeID() {
+    return mer.getEmployeeID();
   }
   /*
     public void setEmployeeName(String employeeName) {

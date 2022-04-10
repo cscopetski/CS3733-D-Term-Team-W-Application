@@ -39,7 +39,7 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
               + "                labReqID INT,\n"
               + "                labType varchar(25),\n"
               + "                nodeID varchar(25),\n"
-              + "                employeeName varchar(50),\n"
+              + "                employeeID INT,\n"
               + "                isEmergency INT,\n"
               + "                reqStatus INT, \n"
               + "                constraint LabReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),\n"
@@ -89,14 +89,14 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
       Integer requestID,
       String labType,
       String nodeID,
-      String employeeName,
+      Integer employeeID,
       Integer emergency,
       RequestStatus status)
       throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE LABSERVICEREQUESTS SET LABTYPE='%s', NODEID='%s', EMPLOYEENAME='%s', ISEMERGENCY=%d, REQSTATUS=%d WHERE LABREQID=%d",
-            labType, nodeID, employeeName, emergency, status.getValue(), requestID));
+            "UPDATE LABSERVICEREQUESTS SET LABTYPE='%s', NODEID='%s', EMPLOYEEID= %d, ISEMERGENCY=%d, REQSTATUS=%d WHERE LABREQID=%d",
+            labType, nodeID, employeeID, emergency, status.getValue(), requestID));
   }
 
   @Override

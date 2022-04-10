@@ -11,7 +11,8 @@ public interface MedRequestDao {
 
   void addMedRequest(MedRequest mr) throws SQLException;
 
-  void changeMedRequest(Integer id, String m, String n, String en, Integer ie, RequestStatus rs)
+
+  void changeMedRequest(Integer id, String m, String n, Integer en, Integer ie, RequestStatus rs)
       throws SQLException;
 
   void deleteMedRequest(Integer id) throws SQLException;

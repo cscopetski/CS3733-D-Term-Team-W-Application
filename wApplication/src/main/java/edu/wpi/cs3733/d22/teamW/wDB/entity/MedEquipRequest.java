@@ -13,14 +13,15 @@ public class MedEquipRequest extends Request {
   private String itemID; // Medical Equipment item
 
   public MedEquipRequest(
-      Integer requestID, Integer emergency, String itemType, String nodeID, String employeeName) {
+      Integer requestID, Integer emergency, String itemType, String nodeID, Integer employeeID) {
 
     this.requestID = requestID;
     this.emergency = emergency;
     this.itemType = itemType;
     this.nodeID = nodeID;
-    this.employeeName = employeeName;
+    this.employeeID = employeeID;
     this.status = RequestStatus.InQueue;
+    this.status = 0;
   }
 
   public MedEquipRequest(ArrayList<String> medReqData) {
@@ -33,7 +34,7 @@ public class MedEquipRequest extends Request {
     this.itemID = medReqData.get(1);
     this.itemType = medReqData.get(2);
     this.nodeID = medReqData.get(3);
-    this.employeeName = medReqData.get(4);
+    this.employeeID = Integer.parseInt(medReqData.get(4));
 
     try {
       this.emergency = Integer.parseInt(medReqData.get(5));
@@ -48,12 +49,13 @@ public class MedEquipRequest extends Request {
     }
   }
 
+  // TODO fixing this constructor, may be out of order??
   public MedEquipRequest(Integer index, ArrayList<String> fields) {
     this.requestID = index;
     this.itemID = "NONE";
     this.itemType = fields.get(0);
     this.nodeID = fields.get(1);
-    this.employeeName = fields.get(2);
+    this.employeeID = Integer.parseInt(fields.get(2));
 
     try {
       this.emergency = Integer.parseInt(fields.get(3));
@@ -73,7 +75,7 @@ public class MedEquipRequest extends Request {
     this.itemID = medEquipReqData[1];
     this.itemType = medEquipReqData[2];
     this.nodeID = medEquipReqData[3];
-    this.employeeName = medEquipReqData[4];
+    this.employeeID = Integer.parseInt(medEquipReqData[4]);
     this.emergency = Integer.parseInt(medEquipReqData[5]);
     this.status = RequestStatus.getRequestStatus(Integer.parseInt(medEquipReqData[6]));
   }
@@ -85,12 +87,12 @@ public class MedEquipRequest extends Request {
 
   public String toCSVString() {
     return String.format(
-        "%d,%s,%s,%s,%s,%d,%d",
+        "%d,%s,%s,%s,%d,%d,%d",
         this.requestID,
         this.itemID,
         this.itemType,
         this.nodeID,
-        this.employeeName,
+        this.employeeID,
         this.emergency,
         this.status.getValue());
   }
@@ -99,12 +101,12 @@ public class MedEquipRequest extends Request {
   public String toValuesString() {
 
     return String.format(
-        "%d, '%s', '%s', '%s', '%s', %d, %d",
+        "%d, '%s', '%s', '%s', %d, %d, %d",
         this.requestID,
         this.itemID,
         this.itemType,
         this.nodeID,
-        this.employeeName,
+        this.employeeID,
         this.emergency,
         this.status.getValue());
   }
@@ -121,8 +123,8 @@ public class MedEquipRequest extends Request {
     this.emergency = emergency;
   }
 
-  public void setEmployeeName(String name) {
-    this.employeeName = name;
+  public void setEmployeeName(Integer ID) {
+    this.employeeID = ID;
   }
 
   public void setNodeID(String nodeID) {
@@ -133,8 +135,8 @@ public class MedEquipRequest extends Request {
     return this.nodeID;
   }
 
-  public String getEmployeeName() {
-    return this.employeeName;
+  public Integer getEmployeeID() {
+    return this.employeeID;
   }
 
   @Override
@@ -150,7 +152,7 @@ public class MedEquipRequest extends Request {
         && this.status == m.getStatus()
         && this.nodeID.equals(m.getNodeID())
         && this.emergency == m.getEmergency()
-        && this.employeeName.equals(m.getEmployeeName())
+        && this.employeeID == m.getEmployeeID()
         && this.itemType.equals(m.getItemType())
         && this.itemID.equals(m.getItemID());
   }
