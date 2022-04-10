@@ -256,15 +256,15 @@
 
 .menu-button:hover,
 .menu-button:pressed{
-    -fx-background-color: white;
-    -fx-background-radius: 15px;
-    -fx-background-insets: 5px;
-    -fx-border-color: #013895;
-    -fx-border-radius: 15px;
-    -fx-border-width: 3px;
     -fx-font-weight: bold;
-    -fx-fontsize: 22px;
-    -fx-text-fill: -fx-button-second-font-color;
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-fontsize: 22;
+    -fx-text-fill: #013895;
+    -fx-border-color: #013895;
+    -fx-border-radius: 15;
+    -fx-border-width: 1;
+
 }
 
 .context-menu {
@@ -286,7 +286,7 @@
     -fx-background-radius: 15px;
     -fx-border-color: #013895;
     -fx-border-radius: 15px;
-    -fx-border-width: 3px;
+    -fx-border-width: 1px;
     -fx-spacing: 20px;
 }
 
