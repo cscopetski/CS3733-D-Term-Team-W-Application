@@ -107,23 +107,77 @@ public class Main {
     lsrc.exportLabServiceRequestCSV("LABTEST.csv");
 
     EmployeeDaoImpl edi = new EmployeeDaoImpl(DBController.getDBController());
-
     /*
-    edi.addEmployee(
-        1,
-        "Wilson",
-        "Wong",
-        "Teacher",
-        "wwong2@wpi.edu",
-        "123-456 (789)",
-        "100 Institute Rd Worcester MA 01609",
-        "wwong2",
-        "IluvCS!",
-        "test");
-        */
-    // edi.deleteEmployee(1);
+       edi.addEmployee(
+           1,
+           "N/A",
+           "Staff",
+           "Staff Member",
+           "staff@hospital.com",
+           "(123)4567890",
+           "Mass General",
+           "staff",
+           "staff",
+           "salt");
+       edi.addEmployee(
+           2,
+           "N/A",
+           "Administrator",
+           "admin",
+           "admin@hospital.com",
+           "(123)4567890",
+           "Office",
+           "admin",
+           "admin",
+           "salt");
+       edi.addEmployee(
+           3,
+           "Caleb",
+           "Scopetski",
+           "Doctor",
+           "N/A",
+           "(123)4567890",
+           "NeVer LeFt MaSs",
+           "Scoop",
+           "backEndGang",
+           "salt");
+       edi.addEmployee(
+           4,
+           "Edison",
+           "Zhang",
+           "Janitor",
+           "N/A",
+           "(123)4567890",
+           "Jamaica",
+           "ezhang",
+           "broMyASSSSS",
+           "salt");
+       edi.addEmployee(
+           5,
+           "Charlie",
+           "K-W",
+           "Nurse",
+           "N/A",
+           "(123)4567890",
+           "The North",
+           "charkw",
+           "Ih8Testing",
+           "salt");
+       edi.addEmployee(
+           6,
+           "Hasan",
+           "G",
+           "Lab Technician",
+           "N/A",
+           "(123)4567890",
+           "Bikini Bottom",
+           "hzgan",
+           "spongeBob",
+           "salt");
 
-    edi.exportEmpCSV("Employees.csv");
+       edi.exportEmpCSV("Employees.csv");
+
+    */
   }
 
   public static void testHash() {
