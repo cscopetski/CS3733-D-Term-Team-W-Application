@@ -70,16 +70,8 @@ public class DBController {
     }
   }
 
-  public ResultSet executeQuery(String sql) throws SQLException {
-    return statement.executeQuery(sql);
-  }
-
-  public int executeUpdate(String sql) throws SQLException {
-    return statement.executeUpdate(sql);
-  }
-
-  public boolean execute(String sql) throws SQLException {
-    return statement.execute(sql);
+  public Statement getStatement() {
+    return this.statement;
   }
 
   /**
