@@ -21,13 +21,12 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
     dropTable();
   }
 
-  void dropTable() throws SQLException {
+  void dropTable() {
     try {
       statement.execute("DROP TABLE LABSERVICEREQUESTS");
       System.out.println("Dropped Lab Service Requests Table");
     } catch (SQLException e) {
       System.out.println("Failed to drop Lab Service Requests Table");
-      throw (e);
     }
   }
 

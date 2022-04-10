@@ -16,7 +16,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
     dropTable();
   }
 
-  void dropTable() throws SQLException {
+  void dropTable() {
     try {
       statement.execute("DROP TABLE MEDREQUESTS");
       System.out.println("Dropped Medicine Request Table");

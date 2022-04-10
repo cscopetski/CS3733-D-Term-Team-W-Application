@@ -24,13 +24,12 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
     dropTable();
   }
 
-  void dropTable() throws SQLException {
+  void dropTable() {
     try {
       statement.execute("DROP TABLE EMPLOYEES");
       System.out.println("Dropped Employee Table");
     } catch (SQLException e) {
       System.out.println("Failed to drop Employee Table");
-      throw (e);
     }
   }
 
