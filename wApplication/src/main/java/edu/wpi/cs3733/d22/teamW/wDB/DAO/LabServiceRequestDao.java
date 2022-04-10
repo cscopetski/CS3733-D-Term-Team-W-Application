@@ -15,7 +15,7 @@ public interface LabServiceRequestDao {
       Integer requestID,
       String labType,
       String nodeID,
-      String employeeName,
+      Integer employeeID,
       Integer emergency,
       Integer status)
       throws SQLException;

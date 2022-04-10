@@ -43,6 +43,7 @@ public class LabServiceRequestManager implements RequestManager {
       fields.add("0");
       lSR = new LabServiceRequest(num, fields);
     } else {
+      System.out.println("Right before making lSR");
       lSR = new LabServiceRequest(fields);
     }
 
@@ -56,7 +57,7 @@ public class LabServiceRequestManager implements RequestManager {
         request.getRequestID(),
         request.getLabType(),
         request.getNodeID(),
-        request.getEmployeeName(),
+        request.getEmployeeID(),
         request.getEmergency(),
         1);
   }
@@ -66,7 +67,7 @@ public class LabServiceRequestManager implements RequestManager {
         request.getRequestID(),
         request.getLabType(),
         request.getNodeID(),
-        request.getEmployeeName(),
+        request.getEmployeeID(),
         request.getEmergency(),
         2);
   }
@@ -76,7 +77,7 @@ public class LabServiceRequestManager implements RequestManager {
         request.getRequestID(),
         request.getLabType(),
         request.getNodeID(),
-        request.getEmployeeName(),
+        request.getEmployeeID(),
         request.getEmergency(),
         3);
   }
