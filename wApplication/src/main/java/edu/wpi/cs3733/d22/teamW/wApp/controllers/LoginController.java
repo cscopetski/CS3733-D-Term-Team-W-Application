@@ -17,6 +17,9 @@ public class LoginController extends LoadableController {
   @FXML TextField password;
   ArrayList<String> passwordHidden;
   ArrayList<String> passwordShown;
+  @FXML Label existCase;
+  @FXML Label matchCase;
+
   EmployeeManager eM = EmployeeManager.getEmployeeManager();
 
   Alert emptyFields =
@@ -39,14 +42,19 @@ public class LoginController extends LoadableController {
   public void onUnload() {}
 
   public void login() throws SQLException {
-
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
+      existCase.setVisible(false);
+      matchCase.setVisible(false);
       if (eM.passwordMatch(username.getText(), password.getText())) {
         ((DefaultPageController)
                 SceneManager.getInstance().getController(SceneManager.Scenes.Default))
             .menuBar.setVisible(true);
         SceneManager.getInstance()
             .transitionTo(SceneManager.Scenes.MainMenu, SceneManager.Transitions.FadeOut);
+      } else if (!eM.usernameExists(username.getText())) {
+        existCase.setVisible(true);
+      } else {
+        matchCase.setVisible(true);
       }
     } else {
       emptyFields.show();
