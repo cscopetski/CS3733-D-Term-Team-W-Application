@@ -7,26 +7,26 @@ import javafx.event.ActionEvent;
 public class RequestHubController {
 
   public void switchToMedicineDelivery(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MedicineDelivery);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicineDelivery);
   }
 
   public void switchToLab(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Lab);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Lab);
   }
 
   public void switchToMedicalEquipmentDelivery(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MedicalEquipment);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicalEquipment);
   }
 
   public void switchToMealDelivery(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MealDelivery);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MealDelivery);
   }
 
   public void switchToLanguageInterpreter(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.LanguageInterpreter);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.LanguageInterpreter);
   }
 
   public void switchToSecurity(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Security);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Security);
   }
 }

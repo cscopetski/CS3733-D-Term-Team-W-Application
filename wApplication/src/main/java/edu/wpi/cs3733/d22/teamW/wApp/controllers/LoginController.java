@@ -45,7 +45,7 @@ public class LoginController extends LoadableController {
                 SceneManager.getInstance().getController(SceneManager.Scenes.Default))
             .menuBar.setVisible(true);
         SceneManager.getInstance()
-            .transitionTo(SceneManager.Scenes.MainMenu, SceneManager.Transitions.Fade);
+            .transitionTo(SceneManager.Scenes.MainMenu, SceneManager.Transitions.FadeOut);
       }
     } else {
       emptyFields.show();
