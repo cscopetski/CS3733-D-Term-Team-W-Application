@@ -22,9 +22,17 @@
                                 <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Menu" textAlignment="CENTER" textOverrun="CLIP">
                                     <items>
                                         <MenuItem mnemonicParsing="false" onAction="#switchToMainMenu" text="Main Menu" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToProfile" text="Account" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToAbout" text="About" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToHelp" text="Help" />
-                                        <MenuItem mnemonicParsing="false" onAction="#switchToMapEditor" text="Map Editor" />
+                                        <MenuItem mnemonicParsing="false" onAction="#logOut" text="Log Out" />
+                                    </items>
+                                    <HBox.margin>
+                                        <Insets right="10.0" top="10.0" />
+                                    </HBox.margin>
+                                </MenuButton>
+                                <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Requests" textAlignment="CENTER" textOverrun="CLIP">
+                                    <items>
                                         <MenuItem mnemonicParsing="false" onAction="#switchToRequestHub" text="Request Hub" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToRequestList" text="Request List" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToLab" text="Lab Services" />
@@ -38,12 +46,7 @@
                                         <Insets right="10.0" top="10.0" />
                                     </HBox.margin>
                                 </MenuButton>
-                                <Button mnemonicParsing="false" onAction="#switchToProfile" prefHeight="30.0" prefWidth="113.0" text="Profile" textFill="WHITE">
-                                    <HBox.margin>
-                                        <Insets right="10.0" top="10.0" />
-                                    </HBox.margin>
-                                </Button>
-                                <Button mnemonicParsing="false" onAction="#logOut" prefHeight="30.0" prefWidth="113.0" text="Logout" textFill="WHITE">
+                                <Button mnemonicParsing="false" onAction="#switchToMapEditor" prefHeight="30.0" prefWidth="113.0" text="Map Editor" textFill="WHITE">
                                     <HBox.margin>
                                         <Insets right="10.0" top="10.0" />
                                     </HBox.margin>
