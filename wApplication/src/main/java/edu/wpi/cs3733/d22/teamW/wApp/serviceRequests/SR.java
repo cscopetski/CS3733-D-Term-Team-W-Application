@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import java.sql.SQLException;
 
 public abstract class SR {
   protected final Request REQUEST;
@@ -27,8 +29,15 @@ public abstract class SR {
     return REQUEST.getStatus();
   }
 
-  public Integer getEmployeeName() {
-    return REQUEST.getEmployeeID();
+  public String getEmployeeName() {
+    try {
+      return EmployeeManager.getEmployeeManager()
+          .getEmployee(REQUEST.getEmployeeID())
+          .getFirstName();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return null;
+    }
   }
 
   public abstract String getRequestType();

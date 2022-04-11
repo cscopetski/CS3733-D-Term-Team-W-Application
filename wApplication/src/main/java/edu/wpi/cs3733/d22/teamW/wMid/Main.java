@@ -102,7 +102,7 @@ public class Main {
         "somewhere",
         "secur",
         "secur",
-        "");
+        "NEW");
     if (edi.passwordMatch("secur", "secur")) {
       System.out.println("SECUR, SECUR MATCH");
     } else {

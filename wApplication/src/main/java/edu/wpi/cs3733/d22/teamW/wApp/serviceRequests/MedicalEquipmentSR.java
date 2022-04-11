@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 
 public class MedicalEquipmentSR extends SR {
@@ -13,11 +12,8 @@ public class MedicalEquipmentSR extends SR {
   }
 
   public Integer getEmployeeID() {
-
     return REQUEST.getEmployeeID();
   }
-
-
 
   @Override
   public String getFormattedInfo() {
