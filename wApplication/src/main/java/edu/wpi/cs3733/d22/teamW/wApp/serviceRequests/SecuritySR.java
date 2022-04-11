@@ -12,4 +12,9 @@ public class SecuritySR extends SR {
   public String getRequestType() {
     return "Security Service";
   }
+
+  @Override
+  public String getFormattedInfo() {
+    return "";
+  }
 }

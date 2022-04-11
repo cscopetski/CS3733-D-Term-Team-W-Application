@@ -12,4 +12,9 @@ public class MealDeliverySR extends SR {
   public String getRequestType() {
     return "Meal Delivery";
   }
+
+  @Override
+  public String getFormattedInfo() {
+    return "";
+  }
 }

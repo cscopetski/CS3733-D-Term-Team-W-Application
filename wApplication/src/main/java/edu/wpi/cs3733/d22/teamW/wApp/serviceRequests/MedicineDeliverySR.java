@@ -12,4 +12,9 @@ public class MedicineDeliverySR extends SR {
   public String getRequestType() {
     return "Medicine Delivery";
   }
+
+  @Override
+  public String getFormattedInfo() {
+    return "";
+  }
 }

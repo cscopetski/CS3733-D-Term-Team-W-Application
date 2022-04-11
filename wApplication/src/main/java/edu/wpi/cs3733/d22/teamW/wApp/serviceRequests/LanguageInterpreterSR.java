@@ -12,4 +12,9 @@ public class LanguageInterpreterSR extends SR {
   public String getRequestType() {
     return "Language Interpreter";
   }
+
+  @Override
+  public String getFormattedInfo() {
+    return "";
+  }
 }

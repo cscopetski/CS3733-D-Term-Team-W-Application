@@ -11,4 +11,13 @@ public class LabServiceSR extends SR {
   public String getRequestType() {
     return "Lab Service";
   }
+
+  @Override
+  public String getFormattedInfo() {
+    String info = "";
+    if (this.getEmergency() == 1) {
+      info += "Request marked as an EMERGENCY\n";
+    }
+    return info;
+  }
 }
