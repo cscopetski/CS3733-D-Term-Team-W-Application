@@ -262,7 +262,7 @@ public class MapEditorController extends LoadableController {
         .putInformation(SceneManager.getInstance().getPrimaryStage(), "addLoc", p);
     SceneManager.getInstance()
         .putInformation(SceneManager.getInstance().getPrimaryStage(), "floor", currFloor);
-    Stage S = SceneManager.getInstance().openWindow("newLocationPage.fxml");
+    Stage S = SceneManager.getInstance().openWindow("popUpViews/newLocationPage.fxml");
     refresh();
   }
 

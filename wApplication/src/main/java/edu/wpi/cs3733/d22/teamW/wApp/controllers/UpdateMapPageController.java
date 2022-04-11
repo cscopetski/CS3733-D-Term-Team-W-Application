@@ -1,20 +1,20 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 public class UpdateMapPageController implements Initializable {
@@ -30,9 +30,11 @@ public class UpdateMapPageController implements Initializable {
   @FXML private TextField lnameField;
   @FXML private TextField snameField;
   @FXML private TextField buildingField;
+  @FXML private TableView<medEquip> EqTab;
+  private ArrayList<medEquip> equipList = new ArrayList<>();
   @FXML private Alert confirmChoice = new Alert(Alert.AlertType.CONFIRMATION);
   Location loc;
-
+  private MedEquipManager equipController = MedEquipManager.getMedEquipManager();
   private LocationManager locationManager = LocationManager.getLocationManager();
 
   public void updateLoc(ActionEvent actionEvent) throws SQLException {
@@ -71,6 +73,25 @@ public class UpdateMapPageController implements Initializable {
     ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
   }
 
+  private void generateEquipList() {
+    equipList.clear();
+    ArrayList<MedEquip> eqList = null;
+    try {
+      eqList = equipController.getAllMedEquip();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    for (int i = 0; i < eqList.size(); i++) {
+      if (eqList.get(i).getNodeID().equalsIgnoreCase(loc.getNodeID())) {
+        equipList.add(
+            new medEquip(
+                eqList.get(i).getMedID(), eqList.get(i).getType(), eqList.get(i).getStatus()));
+      }
+    }
+    EqTab.getItems().clear();
+    EqTab.getItems().addAll(equipList);
+  }
+
   public void onLoad() throws SQLException {
     String locName =
         (String)
@@ -90,9 +111,7 @@ public class UpdateMapPageController implements Initializable {
     floorField.setText(loc.getFloor());
     lnameField.setText(loc.getLongName());
     snameField.setText(loc.getShortName());
-
-    // loc.setLocationsList();
-
+    generateEquipList();
   }
 
   @Override

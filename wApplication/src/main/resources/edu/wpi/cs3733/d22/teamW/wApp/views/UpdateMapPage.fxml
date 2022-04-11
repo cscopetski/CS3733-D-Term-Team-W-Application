@@ -31,9 +31,9 @@
       <Button fx:id="resetButton" layoutX="187.0" layoutY="279.0" mnemonicParsing="false" onAction="#resetFields" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Reset" />
       <Button fx:id="cancelButton" layoutX="314.0" layoutY="279.0" mnemonicParsing="false" onAction="#cancelUpdate" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Exit" />
       <Button fx:id="removeButton" layoutX="241.0" layoutY="280.0" mnemonicParsing="false" onAction="#removeLoc" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Remove" />
-      <TableView fx:id="EqTab" layoutX="485.0" layoutY="23.0" prefHeight="128.0" prefWidth="221.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
+      <TableView fx:id="EqTab" layoutX="511.0" layoutY="54.0" prefHeight="128.0" prefWidth="225.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
          <columns>
-            <TableColumn minWidth="0.0" prefWidth="64.0" text="Type">
+            <TableColumn prefWidth="62.666648864746094" text="Type">
                <cellValueFactory>
                   <PropertyValueFactory property="Type" />
                </cellValueFactory>
@@ -43,7 +43,30 @@
                   <PropertyValueFactory property="MedID" />
                </cellValueFactory>
             </TableColumn>
-            <TableColumn prefWidth="75.0" text="Status" />
+            <TableColumn prefWidth="75.0" text="Status">
+               <cellValueFactory>
+                  <PropertyValueFactory property="Status" />
+               </cellValueFactory>
+            </TableColumn>
+         </columns>
+      </TableView>
+      <TableView fx:id="EqTab1" layoutX="511.0" layoutY="179.0" prefHeight="128.0" prefWidth="225.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
+         <columns>
+            <TableColumn prefWidth="62.666648864746094" text="RequestID">
+               <cellValueFactory>
+                  <PropertyValueFactory property="Type" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="91.99993896484375" text="Emergency">
+               <cellValueFactory>
+                  <PropertyValueFactory property="MedID" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="48.00006103515625" text="Status">
+               <cellValueFactory>
+                  <PropertyValueFactory property="Status" />
+               </cellValueFactory>
+            </TableColumn>
          </columns>
       </TableView>
    </children>
