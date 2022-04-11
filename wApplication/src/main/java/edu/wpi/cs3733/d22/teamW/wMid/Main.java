@@ -3,7 +3,6 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 public class Main {
 
   public static void main(String[] args) throws SQLException, FileNotFoundException {
-    //DBConnectionMode.INSTANCE.setServerConnection();
+    // DBConnectionMode.INSTANCE.setServerConnection();
     // App.launch(App.class, args);
 
     final String locationFileName = "TowerLocations.csv";
@@ -106,10 +105,30 @@ public class Main {
         "secur",
         "secur",
         "NEW");
-    if (edi.passwordMatch("secur", "secur")) {
-      System.out.println("SECUR, SECUR MATCH");
+
+    edi.changeEmployee(
+        6,
+        "new Hasan",
+        "new G",
+        "new Type",
+        "new Email",
+        "new Phone",
+        "new Address",
+        "joe",
+        "joe123");
+
+    if (edi.passwordMatch("joe", "joe123")) {
+      System.out.println("hzgan, spongeBob MATCH");
     } else {
       System.out.println("NO MATCH");
+    }
+
+    edi.addEmployee(
+        8, "frontend", "no salt", "no salt", "no salt", "no salt", "no salt", "no", "salt");
+    if (edi.passwordMatch("no", "salt")) {
+      System.out.println("match");
+    } else {
+      System.out.println("no match");
     }
     /*
        edi.addEmployee(
@@ -182,5 +201,6 @@ public class Main {
        edi.exportEmpCSV("Employees.csv");
 
     */
+    edi.exportEmpCSV("Employees.csv");
   }
 }

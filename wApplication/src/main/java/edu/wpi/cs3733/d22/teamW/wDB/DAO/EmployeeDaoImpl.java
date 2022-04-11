@@ -118,12 +118,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
       String phoneNumber,
       String address,
       String username,
-      String password,
-      String salt)
+      String password)
       throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE EMPLOYEES SET FIRSTNAME = '%s', LASTNAME = '%s', EMPLOYEETYPE = '%s', EMAIL = '%s', PHONENUMBER = '%s', ADDRESS = '%s', USERNAME = '%s', PASSWORD = '%s', SALT = '%s' WHERE EMPLOYEEID = %d",
+            "UPDATE EMPLOYEES SET FIRSTNAME = '%s', LASTNAME = '%s', EMPLOYEETYPE = '%s', EMAIL = '%s', PHONENUMBER = '%s', ADDRESS = '%s', USERNAME = '%s', PASSWORD = '%s' WHERE EMPLOYEEID = %d",
             firstname,
             lastname,
             type,
@@ -132,7 +131,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
             address,
             username,
             password,
-            salt,
             employeeID));
   }
 

@@ -28,6 +28,21 @@ public class EmployeeManager {
     return ed.passwordMatch(username, password);
   }
 
+  /**
+   * Adds an existing employee to the database, remove the salt field to add a NEW one
+   *
+   * @param employeeID
+   * @param firstname
+   * @param lastname
+   * @param type
+   * @param email
+   * @param phoneNumber
+   * @param address
+   * @param username
+   * @param password
+   * @param salt
+   * @throws SQLException
+   */
   public void addEmployee(
       Integer employeeID,
       String firstname,
@@ -53,6 +68,30 @@ public class EmployeeManager {
         salt);
   }
 
+  public void addEmployee(
+      Integer employeeID,
+      String firstname,
+      String lastname,
+      String type,
+      String email,
+      String phoneNumber,
+      String address,
+      String username,
+      String password)
+      throws SQLException {
+    ed.addEmployee(
+        employeeID,
+        firstname,
+        lastname,
+        type,
+        email,
+        phoneNumber,
+        address,
+        username,
+        password,
+        "NEW");
+  }
+
   public void deleteEmployee(Integer employeeID) throws SQLException {
     ed.deleteEmployee(employeeID);
   }
@@ -66,20 +105,10 @@ public class EmployeeManager {
       String phoneNumber,
       String address,
       String username,
-      String password,
-      String salt)
+      String password)
       throws SQLException {
     ed.changeEmployee(
-        employeeID,
-        firstname,
-        lastname,
-        email,
-        phoneNumber,
-        address,
-        type,
-        username,
-        password,
-        salt);
+        employeeID, firstname, lastname, email, phoneNumber, address, type, username, password);
   }
 
   public ArrayList<Employee> getAllEmployees() throws SQLException {

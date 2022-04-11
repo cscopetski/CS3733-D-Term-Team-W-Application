@@ -32,8 +32,7 @@ public interface EmployeeDao {
       String phoneNumber,
       String address,
       String username,
-      String password,
-      String salt)
+      String password)
       throws SQLException;
 
   void exportEmpCSV(String fileName);

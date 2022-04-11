@@ -150,7 +150,6 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
    * @param address
    * @param username
    * @param password
-   * @param salt
    * @throws SQLException
    */
   @Override
@@ -163,13 +162,25 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
       String phoneNumber,
       String address,
       String username,
-      String password,
-      String salt)
+      String password)
       throws SQLException {
-    statement.executeUpdate(
-        String.format(
-            "UPDATE EMPLOYEES SET FIRSTNAME = '%s', LASTNAME = '%s', EMPLOYEETYPE = '%s', EMAIL = '%s', PHONENUMBER = '%s', ADDRESS = '%s' WHERE EMPLOYEEID = %d",
-            firstname, lastname, type, email, phoneNumber, address, employeeID));
+    try {
+      String newPass = generateHash(password, getSalt(employeeID));
+      statement.executeUpdate(
+          String.format(
+              "UPDATE EMPLOYEES SET FIRSTNAME = '%s', LASTNAME = '%s', EMPLOYEETYPE = '%s', EMAIL = '%s', PHONENUMBER = '%s', ADDRESS = '%s', USERNAME = '%s', PASSWORD = '%s' WHERE EMPLOYEEID = %d",
+              firstname,
+              lastname,
+              type,
+              email,
+              phoneNumber,
+              address,
+              username,
+              newPass,
+              employeeID));
+    } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -210,7 +221,9 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
 
   public boolean passwordMatch(String username, String password) throws SQLException {
     try {
-      password = generateHash(password, getSalt(username));
+      Integer empID = getIDFromUsername(username);
+      if (empID == null) return false;
+      password = generateHash(password, getSalt(empID));
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
     } catch (InvalidKeySpecException e) {
@@ -225,16 +238,28 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
     return (rs.getInt("COUNT") == 1);
   }
 
+  private Integer getIDFromUsername(String username) {
+    try {
+      ResultSet rs =
+          statement.executeQuery(
+              String.format("SELECT EMPLOYEEID FROM EMPLOYEES WHERE USERNAME = '%s'", username));
+      rs.next();
+      return rs.getInt("EMPLOYEEID");
+    } catch (SQLException e) {
+      return null;
+    }
+  }
+
   /**
-   * Returns the salt of the username
+   * Returns the salt of the employee ID
    *
-   * @param username
+   * @param employeeID
    * @return
    */
-  public String getSalt(String username) throws SQLException {
+  public String getSalt(Integer employeeID) throws SQLException {
     ResultSet rs =
         statement.executeQuery(
-            String.format("SELECT SALT FROM EMPLOYEES WHERE USERNAME = '%s'", username));
+            String.format("SELECT SALT FROM EMPLOYEES WHERE EMPLOYEEID = %d", employeeID));
     rs.next();
     return rs.getString("SALT");
   }
