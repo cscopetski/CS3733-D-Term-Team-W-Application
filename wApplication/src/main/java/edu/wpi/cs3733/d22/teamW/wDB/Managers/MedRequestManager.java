@@ -113,7 +113,7 @@ public class MedRequestManager implements ServiceRequestManager {
   }
 
   // TODO should or should not have
-  /*
+
   public void changeMedRequest(
       Integer id,
       String m,
@@ -125,7 +125,7 @@ public class MedRequestManager implements ServiceRequestManager {
       Timestamp updatedTimestamp)
       throws SQLException {
     mrd.changeMedRequest(id, m, n, en, ie, rs, createdTimestamp, updatedTimestamp);
-  }*/
+  }
 
   @Override
   public Request getRequest(Integer ID) throws SQLException {
