@@ -4,11 +4,9 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
@@ -46,23 +44,33 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
           "18:30");
 
   // Tables:
-  @FXML TableColumn medCol;
-  @FXML TableColumn nameCol;
-  @FXML TableColumn numCol;
   @FXML private TableView<MedicalEquipmentSR> table;
 
-  // Table Lists:
+  // Lists:
   private ArrayList<MedicalEquipmentSR> sr = new ArrayList<>();
 
   // other stuff:
   boolean emergencyLevel = false;
   @FXML Button emergencyB;
+  ServiceRequestHelper helper = new ServiceRequestHelper(populateFields());
 
   protected SceneManager.Scenes GetSceneType() {
     return SceneManager.Scenes.MedicineDelivery;
   }
 
-  // clear all UI inputs:
+  private ArrayList<Control> populateFields() {
+    ArrayList<Control> fields = new ArrayList<>();
+
+    fields.add(quantityField);
+    fields.add(itemCodeField);
+    fields.add(medNameCBox);
+    fields.add(locationCBox);
+    fields.add(timePrefCBox);
+    fields.add(requesterCBox);
+
+    return fields;
+  }
+
   public void clearFields() {
     quantityField.clear();
     itemCodeField.clear();
@@ -81,7 +89,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   }
 
   public void onUnload() {
-    clearFields();
+    helper.clearFields();
   }
 
   private void populateTable() {
@@ -100,13 +108,17 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
   private void pushDataToDB() throws SQLException {
     ArrayList<String> fields = new ArrayList<>();
-    fields.add(medCol.getText());
-    fields.add(nameCol.getText());
-    fields.add(numCol.getText());
+    fields.add(quantityField.getText());
+    fields.add(itemCodeField.getText());
+    fields.add(medNameCBox.getValue().toString());
+    fields.add(locationCBox.getValue().toString());
+    fields.add(timePrefCBox.getValue().toString());
+    fields.add(requesterCBox.getValue().toString());
     RequestFactory.getRequestFactory().getRequest(RequestType.MedicineDelivery, fields);
   }
 
   public void createRequest() throws SQLException {
+
     pushDataToDB();
     populateTable();
   }
