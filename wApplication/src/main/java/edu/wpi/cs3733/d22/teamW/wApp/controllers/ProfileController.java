@@ -44,19 +44,4 @@ public class ProfileController extends LoadableController {
 
   @Override
   public void onUnload() {}
-
-  public void load(ActionEvent actionEvent) {
-    employee =
-        ((DefaultPageController)
-                SceneManager.getInstance().getController(SceneManager.Scenes.Default))
-            .getEmployee();
-    name.setText(employee.getFirstName() + " " + employee.getLastName());
-    id.setText(employee.getEmployeeID().toString());
-    type.setText(employee.getType());
-    email.setText(employee.getEmail());
-    phoneNumber.setText(employee.getPhoneNumber());
-    address.setText(employee.getAddress());
-    System.out.println(employee.getFirstName());
-    System.out.println("name");
-  }
 }
