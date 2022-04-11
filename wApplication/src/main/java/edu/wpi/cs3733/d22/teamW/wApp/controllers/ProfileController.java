@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import javafx.event.ActionEvent;
@@ -8,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 public class ProfileController extends LoadableController {
+  public RequestTable rt;
   @FXML ImageView profile;
   @FXML Label name;
   @FXML Label id;
@@ -47,7 +49,7 @@ public class ProfileController extends LoadableController {
                 SceneManager.getInstance().getController(SceneManager.Scenes.Default))
             .getEmployee();
     name.setText(employee.getFirstName() + " " + employee.getLastName());
-    id.setText(employee.getEmployeeID().toString());
+    id.setText("#" + employee.getEmployeeID().toString());
     type.setText(employee.getType());
     email.setText(employee.getEmail());
     phoneNumber.setText(employee.getPhoneNumber());
