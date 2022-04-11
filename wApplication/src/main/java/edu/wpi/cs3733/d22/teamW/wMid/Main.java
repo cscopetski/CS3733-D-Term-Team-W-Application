@@ -11,11 +11,9 @@ import java.util.ArrayList;
 public class Main {
 
   public static void main(String[] args) throws SQLException, FileNotFoundException {
-<<<<<<< HEAD
-=======
+
     // DBConnectionMode.INSTANCE.setServerConnection();
     // App.launch(App.class, args);
->>>>>>> Backend-Merge
 
     final String locationFileName = "TowerLocations.csv";
     final String medEquipFileName = "MedicalEquipment.csv";
@@ -125,7 +123,6 @@ public class Main {
     } else {
       System.out.println("NO MATCH");
     }
-<<<<<<< HEAD
 
     /*
     edi.addEmployee(
@@ -200,7 +197,6 @@ public class Main {
     edi.exportEmpCSV("Employees.csv");
 
     App.launch(App.class, args);
-=======
 
     edi.addEmployee(
         8, "frontend", "no salt", "no salt", "no salt", "no salt", "no salt", "no", "salt");
@@ -282,6 +278,5 @@ public class Main {
 
     */
     edi.exportEmpCSV("Employees.csv");
->>>>>>> Backend-Merge
   }
 }

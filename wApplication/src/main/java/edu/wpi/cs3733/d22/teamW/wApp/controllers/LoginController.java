@@ -4,6 +4,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.effect.*;
@@ -46,6 +47,7 @@ public class LoginController extends LoadableController {
       existCase.setVisible(false);
       matchCase.setVisible(false);
       if (eM.passwordMatch(username.getText(), password.getText())) {
+        eM.getEmployee(username.getText());
         ((DefaultPageController)
                 SceneManager.getInstance().getController(SceneManager.Scenes.Default))
             .menuBar.setVisible(true);
@@ -64,5 +66,9 @@ public class LoginController extends LoadableController {
     } else {
       emptyFields.show();
     }
+  }
+
+  public void onEnter(ActionEvent actionEvent) throws SQLException {
+    login();
   }
 }
