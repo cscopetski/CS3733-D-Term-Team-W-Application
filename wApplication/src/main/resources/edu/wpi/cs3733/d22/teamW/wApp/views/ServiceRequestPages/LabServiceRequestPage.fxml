@@ -144,7 +144,7 @@
                         </Pane>
                      </children>
                   </HBox>
-                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="71.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit">
+                  <Button mnemonicParsing="false" prefHeight="33.0" prefWidth="71.0" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit">
                      <font>
                         <Font size="14.0" />
                      </font>
