@@ -27,7 +27,8 @@ public class SceneManager {
     }
 
     public boolean tryOnLoad() {
-      if (controller != null && controller.getClass().equals(LoadableController.class)) {
+      if (controller != null
+          && controller.getClass().getSuperclass().equals(LoadableController.class)) {
         ((LoadableController) controller).onLoad();
         return true;
       }
@@ -35,7 +36,8 @@ public class SceneManager {
     }
 
     public boolean tryOnUnload() {
-      if (controller != null && controller.getClass().equals(LoadableController.class)) {
+      if (controller != null
+          && controller.getClass().getSuperclass().equals(LoadableController.class)) {
         ((LoadableController) controller).onUnload();
         return true;
       }
