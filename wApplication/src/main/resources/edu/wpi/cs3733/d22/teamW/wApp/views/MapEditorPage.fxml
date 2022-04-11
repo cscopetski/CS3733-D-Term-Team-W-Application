@@ -18,8 +18,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane prefHeight="663.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
+<BorderPane prefHeight="663.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
    <center>
       <Group BorderPane.alignment="CENTER">
          <children>
@@ -73,8 +72,8 @@
                </font>
             </Label>
               <Circle fill="RED" layoutX="197.0" layoutY="197.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
-            <Button fx:id="resetButton" layoutX="37.0" layoutY="489.0" mnemonicParsing="false" onAction="#resetCSV" style="-fx-background-color: #189DA6;" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Reset Map" />
-            <Button fx:id="exportButton" layoutX="123.0" layoutY="489.0" mnemonicParsing="false" onAction="#expCSV" style="-fx-background-color: #189DA6;" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Export to CSV" />
+            <Button fx:id="resetButton" layoutX="14.0" layoutY="489.0" mnemonicParsing="false" onAction="#resetCSV" style="-fx-background-color: #189DA6;" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Load Map from CSV" />
+            <Button fx:id="exportButton" layoutX="149.0" layoutY="489.0" mnemonicParsing="false" onAction="#expCSV" style="-fx-background-color: #189DA6;" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Export to CSV" />
          </children>
       </Pane>
    </right>

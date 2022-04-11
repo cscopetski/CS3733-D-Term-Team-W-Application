@@ -252,7 +252,7 @@ public class MapEditorController extends LoadableController {
             employeesFileName,
             medRequestFileName);
     locationManager.clearLocations();
-    csvController.insertIntoLocationsTable(csvController.importCSV(locationFileName));
+    csvController.insertIntoLocationsTable(csvController.importCSVfromFile(inputCSV));
     refresh();
   }
 
