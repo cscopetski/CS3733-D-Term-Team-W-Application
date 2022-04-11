@@ -324,7 +324,9 @@ public class MapEditorController extends LoadableController {
           "HOLD",
           medr.get(i).getEmployeeID(),
           medr.get(i).getEmergency(),
-          medr.get(i).getStatusInt());
+          medr.get(i).getStatus(),
+          medr.get(i).getCreatedTimestamp(),
+          medr.get(i).getUpdatedTimestamp());
     }
     ArrayList<Request> eqrl = medEquipRequestManager.getAllRequests();
     for (int i = 0; i < eqrl.size(); i++) {

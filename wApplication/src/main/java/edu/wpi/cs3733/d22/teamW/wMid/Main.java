@@ -3,7 +3,8 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -38,6 +39,16 @@ public class Main {
       e.printStackTrace();
     }
 
+    File file =
+        new File(
+            "C:/Users/cscop/OneDrive/WPI/2021-2022/Classes/D-Term/CS3733/Minimal Application/WumboWhowies/wApplication/LABTEST.csv");
+
+    for (String[] s : csvController.importCSVfromFile(file)) {
+      for (String d : s) {
+        System.out.println(d);
+      }
+    }
+
     MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
 
     RequestFactory requestFactory = RequestFactory.getRequestFactory();
@@ -62,14 +73,16 @@ public class Main {
     fields3.add("wSTOR001L1");
     fields3.add("3");
     fields3.add("" + 0);
+    /*
 
-    try {
-      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
-      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields2);
-      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields3);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+        try {
+          requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
+          requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields2);
+          requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields3);
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+    */
 
     /*Request test = requestFactory.findRequest(5);
       Request test2 = requestFactory.findRequest(21);
@@ -88,8 +101,6 @@ public class Main {
     LocationManager.getLocationManager().exportLocationsCSV("LOCATIONTEST.csv");
     MedEquipManager.getMedEquipManager().exportMedicalEquipmentCSV("MEDEQUIPTEST.csv");
     merc.exportMedEquipRequestCSV("MEDEQUIPREQUESTTEST.csv");
-    LabServiceRequestManager.getLabServiceRequestManager()
-        .exportLabServiceRequestCSV("LABTEST.csv");
 
     EmployeeManager edi = EmployeeManager.getEmployeeManager();
     edi.addEmployee(
@@ -102,12 +113,48 @@ public class Main {
         "somewhere",
         "secur",
         "secur",
-        "");
-    if (edi.passwordMatch("secur", "secur")) {
-      System.out.println("SECUR, SECUR MATCH");
+        "NEW");
+
+    edi.changeEmployee(
+        6,
+        "new Hasan",
+        "new G",
+        "new Type",
+        "new Email",
+        "new Phone",
+        "new Address",
+        "joe",
+        "joe123");
+
+    if (edi.passwordMatch("joe", "joe123")) {
+      System.out.println("hzgan, spongeBob MATCH");
     } else {
       System.out.println("NO MATCH");
     }
+
+    edi.addEmployee(
+        8, "frontend", "no salt", "no salt", "no salt", "no salt", "no salt", "no", "salt");
+    if (edi.passwordMatch("no", "salt")) {
+      System.out.println("match");
+    } else {
+      System.out.println("no match");
+    }
+    System.out.println(edi.getEmployee("joe").toCSVString());
+    /* // Req23 cancelled
+    merc.cancel(23);
+    // Req7 complete
+    merc.complete(7);
+    // Req5 cancelled and req 22 start
+    merc.cancel(5);
+    merc.reQueue(5);
+    merc.cancel(22);*/
+    merc.complete(2);
+    // MedEquipManager.getMedEquipManager().markDirty("BED002", "FEXIT00301");
+    System.out.println("\n\n\n\n");
+    for (Request e : requestFactory.getAllRequests()) {
+      System.out.println(e.toValuesString());
+    }
+
     /*
        edi.addEmployee(
            1,
@@ -179,6 +226,8 @@ public class Main {
        edi.exportEmpCSV("Employees.csv");
 
     */
+
+    edi.exportEmpCSV("Employees.csv");
     App.launch(App.class, args);
   }
 }

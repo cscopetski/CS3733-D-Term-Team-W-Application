@@ -2,12 +2,14 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
@@ -39,6 +41,8 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
               + "                employeeID INT,\n"
               + "                isEmergency INT,\n"
               + "                reqStatus INT, \n"
+              + "                createdTimestamp timestamp, \n"
+              + "                updatedTimestamp timestamp, \n"
               + "                constraint LabReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),\n"
               + "                constraint LabReq_PK primary key (labReqID),\n"
               + "                constraint LabReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
@@ -57,7 +61,7 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
       ResultSet labServiceRequests = statement.executeQuery("SELECT * FROM LABSERVICEREQUESTS");
 
       // Size of num LabServiceRequest fields
-      int size = 6;
+      int size = 8;
       ArrayList<String> labServiceRequestData = new ArrayList<String>();
 
       while (labServiceRequests.next()) {
@@ -88,12 +92,21 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
       String nodeID,
       Integer employeeID,
       Integer emergency,
-      Integer status)
+      RequestStatus status,
+      Timestamp createdTimestamp,
+      Timestamp updatedTimestamp)
       throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE LABSERVICEREQUESTS SET LABTYPE='%s', NODEID='%s', EMPLOYEEID= %d, ISEMERGENCY=%d, REQSTATUS=%d WHERE LABREQID=%d",
-            labType, nodeID, employeeID, emergency, status, requestID));
+            "UPDATE LABSERVICEREQUESTS SET LABTYPE='%s', NODEID='%s', EMPLOYEEID= %d, ISEMERGENCY=%d, REQSTATUS=%d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE LABREQID=%d",
+            labType,
+            nodeID,
+            employeeID,
+            emergency,
+            status.getValue(),
+            createdTimestamp.toString(),
+            updatedTimestamp.toString(),
+            requestID));
   }
 
   @Override
@@ -107,7 +120,8 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print("labReqID,labType,nodeID,employeeName,isEmergency,status");
+      pw.print(
+          "labReqID,labType,nodeID,employeeName,isEmergency,status,createdTimestamp,updatedTimestamp");
 
       // print all locations
       for (Request m : getAllLabServiceRequests()) {

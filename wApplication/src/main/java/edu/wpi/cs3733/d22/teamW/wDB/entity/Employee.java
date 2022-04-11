@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Employee implements Entity {
+public class Employee extends Entity {
 
   private Integer employeeID;
   private String firstName;
@@ -40,6 +40,28 @@ public class Employee implements Entity {
     this.username = username;
     this.password = password;
     this.salt = salt;
+  }
+
+  public Employee(
+      Integer employeeID,
+      String fName,
+      String lName,
+      String type,
+      String email,
+      String phoneNumber,
+      String address,
+      String username,
+      String password) {
+    this.employeeID = employeeID;
+    this.firstName = fName;
+    this.lastName = lName;
+    this.type = type;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.address = address;
+    this.username = username;
+    this.password = password;
+    this.salt = "NEW";
   }
 
   public Employee(ArrayList<String> employeeData) {
