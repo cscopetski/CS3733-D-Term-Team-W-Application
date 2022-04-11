@@ -8,12 +8,40 @@ public class Requests {
   private SimpleIntegerProperty EmployeeID = new SimpleIntegerProperty();
   private SimpleIntegerProperty Emergency = new SimpleIntegerProperty();
   private SimpleIntegerProperty RequestID = new SimpleIntegerProperty();
+  private SimpleIntegerProperty Xcoord = new SimpleIntegerProperty();
+  private SimpleIntegerProperty Ycoord = new SimpleIntegerProperty();
 
   public Requests(String status, Integer empID, Integer emergency, Integer reqID) {
     this.Status.set(status);
     this.EmployeeID.set(empID);
     this.Emergency.set(emergency);
     this.RequestID.set(reqID);
+  }
+
+  public int getXcoord() {
+    return Xcoord.get();
+  }
+
+  public void setXcoord(int xcoord) {
+    this.Xcoord.set(xcoord);
+  }
+
+  public int getYcoord() {
+    return Ycoord.get();
+  }
+
+  public void setYcoord(int ycoord) {
+    this.Ycoord.set(ycoord);
+  }
+
+  public Requests(
+      String status, Integer empID, Integer emergency, Integer reqID, Integer x, Integer y) {
+    this.Status.set(status);
+    this.EmployeeID.set(empID);
+    this.Emergency.set(emergency);
+    this.RequestID.set(reqID);
+    this.Xcoord.set(x);
+    this.Ycoord.set(y);
   }
 
   public int getEmployeeID() {

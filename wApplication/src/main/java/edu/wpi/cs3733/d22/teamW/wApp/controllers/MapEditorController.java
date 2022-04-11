@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Requests;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
@@ -51,6 +52,7 @@ public class MapEditorController extends LoadableController {
   Image img5 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F5.png");
   ArrayList<Circle> locDots = new ArrayList<>();
   ArrayList<Circle> eqDots = new ArrayList<>();
+  ArrayList<Circle> reqDots = new ArrayList<>();
   Integer size = 0;
   Integer xOffSet = 396;
   Integer yOffSet = 63;
@@ -66,7 +68,7 @@ public class MapEditorController extends LoadableController {
       new ArrayList<>();
   private ArrayList<String> currFloorNodeID = new ArrayList<>();
   private ArrayList<medEquip> equipList = new ArrayList<>();
-
+  private ArrayList<Requests> reqList = new ArrayList<>();
   private boolean loaded = false;
 
   public void refresh() throws SQLException {
@@ -84,9 +86,10 @@ public class MapEditorController extends LoadableController {
     LocTab.getItems().clear();
     LocTab.getItems().addAll(currFloorLoc);
     generateEquipList();
+    generateRequestList();
     generateMarkers();
     generateEquipMarkers();
-
+    generateRequestDots();
     LocTab.getSelectionModel().clearSelection();
     EqTab.getSelectionModel().clearSelection();
   }
@@ -202,8 +205,8 @@ public class MapEditorController extends LoadableController {
       } else if (equipList.get(i).getType().equalsIgnoreCase("REC")) {
         circle = new Circle(3, Color.YELLOW);
       }
-      circle.setCenterX((equipList.get(i).getXCoord() * 0.67) + xOffSet - 1);
-      circle.setCenterY((equipList.get(i).getYCoord() * 0.67) + yOffSet - 1);
+      circle.setCenterX((equipList.get(i).getXCoord() * 2.0 / 3.0) - 1);
+      circle.setCenterY((equipList.get(i).getYCoord() * 2.0 / 3.0) - 1);
       eqDots.add(circle);
       scrollGroup.getChildren().add(circle);
     }
@@ -212,8 +215,10 @@ public class MapEditorController extends LoadableController {
   private void removeMarkers() {
     scrollGroup.getChildren().removeAll(locDots);
     scrollGroup.getChildren().removeAll(eqDots);
+    scrollGroup.getChildren().removeAll(reqDots);
     locDots.clear();
     eqDots.clear();
+    reqDots.clear();
   }
 
   public void testUpdate(String nodeID) throws SQLException, IOException {
@@ -333,6 +338,39 @@ public class MapEditorController extends LoadableController {
     ArrayList<Request> eqrl = medEquipRequestManager.getAllRequests();
     for (int i = 0; i < eqrl.size(); i++) {
       medEquipRequestManager.changeReq((MedEquipRequest) eqrl.get(i), "HOLD");
+    }
+  }
+
+  private void generateRequestList() throws SQLException {
+    reqList.clear();
+    ArrayList<Request> rList = new ArrayList<>();
+    rList.addAll(medRequestManager.getAllRequests());
+    rList.addAll(medEquipRequestManager.getAllRequests());
+    rList.addAll(labServiceRequestManager.getAllRequests());
+    for (int i = 0; i < rList.size(); i++) {
+      for (int j = 0; j < currFloorNodeID.size(); j++) {
+        if (rList.get(i).getNodeID().equalsIgnoreCase(currFloorLoc.get(j).getNodeID())) {
+          reqList.add(
+              new Requests(
+                  rList.get(i).getStatus().getString(),
+                  rList.get(i).getEmployeeID(),
+                  rList.get(i).getEmergency(),
+                  rList.get(i).getRequestID(),
+                  currFloorLoc.get(j).getXCoord(),
+                  currFloorLoc.get(j).getYCoord()));
+        }
+      }
+    }
+  }
+
+  private void generateRequestDots() {
+    size = reqList.size();
+    for (int i = 0; i < size; i++) {
+      Circle circ = new Circle(3, Color.BLACK);
+      circ.setCenterX((reqList.get(i).getXcoord() * 2.0 / 3.0) - 1);
+      circ.setCenterY((reqList.get(i).getYcoord() * 2.0 / 3.0) - 1);
+      reqDots.add(circ);
+      scrollGroup.getChildren().add(circ);
     }
   }
 }
