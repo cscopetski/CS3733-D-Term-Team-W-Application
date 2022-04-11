@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
+import java.sql.Timestamp;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,8 @@ public abstract class Request implements Entity {
   protected String nodeID; // Location
   protected Integer status; // 0 enqueue; 1 in progress; 2 done; 3 cancelled
   protected Integer employeeID; // Will be changed to employee ID starting in sprint 1
+  protected Timestamp createdTimestamp;
+  protected Timestamp updatedTimestamp;
 
   /*
   public Request(Integer requestID, Integer emergency, String nodeID, Integer status, String employeeName) {

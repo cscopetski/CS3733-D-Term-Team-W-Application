@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +13,13 @@ public class MedEquipRequest extends Request {
   private String itemID; // Medical Equipment item
 
   public MedEquipRequest(
-      Integer requestID, Integer emergency, String itemType, String nodeID, Integer employeeID) {
+      Integer requestID,
+      Integer emergency,
+      String itemType,
+      String nodeID,
+      Integer employeeID,
+      Timestamp createdTimestamp,
+      Timestamp updatedTimestamp) {
 
     this.requestID = requestID;
     this.emergency = emergency;
@@ -20,6 +27,8 @@ public class MedEquipRequest extends Request {
     this.nodeID = nodeID;
     this.employeeID = employeeID;
     this.status = 0;
+    this.createdTimestamp = createdTimestamp;
+    this.updatedTimestamp = updatedTimestamp;
   }
 
   public MedEquipRequest(ArrayList<String> medReqData) {
@@ -45,6 +54,9 @@ public class MedEquipRequest extends Request {
     } catch (NumberFormatException e) {
       this.status = 3;
     }
+
+    this.createdTimestamp = Timestamp.valueOf(medReqData.get(7));
+    this.updatedTimestamp = Timestamp.valueOf(medReqData.get(8));
   }
 
   // TODO fixing this constructor, may be out of order??
@@ -66,6 +78,9 @@ public class MedEquipRequest extends Request {
     } catch (NumberFormatException e) {
       this.status = 0;
     }
+
+    this.createdTimestamp = Timestamp.valueOf(fields.get(5));
+    this.updatedTimestamp = Timestamp.valueOf(fields.get(6));
   }
 
   public MedEquipRequest(String[] medEquipReqData) {
@@ -76,6 +91,8 @@ public class MedEquipRequest extends Request {
     this.employeeID = Integer.parseInt(medEquipReqData[4]);
     this.emergency = Integer.parseInt(medEquipReqData[5]);
     this.status = Integer.parseInt(medEquipReqData[6]);
+    this.createdTimestamp = Timestamp.valueOf(medEquipReqData[7]);
+    this.updatedTimestamp = Timestamp.valueOf(medEquipReqData[8]);
   }
 
   @Override
@@ -118,28 +135,32 @@ public class MedEquipRequest extends Request {
 
   public String toCSVString() {
     return String.format(
-        "%d,%s,%s,%s,%d,%d,%d",
+        "%d,%s,%s,%s,%d,%d,%d,%s,%s",
         this.requestID,
         this.itemID,
         this.itemType,
         this.nodeID,
         this.employeeID,
         this.emergency,
-        this.status);
+        this.status,
+        this.createdTimestamp.toString(),
+        this.updatedTimestamp.toString());
   }
 
   @Override
   public String toValuesString() {
 
     return String.format(
-        "%d, '%s', '%s', '%s', %d, %d, %d",
+        "%d, '%s', '%s', '%s', %d, %d, %d, '%s', '%s'",
         this.requestID,
         this.itemID,
         this.itemType,
         this.nodeID,
         this.employeeID,
         this.emergency,
-        this.status);
+        this.status,
+        this.createdTimestamp.toString(),
+        this.updatedTimestamp.toString());
   }
 
   public Integer getRequestID() {
@@ -189,6 +210,8 @@ public class MedEquipRequest extends Request {
         && this.emergency == m.getEmergency()
         && this.employeeID == m.getEmployeeID()
         && this.itemType.equals(m.getItemType())
-        && this.itemID.equals(m.getItemID());
+        && this.itemID.equals(m.getItemID())
+        && this.createdTimestamp.equals(m.getCreatedTimestamp())
+        && this.updatedTimestamp.equals(m.getUpdatedTimestamp());
   }
 }

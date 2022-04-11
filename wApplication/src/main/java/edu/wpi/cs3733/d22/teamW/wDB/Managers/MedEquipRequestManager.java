@@ -6,6 +6,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class MedEquipRequestManager implements RequestManager {
@@ -114,6 +115,8 @@ public class MedEquipRequestManager implements RequestManager {
     // Set status to in queue if it is not already included (from CSVs)
     if (fields.size() == 4) {
       fields.add("0");
+      fields.add(new Timestamp(System.currentTimeMillis()).toString());
+      fields.add(new Timestamp(System.currentTimeMillis()).toString());
       mER = new MedEquipRequest(num, fields);
     } else {
       mER = new MedEquipRequest(fields);

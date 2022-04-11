@@ -39,6 +39,8 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
               + "employeeID INT,"
               + "isEmergency INT,"
               + "reqStatus INT, "
+              + "createdTimestamp timestamp, "
+              + "updatedTimestamp timestamp, "
               + "constraint MedReq_MedEquip_FK foreign key (medID) references MEDICALEQUIPMENT(medID),"
               + "constraint MedReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),"
               + "constraint MedEquipReq_PK primary key (medReqID),"
@@ -59,7 +61,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       ResultSet medEquipment = statement.executeQuery("SELECT * FROM MEDICALEQUIPMENTREQUESTS");
 
       // Size of num MedEquipRequest fields
-      int size = 7;
+      int size = 9;
       ArrayList<String> medEquipData = new ArrayList<>();
 
       while (medEquipment.next()) {
@@ -105,17 +107,6 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
         String.format("INSERT INTO MEDICALEQUIPMENTREQUESTS VALUES (%s)", mer.toValuesString()));
   }
 
-  @Override
-  public void changeMedEquipRequest(
-      int requestID, String newItemType, String newLocationID, String newEmployeeName)
-      throws SQLException {
-
-    statement.executeUpdate(
-        String.format(
-            "UPDATE MEDICALEQUIPMENT SET TYPE = 's', NODEID = 's', STATUS = %d WHERE MEDID = %s",
-            newItemType, newLocationID, newEmployeeName, requestID));
-  }
-
   public void changeMedEquipRequest(MedEquipRequest mER) throws SQLException {
     // TODO could re-purpose this to change request factory list?
     //    int index = getIndexOf(mER.getRequestID());
@@ -134,13 +125,15 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d WHERE MEDREQID = %d",
+            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE MEDREQID = %d",
             mER.getItemID(),
             mER.getItemType(),
             mER.getNodeID(),
             mER.getEmployeeID(),
             mER.getEmergency(),
             mER.getStatusInt(),
+            mER.getCreatedTimestamp().toString(),
+            mER.getUpdatedTimestamp().toString(),
             mER.getRequestID()));
   }
 
@@ -149,7 +142,8 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print("medReqID,medID,equipType,nodeID,employeeName,isEmergency,status");
+      pw.print(
+          "medReqID,medID,equipType,nodeID,employeeName,isEmergency,status,createdTimestamp,updatedTimestamp");
 
       // print all locations
       for (Request m : getAllMedEquipRequests()) {

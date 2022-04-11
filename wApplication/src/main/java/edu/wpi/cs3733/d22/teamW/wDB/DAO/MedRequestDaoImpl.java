@@ -34,6 +34,8 @@ public class MedRequestDaoImpl implements MedRequestDao {
               + "employeeName varchar(50),"
               + "isEmergency INT,"
               + "reqStatus INT, "
+              + "createdTimestamp timestamp, "
+              + "updatedTimestamp timestamp, "
               + "constraint MEDIREQ_Location_FK foreign key (nodeID) references LOCATIONS,"
               + "constraint MediReq_PK primary key (requestID),"
               + "constraint MediReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
@@ -53,12 +55,20 @@ public class MedRequestDaoImpl implements MedRequestDao {
   }
 
   @Override
-  public void changeMedRequest(Integer id, String m, String n, Integer en, Integer ie, Integer rs)
+  public void changeMedRequest(
+      Integer id,
+      String m,
+      String n,
+      Integer en,
+      Integer ie,
+      Integer rs,
+      Timestamp createdTimestamp,
+      Timestamp updatedTimestamp)
       throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDREQUESTS SET MEDICINE='%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d WHERE REQUESTID=%d",
-            m, n, en, ie, rs, id));
+            "UPDATE MEDREQUESTS SET MEDICINE='%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE REQUESTID=%d",
+            m, n, en, ie, rs, createdTimestamp.toString(), updatedTimestamp.toString(), id));
   }
 
   @Override
@@ -75,7 +85,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
               String.format("SELECT * FROM MEDREQUESTS WHERE REQUESTID = %d", id));
 
       // Size of num LabServiceRequest fields
-      int size = 6;
+      int size = 8;
       ArrayList<String> medRequestData = new ArrayList<String>();
 
       while (medRequests.next()) {
@@ -99,7 +109,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
       ResultSet medRequests = statement.executeQuery("SELECT * FROM MEDREQUESTS");
 
       // Size of num LabServiceRequest fields
-      int size = 6;
+      int size = 8;
       ArrayList<String> medRequestData = new ArrayList<String>();
 
       while (medRequests.next()) {

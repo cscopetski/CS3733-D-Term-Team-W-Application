@@ -4,6 +4,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.DAO.LabServiceRequestDao;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class LabServiceRequestManager implements RequestManager {
@@ -41,6 +42,8 @@ public class LabServiceRequestManager implements RequestManager {
     // Set status to in queue if it is not already included (from CSVs)
     if (fields.size() == 4) {
       fields.add("0");
+      fields.add(new Timestamp(System.currentTimeMillis()).toString());
+      fields.add(new Timestamp(System.currentTimeMillis()).toString());
       lSR = new LabServiceRequest(num, fields);
     } else {
       System.out.println("Right before making lSR");
@@ -59,7 +62,9 @@ public class LabServiceRequestManager implements RequestManager {
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
-        1);
+        1,
+        request.getCreatedTimestamp(),
+        request.getUpdatedTimestamp());
   }
 
   public void complete(LabServiceRequest request) throws SQLException {
@@ -69,7 +74,9 @@ public class LabServiceRequestManager implements RequestManager {
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
-        2);
+        2,
+        request.getCreatedTimestamp(),
+        request.getUpdatedTimestamp());
   }
 
   public void cancel(LabServiceRequest request) throws SQLException {
@@ -79,7 +86,9 @@ public class LabServiceRequestManager implements RequestManager {
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
-        3);
+        3,
+        request.getCreatedTimestamp(),
+        request.getUpdatedTimestamp());
   }
 
   @Override

@@ -4,6 +4,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedRequestDao;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class MedRequestManager implements RequestManager {
@@ -26,6 +27,8 @@ public class MedRequestManager implements RequestManager {
 
     if (fields.size() == 4) {
       fields.add("0");
+      fields.add(new Timestamp(System.currentTimeMillis()).toString());
+      fields.add(new Timestamp(System.currentTimeMillis()).toString());
       mr = new MedRequest(num, fields);
     } else {
       mr = new MedRequest(fields);
@@ -42,7 +45,9 @@ public class MedRequestManager implements RequestManager {
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
-        request.getStatusInt());
+        request.getStatusInt(),
+        request.getCreatedTimestamp(),
+        request.getUpdatedTimestamp());
   }
 
   public void complete(MedRequest request) throws SQLException {
@@ -53,7 +58,9 @@ public class MedRequestManager implements RequestManager {
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
-        request.getStatusInt());
+        request.getStatusInt(),
+        request.getCreatedTimestamp(),
+        request.getUpdatedTimestamp());
   }
 
   public void cancel(MedRequest request) throws SQLException {
@@ -64,7 +71,9 @@ public class MedRequestManager implements RequestManager {
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
-        request.getStatusInt());
+        request.getStatusInt(),
+        request.getCreatedTimestamp(),
+        request.getUpdatedTimestamp());
   }
 
   public void delete(MedRequest request) throws SQLException {
@@ -75,9 +84,17 @@ public class MedRequestManager implements RequestManager {
     mrd.deleteMedRequest(requestID);
   }
 
-  public void changeMedRequest(Integer id, String m, String n, Integer en, Integer ie, Integer rs)
+  public void changeMedRequest(
+      Integer id,
+      String m,
+      String n,
+      Integer en,
+      Integer ie,
+      Integer rs,
+      Timestamp createdTimestamp,
+      Timestamp updatedTimestamp)
       throws SQLException {
-    mrd.changeMedRequest(id, m, n, en, ie, rs);
+    mrd.changeMedRequest(id, m, n, en, ie, rs, createdTimestamp, updatedTimestamp);
   }
 
   @Override
