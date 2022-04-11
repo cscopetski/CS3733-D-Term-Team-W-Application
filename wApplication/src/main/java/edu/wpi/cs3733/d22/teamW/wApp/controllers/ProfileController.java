@@ -49,7 +49,7 @@ public class ProfileController extends LoadableController {
                 SceneManager.getInstance().getController(SceneManager.Scenes.Default))
             .getEmployee();
     name.setText(employee.getFirstName() + " " + employee.getLastName());
-    id.setText("#" + employee.getEmployeeID().toString());
+    id.setText(employee.getEmployeeID().toString());
     type.setText(employee.getType());
     email.setText(employee.getEmail());
     phoneNumber.setText(employee.getPhoneNumber());
