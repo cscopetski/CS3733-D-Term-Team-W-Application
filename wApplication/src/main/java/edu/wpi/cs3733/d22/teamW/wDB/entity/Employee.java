@@ -42,6 +42,28 @@ public class Employee implements Entity {
     this.salt = salt;
   }
 
+  public Employee(
+      Integer employeeID,
+      String fName,
+      String lName,
+      String type,
+      String email,
+      String phoneNumber,
+      String address,
+      String username,
+      String password) {
+    this.employeeID = employeeID;
+    this.firstName = fName;
+    this.lastName = lName;
+    this.type = type;
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.address = address;
+    this.username = username;
+    this.password = password;
+    this.salt = "NEW";
+  }
+
   public Employee(ArrayList<String> employeeData) {
     this.employeeID = Integer.parseInt(employeeData.get(0));
     this.firstName = employeeData.get(1);

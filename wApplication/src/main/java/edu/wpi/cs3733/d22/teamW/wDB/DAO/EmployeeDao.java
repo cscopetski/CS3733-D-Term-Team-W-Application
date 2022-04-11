@@ -8,6 +8,10 @@ public interface EmployeeDao {
 
   ArrayList<Employee> getAllEmployees() throws SQLException;
 
+  Employee getEmployee(String username) throws SQLException;
+
+  Employee getEmployee(Integer empID) throws SQLException;
+
   void addEmployee(
       Integer employeeID,
       String firstname,
@@ -32,8 +36,7 @@ public interface EmployeeDao {
       String phoneNumber,
       String address,
       String username,
-      String password,
-      String salt)
+      String password)
       throws SQLException;
 
   void exportEmpCSV(String fileName);
