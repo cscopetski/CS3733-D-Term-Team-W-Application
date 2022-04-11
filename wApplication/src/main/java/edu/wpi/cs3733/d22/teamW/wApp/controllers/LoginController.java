@@ -50,15 +50,13 @@ public class LoginController extends LoadableController {
         ((DefaultPageController)
                 SceneManager.getInstance().getController(SceneManager.Scenes.Default))
             .setEmployee(eM.getEmployee(username.getText()));
-
         ((DefaultPageController)
                 SceneManager.getInstance().getController(SceneManager.Scenes.Default))
             .menuBar.setVisible(true);
         ((DefaultPageController)
                 SceneManager.getInstance().getController(SceneManager.Scenes.Default))
             .buttonPane.setDisable(false);
-        SceneManager.getInstance()
-            .transitionTo(SceneManager.Scenes.MainMenu, SceneManager.Transitions.FadeOut);
+        SceneManager.getInstance().transitionTo(SceneManager.Scenes.MainMenu);
         username.clear();
         password.clear();
       } else if (!eM.usernameExists(username.getText())) {
