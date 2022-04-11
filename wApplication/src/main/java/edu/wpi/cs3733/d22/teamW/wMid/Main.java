@@ -11,6 +11,11 @@ import java.util.ArrayList;
 public class Main {
 
   public static void main(String[] args) throws SQLException, FileNotFoundException {
+<<<<<<< HEAD
+=======
+    // DBConnectionMode.INSTANCE.setServerConnection();
+    // App.launch(App.class, args);
+>>>>>>> Backend-Merge
 
     final String locationFileName = "TowerLocations.csv";
     final String medEquipFileName = "MedicalEquipment.csv";
@@ -102,12 +107,25 @@ public class Main {
         "somewhere",
         "secur",
         "secur",
-        "");
-    if (edi.passwordMatch("secur", "secur")) {
-      System.out.println("SECUR, SECUR MATCH");
+        "NEW");
+
+    edi.changeEmployee(
+        6,
+        "new Hasan",
+        "new G",
+        "new Type",
+        "new Email",
+        "new Phone",
+        "new Address",
+        "joe",
+        "joe123");
+
+    if (edi.passwordMatch("joe", "joe123")) {
+      System.out.println("hzgan, spongeBob MATCH");
     } else {
       System.out.println("NO MATCH");
     }
+<<<<<<< HEAD
 
     /*
     edi.addEmployee(
@@ -182,5 +200,88 @@ public class Main {
     edi.exportEmpCSV("Employees.csv");
 
     App.launch(App.class, args);
+=======
+
+    edi.addEmployee(
+        8, "frontend", "no salt", "no salt", "no salt", "no salt", "no salt", "no", "salt");
+    if (edi.passwordMatch("no", "salt")) {
+      System.out.println("match");
+    } else {
+      System.out.println("no match");
+    }
+    System.out.println(edi.getEmployee("joe").toCSVString());
+    /*
+       edi.addEmployee(
+           1,
+           "N/A",
+           "Staff",
+           "Staff Member",
+           "staff@hospital.com",
+           "(123)4567890",
+           "Mass General",
+           "staff",
+           "staff",
+           "salt");
+       edi.addEmployee(
+           2,
+           "N/A",
+           "Administrator",
+           "admin",
+           "admin@hospital.com",
+           "(123)4567890",
+           "Office",
+           "admin",
+           "admin",
+           "salt");
+       edi.addEmployee(
+           3,
+           "Caleb",
+           "Scopetski",
+           "Doctor",
+           "N/A",
+           "(123)4567890",
+           "NeVer LeFt MaSs",
+           "Scoop",
+           "backEndGang",
+           "salt");
+       edi.addEmployee(
+           4,
+           "Edison",
+           "Zhang",
+           "Janitor",
+           "N/A",
+           "(123)4567890",
+           "Jamaica",
+           "ezhang",
+           "broMyASSSSS",
+           "salt");
+       edi.addEmployee(
+           5,
+           "Charlie",
+           "K-W",
+           "Nurse",
+           "N/A",
+           "(123)4567890",
+           "The North",
+           "charkw",
+           "Ih8Testing",
+           "salt");
+       edi.addEmployee(
+           6,
+           "Hasan",
+           "G",
+           "Lab Technician",
+           "N/A",
+           "(123)4567890",
+           "Bikini Bottom",
+           "hzgan",
+           "spongeBob",
+           "salt");
+
+       edi.exportEmpCSV("Employees.csv");
+
+    */
+    edi.exportEmpCSV("Employees.csv");
+>>>>>>> Backend-Merge
   }
 }
