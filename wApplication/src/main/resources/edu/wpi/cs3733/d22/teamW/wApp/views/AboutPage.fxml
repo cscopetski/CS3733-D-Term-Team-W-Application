@@ -1,14 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.AboutController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefWidth="600.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.AboutController">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox prefHeight="400.0" prefWidth="600.0" style="-fx-alignment: center;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ABOUT US">
+                     <font>
+                        <Font name="System Bold" size="28.0" />
+                     </font>
+                  </Text>
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="We are Wumbo Whowies, a group of Computer Science students from WPI " />
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="working on an application for employees and administrators at Brigham &amp; " />
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="Women's Hospital in Boston. The application will allow the user navigating the " />
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="graphical map (with side-view) and let them create the service request that they " />
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="need. The two basics request are lab service request and medical equipment" />
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="service request, some additional requests include: medicine delivery request, " />
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="security service request and language interpreter. Hospital employees can also " />
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="prioritize a request by our emergency button feature. " />
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
 </AnchorPane>

@@ -229,7 +229,7 @@ public class MapEditorController {
       SceneManager.getInstance()
           .putInformation(
               SceneManager.getInstance().getPrimaryStage(), "updateLoc", nodeIn.getText());
-      Stage S = SceneManager.getInstance().openWindow("UpdateMapPage.fxml");
+      Stage S = SceneManager.getInstance().openWindow("UpdateMapPage.fxml", "Update Location");
       refresh();
       nodeIn.clear();
     }

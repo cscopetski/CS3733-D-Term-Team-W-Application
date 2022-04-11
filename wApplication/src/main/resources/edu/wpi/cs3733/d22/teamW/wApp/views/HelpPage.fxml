@@ -6,9 +6,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<AnchorPane style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.HelpController"
-            prefHeight="400.0" prefWidth="600.0">
+            fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.HelpController">
 
 </AnchorPane>
