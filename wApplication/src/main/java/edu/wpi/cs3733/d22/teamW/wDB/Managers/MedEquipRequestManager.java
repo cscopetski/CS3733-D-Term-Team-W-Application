@@ -136,6 +136,11 @@ public class MedEquipRequestManager implements RequestManager {
     return this.merdi.getAllMedEquipRequests();
   }
 
+  public void changeReq(MedEquipRequest req, String locID) throws SQLException {
+    req.setNodeID(locID);
+    merdi.changeMedEquipRequest(req);
+  }
+
   public void exportMedEquipRequestCSV(String filename) {
     merdi.exportMedReqCSV(filename);
   }

@@ -10,7 +10,6 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -151,12 +150,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-              <Button fx:id="updateButton" layoutX="246.0" layoutY="482.0" mnemonicParsing="false" onAction="#updateLocation" prefHeight="28.0" prefWidth="64.0" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Update" />
-              <Button fx:id="addButton" layoutX="246.0" layoutY="451.0" mnemonicParsing="false" onAction="#addLocation" prefHeight="28.0" prefWidth="64.0" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Add" />
-              <Button fx:id="removeButton" layoutX="246.0" layoutY="420.0" mnemonicParsing="false" onAction="#removeLocation" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Remove" />
-              <TextField fx:id="nodeIn" layoutX="156.0" layoutY="482.0" prefHeight="28.0" prefWidth="66.0" promptText="nodeID" stylesheets="@../CSS/UniversalCSS/Standard.css" />
-              <TextField layoutX="156.0" layoutY="450.0" prefHeight="28.0" prefWidth="66.0" promptText="xCoord" stylesheets="@../CSS/UniversalCSS/Standard.css" fx:id="xIn" />
-              <TextField fx:id="yIn" layoutX="156.0" layoutY="419.0" prefHeight="28.0" prefWidth="66.0" promptText="yCoord" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+
             <Label alignment="CENTER_RIGHT" layoutY="445.0" prefHeight="38.0" prefWidth="123.0" style="-fx-background-color: #189DA6;" text="Edit on map  " textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />

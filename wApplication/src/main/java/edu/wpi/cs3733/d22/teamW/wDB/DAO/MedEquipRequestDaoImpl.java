@@ -112,7 +112,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDICALEQUIPMENT SET TYPE = 's', NODEID = 's', STATUS = %d WHERE MEDID = %s",
+            "UPDATE MEDICALEQUIPMENT SET TYPE = '%s', NODEID = '%s', STATUS = %d WHERE MEDID = %s",
             newItemType, newLocationID, newEmployeeName, requestID));
   }
 

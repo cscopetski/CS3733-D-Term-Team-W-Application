@@ -1,9 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.awt.*;
 import java.io.File;
@@ -17,7 +16,6 @@ import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -41,9 +39,6 @@ public class MapEditorController extends LoadableController {
   @FXML private AnchorPane page;
   @FXML private TableView<Location> LocTab;
   @FXML private TableView<medEquip> EqTab;
-  @FXML private TextField xIn;
-  @FXML private TextField yIn;
-  @FXML private TextField nodeIn;
   @FXML private FileChooser fileChooser = new FileChooser();
   Image img1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F1.png");
   Image img2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F2.png");
@@ -58,39 +53,19 @@ public class MapEditorController extends LoadableController {
   Integer size = 0;
   Integer xOffSet = 396;
   Integer yOffSet = 63;
-
   private String currFloor = "0";
-
   private MedEquipManager equipController = MedEquipManager.getMedEquipManager();
   private LocationManager locationManager = LocationManager.getLocationManager();
+  private MedEquipRequestManager medEquipRequestManager =
+      MedEquipRequestManager.getMedEquipRequestManager();
+  private LabServiceRequestManager labServiceRequestManager =
+      LabServiceRequestManager.getLabServiceRequestManager();
+  private MedRequestManager medRequestManager = MedRequestManager.getMedRequestManager();
   private ArrayList<Location> currFloorLoc = new ArrayList<>();
   private ArrayList<String> currFloorNodeID = new ArrayList<>();
   private ArrayList<medEquip> equipList = new ArrayList<>();
 
-  public void addLocation() throws SQLException {
-    if (checkFull()) {
-      locationManager.addLocation(
-          nodeIn.getText(),
-          Integer.parseInt(xIn.getText()),
-          Integer.parseInt(yIn.getText()),
-          currFloor,
-          null,
-          null,
-          null,
-          null);
-      xIn.clear();
-      nodeIn.clear();
-      yIn.clear();
-      refresh();
-    }
-  }
-
-  private boolean checkFull() {
-    if (xIn.getText().isEmpty() && yIn.getText().isEmpty() && nodeIn.getText().isEmpty()) {
-      return false;
-    }
-    return true;
-  }
+  private boolean loaded = false;
 
   public void refresh() throws SQLException {
     removeMarkers();
@@ -239,17 +214,6 @@ public class MapEditorController extends LoadableController {
     eqDots.clear();
   }
 
-  public void updateLocation(ActionEvent actionEvent) throws IOException, SQLException {
-    if (!nodeIn.getText().isEmpty()) {
-      SceneManager.getInstance()
-          .putInformation(
-              SceneManager.getInstance().getPrimaryStage(), "updateLoc", nodeIn.getText());
-      Stage S = SceneManager.getInstance().openWindow("UpdateMapPage.fxml");
-      refresh();
-      nodeIn.clear();
-    }
-  }
-
   public void testUpdate(String nodeID) throws SQLException, IOException {
     SceneManager.getInstance()
         .putInformation(SceneManager.getInstance().getPrimaryStage(), "updateLoc", nodeID);
@@ -257,23 +221,16 @@ public class MapEditorController extends LoadableController {
     refresh();
   }
 
-  public void removeLocation(ActionEvent actionEvent) throws SQLException {
-    if (!nodeIn.getText().isEmpty()) {
-      locationManager.deleteLocation(nodeIn.getText());
-      nodeIn.clear();
-      refresh();
-    }
-  }
-
   public void resetCSV(ActionEvent actionEvent) throws SQLException, FileNotFoundException {
-    locationManager.addLocation("HOLD", -1, -1, "HOLD", null, null, null, null);
-    ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
-    for (int i = 0; i < eqList.size(); i++) {
-      equipController.add(
-          eqList.get(i).getMedID(), eqList.get(i).getType(), "HOLD", eqList.get(i).getStatus());
+    if (loaded) {
+
+    } else {
+      locationManager.addLocation("HOLD", -1, -1, "HOLD", null, null, null, null);
+      loaded = true;
     }
     File inputCSV = fileChooser.showOpenDialog(SceneManager.getInstance().getPrimaryStage());
-    final String locationFileName = "TowerLocations.csv";
+    moveVals();
+    final String locationFileName = inputCSV.getName();
     final String medEquipFileName = "MedicalEquipment.csv";
     final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
     final String labServiceRequestFileName = "LabRequests.csv";
@@ -289,7 +246,6 @@ public class MapEditorController extends LoadableController {
             medRequestFileName);
     locationManager.clearLocations();
     csvController.insertIntoLocationsTable(csvController.importCSV(locationFileName));
-    // test.setLocationsList();
     refresh();
   }
 
@@ -308,7 +264,6 @@ public class MapEditorController extends LoadableController {
         .putInformation(SceneManager.getInstance().getPrimaryStage(), "floor", currFloor);
     Stage S = SceneManager.getInstance().openWindow("newLocationPage.fxml");
     refresh();
-    nodeIn.clear();
   }
 
   public void swapFloor4(ActionEvent actionEvent) throws SQLException {
@@ -350,4 +305,30 @@ public class MapEditorController extends LoadableController {
 
   @Override
   public void onUnload() {}
+
+  private void moveVals() throws SQLException {
+    ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
+    for (int i = 0; i < eqList.size(); i++) {
+      equipController.change(
+          eqList.get(i).getMedID(), eqList.get(i).getType(), "HOLD", eqList.get(i).getStatus());
+    }
+    ArrayList<Request> lsr = labServiceRequestManager.getAllRequests();
+    for (int i = 0; i < lsr.size(); i++) {
+      labServiceRequestManager.changeLoc((LabServiceRequest) lsr.get(i), "HOLD");
+    }
+    ArrayList<Request> medr = MedRequestManager.getMedRequestManager().getAllRequests();
+    for (int i = 0; i < medr.size(); i++) {
+      medRequestManager.changeMedRequest(
+          medr.get(i).getRequestID(),
+          ((MedRequest) medr.get(i)).getMedicine(),
+          "HOLD",
+          medr.get(i).getEmployeeID(),
+          medr.get(i).getEmergency(),
+          medr.get(i).getStatusInt());
+    }
+    ArrayList<Request> eqrl = medEquipRequestManager.getAllRequests();
+    for (int i = 0; i < eqrl.size(); i++) {
+      medEquipRequestManager.changeReq((MedEquipRequest) eqrl.get(i), "HOLD");
+    }
+  }
 }

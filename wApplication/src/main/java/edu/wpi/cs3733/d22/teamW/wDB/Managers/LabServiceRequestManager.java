@@ -72,6 +72,16 @@ public class LabServiceRequestManager implements RequestManager {
         2);
   }
 
+  public void changeLoc(LabServiceRequest request, String nodeID) throws SQLException {
+    lsrdi.changeLabServiceRequest(
+        request.getRequestID(),
+        request.getLabType(),
+        nodeID,
+        request.getEmployeeID(),
+        request.getEmergency(),
+        request.getStatusInt());
+  }
+
   public void cancel(LabServiceRequest request) throws SQLException {
     lsrdi.changeLabServiceRequest(
         request.getRequestID(),
