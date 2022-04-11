@@ -3,7 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -64,14 +64,16 @@ public class Main {
     fields3.add("wSTOR001L1");
     fields3.add("3");
     fields3.add("" + 0);
+    /*
 
-    try {
-      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
-      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields2);
-      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields3);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+        try {
+          requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
+          requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields2);
+          requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields3);
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+    */
 
     /*Request test = requestFactory.findRequest(5);
       Request test2 = requestFactory.findRequest(21);
@@ -131,6 +133,19 @@ public class Main {
       System.out.println("no match");
     }
     System.out.println(edi.getEmployee("joe").toCSVString());
+    /* // Req23 cancelled
+    merc.cancel(23);
+    // Req7 complete
+    merc.complete(7);
+    // Req5 cancelled and req 22 start
+    merc.cancel(5);
+    merc.reQueue(5);
+    merc.cancel(22);*/
+    System.out.println("\n\n\n\n");
+    for (Request e : requestFactory.getAllRequests()) {
+      System.out.println(e.toValuesString());
+    }
+
     /*
        edi.addEmployee(
            1,

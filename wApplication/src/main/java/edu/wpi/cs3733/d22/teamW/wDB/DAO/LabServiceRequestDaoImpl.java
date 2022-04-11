@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -91,7 +92,7 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
       String nodeID,
       Integer employeeID,
       Integer emergency,
-      Integer status,
+      RequestStatus status,
       Timestamp createdTimestamp,
       Timestamp updatedTimestamp)
       throws SQLException {
@@ -102,7 +103,7 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
             nodeID,
             employeeID,
             emergency,
-            status,
+            status.getValue(),
             createdTimestamp.toString(),
             updatedTimestamp.toString(),
             requestID));

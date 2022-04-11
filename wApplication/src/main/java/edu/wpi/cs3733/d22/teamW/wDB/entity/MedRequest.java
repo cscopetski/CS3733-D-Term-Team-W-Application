@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class MedRequest extends Request {
       String nodeID,
       Integer employeeID,
       Integer emergency,
-      Integer status,
+      RequestStatus status,
       Timestamp createdTimestamp,
       Timestamp updatedTimestamp) {
     this.requestID = requestID;
@@ -36,7 +37,7 @@ public class MedRequest extends Request {
     this.nodeID = fields.get(2);
     this.employeeID = Integer.parseInt(fields.get(3));
     this.emergency = Integer.parseInt(fields.get(4));
-    this.status = Integer.parseInt(fields.get(5));
+    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(5)));
     this.createdTimestamp = Timestamp.valueOf(fields.get(6));
     this.updatedTimestamp = Timestamp.valueOf(fields.get(7));
   }
@@ -47,7 +48,7 @@ public class MedRequest extends Request {
     this.nodeID = fields.get(1);
     this.employeeID = Integer.parseInt(fields.get(2));
     this.emergency = Integer.parseInt(fields.get(3));
-    this.status = Integer.parseInt(fields.get(4));
+    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(4)));
     this.createdTimestamp = Timestamp.valueOf(fields.get(5));
     this.updatedTimestamp = Timestamp.valueOf(fields.get(6));
   }
@@ -61,7 +62,7 @@ public class MedRequest extends Request {
         nodeID,
         employeeID,
         emergency,
-        status,
+        status.getValue(),
         createdTimestamp.toString(),
         updatedTimestamp.toString());
   }
@@ -75,35 +76,9 @@ public class MedRequest extends Request {
         nodeID,
         employeeID,
         emergency,
-        status,
+        status.getValue(),
         createdTimestamp.toString(),
         updatedTimestamp.toString());
-  }
-
-  @Override
-  public Integer getStatusInt() {
-    return status;
-  }
-
-  @Override
-  public void start() {
-    if (status == 0) {
-      this.status = 1;
-    }
-  }
-
-  @Override
-  public void complete() {
-    if (status == 1) {
-      this.status = 2;
-    }
-  }
-
-  @Override
-  public void cancel() {
-    if (status != 2) {
-      this.status = 3;
-    }
   }
 
   @Override

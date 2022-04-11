@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 
 public class MedicalEquipmentSR {
   MedEquipRequest mer;
@@ -29,7 +30,7 @@ public class MedicalEquipmentSR {
       mer.setEmployeeName(employeeName);
     }
   */
-  public String getStatus() {
+  public RequestStatus getStatus() {
     return mer.getStatus();
   }
   /*

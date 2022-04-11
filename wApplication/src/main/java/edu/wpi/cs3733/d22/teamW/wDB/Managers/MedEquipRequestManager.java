@@ -1,18 +1,22 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Automation;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class MedEquipRequestManager implements RequestManager {
 
-  private MedEquipRequestDao merdi;
-  private MedEquipManager medi = MedEquipManager.getMedEquipManager();
+  Automation automation = Automation.getAutomation();
+  private MedEquipRequestDao merd;
+  private MedEquipManager mem = MedEquipManager.getMedEquipManager();
 
   private static MedEquipRequestManager medEquipRequestManager = new MedEquipRequestManager();
 
@@ -22,11 +26,139 @@ public class MedEquipRequestManager implements RequestManager {
 
   private MedEquipRequestManager() {}
 
-  public void setMedEquipRequestDao(MedEquipRequestDao merdi) {
-    this.merdi = merdi;
+  public ArrayList<MedEquipRequest> getType(String type) throws SQLException {
+    return merd.getTypeMedEquipRequests(type);
   }
 
-  public String checkStart(Request request) throws SQLException {
+  public void setMedEquipRequestDao(MedEquipRequestDao merdi) {
+    this.merd = merdi;
+  }
+
+  public void startNext(String itemType) throws SQLException {
+    MedEquipRequest mer = getNext(itemType);
+    if (mer != null) {
+      System.out.println(mer.toValuesString());
+      start(mer.getRequestID());
+    } else {
+      System.out.println("Nothing to start");
+    }
+  }
+
+  public MedEquipRequest getNext(String itemType) throws SQLException {
+    ArrayList<MedEquipRequest> requests = merd.getTypeMedEquipRequests(itemType);
+    for (MedEquipRequest mer : requests) {
+      if (mer.getEmergency() == 1 && mer.getStatus().equals(RequestStatus.InQueue)) {
+        return mer;
+      }
+    }
+    for (MedEquipRequest mer : requests) {
+      if (mer.getStatus().equals(RequestStatus.InQueue)) {
+        return mer;
+      }
+    }
+    return null;
+  }
+
+  public void start(Integer requestID) throws SQLException {
+    MedEquipRequest request = (MedEquipRequest) getRequest(requestID);
+    if (request != (null)) {
+      // Can only start requests that are in queue
+      if (request.getStatus().equals(RequestStatus.InQueue)) {
+        // Can only start if a medEquip of that type is available
+        MedEquip medEquip = MedEquipManager.getMedEquipManager().getNextFree(request.getItemType());
+        if (medEquip != null) {
+          // If available, we mark it in use and set the request to in progress
+          MedEquipManager.getMedEquipManager().markInUse(medEquip);
+          request.setStatus(RequestStatus.InProgress);
+          merd.changeMedEquipRequest(
+              request.getRequestID(),
+              medEquip.getMedID(),
+              request.getItemType(),
+              request.getNodeID(),
+              request.getEmployeeID(),
+              request.getEmergency(),
+              request.getStatus());
+        } else {
+          System.out.println("No avavailable equipment");
+        }
+      } else {
+        System.out.println("Not in Queue");
+      }
+    } else {
+      System.out.println("Request:" + requestID + " does not exist");
+    }
+  }
+
+  public void complete(Integer requestID) throws SQLException {
+    MedEquipRequest request =
+        (MedEquipRequest)
+            RequestFactory.getRequestFactory()
+                .findRequest(requestID, RequestType.MedicalEquipmentRequest);
+    // Can only complete requests that are started
+    if (request.getStatus().equals(RequestStatus.InProgress)) {
+      MedEquipManager.getMedEquipManager().moveTo(request.getItemID(), request.getNodeID());
+      request.setStatus(RequestStatus.Completed);
+      merd.changeMedEquipRequest(
+          request.getRequestID(),
+          request.getItemID(),
+          request.getItemType(),
+          request.getNodeID(),
+          request.getEmployeeID(),
+          request.getEmergency(),
+          request.getStatus());
+    }
+  }
+
+  public void cancel(Integer requestID) throws SQLException {
+    MedEquipRequest request =
+        (MedEquipRequest)
+            RequestFactory.getRequestFactory()
+                .findRequest(requestID, RequestType.MedicalEquipmentRequest);
+    // Cannot cancel requests that are completed bc it makes no sense
+    if (!request.getStatus().equals(RequestStatus.Completed)) {
+      if (request.getStatus() == RequestStatus.InProgress) {
+        MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(request.getItemID());
+        MedEquipManager.getMedEquipManager().markClean(item);
+        if (automation.getAuto()) {
+          startNext(request.getItemType());
+        }
+      }
+      request.setStatus(RequestStatus.Cancelled);
+      merd.changeMedEquipRequest(
+          request.getRequestID(),
+          request.getItemID(),
+          request.getItemType(),
+          request.getNodeID(),
+          request.getEmployeeID(),
+          request.getEmergency(),
+          request.getStatus());
+    }
+  }
+
+  public void reQueue(Integer requestID) throws SQLException {
+    MedEquipRequest request =
+        (MedEquipRequest)
+            RequestFactory.getRequestFactory()
+                .findRequest(requestID, RequestType.MedicalEquipmentRequest);
+    // Only requeue cancelled requests
+    if (request.getStatus().equals(RequestStatus.Cancelled)) {
+      request.setStatus(RequestStatus.InQueue);
+      request.dropItem();
+      merd.changeMedEquipRequest(
+          request.getRequestID(),
+          request.getItemID(),
+          request.getItemType(),
+          request.getNodeID(),
+          request.getEmployeeID(),
+          request.getEmergency(),
+          request.getStatus());
+      if (automation.getAuto()) {
+        startNext(request.getItemType());
+      }
+    }
+  }
+
+  /*  public String checkStart(Request request) throws SQLException {
     MedEquipRequest mER = (MedEquipRequest) request;
     String mERtype = mER.getItemType();
     ArrayList<MedEquip> medEquipList = medi.getAllMedEquip();
@@ -42,10 +174,10 @@ public class MedEquipRequestManager implements RequestManager {
   public void cancelRequest(Request r) throws SQLException {
     MedEquipRequest request = (MedEquipRequest) r;
     if (request.getStatusInt() == 0) {
-      request.setStatus(RequestStatus.Cancelled.getValue());
+      request.setStatus(RequestStatus.Cancelled);
       merdi.changeMedEquipRequest(request);
     } else if (request.getStatusInt() == 1) {
-      request.setStatus(RequestStatus.Cancelled.getValue());
+      request.setStatus(RequestStatus.Cancelled);
       merdi.changeMedEquipRequest(request);
 
       medi.markClean(request.getItemID(), request.getItemType(), request.getNodeID());
@@ -95,25 +227,19 @@ public class MedEquipRequestManager implements RequestManager {
       }
     }
     return null;
-  }
+  }*/
 
   // TODO might wanna rework to just use sql
   @Override
   public Request getRequest(Integer reqID) throws SQLException {
-    ArrayList<Request> list = merdi.getAllMedEquipRequests();
-    for (Request m : list) {
-      if (m.getRequestID().equals(reqID)) {
-        return m;
-      }
-    }
-    return null;
+    return merd.getRequest(reqID);
   }
 
   @Override
   public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException {
     MedEquipRequest mER;
     // Set status to in queue if it is not already included (from CSVs)
-    if (fields.size() == 4) {
+    if (fields.size() == 6) {
       fields.add("0");
       fields.add(new Timestamp(System.currentTimeMillis()).toString());
       fields.add(new Timestamp(System.currentTimeMillis()).toString());
@@ -121,7 +247,7 @@ public class MedEquipRequestManager implements RequestManager {
     } else {
       mER = new MedEquipRequest(fields);
     }
-
+    /*
     // If the request does not have an item, aka has not been started
     if (mER.getItemID().equals("NONE") && mER.getStatusInt() == 0) {
       // System.out.println("CHECKING REQUEST " + mER.getRequestID());
@@ -130,16 +256,25 @@ public class MedEquipRequestManager implements RequestManager {
         // System.out.println("STARTING REQUEST " + mER.getRequestID());
         mER.start(itemID);
       }
+    }*/
+    // TODO special exception
+    if (RequestFactory.getRequestFactory().getReqIDList().add(mER.getRequestID())) {
+      merd.addMedEquipRequest(mER);
+
+      if (automation.getAuto()) {
+        start(mER.getRequestID());
+      }
+    } else {
+      mER = null;
     }
-    merdi.addMedEquipRequest(mER);
     return mER;
   }
 
   public ArrayList<Request> getAllRequests() throws SQLException {
-    return this.merdi.getAllMedEquipRequests();
+    return this.merd.getAllMedEquipRequests();
   }
 
   public void exportMedEquipRequestCSV(String filename) {
-    merdi.exportMedReqCSV(filename);
+    merd.exportMedReqCSV(filename);
   }
 }
