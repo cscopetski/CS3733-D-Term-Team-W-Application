@@ -1,7 +1,7 @@
 employeeID,firstname,lastname,employeetype,email,phonenumber,address,username,password,salt
-1,N/A,Staff,Staff Member,staff@hospital.com,(123)4567890,Mass General,staff,staff,salt
-2,N/A,Administrator,admin,admin@hospital.com,(123)4567890,Office,admin,admin,salt
-3,Caleb,Scopetski,Doctor,N/A,(123)4567890,NeVer LeFt MaSs,Scoop,backEndGang,salt
-4,Edison,Zhang,Janitor,N/A,(123)4567890,Jamaica,ezhang,broMyASSSSS,salt
-5,Charlie,K-W,Nurse,N/A,(123)4567890,The North,charkw,Ih8Testing,salt
-6,Hasan,G,Lab Technician,N/A,(123)4567890,Bikini Bottom,hzgan,spongeBob,salt
+1,N/A,Staff,Staff Member,staff@hospital.com,(123)4567890,Mass General,staff,97adb5a6171ea3e2b6a73035c92e89b5,f57fef973ec5f6ad3b7e5550e2ab5974
+2,N/A,Administrator,admin,admin@hospital.com,(123)4567890,Office,admin,860bb9a34d1aec116efb54eee7e81341,3dc0ddd4c54c9c9a3b37a346893c87de
+3,Caleb,Scopetski,Doctor,N/A,(123)4567890,NeVer LeFt MaSs,Scoop,7c7f647ebd821e9b596ff91efdb9e2b3,293425e15e8fce656582a90e5e45864f
+4,Edison,Zhang,Janitor,N/A,(123)4567890,Jamaica,ezhang,855136eed1d20fd0b2acd4916e3efa58,4c041815a975a4b7453ad3b5b4e1bd9f
+5,Charlie,K-W,Nurse,N/A,(123)4567890,The North,charkw,750ad0b990a08d1272555925780de5a7,b0d6725d10af54045c56e303a4d754b1
+6,Hasan,G,Lab Technician,N/A,(123)4567890,Bikini Bottom,hzgan,f4a17b813937811e18b58ad2e58415c6,6c02a6df737695ae78e94bc15670c6b6
