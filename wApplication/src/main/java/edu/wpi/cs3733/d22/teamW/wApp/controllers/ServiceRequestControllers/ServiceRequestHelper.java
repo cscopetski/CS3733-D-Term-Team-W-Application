@@ -21,7 +21,7 @@ public class ServiceRequestHelper {
       if (field.getClass().equals(TextField.class)) {
         result = !((TextField) field).getText().isEmpty();
       } else if (field.getClass().equals(ComboBox.class)) {
-        result = !((ComboBox) field).getValue().toString().equals(null);
+        // result = ((ComboBox) field).getSelectionModel().getSelectedItem();
       }
     }
 
@@ -33,7 +33,7 @@ public class ServiceRequestHelper {
       if (field.getClass().equals(TextField.class)) {
         ((TextField) field).clear();
       } else if (field.getClass().equals(ComboBox.class)) {
-        ((ComboBox) field).setValue(null);
+        ((ComboBox) field).getSelectionModel().clearSelection();
       }
     }
   }

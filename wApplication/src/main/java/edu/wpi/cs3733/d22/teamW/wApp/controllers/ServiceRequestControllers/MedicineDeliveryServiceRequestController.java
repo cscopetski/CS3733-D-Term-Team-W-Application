@@ -118,7 +118,6 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   }
 
   public void createRequest() throws SQLException {
-
     pushDataToDB();
     populateTable();
   }
