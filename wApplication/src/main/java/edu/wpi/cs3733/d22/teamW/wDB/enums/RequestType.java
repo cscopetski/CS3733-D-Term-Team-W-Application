@@ -16,7 +16,8 @@ public enum RequestType {
   SecurityService(8, "Security Service"),
   MaintenanceRequest(9, "Maintenance Request"),
   ComputerServiceRequest(10, "Computer Service Request"),
-  AudioVisualRequest(11, "Audio Visual Request");
+  AudioVisualRequest(11, "Audio Visual Request"),
+  CleaningRequest(12, "Cleaning Request");
   private final Integer value;
   private final String string;
 

@@ -32,7 +32,12 @@ public class MedRequestManager implements ServiceRequestManager {
     } else {
       mr = new MedRequest(fields);
     }
-    mrd.addMedRequest(mr);
+    // TODO Special Exception
+    if (RequestFactory.getRequestFactory().getReqIDList().add(mr.getRequestID())) {
+      mrd.addMedRequest(mr);
+    } else {
+      mr = null;
+    }
     return mr;
   }
 

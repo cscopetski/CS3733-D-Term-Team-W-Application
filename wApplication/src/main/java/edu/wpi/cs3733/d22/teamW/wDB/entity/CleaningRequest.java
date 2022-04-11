@@ -1,16 +1,16 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-public class CleaningRequest implements Entity {
-  Integer requestID;
+public class CleaningRequest extends Request {
+
   String itemID;
-  RequestStatus status;
 
   public CleaningRequest(Integer requestID, String itemID) {
     this.requestID = requestID;
@@ -50,5 +50,10 @@ public class CleaningRequest implements Entity {
   @Override
   public String toValuesString() {
     return String.format("%d, '%s', %d", requestID, itemID, status.getValue());
+  }
+
+  @Override
+  public RequestType getRequestType() {
+    return RequestType.CleaningRequest;
   }
 }

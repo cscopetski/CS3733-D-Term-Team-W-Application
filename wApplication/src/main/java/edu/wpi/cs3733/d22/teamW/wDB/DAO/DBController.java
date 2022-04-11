@@ -38,6 +38,7 @@ public class DBController {
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       MedRequestDao medRequestDao = new MedRequestDaoImpl(statement);
+      CleaningRequestDao cleaningRequestDao = new CleaningRequestDaoImpl(statement);
       LabServiceRequestDao labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
       MedEquipRequestDao medEquipRequestDao = new MedEquipRequestDaoImpl(statement);
       MedEquipDao medEquipDao = new MedEquipDaoImpl(statement);
@@ -52,6 +53,7 @@ public class DBController {
       MedRequestManager.getMedRequestManager().setMedRequestDao(medRequestDao);
       LabServiceRequestManager.getLabServiceRequestManager()
           .setLabServiceRequestDao(labServiceRequestDao);
+      CleaningRequestManager.getCleaningRequestManager().setCleaningRequestDao(cleaningRequestDao);
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ((EmployeeDaoImpl) employeeDao).createTable();
@@ -60,6 +62,7 @@ public class DBController {
       ((LabServiceRequestDaoImpl) labServiceRequestDao).createTable();
       ((MedEquipRequestDaoImpl) medEquipRequestDao).createTable();
       ((MedRequestDaoImpl) medRequestDao).createTable();
+      ((CleaningRequestDaoImpl) cleaningRequestDao).createTable();
 
     } catch (SQLException e) {
       e.printStackTrace();

@@ -2,7 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
 
-public class MedEquip implements Entity {
+public class MedEquip extends Entity {
 
   private String medID;
 

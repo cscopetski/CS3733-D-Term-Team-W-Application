@@ -79,6 +79,10 @@ public class MedEquipRequest extends Request {
     this.status = RequestStatus.getRequestStatus(Integer.parseInt(medEquipReqData[6]));
   }
 
+  public void dropItem() {
+    this.itemID = "NONE";
+  }
+
   @Override
   public RequestType getRequestType() {
     return RequestType.MedicalEquipmentRequest;

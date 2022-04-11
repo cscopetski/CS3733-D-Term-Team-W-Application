@@ -82,7 +82,7 @@ public class MedEquipManager {
   }
 
   public MedEquip getNextFree(String itemType) throws SQLException {
-    for (MedEquip e : getAllMedEquip()) {
+    for (MedEquip e : medi.getAllMedEquip()) {
       if (e.getType().equals(itemType) && e.getStatus().equals(MedEquipStatus.Clean)) {
         return e;
       }

@@ -24,7 +24,6 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
       System.out.println("Dropped Cleaning Requests Table");
     } catch (SQLException e) {
       System.out.println("Failed to drop Cleaning Requests Table");
-      throw (e);
     }
   }
 
@@ -33,13 +32,16 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
     try {
       statement.execute(
           "CREATE TABLE CLEANINGREQUESTS(\n"
-              + "                ReqID INT,\n"
-              + "                itemID varchar(25),\n"
-              + "                reqStatus INT, \n"
-              + "                constraint cleanReq_itemID_FK foreign key (itemID) references MEDICALEQUIPMENT(medID),\n"
-              + "                constraint cleanReq_PK primary key (ReqID),\n"
-              + "                constraint labReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
-              + "                constraint isEmergency_check check (isEmergency = 0 or isEmergency = 1))");
+              + "ReqID INT,\n"
+              + "itemID varchar(25),\n"
+              + "nodeID varchar(25),"
+              + "employeeID INT,"
+              + "isEmergency INT,"
+              + "reqStatus INT,"
+              + "constraint cleanReq_itemID_FK foreign key (itemID) references MEDICALEQUIPMENT(medID),\n"
+              + "constraint cleanReq_PK primary key (ReqID),\n"
+              + "constraint cleaningReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
+              + "constraint CleanIsEmergency_check check (isEmergency = 0 or isEmergency = 1))");
     } catch (SQLException e) {
       System.out.println("Lab Service Request Table failed to be created!");
       throw (e);

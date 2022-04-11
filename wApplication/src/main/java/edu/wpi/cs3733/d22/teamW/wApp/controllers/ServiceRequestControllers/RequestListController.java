@@ -6,6 +6,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
@@ -21,7 +22,12 @@ public class RequestListController extends LoadableController {
   }
 
   public void onLoad() {
-    ArrayList<Request> requests = RequestFactory.getRequestFactory().getAllRequests();
+    ArrayList<Request> requests = null;
+    try {
+      requests = RequestFactory.getRequestFactory().getAllRequests();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
     sr.clear();
     for (int i = 0; i < requests.size(); i++) {
       Request r = requests.get(i);

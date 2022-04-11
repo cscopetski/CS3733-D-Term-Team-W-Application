@@ -157,19 +157,27 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     try {
       ResultSet medEquipRequests =
           statement.executeQuery(
-              String.format("SELECT * FROM MEDREQUESTS WHERE REQUESTID = %d", reqID));
+              String.format("SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE MEDREQID = %d", reqID));
 
-      // Size of num LabServiceRequest fields
-      int size = 6;
+      medEquipRequests.next();
+
+      Integer medreqID = medEquipRequests.getInt("MEDREQID");
+      String medID = medEquipRequests.getString("MEDID");
+      String equipType = medEquipRequests.getString("EQUIPTYPE");
+      String nodeID = medEquipRequests.getString("NODEID");
+      Integer employeeID = medEquipRequests.getInt("EMPLOYEEID");
+      Integer isEmergency = medEquipRequests.getInt("ISEMERGENCY");
+      Integer reqStatus = medEquipRequests.getInt("REQSTATUS");
       ArrayList<String> medEquipRequestData = new ArrayList<String>();
+      medEquipRequestData.add(String.format("%d", medreqID));
+      medEquipRequestData.add(medID);
+      medEquipRequestData.add(equipType);
+      medEquipRequestData.add(nodeID);
+      medEquipRequestData.add(String.format("%d", employeeID));
+      medEquipRequestData.add(String.format("%d", isEmergency));
+      medEquipRequestData.add(String.format("%d", reqStatus));
+      mr = new MedEquipRequest(medEquipRequestData);
 
-      while (medEquipRequests.next()) {
-
-        for (int i = 0; i < size; i++) {
-          medEquipRequestData.add(i, medEquipRequests.getString(i + 1));
-        }
-        mr = new MedEquipRequest(medEquipRequestData);
-      }
     } catch (SQLException e) {
       System.out.println("Query from medicine request table failed.");
     }

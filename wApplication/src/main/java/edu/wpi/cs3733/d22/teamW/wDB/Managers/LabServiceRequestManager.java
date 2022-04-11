@@ -49,7 +49,12 @@ public class LabServiceRequestManager implements RequestManager {
       System.out.println("Right before making lSR");
       lSR = new LabServiceRequest(fields);
     }
-    lsrdi.addLabServiceRequest(lSR);
+    // TODO Special Exception
+    if (RequestFactory.getRequestFactory().getReqIDList().add(lSR.getRequestID())) {
+      lsrdi.addLabServiceRequest(lSR);
+    } else {
+      lSR = null;
+    }
     return lSR;
   }
 

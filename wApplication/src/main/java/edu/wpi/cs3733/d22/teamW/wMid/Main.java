@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
@@ -110,6 +111,19 @@ public class Main {
     } else {
       System.out.println("NO MATCH");
     }
+    /* // Req23 cancelled
+    merc.cancel(23);
+    // Req7 complete
+    merc.complete(7);
+    // Req5 cancelled and req 22 start
+    merc.cancel(5);
+    merc.reQueue(5);
+    merc.cancel(22);*/
+    System.out.println("\n\n\n\n");
+    for (Request e : requestFactory.getAllRequests()) {
+      System.out.println(e.toValuesString());
+    }
+
     /*
        edi.addEmployee(
            1,
