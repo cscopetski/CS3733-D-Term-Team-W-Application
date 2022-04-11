@@ -50,21 +50,26 @@
             </TableColumn>
          </columns>
       </TableView>
-      <TableView fx:id="EqTab1" layoutX="511.0" layoutY="179.0" prefHeight="128.0" prefWidth="225.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
+      <TableView fx:id="ReqTab" layoutX="450.0" layoutY="258.0" prefHeight="128.0" prefWidth="280.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
          <columns>
             <TableColumn prefWidth="62.666648864746094" text="RequestID">
                <cellValueFactory>
-                  <PropertyValueFactory property="Type" />
+                  <PropertyValueFactory property="RequestID" />
                </cellValueFactory>
             </TableColumn>
-            <TableColumn prefWidth="91.99993896484375" text="Emergency">
+            <TableColumn prefWidth="43.33331298828125" text="Emerg">
                <cellValueFactory>
-                  <PropertyValueFactory property="MedID" />
+                  <PropertyValueFactory property="Emergency" />
                </cellValueFactory>
             </TableColumn>
-            <TableColumn prefWidth="48.00006103515625" text="Status">
+            <TableColumn prefWidth="52.66668701171875" text="Status">
                <cellValueFactory>
                   <PropertyValueFactory property="Status" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn prefWidth="120.0" text="EmployeeID" >
+               <cellValueFactory>
+                  <PropertyValueFactory property="EmployeeID" />
                </cellValueFactory>
             </TableColumn>
          </columns>

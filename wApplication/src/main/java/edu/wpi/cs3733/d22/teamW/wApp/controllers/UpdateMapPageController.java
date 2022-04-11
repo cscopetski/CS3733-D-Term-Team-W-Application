@@ -1,9 +1,11 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
+import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Requests;
+import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.sql.SQLException;
@@ -31,11 +33,18 @@ public class UpdateMapPageController implements Initializable {
   @FXML private TextField snameField;
   @FXML private TextField buildingField;
   @FXML private TableView<medEquip> EqTab;
+  @FXML private TableView<Requests> ReqTab;
   private ArrayList<medEquip> equipList = new ArrayList<>();
+  private ArrayList<Requests> reqList = new ArrayList<>();
   @FXML private Alert confirmChoice = new Alert(Alert.AlertType.CONFIRMATION);
   Location loc;
   private MedEquipManager equipController = MedEquipManager.getMedEquipManager();
   private LocationManager locationManager = LocationManager.getLocationManager();
+  private MedEquipRequestManager medEquipRequestManager =
+      MedEquipRequestManager.getMedEquipRequestManager();
+  private LabServiceRequestManager labServiceRequestManager =
+      LabServiceRequestManager.getLabServiceRequestManager();
+  private MedRequestManager medRequestManager = MedRequestManager.getMedRequestManager();
 
   public void updateLoc(ActionEvent actionEvent) throws SQLException {
 
@@ -71,6 +80,26 @@ public class UpdateMapPageController implements Initializable {
 
   public void cancelUpdate(ActionEvent actionEvent) {
     ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
+  }
+
+  private void generateRequestList() throws SQLException {
+    reqList.clear();
+    ArrayList<Request> rList = new ArrayList<>();
+    rList.addAll(medRequestManager.getAllRequests());
+    rList.addAll(medEquipRequestManager.getAllRequests());
+    rList.addAll(labServiceRequestManager.getAllRequests());
+    for (int i = 0; i < rList.size(); i++) {
+      if (rList.get(i).getNodeID().equalsIgnoreCase(loc.getNodeID())) {
+        reqList.add(
+            new Requests(
+                rList.get(i).getStatus().getString(),
+                rList.get(i).getEmployeeID(),
+                rList.get(i).getEmergency(),
+                rList.get(i).getRequestID()));
+      }
+    }
+    ReqTab.getItems().clear();
+    ReqTab.getItems().addAll(reqList);
   }
 
   private void generateEquipList() {
@@ -112,6 +141,7 @@ public class UpdateMapPageController implements Initializable {
     lnameField.setText(loc.getLongName());
     snameField.setText(loc.getShortName());
     generateEquipList();
+    generateRequestList();
   }
 
   @Override

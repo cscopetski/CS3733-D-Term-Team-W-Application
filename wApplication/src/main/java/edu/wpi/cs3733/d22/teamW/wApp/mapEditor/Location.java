@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d22.teamW.wApp.controllers;
+package edu.wpi.cs3733.d22.teamW.wApp.mapEditor;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;

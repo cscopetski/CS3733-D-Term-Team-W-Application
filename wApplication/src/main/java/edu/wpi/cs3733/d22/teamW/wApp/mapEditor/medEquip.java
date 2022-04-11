@@ -1,4 +1,4 @@
-package edu.wpi.cs3733.d22.teamW.wApp.controllers;
+package edu.wpi.cs3733.d22.teamW.wApp.mapEditor;
 
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
 import javafx.beans.property.SimpleIntegerProperty;

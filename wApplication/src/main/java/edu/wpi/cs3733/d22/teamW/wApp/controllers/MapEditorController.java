@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
@@ -37,7 +38,7 @@ public class MapEditorController extends LoadableController {
   @FXML private MenuItem Side;
   @FXML private MenuButton dropdown;
   @FXML private AnchorPane page;
-  @FXML private TableView<Location> LocTab;
+  @FXML private TableView<edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location> LocTab;
   @FXML private TableView<medEquip> EqTab;
   @FXML private FileChooser fileChooser = new FileChooser();
   Image img1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F1.png");
@@ -61,7 +62,8 @@ public class MapEditorController extends LoadableController {
   private LabServiceRequestManager labServiceRequestManager =
       LabServiceRequestManager.getLabServiceRequestManager();
   private MedRequestManager medRequestManager = MedRequestManager.getMedRequestManager();
-  private ArrayList<Location> currFloorLoc = new ArrayList<>();
+  private ArrayList<edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location> currFloorLoc =
+      new ArrayList<>();
   private ArrayList<String> currFloorNodeID = new ArrayList<>();
   private ArrayList<medEquip> equipList = new ArrayList<>();
 
@@ -75,7 +77,7 @@ public class MapEditorController extends LoadableController {
         locationManager.getAllLocations();
     for (int i = 0; i < locList.size(); i++) {
       if (locList.get(i).getFloor().equalsIgnoreCase(currFloor)) {
-        currFloorLoc.add(new Location(locList.get(i)));
+        currFloorLoc.add(new edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location(locList.get(i)));
         currFloorNodeID.add(locList.get(i).getNodeID());
       }
     }
