@@ -30,11 +30,12 @@ public class ServiceRequestHelper {
 
   public void clearFields() {
     for (Control field : fields) {
-      if (field.getClass().equals(TextField.class)) {
-        ((TextField) field).clear();
-      } else if (field.getClass().equals(ComboBox.class)) {
-        ((ComboBox) field).getSelectionModel().clearSelection();
-      }
+      System.out.println(field.getClass().toString());
+      // if (field.getClass() == (TextField.class)) {
+      //  ((TextField) field).clear();
+      // } else if (field.getClass() == (ComboBox.class)) {
+      //  ((ComboBox) field).getSelectionModel().clearSelection();
+      // }
     }
   }
 }

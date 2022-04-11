@@ -189,19 +189,19 @@
                   <TableView fx:id="table" prefHeight="200.0" prefWidth="344.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
                     <columns>
                        <TableColumn fx:id="medCol" prefWidth="140.0" resizable="false" text="Medicine">
-                          <cellValueFactory>
-                             <PropertyValueFactory property="MedVal" />
-                          </cellValueFactory>
+<!--                          <cellValueFactory>-->
+<!--                             <PropertyValueFactory property="MedVal" />-->
+<!--                          </cellValueFactory>-->
                        </TableColumn>
                        <TableColumn fx:id="nameCol" prefWidth="70.0" resizable="false" text="Name">
-                          <cellValueFactory>
-                             <PropertyValueFactory property="NameVal" />
-                          </cellValueFactory>
+<!--                          <cellValueFactory>-->
+<!--                             <PropertyValueFactory property="NameVal" />-->
+<!--                          </cellValueFactory>-->
                        </TableColumn>
                        <TableColumn fx:id="numCol" minWidth="0.0" prefWidth="70.0" resizable="false" text="Quantity">
-                          <cellValueFactory>
-                             <PropertyValueFactory property="NumVal" />
-                          </cellValueFactory>
+<!--                          <cellValueFactory>-->
+<!--                             <PropertyValueFactory property="NumVal" />-->
+<!--                          </cellValueFactory>-->
                        </TableColumn>
                     </columns>
                   </TableView>

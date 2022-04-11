@@ -135,7 +135,11 @@ public class SceneManager {
   }
 
   public void transitionTo(Scenes scene) {
-    transitionTo(scene, Transitions.Fade);
+    if (current == scene) {
+      setPaneVisible(scene);
+    } else {
+      transitionTo(scene, Transitions.Fade);
+    }
   }
 
   public void transitionTo(Scenes scene, Transitions transition) {

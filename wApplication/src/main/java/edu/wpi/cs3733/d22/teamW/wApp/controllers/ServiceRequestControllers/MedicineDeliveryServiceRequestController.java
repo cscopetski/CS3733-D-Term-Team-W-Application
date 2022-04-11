@@ -46,13 +46,11 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   // Tables:
   @FXML private TableView<MedicalEquipmentSR> table;
 
-  // Lists:
-  private ArrayList<MedicalEquipmentSR> sr = new ArrayList<>();
-
   // other stuff:
+  private ArrayList<MedicalEquipmentSR> sr = new ArrayList<>();
+  private ServiceRequestHelper helper = new ServiceRequestHelper(populateFields());
   boolean emergencyLevel = false;
   @FXML Button emergencyB;
-  ServiceRequestHelper helper = new ServiceRequestHelper(populateFields());
 
   protected SceneManager.Scenes GetSceneType() {
     return SceneManager.Scenes.MedicineDelivery;
@@ -74,10 +72,10 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   public void clearFields() {
     quantityField.clear();
     itemCodeField.clear();
-    medNameCBox.setValue(null);
-    locationCBox.setValue(null);
-    timePrefCBox.setValue(null);
-    requesterCBox.setValue(null);
+    medNameCBox.getSelectionModel().clearSelection();
+    locationCBox.getSelectionModel().clearSelection();
+    timePrefCBox.getSelectionModel().clearSelection();
+    requesterCBox.getSelectionModel().clearSelection();
   }
 
   public void onLoad() {
