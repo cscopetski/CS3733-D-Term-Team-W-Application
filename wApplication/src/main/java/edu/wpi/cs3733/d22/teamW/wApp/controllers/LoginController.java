@@ -47,7 +47,10 @@ public class LoginController extends LoadableController {
       existCase.setVisible(false);
       matchCase.setVisible(false);
       if (eM.passwordMatch(username.getText(), password.getText())) {
-        eM.getEmployee(username.getText());
+        ((DefaultPageController)
+                SceneManager.getInstance().getController(SceneManager.Scenes.Default))
+            .setEmployee(eM.getEmployee(username.getText()));
+
         ((DefaultPageController)
                 SceneManager.getInstance().getController(SceneManager.Scenes.Default))
             .menuBar.setVisible(true);
