@@ -93,6 +93,13 @@ public class Main {
     LabServiceRequestManager.getLabServiceRequestManager()
         .exportLabServiceRequestCSV("LABTEST.csv");
 
+    LanguageInterpreterManager lim = LanguageInterpreterManager.getLanguageInterpreterManager();
+    lim.addLanguageInterpreter(5, "Charlie", "K-W", "Spanish");
+    lim.addLanguageInterpreter(5, "Charlie", "K-W", "French");
+    lim.addLanguageInterpreter(4, "Edison", "Zhang", "German");
+    lim.changeLanguageInterpreter(4, "Edison", "Zhang", "Italian");
+    lim.deleteLanguageInterpreterOneInstance(5, "French");
+
     EmployeeManager edi = EmployeeManager.getEmployeeManager();
     edi.addEmployee(
         7,
