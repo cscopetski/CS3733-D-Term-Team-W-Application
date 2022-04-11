@@ -28,6 +28,7 @@ public class LoginController extends LoadableController {
           "There are required fields empty " + " !",
           ButtonType.OK,
           ButtonType.CANCEL);
+
   @FXML ComboBox<String> equipmentSelection;
 
   @Override
@@ -45,6 +46,7 @@ public class LoginController extends LoadableController {
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
       existCase.setVisible(false);
       matchCase.setVisible(false);
+
       if (eM.passwordMatch(username.getText(), password.getText())) {
         ((DefaultPageController)
                 SceneManager.getInstance().getController(SceneManager.Scenes.Default))

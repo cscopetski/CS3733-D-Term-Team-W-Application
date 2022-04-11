@@ -2,6 +2,9 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
 import java.sql.*;
 
 public class DBController {
@@ -65,6 +68,15 @@ public class DBController {
     } catch (SQLException e) {
       e.printStackTrace();
       System.out.println("Table Creation Failed");
+      //Failed connection
+     /* Alert connectionFailed =
+              new Alert(
+                      Alert.AlertType.ERROR,
+                      "Connection failed, please try again.",
+                      ButtonType.OK
+              );
+      connectionFailed.show();*/
+
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }
