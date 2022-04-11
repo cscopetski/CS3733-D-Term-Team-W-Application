@@ -196,7 +196,7 @@
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
-                              <ComboBox fx:id="timeSelection" onAction="#onEnter" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                              <ComboBox fx:id="timeSelection" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
                                  <VBox.margin>
                                     <Insets bottom="20.0" top="10.0" />
                                  </VBox.margin>

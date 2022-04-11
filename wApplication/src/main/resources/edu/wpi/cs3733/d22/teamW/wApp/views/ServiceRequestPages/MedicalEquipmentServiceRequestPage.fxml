@@ -81,7 +81,7 @@
                                                 <Font size="14.0"/>
                                             </font>
                                         </Label>
-                                        <ComboBox fx:id="equipmentSelection" onAction="#onEnter" prefHeight="25.0"
+                                        <ComboBox fx:id="equipmentSelection" prefHeight="25.0"
                                                   prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
