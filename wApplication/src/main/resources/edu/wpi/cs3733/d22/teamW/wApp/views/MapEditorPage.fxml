@@ -1,137 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.collections.FXCollections?>
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Circle?>
-
-<?import com.sun.javafx.scene.control.ContextMenuContent.MenuBox?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.control.ScrollBar?>
-<?import javafx.scene.Group?>
-<?import javafx.scene.control.Slider?>
 <?import javafx.scene.layout.BorderPane?>
-<AnchorPane fx:id="page" style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0"
-            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-            xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
-    <children>
-        <VBox layoutX="396.0" layoutY="63.0">
-            <ScrollPane fx:id="scrollPane" prefHeight="600.0" prefWidth="600.0">
-                <content>
-                    <Group>
-                        <Group fx:id="scrollGroup">
-                            <ImageView fx:id="mapList" fitHeight="600.0" fitWidth="600.0" onMouseClicked="#addLocation2" preserveRatio="true">
-                                <Image url="@../assets/Maps/SideView.jpg"/>
-                            </ImageView>
-                        </Group>
-                    </Group>
-                </content>
-            </ScrollPane>
-            <Slider fx:id="scaleSlider" style="-fx-padding: 10px"/>
-        </VBox>
-        <TableView fx:id="LocTab" layoutX="106.0" layoutY="55.0" prefHeight="200.0" prefWidth="272.0"
-                   stylesheets="@../CSS/UniversalCSS/Standard.css">
-            <columns>
-                <TableColumn prefWidth="89.0" text="nodeID">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="NodeID"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="93.0" text="X">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="XCoord"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="89.0" text="Y">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="YCoord"/>
-                    </cellValueFactory>
-                </TableColumn>
-            </columns>
-            <items>
-                <FXCollections fx:factory="observableArrayList"/>
-            </items>
-        </TableView>
-        <Button fx:id="refreshButton" layoutX="41.0" layoutY="418.0" mnemonicParsing="false" onAction="#refresh"
-                stylesheets="@../CSS/UniversalCSS/Standard.css" text="Refresh"/>
-        <TableView fx:id="EqTab" layoutX="106.0" layoutY="260.0" prefHeight="200.0" prefWidth="272.0"
-                   stylesheets="@../CSS/UniversalCSS/Standard.css">
-            <columns>
-                <TableColumn prefWidth="60.000003814697266" text="Type">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="Type"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="75.0" text="medID">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="MedID"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="70.00001525878906" text="Y Coord">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="YCoord"/>
-                    </cellValueFactory>
-                </TableColumn>
-                <TableColumn prefWidth="67.33336639404297" text="X Coord">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="XCoord"/>
-                    </cellValueFactory>
-                </TableColumn>
-            </columns>
-        </TableView>
-        <Label layoutX="43.0" layoutY="87.0" text="Locations:"/>
-        <Label layoutX="39.0" layoutY="337.0" text="Equipment:"/>
-        <Circle fill="RED" layoutX="1110.0" layoutY="326.0" radius="13.0" stroke="BLACK" strokeType="INSIDE"/>
-        <Circle fill="DODGERBLUE" layoutX="1110.0" layoutY="359.0" radius="13.0" stroke="BLACK" strokeType="INSIDE"/>
-        <Circle fill="#00ff26" layoutX="1110.0" layoutY="392.0" radius="13.0" stroke="BLACK" strokeType="INSIDE"/>
-        <Circle fill="#6b3198" layoutX="1110.0" layoutY="431.0" radius="13.0" stroke="BLACK" strokeType="INSIDE"/>
-        <Label layoutX="1035.0" layoutY="318.0" text="Location:"/>
-        <Label layoutX="1059.0" layoutY="351.0" text="Bed:"/>
-        <Label layoutX="1059.0" layoutY="384.0" text="X-Ray:"/>
-        <Label layoutX="1008.0" layoutY="422.0" text="Infusion Pump:"/>
-        <Label layoutX="1037.0" layoutY="456.0" text="Recliner:"/>
-        <Circle fill="#f6ff00" layoutX="1110.0" layoutY="464.0" radius="13.0" stroke="BLACK" strokeType="INSIDE"/>
-        <Label layoutX="1058.0" layoutY="280.0" text="Map Key:"/>
-        <Button fx:id="updateButton" layoutX="280.0" layoutY="495.0" mnemonicParsing="false" onAction="#updateLocation"
-                stylesheets="@../CSS/UniversalCSS/Standard.css" text="Update"/>
-        <Button fx:id="addButton" layoutX="50.0" layoutY="618.0" mnemonicParsing="false" onAction="#addLocation"
-                stylesheets="@../CSS/UniversalCSS/Standard.css" text="Add"/>
-        <Button fx:id="removeButton" layoutX="213.0" layoutY="495.0" mnemonicParsing="false" onAction="#removeLocation"
-                stylesheets="@../CSS/UniversalCSS/Standard.css" text="Remove"/>
-        <TextField fx:id="nodeIn" layoutX="50.0" layoutY="495.0" promptText="nodeID"
-                   stylesheets="@../CSS/UniversalCSS/Standard.css"/>
-        <TextField layoutX="50.0" layoutY="537.0" promptText="xCoord" stylesheets="@../CSS/UniversalCSS/Standard.css"
-                   fx:id="xIn"/>
-        <TextField fx:id="yIn" layoutX="50.0" layoutY="574.0" promptText="yCoord"
-                   stylesheets="@../CSS/UniversalCSS/Standard.css"/>
-        <Button fx:id="resetButton" layoutX="23.0" layoutY="693.0" mnemonicParsing="false" onAction="#resetCSV"
-                stylesheets="@../CSS/UniversalCSS/Standard.css" text="Reset Map"/>
-        <Button fx:id="exportButton" layoutX="109.0" layoutY="693.0" mnemonicParsing="false" onAction="#expCSV"
-                stylesheets="@../CSS/UniversalCSS/Standard.css" text="Export to CSV"/>
-        <MenuButton fx:id="dropdown" alignment="CENTER" layoutX="645.0" layoutY="30.0" mnemonicParsing="false"
-                    prefHeight="30.0" prefWidth="130.0" stylesheets="@../CSS/UniversalCSS/Standard.css"
-                    text="Change Floor">
-            <items>
-                <MenuItem fx:id="Side" mnemonicParsing="false" onAction="#swapSideView" text="Side View"/>
-                <MenuItem fx:id="F1" mnemonicParsing="false" onAction="#swapFloor1" text="Floor 1"/>
-                <MenuItem fx:id="F2" mnemonicParsing="false" onAction="#swapFloor2" text="Floor 2"/>
-                <MenuItem fx:id="F3" mnemonicParsing="false" onAction="#swapFloor3" text="Floor 3"/>
-                <MenuItem fx:id="F4" mnemonicParsing="fase" onAction="#swapFloor4" text="Floor 4"></MenuItem>
-                <MenuItem fx:id="F5" mnemonicParsing="false" onAction="#swapFloor5" text="Floor 5"/>
-                <MenuItem fx:id="FL1" mnemonicParsing="false" onAction="#swapFloorL1" text="Lower Floor 1"/>
-                <MenuItem fx:id="FL2" mnemonicParsing="false" onAction="#swapFloorL2" text="Lower Floor 2"/>
-            </items>
-        </MenuButton>
-    </children>
-</AnchorPane>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane prefHeight="663.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
+   <center>
+      <Group BorderPane.alignment="CENTER">
+         <children>
+               <ScrollPane fx:id="scrollPane" layoutY="107.66667175292969" prefHeight="388.0" prefWidth="463.0">
+                   <content>
+                       <Group>
+                           <Group fx:id="scrollGroup">
+                               <ImageView fx:id="mapList" fitHeight="862.0" fitWidth="665.0" layoutX="-81.0" onMouseClicked="#addLocation2" preserveRatio="true">
+                                   <Image url="@../assets/Maps/SideView.jpg" />
+                               </ImageView>
+                           </Group>
+                       </Group>
+                   </content>
+               </ScrollPane>
+              <MenuButton fx:id="dropdown" alignment="CENTER" layoutY="62.66666793823242" mnemonicParsing="false" prefHeight="30.0" prefWidth="463.0" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Change Floor">
+                  <items>
+                      <MenuItem fx:id="Side" mnemonicParsing="false" onAction="#swapSideView" text="Side View" />
+                      <MenuItem fx:id="F1" mnemonicParsing="false" onAction="#swapFloor1" text="Floor 1" />
+                      <MenuItem fx:id="F2" mnemonicParsing="false" onAction="#swapFloor2" text="Floor 2" />
+                      <MenuItem fx:id="F3" mnemonicParsing="false" onAction="#swapFloor3" text="Floor 3" />
+                      <MenuItem fx:id="F4" mnemonicParsing="fase" onAction="#swapFloor4" text="Floor 4" />
+                      <MenuItem fx:id="F5" mnemonicParsing="false" onAction="#swapFloor5" text="Floor 5" />
+                      <MenuItem fx:id="FL1" mnemonicParsing="false" onAction="#swapFloorL1" text="Lower Floor 1" />
+                      <MenuItem fx:id="FL2" mnemonicParsing="false" onAction="#swapFloorL2" text="Lower Floor 2" />
+                  </items>
+              </MenuButton>
+            <Label layoutY="505.6666564941406" text="Swipe right to zoom in" textFill="#aca1a1">
+               <font>
+                  <Font name="System Italic" size="12.0" />
+               </font>
+            </Label>
+               <Slider fx:id="scaleSlider" layoutX="-8.0" layoutY="515.6666870117188" prefHeight="34.0" prefWidth="294.0" style="-fx-padding: 10px" />
+         </children>
+      </Group>
+   </center>
+   <right>
+      <Pane prefHeight="556.0" prefWidth="243.0" BorderPane.alignment="CENTER">
+         <children>
+              <Circle fill="DODGERBLUE" layoutX="197.0" layoutY="230.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+              <Circle fill="#00ff26" layoutX="197.0" layoutY="263.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+              <Circle fill="#6b3198" layoutX="197.0" layoutY="292.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+              <Label layoutX="135.0" layoutY="188.0" text="Location:" />
+              <Label layoutX="162.0" layoutY="221.0" text="Bed:" />
+              <Label layoutX="150.0" layoutY="255.0" text="X-Ray:" />
+              <Label layoutX="106.0" layoutY="283.0" text="Infusion Pump:" />
+              <Label layoutX="139.0" layoutY="315.0" text="Recliner:" />
+              <Circle fill="#f6ff00" layoutX="197.0" layoutY="323.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+              <Label layoutX="139.0" layoutY="152.0" text="Map Key">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+              <Circle fill="RED" layoutX="197.0" layoutY="197.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+            <Button fx:id="resetButton" layoutX="37.0" layoutY="489.0" mnemonicParsing="false" onAction="#resetCSV" style="-fx-background-color: #189DA6;" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Reset Map" />
+            <Button fx:id="exportButton" layoutX="123.0" layoutY="489.0" mnemonicParsing="false" onAction="#expCSV" style="-fx-background-color: #189DA6;" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Export to CSV" />
+         </children>
+      </Pane>
+   </right>
+   <top>
+      <Pane prefHeight="107.0" prefWidth="1009.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="484.0" layoutY="58.0" text="Welcome to Map Editor page." textFill="#013895">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Label>
+            <Label layoutX="501.0" layoutY="93.0" text="Need to check on things ? We have an interactive map for you" textFill="#706e6e" />
+            <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="620.0" layoutY="-2.0">
+               <image>
+                  <Image url="@../assets/MapIcon.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </top>
+   <left>
+      <Pane prefHeight="575.0" prefWidth="402.0" BorderPane.alignment="CENTER">
+         <children>
+              <TableView fx:id="LocTab" layoutX="20.0" layoutY="68.0" prefHeight="113.0" prefWidth="294.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
+                  <columns>
+                      <TableColumn prefWidth="89.0" text="nodeID">
+                          <cellValueFactory>
+                              <PropertyValueFactory property="NodeID" />
+                          </cellValueFactory>
+                      </TableColumn>
+                      <TableColumn prefWidth="68.66667175292969" text="X">
+                          <cellValueFactory>
+                              <PropertyValueFactory property="XCoord" />
+                          </cellValueFactory>
+                      </TableColumn>
+                      <TableColumn prefWidth="80.66668701171875" text="Y">
+                          <cellValueFactory>
+                              <PropertyValueFactory property="YCoord" />
+                          </cellValueFactory>
+                      </TableColumn>
+                  </columns>
+                  <items>
+                      <FXCollections fx:factory="observableArrayList" />
+                  </items>
+              </TableView>
+              <Button fx:id="refreshButton" layoutX="247.0" layoutY="31.0" mnemonicParsing="false" onAction="#refresh" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Refresh" />
+              <TableView fx:id="EqTab" layoutX="15.0" layoutY="254.0" prefHeight="128.0" prefWidth="301.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
+                  <columns>
+                      <TableColumn prefWidth="62.666648864746094" text="Type">
+                          <cellValueFactory>
+                              <PropertyValueFactory property="Type" />
+                          </cellValueFactory>
+                      </TableColumn>
+                      <TableColumn prefWidth="66.0" text="medID">
+                          <cellValueFactory>
+                              <PropertyValueFactory property="MedID" />
+                          </cellValueFactory>
+                      </TableColumn>
+                      <TableColumn prefWidth="51.333404541015625" text="Y ">
+                          <cellValueFactory>
+                              <PropertyValueFactory property="YCoord" />
+                          </cellValueFactory>
+                      </TableColumn>
+                      <TableColumn prefWidth="73.99995422363281" text="X">
+                          <cellValueFactory>
+                              <PropertyValueFactory property="XCoord" />
+                          </cellValueFactory>
+                      </TableColumn>
+                  </columns>
+              </TableView>
+              <Label alignment="CENTER_RIGHT" layoutY="208.0" prefHeight="38.0" prefWidth="123.0" style="-fx-background-color: #189DA6;" text="Equipment  " textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+              <Button fx:id="updateButton" layoutX="246.0" layoutY="482.0" mnemonicParsing="false" onAction="#updateLocation" prefHeight="28.0" prefWidth="64.0" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Update" />
+              <Button fx:id="addButton" layoutX="246.0" layoutY="451.0" mnemonicParsing="false" onAction="#addLocation" prefHeight="28.0" prefWidth="64.0" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Add" />
+              <Button fx:id="removeButton" layoutX="246.0" layoutY="420.0" mnemonicParsing="false" onAction="#removeLocation" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Remove" />
+              <TextField fx:id="nodeIn" layoutX="156.0" layoutY="482.0" prefHeight="28.0" prefWidth="66.0" promptText="nodeID" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+              <TextField layoutX="156.0" layoutY="450.0" prefHeight="28.0" prefWidth="66.0" promptText="xCoord" stylesheets="@../CSS/UniversalCSS/Standard.css" fx:id="xIn" />
+              <TextField fx:id="yIn" layoutX="156.0" layoutY="419.0" prefHeight="28.0" prefWidth="66.0" promptText="yCoord" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+            <Label alignment="CENTER_RIGHT" layoutY="445.0" prefHeight="38.0" prefWidth="123.0" style="-fx-background-color: #189DA6;" text="Edit on map  " textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER_RIGHT" layoutY="26.0" prefHeight="38.0" prefWidth="123.0" style="-fx-background-color: #189DA6;" text="Location  " textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+   </left>
+</BorderPane>
