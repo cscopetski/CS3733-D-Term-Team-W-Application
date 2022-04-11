@@ -75,6 +75,46 @@ public class EmployeeDaoImpl implements EmployeeDao {
   }
 
   @Override
+  public Employee getEmployee(String username) throws SQLException {
+    ResultSet rs =
+        statement.executeQuery(
+            String.format("SELECT * FROM EMPLOYEES WHERE USERNAME = '%s'", username));
+    rs.next();
+    Integer empID = rs.getInt("EMPLOYEEID");
+    String firstName = rs.getString("FIRSTNAME");
+    String lastName = rs.getString("LASTNAME");
+    String employeeType = rs.getString("EMPLOYEETYPE");
+    String email = rs.getString("EMAIL");
+    String phoneNum = rs.getString("PHONENUMBER");
+    String address = rs.getString("ADDRESS");
+    String user = rs.getString("USERNAME");
+    String pass = rs.getString("PASSWORD");
+    String salt = rs.getString("SALT");
+    return new Employee(
+        empID, firstName, lastName, employeeType, email, phoneNum, address, user, pass, salt);
+  }
+
+  @Override
+  public Employee getEmployee(Integer empID) throws SQLException {
+    ResultSet rs =
+        statement.executeQuery(
+            String.format("SELECT * FROM EMPLOYEES WHERE EMPLOYEEID = %d", empID));
+    rs.next();
+    Integer id = rs.getInt("EMPLOYEEID");
+    String firstName = rs.getString("FIRSTNAME");
+    String lastName = rs.getString("LASTNAME");
+    String employeeType = rs.getString("EMPLOYEETYPE");
+    String email = rs.getString("EMAIL");
+    String phoneNum = rs.getString("PHONENUMBER");
+    String address = rs.getString("ADDRESS");
+    String user = rs.getString("USERNAME");
+    String pass = rs.getString("PASSWORD");
+    String salt = rs.getString("SALT");
+    return new Employee(
+        id, firstName, lastName, employeeType, email, phoneNum, address, user, pass, salt);
+  }
+
+  @Override
   public void addEmployee(
       Integer employeeID,
       String firstname,
@@ -118,12 +158,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
       String phoneNumber,
       String address,
       String username,
-      String password,
-      String salt)
+      String password)
       throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE EMPLOYEES SET FIRSTNAME = '%s', LASTNAME = '%s', EMPLOYEETYPE = '%s', EMAIL = '%s', PHONENUMBER = '%s', ADDRESS = '%s', USERNAME = '%s', PASSWORD = '%s', SALT = '%s' WHERE EMPLOYEEID = %d",
+            "UPDATE EMPLOYEES SET FIRSTNAME = '%s', LASTNAME = '%s', EMPLOYEETYPE = '%s', EMAIL = '%s', PHONENUMBER = '%s', ADDRESS = '%s', USERNAME = '%s', PASSWORD = '%s' WHERE EMPLOYEEID = %d",
             firstname,
             lastname,
             type,
@@ -132,7 +171,6 @@ public class EmployeeDaoImpl implements EmployeeDao {
             address,
             username,
             password,
-            salt,
             employeeID));
   }
 
