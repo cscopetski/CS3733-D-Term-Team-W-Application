@@ -141,6 +141,8 @@ public class Main {
     merc.cancel(5);
     merc.reQueue(5);
     merc.cancel(22);*/
+    merc.complete(2);
+    // MedEquipManager.getMedEquipManager().markDirty("BED002", "FEXIT00301");
     System.out.println("\n\n\n\n");
     for (Request e : requestFactory.getAllRequests()) {
       System.out.println(e.toValuesString());

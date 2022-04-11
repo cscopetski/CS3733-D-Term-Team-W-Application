@@ -32,32 +32,32 @@ public class MedEquipRequest extends Request {
     this.updatedTimestamp = updatedTimestamp;
   }
 
-  public MedEquipRequest(ArrayList<String> medReqData) {
+  public MedEquipRequest(ArrayList<String> fields) {
     try {
-      this.requestID = Integer.parseInt(medReqData.get(0));
+      this.requestID = Integer.parseInt(fields.get(0));
     } catch (NumberFormatException e) {
       this.requestID = null;
     }
 
-    this.itemID = medReqData.get(1);
-    this.itemType = medReqData.get(2);
-    this.nodeID = medReqData.get(3);
-    this.employeeID = Integer.parseInt(medReqData.get(4));
+    this.itemID = fields.get(1);
+    this.itemType = fields.get(2);
+    this.nodeID = fields.get(3);
+    this.employeeID = Integer.parseInt(fields.get(4));
 
     try {
-      this.emergency = Integer.parseInt(medReqData.get(5));
+      this.emergency = Integer.parseInt(fields.get(5));
     } catch (NumberFormatException e) {
       this.emergency = 0;
     }
 
     try {
-      this.status = RequestStatus.getRequestStatus(Integer.parseInt(medReqData.get(6)));
+      this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(6)));
     } catch (NumberFormatException e) {
       this.status = RequestStatus.Cancelled;
     }
 
-    this.createdTimestamp = Timestamp.valueOf(medReqData.get(7));
-    this.updatedTimestamp = Timestamp.valueOf(medReqData.get(8));
+    this.createdTimestamp = Timestamp.valueOf(fields.get(7));
+    this.updatedTimestamp = Timestamp.valueOf(fields.get(8));
   }
 
   // TODO fixing this constructor, may be out of order??

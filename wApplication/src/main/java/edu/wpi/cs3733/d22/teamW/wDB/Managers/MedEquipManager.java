@@ -52,21 +52,21 @@ public class MedEquipManager {
 
   public void markDirty(String medID, String type, String nodeID) throws SQLException {
     medi.changeMedEquip(medID, type, nodeID, MedEquipStatus.Dirty);
-    CleaningRequest cr = crm.addRequest(medID);
+    /*CleaningRequest cr = crm.addRequest(medID);
     cleaningRequests.add(cr);
     if (cleaningRequests.size() == 6) {
       startCleaningRequests();
-    }
+    }*/
   }
 
   public void markDirty(String medID, String nodeID) throws SQLException {
     String type = getMedEquip(medID).getType();
     medi.changeMedEquip(medID, type, nodeID, MedEquipStatus.Dirty);
-    CleaningRequest cr = crm.addRequest(medID);
+    /*CleaningRequest cr = crm.addRequest(medID);
     cleaningRequests.add(cr);
     if (cleaningRequests.size() == 6) {
       startCleaningRequests();
-    }
+    }*/
   }
 
   public void startCleaningRequests() throws SQLException {

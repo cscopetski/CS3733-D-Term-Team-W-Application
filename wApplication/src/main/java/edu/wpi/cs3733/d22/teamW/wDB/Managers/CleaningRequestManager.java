@@ -1,9 +1,11 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.CleaningRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class CleaningRequestManager {
@@ -30,20 +32,6 @@ public class CleaningRequestManager {
     return crd.getAllCleaningRequests();
   }
 
-  public CleaningRequest addRequest(Integer id, ArrayList<String> fields) throws SQLException {
-    counter++;
-    CleaningRequest cr;
-    if (fields.size() == 1) {
-      fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
-    }
-    cr = new CleaningRequest(id, fields);
-    if (id > counter) {
-      counter = id;
-    }
-    crd.addCleaningRequest(cr);
-    return cr;
-  }
-
   public CleaningRequest addRequest(ArrayList<String> fields) throws SQLException {
     counter++;
     CleaningRequest cr;
@@ -57,13 +45,41 @@ public class CleaningRequestManager {
     crd.addCleaningRequest(cr);
     return cr;
   }
-
-  public CleaningRequest addRequest(String itemID) throws SQLException {
+  // TODO auto start all cleaning requests at that location when it is 6
+  public CleaningRequest addRequest(Integer num, ArrayList<String> fields) throws SQLException {
     counter++;
-    CleaningRequest cr;
-    cr = new CleaningRequest(counter, itemID, RequestStatus.InQueue);
-    crd.addCleaningRequest(cr);
-    return cr;
+    CleaningRequest mER;
+    if (fields.size() == 6) {
+      fields.add("0");
+      fields.add(new Timestamp(System.currentTimeMillis()).toString());
+      fields.add(new Timestamp(System.currentTimeMillis()).toString());
+      mER = new CleaningRequest(num, fields);
+    } else {
+      mER = new CleaningRequest(fields);
+    }
+    /*
+    // If the request does not have an item, aka has not been started
+    if (mER.getItemID().equals("NONE") && mER.getStatusInt() == 0) {
+      // System.out.println("CHECKING REQUEST " + mER.getRequestID());
+      String itemID = checkStart(mER);
+      if (itemID != null) {
+        // System.out.println("STARTING REQUEST " + mER.getRequestID());
+        mER.start(itemID);
+      }
+    }*/
+    // TODO special exception
+    if (RequestFactory.getRequestFactory().getReqIDList().add(mER.getRequestID())) {
+      crd.addCleaningRequest(mER);
+
+      if (automation.getAuto()) {
+        if (counter >= 6) {
+          start(mER.getRequestID());
+        }
+      }
+    } else {
+      mER = null;
+    }
+    return mER;
   }
   // TODO Ask Caleb how to get OR Bed PARK
   // What happens if the OR BED PARK is deleted this function would break
