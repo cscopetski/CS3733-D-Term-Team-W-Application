@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -14,6 +15,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 public class MedicineDeliveryServiceRequestController extends LoadableController {
+
+  // Alert Boxes
+  Alert confirm = new ConfirmAlert();
 
   // TextFields:
   @FXML TextField quantityField;
@@ -99,6 +103,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   }
 
   public void submitButton() {
+    confirm.showAndWait();
     createRequest();
     clearFields();
   }

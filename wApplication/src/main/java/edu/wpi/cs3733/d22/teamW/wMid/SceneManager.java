@@ -10,6 +10,8 @@ import javafx.animation.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.effect.GaussianBlur;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -135,11 +137,19 @@ public class SceneManager {
   }
 
   public void transitionTo(Scenes scene) {
-    transitionTo(scene, Transitions.Fade);
+    if (current == scene) {
+      setPaneVisible(scene);
+    } else {
+      transitionTo(scene, Transitions.Fade);
+    }
   }
 
   public void transitionTo(Scenes scene, Transitions transition) {
-    transitionTo(scene, transition, 250);
+    if (current == scene) {
+      setPaneVisible(scene);
+    } else {
+      transitionTo(scene, transition, 250);
+    }
   }
 
   public void transitionTo(Scenes scene, Transitions transition, double duration) {
@@ -206,16 +216,29 @@ public class SceneManager {
   }
 
   public Stage openWindow(String fileName) throws IOException {
+    return openWindow(fileName, "");
+  }
+
+  public Stage openWindow(String fileName, String title) throws IOException {
     Stage stage = new Stage();
     stage.initOwner(primaryStage);
     stage.initModality(Modality.APPLICATION_MODAL);
-
+    stage.setTitle(title);
+    stage
+        .getIcons()
+        .add(
+            new Image(
+                getClass()
+                    .getResourceAsStream("/edu/wpi/cs3733/d22/teamW/wApp/assets/mgb_logo.png")));
     Parent root =
         FXMLLoader.load(getClass().getResource("/edu/wpi/cs3733/d22/teamW/wApp/views/" + fileName));
     stage.setScene(new Scene(root));
     stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
 
     information.put(stage, new Hashtable<>());
+    getScene().getRoot().setEffect(new GaussianBlur(5));
+    stage.setOnCloseRequest(e -> getScene().getRoot().setEffect(null));
+
     stage.showAndWait();
 
     return stage;

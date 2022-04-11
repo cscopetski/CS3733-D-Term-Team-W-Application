@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
@@ -13,20 +15,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public class MedicalEquipmentServiceRequestController {
-  public Pane map;
-  Alert confirm =
-      new Alert(
-          Alert.AlertType.CONFIRMATION,
-          "Would you like to confirm this request " + " ?",
-          ButtonType.OK,
-          ButtonType.CANCEL);
+  Alert confirm = new ConfirmAlert();
+  Alert emptyFields = new EmptyAlert();
 
-  Alert emptyFields =
-      new Alert(
-          Alert.AlertType.ERROR,
-          "There are required fields empty " + " !",
-          ButtonType.OK,
-          ButtonType.CANCEL);
   @FXML ComboBox<String> equipmentSelection;
   // location here
   @FXML TextField employeeName;
