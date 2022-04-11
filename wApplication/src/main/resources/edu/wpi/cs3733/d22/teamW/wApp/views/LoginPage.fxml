@@ -12,8 +12,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<?import javafx.scene.control.PasswordField?>
 <AnchorPane style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.LoginController">
    <children>
       <AnchorPane styleClass="body" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -29,7 +27,7 @@
                         <Insets bottom="100.0" left="200.0" right="200.0" top="100.0" />
                      </BorderPane.margin>
                      <children>
-                        <Button fx:id="loginButton" layoutX="200.0" layoutY="250.0" mnemonicParsing="false" onAction="#login" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Login" />
+                        <Button fx:id="loginButton" layoutX="200.0" layoutY="250.0" mnemonicParsing="false" onAction="#login" onKeyPressed="#login" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Login" />
                         <VBox alignment="CENTER" prefHeight="240.0" prefWidth="300.0">
                            <children>
                               <Label alignment="CENTER" maxWidth="225.0" prefWidth="225.0" text="Hello, Wilson Wong">

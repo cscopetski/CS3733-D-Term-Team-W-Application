@@ -22,9 +22,9 @@ public class MedicalEquipmentSR extends SR {
       mer.setEmployeeName(employeeName);
     }
   */
-  public String getStatus() {
-    return mer.getStatus();
-  }
+  // public String getStatus() {
+  //  return mer.getStatus();
+  // }
   /*
   public void setStatus(int status) {
     mer.setStatus(status);

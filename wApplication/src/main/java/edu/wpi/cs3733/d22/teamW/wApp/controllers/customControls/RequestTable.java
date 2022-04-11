@@ -1,8 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls;
 
-import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.LabServiceSR;
-import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
-import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.SR;
+import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -54,10 +52,25 @@ public class RequestTable extends TableView<SR> {
     getItems().clear();
     for (Request r : requests) {
       SR sr = null;
-      if (r.getRequestType().equals("MEDICALEQUIPREQUEST")) {
-        sr = new MedicalEquipmentSR(r);
-      } else if (r.getRequestType().equals("LABSERVICEREQUEST")) {
-        sr = new LabServiceSR(r);
+      switch (r.getRequestType()) {
+        case MedicalEquipmentRequest:
+          sr = new MedicalEquipmentSR(r);
+          break;
+        case LabServiceRequest:
+          sr = new LabServiceSR(r);
+          break;
+        case LanguageInterpreter:
+          sr = new LanguageInterpreterSR(r);
+          break;
+        case MealDelivery:
+          sr = new MealDeliverySR(r);
+          break;
+        case SecurityService:
+          sr = new SecuritySR(r);
+          break;
+        case MedicineDelivery:
+          sr = new MedicineDeliverySR(r);
+          break;
       }
       getItems().add(sr);
     }
