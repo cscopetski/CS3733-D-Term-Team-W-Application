@@ -99,7 +99,7 @@
    <left>
       <Pane prefHeight="575.0" prefWidth="402.0" BorderPane.alignment="CENTER">
          <children>
-              <TableView fx:id="LocTab" layoutX="20.0" layoutY="68.0" prefHeight="113.0" prefWidth="294.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
+              <TableView fx:id="LocTab" layoutX="20.0" layoutY="68.0" prefHeight="113.0" prefWidth="294.0" style="-fx-text-fill: white;" stylesheets="@../CSS/UniversalCSS/Standard.css">
                   <columns>
                       <TableColumn prefWidth="89.0" text="nodeID">
                           <cellValueFactory>
