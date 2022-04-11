@@ -18,7 +18,8 @@
             <Pane fx:id="background" prefHeight="200.0" prefWidth="200.0" styleClass="body" stylesheets="@../CSS/LoginPage/paneImage.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <effect>
                   <GaussianBlur radius="5.0" />
-               </effect></Pane>
+               </effect>
+            </Pane>
             <BorderPane layoutX="215.0" layoutY="100.0" prefHeight="300.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <center>
                   <Pane maxHeight="300.0" maxWidth="300.0" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" styleClass="pane" stylesheets="@../CSS/LoginPage/paneLogin.css" BorderPane.alignment="CENTER">
