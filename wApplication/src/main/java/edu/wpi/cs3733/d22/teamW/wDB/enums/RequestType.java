@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.d22.teamW.wDB.enums;
 
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,11 +20,11 @@ public enum RequestType {
   private final Integer value;
   private final String string;
 
-  private static Map map = new HashMap<Integer,RequestType>();
+  private static Map map = new HashMap<Integer, RequestType>();
   private static Map map2 = new HashMap<String, RequestType>();
 
-  static{
-    for(RequestType type: RequestType.values()){
+  static {
+    for (RequestType type : RequestType.values()) {
       map.put(type.value, type);
       map2.put(type.string, type);
     }
@@ -45,12 +43,11 @@ public enum RequestType {
     return this.string;
   }
 
-  public static RequestType getRequestType(Integer type){
+  public static RequestType getRequestType(Integer type) {
     return (RequestType) map.get(type);
   }
 
-  public static RequestType getRequestType(String type){
+  public static RequestType getRequestType(String type) {
     return (RequestType) map2.get(type);
   }
-
 }

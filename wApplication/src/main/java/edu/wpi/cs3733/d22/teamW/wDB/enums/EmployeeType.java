@@ -4,14 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum EmployeeType {
-  Admin(7,5, "Administrator"),
-  Doctor(6,3, "Doctor"),
-  Nurse(5,3, "Nurse"),
-  Sanitation(4,2, "Sanitiation Officer"),
-  Security(3,3, "Security Officer"),
-  Technician(2,2, "Technician"),
-  LanguageInterpreter(1,1, "Language Interpreter"),
-  NoOne(0,0, "Denied");
+  Admin(7, 5, "Administrator"),
+  Doctor(6, 3, "Doctor"),
+  Nurse(5, 3, "Nurse"),
+  Sanitation(4, 2, "Sanitiation Officer"),
+  Security(3, 3, "Security Officer"),
+  Technician(2, 2, "Technician"),
+  LanguageInterpreter(1, 1, "Language Interpreter"),
+  NoOne(0, 0, "Denied");
   private final int index;
   private final int accessLevel;
   private final String string;
@@ -26,7 +26,7 @@ public enum EmployeeType {
   }
 
   static {
-    for(EmployeeType type : EmployeeType.values()){
+    for (EmployeeType type : EmployeeType.values()) {
       map.put(type.index, type);
       map2.put(type.index, type);
     }

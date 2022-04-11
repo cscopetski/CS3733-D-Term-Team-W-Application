@@ -5,7 +5,7 @@ public class Automation {
   static Automation automation = new Automation();
 
   private Automation() {
-    auto = true;
+    this.auto = true;
   }
 
   public static Automation getAutomation() {

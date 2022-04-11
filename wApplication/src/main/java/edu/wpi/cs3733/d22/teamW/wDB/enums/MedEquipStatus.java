@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.d22.teamW.wDB.enums;
 
-import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,10 +19,10 @@ public enum MedEquipStatus {
     this.string = string;
   }
 
-  static{
-    for (MedEquipStatus type: MedEquipStatus.values()){
+  static {
+    for (MedEquipStatus type : MedEquipStatus.values()) {
       map.put(type.value, type);
-      map2.put(type.string,type);
+      map2.put(type.string, type);
     }
   }
 
@@ -39,6 +37,7 @@ public enum MedEquipStatus {
   public static MedEquipStatus getStatus(Integer type) {
     return (MedEquipStatus) map.get(type);
   }
+
   public static MedEquipStatus getStatus(String type) {
     return (MedEquipStatus) map2.get(type);
   }

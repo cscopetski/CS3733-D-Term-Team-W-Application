@@ -36,7 +36,6 @@ public enum RequestStatus {
     return this.string;
   }
 
-
   public static RequestStatus getRequestStatus(int type) {
     return (RequestStatus) map.get(type);
   }
@@ -44,5 +43,4 @@ public enum RequestStatus {
   public static RequestStatus getRequestStatus(String type) {
     return (RequestStatus) map2.get(type);
   }
-
 }

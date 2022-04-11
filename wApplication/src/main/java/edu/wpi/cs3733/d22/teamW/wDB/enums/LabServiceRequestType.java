@@ -37,7 +37,6 @@ public enum LabServiceRequestType {
     return this.string;
   }
 
-
   public static LabServiceRequestType getLabServiceRequestType(int type) {
     return (LabServiceRequestType) map.get(type);
   }
@@ -45,5 +44,4 @@ public enum LabServiceRequestType {
   public static LabServiceRequestType getLabServiceRequestType(String type) {
     return (LabServiceRequestType) map2.get(type);
   }
-
 }
