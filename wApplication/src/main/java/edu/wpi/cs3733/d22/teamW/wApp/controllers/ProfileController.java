@@ -36,8 +36,10 @@ public class ProfileController extends LoadableController {
     email.setText(employee.getEmail());
     phoneNumber.setText(employee.getPhoneNumber());
     address.setText(employee.getAddress());
-    System.out.println(employee.getFirstName());
-    System.out.println("name");
+
+    rt.setColumnWidth("Request Type", 130);
+    rt.setColumnWidth("Employee Name", 150);
+    rt.setColumnWidth("Status", 60);
   }
 
   @Override
