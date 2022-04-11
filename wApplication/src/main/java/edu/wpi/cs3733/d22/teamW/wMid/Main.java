@@ -130,6 +130,7 @@ public class Main {
     } else {
       System.out.println("no match");
     }
+    System.out.println(edi.getEmployee("joe").toCSVString());
     /*
        edi.addEmployee(
            1,

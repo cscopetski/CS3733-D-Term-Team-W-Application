@@ -287,4 +287,44 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
     }
     return sb.toString();
   }
+
+  @Override
+  public Employee getEmployee(String username) throws SQLException {
+    ResultSet rs =
+        statement.executeQuery(
+            String.format("SELECT * FROM EMPLOYEES WHERE USERNAME = '%s'", username));
+    rs.next();
+    Integer empID = rs.getInt("EMPLOYEEID");
+    String firstName = rs.getString("FIRSTNAME");
+    String lastName = rs.getString("LASTNAME");
+    String employeeType = rs.getString("EMPLOYEETYPE");
+    String email = rs.getString("EMAIL");
+    String phoneNum = rs.getString("PHONENUMBER");
+    String address = rs.getString("ADDRESS");
+    String user = rs.getString("USERNAME");
+    String pass = rs.getString("PASSWORD");
+    String salt = rs.getString("SALT");
+    return new Employee(
+        empID, firstName, lastName, employeeType, email, phoneNum, address, user, pass, salt);
+  }
+
+  @Override
+  public Employee getEmployee(Integer empID) throws SQLException {
+    ResultSet rs =
+        statement.executeQuery(
+            String.format("SELECT * FROM EMPLOYEES WHERE EMPLOYEEID = %d", empID));
+    rs.next();
+    Integer id = rs.getInt("EMPLOYEEID");
+    String firstName = rs.getString("FIRSTNAME");
+    String lastName = rs.getString("LASTNAME");
+    String employeeType = rs.getString("EMPLOYEETYPE");
+    String email = rs.getString("EMAIL");
+    String phoneNum = rs.getString("PHONENUMBER");
+    String address = rs.getString("ADDRESS");
+    String user = rs.getString("USERNAME");
+    String pass = rs.getString("PASSWORD");
+    String salt = rs.getString("SALT");
+    return new Employee(
+        id, firstName, lastName, employeeType, email, phoneNum, address, user, pass, salt);
+  }
 }

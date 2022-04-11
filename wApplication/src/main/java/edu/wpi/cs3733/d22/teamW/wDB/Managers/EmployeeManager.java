@@ -115,6 +115,14 @@ public class EmployeeManager {
     return ed.getAllEmployees();
   }
 
+  public Employee getEmployee(String username) throws SQLException {
+    return ed.getEmployee(username);
+  }
+
+  public Employee getEmployee(Integer empID) throws SQLException {
+    return ed.getEmployee(empID);
+  }
+
   public void exportEmpCSV(String filename) {
     ed.exportEmpCSV(filename);
   }

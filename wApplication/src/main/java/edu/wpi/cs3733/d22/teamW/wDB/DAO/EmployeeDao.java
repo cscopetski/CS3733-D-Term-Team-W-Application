@@ -8,6 +8,10 @@ public interface EmployeeDao {
 
   ArrayList<Employee> getAllEmployees() throws SQLException;
 
+  Employee getEmployee(String username) throws SQLException;
+
+  Employee getEmployee(Integer empID) throws SQLException;
+
   void addEmployee(
       Integer employeeID,
       String firstname,
