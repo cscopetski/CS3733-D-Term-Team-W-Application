@@ -62,7 +62,8 @@ public class SceneManager {
     Login,
     Help,
     About,
-    Profile
+    Profile,
+    Snake
   }
 
   private static class Instance {
