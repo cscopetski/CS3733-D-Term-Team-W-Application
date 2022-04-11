@@ -70,4 +70,8 @@ public class MealDeliveryServiceRequestController {
       emptyFields.show();
     }
   }
+
+  public void onEnter(ActionEvent actionEvent) {
+    submitButton(actionEvent);
+  }
 }
