@@ -18,92 +18,80 @@
 <?import javafx.scene.text.Text?>
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton?>
 
-<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0"
-            AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-            xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicalEquipmentServiceRequestController">
+
+<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicalEquipmentServiceRequestController">
     <children>
-        <AnchorPane prefHeight="473.0" prefWidth="940.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-                    AnchorPane.topAnchor="0.0">
+        <AnchorPane prefHeight="473.0" prefWidth="940.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox layoutX="72.0" prefHeight="406.0" prefWidth="800.0" style="-fx-alignment: center;"
-                      AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0"
-                      AnchorPane.topAnchor="80.0">
+                <VBox layoutX="72.0" prefHeight="406.0" prefWidth="800.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="80.0">
                     <children>
                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../../assets/Icons/Icons-04.png"/>
+                                <Image url="@../../assets/Icons/Icons-04.png" />
                             </image>
                         </ImageView>
                         <Label prefHeight="30.0" prefWidth="278.0" text="Medical Equipment">
                             <VBox.margin>
-                                <Insets/>
+                                <Insets />
                             </VBox.margin>
                             <font>
-                                <Font name="System Bold" size="30.0"/>
+                                <Font name="System Bold" size="30.0" />
                             </font>
                         </Label>
-                        <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0"
-                              text="Select equipment from the dropdown menu." wrappingWidth="265.1999969482422">
+                        <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Select equipment from the dropdown menu." wrappingWidth="265.1999969482422">
                             <VBox.margin>
-                                <Insets bottom="20.0"/>
+                                <Insets bottom="20.0" />
                             </VBox.margin>
                         </Text>
                         <HBox prefHeight="500.0" prefWidth="800.0" style="-fx-alignment: center;">
                             <children>
                                 <VBox maxWidth="250.0" minWidth="275.0" prefHeight="295.0" prefWidth="250.0">
                                     <children>
-                                        <Pane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="100.0"
-                                              style="-fx-background-color: #013895; -fx-background-radius: 2;">
+                                        <Pane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
                                             <children>
-                                                <BorderPane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0"
-                                                            prefWidth="200.0">
+                                                <BorderPane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="200.0">
                                                     <center>
-                                                        <Label style="-fx-font-weight: bold;" text="EMPLOYEE NAME"
-                                                               textFill="WHITE" BorderPane.alignment="CENTER">
+                                                        <Label style="-fx-font-weight: bold;" text="EMPLOYEE NAME" textFill="WHITE" BorderPane.alignment="CENTER">
                                                             <font>
-                                                                <Font size="14.0"/>
+                                                                <Font size="14.0" />
                                                             </font>
                                                         </Label>
                                                     </center>
                                                 </BorderPane>
                                             </children>
                                         </Pane>
-                                        <TextField fx:id="employeeName" maxWidth="250.0" onAction="#onEnter"
-                                                   stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                                        <TextField fx:id="employeeName" maxWidth="250.0" onAction="#onEnter" stylesheets="@../../CSS/UniversalCSS/Standard.css">
                                             <VBox.margin>
-                                                <Insets bottom="20.0" top="10.0"/>
+                                                <Insets bottom="20.0" top="10.0" />
                                             </VBox.margin>
                                         </TextField>
                                         <Label style="-fx-font-weight: bold;" text="Equipment">
                                             <font>
-                                                <Font size="14.0"/>
+                                                <Font size="14.0" />
                                             </font>
                                         </Label>
-                                        <ComboBox fx:id="equipmentSelection" onAction="#onEnter" prefHeight="25.0"
-                                                  prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                                        <ComboBox fx:id="equipmentSelection" onAction="#onEnter" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
                                             <items>
                                                 <FXCollections fx:factory="observableArrayList">
-                                                    <String fx:value="MRI"/>
-                                                    <String fx:value="XRay"/>
-                                                    <String fx:value="BED"/>
-                                                    <String fx:value="REC"/>
-                                                    <String fx:value="Infusion Pump"/>
+                                                    <String fx:value="MRI" />
+                                                    <String fx:value="XRay" />
+                                                    <String fx:value="BED" />
+                                                    <String fx:value="REC" />
+                                                    <String fx:value="Infusion Pump" />
                                                 </FXCollections>
                                             </items>
                                             <VBox.margin>
-                                                <Insets bottom="20.0" top="10.0"/>
+                                                <Insets bottom="20.0" top="10.0" />
                                             </VBox.margin>
                                         </ComboBox>
                                         <BorderPane maxWidth="250.0" prefHeight="17.0" prefWidth="250.0">
                                             <center>
-                                                <Label prefHeight="17.0" prefWidth="140.0"
-                                                       style="-fx-alignment: center;" text="Click to toggle emergency"
-                                                       textFill="#96a1b2" BorderPane.alignment="CENTER"/>
+                                                <Label prefHeight="17.0" prefWidth="140.0" style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" BorderPane.alignment="CENTER" />
                                             </center>
                                         </BorderPane>
                                         <BorderPane maxWidth="250.0" prefHeight="39.0" prefWidth="265.0">
                                             <center>
+
 
                                                 <EmergencyButton fx:id="emergencyB" layoutX="36.0" layoutY="222.0"
                                                                  mnemonicParsing="false" prefHeight="30.0"
@@ -111,84 +99,68 @@
 
                                             </center>
                                             <VBox.margin>
-                                                <Insets top="5.0"/>
+                                                <Insets top="5.0" />
                                             </VBox.margin>
                                         </BorderPane>
 
                                         <BorderPane maxWidth="250.0" prefHeight="30.0" prefWidth="250.0">
                                             <left>
-                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false"
-                                                        onAction="#submitButton"
-                                                        stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit"
-                                                        BorderPane.alignment="CENTER"/>
+                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" BorderPane.alignment="CENTER" />
                                             </left>
                                             <right>
-                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false"
-                                                        onAction="#cancelButton"
-                                                        stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Cancel"
-                                                        BorderPane.alignment="CENTER"/>
+                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#cancelButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Cancel" BorderPane.alignment="CENTER" />
                                             </right>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
                                         </BorderPane>
                                     </children>
                                     <HBox.margin>
-                                        <Insets right="20.0"/>
+                                        <Insets right="20.0" />
                                     </HBox.margin>
                                 </VBox>
                                 <VBox prefHeight="344.0" prefWidth="376.0">
                                     <children>
-                                        <Pane maxHeight="30.0" maxWidth="150.0" minHeight="30.0" prefHeight="30.0"
-                                              prefWidth="150.0"
-                                              style="-fx-background-color: #013895; -fx-background-radius: 2;">
+                                        <Pane maxHeight="30.0" maxWidth="150.0" minHeight="30.0" prefHeight="30.0" prefWidth="150.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
                                             <children>
-                                                <BorderPane maxHeight="30.0" maxWidth="150.0" prefHeight="30.0"
-                                                            prefWidth="150.0">
+                                                <BorderPane maxHeight="30.0" maxWidth="150.0" prefHeight="30.0" prefWidth="150.0">
                                                     <center>
-                                                        <Label prefHeight="30.0" prefWidth="150.0"
-                                                               style="-fx-font-weight: bold; -fx-alignment: center;"
-                                                               text="MAP INTERACTION" textFill="WHITE"
-                                                               BorderPane.alignment="CENTER">
+                                                        <Label prefHeight="30.0" prefWidth="150.0" style="-fx-font-weight: bold; -fx-alignment: center;" text="MAP INTERACTION" textFill="WHITE" BorderPane.alignment="CENTER">
                                                             <font>
-                                                                <Font size="14.0"/>
+                                                                <Font size="14.0" />
                                                             </font>
                                                         </Label>
                                                     </center>
                                                 </BorderPane>
                                             </children>
                                         </Pane>
-                                        <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0"
-                                              text="You can drag the map to see and select available items "
-                                              wrappingWidth="336.800048828125"/>
-                                        <Pane fx:id="map" minHeight="300.0" minWidth="380.0" prefHeight="310.0"
-                                              prefWidth="380.0">
+                                        <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="You can drag the map to see and select available items " wrappingWidth="336.800048828125" />
+                                        <Pane fx:id="map" minHeight="300.0" minWidth="380.0" prefHeight="310.0" prefWidth="380.0">
                                             <children>
                                                 <BorderPane prefHeight="300.0" prefWidth="380.0">
                                                     <center>
-                                                        <Label text="Map Functionality Coming Soon!"
-                                                               BorderPane.alignment="CENTER"/>
+                                                        <Label text="Map Functionality Coming Soon!" BorderPane.alignment="CENTER" />
                                                     </center>
                                                 </BorderPane>
                                             </children>
                                         </Pane>
                                         <BorderPane prefHeight="0.0" prefWidth="376.0">
                                             <right>
-                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false"
-                                                        onAction="#switchToRequestList"
-                                                        stylesheets="@../../CSS/UniversalCSS/Standard.css"
-                                                        text="Request List" BorderPane.alignment="CENTER">
+                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Request List" BorderPane.alignment="CENTER">
                                                     <BorderPane.margin>
-                                                        <Insets bottom="20.0" top="20.0"/>
+                                                        <Insets bottom="20.0" top="20.0" />
                                                     </BorderPane.margin>
                                                 </Button>
                                             </right>
                                         </BorderPane>
                                     </children>
                                     <HBox.margin>
-                                        <Insets left="20.0"/>
+                                        <Insets left="20.0" />
                                     </HBox.margin>
                                 </VBox>
                             </children>
                             <VBox.margin>
-                                <Insets/>
+                                <Insets />
                             </VBox.margin>
                         </HBox>
                     </children>
