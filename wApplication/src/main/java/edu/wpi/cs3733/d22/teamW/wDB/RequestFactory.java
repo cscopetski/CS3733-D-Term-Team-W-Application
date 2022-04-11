@@ -31,6 +31,10 @@ public class RequestFactory {
 
   private RequestFactory() {}
 
+  public void resetTreeSet() {
+    this.reqIDList = new TreeSet<>();
+  }
+
   // fields is every field except for request id and itemID
 
   public Set<Integer> getReqIDList() {

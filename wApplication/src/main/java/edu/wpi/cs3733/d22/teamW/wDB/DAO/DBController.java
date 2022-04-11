@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import java.sql.*;
 
@@ -31,6 +32,11 @@ public class DBController {
   }
 
   private DBController() {
+    startConnection();
+  }
+
+  public void startConnection() {
+    RequestFactory.getRequestFactory().resetTreeSet();
     String connectionStringEmbedded = String.format("jdbc:derby:%s;create=true", this.dbName);
     String connectionStringServer =
         String.format("jdbc:derby://localhost:1527/%s;create=true", this.dbName);

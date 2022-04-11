@@ -4,7 +4,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import java.io.File;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -39,16 +39,6 @@ public class Main {
       e.printStackTrace();
     } catch (SQLException e) {
       e.printStackTrace();
-    }
-
-    File file =
-        new File(
-            "C:/Users/cscop/OneDrive/WPI/2021-2022/Classes/D-Term/CS3733/Minimal Application/WumboWhowies/wApplication/LABTEST.csv");
-
-    for (String[] s : csvController.importCSVfromFile(file)) {
-      for (String d : s) {
-        System.out.println(d);
-      }
     }
 
     MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
@@ -231,5 +221,10 @@ public class Main {
 
     */
     edi.exportEmpCSV("Employees.csv");
+    /*
+    DBConnectionMode.INSTANCE.setServerConnection();
+    DBController.getDBController().closeConnection();
+    DBController.getDBController().startConnection();
+     */
   }
 }
