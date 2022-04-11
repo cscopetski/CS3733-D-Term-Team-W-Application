@@ -40,11 +40,11 @@ public class MedEquip implements Entity {
 
   public String toValuesString() {
 
-    return String.format("'%s', '%s', '%s', %d", medID, type, nodeID, status);
+    return String.format("'%s', '%s', '%s', %d", medID, type, nodeID, status.getValue());
   }
 
   public String toCSVString() {
-    return String.format("%s,%s,%s,%d", medID, type, nodeID, status);
+    return String.format("%s,%s,%s,%d", medID, type, nodeID, status.getValue());
   }
 
   public void setMedID(String medID) {

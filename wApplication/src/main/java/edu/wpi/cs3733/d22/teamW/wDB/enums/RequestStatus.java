@@ -1,5 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB.enums;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum RequestStatus {
   InQueue(0, "In Queue"),
   InProgress(1, "In Progress"),
@@ -8,6 +11,17 @@ public enum RequestStatus {
 
   private final int value;
   private final String string;
+  private static Map map = new HashMap<>();
+  private static Map map2 = new HashMap<>();
+
+  static {
+    for (RequestStatus requestStatus : RequestStatus.values()) {
+      map.put(requestStatus.value, requestStatus);
+    }
+    for (RequestStatus requestStatus : RequestStatus.values()) {
+      map2.put(requestStatus.string, requestStatus);
+    }
+  }
 
   private RequestStatus(int value, String string) {
     this.value = value;
@@ -22,26 +36,13 @@ public enum RequestStatus {
     return this.string;
   }
 
-  public static RequestStatus getRequestStatus(Integer num) {
-    RequestStatus status = null;
-    switch (num) {
-      case 0:
-        status = InQueue;
-        break;
-      case 1:
-        status = InProgress;
-        break;
-      case 2:
-        status = Completed;
-        break;
-      case 3:
-        status = Cancelled;
-        break;
-      default:
-        System.out.println("Not a case for Request Status");
-        status = Cancelled;
-        break;
-    }
-    return status;
+
+  public static RequestStatus getRequestStatus(int type) {
+    return (RequestStatus) map.get(type);
   }
+
+  public static RequestStatus getRequestStatus(String type) {
+    return (RequestStatus) map2.get(type);
+  }
+
 }

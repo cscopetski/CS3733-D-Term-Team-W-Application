@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -36,7 +37,9 @@ public class MedRequestManager implements ServiceRequestManager {
   }
 
   public void start(Integer requestID) throws SQLException {
-    MedRequest request = (MedRequest) RequestFactory.getRequestFactory().findRequest(requestID);
+    MedRequest request =
+        (MedRequest)
+            RequestFactory.getRequestFactory().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),
@@ -48,7 +51,9 @@ public class MedRequestManager implements ServiceRequestManager {
   }
 
   public void complete(Integer requestID) throws SQLException {
-    MedRequest request = (MedRequest) RequestFactory.getRequestFactory().findRequest(requestID);
+    MedRequest request =
+        (MedRequest)
+            RequestFactory.getRequestFactory().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),
@@ -60,7 +65,9 @@ public class MedRequestManager implements ServiceRequestManager {
   }
 
   public void cancel(Integer requestID) throws SQLException {
-    MedRequest request = (MedRequest) RequestFactory.getRequestFactory().findRequest(requestID);
+    MedRequest request =
+        (MedRequest)
+            RequestFactory.getRequestFactory().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),
@@ -72,7 +79,9 @@ public class MedRequestManager implements ServiceRequestManager {
   }
 
   public void reQueue(Integer requestID) throws SQLException {
-    MedRequest request = (MedRequest) RequestFactory.getRequestFactory().findRequest(requestID);
+    MedRequest request =
+        (MedRequest)
+            RequestFactory.getRequestFactory().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),

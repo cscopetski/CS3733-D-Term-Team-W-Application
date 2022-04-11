@@ -1,19 +1,35 @@
 package edu.wpi.cs3733.d22.teamW.wDB.enums;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum EmployeeType {
-  Admin(5, "Administrator"),
-  Doctor(3, "Doctor"),
-  Nurse(3, "Nurse"),
-  Sanitation(2, "Sanitiation Officer"),
-  Security(3, "Security Officer"),
-  Technician(2, "Technician"),
-  NoOne(0, "Denied");
+  Admin(7,5, "Administrator"),
+  Doctor(6,3, "Doctor"),
+  Nurse(5,3, "Nurse"),
+  Sanitation(4,2, "Sanitiation Officer"),
+  Security(3,3, "Security Officer"),
+  Technician(2,2, "Technician"),
+  LanguageInterpreter(1,1, "Language Interpreter"),
+  NoOne(0,0, "Denied");
+  private final int index;
   private final int accessLevel;
   private final String string;
 
-  private EmployeeType(int value, String string) {
-    this.accessLevel = value;
+  private static Map map = new HashMap<>();
+  private static Map map2 = new HashMap<>();
+
+  private EmployeeType(int index, int accessLevel, String string) {
+    this.index = index;
+    this.accessLevel = accessLevel;
     this.string = string;
+  }
+
+  static {
+    for(EmployeeType type : EmployeeType.values()){
+      map.put(type.index, type);
+      map2.put(type.index, type);
+    }
   }
 
   public int getAccessLevel() {
@@ -24,59 +40,11 @@ public enum EmployeeType {
     return this.string;
   }
 
-  public static EmployeeType getEmployeeType(int num) {
-    EmployeeType type;
-    switch (num) {
-      case 0:
-        type = Admin;
-        break;
-      case 1:
-        type = Doctor;
-        break;
-      case 2:
-        type = Nurse;
-        break;
-      case 3:
-        type = Sanitation;
-        break;
-      case 4:
-        type = Security;
-        break;
-      case 5:
-        type = Technician;
-        break;
-      default:
-        type = NoOne;
-        break;
-    }
-    return type;
+  public static EmployeeType getEmployeeType(int type) {
+    return (EmployeeType) map.get(type);
   }
 
   public static EmployeeType getEmployeeType(String type) {
-    EmployeeType employeeType;
-    switch (type) {
-      case "Administrator":
-        employeeType = Admin;
-        break;
-      case "Doctor":
-        employeeType = Doctor;
-        break;
-      case "Nurse":
-        employeeType = Nurse;
-        break;
-      case "Sanitation Officer":
-        employeeType = Sanitation;
-        break;
-      case "Security Officer":
-        employeeType = Security;
-        break;
-      case "Technician":
-        employeeType = Technician;
-        break;
-      default:
-        employeeType = NoOne;
-        break;
-    }
-    return employeeType;
+    return (EmployeeType) map2.get(type);
   }
 }

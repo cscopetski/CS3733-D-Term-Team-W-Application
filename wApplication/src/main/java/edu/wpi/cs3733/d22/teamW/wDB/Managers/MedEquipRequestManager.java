@@ -8,6 +8,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -39,12 +40,14 @@ public class MedEquipRequestManager implements RequestManager {
   public MedEquipRequest getNext(String itemType) throws SQLException {
     ArrayList<MedEquipRequest> requests = merd.getTypeMedEquipRequests(itemType);
     for (MedEquipRequest mer : requests) {
-      if (mer.getItemType().equals(itemType) && mer.getEmergency() == 1) {
+      if (mer.getItemType().equals(itemType)
+          && mer.getEmergency() == 1
+          && mer.getStatus().equals(RequestStatus.InQueue)) {
         return mer;
       }
     }
     for (MedEquipRequest mer : requests) {
-      if (mer.getItemType().equals(itemType)) {
+      if (mer.getItemType().equals(itemType) && mer.getStatus().equals(RequestStatus.InQueue)) {
         return mer;
       }
     }
@@ -53,30 +56,36 @@ public class MedEquipRequestManager implements RequestManager {
 
   public void start(Integer requestID) throws SQLException {
     MedEquipRequest request =
-        (MedEquipRequest) RequestFactory.getRequestFactory().findRequest(requestID);
-    // Can only start requests that are in queue
-    if (request.getStatus().equals(RequestStatus.InQueue)) {
-      // Can only start if a medEquip of that type is available
-      MedEquip medEquip = MedEquipManager.getMedEquipManager().getNextFree(request.getItemType());
-      if (medEquip != null) {
-        // If available, we mark it in use and set the request to in progress
-        MedEquipManager.getMedEquipManager().markInUse(medEquip);
-        request.setStatus(RequestStatus.InProgress);
-        merd.changeMedEquipRequest(
-            request.getRequestID(),
-            request.getItemType(),
-            medEquip.getMedID(),
-            request.getNodeID(),
-            request.getEmployeeID(),
-            request.getEmergency(),
-            request.getStatus());
+        (MedEquipRequest)
+            RequestFactory.getRequestFactory()
+                .findRequest(requestID, RequestType.MedicalEquipmentRequest);
+    if (request != (null)) {
+      // Can only start requests that are in queue
+      if (request.getStatus().equals(RequestStatus.InQueue)) {
+        // Can only start if a medEquip of that type is available
+        MedEquip medEquip = MedEquipManager.getMedEquipManager().getNextFree(request.getItemType());
+        if (medEquip != null) {
+          // If available, we mark it in use and set the request to in progress
+          MedEquipManager.getMedEquipManager().markInUse(medEquip);
+          request.setStatus(RequestStatus.InProgress);
+          merd.changeMedEquipRequest(
+              request.getRequestID(),
+              request.getItemType(),
+              medEquip.getMedID(),
+              request.getNodeID(),
+              request.getEmployeeID(),
+              request.getEmergency(),
+              request.getStatus());
+        }
       }
     }
   }
 
   public void complete(Integer requestID) throws SQLException {
     MedEquipRequest request =
-        (MedEquipRequest) RequestFactory.getRequestFactory().findRequest(requestID);
+        (MedEquipRequest)
+            RequestFactory.getRequestFactory()
+                .findRequest(requestID, RequestType.MedicalEquipmentRequest);
     // Can only complete requests that are started
     if (request.getStatus().equals(RequestStatus.InProgress)) {
       MedEquipManager.getMedEquipManager().moveTo(request.getItemID(), request.getNodeID());
@@ -94,7 +103,9 @@ public class MedEquipRequestManager implements RequestManager {
 
   public void cancel(Integer requestID) throws SQLException {
     MedEquipRequest request =
-        (MedEquipRequest) RequestFactory.getRequestFactory().findRequest(requestID);
+        (MedEquipRequest)
+            RequestFactory.getRequestFactory()
+                .findRequest(requestID, RequestType.MedicalEquipmentRequest);
     // Cannot cancel requests that are completed bc it makes no sense
     if (!request.getStatus().equals(RequestStatus.Completed)) {
       if (request.getStatus() == RequestStatus.InProgress) {
@@ -117,7 +128,9 @@ public class MedEquipRequestManager implements RequestManager {
 
   public void reQueue(Integer requestID) throws SQLException {
     MedEquipRequest request =
-        (MedEquipRequest) RequestFactory.getRequestFactory().findRequest(requestID);
+        (MedEquipRequest)
+            RequestFactory.getRequestFactory()
+                .findRequest(requestID, RequestType.MedicalEquipmentRequest);
     // Only requeue cancelled requests
     if (!request.getStatus().equals(RequestStatus.Cancelled)) {
       request.setStatus(RequestStatus.InQueue);

@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
@@ -15,6 +16,7 @@ public class RequestFactory {
   private ArrayList<Request> requests = new ArrayList<>();
   private MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
   private LabServiceRequestManager lsrc = LabServiceRequestManager.getLabServiceRequestManager();
+  private MedRequestManager mrm = MedRequestManager.getMedRequestManager();
 
   private static RequestFactory requestFactory = new RequestFactory();
 
@@ -47,8 +49,22 @@ public class RequestFactory {
     }
   }
 
-  public Request findRequest(Integer requestID) {
-    return requests.get(requestID - 1);
+  public Request findRequest(Integer requestID, RequestType type) throws SQLException {
+    Request request = null;
+    switch (type) {
+      case MedicalEquipmentRequest:
+        request = merc.getRequest(requestID);
+        break;
+      case LabServiceRequest:
+        request = lsrc.getRequest(requestID);
+        break;
+      case MedicineDelivery:
+        request = mrm.getRequest(requestID);
+        break;
+      default:
+        request = null;
+    }
+    return request;
   }
 
   public ArrayList<Request> getAllRequests() {
