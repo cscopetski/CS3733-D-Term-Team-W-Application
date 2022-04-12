@@ -4,7 +4,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
