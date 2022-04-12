@@ -11,4 +11,9 @@ public class LabServiceSR extends SR {
   public String getRequestType() {
     return "Lab Service";
   }
+
+  @Override
+  public String getFormattedInfo() {
+    return null;
+  }
 }

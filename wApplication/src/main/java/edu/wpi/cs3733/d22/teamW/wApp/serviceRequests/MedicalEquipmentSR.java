@@ -14,6 +14,11 @@ public class MedicalEquipmentSR extends SR {
     return "Medical Equipment";
   }
 
+  @Override
+  public String getFormattedInfo() {
+    return null;
+  }
+
   /*
   public Integer getEmployeeID() {
     return mer.getEmployeeID();
