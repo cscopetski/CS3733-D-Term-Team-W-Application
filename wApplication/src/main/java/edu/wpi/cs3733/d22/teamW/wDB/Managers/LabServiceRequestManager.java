@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class LabServiceRequestManager implements RequestManager {
+public class LabServiceRequestManager implements ServiceRequestManager {
 
   private LabServiceRequestDao lsrdi;
 

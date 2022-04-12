@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class CleaningRequestManager {
+public class CleaningRequestManager implements RequestManager {
   Automation automation = Automation.getAutomation();
   private CleaningRequestDao crd;
   private static CleaningRequestManager cleaningRequestManager = new CleaningRequestManager();
@@ -27,13 +27,13 @@ public class CleaningRequestManager {
     return crd.getCleaningRequest(reqID);
   }
 
-  public ArrayList<CleaningRequest> getAllRequest() {
+  public ArrayList<Request> getAllRequests() {
     return crd.getAllCleaningRequests();
   }
 
   public CleaningRequest addRequest(ArrayList<String> fields) throws SQLException {
     CleaningRequest cr;
-      fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
+    fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
     cr = new CleaningRequest(fields);
     if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
       crd.addCleaningRequest(cr);
