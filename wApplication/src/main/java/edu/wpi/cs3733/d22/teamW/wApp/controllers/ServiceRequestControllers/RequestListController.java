@@ -29,18 +29,18 @@ public class RequestListController extends LoadableController {
 
   @Override
   public void onUnload() {}
-    
+
 /*
   public void cancel(ActionEvent actionEvent) throws SQLException {
     if (rt.getSelection().getRequestType().equals(RequestType.MedicalEquipmentRequest)) {
       MedEquipRequestManager.getMedEquipRequestManager()
-          .cancel(rt.getSelection().getREQUEST().getRequestID());
+          .cancel(rt.getSelection().getRequestID());
     } else if (rt.getSelection().getRequestType().equals(RequestType.LabServiceRequest)) {
       LabServiceRequestManager.getLabServiceRequestManager()
-          .cancel(rt.getSelection().getREQUEST().getRequestID());
+          .cancel(rt.getSelection().getRequestID());
     } else if (rt.getSelection().getRequestType().equals(RequestType.MedicineDelivery)) {
       MedRequestManager.getMedRequestManager()
-          .cancel(rt.getSelection().getREQUEST().getRequestID());
+          .cancel(rt.getSelection().getRequestID());
     } else if (rt.getSelection().getRequestType().equals(RequestType.LanguageInterpreter)) {
 
     } else if (rt.getSelection().getRequestType().equals(RequestType.SecurityService)) {

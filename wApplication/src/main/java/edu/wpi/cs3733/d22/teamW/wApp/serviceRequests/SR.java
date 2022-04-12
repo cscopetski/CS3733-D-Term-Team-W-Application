@@ -30,8 +30,4 @@ public abstract class SR {
   }
 
   public abstract String getRequestType();
-
-  public Request getREQUEST() {
-    return REQUEST;
-  }
 }
