@@ -4,6 +4,8 @@ import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
+import java.sql.SQLException;
 import java.util.List;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -20,10 +22,16 @@ public class RequestTable extends TableView<SR> {
             createColumn("Request ID", "RequestID"),
             createColumn("Request Type", "RequestType"),
             createColumn("Employee Name", "EmployeeName"),
+            createColumn("Employee ID", "EmployeeID"),
             createColumn("Status", "Status"));
 
     // distributeColumnWidths();
-    List<Request> requests = RequestFactory.getRequestFactory().getAllRequests();
+    List<Request> requests = null;
+    try {
+      requests = RequestFactory.getRequestFactory().getAllRequests();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
     setItems(requests);
   }
 
@@ -52,6 +60,7 @@ public class RequestTable extends TableView<SR> {
     getItems().clear();
     for (Request r : requests) {
       SR sr = null;
+<<<<<<< HEAD
       switch (r.getRequestType()) {
         case MedicalEquipmentRequest:
           sr = new MedicalEquipmentSR(r);
@@ -71,7 +80,20 @@ public class RequestTable extends TableView<SR> {
         case MedicineDelivery:
           sr = new MedicineDeliverySR(r);
           break;
+=======
+      if (r.getRequestType().equals(RequestType.MedicalEquipmentRequest)) {
+        sr = new MedicalEquipmentSR(r);
+      } else if (r.getRequestType().equals(RequestType.LabServiceRequest)) {
+        sr = new LabServiceSR(r);
+      } else if (r.getRequestType().equals(RequestType.MedicineDelivery)) {
+        sr = new MealDeliverySR(r);
+      } else if (r.getRequestType().equals(RequestType.LanguageInterpreter)) {
+        sr = new LanguageInterpreterSR(r);
+      } else if (r.getRequestType().equals(RequestType.SecurityService)) {
+        sr = new SecuritySR(r);
+>>>>>>> Merged
       }
+
       getItems().add(sr);
     }
     getSelectionModel().clearSelection();

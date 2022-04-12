@@ -278,8 +278,7 @@
     -fx-background-radius: 15px;
     -fx-border-color: #013895;
     -fx-border-radius: 15px;
-    -fx-border-width: 3px;
-    -fx-spacing: 20px;
+    -fx-border-width: 1px;
 }
 
 .menu-item:hover,
@@ -289,7 +288,6 @@
     -fx-border-color: #013895;
     -fx-border-radius: 15px;
     -fx-border-width: 1px;
-    -fx-spacing: 20px;
     -fx-cursor: hand;
 
 }

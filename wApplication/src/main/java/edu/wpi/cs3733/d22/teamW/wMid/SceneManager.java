@@ -62,7 +62,8 @@ public class SceneManager {
     Login,
     Help,
     About,
-    Profile
+    Profile,
+    Snake
   }
 
   private static class Instance {
@@ -137,11 +138,19 @@ public class SceneManager {
   }
 
   public void transitionTo(Scenes scene) {
-    transitionTo(scene, Transitions.Fade);
+    if (current == scene) {
+      setPaneVisible(scene);
+    } else {
+      transitionTo(scene, Transitions.Fade);
+    }
   }
 
   public void transitionTo(Scenes scene, Transitions transition) {
-    transitionTo(scene, transition, 250);
+    if (current == scene) {
+      setPaneVisible(scene);
+    } else {
+      transitionTo(scene, transition, 250);
+    }
   }
 
   public void transitionTo(Scenes scene, Transitions transition, double duration) {

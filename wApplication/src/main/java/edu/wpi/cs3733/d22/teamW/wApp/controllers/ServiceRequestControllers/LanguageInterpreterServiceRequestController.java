@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
@@ -9,22 +11,11 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 
 public class LanguageInterpreterServiceRequestController {
-  Alert confirm =
-      new Alert(
-          Alert.AlertType.CONFIRMATION,
-          "Would you like to confirm this request " + " ?",
-          ButtonType.OK,
-          ButtonType.CANCEL);
+  Alert confirm = new ConfirmAlert();
+  Alert emptyFields = new EmptyAlert();
 
-  Alert emptyFields =
-      new Alert(
-          Alert.AlertType.ERROR,
-          "There are required fields empty " + " !",
-          ButtonType.OK,
-          ButtonType.CANCEL);
   @FXML ComboBox<String> equipmentSelection;
   // location here
   @FXML TextField employeeName;
@@ -62,25 +53,6 @@ public class LanguageInterpreterServiceRequestController {
 
   public void cancelButton(ActionEvent actionEvent) {
     // MedicalEquipmentController.cancel(requestFactory.getRequest("MEDEQUIPREQUEST", fields));
-  }
-
-  public void emergencyClicked(MouseEvent mouseEvent) {
-    if (emergencyLevel) {
-      emergencyLevel = false;
-      emergencyB.getStylesheets().clear();
-
-      emergencyB
-          .getStylesheets()
-          .add(
-              "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonFalse.css");
-    } else {
-      emergencyLevel = true;
-      emergencyB.getStylesheets().clear();
-      emergencyB
-          .getStylesheets()
-          .add(
-              "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonTrue.css");
-    }
   }
 
   public void switchToRequestList(ActionEvent event) throws IOException {

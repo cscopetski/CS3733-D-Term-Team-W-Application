@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -14,18 +16,8 @@ public class MealDeliveryServiceRequestController {
   @FXML TextField roomNum;
   @FXML TextField bedNum;
   @FXML ComboBox<String> timeSelection;
-  Alert confirm =
-      new Alert(
-          Alert.AlertType.CONFIRMATION,
-          "Would you like to confirm this request " + " ?",
-          ButtonType.OK,
-          ButtonType.CANCEL);
-  Alert emptyFields =
-      new Alert(
-          Alert.AlertType.ERROR,
-          "There are required fields empty " + " !",
-          ButtonType.OK,
-          ButtonType.CANCEL);
+  Alert confirm = new ConfirmAlert();
+  Alert emptyFields = new EmptyAlert();
 
   private int currentSelection = 0;
 
@@ -64,10 +56,14 @@ public class MealDeliveryServiceRequestController {
         && !roomNum.getText().isEmpty()
         && !bedNum.getText().isEmpty()
         && !timeSelection.getValue().isEmpty()) {
-      confirm.show();
+      confirm.showAndWait();
       if (confirm.getResult() == ButtonType.OK) {}
     } else {
       emptyFields.show();
     }
+  }
+
+  public void onEnter(ActionEvent actionEvent) {
+    submitButton(actionEvent);
   }
 }

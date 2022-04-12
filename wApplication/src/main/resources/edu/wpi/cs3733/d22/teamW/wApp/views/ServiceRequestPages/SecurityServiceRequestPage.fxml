@@ -68,7 +68,7 @@
                               </BorderPane>
                               <BorderPane maxWidth="250.0" prefHeight="30.0" prefWidth="250.0">
                                  <left>
-                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" BorderPane.alignment="CENTER" />
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" BorderPane.alignment="CENTER" />
                                  </left>
                                  <right>
                                     <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#cancelButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Cancel" BorderPane.alignment="CENTER" />

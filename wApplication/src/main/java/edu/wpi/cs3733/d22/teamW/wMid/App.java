@@ -30,7 +30,6 @@ public class App extends Application {
                 getClass()
                     .getResourceAsStream("/edu/wpi/cs3733/d22/teamW/wApp/assets/mgb_logo.png")));
     SceneManager.getInstance().setScene("DefaultPage.fxml");
-    // SceneManager.getInstance().openWindow("RequestHubPage.fxml");
   }
 
   @Override
