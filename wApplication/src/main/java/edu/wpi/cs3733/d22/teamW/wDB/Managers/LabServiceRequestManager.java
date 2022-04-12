@@ -43,7 +43,7 @@ public class LabServiceRequestManager implements RequestManager {
   public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException {
     LabServiceRequest lSR;
     // Set status to in queue if it is not already included (from CSVs)
-    if (fields.size() == 6) {
+    if (fields.size() == 4) {
       fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
       fields.add(new Timestamp(System.currentTimeMillis()).toString());
       fields.add(new Timestamp(System.currentTimeMillis()).toString());
