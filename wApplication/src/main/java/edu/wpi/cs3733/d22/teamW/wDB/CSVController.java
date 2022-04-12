@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
-import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.io.*;
@@ -75,6 +77,30 @@ public class CSVController {
     return tokensList;
   }
 
+  public ArrayList<String[]> importCSVfromFile(File file) throws FileNotFoundException {
+
+    InputStream in = new FileInputStream(file);
+    Scanner sc = new Scanner(in);
+    // Skip headers
+    try {
+      sc.next();
+    } catch (NoSuchElementException e) {
+      System.out.println(String.format("FILE IS EMPTY"));
+    }
+
+    ArrayList<String[]> tokensList = new ArrayList<>();
+
+    while (sc.hasNextLine()) {
+      String line = "" + sc.nextLine();
+      if (!line.isEmpty()) {
+        String[] tokens = line.split(",");
+        tokensList.add(tokens);
+      }
+    }
+    sc.close(); // closes the scanner
+    return tokensList;
+  }
+
   /**
    * Inserts a list of locations objects into the Location table in the database
    *
@@ -93,9 +119,17 @@ public class CSVController {
     for (Location l : locationsList) {
       // add location objects to database
       try {
-        String test = String.format("INSERT INTO LOCATIONS VALUES(%s)", l.toValuesString());
+        LocationManager.getLocationManager()
+            .addLocation(
+                l.getNodeID(),
+                l.getxCoord(),
+                l.getyCoord(),
+                l.getFloor(),
+                l.getBuilding(),
+                l.getNodeType(),
+                l.getLongName(),
+                l.getShortName());
 
-        DBController.getDBController().execute(test);
       } catch (SQLException e) {
         System.out.println("Connection failed. Check output console.");
         e.printStackTrace();
@@ -120,8 +154,8 @@ public class CSVController {
     for (MedEquip m : medEquipList) {
       // add location objects to database
       try {
-        DBController.getDBController()
-            .execute("INSERT INTO MEDICALEQUIPMENT VALUES(" + m.toValuesString() + ")");
+        MedEquipManager.getMedEquipManager()
+            .add(m.getMedID(), m.getType(), m.getNodeID(), m.getStatus().getValue());
       } catch (SQLException e) {
         System.out.println("Connection failed. Check output console.");
         e.printStackTrace();
@@ -183,8 +217,18 @@ public class CSVController {
     for (Employee e : employees) {
       // add location objects to database
       try {
-        DBController.getDBController()
-            .execute("INSERT INTO EMPLOYEES VALUES(" + e.toValuesString() + ")");
+        EmployeeManager.getEmployeeManager()
+            .addEmployee(
+                e.getEmployeeID(),
+                e.getFirstName(),
+                e.getLastName(),
+                e.getType().getString(),
+                e.getEmail(),
+                e.getPhoneNumber(),
+                e.getAddress(),
+                e.getUsername(),
+                e.getPassword(),
+                e.getSalt());
       } catch (SQLException s) {
         System.out.println("Connection failed. Check output console.");
         s.printStackTrace();

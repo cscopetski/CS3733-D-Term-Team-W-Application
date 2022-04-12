@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.EmployeeDao;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -28,6 +29,21 @@ public class EmployeeManager {
     return ed.passwordMatch(username, password);
   }
 
+  /**
+   * Adds an existing employee to the database, remove the salt field to add a NEW one
+   *
+   * @param employeeID
+   * @param firstname
+   * @param lastname
+   * @param type
+   * @param email
+   * @param phoneNumber
+   * @param address
+   * @param username
+   * @param password
+   * @param salt
+   * @throws SQLException
+   */
   public void addEmployee(
       Integer employeeID,
       String firstname,
@@ -53,11 +69,7 @@ public class EmployeeManager {
         salt);
   }
 
-  public void deleteEmployee(Integer employeeID) throws SQLException {
-    ed.deleteEmployee(employeeID);
-  }
-
-  public void changeEmployee(
+  public void addEmployee(
       Integer employeeID,
       String firstname,
       String lastname,
@@ -66,24 +78,62 @@ public class EmployeeManager {
       String phoneNumber,
       String address,
       String username,
-      String password,
-      String salt)
+      String password)
+      throws SQLException {
+    ed.addEmployee(
+        employeeID,
+        firstname,
+        lastname,
+        type,
+        email,
+        phoneNumber,
+        address,
+        username,
+        password,
+        "NEW");
+  }
+
+  public void deleteEmployee(Integer employeeID) throws SQLException {
+    ed.deleteEmployee(employeeID);
+  }
+
+  public void changeEmployee(
+      Integer employeeID,
+      String firstname,
+      String lastname,
+      EmployeeType type,
+      String email,
+      String phoneNumber,
+      String address,
+      String username,
+      String password)
       throws SQLException {
     ed.changeEmployee(
         employeeID,
         firstname,
         lastname,
+        type.getString(),
         email,
         phoneNumber,
         address,
-        type,
         username,
-        password,
-        salt);
+        password);
   }
 
   public ArrayList<Employee> getAllEmployees() throws SQLException {
     return ed.getAllEmployees();
+  }
+
+  public Employee getEmployee(String username) throws SQLException {
+    return ed.getEmployee(username);
+  }
+
+  public Employee getEmployee(Integer empID) throws SQLException {
+    return ed.getEmployee(empID);
+  }
+
+  public Employee getEmployeeType(EmployeeType employeeType) {
+    return ed.getEmployeeType(employeeType);
   }
 
   public void exportEmpCSV(String filename) {

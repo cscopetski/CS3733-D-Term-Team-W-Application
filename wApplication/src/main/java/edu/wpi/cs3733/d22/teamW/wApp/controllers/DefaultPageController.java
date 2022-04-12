@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
 import java.net.URL;
@@ -26,10 +27,12 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane helpPage;
   @FXML public Pane aboutPage;
   @FXML public Pane profilePage;
+  @FXML public Pane snakePage;
   @FXML public HBox menuBar;
   @FXML public Pane buttonPane;
 
-  @FXML
+  protected Employee employee;
+
   public void initialize(URL location, ResourceBundle rb) {
 
     SceneManager.getInstance().putController(SceneManager.Scenes.Default, this);
@@ -52,6 +55,7 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().putPane(SceneManager.Scenes.Help, helpPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.About, aboutPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Profile, profilePage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Snake, snakePage);
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Login);
 
     try {
@@ -59,6 +63,14 @@ public class DefaultPageController implements Initializable {
     } catch (Exception e) {
       e.printStackTrace();
     }
+  }
+
+  public void setEmployee(Employee em) {
+    this.employee = em;
+  }
+
+  public Employee getEmployee() {
+    return this.employee;
   }
 
   public void switchToMedicineDelivery(ActionEvent event) throws IOException {
@@ -121,5 +133,9 @@ public class DefaultPageController implements Initializable {
 
   public void switchToHelp(ActionEvent actionEvent) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Help);
+  }
+
+  public void switchToSnake(ActionEvent actionEvent) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Snake);
   }
 }

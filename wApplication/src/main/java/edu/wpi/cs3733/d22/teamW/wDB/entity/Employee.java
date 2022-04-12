@@ -1,17 +1,18 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-public class Employee implements Entity {
+public class Employee extends Entity {
 
   private Integer employeeID;
   private String firstName;
   private String lastName;
-  private String type;
+  private EmployeeType type;
   private String email;
   private String phoneNumber;
   private String address;
@@ -33,7 +34,7 @@ public class Employee implements Entity {
     this.employeeID = employeeID;
     this.firstName = fName;
     this.lastName = lName;
-    this.type = type;
+    this.type = EmployeeType.getEmployeeType(type);
     this.email = email;
     this.phoneNumber = phoneNumber;
     this.address = address;
@@ -42,11 +43,33 @@ public class Employee implements Entity {
     this.salt = salt;
   }
 
+  public Employee(
+      Integer employeeID,
+      String fName,
+      String lName,
+      String type,
+      String email,
+      String phoneNumber,
+      String address,
+      String username,
+      String password) {
+    this.employeeID = employeeID;
+    this.firstName = fName;
+    this.lastName = lName;
+    this.type = EmployeeType.getEmployeeType(type);
+    this.email = email;
+    this.phoneNumber = phoneNumber;
+    this.address = address;
+    this.username = username;
+    this.password = password;
+    this.salt = "NEW";
+  }
+
   public Employee(ArrayList<String> employeeData) {
     this.employeeID = Integer.parseInt(employeeData.get(0));
     this.firstName = employeeData.get(1);
     this.lastName = employeeData.get(2);
-    this.type = employeeData.get(3);
+    this.type = EmployeeType.getEmployeeType(employeeData.get(3));
     this.email = employeeData.get(4);
     this.phoneNumber = employeeData.get(5);
     this.address = employeeData.get(6);
@@ -62,7 +85,7 @@ public class Employee implements Entity {
         employeeID,
         firstName,
         lastName,
-        type,
+        type.toString(),
         email,
         phoneNumber,
         address,
@@ -78,7 +101,7 @@ public class Employee implements Entity {
         employeeID,
         firstName,
         lastName,
-        type,
+        type.toString(),
         email,
         phoneNumber,
         address,

@@ -1,13 +1,13 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
-import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import java.sql.*;
 
 public class DBController {
 
   private String dbName = "myDB";
-  private String connectionString;
   private Statement statement;
   private Connection connection;
 
@@ -32,17 +32,34 @@ public class DBController {
   }
 
   private DBController() {
-    this.connectionString = "jdbc:derby:" + this.dbName + ";create=true";
     try {
-      this.connect();
+      startConnection();
+    } catch (SQLException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void startConnection() throws SQLException, ClassNotFoundException {
+    RequestFactory.getRequestFactory().resetTreeSet();
+    String connectionStringEmbedded = String.format("jdbc:derby:%s;create=true", this.dbName);
+    String connectionStringServer =
+        String.format("jdbc:derby://localhost:1527/%s;create=true", this.dbName);
+
+    try {
+      if (DBConnectionMode.INSTANCE.getConnectionType()) {
+        this.connectEmbedded(connectionStringEmbedded);
+      } else {
+        this.connectServer(connectionStringServer);
+      }
 
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       MedRequestDao medRequestDao = new MedRequestDaoImpl(statement);
+      CleaningRequestDao cleaningRequestDao = new CleaningRequestDaoImpl(statement);
       LabServiceRequestDao labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
       MedEquipRequestDao medEquipRequestDao = new MedEquipRequestDaoImpl(statement);
       MedEquipDao medEquipDao = new MedEquipDaoImpl(statement);
-      EmployeeDao employeeDao = new EmployeeDaoImpl(statement);
+      EmployeeDao employeeDao = new EmployeeDaoSecureImpl(statement);
       LocationDao locationDao = new LocationDaoImpl(statement);
 
       // Assign Daos to Managers
@@ -53,33 +70,28 @@ public class DBController {
       MedRequestManager.getMedRequestManager().setMedRequestDao(medRequestDao);
       LabServiceRequestManager.getLabServiceRequestManager()
           .setLabServiceRequestDao(labServiceRequestDao);
+      CleaningRequestManager.getCleaningRequestManager().setCleaningRequestDao(cleaningRequestDao);
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
-      ((EmployeeDaoImpl) employeeDao).createTable();
+      ((EmployeeDaoSecureImpl) employeeDao).createTable();
       ((LocationDaoImpl) locationDao).createTable();
       ((MedEquipDaoImpl) medEquipDao).createTable();
       ((LabServiceRequestDaoImpl) labServiceRequestDao).createTable();
       ((MedEquipRequestDaoImpl) medEquipRequestDao).createTable();
       ((MedRequestDaoImpl) medRequestDao).createTable();
+      ((CleaningRequestDaoImpl) cleaningRequestDao).createTable();
 
     } catch (SQLException e) {
-      e.printStackTrace();
       System.out.println("Table Creation Failed");
+      throw (e);
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
+      throw (e);
     }
   }
 
-  public ResultSet executeQuery(String sql) throws SQLException {
-    return statement.executeQuery(sql);
-  }
-
-  public int executeUpdate(String sql) throws SQLException {
-    return statement.executeUpdate(sql);
-  }
-
-  public boolean execute(String sql) throws SQLException {
-    return statement.execute(sql);
+  public Statement getStatement() {
+    return this.statement;
   }
 
   /**
@@ -89,10 +101,41 @@ public class DBController {
    * @throws SQLException if unable to connect to database
    * @throws ClassNotFoundException if Apache Derby installation not found
    */
-  private void connect() throws SQLException, ClassNotFoundException {
+  private void connectEmbedded(String connectionString)
+      throws SQLException, ClassNotFoundException {
     System.out.println("-------Embedded Apache Derby Connection Testing --------");
     try {
       Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+    } catch (ClassNotFoundException e) {
+      System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
+      System.out.println("For IntelliJ do the following:");
+      System.out.println("File | Project Structure, Modules, Dependency tab");
+      System.out.println("Add by clicking on the green plus icon on the right of the window");
+      System.out.println(
+          "Select JARs or directories. Go to the folder where the database JAR is located");
+      System.out.println("Click OK, now you can compile your program and run it.");
+      e.printStackTrace();
+      throw (e);
+    }
+    System.out.println("Apache Derby driver registered!");
+
+    try {
+      connection = DriverManager.getConnection(connectionString);
+      statement = connection.createStatement();
+
+    } catch (SQLException e) {
+      System.out.println("Connection failed. Check output console.");
+      e.printStackTrace();
+      throw (e);
+    }
+
+    System.out.println("Apache Derby connection established!");
+  }
+
+  private void connectServer(String connectionString) throws SQLException, ClassNotFoundException {
+    System.out.println("-------Client-Server Apache Derby Connection Testing --------");
+    try {
+      Class.forName("org.apache.derby.jdbc.ClientDriver");
     } catch (ClassNotFoundException e) {
       System.out.println("Apache Derby Driver not found. Add the classpath to your module.");
       System.out.println("For IntelliJ do the following:");

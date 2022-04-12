@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -34,6 +35,8 @@ public class MedRequestDaoImpl implements MedRequestDao {
               + "employeeName varchar(50),"
               + "isEmergency INT,"
               + "reqStatus INT, "
+              + "createdTimestamp timestamp, "
+              + "updatedTimestamp timestamp, "
               + "constraint MEDIREQ_Location_FK foreign key (nodeID) references LOCATIONS,"
               + "constraint MediReq_PK primary key (requestID),"
               + "constraint MediReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
@@ -53,12 +56,27 @@ public class MedRequestDaoImpl implements MedRequestDao {
   }
 
   @Override
-  public void changeMedRequest(Integer id, String m, String n, Integer en, Integer ie, Integer rs)
+  public void changeMedRequest(
+      Integer id,
+      String m,
+      String n,
+      Integer en,
+      Integer ie,
+      RequestStatus rs,
+      Timestamp createdTimestamp,
+      Timestamp updatedTimestamp)
       throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDREQUESTS SET MEDICINE='%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d WHERE REQUESTID=%d",
-            m, n, en, ie, rs, id));
+            "UPDATE MEDREQUESTS SET MEDICINE='%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE REQUESTID=%d",
+            m,
+            n,
+            en,
+            ie,
+            rs.getValue(),
+            createdTimestamp.toString(),
+            updatedTimestamp.toString(),
+            id));
   }
 
   @Override
@@ -70,21 +88,34 @@ public class MedRequestDaoImpl implements MedRequestDao {
   public Request getMedRequest(Integer id) throws SQLException {
     MedRequest mr = null;
     try {
-      ResultSet medRequests =
+      ResultSet medEquipRequests =
           statement.executeQuery(
-              String.format("SELECT * FROM MEDREQUESTS WHERE REQUESTID = %d", id));
+              String.format("SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE MEDREQID = %d", id));
 
-      // Size of num LabServiceRequest fields
-      int size = 6;
-      ArrayList<String> medRequestData = new ArrayList<String>();
+      medEquipRequests.next();
 
-      while (medRequests.next()) {
+      Integer medreqID = medEquipRequests.getInt("MEDREQID");
+      String medID = medEquipRequests.getString("MEDID");
+      String equipType = medEquipRequests.getString("EQUIPTYPE");
+      String nodeID = medEquipRequests.getString("NODEID");
+      Integer employeeID = medEquipRequests.getInt("EMPLOYEEID");
+      Integer isEmergency = medEquipRequests.getInt("ISEMERGENCY");
+      Integer reqStatus = medEquipRequests.getInt("REQSTATUS");
+      String createdTimeStamp = medEquipRequests.getString("CREATEDTIMESTAMP");
+      String updatedTimeStamp = medEquipRequests.getString("UPDATEDTIMESTAMP");
+      ArrayList<String> medEquipRequestData = new ArrayList<String>();
+      medEquipRequestData.add(String.format("%d", medreqID));
+      medEquipRequestData.add(medID);
+      medEquipRequestData.add(equipType);
+      medEquipRequestData.add(nodeID);
+      medEquipRequestData.add(String.format("%d", employeeID));
+      medEquipRequestData.add(String.format("%d", isEmergency));
+      medEquipRequestData.add(String.format("%d", reqStatus));
+      medEquipRequestData.add(createdTimeStamp);
+      medEquipRequestData.add(updatedTimeStamp);
 
-        for (int i = 0; i < size; i++) {
-          medRequestData.add(i, medRequests.getString(i + 1));
-        }
-        mr = new MedRequest(medRequestData);
-      }
+      mr = new MedRequest(medEquipRequestData);
+
     } catch (SQLException e) {
       System.out.println("Query from medicine request table failed.");
     }
@@ -99,7 +130,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
       ResultSet medRequests = statement.executeQuery("SELECT * FROM MEDREQUESTS");
 
       // Size of num LabServiceRequest fields
-      int size = 6;
+      int size = 8;
       ArrayList<String> medRequestData = new ArrayList<String>();
 
       while (medRequests.next()) {

@@ -1,12 +1,19 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface EmployeeDao {
 
   ArrayList<Employee> getAllEmployees() throws SQLException;
+
+  Employee getEmployee(String username) throws SQLException;
+
+  Employee getEmployee(Integer empID) throws SQLException;
+
+  public Employee getEmployeeType(EmployeeType employeeType);
 
   void addEmployee(
       Integer employeeID,
@@ -32,8 +39,7 @@ public interface EmployeeDao {
       String phoneNumber,
       String address,
       String username,
-      String password,
-      String salt)
+      String password)
       throws SQLException;
 
   void exportEmpCSV(String fileName);

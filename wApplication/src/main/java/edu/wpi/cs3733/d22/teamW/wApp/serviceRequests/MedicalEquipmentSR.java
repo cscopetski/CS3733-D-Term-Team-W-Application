@@ -23,7 +23,7 @@ public class MedicalEquipmentSR extends SR {
     }
   */
   public String getStatus() {
-    return mer.getStatus();
+    return mer.getStatus().getString();
   }
   /*
   public void setStatus(int status) {
