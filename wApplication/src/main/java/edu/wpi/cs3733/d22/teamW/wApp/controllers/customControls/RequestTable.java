@@ -2,11 +2,9 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls;
 
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
-import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
-import java.sql.SQLException;
-import java.util.List;
+import java.util.Collection;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,15 +21,6 @@ public class RequestTable extends TableView<SR> {
             createColumn("Request Type", "RequestType"),
             createColumn("Employee ID", "EmployeeID"),
             createColumn("Status", "Status"));
-
-    // distributeColumnWidths();
-    List<Request> requests = null;
-    try {
-      requests = RequestFactory.getRequestFactory().getAllRequests();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    setItems(requests);
   }
 
   public void setColumnWidth(String columnText, double prefWidth) {
@@ -55,7 +44,7 @@ public class RequestTable extends TableView<SR> {
     }
   }
 
-  private void setItems(List<Request> requests) {
+  public void setItems(Collection<? extends Request> requests) {
     getItems().clear();
     for (Request r : requests) {
       SR sr = null;

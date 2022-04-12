@@ -9,6 +9,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -82,15 +83,14 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   }
 
   public void populateTable() {
-    ArrayList<Request> requests = null;
+    Collection<? extends Request> requests = null;
     try {
       requests = RequestFactory.getRequestFactory().getAllRequests();
     } catch (SQLException e) {
       e.printStackTrace();
       System.out.println("Table did not populate");
     }
-    for (int i = 0; i < requests.size(); i++) {
-      Request r = requests.get(i);
+    for (Request r : requests) {
       if (MedEquipRequest.class.equals(r.getClass())) {
         MedEquipRequest mer = (MedEquipRequest) r;
         sr.add(new MedicalEquipmentSR(mer));
