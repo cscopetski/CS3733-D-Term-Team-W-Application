@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
@@ -111,6 +112,7 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
 
   @Override
   public void deleteLabServiceRequest(Integer requestID) throws SQLException {
+    RequestFactory.getRequestFactory().getReqIDList().remove(requestID);
     statement.executeUpdate(
         String.format("DELETE FROM LABSERVICEREQUESTS WHERE LABREQID=%d", requestID));
   }

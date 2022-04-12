@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
@@ -156,6 +157,13 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
   }
 
   @Override
+  public void deleteMedEquipRequest(Integer requestID) throws SQLException {
+    RequestFactory.getRequestFactory().getReqIDList().remove(requestID);
+    statement.executeUpdate(
+            String.format("DELETE FROM MEDICALEQUIPMENTREQUESTS WHERE MEDREQID=%d", requestID));
+  }
+
+  @Override
   public MedEquipRequest getRequest(Integer reqID) throws SQLException {
     MedEquipRequest mr = null;
     try {
@@ -188,7 +196,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       mr = new MedEquipRequest(medEquipRequestData);
 
     } catch (SQLException e) {
-      System.out.println("Query from medicine request table failed.");
+      System.out.println("Query from medical equip request table failed.");
     }
     return mr;
   }

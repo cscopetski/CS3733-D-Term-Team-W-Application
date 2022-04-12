@@ -2,6 +2,8 @@ package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.EmployeeDao;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -121,6 +123,10 @@ public class EmployeeManager {
 
   public Employee getEmployee(Integer empID) throws SQLException {
     return ed.getEmployee(empID);
+  }
+
+  public Employee getEmployeeType(EmployeeType employeeType){
+    return ed.getEmployeeType(employeeType);
   }
 
   public void exportEmpCSV(String filename) {

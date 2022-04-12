@@ -9,7 +9,7 @@ public interface CleaningRequestDao {
 
   void addCleaningRequest(CleaningRequest lsr) throws SQLException;
 
-  void changeCleaningRequest(Integer requestID, String itemID, RequestStatus status)
+  void changeCleaningRequest(Integer requestID, String itemID, String nodeID, Integer employeeID, Integer emergency, RequestStatus status)
       throws SQLException;
 
   void deleteCleaningRequest(Integer requestID) throws SQLException;
@@ -17,6 +17,12 @@ public interface CleaningRequestDao {
   void exportCleaningReqCSV(String filename);
 
   CleaningRequest getCleaningRequest(Integer requestID);
+
+  ArrayList<String> getCleaningLocation() throws SQLException;
+
+  public ArrayList<Integer> CleaningRequestAtLocation(String nodeID)throws SQLException ;
+
+
 
   ArrayList<CleaningRequest> getAllCleaningRequests();
 }

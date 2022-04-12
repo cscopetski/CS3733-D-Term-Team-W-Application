@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
 import java.util.ArrayList;
+
+import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +13,7 @@ public class Employee extends Entity {
   private Integer employeeID;
   private String firstName;
   private String lastName;
-  private String type;
+  private EmployeeType type;
   private String email;
   private String phoneNumber;
   private String address;
@@ -33,7 +35,7 @@ public class Employee extends Entity {
     this.employeeID = employeeID;
     this.firstName = fName;
     this.lastName = lName;
-    this.type = type;
+    this.type = EmployeeType.getEmployeeType(type);
     this.email = email;
     this.phoneNumber = phoneNumber;
     this.address = address;
@@ -55,7 +57,7 @@ public class Employee extends Entity {
     this.employeeID = employeeID;
     this.firstName = fName;
     this.lastName = lName;
-    this.type = type;
+    this.type = EmployeeType.getEmployeeType(type);
     this.email = email;
     this.phoneNumber = phoneNumber;
     this.address = address;
@@ -68,7 +70,7 @@ public class Employee extends Entity {
     this.employeeID = Integer.parseInt(employeeData.get(0));
     this.firstName = employeeData.get(1);
     this.lastName = employeeData.get(2);
-    this.type = employeeData.get(3);
+    this.type = EmployeeType.getEmployeeType(employeeData.get(3));
     this.email = employeeData.get(4);
     this.phoneNumber = employeeData.get(5);
     this.address = employeeData.get(6);
@@ -84,7 +86,7 @@ public class Employee extends Entity {
         employeeID,
         firstName,
         lastName,
-        type,
+        type.toString(),
         email,
         phoneNumber,
         address,
@@ -100,7 +102,7 @@ public class Employee extends Entity {
         employeeID,
         firstName,
         lastName,
-        type,
+        type.toString(),
         email,
         phoneNumber,
         address,

@@ -1,10 +1,15 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipDao;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -52,21 +57,19 @@ public class MedEquipManager {
 
   public void markDirty(String medID, String type, String nodeID) throws SQLException {
     medi.changeMedEquip(medID, type, nodeID, MedEquipStatus.Dirty);
-    /*CleaningRequest cr = crm.addRequest(medID);
-    cleaningRequests.add(cr);
-    if (cleaningRequests.size() == 6) {
-      startCleaningRequests();
-    }*/
+    ArrayList<String> fields = new ArrayList<>();
+    Employee employee = EmployeeManager.getEmployeeManager().getEmployeeType(EmployeeType.Sanitation);
+    fields.add(medID);
+    fields.add(nodeID);
+    fields.add(String.format("%d", employee.getEmployeeID()));
+    fields.add(String.format("%d", 0));
+    fields.add(String.format("%d",RequestStatus.InQueue.getValue()));
+    CleaningRequest cr = (CleaningRequest) RequestFactory.getRequestFactory().getRequest(RequestType.CleaningRequest, fields);
   }
 
   public void markDirty(String medID, String nodeID) throws SQLException {
     String type = getMedEquip(medID).getType();
-    medi.changeMedEquip(medID, type, nodeID, MedEquipStatus.Dirty);
-    /*CleaningRequest cr = crm.addRequest(medID);
-    cleaningRequests.add(cr);
-    if (cleaningRequests.size() == 6) {
-      startCleaningRequests();
-    }*/
+    markDirty(medID,type,nodeID);
   }
 
   public void startCleaningRequests() throws SQLException {
@@ -98,14 +101,8 @@ public class MedEquipManager {
     medi.deleteMedEquip(inputID);
   }
 
-  // TODO change to just use sql in impl
   public MedEquip getMedEquip(String medID) throws SQLException {
-    for (MedEquip e : medi.getAllMedEquip()) {
-      if (e.getMedID().equals(medID)) {
-        return e;
-      }
-    }
-    return null;
+    return medi.getMedEquip(medID);
   }
 
   public ArrayList<MedEquip> getAllMedEquip() throws SQLException {
