@@ -27,7 +27,7 @@ public class MedRequestManager implements ServiceRequestManager {
   public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException {
     MedRequest mr;
 
-    if (fields.size() == 6) {
+    if (fields.size() == 4) {
       fields.add("0");
       fields.add(new Timestamp(System.currentTimeMillis()).toString());
       fields.add(new Timestamp(System.currentTimeMillis()).toString());
