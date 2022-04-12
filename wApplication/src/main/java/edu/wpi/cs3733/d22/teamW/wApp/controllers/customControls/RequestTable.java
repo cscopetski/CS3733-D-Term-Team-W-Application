@@ -6,6 +6,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.SR;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import java.sql.SQLException;
 import java.util.List;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -25,7 +26,12 @@ public class RequestTable extends TableView<SR> {
             createColumn("Status", "Status"));
 
     // distributeColumnWidths();
-    List<Request> requests = RequestFactory.getRequestFactory().getAllRequests();
+    List<Request> requests = null;
+    try {
+      requests = RequestFactory.getRequestFactory().getAllRequests();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
     setItems(requests);
   }
 

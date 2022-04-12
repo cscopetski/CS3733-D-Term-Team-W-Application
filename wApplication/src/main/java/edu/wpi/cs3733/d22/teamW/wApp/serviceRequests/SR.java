@@ -22,7 +22,7 @@ public abstract class SR {
   }
 
   public String getStatus() {
-    return REQUEST.getStatus();
+    return REQUEST.getStatus().getString();
   }
 
   public Integer getEmployeeName() {
