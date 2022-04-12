@@ -1,6 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
-public class                    Automation {
+public class Automation {
   boolean auto;
   static Automation automation = new Automation();
 
