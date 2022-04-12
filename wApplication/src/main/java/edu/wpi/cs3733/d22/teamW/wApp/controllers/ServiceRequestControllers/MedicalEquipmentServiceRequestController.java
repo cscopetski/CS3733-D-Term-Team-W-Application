@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.DefaultPageController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
@@ -11,7 +12,6 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 
 public class MedicalEquipmentServiceRequestController {
   Alert confirm = new ConfirmAlert();
@@ -19,7 +19,6 @@ public class MedicalEquipmentServiceRequestController {
 
   @FXML ComboBox<String> equipmentSelection;
   // location here
-  @FXML TextField employeeName;
   boolean emergencyLevel = false;
   int emergency;
 
@@ -30,14 +29,18 @@ public class MedicalEquipmentServiceRequestController {
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
     System.out.println("Button Clicked");
-    if ((equipmentSelection.getValue() != null) && !employeeName.getText().isEmpty()) {
+    if ((equipmentSelection.getValue() != null)) {
       confirm.showAndWait();
       if (confirm.getResult() == ButtonType.OK) {
         ArrayList<String> fields = new ArrayList<String>();
         fields.add(equipmentSelection.getValue());
-        System.out.println(equipmentSelection.getValue());
         fields.add("wSTOR001L1"); // location
-        fields.add(employeeName.getText());
+        fields.add(
+            ((DefaultPageController)
+                    SceneManager.getInstance().getController(SceneManager.Scenes.Default))
+                .getEmployee()
+                .getEmployeeID()
+                .toString());
         if (emergencyLevel) {
           emergency = 1;
         } else {
@@ -49,29 +52,6 @@ public class MedicalEquipmentServiceRequestController {
       }
     } else {
       emptyFields.show();
-    }
-  }
-
-  public void cancelButton(ActionEvent actionEvent) {
-    // MedicalEquipmentController.cancel(requestFactory.getRequest("MEDEQUIPREQUEST", fields));
-  }
-
-  public void emergencyClicked(MouseEvent mouseEvent) {
-    if (emergencyLevel) {
-      emergencyLevel = false;
-      emergencyB.getStylesheets().clear();
-
-      emergencyB
-          .getStylesheets()
-          .add(
-              "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonFalse.css");
-    } else {
-      emergencyLevel = true;
-      emergencyB.getStylesheets().clear();
-      emergencyB
-          .getStylesheets()
-          .add(
-              "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonTrue.css");
     }
   }
 
