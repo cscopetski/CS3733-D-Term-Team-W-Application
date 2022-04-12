@@ -118,19 +118,6 @@ public class AutoCompleteInput extends ComboBox<String> {
 
   public AutoCompleteInput() {
     setEditable(true);
-    loadValues(
-        new ArrayList<String>() {
-          {
-            add("hi");
-            add("hello");
-            add("how");
-            add("heart");
-            add("cable");
-            add("car");
-            add("cartoon");
-          }
-        });
-
     getEditor()
         .setOnKeyTyped(
             e -> {

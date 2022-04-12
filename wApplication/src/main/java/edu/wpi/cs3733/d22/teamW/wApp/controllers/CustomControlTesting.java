@@ -6,14 +6,22 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.VBox;
 
 public class CustomControlTesting implements Initializable {
   @FXML public RequestTable table;
   @FXML public MultiToggle mt;
+  public ToggleButton b1;
+  public ToggleButton b2;
+  public MultiToggle mt2;
+  public VBox toggles;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    mt.setOptions(new String[] {"Option 1", "Option 2", "Option 3"});
-    mt.setSpacing(10);
+    ToggleGroup tg = new ToggleGroup();
+    b1.setToggleGroup(tg);
+    b2.setToggleGroup(tg);
   }
 }

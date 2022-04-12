@@ -4,6 +4,7 @@
 
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.*?>
 
+<?import javafx.scene.control.ToggleButton?>
 <AnchorPane fx:id="ap"
             xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -12,7 +13,10 @@
         <EmergencyButton prefWidth='200' prefHeight='50'/>
         <RequestTable fx:id="table" prefWidth='500' prefHeight='500'/>
         <AutoCompleteInput/>
-        <MultiToggle fx:id="mt" prefWidth="600" prefHeight="100" style="-fx-background-color: pink"/>
+        <VBox fx:id="toggles">
+            <ToggleButton fx:id="b1" text="first"/>
+        <ToggleButton fx:id="b2" text="second"/>
+        </VBox>
     </HBox>
 
 </AnchorPane>
