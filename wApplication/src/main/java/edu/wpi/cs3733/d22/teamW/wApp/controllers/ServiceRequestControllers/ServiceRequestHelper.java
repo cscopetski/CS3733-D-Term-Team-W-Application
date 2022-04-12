@@ -1,15 +1,15 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
-import java.util.ArrayList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextField;
 
 public class ServiceRequestHelper {
 
-  ArrayList<Control> fields = new ArrayList<>();
+  // ArrayList<Control> fields = new ArrayList<>();
+  private Control[] fields;
 
-  public ServiceRequestHelper(ArrayList<Control> fields) {
+  public ServiceRequestHelper(Control[] fields) {
     this.fields = fields;
   }
 
@@ -28,14 +28,24 @@ public class ServiceRequestHelper {
     return result;
   }
 
-  public void clearFields() {
+  //  public void clearFields() {
+  //    for (Control field : fields) {
+  //             System.out.println(field.getClass().toString());
+  //            if (field.getClass() == (TextField.class)) {
+  //              ((TextField) field).clear();
+  //            } else if (field.getClass() == (ComboBox.class)) {
+  //              ((ComboBox) field).getSelectionModel().clearSelection();
+  //            }
+  //    }
+  //  }
+
+  public void clearFields(Control[] fields) {
     for (Control field : fields) {
-      System.out.println(field.getClass().toString());
-      // if (field.getClass() == (TextField.class)) {
-      //  ((TextField) field).clear();
-      // } else if (field.getClass() == (ComboBox.class)) {
-      //  ((ComboBox) field).getSelectionModel().clearSelection();
-      // }
+      if (field.getClass() == (TextField.class)) {
+        ((TextField) field).clear();
+      } else if (field.getClass() == (ComboBox.class)) {
+        ((ComboBox) field).getSelectionModel().clearSelection();
+      }
     }
   }
 }

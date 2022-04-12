@@ -2,7 +2,9 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
@@ -16,41 +18,50 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 
 public class MedicineDeliveryServiceRequestController extends LoadableController {
+  // Buttons:
+  @FXML Button addButton;
+  @FXML Button submitButton;
+  @FXML Button cancelButton;
+  boolean emergencyLevel = false;
+  @FXML Button emergencyB;
 
   // TextFields:
   @FXML TextField quantityField;
   @FXML TextField itemCodeField;
 
-  // Buttons:
-  @FXML Button addButton;
-  @FXML Button submitButton;
-  @FXML Button cancelButton;
-
   // ComboBoxes:
   @FXML ComboBox medNameCBox;
   @FXML ComboBox locationCBox;
   @FXML ComboBox timePrefCBox;
-  @FXML ComboBox requesterCBox; // FREE BOX, NOT SURE WHAT TO DO
-
-  // ComboBox Lists:
-  ObservableList<String> meds = FXCollections.observableArrayList("Advil", "Tylenol");
-  ObservableList<String> locations =
-      FXCollections.observableArrayList("<Will be implemented from DB>");
-  ObservableList<String> names = FXCollections.observableArrayList("Edward", "Jason", "Joe");
-  ObservableList<String> times =
-      FXCollections.observableArrayList(
-          "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00",
-          "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00",
-          "18:30");
+  @FXML ComboBox requesterCBox;
 
   // Tables:
   @FXML private TableView<MedicalEquipmentSR> table;
 
   // other stuff:
   private ArrayList<MedicalEquipmentSR> sr = new ArrayList<>();
-  private ServiceRequestHelper helper = new ServiceRequestHelper(populateFields());
-  boolean emergencyLevel = false;
-  @FXML Button emergencyB;
+  private Control[] fields =
+      new Control[] {quantityField, itemCodeField, medNameCBox, locationCBox, requesterCBox};
+  private ServiceRequestHelper helper = new ServiceRequestHelper(fields);
+
+  // Getting Employee IDs from DB:
+  private ArrayList<Employee> employees = EmployeeManager.getEmployeeManager().getAllEmployees();
+  private ArrayList<Integer> ids = new ArrayList<Integer>();
+
+  // ComboBox Lists:
+  ObservableList<String> meds = FXCollections.observableArrayList("Advil", "Tylenol");
+  ObservableList<String> locations =
+      FXCollections.observableArrayList("<Will be implemented from DB>");
+  ObservableList<Integer> names = FXCollections.observableArrayList(ids);
+  ObservableList<String> times =
+      FXCollections.observableArrayList(
+          "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00",
+          "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00",
+          "18:30");
+
+  // -----------------------------METHOD CODE STARTS HERE-----------------------------
+
+  public MedicineDeliveryServiceRequestController() throws SQLException {}
 
   protected SceneManager.Scenes GetSceneType() {
     return SceneManager.Scenes.MedicineDelivery;
@@ -80,6 +91,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
   public void onLoad() {
     populateTable();
+    populateEmployeeIDs();
     medNameCBox.setItems(meds);
     locationCBox.setItems(locations);
     timePrefCBox.setItems(times);
@@ -87,7 +99,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   }
 
   public void onUnload() {
-    helper.clearFields();
+    helper.clearFields(fields);
   }
 
   private void populateTable() {
@@ -104,20 +116,27 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     table.getItems().addAll(sr);
   }
 
+  private void populateEmployeeIDs() {
+    for (Employee e : employees) {
+      ids.add(e.getEmployeeID());
+    }
+  }
+
   private void pushDataToDB() throws SQLException {
     ArrayList<String> fields = new ArrayList<>();
     fields.add(quantityField.getText());
     fields.add(itemCodeField.getText());
-    fields.add(medNameCBox.getValue().toString());
-    fields.add(locationCBox.getValue().toString());
-    fields.add(timePrefCBox.getValue().toString());
-    fields.add(requesterCBox.getValue().toString());
+    fields.add(medNameCBox.getSelectionModel().getSelectedItem().toString());
+    fields.add(locationCBox.getSelectionModel().getSelectedItem().toString());
+    fields.add(timePrefCBox.getSelectionModel().getSelectedItem().toString());
+    fields.add(requesterCBox.getSelectionModel().getSelectedItem().toString());
     RequestFactory.getRequestFactory().getRequest(RequestType.MedicineDelivery, fields);
   }
 
+  // NO LONGER WORK, NOT SURE WHY NGL
   public void createRequest() throws SQLException {
-    pushDataToDB();
-    populateTable();
+    // pushDataToDB();
+    // populateTable();
   }
 
   public void submitButton() throws SQLException {
