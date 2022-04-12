@@ -8,8 +8,8 @@ public class Position {
     LEFT
   }
 
-  private final double xPos;
-  private final double yPos;
+  private double xPos;
+  private double yPos;
 
   public Position(double xPos, double yPos) {
     this.xPos = xPos;
@@ -22,6 +22,14 @@ public class Position {
 
   public double getYPos() {
     return yPos;
+  }
+
+  public void setXPos(double xPos) {
+    this.xPos = xPos;
+  }
+
+  public void setYPos(double yPos) {
+    this.yPos = yPos;
   }
 
   @Override

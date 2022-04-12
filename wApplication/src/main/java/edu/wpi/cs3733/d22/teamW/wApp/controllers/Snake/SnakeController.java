@@ -10,6 +10,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -22,17 +23,18 @@ public class SnakeController extends LoadableController {
   // A snake body part is 50x50
   private final Double snakeSize = 50.;
   // The head of the snake is created, at position (250,250)
-  private final Rectangle snakeHead = new Rectangle(250, 250, snakeSize, snakeSize);
+  private Rectangle snakeHead;
   // First snake tail created behind the head of the snake
-  Rectangle snakeTail_1 =
-      new Rectangle(snakeHead.getX() - snakeSize, snakeHead.getY(), snakeSize, snakeSize);
-
+  private Rectangle snakeTail_1;
   // x and y position of the snake head different from starting position
-  double xPos = snakeHead.getLayoutX();
-  double yPos = snakeHead.getLayoutY();
+  double xPos;
+  double yPos;
+
+  // Food
+  Food food;
 
   // Direction snake is moving at start
-  private Position.Direction direction = Position.Direction.RIGHT;
+  private Position.Direction direction;
 
   // List of all position of thew snake head
   private final List<Position> positions = new ArrayList<>();
@@ -41,35 +43,43 @@ public class SnakeController extends LoadableController {
   private final ArrayList<Rectangle> snakeBody = new ArrayList<>();
 
   // Game ticks is how many times the snake have moved
-  private int gameTicks = 0;
+  private int gameTicks;
 
   @FXML private AnchorPane anchorPane;
   @FXML private Button startButton;
+  @FXML private Label score;
+  @FXML private Label loss;
 
-  // Timeline that is running the game every time the KeyFrame is called (0.3 s)
-  Timeline timeline =
-      new Timeline(
-          new KeyFrame(
-              Duration.seconds(0.3),
-              e -> {
-                positions.add(new Position(snakeHead.getX() + xPos, snakeHead.getY() + yPos));
-                moveSnakeHead(snakeHead);
-                for (int i = 1; i < snakeBody.size(); i++) {
-                  moveSnakeTail(snakeBody.get(i), i);
-                }
-                gameTicks++;
-              }));
+  private int counter = 0;
 
-  @Override
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.Snake;
-  }
+  Timeline timeline;
 
-  @Override
-  public void onLoad() {
+  private boolean canChangeDirection;
+
+  @FXML
+  void start(ActionEvent event) {
+    loss.setVisible(false);
+    counter = 0;
+    score.setText("Score: " + counter);
+
+    for (Rectangle snake : snakeBody) {
+      anchorPane.getChildren().remove(snake);
+    }
+
+    gameTicks = 0;
+    positions.clear();
+    snakeBody.clear();
+    snakeHead = new Rectangle(400, 250, snakeSize, snakeSize);
+    snakeTail_1 =
+        new Rectangle(snakeHead.getX() - snakeSize, snakeHead.getY(), snakeSize, snakeSize);
+    xPos = snakeHead.getLayoutX();
+    yPos = snakeHead.getLayoutY();
+    direction = Position.Direction.RIGHT;
+    canChangeDirection = true;
+    food.moveFood();
+
     snakeBody.add(snakeHead);
     snakeHead.setFill(Color.RED);
-
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
 
@@ -78,29 +88,43 @@ public class SnakeController extends LoadableController {
     anchorPane.getChildren().addAll(snakeHead, snakeTail_1);
   }
 
-  @Override
-  public void onUnload() {
-    timeline.stop();
-  }
-
-  @FXML
-  void start(ActionEvent event) {
-    // Restart not implemented yet
+  public void initialize() {
+    timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(0.2),
+                e -> {
+                  positions.add(new Position(snakeHead.getX() + xPos, snakeHead.getY() + yPos));
+                  moveSnakeHead(snakeHead);
+                  for (int i = 1; i < snakeBody.size(); i++) {
+                    moveSnakeTail(snakeBody.get(i), i);
+                  }
+                  canChangeDirection = true;
+                  // System.out.println((xPos + snakeHead.getX()) + "-----" + (yPos +
+                  // snakeHead.getY()));
+                  eatFood();
+                  gameTicks++;
+                  if (checkIfGameIsOver(snakeHead)) {
+                    timeline.stop();
+                  }
+                }));
+    food = new Food(-50, -50, anchorPane, snakeSize);
   }
 
   // Change position with key pressed
   @FXML
   void moveSquareKeyPressed(KeyEvent event) {
-    System.out.println("button");
-
-    if (event.getCode().equals(KeyCode.W) && direction != Position.Direction.DOWN) {
-      direction = Position.Direction.UP;
-    } else if (event.getCode().equals(KeyCode.S) && direction != Position.Direction.UP) {
-      direction = Position.Direction.DOWN;
-    } else if (event.getCode().equals(KeyCode.A) && direction != Position.Direction.RIGHT) {
-      direction = Position.Direction.LEFT;
-    } else if (event.getCode().equals(KeyCode.D) && direction != Position.Direction.LEFT) {
-      direction = Position.Direction.RIGHT;
+    if (canChangeDirection) {
+      if (event.getCode().equals(KeyCode.W) && direction != Position.Direction.DOWN) {
+        direction = Position.Direction.UP;
+      } else if (event.getCode().equals(KeyCode.S) && direction != Position.Direction.UP) {
+        direction = Position.Direction.DOWN;
+      } else if (event.getCode().equals(KeyCode.A) && direction != Position.Direction.RIGHT) {
+        direction = Position.Direction.LEFT;
+      } else if (event.getCode().equals(KeyCode.D) && direction != Position.Direction.LEFT) {
+        direction = Position.Direction.RIGHT;
+      }
+      canChangeDirection = false;
     }
   }
 
@@ -146,5 +170,79 @@ public class SnakeController extends LoadableController {
             snakeSize);
     snakeBody.add(snakeTail);
     anchorPane.getChildren().add(snakeTail);
+  }
+
+  public boolean checkIfGameIsOver(Rectangle snakeHead) {
+    if (xPos > 500 || xPos < -50 || yPos < -150 || yPos > 400) {
+      System.out.println("Game_over");
+      loss.setVisible(true);
+      return true;
+    } else if (snakeHitItSelf()) {
+      loss.setVisible(true);
+      return true;
+    }
+    return false;
+  }
+
+  public boolean snakeHitItSelf() {
+    int size = positions.size() - 1;
+    if (size > 2) {
+      for (int i = size - snakeBody.size(); i < size; i++) {
+        if (positions.get(size).getXPos() == (positions.get(i).getXPos())
+            && positions.get(size).getYPos() == (positions.get(i).getYPos())) {
+          System.out.println("Hit");
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  private void eatFood() {
+    if (xPos + snakeHead.getX() == food.getPosition().getXPos()
+        && yPos + snakeHead.getY() == food.getPosition().getYPos()) {
+      System.out.println("Eat food");
+      foodCantSpawnInsideSnake();
+      addSnakeTail();
+      counter++;
+      score.setText("Score: " + counter);
+    }
+  }
+
+  private void foodCantSpawnInsideSnake() {
+    food.moveFood();
+    while (isFoodInsideSnake()) {
+      food.moveFood();
+    }
+  }
+
+  private boolean isFoodInsideSnake() {
+    int size = positions.size();
+    if (size > 2) {
+      for (int i = size - snakeBody.size(); i < size; i++) {
+        if (food.getPosition().getXPos() == (positions.get(i).getXPos())
+            && food.getPosition().getYPos() == (positions.get(i).getYPos())) {
+          System.out.println("Inside");
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  @Override
+  protected SceneManager.Scenes GetSceneType() {
+    return SceneManager.Scenes.Snake;
+  }
+
+  @Override
+  public void onLoad() {
+    initialize();
+  }
+
+  @Override
+  public void onUnload() {
+    timeline = null;
+    food = null;
   }
 }
