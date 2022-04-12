@@ -26,6 +26,7 @@ public class Food {
     }
     rectangle = new Rectangle(position.getXPos(), position.getYPos(), size, size);
     rectangle.setFill(Color.rgb(0, 139, 176, 1.0));
+
     pane.getChildren().add(rectangle);
     rectangle.setVisible(false);
   }

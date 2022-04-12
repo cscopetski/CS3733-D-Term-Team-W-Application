@@ -10,8 +10,6 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -25,8 +23,8 @@ public class SnakeController extends LoadableController {
   private final Double snakeSize = 50.;
   // The head of the snake is created, at position (250,250)
   private Rectangle snakeHead;
-  private ImageView image =
-      new ImageView(new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/SideView.jpg"));
+  // private ImageView image = new ImageView(new
+  // Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/SideView.jpg"));
   // x and y position of the snake head different from starting position
   double xPos;
   double yPos;
@@ -88,8 +86,8 @@ public class SnakeController extends LoadableController {
     food.moveFood();
 
     snakeBody.add(snakeHead);
-    snakeHead.setFill(Color.TRANSPARENT);
-    // snakeHead.setFill(Color.RED);
+    // snakeHead.setFill(Color.TRANSPARENT);
+    snakeHead.setFill(Color.rgb(152, 229, 219, 1.0));
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
 
@@ -131,8 +129,8 @@ public class SnakeController extends LoadableController {
       snakeHead.setTranslateY(yPos);
     }
 
-    image.setX(xPos);
-    image.setY(yPos);
+    // image.setX(xPos);
+    // image.setY(yPos);
   }
 
   // A specific tail is moved to the position of the head x game ticks after the head was there
@@ -245,8 +243,8 @@ public class SnakeController extends LoadableController {
                   }
                 }));
 
-    image.setFitWidth(snakeSize);
-    image.setFitHeight(snakeSize);
+    // image.setFitWidth(snakeSize);
+    // image.setFitHeight(snakeSize);
   }
 
   @Override
