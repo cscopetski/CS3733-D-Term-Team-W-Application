@@ -29,6 +29,7 @@ public class SnakeController extends LoadableController {
 
   public final double borderSize = 500;
   public final double center = 200;
+  public final double xOffset = 200;
   public final double Min = center - (borderSize / 2);
   public final double Max = center + (borderSize / 2);
 
@@ -72,7 +73,7 @@ public class SnakeController extends LoadableController {
     gameTicks = 0;
     positions.clear();
     snakeBody.clear();
-    snakeHead = new Rectangle(center, center, snakeSize, snakeSize);
+    snakeHead = new Rectangle(center + xOffset, center, snakeSize, snakeSize);
     // First snake tail created behind the head of the snake
     Rectangle snakeTail =
         new Rectangle(snakeHead.getX() - snakeSize, snakeHead.getY(), snakeSize, snakeSize);
@@ -211,7 +212,7 @@ public class SnakeController extends LoadableController {
 
   @Override
   public void onLoad() {
-    gameBorder.setLayoutX(center);
+    gameBorder.setLayoutX(center + xOffset);
     gameBorder.setLayoutY(center);
     gameBorder.setPrefWidth(borderSize);
     gameBorder.setPrefHeight(borderSize);

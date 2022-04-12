@@ -13,6 +13,7 @@ public class Food {
 
   public final double borderSize = 500;
   public final double center = 200;
+  public final double xOffset = 200;
   public final int Min = (int) (((borderSize / 2) - 50) / 50);
   public final int Max = (int) ((2 * center + (borderSize / 2) + 50) / 50);
 
@@ -37,10 +38,10 @@ public class Food {
   public void moveFood() {
     int pos1 = size * (random.nextInt(Max - Min) + Min);
     int pos2 = size * (random.nextInt(Max - Min) + Min);
-    rectangle.setX(pos1);
+    rectangle.setX(pos1 + xOffset);
     rectangle.setY(pos2);
 
-    position.setXPos(pos1);
+    position.setXPos(pos1 + xOffset);
     position.setYPos(pos2);
   }
 }
