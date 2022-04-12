@@ -45,8 +45,8 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   private ServiceRequestHelper helper = new ServiceRequestHelper(fields);
 
   // Getting Employee IDs from DB:
-  private ArrayList<Employee> employees = EmployeeManager.getEmployeeManager().getAllEmployees();
   private ArrayList<Integer> ids = new ArrayList<Integer>();
+
 
   // ComboBox Lists:
   ObservableList<String> meds = FXCollections.observableArrayList("Advil", "Tylenol");
@@ -119,6 +119,13 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   }
 
   private void populateEmployeeIDs() {
+    ArrayList<Employee> employees = null;
+    try {
+      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
+    } catch (SQLException e) {
+      System.out.println("Failed to get all employees from the database");
+      e.printStackTrace();
+    }
     for (Employee e : employees) {
       ids.add(e.getEmployeeID());
     }
