@@ -2,7 +2,6 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -150,12 +149,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
     statement.executeUpdate(String.format("DELETE FROM EMPLOYEES WHERE EMPLOYEEID=%d", empID));
   }
 
-
   @Override
-  public Employee getEmployeeType(EmployeeType employeeType){
+  public Employee getEmployeeType(EmployeeType employeeType) {
     Employee employee = null;
-    try{
-      ResultSet employeeRequest = statement.executeQuery(String.format("SELECT * FROM EMPLOYEES WHERE EMPLOYEETYPE='%s'", employeeType.toString()));
+    try {
+      ResultSet employeeRequest =
+          statement.executeQuery(
+              String.format(
+                  "SELECT * FROM EMPLOYEES WHERE EMPLOYEETYPE='%s'", employeeType.toString()));
       employeeRequest.next();
       Integer employeeID = employeeRequest.getInt("EMPLOYEEID");
       String firstName = employeeRequest.getString("FIRSTNAME");
@@ -169,7 +170,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
       String salt = employeeRequest.getString("SALT");
 
       ArrayList<String> employeeData = new ArrayList<>();
-      employeeData.add(String.format("%d",employeeID));
+      employeeData.add(String.format("%d", employeeID));
       employeeData.add(firstName);
       employeeData.add(lastName);
       employeeData.add(employeeTypeString);

@@ -3,7 +3,6 @@ package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.EmployeeDao;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -102,7 +101,7 @@ public class EmployeeManager {
       Integer employeeID,
       String firstname,
       String lastname,
-      String type,
+      EmployeeType type,
       String email,
       String phoneNumber,
       String address,
@@ -110,7 +109,15 @@ public class EmployeeManager {
       String password)
       throws SQLException {
     ed.changeEmployee(
-        employeeID, firstname, lastname, email, phoneNumber, address, type, username, password);
+        employeeID,
+        firstname,
+        lastname,
+        type.getString(),
+        email,
+        phoneNumber,
+        address,
+        username,
+        password);
   }
 
   public ArrayList<Employee> getAllEmployees() throws SQLException {
@@ -125,7 +132,7 @@ public class EmployeeManager {
     return ed.getEmployee(empID);
   }
 
-  public Employee getEmployeeType(EmployeeType employeeType){
+  public Employee getEmployeeType(EmployeeType employeeType) {
     return ed.getEmployeeType(employeeType);
   }
 

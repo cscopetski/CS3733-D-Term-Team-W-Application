@@ -1,8 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
-import java.util.ArrayList;
-
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
+import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 

@@ -171,7 +171,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
   public void deleteMedEquipRequest(Integer requestID) throws SQLException {
     RequestFactory.getRequestFactory().getReqIDList().remove(requestID);
     statement.executeUpdate(
-            String.format("DELETE FROM MEDICALEQUIPMENTREQUESTS WHERE MEDREQID=%d", requestID));
+        String.format("DELETE FROM MEDICALEQUIPMENTREQUESTS WHERE MEDREQID=%d", requestID));
   }
 
   @Override

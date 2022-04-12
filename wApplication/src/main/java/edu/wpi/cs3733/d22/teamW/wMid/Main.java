@@ -4,10 +4,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-
+import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -104,7 +101,7 @@ public class Main {
         7,
         "Mr.",
         "Secure",
-        "Security",
+        "Security Officer",
         "security@hospital.com",
         "(123)456789",
         "somewhere",
@@ -116,7 +113,7 @@ public class Main {
         6,
         "new Hasan",
         "new G",
-        "new Type",
+        EmployeeType.Admin,
         "new Email",
         "new Phone",
         "new Address",
@@ -225,23 +222,28 @@ public class Main {
     */
     edi.exportEmpCSV("Employees.csv");
 
-    DBConnectionMode.INSTANCE.setServerConnection();
-    DBController.getDBController().closeConnection();
+    // DBConnectionMode.INSTANCE.setServerConnection();
+    /*DBController.getDBController().closeConnection();
 
     try {
       DBController.getDBController().startConnection();
     } catch (SQLException | ClassNotFoundException e) {
       e.printStackTrace();
-      Alert reconnect = new Alert(Alert.AlertType.ERROR, "Connection to the Db is failed, reconnected?", ButtonType.CLOSE, ButtonType.OK);
+      Alert reconnect =
+          new Alert(
+              Alert.AlertType.ERROR,
+              "Connection to the Db is failed, reconnected?",
+              ButtonType.CLOSE,
+              ButtonType.OK);
       reconnect.show();
-      if(reconnect.getResult() == ButtonType.OK){
-        //reconnect here
+      if (reconnect.getResult() == ButtonType.OK) {
+        // reconnect here
         try {
           DBController.getDBController().startConnection();
         } catch (ClassNotFoundException ex) {
           ex.printStackTrace();
         }
-      } else if(reconnect.getResult() == ButtonType.CANCEL)reconnect.close();
-    }
+      } else if (reconnect.getResult() == ButtonType.CANCEL) reconnect.close();
+    }*/
   }
 }

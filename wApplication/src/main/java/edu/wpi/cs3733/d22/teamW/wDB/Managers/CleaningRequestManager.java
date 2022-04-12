@@ -42,11 +42,10 @@ public class CleaningRequestManager {
     if (Integer.parseInt(fields.get(0)) > counter) {
       counter = Integer.parseInt(fields.get(0));
     }
-    if(RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())){
-    crd.addCleaningRequest(cr);
-    checkStart();
-    }
-    else{
+    if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
+      crd.addCleaningRequest(cr);
+      checkStart();
+    } else {
       cr = null;
     }
     return cr;
@@ -85,7 +84,7 @@ public class CleaningRequestManager {
     } else {
       mER = null;
     }
-    if(automation.getAuto()) {
+    if (automation.getAuto()) {
       checkStart();
     }
     return mER;
@@ -96,7 +95,13 @@ public class CleaningRequestManager {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() == RequestStatus.InQueue) {
       cr.setStatus(RequestStatus.InProgress);
-      crd.changeCleaningRequest(requestID, cr.getItemID(),"wSTOR001L1", cr.getEmployeeID(), cr.getEmergency(), RequestStatus.InProgress);
+      crd.changeCleaningRequest(
+          requestID,
+          cr.getItemID(),
+          "wSTOR001L1",
+          cr.getEmployeeID(),
+          cr.getEmergency(),
+          RequestStatus.InProgress);
       MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
       MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), "wSTOR001L1");
     }
@@ -106,7 +111,13 @@ public class CleaningRequestManager {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() == RequestStatus.InProgress) {
       cr.setStatus(RequestStatus.Completed);
-      crd.changeCleaningRequest(requestID, cr.getItemID(),nodeID, cr.getEmployeeID(), cr.getEmergency(), RequestStatus.Completed);
+      crd.changeCleaningRequest(
+          requestID,
+          cr.getItemID(),
+          nodeID,
+          cr.getEmployeeID(),
+          cr.getEmergency(),
+          RequestStatus.Completed);
       MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
       MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), nodeID);
       if (automation.getAuto()) {
@@ -119,7 +130,13 @@ public class CleaningRequestManager {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() != RequestStatus.Completed) {
       cr.setStatus(RequestStatus.Cancelled);
-      crd.changeCleaningRequest(requestID, cr.getItemID(),cr.getNodeID(), cr.getEmployeeID(), cr.getEmergency(), RequestStatus.Cancelled);
+      crd.changeCleaningRequest(
+          requestID,
+          cr.getItemID(),
+          cr.getNodeID(),
+          cr.getEmployeeID(),
+          cr.getEmergency(),
+          RequestStatus.Cancelled);
     }
   }
 
@@ -127,16 +144,22 @@ public class CleaningRequestManager {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() == RequestStatus.Cancelled) {
       cr.setStatus(RequestStatus.InQueue);
-      crd.changeCleaningRequest(requestID,cr.getItemID(),cr.getNodeID(), cr.getEmployeeID(), cr.getEmergency(), RequestStatus.InQueue);
+      crd.changeCleaningRequest(
+          requestID,
+          cr.getItemID(),
+          cr.getNodeID(),
+          cr.getEmployeeID(),
+          cr.getEmergency(),
+          RequestStatus.InQueue);
     }
   }
 
   public void checkStart() throws SQLException {
     ArrayList<String> cleaningLocations = crd.getCleaningLocation();
-    for(String location: cleaningLocations){
+    for (String location : cleaningLocations) {
       ArrayList<Integer> requests = crd.CleaningRequestAtLocation(location);
-      if(requests.size()>=6){
-        for(Integer c : requests){
+      if (requests.size() >= 6) {
+        for (Integer c : requests) {
           start(c);
         }
       }

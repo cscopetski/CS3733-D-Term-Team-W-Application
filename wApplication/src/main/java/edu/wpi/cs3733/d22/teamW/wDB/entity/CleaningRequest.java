@@ -130,5 +130,4 @@ public class CleaningRequest extends Request {
   public RequestType getRequestType() {
     return RequestType.CleaningRequest;
   }
-
 }
