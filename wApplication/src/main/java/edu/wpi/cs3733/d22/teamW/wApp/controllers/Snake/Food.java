@@ -25,7 +25,7 @@ public class Food {
       pane.getChildren().remove(rectangle);
     }
     rectangle = new Rectangle(position.getXPos(), position.getYPos(), size, size);
-    Color color = Color.GREEN;
+    Color color = new Color(0, 139, 176, 1.0);
     rectangle.setFill(color);
     pane.getChildren().add(rectangle);
     System.out.println(rectangle);
