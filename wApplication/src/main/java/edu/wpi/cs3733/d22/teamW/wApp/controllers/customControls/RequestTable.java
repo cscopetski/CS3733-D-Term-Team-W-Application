@@ -59,16 +59,25 @@ public class RequestTable extends TableView<SR> {
     getItems().clear();
     for (Request r : requests) {
       SR sr = null;
-      if (r.getRequestType().equals(RequestType.MedicalEquipmentRequest)) {
-        sr = new MedicalEquipmentSR(r);
-      } else if (r.getRequestType().equals(RequestType.LabServiceRequest)) {
-        sr = new LabServiceSR(r);
-      } else if (r.getRequestType().equals(RequestType.MedicineDelivery)) {
-        sr = new MealDeliverySR(r);
-      } else if (r.getRequestType().equals(RequestType.LanguageInterpreter)) {
-        sr = new LanguageInterpreterSR(r);
-      } else if (r.getRequestType().equals(RequestType.SecurityService)) {
-        sr = new SecuritySR(r);
+      switch (r.getRequestType()) {
+        case MedicalEquipmentRequest:
+          sr = new MedicalEquipmentSR(r);
+          break;
+        case LabServiceRequest:
+          sr = new LabServiceSR(r);
+          break;
+        case LanguageInterpreter:
+          sr = new LanguageInterpreterSR(r);
+          break;
+        case MealDelivery:
+          sr = new MealDeliverySR(r);
+          break;
+        case SecurityService:
+          sr = new SecuritySR(r);
+          break;
+        case MedicineDelivery:
+          sr = new MedicineDeliverySR(r);
+          break;
       }
 
       getItems().add(sr);
