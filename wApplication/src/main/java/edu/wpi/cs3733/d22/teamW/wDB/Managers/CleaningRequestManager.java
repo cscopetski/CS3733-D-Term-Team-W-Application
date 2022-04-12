@@ -12,7 +12,6 @@ public class CleaningRequestManager {
   Automation automation = Automation.getAutomation();
   private CleaningRequestDao crd;
   private static CleaningRequestManager cleaningRequestManager = new CleaningRequestManager();
-  private Integer counter = 0;
 
   private CleaningRequestManager() {}
 
@@ -33,15 +32,10 @@ public class CleaningRequestManager {
   }
 
   public CleaningRequest addRequest(ArrayList<String> fields) throws SQLException {
-    counter++;
     CleaningRequest cr;
-    if (fields.size() == 2) {
       fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
-    }
     cr = new CleaningRequest(fields);
-    if (Integer.parseInt(fields.get(0)) > counter) {
       counter = Integer.parseInt(fields.get(0));
-    }
     if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
       crd.addCleaningRequest(cr);
       checkStart();
@@ -52,7 +46,6 @@ public class CleaningRequestManager {
   }
   // TODO auto start all cleaning requests at that location when it is 6
   public CleaningRequest addRequest(Integer num, ArrayList<String> fields) throws SQLException {
-    counter++;
     CleaningRequest mER;
     if (fields.size() == 5) {
       fields.add("0");
@@ -116,7 +109,7 @@ public class CleaningRequestManager {
           RequestStatus.Completed);
       MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
       MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), nodeID);
-      MedEquipManager.getMedEquipManager().markClean(item);
+      MedEquipManager.getMedEquipManager().markClean(item.getMedID(), nodeID);
       if (automation.getAuto()) {
         MedEquipRequestManager.getMedEquipRequestManager().startNext(item.getType());
       }

@@ -19,8 +19,6 @@ public class MedEquipManager {
   private static MedEquipManager medEquipManager = new MedEquipManager();
   private CleaningRequestManager crm = CleaningRequestManager.getCleaningRequestManager();
 
-  private ArrayList<CleaningRequest> cleaningRequests = new ArrayList<>();
-
   private MedEquipManager() {}
 
   public static MedEquipManager getMedEquipManager() {
@@ -31,33 +29,19 @@ public class MedEquipManager {
     this.medi = medi;
   }
 
-  public void markClean(MedEquip equip) throws SQLException {
-    equip.setStatus(MedEquipStatus.Clean);
-    markClean(equip.getMedID(), equip.getType(), equip.getNodeID());
+  public void markClean(String medID, String nodeID) throws SQLException {
+
+    medi.changeMedEquip(medID, getMedEquip(medID).getType(), nodeID, MedEquipStatus.Clean);
   }
 
-  public void markClean(String medID, String type, String nodeID) throws SQLException {
-    medi.changeMedEquip(medID, type, nodeID, MedEquipStatus.Clean);
+  public void markInUse(String medID, String nodeID) throws SQLException {
+    medi.changeMedEquip(medID, getMedEquip(medID).getType(), nodeID, MedEquipStatus.InUse);
   }
 
-  public void markInUse(MedEquip equip) throws SQLException {
-    equip.setStatus(MedEquipStatus.InUse);
-    markInUse(equip.getMedID(), equip.getType(), equip.getNodeID());
-  }
-
-  public void markInUse(String medID, String type, String nodeID) throws SQLException {
-    medi.changeMedEquip(medID, type, nodeID, MedEquipStatus.InUse);
-  }
-
-  public void markDirty(MedEquip equip, String nodeID) throws SQLException {
-    equip.setStatus(MedEquipStatus.Dirty);
-    markDirty(equip.getMedID(), equip.getType(), nodeID);
-  }
-
-  public void markDirty(String medID, String type, String nodeID) throws SQLException {
+  public void markDirty(String medID, String nodeID) throws SQLException {
     MedEquip me = medi.getMedEquip(medID);
     if (!me.getStatus().equals(MedEquipStatus.Dirty)) {
-      medi.changeMedEquip(medID, type, nodeID, MedEquipStatus.Dirty);
+      medi.changeMedEquip(medID, me.getType(), nodeID, MedEquipStatus.Dirty);
       ArrayList<String> fields = new ArrayList<>();
       Employee employee =
           EmployeeManager.getEmployeeManager().getEmployeeType(EmployeeType.Sanitation);
@@ -69,18 +53,6 @@ public class MedEquipManager {
       CleaningRequest cr =
           (CleaningRequest)
               RequestFactory.getRequestFactory().getRequest(RequestType.CleaningRequest, fields);
-    }
-  }
-
-  public void markDirty(String medID, String nodeID) throws SQLException {
-    String type = getMedEquip(medID).getType();
-    markDirty(medID, type, nodeID);
-  }
-
-  public void startCleaningRequests() throws SQLException {
-    for (CleaningRequest e : cleaningRequests) {
-      e.setStatus(RequestStatus.InProgress);
-      crm.start(e.getRequestID());
     }
   }
 
