@@ -88,8 +88,8 @@ public class SnakeController extends LoadableController {
     food.moveFood();
 
     snakeBody.add(snakeHead);
-    // snakeHead.setFill(Color.TRANSPARENT);
-    snakeHead.setFill(Color.RED);
+    snakeHead.setFill(Color.TRANSPARENT);
+    // snakeHead.setFill(Color.RED);
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
 
