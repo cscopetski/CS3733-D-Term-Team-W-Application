@@ -11,7 +11,8 @@
     <HBox>
         <EmergencyButton prefWidth='200' prefHeight='50'/>
         <RequestTable fx:id="table" prefWidth='500' prefHeight='500'/>
-        <AutoCompleteInput></AutoCompleteInput>
+        <AutoCompleteInput/>
+        <MultiToggle fx:id="mt" prefWidth="600" prefHeight="100" style="-fx-background-color: pink"/>
     </HBox>
 
 </AnchorPane>
