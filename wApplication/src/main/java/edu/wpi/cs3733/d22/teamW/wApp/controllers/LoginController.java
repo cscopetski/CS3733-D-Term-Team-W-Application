@@ -114,37 +114,27 @@ public class LoginController extends LoadableController {
             employeesFileName,
             medRequestFileName);
 
-    if (switchServer.getValue().equals("Embedded")) {
-      try {
-        csvController.populateTables();
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
-      DBConnectionMode.INSTANCE.setEmbeddedConnection();
-      DBController.getDBController().closeConnection();
-      try {
-        DBController.getDBController().startConnection();
-      } catch (SQLException | ClassNotFoundException e) {
-        e.printStackTrace();
-      }
-    } else if (switchServer.getValue().equals("Client")) {
+    System.out.println("CLIENT CONNECTION ");
 
-      try {
-        csvController.populateTables();
-      } catch (FileNotFoundException e) {
-        e.printStackTrace();
-      } catch (SQLException e) {
-        e.printStackTrace();
-      }
+    if (switchServer.getValue().equals("Embedded")) {
+      DBConnectionMode.INSTANCE.setEmbeddedConnection();
+    } else if (switchServer.getValue().equals("Client")) {
       DBConnectionMode.INSTANCE.setServerConnection();
-      DBController.getDBController().closeConnection();
-      try {
-        DBController.getDBController().startConnection();
-      } catch (SQLException | ClassNotFoundException e) {
-        e.printStackTrace();
-      }
+    }
+
+    DBController.getDBController().closeConnection();
+    try {
+      DBController.getDBController().startConnection();
+    } catch (SQLException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+
+    try {
+      csvController.populateTables();
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+    } catch (SQLException e) {
+      e.printStackTrace();
     }
   }
 }

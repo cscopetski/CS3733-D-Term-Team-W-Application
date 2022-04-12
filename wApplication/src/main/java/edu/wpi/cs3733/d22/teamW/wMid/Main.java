@@ -6,16 +6,12 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
 public class Main {
 
   public static void main(String[] args) throws SQLException, FileNotFoundException {
 
-    // DBConnectionMode.INSTANCE.setServerConnection();
-    // App.launch(App.class, args);
+    DBConnectionMode.INSTANCE.setEmbeddedConnection();
 
     final String locationFileName = "TowerLocations.csv";
     final String medEquipFileName = "MedicalEquipment.csv";
@@ -43,30 +39,32 @@ public class Main {
       e.printStackTrace();
     }
 
-    MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
+    App.launch(App.class, args);
 
-    RequestFactory requestFactory = RequestFactory.getRequestFactory();
+    //    MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
+    //
+    //    RequestFactory requestFactory = RequestFactory.getRequestFactory();
+    //
+    //    ArrayList<String> fields = new ArrayList<>();
 
-    ArrayList<String> fields = new ArrayList<>();
-
-    fields.add("XRY");
-    fields.add("wSTOR001L1");
-    fields.add("2");
-    fields.add("" + 0);
-
-    ArrayList<String> fields2 = new ArrayList<>();
-
-    fields2.add("XRY");
-    fields2.add("wSTOR001L1");
-    fields2.add("2");
-    fields2.add("" + 1);
-
-    ArrayList<String> fields3 = new ArrayList<>();
-
-    fields3.add("XRY");
-    fields3.add("wSTOR001L1");
-    fields3.add("3");
-    fields3.add("" + 0);
+    //    fields.add("XRY");
+    //    fields.add("wSTOR001L1");
+    //    fields.add("2");
+    //    fields.add("" + 0);
+    //
+    //    ArrayList<String> fields2 = new ArrayList<>();
+    //
+    //    fields2.add("XRY");
+    //    fields2.add("wSTOR001L1");
+    //    fields2.add("2");
+    //    fields2.add("" + 1);
+    //
+    //    ArrayList<String> fields3 = new ArrayList<>();
+    //
+    //    fields3.add("XRY");
+    //    fields3.add("wSTOR001L1");
+    //    fields3.add("3");
+    //    fields3.add("" + 0);
     /*
 
         try {
@@ -92,41 +90,41 @@ public class Main {
       merc.cancelRequest(test3);
       merc.completeRequest(test3);
     */
-    LocationManager.getLocationManager().exportLocationsCSV("LOCATIONTEST.csv");
-    MedEquipManager.getMedEquipManager().exportMedicalEquipmentCSV("MEDEQUIPTEST.csv");
-    merc.exportMedEquipRequestCSV("MEDEQUIPREQUESTTEST.csv");
-    LabServiceRequestManager.getLabServiceRequestManager()
-        .exportLabServiceRequestCSV("LABTEST.csv");
+    //    LocationManager.getLocationManager().exportLocationsCSV("LOCATIONTEST.csv");
+    //    MedEquipManager.getMedEquipManager().exportMedicalEquipmentCSV("MEDEQUIPTEST.csv");
+    //    merc.exportMedEquipRequestCSV("MEDEQUIPREQUESTTEST.csv");
+    //    LabServiceRequestManager.getLabServiceRequestManager()
+    //        .exportLabServiceRequestCSV("LABTEST.csv");
 
-    EmployeeManager edi = EmployeeManager.getEmployeeManager();
-    edi.addEmployee(
-        7,
-        "Mr.",
-        "Secure",
-        "Security",
-        "security@hospital.com",
-        "(123)456789",
-        "somewhere",
-        "secur",
-        "secur",
-        "NEW");
-
-    edi.changeEmployee(
-        6,
-        "new Hasan",
-        "new G",
-        "new Type",
-        "new Email",
-        "new Phone",
-        "new Address",
-        "joe",
-        "joe123");
-
-    if (edi.passwordMatch("joe", "joe123")) {
-      System.out.println("hzgan, spongeBob MATCH");
-    } else {
-      System.out.println("NO MATCH");
-    }
+    //    EmployeeManager edi = EmployeeManager.getEmployeeManager();
+    //    edi.addEmployee(
+    //        7,
+    //        "Mr.",
+    //        "Secure",
+    //        "Security",
+    //        "security@hospital.com",
+    //        "(123)456789",
+    //        "somewhere",
+    //        "secur",
+    //        "secur",
+    //        "NEW");
+    //
+    //    edi.changeEmployee(
+    //        6,
+    //        "new Hasan",
+    //        "new G",
+    //        "new Type",
+    //        "new Email",
+    //        "new Phone",
+    //        "new Address",
+    //        "joe",
+    //        "joe123");
+    //
+    //    if (edi.passwordMatch("joe", "joe123")) {
+    //      System.out.println("hzgan, spongeBob MATCH");
+    //    } else {
+    //      System.out.println("NO MATCH");
+    //    }
 
     /*
     edi.addEmployee(
@@ -198,110 +196,109 @@ public class Main {
 
      */
 
-    edi.exportEmpCSV("Employees.csv");
+    //    edi.exportEmpCSV("Employees.csv");
+    //
+    //    edi.addEmployee(
+    //        8, "frontend", "no salt", "no salt", "no salt", "no salt", "no salt", "no", "salt");
+    //    if (edi.passwordMatch("no", "salt")) {
+    //      System.out.println("match");
+    //    } else {
+    //      System.out.println("no match");
+    //    }
+    //    System.out.println(edi.getEmployee("joe").toCSVString());
+    //
+    //    edi.addEmployee(
+    //        1,
+    //        "N/A",
+    //        "Staff",
+    //        "Staff Member",
+    //        "staff@hospital.com",
+    //        "(123)4567890",
+    //        "Mass General",
+    //        "staff",
+    //        "staff",
+    //        "salt");
+    //    edi.addEmployee(
+    //        2,
+    //        "N/A",
+    //        "Administrator",
+    //        "admin",
+    //        "admin@hospital.com",
+    //        "(123)4567890",
+    //        "Office",
+    //        "admin",
+    //        "admin",
+    //        "salt");
+    //    edi.addEmployee(
+    //        3,
+    //        "Caleb",
+    //        "Scopetski",
+    //        "Doctor",
+    //        "N/A",
+    //        "(123)4567890",
+    //        "NeVer LeFt MaSs",
+    //        "Scoop",
+    //        "backEndGang",
+    //        "salt");
+    //    edi.addEmployee(
+    //        4,
+    //        "Edison",
+    //        "Zhang",
+    //        "Janitor",
+    //        "N/A",
+    //        "(123)4567890",
+    //        "Jamaica",
+    //        "ezhang",
+    //        "broMyASSSSS",
+    //        "salt");
+    //    edi.addEmployee(
+    //        5,
+    //        "Charlie",
+    //        "K-W",
+    //        "Nurse",
+    //        "N/A",
+    //        "(123)4567890",
+    //        "The North",
+    //        "charkw",
+    //        "Ih8Testing",
+    //        "salt");
+    //    edi.addEmployee(
+    //        6,
+    //        "Hasan",
+    //        "G",
+    //        "Lab Technician",
+    //        "N/A",
+    //        "(123)4567890",
+    //        "Bikini Bottom",
+    //        "hzgan",
+    //        "spongeBob",
+    //        "salt");
+    //
+    //    edi.exportEmpCSV("Employees.csv");
+    /*
+      DBConnectionMode.INSTANCE.setServerConnection();
+      DBController.getDBController().closeConnection();
 
-    App.launch(App.class, args);
-
-    edi.addEmployee(
-        8, "frontend", "no salt", "no salt", "no salt", "no salt", "no salt", "no", "salt");
-    if (edi.passwordMatch("no", "salt")) {
-      System.out.println("match");
-    } else {
-      System.out.println("no match");
-    }
-    System.out.println(edi.getEmployee("joe").toCSVString());
-
-    edi.addEmployee(
-        1,
-        "N/A",
-        "Staff",
-        "Staff Member",
-        "staff@hospital.com",
-        "(123)4567890",
-        "Mass General",
-        "staff",
-        "staff",
-        "salt");
-    edi.addEmployee(
-        2,
-        "N/A",
-        "Administrator",
-        "admin",
-        "admin@hospital.com",
-        "(123)4567890",
-        "Office",
-        "admin",
-        "admin",
-        "salt");
-    edi.addEmployee(
-        3,
-        "Caleb",
-        "Scopetski",
-        "Doctor",
-        "N/A",
-        "(123)4567890",
-        "NeVer LeFt MaSs",
-        "Scoop",
-        "backEndGang",
-        "salt");
-    edi.addEmployee(
-        4,
-        "Edison",
-        "Zhang",
-        "Janitor",
-        "N/A",
-        "(123)4567890",
-        "Jamaica",
-        "ezhang",
-        "broMyASSSSS",
-        "salt");
-    edi.addEmployee(
-        5,
-        "Charlie",
-        "K-W",
-        "Nurse",
-        "N/A",
-        "(123)4567890",
-        "The North",
-        "charkw",
-        "Ih8Testing",
-        "salt");
-    edi.addEmployee(
-        6,
-        "Hasan",
-        "G",
-        "Lab Technician",
-        "N/A",
-        "(123)4567890",
-        "Bikini Bottom",
-        "hzgan",
-        "spongeBob",
-        "salt");
-
-    edi.exportEmpCSV("Employees.csv");
-
-    DBConnectionMode.INSTANCE.setServerConnection();
-    DBController.getDBController().closeConnection();
-
-    try {
-      DBController.getDBController().startConnection();
-    } catch (SQLException | ClassNotFoundException e) {
-      e.printStackTrace();
-      Alert reconnect =
-          new Alert(
-              Alert.AlertType.ERROR,
-              "Connection to the Db is failed, reconnected?",
-              ButtonType.CLOSE,
-              ButtonType.OK);
-      reconnect.show();
-      if (reconnect.getResult() == ButtonType.OK) {
-        // reconnect here
-        try {
-          DBController.getDBController().startConnection();
-        } catch (ClassNotFoundException ex) {
-          ex.printStackTrace();
-        }
-      } else if (reconnect.getResult() == ButtonType.CANCEL) reconnect.close();
-    }
+      try {
+        DBController.getDBController().startConnection();
+      } catch (SQLException | ClassNotFoundException e) {
+        e.printStackTrace();
+        Alert reconnect =
+            new Alert(
+                Alert.AlertType.ERROR,
+                "Connection to the Db is failed, reconnected?",
+                ButtonType.CLOSE,
+                ButtonType.OK);
+        reconnect.show();
+        if (reconnect.getResult() == ButtonType.OK) {
+          // reconnect here
+          try {
+            DBController.getDBController().startConnection();
+          } catch (ClassNotFoundException ex) {
+            ex.printStackTrace();
+          }
+        } else if (reconnect.getResult() == ButtonType.CANCEL) reconnect.close();
+      }
+    */
   }
 }
