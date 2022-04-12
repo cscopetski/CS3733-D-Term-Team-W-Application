@@ -57,7 +57,7 @@ public class MedRequestManager implements ServiceRequestManager {
         request.getEmergency(),
         request.getStatus(),
         request.getCreatedTimestamp(),
-        request.getUpdatedTimestamp());
+        new Timestamp(System.currentTimeMillis()));
   }
 
   public void complete(Integer requestID) throws SQLException {
@@ -73,7 +73,7 @@ public class MedRequestManager implements ServiceRequestManager {
         request.getEmergency(),
         request.getStatus(),
         request.getCreatedTimestamp(),
-        request.getUpdatedTimestamp());
+        new Timestamp(System.currentTimeMillis()));
   }
 
   public void cancel(Integer requestID) throws SQLException {
@@ -89,7 +89,7 @@ public class MedRequestManager implements ServiceRequestManager {
         request.getEmergency(),
         request.getStatus(),
         request.getCreatedTimestamp(),
-        request.getUpdatedTimestamp());
+        new Timestamp(System.currentTimeMillis()));
   }
 
   public void reQueue(Integer requestID) throws SQLException {
@@ -105,7 +105,7 @@ public class MedRequestManager implements ServiceRequestManager {
         request.getEmergency(),
         request.getStatus(),
         request.getCreatedTimestamp(),
-        request.getUpdatedTimestamp());
+        new Timestamp(System.currentTimeMillis()));
   }
 
   public void delete(Integer requestID) throws SQLException {

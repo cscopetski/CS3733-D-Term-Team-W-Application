@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class CleaningRequestDaoImpl implements CleaningRequestDao {
@@ -38,6 +39,8 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
               + "employeeID INT,"
               + "isEmergency INT,"
               + "reqStatus INT,"
+              + "createdTimestamp timestamp,"
+              + "updatedTimestamp timestamp,"
               + "constraint cleanReq_itemID_FK foreign key (itemID) references MEDICALEQUIPMENT(medID),\n"
               + "constraint cleanReq_PK primary key (ReqID),\n"
               + "constraint cleaningReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
@@ -84,7 +87,7 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
       ResultSet cleanRequests = statement.executeQuery("SELECT * FROM CLEANINGREQUESTS");
 
       // Size of num LabServiceRequest fields
-      int size = 6;
+      int size = 8;
       ArrayList<String> cleanRequestData = new ArrayList<String>();
 
       while (cleanRequests.next()) {
@@ -114,8 +117,11 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
       throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE CLEANINGREQUESTS SET ITEMID='%s', REQSTATUS=%d WHERE REQID=%d",
-            itemID, status.getValue(), requestID));
+            "UPDATE CLEANINGREQUESTS SET ITEMID='%s', REQSTATUS=%d, UPDATEDTIMESTAMP='%s' WHERE REQID=%d",
+            itemID,
+            status.getValue(),
+            new Timestamp(System.currentTimeMillis()).toString(),
+            requestID));
   }
 
   @Override
