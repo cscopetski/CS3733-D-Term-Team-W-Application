@@ -68,6 +68,7 @@ public class SceneManager {
   }
 
   public void putPane(Scenes scene, Pane pane) {
+    pane.autosize();
     pane.setDisable(true);
     pane.setVisible(false);
     if (pages.get(scene) != null) {
