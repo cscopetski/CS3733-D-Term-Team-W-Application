@@ -9,7 +9,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -24,11 +23,14 @@ public class SnakeController extends LoadableController {
   private final Double snakeSize = 50.;
   // The head of the snake is created, at position (250,250)
   private Rectangle snakeHead;
-  // First snake tail created behind the head of the snake
-  private Rectangle snakeTail_1;
   // x and y position of the snake head different from starting position
   double xPos;
   double yPos;
+
+  public final double borderSize = 500;
+  public final double center = 200;
+  public final double Min = center - (borderSize / 2);
+  public final double Max = center + (borderSize / 2);
 
   // Food
   Food food;
@@ -46,7 +48,7 @@ public class SnakeController extends LoadableController {
   private int gameTicks;
 
   @FXML private AnchorPane anchorPane;
-  @FXML private Button startButton;
+  @FXML private AnchorPane gameBorder;
   @FXML private Label score;
   @FXML private Label loss;
 
@@ -58,6 +60,7 @@ public class SnakeController extends LoadableController {
 
   @FXML
   void start(ActionEvent event) {
+
     loss.setVisible(false);
     counter = 0;
     score.setText("Score: " + counter);
@@ -69,8 +72,9 @@ public class SnakeController extends LoadableController {
     gameTicks = 0;
     positions.clear();
     snakeBody.clear();
-    snakeHead = new Rectangle(400, 250, snakeSize, snakeSize);
-    snakeTail_1 =
+    snakeHead = new Rectangle(center, center, snakeSize, snakeSize);
+    // First snake tail created behind the head of the snake
+    Rectangle snakeTail =
         new Rectangle(snakeHead.getX() - snakeSize, snakeHead.getY(), snakeSize, snakeSize);
     xPos = snakeHead.getLayoutX();
     yPos = snakeHead.getLayoutY();
@@ -83,9 +87,9 @@ public class SnakeController extends LoadableController {
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
 
-    snakeBody.add(snakeTail_1);
+    snakeBody.add(snakeTail);
 
-    anchorPane.getChildren().addAll(snakeHead, snakeTail_1);
+    anchorPane.getChildren().addAll(snakeHead, snakeTail);
   }
 
   public void initialize() {
@@ -100,8 +104,6 @@ public class SnakeController extends LoadableController {
                     moveSnakeTail(snakeBody.get(i), i);
                   }
                   canChangeDirection = true;
-                  // System.out.println((xPos + snakeHead.getX()) + "-----" + (yPos +
-                  // snakeHead.getY()));
                   eatFood();
                   gameTicks++;
                   if (checkIfGameIsOver(snakeHead)) {
@@ -126,12 +128,6 @@ public class SnakeController extends LoadableController {
       }
       canChangeDirection = false;
     }
-  }
-
-  // Create another snake body part
-  @FXML
-  void addBodyPart(ActionEvent event) {
-    addSnakeTail();
   }
 
   // Snake head is moved in the direction specified
@@ -161,7 +157,6 @@ public class SnakeController extends LoadableController {
 
   // New snake tail is created and added to the snake and the anchor pane
   private void addSnakeTail() {
-    Rectangle rectangle = snakeBody.get(snakeBody.size() - 1);
     Rectangle snakeTail =
         new Rectangle(
             snakeBody.get(1).getX() + xPos + snakeSize,
@@ -173,7 +168,7 @@ public class SnakeController extends LoadableController {
   }
 
   public boolean checkIfGameIsOver(Rectangle snakeHead) {
-    if (xPos > 500 || xPos < -50 || yPos < -150 || yPos > 400) {
+    if (xPos <= Min || xPos > Max || yPos <= Min || yPos > Max) {
       System.out.println("Game_over");
       loss.setVisible(true);
       return true;
@@ -237,11 +232,16 @@ public class SnakeController extends LoadableController {
 
   @Override
   public void onLoad() {
+    gameBorder.setLayoutX(center);
+    gameBorder.setLayoutY(center);
+    gameBorder.setPrefWidth(borderSize);
+    gameBorder.setPrefHeight(borderSize);
     initialize();
   }
 
   @Override
   public void onUnload() {
+
     timeline = null;
     food = null;
   }

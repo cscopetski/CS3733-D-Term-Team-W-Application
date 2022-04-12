@@ -8,20 +8,24 @@ import javafx.scene.shape.Rectangle;
 public class Food {
   private Position position;
   private Rectangle rectangle;
-  private Color color = Color.GREEN;
-  private AnchorPane pane;
-  private Random random = new Random();
+  private final Random random = new Random();
   private int size;
+
+  public final double borderSize = 500;
+  public final double center = 200;
+  public final int Min = (int) (((borderSize / 2) - 50) / 50);
+  public final int Max = (int) ((2 * center + (borderSize / 2) + 50) / 50);
 
   public Food(double xPos, double yPos, AnchorPane pane, double size) {
     System.out.println(rectangle);
-    this.pane = pane;
     this.size = (int) size;
+
     position = new Position(xPos, yPos);
     if (rectangle != null) {
       pane.getChildren().remove(rectangle);
     }
     rectangle = new Rectangle(position.getXPos(), position.getYPos(), size, size);
+    Color color = Color.GREEN;
     rectangle.setFill(color);
     pane.getChildren().add(rectangle);
     System.out.println(rectangle);
@@ -32,17 +36,12 @@ public class Food {
   }
 
   public void moveFood() {
-    getRandomSpotForFood();
-  }
-  // xPos > 500 || xPos < -50 || yPos < -100 || yPos > 400
-  public void getRandomSpotForFood() {
-    int positionX = random.nextInt(19 - 7) + 7;
-    int positionY = random.nextInt(14 - 2) + 2;
-    rectangle.setX(positionX * size);
-    rectangle.setY(positionY * size);
+    int pos1 = size * (random.nextInt(Max - Min) + Min);
+    int pos2 = size * (random.nextInt(Max - Min) + Min);
+    rectangle.setX(pos1);
+    rectangle.setY(pos2);
 
-    position.setXPos(positionX * size);
-    position.setYPos(positionY * size);
-    System.out.println((positionX * size) + "---FOOD---" + (positionY * size));
+    position.setXPos(pos1);
+    position.setYPos(pos2);
   }
 }

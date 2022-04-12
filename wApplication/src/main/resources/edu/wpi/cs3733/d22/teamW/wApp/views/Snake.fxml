@@ -9,7 +9,7 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#moveSquareKeyPressed" prefHeight="650.0" prefWidth="600.0" style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.Snake.SnakeController">
     <children>
-      <VBox prefHeight="700.0" prefWidth="600.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="42.0" prefWidth="600.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="608.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <BorderPane prefHeight="40.0" prefWidth="600.0">
                <center>
@@ -19,9 +19,9 @@
                   <Label fx:id="score" text="Score: 0" BorderPane.alignment="CENTER" />
                </bottom>
             </BorderPane>
-            <AnchorPane fx:id="foodPane" maxHeight="610.0" maxWidth="600.0" prefHeight="610.0" prefWidth="600.0" style="-fx-background-color: blue;" />
          </children>
       </VBox>
+      <AnchorPane fx:id="gameBorder" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: blue;" />
       <Label fx:id="loss" alignment="CENTER" prefWidth="600.0" text="YOU LOSE!" textFill="RED" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
          <font>
             <Font name="System Bold" size="60.0" />
