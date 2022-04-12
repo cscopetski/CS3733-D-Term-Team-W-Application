@@ -5,5 +5,5 @@ employeeID,firstname,lastname,employeetype,email,phonenumber,address,username,pa
 4,Edison,Zhang,Janitor,N/A,(123)4567890,Jamaica,ezhang,855136eed1d20fd0b2acd4916e3efa58,4c041815a975a4b7453ad3b5b4e1bd9f
 5,Charlie,K-W,Nurse,N/A,(123)4567890,The North,charkw,750ad0b990a08d1272555925780de5a7,b0d6725d10af54045c56e303a4d754b1
 6,new Hasan,new G,new Email,new Phone,new Address,new Type,joe,b3592a97b5c57a81c51bf697e9065147,6c02a6df737695ae78e94bc15670c6b6
-7,Mr.,Secure,Security,security@hospital.com,(123)456789,somewhere,secur,c5e54e32bcbfeeb95264614c872c896d,b7e1f92e8dc92d5c64cc12424ba82d15
-8,frontend,no salt,no salt,no salt,no salt,no salt,no,be611444b22b13c5d19c6191a12af72a,b786ee0e0a342f23ec16d98e77472321
+7,Mr.,Secure,Security,security@hospital.com,(123)456789,somewhere,secur,ebcaa412c3059683568c3c744b875ceb,44a5282156a79b82a154dc11e429ea62
+8,frontend,no salt,no salt,no salt,no salt,no salt,no,1f8501c5dd1574d6945653d2dfb240cf,ef1f9352b1ca08a2ab847777b24c69e7

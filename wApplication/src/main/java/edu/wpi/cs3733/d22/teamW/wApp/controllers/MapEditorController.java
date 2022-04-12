@@ -8,7 +8,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.awt.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -153,9 +152,10 @@ public class MapEditorController extends LoadableController {
   private void generateMarkers() {
     size = currFloorLoc.size();
     for (int i = 0; i < size; i++) {
-      Circle circ = new Circle(10, Color.RED);
-      Image bedIcon = new Image("icon_Location.png");
-      ImagePattern bedPattern = new ImagePattern(bedIcon);
+      Circle circ = new Circle(12, Color.RED);
+      Image locationIcon =
+          new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Location.png");
+      ImagePattern bedPattern = new ImagePattern(locationIcon);
       circ.setFill(bedPattern);
       circ.setCenterX((currFloorLoc.get(i).getXCoord() * 2.0 / 3.0));
       circ.setCenterY((currFloorLoc.get(i).getYCoord() * 2.0 / 3.0));
@@ -200,18 +200,28 @@ public class MapEditorController extends LoadableController {
 
   private void generateEquipMarkers() {
     for (int i = 0; i < equipList.size(); i++) {
-      Circle circle = new Circle(3, Color.BLACK);
+      Circle circle = new Circle(10, Color.TRANSPARENT);
       if (equipList.get(i).getType().equalsIgnoreCase("BED")) {
-        // Image bedIcon = new Image("icon_Bed.png");
-        // ImagePattern bedPattern = new ImagePattern(bedIcon, 20, 20, 40, 40, false);
-        circle = new Circle(3, Color.BLUE);
-        // circle.setFill(bedPattern);
+        Image bedIcon = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Bed.png");
+        ImagePattern bedPattern = new ImagePattern(bedIcon);
+        circle = new Circle(10, Color.BLUE);
+        circle.setFill(bedPattern);
       } else if (equipList.get(i).getType().equalsIgnoreCase("XRY")) {
-        circle = new Circle(3, Color.GREEN);
+        Image xRayIcon = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_XRay.png");
+        ImagePattern xRayPattern = new ImagePattern(xRayIcon);
+        circle = new Circle(10, Color.GREEN);
+        circle.setFill(xRayPattern);
       } else if (equipList.get(i).getType().equalsIgnoreCase("INP")) {
-        circle = new Circle(3, Color.DARKVIOLET);
+        Image INPIcon = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Inp.png");
+        ImagePattern INPPattern = new ImagePattern(INPIcon);
+        circle = new Circle(10, Color.VIOLET);
+        circle.setFill(INPPattern);
       } else if (equipList.get(i).getType().equalsIgnoreCase("REC")) {
-        circle = new Circle(3, Color.YELLOW);
+        Image reclinerIcon =
+            new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Recliner.png");
+        ImagePattern ReclinerPattern = new ImagePattern(reclinerIcon);
+        circle = new Circle(10, Color.YELLOW);
+        circle.setFill(ReclinerPattern);
       }
       circle.setCenterX((equipList.get(i).getXCoord() * 2.0 / 3.0) - 1);
       circle.setCenterY((equipList.get(i).getYCoord() * 2.0 / 3.0) - 1);
