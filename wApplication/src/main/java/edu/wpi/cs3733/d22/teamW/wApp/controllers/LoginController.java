@@ -1,7 +1,11 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wDB.CSVController;
+import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,11 +34,23 @@ public class LoginController extends LoadableController {
 
   ObservableList<String> servers = FXCollections.observableArrayList("Embedded", "Client");
 
+  final String locationFileName = "TowerLocations.csv";
+  final String medEquipFileName = "MedicalEquipment.csv";
+  final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
+  final String labServiceRequestFileName = "LabRequests.csv";
+  final String employeesFileName = "Employees.csv";
+  final String medRequestFileName = "MedRequests.csv";
+
   @Override
   public void initialize(URL location, ResourceBundle rb) {
     super.initialize(location, rb);
     switchServer.getItems().addAll(servers);
-    updateSwitchingServer();
+    switchServer.setValue("Embedded"); // No null server at first
+    try {
+      updateSwitchingServer();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   Alert emptyFields =
@@ -87,17 +103,33 @@ public class LoginController extends LoadableController {
     login();
   }
 
-  private void updateSwitchingServer() {
+  private void updateSwitchingServer() throws SQLException {
+
+    CSVController csvController =
+        new CSVController(
+            locationFileName,
+            medEquipFileName,
+            medEquipRequestFileName,
+            labServiceRequestFileName,
+            employeesFileName,
+            medRequestFileName);
+
     if (switchServer.getValue().equals("Embedded")) {
-      /*
-      CSVController csvController =
-              new CSVController(
-                      locationFileName,
-                      medEquipFileName,
-                      medEquipRequestFileName,
-                      labServiceRequestFileName,
-                      employeesFileName,
-                      medRequestFileName);
+      try {
+        csvController.populateTables();
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+      DBConnectionMode.INSTANCE.setEmbeddedConnection();
+      DBController.getDBController().closeConnection();
+      try {
+        DBController.getDBController().startConnection();
+      } catch (SQLException | ClassNotFoundException e) {
+        e.printStackTrace();
+      }
+    } else if (switchServer.getValue().equals("Client")) {
 
       try {
         csvController.populateTables();
@@ -112,9 +144,7 @@ public class LoginController extends LoadableController {
         DBController.getDBController().startConnection();
       } catch (SQLException | ClassNotFoundException e) {
         e.printStackTrace();
-      }*/
-    } else if (switchServer.getValue().equals("Client")) {
-
+      }
     }
   }
 }
