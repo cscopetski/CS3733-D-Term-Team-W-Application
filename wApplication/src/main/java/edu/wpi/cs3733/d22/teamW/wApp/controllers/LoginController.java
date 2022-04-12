@@ -2,8 +2,12 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,6 +16,7 @@ import javafx.scene.layout.Pane;
 
 public class LoginController extends LoadableController {
 
+  public ComboBox switchServer;
   @FXML Pane background;
   @FXML Button loginButton;
   @FXML TextField username;
@@ -22,6 +27,15 @@ public class LoginController extends LoadableController {
   @FXML Label matchCase;
 
   EmployeeManager eM = EmployeeManager.getEmployeeManager();
+
+  ObservableList<String> servers = FXCollections.observableArrayList("Embedded", "Client");
+
+  @Override
+  public void initialize(URL location, ResourceBundle rb) {
+    super.initialize(location, rb);
+    switchServer.getItems().addAll(servers);
+    updateSwitchingServer();
+  }
 
   Alert emptyFields =
       new Alert(
@@ -71,5 +85,36 @@ public class LoginController extends LoadableController {
 
   public void onEnter(ActionEvent actionEvent) throws SQLException {
     login();
+  }
+
+  private void updateSwitchingServer() {
+    if (switchServer.getValue().equals("Embedded")) {
+      /*
+      CSVController csvController =
+              new CSVController(
+                      locationFileName,
+                      medEquipFileName,
+                      medEquipRequestFileName,
+                      labServiceRequestFileName,
+                      employeesFileName,
+                      medRequestFileName);
+
+      try {
+        csvController.populateTables();
+      } catch (FileNotFoundException e) {
+        e.printStackTrace();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+      DBConnectionMode.INSTANCE.setServerConnection();
+      DBController.getDBController().closeConnection();
+      try {
+        DBController.getDBController().startConnection();
+      } catch (SQLException | ClassNotFoundException e) {
+        e.printStackTrace();
+      }*/
+    } else if (switchServer.getValue().equals("Client")) {
+
+    }
   }
 }
