@@ -222,7 +222,7 @@ public class SnakeController extends LoadableController {
     gameBorder.setLayoutY(center);
     gameBorder.setPrefWidth(borderSize);
     gameBorder.setPrefHeight(borderSize);
-    food = new Food(-50, -50, anchorPane, snakeSize);
+    food = new Food(0, 0, anchorPane, snakeSize);
     timeline =
         new Timeline(
             new KeyFrame(
@@ -248,5 +248,6 @@ public class SnakeController extends LoadableController {
   public void onUnload() {
     timeline = null;
     food = null;
+    anchorPane.getChildren().clear();
   }
 }
