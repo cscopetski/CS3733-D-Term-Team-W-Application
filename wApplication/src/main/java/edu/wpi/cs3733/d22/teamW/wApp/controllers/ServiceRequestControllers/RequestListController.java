@@ -3,10 +3,6 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipRequestManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedRequestManager;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
@@ -30,9 +26,8 @@ public class RequestListController extends LoadableController {
   @Override
   public void onUnload() {}
 
-/*
   public void cancel(ActionEvent actionEvent) throws SQLException {
-    if (rt.getSelection().getRequestType().equals(RequestType.MedicalEquipmentRequest)) {
+    /*if (rt.getSelection().getRequestType().equals(RequestType.MedicalEquipmentRequest)) {
       MedEquipRequestManager.getMedEquipRequestManager()
           .cancel(rt.getSelection().getRequestID());
     } else if (rt.getSelection().getRequestType().equals(RequestType.LabServiceRequest)) {
@@ -48,7 +43,6 @@ public class RequestListController extends LoadableController {
     }
     System.out.println(rt.getSelection().toString() + "cancelled");
     rt.refresh();
+    */
   }
-
-  */
 }

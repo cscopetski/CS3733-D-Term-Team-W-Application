@@ -21,8 +21,8 @@ public class RequestTable extends TableView<SR> {
         .addAll(
             createColumn("Request ID", "RequestID"),
             createColumn("Request Type", "RequestType"),
-            createColumn("Employee ID", "EmployeeName"), //
-                // createColumn("Employee ID", "EmployeeID"),
+            createColumn("Employee Name", "EmployeeName"),
+            createColumn("Employee ID", "EmployeeID"),
             createColumn("Status", "Status"));
 
     // distributeColumnWidths();
