@@ -4,12 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum EmployeeType {
-  Admin(7, 5, "Administrator"),
-  Doctor(6, 3, "Doctor"),
-  Nurse(5, 3, "Nurse"),
-  Sanitation(4, 2, "Sanitiation Officer"),
-  Security(3, 3, "Security Officer"),
-  Technician(2, 2, "Technician"),
+  Admin(8, 5, "Administrator"),
+  Doctor(7, 3, "Doctor"),
+  Nurse(6, 3, "Nurse"),
+  Sanitation(5, 2, "Sanitation Officer"),
+  Security(4, 3, "Security Officer"),
+  Technician(3, 2, "Technician"),
+  Staff(2, 3, "Staff"),
   LanguageInterpreter(1, 1, "Language Interpreter"),
   NoOne(0, 0, "Denied");
   private final int index;
@@ -28,7 +29,7 @@ public enum EmployeeType {
   static {
     for (EmployeeType type : EmployeeType.values()) {
       map.put(type.index, type);
-      map2.put(type.index, type);
+      map2.put(type.string, type);
     }
   }
 
@@ -41,10 +42,18 @@ public enum EmployeeType {
   }
 
   public static EmployeeType getEmployeeType(int type) {
-    return (EmployeeType) map.get(type);
+    EmployeeType empType = (EmployeeType) map.get(type);
+    if (empType == null) {
+      empType = NoOne;
+    }
+    return empType;
   }
 
   public static EmployeeType getEmployeeType(String type) {
-    return (EmployeeType) map2.get(type);
+    EmployeeType empType = (EmployeeType) map2.get(type);
+    if (empType == null) {
+      empType = NoOne;
+    }
+    return empType;
   }
 }

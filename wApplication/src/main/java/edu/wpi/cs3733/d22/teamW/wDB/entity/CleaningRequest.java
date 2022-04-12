@@ -66,8 +66,8 @@ public class CleaningRequest extends Request {
       this.status = RequestStatus.InQueue;
     }
 
-    this.createdTimestamp = Timestamp.valueOf(fields.get(5));
-    this.updatedTimestamp = Timestamp.valueOf(fields.get(6));
+    this.createdTimestamp = new Timestamp(System.currentTimeMillis());
+    this.updatedTimestamp = new Timestamp(System.currentTimeMillis());
   }
 
   public CleaningRequest(ArrayList<String> fields) {

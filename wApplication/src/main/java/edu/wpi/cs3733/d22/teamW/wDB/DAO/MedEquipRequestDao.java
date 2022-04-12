@@ -40,6 +40,8 @@ public interface MedEquipRequestDao {
 
   void changeMedEquipRequest(MedEquipRequest mER) throws SQLException;
 
+  void deleteMedEquipRequest(Integer requestID) throws SQLException;
+
   MedEquipRequest getRequest(Integer reqID) throws SQLException;
 
   void exportMedReqCSV(String fileName);

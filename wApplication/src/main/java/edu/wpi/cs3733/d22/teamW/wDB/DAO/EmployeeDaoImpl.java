@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -146,6 +147,45 @@ public class EmployeeDaoImpl implements EmployeeDao {
   @Override
   public void deleteEmployee(Integer empID) throws SQLException {
     statement.executeUpdate(String.format("DELETE FROM EMPLOYEES WHERE EMPLOYEEID=%d", empID));
+  }
+
+  @Override
+  public Employee getEmployeeType(EmployeeType employeeType) {
+    Employee employee = null;
+    try {
+      ResultSet employeeRequest =
+          statement.executeQuery(
+              String.format(
+                  "SELECT * FROM EMPLOYEES WHERE EMPLOYEETYPE='%s'", employeeType.toString()));
+      employeeRequest.next();
+      Integer employeeID = employeeRequest.getInt("EMPLOYEEID");
+      String firstName = employeeRequest.getString("FIRSTNAME");
+      String lastName = employeeRequest.getString("LASTNAME");
+      String employeeTypeString = employeeRequest.getString("EMPLOYEETYPE");
+      String email = employeeRequest.getString("EMAIL");
+      String phoneNumber = employeeRequest.getString("PHONENUMBER");
+      String address = employeeRequest.getString("ADDRESS");
+      String username = employeeRequest.getString("USERNAME");
+      String password = employeeRequest.getString("PASSWORD");
+      String salt = employeeRequest.getString("SALT");
+
+      ArrayList<String> employeeData = new ArrayList<>();
+      employeeData.add(String.format("%d", employeeID));
+      employeeData.add(firstName);
+      employeeData.add(lastName);
+      employeeData.add(employeeTypeString);
+      employeeData.add(email);
+      employeeData.add(phoneNumber);
+      employeeData.add(address);
+      employeeData.add(username);
+      employeeData.add(password);
+      employeeData.add(salt);
+
+      employee = new Employee(employeeData);
+    } catch (SQLException e) {
+      System.out.println("Query from medical equip request table failed.");
+    }
+    return employee;
   }
 
   @Override

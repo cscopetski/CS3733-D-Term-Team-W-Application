@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.CleaningRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedRequestManager;
@@ -19,6 +20,7 @@ public class RequestFactory {
   private MedEquipRequestManager merm = MedEquipRequestManager.getMedEquipRequestManager();
   private LabServiceRequestManager lsrm = LabServiceRequestManager.getLabServiceRequestManager();
   private MedRequestManager mrm = MedRequestManager.getMedRequestManager();
+  private CleaningRequestManager crm = CleaningRequestManager.getCleaningRequestManager();
 
   private TreeSet<Integer> reqIDList = new TreeSet<>();
 
@@ -62,6 +64,10 @@ public class RequestFactory {
       Request mDR = mrm.addRequest(counter, fields);
       System.out.println(mDR.toValuesString());
       return mDR;
+    } else if (requestType.equals(RequestType.CleaningRequest)) {
+      Request cr = crm.addRequest(counter, fields);
+      System.out.println(cr.toValuesString());
+      return cr;
     } else {
       return null;
     }

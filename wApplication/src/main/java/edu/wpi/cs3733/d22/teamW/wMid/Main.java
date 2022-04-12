@@ -4,6 +4,8 @@ import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
@@ -39,7 +41,23 @@ public class Main {
       e.printStackTrace();
     }
 
-    App.launch(App.class, args);
+    MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
+
+    RequestFactory requestFactory = RequestFactory.getRequestFactory();
+    MedEquipManager mem = MedEquipManager.getMedEquipManager();
+    ArrayList<String> fields = new ArrayList<>();
+
+    fields.add("XRY");
+    fields.add("wSTOR001L1");
+    fields.add("2");
+    fields.add("" + 0);
+
+    ArrayList<String> fields2 = new ArrayList<>();
+
+    fields2.add("XRY");
+    fields2.add("wSTOR001L1");
+    fields2.add("2");
+    fields2.add("" + 1);
 
     //    MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
     //
@@ -183,16 +201,33 @@ public class Main {
         "Ih8Testing",
         "salt");
     edi.addEmployee(
+        7,
+        "Mr.",
+        "Secure",
+        "Security Officer",
+        "security@hospital.com",
+        "(123)456789",
+        "somewhere",
+        "secur",
+        "secur",
+        "NEW");
+
+    edi.changeEmployee(
         6,
-        "Hasan",
-        "G",
-        "Lab Technician",
-        "N/A",
-        "(123)4567890",
-        "Bikini Bottom",
-        "hzgan",
-        "spongeBob",
-        "salt");
+        "new Hasan",
+        "new G",
+        EmployeeType.Admin,
+        "new Email",
+        "new Phone",
+        "new Address",
+        "joe",
+        "joe123");
+
+    if (edi.passwordMatch("joe", "joe123")) {
+      System.out.println("hzgan, spongeBob MATCH");
+    } else {
+      System.out.println("NO MATCH");
+    }
 
      */
 
@@ -300,5 +335,37 @@ public class Main {
         } else if (reconnect.getResult() == ButtonType.CANCEL) reconnect.close();
       }
     */
+    edi.exportEmpCSV("Employees.csv");
+    MedEquipManager.getMedEquipManager().markDirty("BED012", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED013", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED014", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED015", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED016", "wSTOR0033");
+    merc.complete(5);
+    mem.markDirty("XRY001", "wSTOR0033");
+    CleaningRequestManager.getCleaningRequestManager().complete(26, "wSTOR0013");
+    // DBConnectionMode.INSTANCE.setServerConnection();
+    /*DBController.getDBController().closeConnection();
+
+    try {
+      DBController.getDBController().startConnection();
+    } catch (SQLException | ClassNotFoundException e) {
+      e.printStackTrace();
+      Alert reconnect =
+          new Alert(
+              Alert.AlertType.ERROR,
+              "Connection to the Db is failed, reconnected?",
+              ButtonType.CLOSE,
+              ButtonType.OK);
+      reconnect.show();
+      if (reconnect.getResult() == ButtonType.OK) {
+        // reconnect here
+        try {
+          DBController.getDBController().startConnection();
+        } catch (ClassNotFoundException ex) {
+          ex.printStackTrace();
+        }
+      } else if (reconnect.getResult() == ButtonType.CANCEL) reconnect.close();
+    }*/
   }
 }
