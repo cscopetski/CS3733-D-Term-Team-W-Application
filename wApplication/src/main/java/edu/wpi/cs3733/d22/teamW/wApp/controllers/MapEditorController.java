@@ -25,6 +25,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -318,10 +319,13 @@ public class MapEditorController extends LoadableController {
   private void generateMarkers() {
     size = currFloorLoc.size();
     for (int i = 0; i < size; i++) {
-      Circle circ = new Circle(5, Color.RED);
-      circ.setCenterX((currFloorLoc.get(i).getXCoord() * 0.665));
-      circ.setCenterY((currFloorLoc.get(i).getYCoord() * 0.862));
-
+      Circle circ = new Circle(12, Color.RED);
+      Image locationIcon =
+          new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Location.png");
+      ImagePattern bedPattern = new ImagePattern(locationIcon);
+      circ.setFill(bedPattern);
+      circ.setCenterX((currFloorLoc.get(i).getXCoord() * 2.0 / 3.0));
+      circ.setCenterY((currFloorLoc.get(i).getYCoord() * 2.0 / 3.0));
       circ.setOnMouseClicked(
           (event -> {
             try {
@@ -362,15 +366,28 @@ public class MapEditorController extends LoadableController {
 
   private void generateEquipMarkers() {
     for (int i = 0; i < equipList.size(); i++) {
-      Circle circle = new Circle(3, Color.BLACK);
+      Circle circle = new Circle(10, Color.TRANSPARENT);
       if (equipList.get(i).getType().equalsIgnoreCase("BED")) {
-        circle = new Circle(3, Color.BLUE);
+        Image bedIcon = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Bed.png");
+        ImagePattern bedPattern = new ImagePattern(bedIcon);
+        circle = new Circle(10, Color.BLUE);
+        circle.setFill(bedPattern);
       } else if (equipList.get(i).getType().equalsIgnoreCase("XRY")) {
-        circle = new Circle(3, Color.GREEN);
+        Image xRayIcon = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_XRay.png");
+        ImagePattern xRayPattern = new ImagePattern(xRayIcon);
+        circle = new Circle(10, Color.GREEN);
+        circle.setFill(xRayPattern);
       } else if (equipList.get(i).getType().equalsIgnoreCase("INP")) {
-        circle = new Circle(3, Color.DARKVIOLET);
+        Image INPIcon = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Inp.png");
+        ImagePattern INPPattern = new ImagePattern(INPIcon);
+        circle = new Circle(10, Color.VIOLET);
+        circle.setFill(INPPattern);
       } else if (equipList.get(i).getType().equalsIgnoreCase("REC")) {
-        circle = new Circle(3, Color.YELLOW);
+        Image reclinerIcon =
+            new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Recliner.png");
+        ImagePattern ReclinerPattern = new ImagePattern(reclinerIcon);
+        circle = new Circle(10, Color.YELLOW);
+        circle.setFill(ReclinerPattern);
       }
       circle.setCenterX((equipList.get(i).getXCoord() * 0.665) - 1);
       circle.setCenterY((equipList.get(i).getYCoord() * 0.862) - 41);
