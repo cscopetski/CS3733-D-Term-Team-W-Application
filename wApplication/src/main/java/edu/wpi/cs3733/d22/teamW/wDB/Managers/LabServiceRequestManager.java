@@ -75,7 +75,7 @@ public class LabServiceRequestManager implements RequestManager {
         request.getEmergency(),
         request.getStatus(),
         request.getCreatedTimestamp(),
-        request.getUpdatedTimestamp());
+        new Timestamp(System.currentTimeMillis()));
   }
 
   public void complete(Integer requestID) throws SQLException {
@@ -92,7 +92,7 @@ public class LabServiceRequestManager implements RequestManager {
         request.getEmergency(),
         request.getStatus(),
         request.getCreatedTimestamp(),
-        request.getUpdatedTimestamp());
+        new Timestamp(System.currentTimeMillis()));
   }
 
   public void cancel(Integer requestID) throws SQLException {
@@ -109,7 +109,7 @@ public class LabServiceRequestManager implements RequestManager {
         request.getEmergency(),
         request.getStatus(),
         request.getCreatedTimestamp(),
-        request.getUpdatedTimestamp());
+        new Timestamp(System.currentTimeMillis()));
   }
 
   public void reQueue(Integer requestID) throws SQLException {
@@ -126,7 +126,7 @@ public class LabServiceRequestManager implements RequestManager {
         request.getEmergency(),
         request.getStatus(),
         request.getCreatedTimestamp(),
-        request.getUpdatedTimestamp());
+        new Timestamp(System.currentTimeMillis()));
   }
 
   @Override

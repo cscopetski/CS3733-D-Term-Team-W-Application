@@ -77,7 +77,9 @@ public class MedEquipRequestManager implements RequestManager {
               request.getNodeID(),
               request.getEmployeeID(),
               request.getEmergency(),
-              request.getStatus());
+              request.getStatus(),
+              request.getCreatedTimestamp(),
+              new Timestamp(System.currentTimeMillis()));
         } else {
           System.out.println("No avavailable equipment");
         }
@@ -105,7 +107,9 @@ public class MedEquipRequestManager implements RequestManager {
           request.getNodeID(),
           request.getEmployeeID(),
           request.getEmergency(),
-          request.getStatus());
+          request.getStatus(),
+          request.getCreatedTimestamp(),
+          new Timestamp(System.currentTimeMillis()));
     }
   }
 
@@ -131,7 +135,9 @@ public class MedEquipRequestManager implements RequestManager {
           request.getNodeID(),
           request.getEmployeeID(),
           request.getEmergency(),
-          request.getStatus());
+          request.getStatus(),
+          request.getCreatedTimestamp(),
+          new Timestamp(System.currentTimeMillis()));
     }
   }
 
@@ -151,7 +157,9 @@ public class MedEquipRequestManager implements RequestManager {
           request.getNodeID(),
           request.getEmployeeID(),
           request.getEmergency(),
-          request.getStatus());
+          request.getStatus(),
+          request.getCreatedTimestamp(),
+          new Timestamp(System.currentTimeMillis()));
       if (automation.getAuto()) {
         startNext(request.getItemType());
       }
