@@ -33,9 +33,9 @@ public class CleaningRequestManager {
 
   public CleaningRequest addRequest(ArrayList<String> fields) throws SQLException {
     CleaningRequest cr;
-      fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
+    fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
     cr = new CleaningRequest(fields);
-      counter = Integer.parseInt(fields.get(0));
+    // counter = Integer.parseInt(fields.get(0));
     if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
       crd.addCleaningRequest(cr);
       checkStart();

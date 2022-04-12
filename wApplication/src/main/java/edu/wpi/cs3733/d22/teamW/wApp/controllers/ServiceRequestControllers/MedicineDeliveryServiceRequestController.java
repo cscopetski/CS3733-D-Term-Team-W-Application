@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
@@ -91,19 +90,21 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   }
 
   public void onLoad() {
-    populateTable();
+    // populateTable();
     populateEmployeeIDs();
     medNameCBox.setItems(meds);
     locationCBox.setItems(locations);
     timePrefCBox.setItems(times);
     requesterCBox.setItems(names);
+
+    System.out.println(names.isEmpty());
   }
 
   public void onUnload() {
-    helper.clearFields(fields);
+    clearFields();
   }
 
-  private void populateTable() {
+  private void populateTable() throws SQLException {
     ArrayList<Request> requests = RequestFactory.getRequestFactory().getAllRequests();
     for (int i = 0; i < requests.size(); i++) {
       Request r = requests.get(i);
