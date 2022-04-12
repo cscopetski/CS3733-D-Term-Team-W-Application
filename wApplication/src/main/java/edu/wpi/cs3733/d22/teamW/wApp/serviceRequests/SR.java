@@ -3,7 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 
 public abstract class SR {
-  private final Request REQUEST;
+  protected final Request REQUEST;
 
   public SR(Request r) {
     this.REQUEST = r;
@@ -30,4 +30,8 @@ public abstract class SR {
   }
 
   public abstract String getRequestType();
+
+  public Request getREQUEST() {
+    return REQUEST;
+  }
 }

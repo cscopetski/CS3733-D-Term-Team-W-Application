@@ -126,7 +126,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                             <center>
-                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Cancel" BorderPane.alignment="CENTER">
+                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Cancel" onAction="#cancel" BorderPane.alignment="CENTER">
                                     <BorderPane.margin>
                                         <Insets bottom="20.0" />
                                     </BorderPane.margin>

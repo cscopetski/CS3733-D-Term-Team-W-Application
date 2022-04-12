@@ -1,11 +1,10 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls;
 
-import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.LabServiceSR;
-import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
-import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.SR;
+import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
 import java.util.List;
 import javafx.scene.control.TableColumn;
@@ -22,7 +21,7 @@ public class RequestTable extends TableView<SR> {
         .addAll(
             createColumn("Request ID", "RequestID"),
             createColumn("Request Type", "RequestType"),
-            createColumn("Employee Name", "EmployeeName"),
+            createColumn("Employee ID", "EmployeeName"),
             createColumn("Status", "Status"));
 
     // distributeColumnWidths();
@@ -60,11 +59,18 @@ public class RequestTable extends TableView<SR> {
     getItems().clear();
     for (Request r : requests) {
       SR sr = null;
-      if (r.getRequestType().equals("MEDICALEQUIPREQUEST")) {
+      if (r.getRequestType().equals(RequestType.MedicalEquipmentRequest)) {
         sr = new MedicalEquipmentSR(r);
-      } else if (r.getRequestType().equals("LABSERVICEREQUEST")) {
+      } else if (r.getRequestType().equals(RequestType.LabServiceRequest)) {
         sr = new LabServiceSR(r);
+      } else if (r.getRequestType().equals(RequestType.MedicineDelivery)) {
+        sr = new MealDeliverySR(r);
+      } else if (r.getRequestType().equals(RequestType.LanguageInterpreter)) {
+        sr = new LanguageInterpreterSR(r);
+      } else if (r.getRequestType().equals(RequestType.SecurityService)) {
+        sr = new SecuritySR(r);
       }
+
       getItems().add(sr);
     }
     getSelectionModel().clearSelection();
