@@ -31,7 +31,7 @@ public class ProfileController extends LoadableController {
             .getEmployee();
     name.setText(employee.getFirstName() + " " + employee.getLastName());
     id.setText(employee.getEmployeeID().toString());
-    type.setText(employee.getType());
+    type.setText(employee.getType().getString());
     email.setText(employee.getEmail());
     phoneNumber.setText(employee.getPhoneNumber());
     address.setText(employee.getAddress());

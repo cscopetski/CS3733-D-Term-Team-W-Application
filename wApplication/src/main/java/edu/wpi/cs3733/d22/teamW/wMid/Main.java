@@ -4,8 +4,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
@@ -45,19 +43,6 @@ public class Main {
 
     RequestFactory requestFactory = RequestFactory.getRequestFactory();
     MedEquipManager mem = MedEquipManager.getMedEquipManager();
-    ArrayList<String> fields = new ArrayList<>();
-
-    fields.add("XRY");
-    fields.add("wSTOR001L1");
-    fields.add("2");
-    fields.add("" + 0);
-
-    ArrayList<String> fields2 = new ArrayList<>();
-
-    fields2.add("XRY");
-    fields2.add("wSTOR001L1");
-    fields2.add("2");
-    fields2.add("" + 1);
 
     //    MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
     //
@@ -114,7 +99,7 @@ public class Main {
     //    LabServiceRequestManager.getLabServiceRequestManager()
     //        .exportLabServiceRequestCSV("LABTEST.csv");
 
-    //    EmployeeManager edi = EmployeeManager.getEmployeeManager();
+    EmployeeManager edi = EmployeeManager.getEmployeeManager();
     //    edi.addEmployee(
     //        7,
     //        "Mr.",
@@ -367,5 +352,7 @@ public class Main {
         }
       } else if (reconnect.getResult() == ButtonType.CANCEL) reconnect.close();
     }*/
+
+    App.launch(App.class, args);
   }
 }
