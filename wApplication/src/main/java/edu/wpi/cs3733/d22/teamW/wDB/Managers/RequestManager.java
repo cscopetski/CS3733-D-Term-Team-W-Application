@@ -12,6 +12,14 @@ public interface RequestManager {
   //
   //  public Request getNext(String ID);
 
+  public abstract void start(Integer requestID) throws SQLException;
+
+  public abstract void complete(Integer requestID) throws SQLException;
+
+  public abstract void cancel(Integer requestID) throws SQLException;
+
+  public abstract void reQueue(Integer requestID) throws SQLException;
+
   public Request getRequest(Integer ID) throws SQLException;
 
   public ArrayList<Request> getAllRequests() throws SQLException;

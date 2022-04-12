@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class CleaningRequestManager implements RequestManager {
+public class CleaningRequestManager {
   Automation automation = Automation.getAutomation();
   private CleaningRequestDao crd;
   private static CleaningRequestManager cleaningRequestManager = new CleaningRequestManager();
