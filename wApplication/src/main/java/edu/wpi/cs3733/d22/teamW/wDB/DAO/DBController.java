@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
-import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import java.sql.*;
 
@@ -32,6 +32,15 @@ public class DBController {
   }
 
   private DBController() {
+    try {
+      startConnection();
+    } catch (SQLException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void startConnection() throws SQLException, ClassNotFoundException {
+    RequestFactory.getRequestFactory().resetTreeSet();
     String connectionStringEmbedded = String.format("jdbc:derby:%s;create=true", this.dbName);
     String connectionStringServer =
         String.format("jdbc:derby://localhost:1527/%s;create=true", this.dbName);
@@ -46,6 +55,7 @@ public class DBController {
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       MedRequestDao medRequestDao = new MedRequestDaoImpl(statement);
+      CleaningRequestDao cleaningRequestDao = new CleaningRequestDaoImpl(statement);
       LabServiceRequestDao labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
       MedEquipRequestDao medEquipRequestDao = new MedEquipRequestDaoImpl(statement);
       MedEquipDao medEquipDao = new MedEquipDaoImpl(statement);
@@ -60,6 +70,7 @@ public class DBController {
       MedRequestManager.getMedRequestManager().setMedRequestDao(medRequestDao);
       LabServiceRequestManager.getLabServiceRequestManager()
           .setLabServiceRequestDao(labServiceRequestDao);
+      CleaningRequestManager.getCleaningRequestManager().setCleaningRequestDao(cleaningRequestDao);
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ((EmployeeDaoSecureImpl) employeeDao).createTable();
@@ -68,12 +79,14 @@ public class DBController {
       ((LabServiceRequestDaoImpl) labServiceRequestDao).createTable();
       ((MedEquipRequestDaoImpl) medEquipRequestDao).createTable();
       ((MedRequestDaoImpl) medRequestDao).createTable();
+      ((CleaningRequestDaoImpl) cleaningRequestDao).createTable();
 
     } catch (SQLException e) {
-      e.printStackTrace();
       System.out.println("Table Creation Failed");
+      throw (e);
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
+      throw (e);
     }
   }
 

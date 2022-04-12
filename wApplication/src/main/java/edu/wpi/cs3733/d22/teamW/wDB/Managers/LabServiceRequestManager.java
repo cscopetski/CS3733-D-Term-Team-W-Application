@@ -1,9 +1,13 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.LabServiceRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class LabServiceRequestManager implements RequestManager {
@@ -39,47 +43,90 @@ public class LabServiceRequestManager implements RequestManager {
   public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException {
     LabServiceRequest lSR;
     // Set status to in queue if it is not already included (from CSVs)
-    if (fields.size() == 4) {
-      fields.add("0");
+    if (fields.size() == 6) {
+      fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
+      fields.add(new Timestamp(System.currentTimeMillis()).toString());
+      fields.add(new Timestamp(System.currentTimeMillis()).toString());
       lSR = new LabServiceRequest(num, fields);
     } else {
       System.out.println("Right before making lSR");
       lSR = new LabServiceRequest(fields);
     }
-
-    lsrdi.addLabServiceRequest(lSR);
+    // TODO Special Exception
+    if (RequestFactory.getRequestFactory().getReqIDList().add(lSR.getRequestID())) {
+      lsrdi.addLabServiceRequest(lSR);
+    } else {
+      lSR = null;
+    }
     return lSR;
   }
 
-  public void start(LabServiceRequest request) throws SQLException {
-    request.start();
+  public void start(Integer requestID) throws SQLException {
+    LabServiceRequest request =
+        (LabServiceRequest)
+            RequestFactory.getRequestFactory()
+                .findRequest(requestID, RequestType.LabServiceRequest);
+    request.setStatus(RequestStatus.InProgress);
     lsrdi.changeLabServiceRequest(
         request.getRequestID(),
         request.getLabType(),
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
-        1);
+        request.getStatus(),
+        request.getCreatedTimestamp(),
+        new Timestamp(System.currentTimeMillis()));
   }
 
-  public void complete(LabServiceRequest request) throws SQLException {
+  public void complete(Integer requestID) throws SQLException {
+    LabServiceRequest request =
+        (LabServiceRequest)
+            RequestFactory.getRequestFactory()
+                .findRequest(requestID, RequestType.LabServiceRequest);
+    request.setStatus(RequestStatus.Completed);
     lsrdi.changeLabServiceRequest(
         request.getRequestID(),
         request.getLabType(),
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
-        2);
+        request.getStatus(),
+        request.getCreatedTimestamp(),
+        new Timestamp(System.currentTimeMillis()));
   }
 
-  public void cancel(LabServiceRequest request) throws SQLException {
+  public void cancel(Integer requestID) throws SQLException {
+    LabServiceRequest request =
+        (LabServiceRequest)
+            RequestFactory.getRequestFactory()
+                .findRequest(requestID, RequestType.LabServiceRequest);
+    request.setStatus(RequestStatus.Cancelled);
     lsrdi.changeLabServiceRequest(
         request.getRequestID(),
         request.getLabType(),
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
-        3);
+        request.getStatus(),
+        request.getCreatedTimestamp(),
+        new Timestamp(System.currentTimeMillis()));
+  }
+
+  public void reQueue(Integer requestID) throws SQLException {
+    LabServiceRequest request =
+        (LabServiceRequest)
+            RequestFactory.getRequestFactory()
+                .findRequest(requestID, RequestType.LabServiceRequest);
+    request.setStatus(RequestStatus.InQueue);
+    lsrdi.changeLabServiceRequest(
+        request.getRequestID(),
+        request.getLabType(),
+        request.getNodeID(),
+        request.getEmployeeID(),
+        request.getEmergency(),
+        request.getStatus(),
+        request.getCreatedTimestamp(),
+        new Timestamp(System.currentTimeMillis()));
   }
 
   @Override

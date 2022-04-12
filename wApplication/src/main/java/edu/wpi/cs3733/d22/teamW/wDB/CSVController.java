@@ -77,6 +77,30 @@ public class CSVController {
     return tokensList;
   }
 
+  public ArrayList<String[]> importCSVfromFile(File file) throws FileNotFoundException {
+
+    InputStream in = new FileInputStream(file);
+    Scanner sc = new Scanner(in);
+    // Skip headers
+    try {
+      sc.next();
+    } catch (NoSuchElementException e) {
+      System.out.println(String.format("FILE IS EMPTY"));
+    }
+
+    ArrayList<String[]> tokensList = new ArrayList<>();
+
+    while (sc.hasNextLine()) {
+      String line = "" + sc.nextLine();
+      if (!line.isEmpty()) {
+        String[] tokens = line.split(",");
+        tokensList.add(tokens);
+      }
+    }
+    sc.close(); // closes the scanner
+    return tokensList;
+  }
+
   /**
    * Inserts a list of locations objects into the Location table in the database
    *
@@ -131,7 +155,7 @@ public class CSVController {
       // add location objects to database
       try {
         MedEquipManager.getMedEquipManager()
-            .add(m.getMedID(), m.getType(), m.getNodeID(), m.getStatus());
+            .add(m.getMedID(), m.getType(), m.getNodeID(), m.getStatus().getValue());
       } catch (SQLException e) {
         System.out.println("Connection failed. Check output console.");
         e.printStackTrace();

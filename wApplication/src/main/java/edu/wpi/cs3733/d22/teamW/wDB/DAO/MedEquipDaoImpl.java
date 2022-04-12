@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
 import java.io.*;
 import java.sql.*;
 import java.util.*;
@@ -69,13 +70,43 @@ public class MedEquipDaoImpl implements MedEquipDao {
   }
 
   @Override
-  public void addMedEquip(String inputID, String type, String nodeID, Integer status)
+  public MedEquip getMedEquip(String medID) throws SQLException {
+
+    MedEquip medEquip = null;
+
+    try {
+      ResultSet medEquipment =
+          statement.executeQuery(
+              String.format("SELECT * FROM MEDICALEQUIPMENT WHERE MEDID = '%s'", medID));
+
+      // Size of num MedEquip fields
+      String[] medEquipData = new String[4];
+
+      while (medEquipment.next()) {
+
+        for (int i = 0; i < medEquipData.length; i++) {
+          medEquipData[i] = medEquipment.getString(i + 1);
+        }
+
+        medEquip = new MedEquip(medEquipData);
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from medical equipment table failed");
+      throw (e);
+    }
+
+    return medEquip;
+  }
+
+  @Override
+  public void addMedEquip(String inputID, String type, String nodeID, MedEquipStatus status)
       throws SQLException {
 
     statement.executeUpdate(
         String.format(
             "INSERT INTO MEDICALEQUIPMENT VALUES ('%s','%s','%s',%d)",
-            inputID, type, nodeID, status));
+            inputID, type, nodeID, status.getValue()));
   }
 
   @Override
@@ -84,12 +115,12 @@ public class MedEquipDaoImpl implements MedEquipDao {
   }
 
   @Override
-  public void changeMedEquip(String medID, String type, String nodeID, Integer status)
+  public void changeMedEquip(String medID, String type, String nodeID, MedEquipStatus status)
       throws SQLException {
     statement.executeUpdate(
         String.format(
             "UPDATE MEDICALEQUIPMENT SET TYPE = '%s', NODEID = '%s', STATUS = %d WHERE MEDID = '%s'",
-            type, nodeID, status, medID));
+            type, nodeID, status.getValue(), medID));
   }
 
   @Override

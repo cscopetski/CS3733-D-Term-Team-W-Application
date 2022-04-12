@@ -2,12 +2,14 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
@@ -39,6 +41,8 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
               + "employeeID INT,"
               + "isEmergency INT,"
               + "reqStatus INT, "
+              + "createdTimestamp timestamp, "
+              + "updatedTimestamp timestamp, "
               + "constraint MedReq_MedEquip_FK foreign key (medID) references MEDICALEQUIPMENT(medID),"
               + "constraint MedReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),"
               + "constraint MedEquipReq_PK primary key (medReqID),"
@@ -59,7 +63,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       ResultSet medEquipment = statement.executeQuery("SELECT * FROM MEDICALEQUIPMENTREQUESTS");
 
       // Size of num MedEquipRequest fields
-      int size = 7;
+      int size = 9;
       ArrayList<String> medEquipData = new ArrayList<>();
 
       while (medEquipment.next()) {
@@ -107,13 +111,29 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
   @Override
   public void changeMedEquipRequest(
-      int requestID, String newItemType, String newLocationID, String newEmployeeName)
+      int requestID,
+      String itemID,
+      String itemType,
+      String nodeID,
+      Integer employeeID,
+      Integer emergency,
+      RequestStatus status,
+      Timestamp createdTimestamp,
+      Timestamp updatedTimestamp)
       throws SQLException {
 
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDICALEQUIPMENT SET TYPE = 's', NODEID = 's', STATUS = %d WHERE MEDID = %s",
-            newItemType, newLocationID, newEmployeeName, requestID));
+            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE MEDREQID = %d",
+            itemID,
+            itemType,
+            nodeID,
+            employeeID,
+            emergency,
+            status.getValue(),
+            createdTimestamp.toString(),
+            updatedTimestamp.toString(),
+            requestID));
   }
 
   public void changeMedEquipRequest(MedEquipRequest mER) throws SQLException {
@@ -134,14 +154,54 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d WHERE MEDREQID = %d",
+            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE MEDREQID = %d",
             mER.getItemID(),
             mER.getItemType(),
             mER.getNodeID(),
             mER.getEmployeeID(),
             mER.getEmergency(),
             mER.getStatusInt(),
+            mER.getCreatedTimestamp().toString(),
+            mER.getUpdatedTimestamp().toString(),
             mER.getRequestID()));
+  }
+
+  @Override
+  public MedEquipRequest getRequest(Integer reqID) throws SQLException {
+    MedEquipRequest mr = null;
+    try {
+      ResultSet medEquipRequests =
+          statement.executeQuery(
+              String.format("SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE MEDREQID = %d", reqID));
+
+      medEquipRequests.next();
+
+      Integer medreqID = medEquipRequests.getInt("MEDREQID");
+      String medID = medEquipRequests.getString("MEDID");
+      String equipType = medEquipRequests.getString("EQUIPTYPE");
+      String nodeID = medEquipRequests.getString("NODEID");
+      Integer employeeID = medEquipRequests.getInt("EMPLOYEEID");
+      Integer isEmergency = medEquipRequests.getInt("ISEMERGENCY");
+      Integer reqStatus = medEquipRequests.getInt("REQSTATUS");
+      String createdTimeStamp = medEquipRequests.getString("CREATEDTIMESTAMP");
+      String updatedTimeStamp = medEquipRequests.getString("UPDATEDTIMESTAMP");
+      ArrayList<String> medEquipRequestData = new ArrayList<String>();
+      medEquipRequestData.add(String.format("%d", medreqID));
+      medEquipRequestData.add(medID);
+      medEquipRequestData.add(equipType);
+      medEquipRequestData.add(nodeID);
+      medEquipRequestData.add(String.format("%d", employeeID));
+      medEquipRequestData.add(String.format("%d", isEmergency));
+      medEquipRequestData.add(String.format("%d", reqStatus));
+      medEquipRequestData.add(createdTimeStamp);
+      medEquipRequestData.add(updatedTimeStamp);
+
+      mr = new MedEquipRequest(medEquipRequestData);
+
+    } catch (SQLException e) {
+      System.out.println("Query from medicine request table failed.");
+    }
+    return mr;
   }
 
   @Override
@@ -149,7 +209,8 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print("medReqID,medID,equipType,nodeID,employeeName,isEmergency,status");
+      pw.print(
+          "medReqID,medID,equipType,nodeID,employeeID,isEmergency,status,createdTimestamp,updatedTimestamp");
 
       // print all locations
       for (Request m : getAllMedEquipRequests()) {
@@ -162,5 +223,35 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       System.out.println(String.format("Error Exporting to File %s", fileName));
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public ArrayList<MedEquipRequest> getTypeMedEquipRequests(String itemType) throws SQLException {
+    ArrayList<MedEquipRequest> medEquipRequestList = new ArrayList<>();
+
+    try {
+      ResultSet medEquipment =
+          statement.executeQuery(
+              String.format(
+                  "SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EQUIPTYPE='%s'", itemType));
+
+      // Size of num MedEquipRequest fields
+      int size = 9;
+      ArrayList<String> medEquipData = new ArrayList<>();
+
+      while (medEquipment.next()) {
+
+        for (int i = 0; i < size; i++) {
+          medEquipData.add(i, medEquipment.getString(i + 1));
+        }
+
+        medEquipRequestList.add(new MedEquipRequest(medEquipData));
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from med equip request table failed");
+      throw (e);
+    }
+    return medEquipRequestList;
   }
 }

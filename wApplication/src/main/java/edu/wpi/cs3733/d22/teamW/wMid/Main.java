@@ -3,7 +3,11 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -65,14 +69,16 @@ public class Main {
     fields3.add("wSTOR001L1");
     fields3.add("3");
     fields3.add("" + 0);
+    /*
 
-    try {
-      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
-      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields2);
-      requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields3);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+        try {
+          requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
+          requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields2);
+          requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields3);
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
+    */
 
     /*Request test = requestFactory.findRequest(5);
       Request test2 = requestFactory.findRequest(21);
@@ -206,6 +212,93 @@ public class Main {
       System.out.println("no match");
     }
     System.out.println(edi.getEmployee("joe").toCSVString());
+<<<<<<< HEAD
+=======
+    /* // Req23 cancelled
+    merc.cancel(23);
+    // Req7 complete
+    merc.complete(7);
+    // Req5 cancelled and req 22 start
+    merc.cancel(5);
+    merc.reQueue(5);
+    merc.cancel(22);*/
+    merc.complete(2);
+    // MedEquipManager.getMedEquipManager().markDirty("BED002", "FEXIT00301");
+    System.out.println("\n\n\n\n");
+    for (Request e : requestFactory.getAllRequests()) {
+      System.out.println(e.toValuesString());
+    }
+
+    /*
+       edi.addEmployee(
+           1,
+           "N/A",
+           "Staff",
+           "Staff Member",
+           "staff@hospital.com",
+           "(123)4567890",
+           "Mass General",
+           "staff",
+           "staff",
+           "salt");
+       edi.addEmployee(
+           2,
+           "N/A",
+           "Administrator",
+           "admin",
+           "admin@hospital.com",
+           "(123)4567890",
+           "Office",
+           "admin",
+           "admin",
+           "salt");
+       edi.addEmployee(
+           3,
+           "Caleb",
+           "Scopetski",
+           "Doctor",
+           "N/A",
+           "(123)4567890",
+           "NeVer LeFt MaSs",
+           "Scoop",
+           "backEndGang",
+           "salt");
+       edi.addEmployee(
+           4,
+           "Edison",
+           "Zhang",
+           "Janitor",
+           "N/A",
+           "(123)4567890",
+           "Jamaica",
+           "ezhang",
+           "broMyASSSSS",
+           "salt");
+       edi.addEmployee(
+           5,
+           "Charlie",
+           "K-W",
+           "Nurse",
+           "N/A",
+           "(123)4567890",
+           "The North",
+           "charkw",
+           "Ih8Testing",
+           "salt");
+       edi.addEmployee(
+           6,
+           "Hasan",
+           "G",
+           "Lab Technician",
+           "N/A",
+           "(123)4567890",
+           "Bikini Bottom",
+           "hzgan",
+           "spongeBob",
+           "salt");
+
+       edi.exportEmpCSV("Employees.csv");
+>>>>>>> Backend-Merge
 
     edi.addEmployee(
         1,
@@ -275,5 +368,24 @@ public class Main {
         "salt");
 
     edi.exportEmpCSV("Employees.csv");
+
+    DBConnectionMode.INSTANCE.setServerConnection();
+    DBController.getDBController().closeConnection();
+
+    try {
+      DBController.getDBController().startConnection();
+    } catch (SQLException | ClassNotFoundException e) {
+      e.printStackTrace();
+      Alert reconnect = new Alert(Alert.AlertType.ERROR, "Connection to the Db is failed, reconnected?", ButtonType.CLOSE, ButtonType.OK);
+      reconnect.show();
+      if(reconnect.getResult() == ButtonType.OK){
+        //reconnect here
+        try {
+          DBController.getDBController().startConnection();
+        } catch (ClassNotFoundException ex) {
+          ex.printStackTrace();
+        }
+      } else if(reconnect.getResult() == ButtonType.CANCEL)reconnect.close();
+    }
   }
 }

@@ -6,7 +6,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Employee implements Entity {
+public class Employee extends Entity {
 
   private Integer employeeID;
   private String firstName;
