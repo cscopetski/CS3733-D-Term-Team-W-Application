@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Text?>
 
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton?>
-<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicalEquipmentServiceRequestController">
+<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LanguageInterpreterServiceRequestController">
     <children>
         <AnchorPane prefHeight="473.0" prefWidth="940.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -66,7 +66,7 @@
                                           <Font name="System Bold" size="14.0" />
                                        </font>
                                     </Label>
-                                              <ComboBox fx:id="equipmentSelection" layoutY="39.0" prefHeight="28.0" prefWidth="180.0" styleClass="combo-box" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                                              <ComboBox fx:id="languageSelection" layoutY="39.0" prefHeight="28.0" prefWidth="180.0" styleClass="combo-box" stylesheets="@../../CSS/UniversalCSS/Standard.css">
                                                   <items>
                                                       <FXCollections fx:factory="observableArrayList">
                                                           <String fx:value="Spanish" />

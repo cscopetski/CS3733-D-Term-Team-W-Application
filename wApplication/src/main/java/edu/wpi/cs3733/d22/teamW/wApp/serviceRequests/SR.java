@@ -32,8 +32,10 @@ public abstract class SR {
   public String getEmployeeName() {
     try {
       return EmployeeManager.getEmployeeManager()
-          .getEmployee(REQUEST.getEmployeeID())
-          .getFirstName();
+              .getEmployee(REQUEST.getEmployeeID())
+              .getFirstName()
+          + " "
+          + EmployeeManager.getEmployeeManager().getEmployee(REQUEST.getEmployeeID()).getLastName();
     } catch (SQLException e) {
       e.printStackTrace();
       return null;
