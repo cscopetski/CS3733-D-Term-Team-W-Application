@@ -11,8 +11,10 @@ import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -28,9 +30,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class MapEditorController extends LoadableController {
+
   @FXML public ScrollPane scrollPane;
   @FXML public Slider scaleSlider;
   @FXML public Group scrollGroup;
+  @FXML public ToggleButton panButton;
+  @FXML public ToggleButton modifyButton;
   @FXML private ImageView mapList;
   @FXML private MenuItem F1;
   @FXML private MenuItem F2;
@@ -74,6 +79,37 @@ public class MapEditorController extends LoadableController {
   private ArrayList<Requests> reqList = new ArrayList<>();
   private ArrayList<Floor> floorList = new ArrayList<>();
   private boolean loaded = false;
+
+  private enum InteractionStates {
+    None,
+    Pan,
+    Modify
+  }
+
+  private InteractionStates interactionState = InteractionStates.None;
+
+  @Override
+  public void initialize(URL location, ResourceBundle rb) {
+    super.initialize(location, rb);
+    ToggleGroup tg = new ToggleGroup();
+    panButton.setToggleGroup(tg);
+    modifyButton.setToggleGroup(tg);
+    tg.selectedToggleProperty()
+        .addListener(
+            (e, o, n) -> {
+              if (n == null) {
+                interactionState = InteractionStates.None;
+              } else if (n.equals(panButton)) {
+                interactionState = InteractionStates.Pan;
+                scrollPane.setPannable(true);
+              } else if (n.equals(modifyButton)) {
+                interactionState = InteractionStates.Modify;
+              }
+              if (o.equals(panButton)) {
+                scrollPane.setPannable(false);
+              }
+            });
+  }
 
   public void refreshDash() throws SQLException {
     floorList.clear();
@@ -393,15 +429,17 @@ public class MapEditorController extends LoadableController {
 
   public void addLocation2(javafx.scene.input.MouseEvent mouseEvent)
       throws IOException, SQLException {
-    Point p = new Point();
-    p.x = (int) mouseEvent.getX();
-    p.y = (int) mouseEvent.getY();
-    SceneManager.getInstance()
-        .putInformation(SceneManager.getInstance().getPrimaryStage(), "addLoc", p);
-    SceneManager.getInstance()
-        .putInformation(SceneManager.getInstance().getPrimaryStage(), "floor", currFloor);
-    Stage S = SceneManager.getInstance().openWindow("popUpViews/newLocationPage.fxml");
-    refresh();
+    if (interactionState == InteractionStates.Modify) {
+      Point p = new Point();
+      p.x = (int) mouseEvent.getX();
+      p.y = (int) mouseEvent.getY();
+      SceneManager.getInstance()
+          .putInformation(SceneManager.getInstance().getPrimaryStage(), "addLoc", p);
+      SceneManager.getInstance()
+          .putInformation(SceneManager.getInstance().getPrimaryStage(), "floor", currFloor);
+      Stage S = SceneManager.getInstance().openWindow("popUpViews/newLocationPage.fxml");
+      refresh();
+    }
   }
 
   public void swapFloor4(ActionEvent actionEvent) throws SQLException {
@@ -436,6 +474,7 @@ public class MapEditorController extends LoadableController {
     mapList.autosize();
     scrollGroup.autosize();
 
+    panButton.setSelected(true);
     scrollPane.setPannable(true);
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
