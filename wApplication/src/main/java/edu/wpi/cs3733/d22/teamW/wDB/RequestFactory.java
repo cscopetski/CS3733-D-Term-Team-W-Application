@@ -7,10 +7,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class RequestFactory {
 
@@ -91,7 +88,7 @@ public class RequestFactory {
     return request;
   }
 
-  public ArrayList<Request> getAllRequests() throws SQLException {
+  public Collection<? extends Request> getAllRequests() throws SQLException {
     ArrayList<Request> requests = new ArrayList<Request>();
     requests.addAll(mrm.getAllRequests());
     requests.addAll(merm.getAllRequests());

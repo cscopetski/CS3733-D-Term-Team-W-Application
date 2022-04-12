@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
@@ -37,6 +38,12 @@ public class RequestListController extends LoadableController {
                 moreInfo.setText("Error loading request details.");
               }
             });
+            
+    try {
+      rt.setItems(RequestFactory.getRequestFactory().getAllRequests());
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
