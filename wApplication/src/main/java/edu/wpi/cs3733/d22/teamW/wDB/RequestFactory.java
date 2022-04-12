@@ -27,7 +27,6 @@ public class RequestFactory {
   private static RequestFactory requestFactory = new RequestFactory();
 
   public static RequestFactory getRequestFactory() {
-
     return requestFactory;
   }
 
@@ -85,6 +84,8 @@ public class RequestFactory {
       case MedicineDelivery:
         request = mrm.getRequest(requestID);
         break;
+      case CleaningRequest:
+        request = crm.getRequest(requestID);
       default:
         request = null;
     }
