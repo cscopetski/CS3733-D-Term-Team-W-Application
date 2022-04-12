@@ -55,18 +55,21 @@ public class MedEquipManager {
   }
 
   public void markDirty(String medID, String type, String nodeID) throws SQLException {
-    medi.changeMedEquip(medID, type, nodeID, MedEquipStatus.Dirty);
-    ArrayList<String> fields = new ArrayList<>();
-    Employee employee =
-        EmployeeManager.getEmployeeManager().getEmployeeType(EmployeeType.Sanitation);
-    fields.add(medID);
-    fields.add(nodeID);
-    fields.add(String.format("%d", employee.getEmployeeID()));
-    fields.add(String.format("%d", 0));
-    fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
-    CleaningRequest cr =
-        (CleaningRequest)
-            RequestFactory.getRequestFactory().getRequest(RequestType.CleaningRequest, fields);
+    MedEquip me = medi.getMedEquip(medID);
+    if (!me.getStatus().equals(MedEquipStatus.Dirty)) {
+      medi.changeMedEquip(medID, type, nodeID, MedEquipStatus.Dirty);
+      ArrayList<String> fields = new ArrayList<>();
+      Employee employee =
+          EmployeeManager.getEmployeeManager().getEmployeeType(EmployeeType.Sanitation);
+      fields.add(medID);
+      fields.add(nodeID);
+      fields.add(String.format("%d", employee.getEmployeeID()));
+      fields.add(String.format("%d", 0));
+      fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
+      CleaningRequest cr =
+          (CleaningRequest)
+              RequestFactory.getRequestFactory().getRequest(RequestType.CleaningRequest, fields);
+    }
   }
 
   public void markDirty(String medID, String nodeID) throws SQLException {

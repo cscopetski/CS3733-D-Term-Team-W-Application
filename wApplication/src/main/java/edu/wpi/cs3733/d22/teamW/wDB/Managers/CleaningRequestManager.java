@@ -54,7 +54,7 @@ public class CleaningRequestManager {
   public CleaningRequest addRequest(Integer num, ArrayList<String> fields) throws SQLException {
     counter++;
     CleaningRequest mER;
-    if (fields.size() == 6) {
+    if (fields.size() == 5) {
       fields.add("0");
       fields.add(new Timestamp(System.currentTimeMillis()).toString());
       fields.add(new Timestamp(System.currentTimeMillis()).toString());
@@ -77,16 +77,12 @@ public class CleaningRequestManager {
       crd.addCleaningRequest(mER);
 
       if (automation.getAuto()) {
-        if (counter >= 6) {
-          start(mER.getRequestID());
-        }
+        checkStart();
       }
     } else {
       mER = null;
     }
-    if (automation.getAuto()) {
-      checkStart();
-    }
+
     return mER;
   }
   // TODO Ask Caleb how to get OR Bed PARK
@@ -120,6 +116,7 @@ public class CleaningRequestManager {
           RequestStatus.Completed);
       MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
       MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), nodeID);
+      MedEquipManager.getMedEquipManager().markClean(item);
       if (automation.getAuto()) {
         MedEquipRequestManager.getMedEquipRequestManager().startNext(item.getType());
       }
@@ -157,9 +154,11 @@ public class CleaningRequestManager {
   public void checkStart() throws SQLException {
     ArrayList<String> cleaningLocations = crd.getCleaningLocation();
     for (String location : cleaningLocations) {
+      System.out.println(location);
       ArrayList<Integer> requests = crd.CleaningRequestAtLocation(location);
       if (requests.size() >= 6) {
         for (Integer c : requests) {
+          System.out.println(c);
           start(c);
         }
       }

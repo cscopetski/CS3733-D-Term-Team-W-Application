@@ -44,7 +44,7 @@ public class Main {
     MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
 
     RequestFactory requestFactory = RequestFactory.getRequestFactory();
-
+    MedEquipManager mem = MedEquipManager.getMedEquipManager();
     ArrayList<String> fields = new ArrayList<>();
 
     fields.add("XRY");
@@ -221,7 +221,14 @@ public class Main {
 
     */
     edi.exportEmpCSV("Employees.csv");
-
+    MedEquipManager.getMedEquipManager().markDirty("BED012", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED013", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED014", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED015", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED016", "wSTOR0033");
+    merc.complete(5);
+    mem.markDirty("XRY001", "wSTOR0033");
+    CleaningRequestManager.getCleaningRequestManager().complete(26, "wSTOR0013");
     // DBConnectionMode.INSTANCE.setServerConnection();
     /*DBController.getDBController().closeConnection();
 

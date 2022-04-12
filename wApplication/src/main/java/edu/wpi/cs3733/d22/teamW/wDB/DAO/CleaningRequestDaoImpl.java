@@ -62,7 +62,7 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
               String.format("SELECT * FROM CLEANINGREQUESTS WHERE REQID = %d", requestID));
 
       // Size of num LabServiceRequest fields
-      int size = 6;
+      int size = 8;
       ArrayList<String> cleanRequestData = new ArrayList<String>();
 
       while (cleanRequests.next()) {
