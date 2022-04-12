@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-
 import java.sql.SQLException;
 
 public class MealDeliverySR extends SR {
