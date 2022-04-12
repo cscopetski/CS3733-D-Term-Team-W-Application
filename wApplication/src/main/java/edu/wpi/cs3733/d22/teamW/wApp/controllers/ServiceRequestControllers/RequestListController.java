@@ -30,7 +30,12 @@ public class RequestListController extends LoadableController {
         .addListener(
             (obs, oldSelection, newSelection) -> {
               SR request = rt.getSelection();
-              moreInfo.setText(request.getFormattedInfo());
+              try {
+                moreInfo.setText(request.getFormattedInfo());
+              } catch (SQLException e) {
+                e.printStackTrace();
+                moreInfo.setText("Error loading request details.");
+              }
             });
   }
 

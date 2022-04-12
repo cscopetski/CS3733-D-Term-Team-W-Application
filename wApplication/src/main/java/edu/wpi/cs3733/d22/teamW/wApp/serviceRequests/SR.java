@@ -40,5 +40,5 @@ public abstract class SR {
   public abstract String getRequestType();
 
   // returns a String for the More Info section of the RequestList page
-  public abstract String getFormattedInfo();
+  public abstract String getFormattedInfo() throws SQLException;
 }
