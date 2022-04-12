@@ -68,7 +68,7 @@ public class MedEquipRequestManager implements RequestManager {
         MedEquip medEquip = MedEquipManager.getMedEquipManager().getNextFree(request.getItemType());
         if (medEquip != null) {
           // If available, we mark it in use and set the request to in progress
-          MedEquipManager.getMedEquipManager().markInUse(medEquip);
+          MedEquipManager.getMedEquipManager().markInUse(medEquip.getMedID(), medEquip.getNodeID());
           request.setStatus(RequestStatus.InProgress);
           merd.changeMedEquipRequest(
               request.getRequestID(),
@@ -98,7 +98,7 @@ public class MedEquipRequestManager implements RequestManager {
                 .findRequest(requestID, RequestType.MedicalEquipmentRequest);
     // Can only complete requests that are started
     if (request.getStatus().equals(RequestStatus.InProgress)) {
-      MedEquipManager.getMedEquipManager().moveTo(request.getItemID(), request.getNodeID());
+      MedEquipManager.getMedEquipManager().markInUse(request.getItemID(), request.getNodeID());
       request.setStatus(RequestStatus.Completed);
       merd.changeMedEquipRequest(
           request.getRequestID(),
@@ -122,7 +122,7 @@ public class MedEquipRequestManager implements RequestManager {
     if (!request.getStatus().equals(RequestStatus.Completed)) {
       if (request.getStatus() == RequestStatus.InProgress) {
         MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(request.getItemID());
-        MedEquipManager.getMedEquipManager().markClean(item);
+        MedEquipManager.getMedEquipManager().markClean(item.getMedID(), item.getNodeID());
         if (automation.getAuto()) {
           startNext(request.getItemType());
         }
