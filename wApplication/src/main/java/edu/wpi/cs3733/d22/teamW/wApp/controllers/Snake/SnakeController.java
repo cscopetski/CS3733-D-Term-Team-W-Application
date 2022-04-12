@@ -157,9 +157,11 @@ public class SnakeController extends LoadableController {
     if (xPos <= Min || xPos > Max || yPos <= Min || yPos > Max) {
       System.out.println("Game_over");
       loss.setVisible(true);
+      loss.toFront();
       return true;
     } else if (snakeHitItSelf()) {
       loss.setVisible(true);
+      loss.toFront();
       return true;
     }
     return false;
