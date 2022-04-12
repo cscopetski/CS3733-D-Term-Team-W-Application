@@ -43,6 +43,7 @@ public class MapEditorController extends LoadableController {
   @FXML private TableView<edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location> LocTab;
   @FXML private TableView<medEquip> EqTab;
   @FXML private TableView<Floor> FloorTab;
+  @FXML private TableView<medEquip> EqDashTab;
   @FXML private FileChooser fileChooser = new FileChooser();
   Image img1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F1.png");
   Image img2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F2.png");
@@ -76,6 +77,8 @@ public class MapEditorController extends LoadableController {
 
   public void refreshDash() throws SQLException {
     floorList.clear();
+    equipList.clear();
+    EqDashTab.setVisible(true);
     EqTab.setVisible(false);
     LocTab.setVisible(false);
     FloorTab.setVisible(true);
@@ -95,24 +98,66 @@ public class MapEditorController extends LoadableController {
           switch (locList.get(i).getFloor()) {
             case "01":
               switchCase(eqList.get(j).getType(), F1);
+              equipList.add(
+                  new medEquip(
+                      eqList.get(j).getMedID(),
+                      "01",
+                      locList.get(i).getNodeType(),
+                      eqList.get(j).getStatus().getString()));
               break;
             case "02":
               switchCase(eqList.get(j).getType(), F2);
+              equipList.add(
+                  new medEquip(
+                      eqList.get(j).getMedID(),
+                      "02",
+                      locList.get(i).getNodeType(),
+                      eqList.get(j).getStatus().getString()));
               break;
             case "03":
               switchCase(eqList.get(j).getType(), F3);
+              equipList.add(
+                  new medEquip(
+                      eqList.get(j).getMedID(),
+                      "03",
+                      locList.get(i).getNodeType(),
+                      eqList.get(j).getStatus().getString()));
               break;
             case "04":
               switchCase(eqList.get(j).getType(), F4);
+              equipList.add(
+                  new medEquip(
+                      eqList.get(j).getMedID(),
+                      "04",
+                      locList.get(i).getNodeType(),
+                      eqList.get(j).getStatus().getString()));
               break;
             case "05":
               switchCase(eqList.get(j).getType(), F5);
+              equipList.add(
+                  new medEquip(
+                      eqList.get(j).getMedID(),
+                      "05",
+                      locList.get(i).getNodeType(),
+                      eqList.get(j).getStatus().getString()));
               break;
             case "L1":
               switchCase(eqList.get(j).getType(), L1);
+              equipList.add(
+                  new medEquip(
+                      eqList.get(j).getMedID(),
+                      "L1",
+                      locList.get(i).getNodeType(),
+                      eqList.get(j).getStatus().getString()));
               break;
             case "L2":
               switchCase(eqList.get(j).getType(), L2);
+              equipList.add(
+                  new medEquip(
+                      eqList.get(j).getMedID(),
+                      "L2",
+                      locList.get(i).getNodeType(),
+                      eqList.get(j).getStatus().getString()));
               break;
           }
         }
@@ -125,6 +170,8 @@ public class MapEditorController extends LoadableController {
     floorList.add(F5);
     floorList.add(L1);
     floorList.add(L2);
+    EqDashTab.getItems().clear();
+    EqDashTab.getItems().addAll(equipList);
     FloorTab.getItems().clear();
     FloorTab.getItems().addAll(floorList);
   }
@@ -147,6 +194,10 @@ public class MapEditorController extends LoadableController {
   }
 
   public void refresh() throws SQLException {
+    if (currFloor == "0") {
+      refreshDash();
+      return;
+    }
     removeMarkers();
     currFloorLoc.clear();
     currFloorNodeID.clear();
@@ -169,6 +220,7 @@ public class MapEditorController extends LoadableController {
     EqTab.getSelectionModel().clearSelection();
     LocTab.setVisible(true);
     EqTab.setVisible(true);
+    EqDashTab.setVisible(false);
     FloorTab.setVisible(false);
   }
 

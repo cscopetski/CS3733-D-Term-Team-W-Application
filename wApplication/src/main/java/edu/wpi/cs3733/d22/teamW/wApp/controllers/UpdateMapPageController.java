@@ -34,6 +34,7 @@ public class UpdateMapPageController implements Initializable {
   @FXML private TextField buildingField;
   @FXML private TableView<medEquip> EqTab;
   @FXML private TableView<Requests> ReqTab;
+  @FXML private TableView<medEquip> EqDashTab;
   private ArrayList<medEquip> equipList = new ArrayList<>();
   private ArrayList<Requests> reqList = new ArrayList<>();
   @FXML private Alert confirmChoice = new Alert(Alert.AlertType.CONFIRMATION);

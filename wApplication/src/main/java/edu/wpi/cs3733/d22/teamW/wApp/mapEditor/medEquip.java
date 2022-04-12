@@ -10,12 +10,21 @@ public class medEquip {
   private SimpleIntegerProperty YCoord = new SimpleIntegerProperty();
   private SimpleStringProperty Type = new SimpleStringProperty();
   private SimpleStringProperty Status = new SimpleStringProperty();
+  private SimpleStringProperty Floor = new SimpleStringProperty();
+  private SimpleStringProperty LocType = new SimpleStringProperty();
 
   public medEquip(String ID, String type, Integer X, Integer Y) {
     MedID.set(ID);
     Type.set(type);
     XCoord.set(X);
     YCoord.set(Y);
+  }
+
+  public medEquip(String ID, String Floor, String LocType, String Status) {
+    this.MedID.set(ID);
+    this.Floor.set(Floor);
+    this.LocType.set(LocType);
+    this.Status.set(Status);
   }
 
   public medEquip(String ID, String type, MedEquipStatus status) {
@@ -42,5 +51,21 @@ public class medEquip {
 
   public String getStatus() {
     return Status.get();
+  }
+
+  public String getLocType() {
+    return LocType.get();
+  }
+
+  public SimpleStringProperty locTypeProperty() {
+    return LocType;
+  }
+
+  public void setLocType(String locType) {
+    this.LocType.set(locType);
+  }
+
+  public String getFloor() {
+    return Floor.get();
   }
 }

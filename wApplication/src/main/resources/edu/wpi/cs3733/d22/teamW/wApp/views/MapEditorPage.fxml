@@ -97,7 +97,24 @@
    <left>
       <Pane prefHeight="575.0" prefWidth="402.0" BorderPane.alignment="CENTER">
          <children>
-             <TableView fx:id="FloorTab" layoutX="14.0" layoutY="382.0" prefHeight="176.0" prefWidth="277.0" stylesheets="@../CSS/UniversalCSS/Standard.css" visible="false">
+            <TableView fx:id="EqDashTab" layoutX="15.0" layoutY="254.0" prefHeight="185.0" prefWidth="301.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
+              <columns>
+                <TableColumn prefWidth="86.66667938232422" text="ID">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="MedID" />
+                    </cellValueFactory> </TableColumn>
+                  <TableColumn prefWidth="48.0" text="Floor">                     <cellValueFactory>
+                      <PropertyValueFactory property="Floor" />
+                  </cellValueFactory> </TableColumn>
+                  <TableColumn prefWidth="76.66671752929688" text="LocType">                     <cellValueFactory>
+                      <PropertyValueFactory property="LocType" />
+                  </cellValueFactory> </TableColumn>
+                  <TableColumn prefWidth="86.99998474121094" text="Status">                     <cellValueFactory>
+                      <PropertyValueFactory property="Status" />
+                  </cellValueFactory> </TableColumn>
+              </columns>
+            </TableView>
+             <TableView fx:id="FloorTab" layoutX="20.0" layoutY="68.0" prefHeight="113.0" prefWidth="294.0" stylesheets="@../CSS/UniversalCSS/Standard.css" visible="false">
                  <columns>
                      <TableColumn prefWidth="50.0" text="Floor">
                      <cellValueFactory>
@@ -144,7 +161,7 @@
                   </items>
               </TableView>
               <Button fx:id="refreshButton" layoutX="247.0" layoutY="31.0" mnemonicParsing="false" onAction="#refresh" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Refresh" />
-              <TableView fx:id="EqTab" layoutX="15.0" layoutY="254.0" prefHeight="128.0" prefWidth="301.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
+              <TableView fx:id="EqTab" layoutX="15.0" layoutY="254.0" prefHeight="185.0" prefWidth="301.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
                   <columns>
                       <TableColumn prefWidth="62.666648864746094" text="Type">
                           <cellValueFactory>
