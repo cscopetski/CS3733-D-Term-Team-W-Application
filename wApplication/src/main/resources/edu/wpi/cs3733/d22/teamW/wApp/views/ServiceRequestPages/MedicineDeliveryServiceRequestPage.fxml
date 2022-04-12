@@ -133,7 +133,7 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="130.0">
                            <children>
-                              <Label style="-fx-font-weight: bold;" text="Requester Name:">
+                              <Label style="-fx-font-weight: bold;" text="Requester ID:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -145,8 +145,8 @@
                               </ComboBox>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Button fx:id="addButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Add" />
-                                    <Pane prefHeight="70.0" prefWidth="30.0" />
+<!--                                    <Button fx:id="addButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Add" />-->
+<!--                                    <Pane prefHeight="70.0" prefWidth="30.0" />-->
                                     <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#clearFields" prefHeight="27.0" prefWidth="76.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Cancel" />
                                     <Pane prefHeight="70.0" prefWidth="15.0" />
                                  </children>

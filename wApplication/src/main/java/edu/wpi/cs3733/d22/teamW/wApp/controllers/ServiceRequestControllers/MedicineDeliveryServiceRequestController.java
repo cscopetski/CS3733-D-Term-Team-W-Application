@@ -3,8 +3,10 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
@@ -37,22 +39,15 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
   // Tables:
   @FXML private TableView<MedicalEquipmentSR> table;
-
-  // other stuff:
   private ArrayList<MedicalEquipmentSR> sr = new ArrayList<>();
-  private Control[] fields =
-      new Control[] {quantityField, itemCodeField, medNameCBox, locationCBox, requesterCBox};
-  private ServiceRequestHelper helper = new ServiceRequestHelper(fields);
 
-  // Getting Employee IDs from DB:
-  private ArrayList<Integer> ids = new ArrayList<Integer>();
-
+  // Helper Fcn stuff -> NOT WORKING RIGHT NOW:
+  // private Control[] fields = new Control[] {quantityField, itemCodeField, medNameCBox,
+  // locationCBox, requesterCBox};
+  // private ServiceRequestHelper helper = new ServiceRequestHelper(fields);
 
   // ComboBox Lists:
   ObservableList<String> meds = FXCollections.observableArrayList("Advil", "Tylenol");
-  ObservableList<String> locations =
-      FXCollections.observableArrayList("<Will be implemented from DB>");
-  ObservableList<Integer> names = FXCollections.observableArrayList(ids);
   ObservableList<String> times =
       FXCollections.observableArrayList(
           "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00",
@@ -67,20 +62,32 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     return SceneManager.Scenes.MedicineDelivery;
   }
 
-  private ArrayList<Control> populateFields() {
-    ArrayList<Control> fields = new ArrayList<>();
-
-    fields.add(quantityField);
-    fields.add(itemCodeField);
-    fields.add(medNameCBox);
-    fields.add(locationCBox);
-    fields.add(timePrefCBox);
-    fields.add(requesterCBox);
-
-    return fields;
+  public void onLoad() {
+    // populateTable();
+    medNameCBox.setItems(meds);
+    locationCBox.setItems(FXCollections.observableArrayList(getLocations()));
+    timePrefCBox.setItems(times);
+    requesterCBox.setItems(FXCollections.observableArrayList(getEmployeeIDs()));
   }
 
-  public void clearFields() {
+  public void onUnload() {
+    clearFields();
+  }
+
+  public void submitButton() throws SQLException {
+    createRequest();
+    clearFields();
+  }
+
+  // NO LONGER WORK, NOT SURE WHY NGL
+  public void createRequest() {
+    // pushDataToDB();
+    if (fieldsFull()) {
+      populateTable();
+    }
+  }
+
+  public void clearFields() { // no specific cancelButton function as this method is all it does
     quantityField.clear();
     itemCodeField.clear();
     medNameCBox.getSelectionModel().clearSelection();
@@ -89,23 +96,60 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     requesterCBox.getSelectionModel().clearSelection();
   }
 
-  public void onLoad() {
-    // populateTable();
-    populateEmployeeIDs();
-    medNameCBox.setItems(meds);
-    locationCBox.setItems(locations);
-    timePrefCBox.setItems(times);
-    requesterCBox.setItems(names);
+  // -------------------------RETRIEVAL FROM DB METHODS------------------------------
 
-    System.out.println(names.isEmpty());
+  private ArrayList<Integer> getEmployeeIDs() {
+    ArrayList<Integer> ids = new ArrayList<>();
+    ArrayList<Employee> employees = null;
+    try {
+      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
+    } catch (SQLException e) {
+      System.out.println("Failed to unearth employees from database");
+      e.printStackTrace();
+    }
+    for (Employee e : employees) {
+      ids.add(e.getEmployeeID());
+    }
+    return ids;
   }
 
-  public void onUnload() {
-    clearFields();
+  private ArrayList<String> getLocations() {
+    ArrayList<String> locations = new ArrayList<>();
+    ArrayList<Location> locationsRaw = null;
+    try {
+      locationsRaw = LocationManager.getLocationManager().getAllLocations();
+    } catch (SQLException e) {
+      System.out.println("Failed to unearth locations from database");
+      e.printStackTrace();
+    }
+    for (Location l : locationsRaw) {
+      locations.add(l.getLongName());
+    }
+    return locations;
   }
 
-  private void populateTable() throws SQLException {
-    ArrayList<Request> requests = RequestFactory.getRequestFactory().getAllRequests();
+  // ---------------------------------------------------------------------------
+
+  //  !!!!NOT SURE IF IN CORRECT ORDER FOR DB!!!!
+  private void pushDataToDB() throws SQLException {
+    ArrayList<String> fields = new ArrayList<>();
+    fields.add(quantityField.getText());
+    fields.add(itemCodeField.getText());
+    fields.add(medNameCBox.getSelectionModel().getSelectedItem().toString());
+    fields.add(locationCBox.getSelectionModel().getSelectedItem().toString());
+    fields.add(timePrefCBox.getSelectionModel().getSelectedItem().toString());
+    fields.add(requesterCBox.getSelectionModel().getSelectedItem().toString());
+    RequestFactory.getRequestFactory().getRequest(RequestType.MedicineDelivery, fields);
+  }
+
+  private void populateTable() {
+    ArrayList<Request> requests = null;
+    try {
+      requests = RequestFactory.getRequestFactory().getAllRequests();
+    } catch (SQLException e) {
+      System.out.println("Failed to unearth request form database");
+      e.printStackTrace();
+    }
     for (int i = 0; i < requests.size(); i++) {
       Request r = requests.get(i);
       if (MedEquipRequest.class.equals(r.getClass())) {
@@ -118,39 +162,15 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     table.getItems().addAll(sr);
   }
 
-  private void populateEmployeeIDs() {
-    ArrayList<Employee> employees = null;
-    try {
-      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
-    } catch (SQLException e) {
-      System.out.println("Failed to get all employees from the database");
-      e.printStackTrace();
-    }
-    for (Employee e : employees) {
-      ids.add(e.getEmployeeID());
-    }
-  }
+  //TRUE: if
+  private boolean fieldsFull() {
+    boolean result = !(quantityField.getText().isEmpty()
+            && itemCodeField.getText().isEmpty()
+            && locationCBox.getSelectionModel().isEmpty()
+            && timePrefCBox.getSelectionModel().isEmpty()
+            && requesterCBox.getSelectionModel().isEmpty());
 
-  private void pushDataToDB() throws SQLException {
-    ArrayList<String> fields = new ArrayList<>();
-    fields.add(quantityField.getText());
-    fields.add(itemCodeField.getText());
-    fields.add(medNameCBox.getSelectionModel().getSelectedItem().toString());
-    fields.add(locationCBox.getSelectionModel().getSelectedItem().toString());
-    fields.add(timePrefCBox.getSelectionModel().getSelectedItem().toString());
-    fields.add(requesterCBox.getSelectionModel().getSelectedItem().toString());
-    RequestFactory.getRequestFactory().getRequest(RequestType.MedicineDelivery, fields);
-  }
-
-  // NO LONGER WORK, NOT SURE WHY NGL
-  public void createRequest() throws SQLException {
-    // pushDataToDB();
-    // populateTable();
-  }
-
-  public void submitButton() throws SQLException {
-    createRequest();
-    clearFields();
+    return result;
   }
 
   public void emergencyClicked(MouseEvent mouseEvent) {
