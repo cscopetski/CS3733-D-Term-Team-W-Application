@@ -8,6 +8,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.awt.*;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -22,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -151,7 +153,10 @@ public class MapEditorController extends LoadableController {
   private void generateMarkers() {
     size = currFloorLoc.size();
     for (int i = 0; i < size; i++) {
-      Circle circ = new Circle(5, Color.RED);
+      Circle circ = new Circle(10, Color.RED);
+      Image bedIcon = new Image("icon_Location.png");
+      ImagePattern bedPattern = new ImagePattern(bedIcon);
+      circ.setFill(bedPattern);
       circ.setCenterX((currFloorLoc.get(i).getXCoord() * 2.0 / 3.0));
       circ.setCenterY((currFloorLoc.get(i).getYCoord() * 2.0 / 3.0));
 
@@ -197,7 +202,10 @@ public class MapEditorController extends LoadableController {
     for (int i = 0; i < equipList.size(); i++) {
       Circle circle = new Circle(3, Color.BLACK);
       if (equipList.get(i).getType().equalsIgnoreCase("BED")) {
+        // Image bedIcon = new Image("icon_Bed.png");
+        // ImagePattern bedPattern = new ImagePattern(bedIcon, 20, 20, 40, 40, false);
         circle = new Circle(3, Color.BLUE);
+        // circle.setFill(bedPattern);
       } else if (equipList.get(i).getType().equalsIgnoreCase("XRY")) {
         circle = new Circle(3, Color.GREEN);
       } else if (equipList.get(i).getType().equalsIgnoreCase("INP")) {
