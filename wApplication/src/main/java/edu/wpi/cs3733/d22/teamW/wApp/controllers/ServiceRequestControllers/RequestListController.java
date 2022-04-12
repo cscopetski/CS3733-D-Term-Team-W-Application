@@ -7,9 +7,11 @@ import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.TextArea;
 
 public class RequestListController extends LoadableController {
   @FXML public RequestTable rt;
+  @FXML public TextArea moreInfo;
 
   @Override
   protected SceneManager.Scenes GetSceneType() {
@@ -21,6 +23,15 @@ public class RequestListController extends LoadableController {
     rt.setColumnWidth("Employee ID", 100);
     rt.setColumnWidth("Status", 100);
     rt.setEditable(false);
+    moreInfo.setText("Select a request to view details.");
+
+    rt.getSelectionModel()
+        .selectedItemProperty()
+        .addListener(
+            (obs, oldSelection, newSelection) -> {
+              SR request = rt.getSelection();
+              moreInfo.setText(request.getFormattedInfo());
+            });
   }
 
   @Override
