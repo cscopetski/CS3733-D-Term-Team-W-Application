@@ -18,7 +18,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="663.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
+<BorderPane fx:id="page" prefHeight="663.0" prefWidth="1000.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
    <center>
       <Group BorderPane.alignment="CENTER">
          <children>
@@ -27,7 +27,7 @@
                        <Group>
                            <Group fx:id="scrollGroup">
                                <ImageView fx:id="mapList" fitHeight="862.0" fitWidth="665.0" layoutX="-81.0" onMouseClicked="#addLocation2" preserveRatio="true">
-                                   <Image url="@../assets/Maps/SideView.jpg" />
+                                   <Image url="@../assets/Maps/SideView.png" />
                                </ImageView>
                            </Group>
                        </Group>
@@ -97,6 +97,30 @@
    <left>
       <Pane prefHeight="575.0" prefWidth="402.0" BorderPane.alignment="CENTER">
          <children>
+             <TableView fx:id="FloorTab" layoutX="14.0" layoutY="382.0" prefHeight="176.0" prefWidth="277.0" stylesheets="@../CSS/UniversalCSS/Standard.css" visible="false">
+                 <columns>
+                     <TableColumn prefWidth="50.0" text="Floor">
+                     <cellValueFactory>
+                         <PropertyValueFactory property="Floor" />
+                     </cellValueFactory> </TableColumn>
+                     <TableColumn prefWidth="53.0" text="Beds">
+                         <cellValueFactory>
+                             <PropertyValueFactory property="BedCount" />
+                         </cellValueFactory> </TableColumn>
+                     <TableColumn prefWidth="55.0" text="XRAY">
+                         <cellValueFactory>
+                             <PropertyValueFactory property="XrayCount" />
+                         </cellValueFactory> </TableColumn>
+                     <TableColumn prefWidth="46.0" text="Pumps">
+                         <cellValueFactory>
+                             <PropertyValueFactory property="PumpCount" />
+                         </cellValueFactory> </TableColumn>
+                     <TableColumn prefWidth="72.0" text="Reclin">
+                         <cellValueFactory>
+                         <PropertyValueFactory property="ReclinCount" />
+                     </cellValueFactory> </TableColumn>
+                 </columns>
+             </TableView>
               <TableView fx:id="LocTab" layoutX="20.0" layoutY="68.0" prefHeight="113.0" prefWidth="294.0" style="-fx-text-fill: white;" stylesheets="@../CSS/UniversalCSS/Standard.css">
                   <columns>
                       <TableColumn prefWidth="89.0" text="nodeID">
@@ -145,12 +169,6 @@
                   </columns>
               </TableView>
               <Label alignment="CENTER_RIGHT" layoutY="208.0" prefHeight="38.0" prefWidth="123.0" style="-fx-background-color: #189DA6;" text="Equipment  " textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-
-            <Label alignment="CENTER_RIGHT" layoutY="445.0" prefHeight="38.0" prefWidth="123.0" style="-fx-background-color: #189DA6;" text="Edit on map  " textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

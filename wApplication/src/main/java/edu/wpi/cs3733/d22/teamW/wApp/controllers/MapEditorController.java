@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Floor;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Requests;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
@@ -20,7 +21,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
@@ -38,16 +39,17 @@ public class MapEditorController extends LoadableController {
   @FXML private MenuItem FL2;
   @FXML private MenuItem Side;
   @FXML private MenuButton dropdown;
-  @FXML private AnchorPane page;
+  @FXML private BorderPane page;
   @FXML private TableView<edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location> LocTab;
   @FXML private TableView<medEquip> EqTab;
+  @FXML private TableView<Floor> FloorTab;
   @FXML private FileChooser fileChooser = new FileChooser();
   Image img1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F1.png");
   Image img2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F2.png");
   Image img3 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F3.png");
   Image imgL1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/L1.png");
   Image imgL2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/L2.png");
-  Image img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/SideView.jpg");
+  Image img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/SideView.png");
   Image img4 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F4.png");
   Image img5 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F5.png");
   ArrayList<Circle> locDots = new ArrayList<>();
@@ -69,7 +71,80 @@ public class MapEditorController extends LoadableController {
   private ArrayList<String> currFloorNodeID = new ArrayList<>();
   private ArrayList<medEquip> equipList = new ArrayList<>();
   private ArrayList<Requests> reqList = new ArrayList<>();
+  private ArrayList<Floor> floorList = new ArrayList<>();
   private boolean loaded = false;
+
+  public void refreshDash() throws SQLException {
+    floorList.clear();
+    EqTab.setVisible(false);
+    LocTab.setVisible(false);
+    FloorTab.setVisible(true);
+    ArrayList<edu.wpi.cs3733.d22.teamW.wDB.entity.Location> locList =
+        locationManager.getAllLocations();
+    ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
+    Floor F1 = new Floor("01");
+    Floor F2 = new Floor("02");
+    Floor F3 = new Floor("03");
+    Floor F4 = new Floor("04");
+    Floor F5 = new Floor("05");
+    Floor L1 = new Floor("L1");
+    Floor L2 = new Floor("L2");
+    for (int i = 0; i < locList.size(); i++) {
+      for (int j = 0; j < eqList.size(); j++) {
+        if (eqList.get(j).getNodeID().equalsIgnoreCase(locList.get(i).getNodeID())) {
+          switch (locList.get(i).getFloor()) {
+            case "01":
+              switchCase(eqList.get(j).getType(), F1);
+              break;
+            case "02":
+              switchCase(eqList.get(j).getType(), F2);
+              break;
+            case "03":
+              switchCase(eqList.get(j).getType(), F3);
+              break;
+            case "04":
+              switchCase(eqList.get(j).getType(), F4);
+              break;
+            case "05":
+              switchCase(eqList.get(j).getType(), F5);
+              break;
+            case "L1":
+              switchCase(eqList.get(j).getType(), L1);
+              break;
+            case "L2":
+              switchCase(eqList.get(j).getType(), L2);
+              break;
+          }
+        }
+      }
+    }
+    floorList.add(F1);
+    floorList.add(F2);
+    floorList.add(F3);
+    floorList.add(F4);
+    floorList.add(F5);
+    floorList.add(L1);
+    floorList.add(L2);
+    FloorTab.getItems().clear();
+    FloorTab.getItems().addAll(floorList);
+  }
+
+  private void switchCase(String eqType, Floor floor) {
+    switch (eqType) {
+      case "BED":
+        floor.setBedCount(floor.getBedCount() + 1);
+        break;
+      case "XRY":
+        floor.setXrayCount(floor.getXrayCount() + 1);
+        break;
+      case "INP":
+        floor.setPumpCount(floor.getPumpCount() + 1);
+        break;
+      case "REC":
+        floor.setReclinCount(floor.getReclinCount() + 1);
+        break;
+    }
+  }
 
   public void refresh() throws SQLException {
     removeMarkers();
@@ -92,6 +167,9 @@ public class MapEditorController extends LoadableController {
     generateRequestDots();
     LocTab.getSelectionModel().clearSelection();
     EqTab.getSelectionModel().clearSelection();
+    LocTab.setVisible(true);
+    EqTab.setVisible(true);
+    FloorTab.setVisible(false);
   }
 
   public void swapFloor1(ActionEvent actionEvent) throws SQLException {
@@ -142,7 +220,8 @@ public class MapEditorController extends LoadableController {
   public void swapSideView(ActionEvent actionEvent) throws SQLException {
     removeMarkers();
     currFloor = "0";
-    refresh();
+    // refresh();
+    refreshDash();
     System.out.println(Side.getText());
     dropdown.setText("Side View");
     mapList.setImage(img);
@@ -152,8 +231,8 @@ public class MapEditorController extends LoadableController {
     size = currFloorLoc.size();
     for (int i = 0; i < size; i++) {
       Circle circ = new Circle(5, Color.RED);
-      circ.setCenterX((currFloorLoc.get(i).getXCoord() * 2.0 / 3.0));
-      circ.setCenterY((currFloorLoc.get(i).getYCoord() * 2.0 / 3.0));
+      circ.setCenterX((currFloorLoc.get(i).getXCoord() * 0.665));
+      circ.setCenterY((currFloorLoc.get(i).getYCoord() * 0.862));
 
       circ.setOnMouseClicked(
           (event -> {
@@ -205,8 +284,8 @@ public class MapEditorController extends LoadableController {
       } else if (equipList.get(i).getType().equalsIgnoreCase("REC")) {
         circle = new Circle(3, Color.YELLOW);
       }
-      circle.setCenterX((equipList.get(i).getXCoord() * 2.0 / 3.0) - 1);
-      circle.setCenterY((equipList.get(i).getYCoord() * 2.0 / 3.0) - 1);
+      circle.setCenterX((equipList.get(i).getXCoord() * 0.665) - 1);
+      circle.setCenterY((equipList.get(i).getYCoord() * 0.862) - 41);
       eqDots.add(circle);
       scrollGroup.getChildren().add(circle);
     }
@@ -308,6 +387,11 @@ public class MapEditorController extends LoadableController {
     scrollPane.setPannable(true);
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+    try {
+      refreshDash();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -367,8 +451,8 @@ public class MapEditorController extends LoadableController {
     size = reqList.size();
     for (int i = 0; i < size; i++) {
       Circle circ = new Circle(3, Color.BLACK);
-      circ.setCenterX((reqList.get(i).getXcoord() * 2.0 / 3.0) - 1);
-      circ.setCenterY((reqList.get(i).getYcoord() * 2.0 / 3.0) - 1);
+      circ.setCenterX((reqList.get(i).getXcoord() * 0.665) - 1);
+      circ.setCenterY((reqList.get(i).getYcoord() * 0.862) - 41);
       reqDots.add(circ);
       scrollGroup.getChildren().add(circ);
     }
