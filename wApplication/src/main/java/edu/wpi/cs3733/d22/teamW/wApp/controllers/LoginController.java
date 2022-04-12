@@ -46,11 +46,6 @@ public class LoginController extends LoadableController {
     super.initialize(location, rb);
     switchServer.getItems().addAll(servers);
     switchServer.setValue("Embedded"); // No null server at first
-    try {
-      updateSwitchingServer();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
   }
 
   Alert emptyFields =
@@ -103,6 +98,7 @@ public class LoginController extends LoadableController {
     login();
   }
 
+  @FXML
   private void updateSwitchingServer() throws SQLException {
 
     CSVController csvController =
@@ -114,7 +110,7 @@ public class LoginController extends LoadableController {
             employeesFileName,
             medRequestFileName);
 
-    System.out.println("CLIENT CONNECTION ");
+    System.out.println("SWAP CONNECTION ");
 
     if (switchServer.getValue().equals("Embedded")) {
       DBConnectionMode.INSTANCE.setEmbeddedConnection();
