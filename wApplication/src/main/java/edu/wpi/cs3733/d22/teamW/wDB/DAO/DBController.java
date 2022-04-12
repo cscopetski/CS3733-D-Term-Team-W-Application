@@ -32,10 +32,14 @@ public class DBController {
   }
 
   private DBController() {
-    startConnection();
+    try {
+      startConnection();
+    } catch (SQLException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
   }
 
-  public void startConnection() {
+  public void startConnection() throws SQLException, ClassNotFoundException {
     RequestFactory.getRequestFactory().resetTreeSet();
     String connectionStringEmbedded = String.format("jdbc:derby:%s;create=true", this.dbName);
     String connectionStringServer =
@@ -78,10 +82,11 @@ public class DBController {
       ((CleaningRequestDaoImpl) cleaningRequestDao).createTable();
 
     } catch (SQLException e) {
-      e.printStackTrace();
       System.out.println("Table Creation Failed");
+      throw (e);
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
+      throw (e);
     }
   }
 

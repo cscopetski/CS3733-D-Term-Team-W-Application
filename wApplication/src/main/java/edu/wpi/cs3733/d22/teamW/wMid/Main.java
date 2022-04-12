@@ -221,10 +221,13 @@ public class Main {
 
     */
     edi.exportEmpCSV("Employees.csv");
-    /*
+
     DBConnectionMode.INSTANCE.setServerConnection();
     DBController.getDBController().closeConnection();
-    DBController.getDBController().startConnection();
-     */
+    try {
+      DBController.getDBController().startConnection();
+    } catch (SQLException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
   }
 }
