@@ -92,27 +92,6 @@ public class SnakeController extends LoadableController {
     anchorPane.getChildren().addAll(snakeHead, snakeTail);
   }
 
-  public void initialize() {
-    timeline =
-        new Timeline(
-            new KeyFrame(
-                Duration.seconds(0.2),
-                e -> {
-                  positions.add(new Position(snakeHead.getX() + xPos, snakeHead.getY() + yPos));
-                  moveSnakeHead(snakeHead);
-                  for (int i = 1; i < snakeBody.size(); i++) {
-                    moveSnakeTail(snakeBody.get(i), i);
-                  }
-                  canChangeDirection = true;
-                  eatFood();
-                  gameTicks++;
-                  if (checkIfGameIsOver(snakeHead)) {
-                    timeline.stop();
-                  }
-                }));
-    food = new Food(-50, -50, anchorPane, snakeSize);
-  }
-
   // Change position with key pressed
   @FXML
   void moveSquareKeyPressed(KeyEvent event) {
@@ -236,7 +215,24 @@ public class SnakeController extends LoadableController {
     gameBorder.setLayoutY(center);
     gameBorder.setPrefWidth(borderSize);
     gameBorder.setPrefHeight(borderSize);
-    initialize();
+    food = new Food(-50, -50, anchorPane, snakeSize);
+    timeline =
+        new Timeline(
+            new KeyFrame(
+                Duration.seconds(0.2),
+                e -> {
+                  positions.add(new Position(snakeHead.getX() + xPos, snakeHead.getY() + yPos));
+                  moveSnakeHead(snakeHead);
+                  for (int i = 1; i < snakeBody.size(); i++) {
+                    moveSnakeTail(snakeBody.get(i), i);
+                  }
+                  canChangeDirection = true;
+                  eatFood();
+                  gameTicks++;
+                  if (checkIfGameIsOver(snakeHead)) {
+                    timeline.stop();
+                  }
+                }));
   }
 
   @Override
