@@ -26,7 +26,7 @@
                      </BorderPane.margin></Label>
                </bottom>
             </BorderPane>
-            <Label fx:id="score1" text="USE WASD keys to move around." textFill="#767676">
+            <Label fx:id="score1" text="Use the WASD keys to move around." textFill="#767676">
                <font>
                   <Font name="System Italic" size="12.0" />
                </font>
