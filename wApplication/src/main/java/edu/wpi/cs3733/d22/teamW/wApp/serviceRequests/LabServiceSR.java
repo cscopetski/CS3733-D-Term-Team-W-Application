@@ -20,6 +20,7 @@ public class LabServiceSR extends SR {
       info += "Request marked as an EMERGENCY\n";
     }
     info += "Requested by: " + this.getEmployeeName() + "\n";
+    info += "Employee ID: " + this.getEmployeeID() + "\n";
     info += "";
     return info;
   }
