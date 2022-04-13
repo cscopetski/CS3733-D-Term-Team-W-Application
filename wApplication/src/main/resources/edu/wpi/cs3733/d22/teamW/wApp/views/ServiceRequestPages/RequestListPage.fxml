@@ -78,11 +78,13 @@
                                                         <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" BorderPane.alignment="CENTER">
                                                             <items>
                                                                 <FXCollections fx:factory="observableArrayList">
+                                                                    <String fx:value="All Requests" />
                                                                     <String fx:value="Lab" />
                                                                     <String fx:value="Language Interpreter" />
                                                                     <String fx:value="Meal Delivery" />
                                                                     <String fx:value="Medical Equipment" />
                                                                     <String fx:value="Security" />
+                                                                    <String fx:value="Cleaning" />
                                                                 </FXCollections>
                                                             </items>
                                                         </ComboBox>

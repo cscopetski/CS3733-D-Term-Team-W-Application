@@ -19,7 +19,7 @@ public class LabServiceSR extends SR {
     if (this.getEmergency() == 1) {
       info += "Request marked as an EMERGENCY\n";
     }
-    info += "Requested by: " + this.getEmployeeName() + "\n";
+    info += "Assigned Employee: " + this.getEmployeeName() + "\n";
     info += "Employee ID: " + this.getEmployeeID() + "\n";
     info += "";
     return info;
