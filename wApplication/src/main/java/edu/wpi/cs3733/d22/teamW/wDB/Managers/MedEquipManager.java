@@ -74,6 +74,11 @@ public class MedEquipManager {
     medi.addMedEquip(inputID, type, nodeID, MedEquipStatus.getStatus(status));
   }
 
+  public void change(String inputID, String type, String nodeID, MedEquipStatus status)
+      throws SQLException {
+    medi.changeMedEquip(inputID, type, nodeID, status);
+  }
+
   public void delete(String inputID) throws SQLException {
     medi.deleteMedEquip(inputID);
   }

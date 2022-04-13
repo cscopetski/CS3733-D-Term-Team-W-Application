@@ -1,0 +1,25 @@
+
+.toggle-button,
+.toggle-button:selected {
+    -fx-background-size: 50px 50px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.toggle-button.pan{
+    -fx-background-image: url('../../assets/Icons/mapEditor/iconsPanBlue.png');
+}
+.toggle-button:selected.pan {
+    -fx-background-image: url('../../assets/Icons/mapEditor/iconsPanWhite.png');
+}
+.toggle-button.modify{
+     -fx-background-image: url('../../assets/Icons/mapEditor/iconsModifyBlue.png');
+ }
+.toggle-button:selected.modify{
+    -fx-background-image: url('../../assets/Icons/mapEditor/iconsModifyWhite.png');
+}
+
+.margin-10 {
+    -fx-border-insets: 5px;
+    -fx-background-insets: 5px;
+}
+/**/
