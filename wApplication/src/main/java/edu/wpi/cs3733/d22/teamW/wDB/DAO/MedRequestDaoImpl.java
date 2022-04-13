@@ -35,7 +35,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
               + "requestID INT,"
               + "medicine varchar(25),"
               + "nodeID varchar(25),"
-              + "employeeName varchar(50),"
+              + "employeeID INT,"
               + "isEmergency INT,"
               + "reqStatus INT, "
               + "createdTimestamp timestamp, "
@@ -61,22 +61,22 @@ public class MedRequestDaoImpl implements MedRequestDao {
   @Override
   public void changeMedRequest(
       Integer id,
-      String m,
-      String n,
-      Integer en,
-      Integer ie,
-      RequestStatus rs,
+      String medicine,
+      String nodeID,
+      Integer employeeID,
+      Integer isEmergency,
+      RequestStatus requestStatus,
       Timestamp createdTimestamp,
       Timestamp updatedTimestamp)
       throws SQLException {
     statement.executeUpdate(
         String.format(
             "UPDATE MEDREQUESTS SET MEDICINE='%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE REQUESTID=%d",
-            m,
-            n,
-            en,
-            ie,
-            rs.getValue(),
+            medicine,
+            nodeID,
+            employeeID,
+            isEmergency,
+            requestStatus.getValue(),
             createdTimestamp.toString(),
             updatedTimestamp.toString(),
             id));
@@ -126,7 +126,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
   }
 
   @Override
-  public ArrayList<Request> getAllMedRequest() throws SQLException {
+  public ArrayList<Request> getAllMedRequest() {
     ArrayList<Request> medRequestList = new ArrayList<Request>();
 
     try {
@@ -147,7 +147,6 @@ public class MedRequestDaoImpl implements MedRequestDao {
 
     } catch (SQLException e) {
       System.out.println("Query from medicine request table failed.");
-      throw (e);
     }
     return medRequestList;
   }
@@ -158,7 +157,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
       pw.print(
-          "reqID,medicine,nodeID,employeeID,isEmergency,status,createdTimestamp,updatedTimestamp");
+          "reqID,medicine,nodeID,employeeID,emergency,status,createdTimestamp,updatedTimestamp");
 
       // print all locations
       for (Request m : getAllMedRequest()) {
@@ -166,7 +165,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
         pw.print(m.toCSVString());
       }
 
-    } catch (FileNotFoundException | SQLException e) {
+    } catch (FileNotFoundException e) {
 
       System.out.println(String.format("Error Exporting to File %s", fileName));
       e.printStackTrace();

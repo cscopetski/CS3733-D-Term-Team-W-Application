@@ -28,5 +28,5 @@ public interface MedRequestDao {
 
   ArrayList<Request> getAllMedRequest() throws SQLException;
 
-  void exportMedReqCSV(String filename);
+  void exportMedReqCSV(String fileName);
 }

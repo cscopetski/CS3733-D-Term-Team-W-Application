@@ -25,4 +25,6 @@ public interface RequestManager {
   public ArrayList<Request> getAllRequests() throws SQLException;
 
   public Request addRequest(Integer i, ArrayList<String> fields) throws SQLException;
+
+  public void exportReqCSV(String filename);
 }
