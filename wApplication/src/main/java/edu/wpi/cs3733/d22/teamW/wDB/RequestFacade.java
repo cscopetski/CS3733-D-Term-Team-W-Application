@@ -78,7 +78,6 @@ public class RequestFacade {
     return request;
   }
 
-
   public void completeRequest(Integer requestID, RequestType type, String nodeID) throws Exception {
 
     switch (type) {
