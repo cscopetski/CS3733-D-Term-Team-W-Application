@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
 
 public class MedicalEquipmentSR extends SR {
@@ -11,7 +12,12 @@ public class MedicalEquipmentSR extends SR {
     //    this.mer = (MedEquipRequest) REQUEST;
   }
 
-  public String getRequestType() {
+  @Override
+  public RequestType getRequestType() {
+    return RequestType.MedicalEquipmentRequest;
+  }
+
+  public String getRequestTypeS() {
     return "Medical Equipment";
   }
 

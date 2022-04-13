@@ -4,6 +4,7 @@ import static edu.wpi.cs3733.d22.teamW.wMid.SceneManager.Transitions.TranslateY;
 
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import javafx.animation.*;
@@ -31,7 +32,11 @@ public class SceneManager {
     public boolean tryOnLoad() {
       if (controller != null
           && controller.getClass().getSuperclass().equals(LoadableController.class)) {
-        ((LoadableController) controller).onLoad();
+        try {
+          ((LoadableController) controller).onLoad();
+        } catch (SQLException e) {
+          e.printStackTrace();
+        }
         return true;
       }
       return false;

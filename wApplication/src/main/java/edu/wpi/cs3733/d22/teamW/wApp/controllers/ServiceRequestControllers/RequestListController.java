@@ -50,120 +50,97 @@ public class RequestListController extends LoadableController {
     equipmentSelection
         .getSelectionModel()
         .selectedIndexProperty()
-        .addListener(
-            (e, o, n) -> {
-              switch (n.intValue()) {
-                case 0:
-                  try {
-                    rt.setItems(RequestFacade.getRequestFacade().getAllRequests());
-                  } catch (SQLException ex) {
-                    ex.printStackTrace();
-                  }
-                  break;
-                case 1:
-                  try {
-                    rt.setItems(
-                        RequestFacade.getRequestFacade()
-                            .getAllRequests(RequestType.LabServiceRequest));
-                  } catch (SQLException ex) {
-                    ex.printStackTrace();
-                  }
-                  break;
-                case 2:
-                  try {
-                    rt.setItems(
-                        RequestFacade.getRequestFacade()
-                            .getAllRequests(RequestType.LanguageInterpreter));
-                  } catch (SQLException ex) {
-                    ex.printStackTrace();
-                  }
-                  break;
-                case 3:
-                  try {
-                    rt.setItems(
-                        RequestFacade.getRequestFacade().getAllRequests(RequestType.MealDelivery));
-                  } catch (SQLException ex) {
-                    ex.printStackTrace();
-                  }
-                  break;
-                case 4:
-                  try {
-                    rt.setItems(
-                        RequestFacade.getRequestFacade()
-                            .getAllRequests(RequestType.MedicalEquipmentRequest));
-                  } catch (SQLException ex) {
-                    ex.printStackTrace();
-                  }
-                  break;
-                case 5:
-                  try {
-                    rt.setItems(
-                        RequestFacade.getRequestFacade()
-                            .getAllRequests(RequestType.SecurityService));
-                  } catch (SQLException ex) {
-                    ex.printStackTrace();
-                  }
-                  break;
-                case 6:
-                  try {
-                    rt.setItems(
-                        RequestFacade.getRequestFacade()
-                            .getAllRequests(RequestType.CleaningRequest));
-                  } catch (SQLException ex) {
-                    ex.printStackTrace();
-                  }
-                  break;
-                default:
-                  try {
-                    rt.setItems(RequestFacade.getRequestFacade().getAllRequests());
-                  } catch (SQLException ex) {
-                    ex.printStackTrace();
-                  }
-                  break;
-              }
-            });
+        .addListener((e, o, n) -> setItemsWithFilter(n.intValue()));
   }
 
-  public void onLoad() {
+  public void onLoad() throws SQLException {
     rt.setColumnWidth("Req. ID", 60);
     rt.setColumnWidth("Request Type", 130);
     rt.setColumnWidth("Employee Name", 140);
     rt.setColumnWidth("Status", 80);
     rt.setEditable(false);
     moreInfo.setText("Select a request to view details.");
-    equipmentSelection.getSelectionModel().clearAndSelect(0);
+    resetItems();
+  }
 
-    try {
-      rt.setItems(RequestFacade.getRequestFacade().getAllRequests());
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+  public void resetItems() throws SQLException {
+    setItemsWithFilter(equipmentSelection.getSelectionModel().getSelectedIndex());
+    equipmentSelection.getSelectionModel().clearSelection();
   }
 
   @Override
   public void onUnload() {}
 
-  public void cancel(ActionEvent actionEvent) throws SQLException {
-    /*if (rt.getSelection().getRequestType().equals(RequestType.MedicalEquipmentRequest)) {
-      MedEquipRequestManager.getMedEquipRequestManager()
-          .cancel(rt.getSelection().getRequestID());
-    } else if (rt.getSelection().getRequestType().equals(RequestType.LabServiceRequest)) {
-      LabServiceRequestManager.getLabServiceRequestManager()
-          .cancel(rt.getSelection().getRequestID());
-    } else if (rt.getSelection().getRequestType().equals(RequestType.MedicineDelivery)) {
-      MedRequestManager.getMedRequestManager()
-          .cancel(rt.getSelection().getRequestID());
-    } else if (rt.getSelection().getRequestType().equals(RequestType.LanguageInterpreter)) {
-
-    } else if (rt.getSelection().getRequestType().equals(RequestType.SecurityService)) {
-
+  private void setItemsWithFilter(int index) {
+    switch (index) {
+      case -1:
+      case 0:
+        try {
+          rt.setItems(RequestFacade.getRequestFacade().getAllRequests());
+        } catch (SQLException ex) {
+          ex.printStackTrace();
+        }
+        break;
+      case 1:
+        try {
+          rt.setItems(
+              RequestFacade.getRequestFacade().getAllRequests(RequestType.LabServiceRequest));
+        } catch (SQLException ex) {
+          ex.printStackTrace();
+        }
+        break;
+      case 2:
+        try {
+          rt.setItems(
+              RequestFacade.getRequestFacade().getAllRequests(RequestType.LanguageInterpreter));
+        } catch (SQLException ex) {
+          ex.printStackTrace();
+        }
+        break;
+      case 3:
+        try {
+          rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.MealDelivery));
+        } catch (SQLException ex) {
+          ex.printStackTrace();
+        }
+        break;
+      case 4:
+        try {
+          rt.setItems(
+              RequestFacade.getRequestFacade().getAllRequests(RequestType.MedicalEquipmentRequest));
+        } catch (SQLException ex) {
+          ex.printStackTrace();
+        }
+        break;
+      case 5:
+        try {
+          rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.SecurityService));
+        } catch (SQLException ex) {
+          ex.printStackTrace();
+        }
+        break;
+      case 6:
+        try {
+          rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.CleaningRequest));
+        } catch (SQLException ex) {
+          ex.printStackTrace();
+        }
+        break;
     }
-    System.out.println(rt.getSelection().toString() + "cancelled");
-    rt.refresh();
-    */
+    rt.getSelectionModel().clearSelection();
+    selectionButtons.setVisible(false);
   }
 
-  public void confirm(ActionEvent event) {}
+  public void cancel(ActionEvent actionEvent) throws SQLException {}
+
+  public void confirm(ActionEvent event) throws SQLException {
+    RequestFacade.getRequestFacade()
+        .completeRequest(
+            rt.getSelection().getRequestID(),
+            rt.getSelection().getRequestType(),
+            rt.getSelection().getNodeID());
+    resetItems();
+  }
 
   public void clearSelection(ActionEvent event) {
     rt.getSelectionModel().clearSelection();
