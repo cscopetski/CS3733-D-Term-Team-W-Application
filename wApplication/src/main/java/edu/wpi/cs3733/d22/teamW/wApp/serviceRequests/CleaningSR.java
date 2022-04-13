@@ -35,7 +35,7 @@ public class CleaningSR extends SR {
             + MedEquipManager.getMedEquipManager().getMedEquip(itemID).getType()
             + "\n";
     info += "Equipment ID: " + itemID + "\n";
-    // info += "Location: " + MedEquipManager.getMedEquipManager().getMedEquip(itemID).getNodeID().
+    // info += "Location: " + MedEquipManager.getMedEquipManager().getMedEquip(itemID).getNodeID()
     return info;
   }
 }

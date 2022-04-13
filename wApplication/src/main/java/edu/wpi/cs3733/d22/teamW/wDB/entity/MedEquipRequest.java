@@ -163,6 +163,10 @@ public class MedEquipRequest extends Request {
     return this.employeeID;
   }
 
+  public String getItemType() {
+    return this.itemType;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (o == this) {

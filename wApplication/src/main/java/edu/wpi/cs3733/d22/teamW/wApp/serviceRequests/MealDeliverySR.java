@@ -23,9 +23,6 @@ public class MealDeliverySR extends SR {
   @Override
   public String getFormattedInfo() throws SQLException {
     String info = "";
-    if (this.getEmergency() == 1) {
-      info += "Request marked as an EMERGENCY\n";
-    }
     info += "Assigned Employee: " + this.getEmployeeName() + "\n";
     info += "Employee ID: " + this.getEmployeeID() + "\n";
     info += "";
