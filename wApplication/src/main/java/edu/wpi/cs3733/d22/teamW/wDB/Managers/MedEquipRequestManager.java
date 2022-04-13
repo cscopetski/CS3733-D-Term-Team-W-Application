@@ -86,6 +86,7 @@ public class MedEquipRequestManager implements RequestManager {
               request.getCreatedTimestamp(),
               new Timestamp(System.currentTimeMillis()));
         } else {
+          System.out.println("NO AVAILABLE EQUIPMENT OF TYPE " + request.getItemType());
           return false;
         }
       } else {
@@ -94,6 +95,7 @@ public class MedEquipRequestManager implements RequestManager {
     } else {
       // throw (new Exception("Request:" + requestID + " does not exist"));
     }
+    System.out.println("EQUIPMENT OF TYPE FOUND");
     return true;
   }
 

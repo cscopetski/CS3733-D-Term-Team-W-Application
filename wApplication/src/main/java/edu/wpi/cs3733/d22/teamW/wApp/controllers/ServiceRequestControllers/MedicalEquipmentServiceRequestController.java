@@ -40,7 +40,7 @@ public class MedicalEquipmentServiceRequestController {
       confirm.showAndWait();
       if (confirm.getResult() == ButtonType.OK) {
         ArrayList<String> fields = new ArrayList<String>();
-        fields.add(equipmentSelection.getValue());
+        fields.add(getEquipTypeID(equipmentSelection.getValue()));
         fields.add("wSTOR001L1"); // location
         fields.add(
             ((DefaultPageController)
@@ -70,5 +70,27 @@ public class MedicalEquipmentServiceRequestController {
 
   public void onEnter(ActionEvent actionEvent) throws Exception {
     submitButton(actionEvent);
+  }
+
+  private String getEquipTypeID(String equip) {
+    String returnVal;
+    switch (equip) {
+      case "Patient Bed":
+        returnVal = "BED";
+        break;
+      case "Infusion Pump":
+        returnVal = "INP";
+        break;
+      case "Recliner":
+        returnVal = "REC";
+        break;
+      case "XRay Machine":
+        returnVal = "XRY";
+        break;
+      default:
+        returnVal = null;
+        break;
+    }
+    return returnVal;
   }
 }
