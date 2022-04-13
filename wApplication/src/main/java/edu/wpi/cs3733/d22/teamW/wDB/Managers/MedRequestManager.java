@@ -136,4 +136,9 @@ public class MedRequestManager implements ServiceRequestManager {
   public ArrayList<Request> getAllRequests() throws SQLException {
     return mrd.getAllMedRequest();
   }
+
+  public void exportMedicineRequestCSV(String filename) {
+    mrd.exportMedReqCSV(filename);
+  }
+
 }

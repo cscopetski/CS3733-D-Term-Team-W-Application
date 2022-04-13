@@ -3,7 +3,6 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.util.Collection;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
