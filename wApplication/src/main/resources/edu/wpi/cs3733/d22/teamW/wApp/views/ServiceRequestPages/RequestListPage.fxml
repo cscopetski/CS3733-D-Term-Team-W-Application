@@ -15,7 +15,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable?>
-<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.RequestListController">
+<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.RequestListController"  stylesheets="@../../CSS/UniversalCSS/Standard.css" >
     <children>
         <AnchorPane prefHeight="473.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
             <children>
@@ -75,7 +75,7 @@
                                                 </BorderPane>
                                                 <BorderPane prefHeight="70.0" prefWidth="300.0">
                                                     <center>
-                                                        <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" BorderPane.alignment="CENTER">
+                                                        <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" BorderPane.alignment="CENTER">
                                                             <items>
                                                                 <FXCollections fx:factory="observableArrayList">
                                                                     <String fx:value="All Requests" />
@@ -128,11 +128,14 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                             <center>
-                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Cancel" onAction="#cancel" BorderPane.alignment="CENTER">
+                                <HBox fx:id="selectionButtons" visible="false" spacing="10" BorderPane.alignment="CENTER" alignment="CENTER">
                                     <BorderPane.margin>
                                         <Insets bottom="20.0" />
                                     </BorderPane.margin>
-                                </Button>
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" text="Cancel" onAction="#cancel" />
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false"  text="Complete" onAction="#confirm" />
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false"  text="Clear Selection" onAction="#clearSelection" />
+                                </HBox>
                             </center>
                         </BorderPane>
                     </children>
