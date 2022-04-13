@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
@@ -17,15 +18,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 
 public class MedicineDeliveryServiceRequestController extends LoadableController {
   // Buttons:
   @FXML Button addButton;
   @FXML Button submitButton;
   @FXML Button cancelButton;
-  boolean emergencyLevel = false;
-  @FXML Button emergencyB;
+  int emergency = 0;
+  @FXML EmergencyButton emergencyB;
 
   // TextFields:
   @FXML TextField quantityField;
@@ -79,14 +79,6 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     clearFields();
   }
 
-  // NO LONGER WORK, NOT SURE WHY NGL
-  public void createRequest() {
-    // pushDataToDB();
-    if (fieldsFull()) {
-      populateTable();
-    }
-  }
-
   public void clearFields() { // no specific cancelButton function as this method is all it does
     quantityField.clear();
     itemCodeField.clear();
@@ -130,16 +122,38 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
   // ---------------------------------------------------------------------------
 
-  //  !!!!NOT SURE IF IN CORRECT ORDER FOR DB!!!!
   private void pushDataToDB() throws SQLException {
     ArrayList<String> fields = new ArrayList<>();
-    fields.add(quantityField.getText());
-    fields.add(itemCodeField.getText());
     fields.add(medNameCBox.getSelectionModel().getSelectedItem().toString());
     fields.add(locationCBox.getSelectionModel().getSelectedItem().toString());
-    fields.add(timePrefCBox.getSelectionModel().getSelectedItem().toString());
-    fields.add(requesterCBox.getSelectionModel().getSelectedItem().toString());
+    fields.add(locationToNodeID(requesterCBox.getSelectionModel().getSelectedItem().toString()));
+    if (emergencyB.getValue()) {
+      emergency = 1;
+    } else {
+      emergency = 0;
+    }
+    fields.add("" + emergency);
+
     RequestFactory.getRequestFactory().getRequest(RequestType.MedicineDelivery, fields);
+  }
+
+  public String locationToNodeID(String target) {
+    String nodeID = "FAIL";
+
+    ArrayList<Location> locationsRaw = null;
+    try {
+      locationsRaw = LocationManager.getLocationManager().getAllLocations();
+    } catch (SQLException e) {
+      System.out.println("Failed to unearth locations from database");
+      e.printStackTrace();
+    }
+    for (Location l : locationsRaw) {
+      if (l.getLongName().equals(target)) {
+        nodeID = l.getNodeID();
+      }
+    }
+
+    return nodeID;
   }
 
   private void populateTable() {
@@ -162,33 +176,27 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     table.getItems().addAll(sr);
   }
 
-  //TRUE: if
+  public void createRequest() {
+    if (fieldsFull()) {
+      populateTable();
+      clearFields();
+      try {
+        pushDataToDB();
+      } catch (SQLException e) {
+        System.out.println("Unable to push Medicine Delivery request to DB");
+        e.printStackTrace();
+      }
+    }
+  }
+
   private boolean fieldsFull() {
-    boolean result = !(quantityField.getText().isEmpty()
+    boolean result =
+        !(quantityField.getText().isEmpty()
             && itemCodeField.getText().isEmpty()
             && locationCBox.getSelectionModel().isEmpty()
             && timePrefCBox.getSelectionModel().isEmpty()
             && requesterCBox.getSelectionModel().isEmpty());
 
     return result;
-  }
-
-  public void emergencyClicked(MouseEvent mouseEvent) {
-    if (emergencyLevel) {
-      emergencyLevel = false;
-      emergencyB.getStylesheets().clear();
-
-      emergencyB
-          .getStylesheets()
-          .add(
-              "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonFalse.css");
-    } else {
-      emergencyLevel = true;
-      emergencyB.getStylesheets().clear();
-      emergencyB
-          .getStylesheets()
-          .add(
-              "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonTrue.css");
-    }
   }
 }
