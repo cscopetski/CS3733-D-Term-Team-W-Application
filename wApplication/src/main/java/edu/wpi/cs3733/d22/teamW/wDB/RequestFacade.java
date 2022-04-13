@@ -78,8 +78,7 @@ public class RequestFacade {
     return request;
   }
 
-  public void completeRequest(Integer requestID, RequestType type, String nodeID)
-      throws SQLException {
+  public void completeRequest(Integer requestID, RequestType type, String nodeID) throws Exception {
 
     switch (type) {
       case MedicalEquipmentRequest:
@@ -96,7 +95,7 @@ public class RequestFacade {
     }
   }
 
-  public void cancelRequest(Integer requestID, RequestType type) throws SQLException {
+  public void cancelRequest(Integer requestID, RequestType type) throws Exception {
 
     switch (type) {
       case MedicalEquipmentRequest:
@@ -114,25 +113,23 @@ public class RequestFacade {
   }
 
   // TODO might want to change this to use requests
-  public void startRequest(Integer requestID, RequestType type) throws SQLException {
+  public boolean startRequest(Integer requestID, RequestType type) throws Exception {
 
     switch (type) {
       case MedicalEquipmentRequest:
-        merm.start(requestID);
-        break;
+        return merm.start(requestID);
+        // break;
       case LabServiceRequest:
-        lsrm.start(requestID);
-        break;
+        return lsrm.start(requestID);
       case MedicineDelivery:
-        mrm.start(requestID);
-        break;
+        return mrm.start(requestID);
       case CleaningRequest:
         crm.start(requestID);
     }
+    return false;
   }
 
-  public void requeueRequest(Integer requestID, RequestType type)
-          throws SQLException {
+  public void requeueRequest(Integer requestID, RequestType type) throws Exception {
 
     switch (type) {
       case MedicalEquipmentRequest:

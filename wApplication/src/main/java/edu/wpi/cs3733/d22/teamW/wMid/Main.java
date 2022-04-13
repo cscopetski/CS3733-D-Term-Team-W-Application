@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class Main {
 
-  public static void main(String[] args) throws SQLException, FileNotFoundException {
+  public static void main(String[] args) throws Exception {
 
     DBConnectionMode.INSTANCE.setEmbeddedConnection();
 
@@ -37,20 +37,26 @@ public class Main {
       e.printStackTrace();
     } catch (SQLException e) {
       e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
 
-    MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
-
-    MedEquipManager mem = MedEquipManager.getMedEquipManager();
-
-    MedEquipManager.getMedEquipManager().markDirty("BED012", "wSTOR0033");
-    MedEquipManager.getMedEquipManager().markDirty("BED013", "wSTOR0033");
-    MedEquipManager.getMedEquipManager().markDirty("BED014", "wSTOR0033");
-    MedEquipManager.getMedEquipManager().markDirty("BED015", "wSTOR0033");
-    MedEquipManager.getMedEquipManager().markDirty("BED016", "wSTOR0033");
-    merc.complete(5);
-    mem.markDirty("XRY001", "wSTOR0033");
-    CleaningRequestManager.getCleaningRequestManager().complete(26, "wSTOR0013");
+//    MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
+//
+//    MedEquipManager mem = MedEquipManager.getMedEquipManager();
+//
+//    MedEquipManager.getMedEquipManager().markDirty("BED012", "wSTOR0033");
+//    MedEquipManager.getMedEquipManager().markDirty("BED013", "wSTOR0033");
+//    MedEquipManager.getMedEquipManager().markDirty("BED014", "wSTOR0033");
+//    MedEquipManager.getMedEquipManager().markDirty("BED015", "wSTOR0033");
+//    MedEquipManager.getMedEquipManager().markDirty("BED016", "wSTOR0033");
+//    // merc.complete(5);
+//    mem.markDirty("XRY001", "wSTOR0033");
+//    try {
+//      CleaningRequestManager.getCleaningRequestManager().complete(26, "wSTOR0013");
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
 
     RequestFacade.getRequestFacade().getAllRequests();
 

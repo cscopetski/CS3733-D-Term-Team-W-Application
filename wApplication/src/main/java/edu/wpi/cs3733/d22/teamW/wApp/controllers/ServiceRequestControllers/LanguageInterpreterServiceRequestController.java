@@ -7,7 +7,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,7 +26,7 @@ public class LanguageInterpreterServiceRequestController {
   RequestFactory requestFactory = RequestFactory.getRequestFactory();
   ArrayList<String> lastRequest;
 
-  public void submitButton(ActionEvent actionEvent) throws SQLException {
+  public void submitButton(ActionEvent actionEvent) throws Exception {
     System.out.println("Button Clicked");
     if ((equipmentSelection.getValue() != null) && !employeeName.getText().isEmpty()) {
       confirm.showAndWait();

@@ -131,13 +131,13 @@ public class RequestListController extends LoadableController {
     clearSelection();
   }
 
-  public void cancel(ActionEvent actionEvent) throws SQLException {
+  public void cancel(ActionEvent actionEvent) throws Exception {
     RequestFacade.getRequestFacade()
         .cancelRequest(rt.getSelection().getRequestID(), rt.getSelection().getRequestType());
     resetItems();
   }
 
-  public void confirm(ActionEvent event) throws SQLException {
+  public void confirm(ActionEvent event) throws Exception {
     RequestFacade.getRequestFacade()
         .completeRequest(
             rt.getSelection().getRequestID(),
@@ -151,16 +151,15 @@ public class RequestListController extends LoadableController {
     selectionButtons.setVisible(false);
   }
 
-  public void start() throws SQLException {
-    try {
-      RequestFacade.getRequestFacade()
-          .startRequest(rt.getSelection().getRequestID(), rt.getSelection().getRequestType());
-    } catch (SQLException e) {
-      Alert alert = new Alert(Alert.AlertType.WARNING, "Something went wrong.", ButtonType.OK);
-      alert.showAndWait();
-      throw e;
-    } catch (Exception e) {
-      Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage(), ButtonType.OK);
+  public void start() throws Exception {
+    if (!RequestFacade.getRequestFacade()
+        .startRequest(rt.getSelection().getRequestID(), rt.getSelection().getRequestType())) {
+      Alert alert =
+          new Alert(
+              Alert.AlertType.WARNING,
+              "Equipment Not Available: "
+                  + ((MedicalEquipmentSR) rt.getSelection()).getOriginal().getItemType(),
+              ButtonType.OK);
       alert.showAndWait();
     }
     resetItems();
