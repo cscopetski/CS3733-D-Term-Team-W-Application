@@ -89,7 +89,7 @@ public class RequestFactory {
     return request;
   }
 
-  public Collection<? extends Request> getAllRequests() throws SQLException {
+  public ArrayList<Request> getAllRequests() throws SQLException {
     ArrayList<Request> requests = new ArrayList<Request>();
     requests.addAll(mrm.getAllRequests());
     requests.addAll(merm.getAllRequests());

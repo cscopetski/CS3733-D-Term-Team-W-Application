@@ -52,6 +52,8 @@ public class Main {
     mem.markDirty("XRY001", "wSTOR0033");
     CleaningRequestManager.getCleaningRequestManager().complete(26, "wSTOR0013");
 
+    RequestFactory.getRequestFactory().getAllRequests();
+
     App.launch(App.class, args);
   }
 }
