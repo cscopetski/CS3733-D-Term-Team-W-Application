@@ -93,13 +93,12 @@ public class MedRequestDaoImpl implements MedRequestDao {
     try {
       ResultSet medEquipRequests =
           statement.executeQuery(
-              String.format("SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE MEDREQID = %d", id));
+              String.format("SELECT * FROM MEDREQUESTS WHERE REQUESTID = %d", id));
 
       medEquipRequests.next();
 
-      Integer medreqID = medEquipRequests.getInt("MEDREQID");
-      String medID = medEquipRequests.getString("MEDID");
-      String equipType = medEquipRequests.getString("EQUIPTYPE");
+      Integer medreqID = medEquipRequests.getInt("REQUESTID");
+      String medID = medEquipRequests.getString("MEDICINE");
       String nodeID = medEquipRequests.getString("NODEID");
       Integer employeeID = medEquipRequests.getInt("EMPLOYEEID");
       Integer isEmergency = medEquipRequests.getInt("ISEMERGENCY");
@@ -109,7 +108,6 @@ public class MedRequestDaoImpl implements MedRequestDao {
       ArrayList<String> medEquipRequestData = new ArrayList<String>();
       medEquipRequestData.add(String.format("%d", medreqID));
       medEquipRequestData.add(medID);
-      medEquipRequestData.add(equipType);
       medEquipRequestData.add(nodeID);
       medEquipRequestData.add(String.format("%d", employeeID));
       medEquipRequestData.add(String.format("%d", isEmergency));

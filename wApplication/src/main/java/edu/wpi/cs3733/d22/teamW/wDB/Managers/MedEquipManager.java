@@ -38,7 +38,7 @@ public class MedEquipManager {
     medi.changeMedEquip(medID, getMedEquip(medID).getType(), nodeID, MedEquipStatus.InUse);
   }
 
-  public void markDirty(String medID, String nodeID) throws SQLException {
+  public void markDirty(String medID, String nodeID) throws Exception {
     MedEquip me = medi.getMedEquip(medID);
     if (!me.getStatus().equals(MedEquipStatus.Dirty)) {
       medi.changeMedEquip(medID, me.getType(), nodeID, MedEquipStatus.Dirty);

@@ -16,7 +16,7 @@ public class RequestTable extends TableView<SR> {
 
     getColumns()
         .addAll(
-            createColumn("Request ID", "RequestID"),
+            createColumn("Req. ID", "RequestID"),
             createColumn("Request Type", "RequestType"),
             createColumn("Employee Name", "EmployeeName"),
             createColumn("Status", "Status"));
@@ -65,6 +65,9 @@ public class RequestTable extends TableView<SR> {
           break;
         case MedicineDelivery:
           sr = new MedicineDeliverySR(r);
+          break;
+        case CleaningRequest:
+          sr = new CleaningSR(r);
           break;
       }
 
