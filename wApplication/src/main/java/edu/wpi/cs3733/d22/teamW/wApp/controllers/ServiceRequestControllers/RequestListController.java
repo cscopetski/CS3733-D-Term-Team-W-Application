@@ -20,9 +20,10 @@ public class RequestListController extends LoadableController {
   }
 
   public void onLoad() {
+    rt.setColumnWidth("Req. ID", 60);
     rt.setColumnWidth("Request Type", 130);
-    rt.setColumnWidth("Employee ID", 100);
-    rt.setColumnWidth("Status", 100);
+    rt.setColumnWidth("Employee Name", 140);
+    rt.setColumnWidth("Status", 80);
     rt.setEditable(false);
     moreInfo.setText("Select a request to view details.");
 
