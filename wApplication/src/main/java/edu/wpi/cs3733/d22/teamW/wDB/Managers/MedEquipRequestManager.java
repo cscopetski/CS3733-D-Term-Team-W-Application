@@ -60,7 +60,7 @@ public class MedEquipRequestManager implements RequestManager {
     return null;
   }
 
-  public void start(Integer requestID) throws SQLException {
+  public void start(Integer requestID) throws Exception {
     MedEquipRequest request = (MedEquipRequest) getRequest(requestID);
     if (request != (null)) {
       // Can only start requests that are in queue
@@ -82,13 +82,13 @@ public class MedEquipRequestManager implements RequestManager {
               request.getCreatedTimestamp(),
               new Timestamp(System.currentTimeMillis()));
         } else {
-          System.out.println("No avavailable equipment");
+          throw(new Exception("No available equipment of type " + request.getItemType()));
         }
       } else {
-        System.out.println("Not in Queue");
+        throw(new Exception("Cannot start, not in queue"));
       }
     } else {
-      System.out.println("Request:" + requestID + " does not exist");
+      throw(new Exception("Request:" + requestID + " does not exist"));
     }
   }
 
