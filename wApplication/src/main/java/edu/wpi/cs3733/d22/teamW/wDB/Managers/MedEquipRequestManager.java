@@ -39,7 +39,11 @@ public class MedEquipRequestManager implements RequestManager {
     MedEquipRequest mer = getNext(itemType);
     if (mer != null) {
       System.out.println(mer.toValuesString());
-      start(mer.getRequestID());
+      try {
+        start(mer.getRequestID());
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     } else {
       System.out.println("Nothing to start");
     }
@@ -272,7 +276,11 @@ public class MedEquipRequestManager implements RequestManager {
       merd.addMedEquipRequest(mER);
 
       if (automation.getAuto()) {
-        start(mER.getRequestID());
+        try {
+          start(mER.getRequestID());
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
       }
     } else {
       mER = null;

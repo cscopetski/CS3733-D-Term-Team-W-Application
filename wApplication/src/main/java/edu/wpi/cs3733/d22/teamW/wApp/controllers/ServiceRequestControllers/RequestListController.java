@@ -164,4 +164,12 @@ public class RequestListController extends LoadableController {
     }
     resetItems();
   }
+
+  // Filtering the requests by request service
+  public void filterRequest(ActionEvent actionEvent) {
+    // if ("Lab".equals(equipmentSelection.getValue())) {
+    // Only display lab
+    // rt.setItems(RequestFacade.getRequestFacade().);
+    // }
+  }
 }
