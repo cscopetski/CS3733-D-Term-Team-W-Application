@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
@@ -9,6 +10,7 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
@@ -116,13 +118,23 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       String nodeID,
       Integer employeeID,
       Integer emergency,
-      RequestStatus status)
+      RequestStatus status,
+      Timestamp createdTimestamp,
+      Timestamp updatedTimestamp)
       throws SQLException {
 
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d WHERE MEDREQID = %d",
-            itemID, itemType, nodeID, employeeID, emergency, status.getValue(), requestID));
+            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE MEDREQID = %d",
+            itemID,
+            itemType,
+            nodeID,
+            employeeID,
+            emergency,
+            status.getValue(),
+            createdTimestamp.toString(),
+            updatedTimestamp.toString(),
+            requestID));
   }
 
   public void changeMedEquipRequest(MedEquipRequest mER) throws SQLException {
@@ -153,6 +165,13 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
             mER.getCreatedTimestamp().toString(),
             mER.getUpdatedTimestamp().toString(),
             mER.getRequestID()));
+  }
+
+  @Override
+  public void deleteMedEquipRequest(Integer requestID) throws SQLException {
+    RequestFactory.getRequestFactory().getReqIDList().remove(requestID);
+    statement.executeUpdate(
+        String.format("DELETE FROM MEDICALEQUIPMENTREQUESTS WHERE MEDREQID=%d", requestID));
   }
 
   @Override
@@ -188,13 +207,13 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       mr = new MedEquipRequest(medEquipRequestData);
 
     } catch (SQLException e) {
-      System.out.println("Query from medicine request table failed.");
+      System.out.println("Query from medical equip request table failed.");
     }
     return mr;
   }
 
   @Override
-  public void exportMedReqCSV(String fileName) {
+  public void exportMedEquipReqCSV(String fileName) {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
@@ -225,7 +244,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
                   "SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EQUIPTYPE='%s'", itemType));
 
       // Size of num MedEquipRequest fields
-      int size = 7;
+      int size = 9;
       ArrayList<String> medEquipData = new ArrayList<>();
 
       while (medEquipment.next()) {

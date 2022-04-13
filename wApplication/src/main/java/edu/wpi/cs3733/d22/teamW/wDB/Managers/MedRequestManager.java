@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class MedRequestManager implements ServiceRequestManager {
+public class MedRequestManager implements RequestManager {
   private static MedRequestManager mrm = new MedRequestManager();
   private MedRequestDao mrd;
 
@@ -27,7 +28,7 @@ public class MedRequestManager implements ServiceRequestManager {
   public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException {
     MedRequest mr;
 
-    if (fields.size() == 6) {
+    if (fields.size() == 4) {
       fields.add("0");
       fields.add(new Timestamp(System.currentTimeMillis()).toString());
       fields.add(new Timestamp(System.currentTimeMillis()).toString());
@@ -47,7 +48,7 @@ public class MedRequestManager implements ServiceRequestManager {
   public void start(Integer requestID) throws SQLException {
     MedRequest request =
         (MedRequest)
-            RequestFactory.getRequestFactory().findRequest(requestID, RequestType.MedicineDelivery);
+            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),
@@ -57,13 +58,13 @@ public class MedRequestManager implements ServiceRequestManager {
         request.getEmergency(),
         request.getStatus(),
         request.getCreatedTimestamp(),
-        request.getUpdatedTimestamp());
+        new Timestamp(System.currentTimeMillis()));
   }
 
   public void complete(Integer requestID) throws SQLException {
     MedRequest request =
         (MedRequest)
-            RequestFactory.getRequestFactory().findRequest(requestID, RequestType.MedicineDelivery);
+            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),
@@ -73,13 +74,13 @@ public class MedRequestManager implements ServiceRequestManager {
         request.getEmergency(),
         request.getStatus(),
         request.getCreatedTimestamp(),
-        request.getUpdatedTimestamp());
+        new Timestamp(System.currentTimeMillis()));
   }
 
   public void cancel(Integer requestID) throws SQLException {
     MedRequest request =
         (MedRequest)
-            RequestFactory.getRequestFactory().findRequest(requestID, RequestType.MedicineDelivery);
+            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),
@@ -89,13 +90,13 @@ public class MedRequestManager implements ServiceRequestManager {
         request.getEmergency(),
         request.getStatus(),
         request.getCreatedTimestamp(),
-        request.getUpdatedTimestamp());
+        new Timestamp(System.currentTimeMillis()));
   }
 
   public void reQueue(Integer requestID) throws SQLException {
     MedRequest request =
         (MedRequest)
-            RequestFactory.getRequestFactory().findRequest(requestID, RequestType.MedicineDelivery);
+            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),
@@ -105,7 +106,7 @@ public class MedRequestManager implements ServiceRequestManager {
         request.getEmergency(),
         request.getStatus(),
         request.getCreatedTimestamp(),
-        request.getUpdatedTimestamp());
+        new Timestamp(System.currentTimeMillis()));
   }
 
   public void delete(Integer requestID) throws SQLException {
@@ -135,5 +136,9 @@ public class MedRequestManager implements ServiceRequestManager {
   @Override
   public ArrayList<Request> getAllRequests() throws SQLException {
     return mrd.getAllMedRequest();
+  }
+
+  public void exportReqCSV(String filename) {
+    mrd.exportMedReqCSV(filename);
   }
 }

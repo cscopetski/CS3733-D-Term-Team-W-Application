@@ -5,7 +5,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" stylesheets="@../CSS/DefaultPage/paneHospital.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MainMenuController">
+<AnchorPane maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" style="-fx-background-color: white;" stylesheets="@../CSS/DefaultPage/paneHospital.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MainMenuController">
     <!--layoutY="98.0"-->
     <AnchorPane styleClass="body" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <children>
@@ -23,7 +23,7 @@
                 <children>
                     <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToMapDisplay" prefHeight="240.0" prefWidth="240.0" stylesheets="@../CSS/DefaultPage/buttonMapDisplay.css" text="Map Display" />
                <Pane prefHeight="240.0" prefWidth="12.0" />
-                    <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToRequestHub" prefHeight="240.0" prefWidth="240.0" stylesheets="@../CSS/DefaultPage/buttonServiceRequest.css" text="Service Request" />
+                    <Button fx:id="buttonSR" alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToRequestHub" prefHeight="240.0" prefWidth="240.0" stylesheets="@../CSS/DefaultPage/buttonServiceRequest.css" text="Service Request" />
                 </children>
             </HBox>
         </children>

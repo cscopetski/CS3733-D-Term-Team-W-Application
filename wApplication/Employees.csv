@@ -1,9 +1,9 @@
 employeeID,firstname,lastname,employeetype,email,phonenumber,address,username,password,salt
-1,N/A,Staff,Staff Member,staff@hospital.com,(123)4567890,Mass General,staff,97adb5a6171ea3e2b6a73035c92e89b5,f57fef973ec5f6ad3b7e5550e2ab5974
-2,N/A,Administrator,admin,admin@hospital.com,(123)4567890,Office,admin,860bb9a34d1aec116efb54eee7e81341,3dc0ddd4c54c9c9a3b37a346893c87de
+1,N/A,Staff,Staff,staff@hospital.com,(123)4567890,Mass General,staff,97adb5a6171ea3e2b6a73035c92e89b5,f57fef973ec5f6ad3b7e5550e2ab5974
+2,N/A,Administrator,NoOne,admin@hospital.com,(123)4567890,Office,admin,860bb9a34d1aec116efb54eee7e81341,3dc0ddd4c54c9c9a3b37a346893c87de
 3,Caleb,Scopetski,Doctor,N/A,(123)4567890,NeVer LeFt MaSs,Scoop,7c7f647ebd821e9b596ff91efdb9e2b3,293425e15e8fce656582a90e5e45864f
-4,Edison,Zhang,Janitor,N/A,(123)4567890,Jamaica,ezhang,855136eed1d20fd0b2acd4916e3efa58,4c041815a975a4b7453ad3b5b4e1bd9f
+4,Edison,Zhang,NoOne,N/A,(123)4567890,Jamaica,ezhang,855136eed1d20fd0b2acd4916e3efa58,4c041815a975a4b7453ad3b5b4e1bd9f
 5,Charlie,K-W,Nurse,N/A,(123)4567890,The North,charkw,750ad0b990a08d1272555925780de5a7,b0d6725d10af54045c56e303a4d754b1
-6,new Hasan,new G,new Email,new Phone,new Address,new Type,joe,b3592a97b5c57a81c51bf697e9065147,6c02a6df737695ae78e94bc15670c6b6
-7,Mr.,Secure,Security,security@hospital.com,(123)456789,somewhere,secur,1d23a9de230a9ef1d8c662dc6c878f0a,385c978535b2cd5c337a9c29167f40f6
-8,frontend,no salt,no salt,no salt,no salt,no salt,no,507efdc32e47a74e9f5da7e6a0f2a31f,19b3930d6d95ec91e42469c99c9ad811
+6,Hasan,G,Technician,N/A,(123)4567890,Bikini Bottom,hzgan,f4a17b813937811e18b58ad2e58415c6,6c02a6df737695ae78e94bc15670c6b6
+7,Mr.,Secure,NoOne,security@hospital.com,(123)456789,somewhere,secur,5056b4f42c1ff5ec0accf6c7fc9744fe,4485b55d78cabc8464de4540f2205d7d
+8,frontend,no salt,NoOne,no salt,no salt,no salt,no,19e256381780ea851da463a2db33ed8f,31eb62346f5594894fa9d6a201b0c157

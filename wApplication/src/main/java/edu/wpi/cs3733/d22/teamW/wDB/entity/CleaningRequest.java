@@ -13,6 +13,7 @@ public class CleaningRequest extends Request {
 
   String itemID;
 
+  /*
   public CleaningRequest(
       Integer requestID,
       Integer emergency,
@@ -48,6 +49,8 @@ public class CleaningRequest extends Request {
     this.updatedTimestamp = updatedTimestamp;
   }
 
+   */
+
   public CleaningRequest(Integer requestID, ArrayList<String> fields) {
     this.requestID = requestID;
     this.itemID = fields.get(0);
@@ -66,8 +69,8 @@ public class CleaningRequest extends Request {
       this.status = RequestStatus.InQueue;
     }
 
-    this.createdTimestamp = Timestamp.valueOf(fields.get(5));
-    this.updatedTimestamp = Timestamp.valueOf(fields.get(6));
+    this.createdTimestamp = new Timestamp(System.currentTimeMillis());
+    this.updatedTimestamp = new Timestamp(System.currentTimeMillis());
   }
 
   public CleaningRequest(ArrayList<String> fields) {

@@ -3,6 +3,9 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -32,7 +35,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
               + "requestID INT,"
               + "medicine varchar(25),"
               + "nodeID varchar(25),"
-              + "employeeName varchar(50),"
+              + "employeeID INT,"
               + "isEmergency INT,"
               + "reqStatus INT, "
               + "createdTimestamp timestamp, "
@@ -58,22 +61,22 @@ public class MedRequestDaoImpl implements MedRequestDao {
   @Override
   public void changeMedRequest(
       Integer id,
-      String m,
-      String n,
-      Integer en,
-      Integer ie,
-      RequestStatus rs,
+      String medicine,
+      String nodeID,
+      Integer employeeID,
+      Integer isEmergency,
+      RequestStatus requestStatus,
       Timestamp createdTimestamp,
       Timestamp updatedTimestamp)
       throws SQLException {
     statement.executeUpdate(
         String.format(
             "UPDATE MEDREQUESTS SET MEDICINE='%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE REQUESTID=%d",
-            m,
-            n,
-            en,
-            ie,
-            rs.getValue(),
+            medicine,
+            nodeID,
+            employeeID,
+            isEmergency,
+            requestStatus.getValue(),
             createdTimestamp.toString(),
             updatedTimestamp.toString(),
             id));
@@ -88,21 +91,34 @@ public class MedRequestDaoImpl implements MedRequestDao {
   public Request getMedRequest(Integer id) throws SQLException {
     MedRequest mr = null;
     try {
-      ResultSet medRequests =
+      ResultSet medEquipRequests =
           statement.executeQuery(
-              String.format("SELECT * FROM MEDREQUESTS WHERE REQUESTID = %d", id));
+              String.format("SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE MEDREQID = %d", id));
 
-      // Size of num LabServiceRequest fields
-      int size = 8;
-      ArrayList<String> medRequestData = new ArrayList<String>();
+      medEquipRequests.next();
 
-      while (medRequests.next()) {
+      Integer medreqID = medEquipRequests.getInt("MEDREQID");
+      String medID = medEquipRequests.getString("MEDID");
+      String equipType = medEquipRequests.getString("EQUIPTYPE");
+      String nodeID = medEquipRequests.getString("NODEID");
+      Integer employeeID = medEquipRequests.getInt("EMPLOYEEID");
+      Integer isEmergency = medEquipRequests.getInt("ISEMERGENCY");
+      Integer reqStatus = medEquipRequests.getInt("REQSTATUS");
+      String createdTimeStamp = medEquipRequests.getString("CREATEDTIMESTAMP");
+      String updatedTimeStamp = medEquipRequests.getString("UPDATEDTIMESTAMP");
+      ArrayList<String> medEquipRequestData = new ArrayList<String>();
+      medEquipRequestData.add(String.format("%d", medreqID));
+      medEquipRequestData.add(medID);
+      medEquipRequestData.add(equipType);
+      medEquipRequestData.add(nodeID);
+      medEquipRequestData.add(String.format("%d", employeeID));
+      medEquipRequestData.add(String.format("%d", isEmergency));
+      medEquipRequestData.add(String.format("%d", reqStatus));
+      medEquipRequestData.add(createdTimeStamp);
+      medEquipRequestData.add(updatedTimeStamp);
 
-        for (int i = 0; i < size; i++) {
-          medRequestData.add(i, medRequests.getString(i + 1));
-        }
-        mr = new MedRequest(medRequestData);
-      }
+      mr = new MedRequest(medEquipRequestData);
+
     } catch (SQLException e) {
       System.out.println("Query from medicine request table failed.");
     }
@@ -133,5 +149,26 @@ public class MedRequestDaoImpl implements MedRequestDao {
       System.out.println("Query from medicine request table failed.");
     }
     return medRequestList;
+  }
+
+  @Override
+  public void exportMedReqCSV(String fileName) {
+    File csvOutputFile = new File(fileName);
+    try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
+      // print Table headers
+      pw.print(
+          "reqID,medicine,nodeID,employeeID,emergency,status,createdTimestamp,updatedTimestamp");
+
+      // print all locations
+      for (Request m : getAllMedRequest()) {
+        pw.println();
+        pw.print(m.toCSVString());
+      }
+
+    } catch (FileNotFoundException e) {
+
+      System.out.println(String.format("Error Exporting to File %s", fileName));
+      e.printStackTrace();
+    }
   }
 }

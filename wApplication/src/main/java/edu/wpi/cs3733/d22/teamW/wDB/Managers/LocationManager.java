@@ -68,4 +68,8 @@ public class LocationManager {
   public void exportLocationsCSV(String filename) {
     ldi.exportLocationCSV(filename);
   }
+
+  public Location getLocation(String NodeID) throws SQLException {
+    return ldi.getLocation(NodeID);
+  }
 }

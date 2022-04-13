@@ -1,12 +1,13 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 public class DefaultPageController implements Initializable {
@@ -21,9 +22,21 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane securityServiceRequestPage;
   @FXML public Pane requestListPage;
   @FXML public Pane requestHubPage;
+  @FXML public Pane loginPage;
+  @FXML public Pane helpPage;
+  @FXML public Pane aboutPage;
+  @FXML public Pane profilePage;
+  @FXML public Pane snakePage;
+  @FXML public HBox menuBar;
+  @FXML public Pane buttonPane;
 
-  @FXML
+  protected Employee employee;
+
   public void initialize(URL location, ResourceBundle rb) {
+
+    SceneManager.getInstance().putController(SceneManager.Scenes.Default, this);
+
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Login, loginPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.MainMenu, mainMenuPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.MapEditor, mapEditorPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Lab, labServiceRequestPage);
@@ -38,56 +51,84 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().putPane(SceneManager.Scenes.Security, securityServiceRequestPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.RequestList, requestListPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.RequestHub, requestHubPage);
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MainMenu);
-
-    try {
-      // SceneManager.getInstance().setScene(SceneManager.Scenes.MainMenu);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Help, helpPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.About, aboutPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Profile, profilePage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Snake, snakePage);
+    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Login);
   }
 
-  public void switchToMedicineDelivery(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MedicineDelivery);
+  public void setEmployee(Employee em) {
+    this.employee = em;
   }
 
-  public void switchToLab(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Lab);
+  public Employee getEmployee() {
+    return this.employee;
   }
 
-  public void switchToMedicalEquipmentDelivery(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MedicalEquipment);
+  public void switchToMedicineDelivery(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicineDelivery);
   }
 
-  public void switchToMealDelivery(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MealDelivery);
+  public void switchToLab(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Lab);
   }
 
-  public void switchToLanguageInterpreter(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.LanguageInterpreter);
+  public void switchToMedicalEquipmentDelivery(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicalEquipment);
   }
 
-  public void switchToSecurity(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Security);
+  public void switchToMealDelivery(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MealDelivery);
   }
 
-  public void switchToMapEditor(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MapEditor);
+  public void switchToLanguageInterpreter(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.LanguageInterpreter);
   }
 
-  public void switchToRequestList(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestList);
+  public void switchToSecurity(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Security);
   }
 
-  public void switchToRequestHub(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestHub);
+  public void switchToMapEditor(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MapEditor);
   }
 
-  public void switchToMainMenu(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.MainMenu);
+  public void switchToRequestList(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
+  }
+
+  public void switchToRequestHub(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestHub);
+  }
+
+  public void switchToMainMenu() {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MainMenu);
+  }
+
+  public void logOut(ActionEvent actionEvent) {
+    menuBar.setVisible(false);
+    buttonPane.setDisable(true);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Login);
   }
 
   public void exitProgram() {
     SceneManager.getInstance().exitApplication();
+  }
+
+  public void switchToProfile(ActionEvent actionEvent) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Profile);
+  }
+
+  public void switchToAbout(ActionEvent actionEvent) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.About);
+  }
+
+  public void switchToHelp(ActionEvent actionEvent) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Help);
+  }
+
+  public void switchToSnake(ActionEvent actionEvent) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Snake);
   }
 }

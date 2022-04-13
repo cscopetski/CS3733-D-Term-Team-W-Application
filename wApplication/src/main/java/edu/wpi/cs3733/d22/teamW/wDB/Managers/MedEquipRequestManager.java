@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Automation;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
@@ -68,7 +69,7 @@ public class MedEquipRequestManager implements RequestManager {
         MedEquip medEquip = MedEquipManager.getMedEquipManager().getNextFree(request.getItemType());
         if (medEquip != null) {
           // If available, we mark it in use and set the request to in progress
-          MedEquipManager.getMedEquipManager().markInUse(medEquip);
+          MedEquipManager.getMedEquipManager().markInUse(medEquip.getMedID(), medEquip.getNodeID());
           request.setStatus(RequestStatus.InProgress);
           merd.changeMedEquipRequest(
               request.getRequestID(),
@@ -77,7 +78,9 @@ public class MedEquipRequestManager implements RequestManager {
               request.getNodeID(),
               request.getEmployeeID(),
               request.getEmergency(),
-              request.getStatus());
+              request.getStatus(),
+              request.getCreatedTimestamp(),
+              new Timestamp(System.currentTimeMillis()));
         } else {
           System.out.println("No avavailable equipment");
         }
@@ -92,11 +95,11 @@ public class MedEquipRequestManager implements RequestManager {
   public void complete(Integer requestID) throws SQLException {
     MedEquipRequest request =
         (MedEquipRequest)
-            RequestFactory.getRequestFactory()
+            RequestFacade.getRequestFacade()
                 .findRequest(requestID, RequestType.MedicalEquipmentRequest);
     // Can only complete requests that are started
     if (request.getStatus().equals(RequestStatus.InProgress)) {
-      MedEquipManager.getMedEquipManager().moveTo(request.getItemID(), request.getNodeID());
+      MedEquipManager.getMedEquipManager().markInUse(request.getItemID(), request.getNodeID());
       request.setStatus(RequestStatus.Completed);
       merd.changeMedEquipRequest(
           request.getRequestID(),
@@ -105,20 +108,22 @@ public class MedEquipRequestManager implements RequestManager {
           request.getNodeID(),
           request.getEmployeeID(),
           request.getEmergency(),
-          request.getStatus());
+          request.getStatus(),
+          request.getCreatedTimestamp(),
+          new Timestamp(System.currentTimeMillis()));
     }
   }
 
   public void cancel(Integer requestID) throws SQLException {
     MedEquipRequest request =
         (MedEquipRequest)
-            RequestFactory.getRequestFactory()
+            RequestFacade.getRequestFacade()
                 .findRequest(requestID, RequestType.MedicalEquipmentRequest);
     // Cannot cancel requests that are completed bc it makes no sense
     if (!request.getStatus().equals(RequestStatus.Completed)) {
       if (request.getStatus() == RequestStatus.InProgress) {
         MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(request.getItemID());
-        MedEquipManager.getMedEquipManager().markClean(item);
+        MedEquipManager.getMedEquipManager().markClean(item.getMedID(), item.getNodeID());
         if (automation.getAuto()) {
           startNext(request.getItemType());
         }
@@ -131,14 +136,16 @@ public class MedEquipRequestManager implements RequestManager {
           request.getNodeID(),
           request.getEmployeeID(),
           request.getEmergency(),
-          request.getStatus());
+          request.getStatus(),
+          request.getCreatedTimestamp(),
+          new Timestamp(System.currentTimeMillis()));
     }
   }
 
   public void reQueue(Integer requestID) throws SQLException {
     MedEquipRequest request =
         (MedEquipRequest)
-            RequestFactory.getRequestFactory()
+            RequestFacade.getRequestFacade()
                 .findRequest(requestID, RequestType.MedicalEquipmentRequest);
     // Only requeue cancelled requests
     if (request.getStatus().equals(RequestStatus.Cancelled)) {
@@ -151,7 +158,9 @@ public class MedEquipRequestManager implements RequestManager {
           request.getNodeID(),
           request.getEmployeeID(),
           request.getEmergency(),
-          request.getStatus());
+          request.getStatus(),
+          request.getCreatedTimestamp(),
+          new Timestamp(System.currentTimeMillis()));
       if (automation.getAuto()) {
         startNext(request.getItemType());
       }
@@ -239,7 +248,7 @@ public class MedEquipRequestManager implements RequestManager {
   public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException {
     MedEquipRequest mER;
     // Set status to in queue if it is not already included (from CSVs)
-    if (fields.size() == 6) {
+    if (fields.size() == 4) {
       fields.add("0");
       fields.add(new Timestamp(System.currentTimeMillis()).toString());
       fields.add(new Timestamp(System.currentTimeMillis()).toString());
@@ -280,6 +289,10 @@ public class MedEquipRequestManager implements RequestManager {
   }
 
   public void exportMedEquipRequestCSV(String filename) {
-    merd.exportMedReqCSV(filename);
+    merd.exportMedEquipReqCSV(filename);
+  }
+
+  public void exportReqCSV(String filename) {
+    merd.exportMedEquipReqCSV(filename);
   }
 }

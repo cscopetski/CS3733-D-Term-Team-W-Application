@@ -4,6 +4,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public interface MedEquipRequestDao {
@@ -32,12 +33,16 @@ public interface MedEquipRequestDao {
       String nodeID,
       Integer employeeID,
       Integer emergency,
-      RequestStatus status)
+      RequestStatus status,
+      Timestamp createdTimestamp,
+      Timestamp updatedTimestamp)
       throws SQLException;
 
   void changeMedEquipRequest(MedEquipRequest mER) throws SQLException;
 
+  void deleteMedEquipRequest(Integer requestID) throws SQLException;
+
   MedEquipRequest getRequest(Integer reqID) throws SQLException;
 
-  void exportMedReqCSV(String fileName);
+  void exportMedEquipReqCSV(String fileName);
 }

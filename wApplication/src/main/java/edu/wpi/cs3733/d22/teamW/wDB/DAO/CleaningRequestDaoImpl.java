@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,6 +10,7 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class CleaningRequestDaoImpl implements CleaningRequestDao {
@@ -38,6 +41,8 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
               + "employeeID INT,"
               + "isEmergency INT,"
               + "reqStatus INT,"
+              + "createdTimeStamp TIMESTAMP,"
+              + "updatedTimeStamp TIMESTAMP,"
               + "constraint cleanReq_itemID_FK foreign key (itemID) references MEDICALEQUIPMENT(medID),\n"
               + "constraint cleanReq_PK primary key (ReqID),\n"
               + "constraint cleaningReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
@@ -58,7 +63,7 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
               String.format("SELECT * FROM CLEANINGREQUESTS WHERE REQID = %d", requestID));
 
       // Size of num LabServiceRequest fields
-      int size = 6;
+      int size = 8;
       ArrayList<String> cleanRequestData = new ArrayList<String>();
 
       while (cleanRequests.next()) {
@@ -77,14 +82,43 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
   }
 
   @Override
-  public ArrayList<CleaningRequest> getAllCleaningRequests() {
-    ArrayList<CleaningRequest> cleanRequestList = new ArrayList<>();
+  public ArrayList<String> getCleaningLocation() throws SQLException {
+    ArrayList<String> listOfNodeID = new ArrayList<>();
+    ResultSet info = statement.executeQuery("SELECT DISTINCT NODEID FROM CLEANINGREQUESTS");
+    // Size of num LabServiceRequest fields
+    int size = 6;
+    ArrayList<String> cleanRequestData = new ArrayList<String>();
+
+    while (info.next()) {
+      listOfNodeID.add(info.getString(1));
+    }
+
+    return listOfNodeID;
+  }
+
+  @Override
+  public ArrayList<Integer> CleaningRequestAtLocation(String nodeID) throws SQLException {
+    ArrayList<Integer> count = new ArrayList<>();
+
+    ResultSet results =
+        statement.executeQuery(
+            String.format("SELECT REQID FROM CLEANINGREQUESTS WHERE NODEID = '%s'", nodeID));
+
+    while (results.next()) {
+      count.add(results.getInt("REQID"));
+    }
+    return count;
+  }
+
+  @Override
+  public ArrayList<Request> getAllCleaningRequests() {
+    ArrayList<Request> cleanRequestList = new ArrayList<>();
 
     try {
       ResultSet cleanRequests = statement.executeQuery("SELECT * FROM CLEANINGREQUESTS");
 
       // Size of num LabServiceRequest fields
-      int size = 6;
+      int size = 8;
       ArrayList<String> cleanRequestData = new ArrayList<String>();
 
       while (cleanRequests.next()) {
@@ -110,16 +144,29 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
   }
 
   @Override
-  public void changeCleaningRequest(Integer requestID, String itemID, RequestStatus status)
+  public void changeCleaningRequest(
+      Integer requestID,
+      String itemID,
+      String nodeID,
+      Integer employeeID,
+      Integer emergency,
+      RequestStatus status)
       throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE CLEANINGREQUESTS SET ITEMID='%s', REQSTATUS=%d WHERE REQID=%d",
-            itemID, status.getValue(), requestID));
+            "UPDATE CLEANINGREQUESTS SET ITEMID='%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP='%s' WHERE REQID=%d",
+            itemID,
+            nodeID,
+            employeeID,
+            emergency,
+            status.getValue(),
+            new Timestamp(System.currentTimeMillis()),
+            requestID));
   }
 
   @Override
   public void deleteCleaningRequest(Integer requestID) throws SQLException {
+    RequestFactory.getRequestFactory().getReqIDList().remove(requestID);
     statement.executeUpdate(
         String.format("DELETE FROM CLEANINGREQUESTS WHERE REQID=%d", requestID));
   }
@@ -132,7 +179,7 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
       pw.print("ReqID,itemID,status");
 
       // print all locations
-      for (CleaningRequest m : getAllCleaningRequests()) {
+      for (Request m : getAllCleaningRequests()) {
         pw.println();
         pw.print(m.toCSVString());
       }

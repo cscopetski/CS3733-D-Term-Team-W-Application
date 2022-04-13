@@ -1,13 +1,28 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
-import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import java.sql.SQLException;
 
-public class MedicineDeliverySR {
-  MedRequest mdr;
+public class MedicineDeliverySR extends SR {
 
-  public MedicineDeliverySR(MedRequest mdr) {
-    this.mdr = mdr;
+  public MedicineDeliverySR(Request r) {
+    super(r);
   }
 
-  // DUR DUR DUR, back end make this stuff
+  @Override
+  public String getRequestType() {
+    return "Medicine Delivery";
+  }
+
+  @Override
+  public String getFormattedInfo() throws SQLException {
+    String info = "";
+    if (this.getEmergency() == 1) {
+      info += "Request marked as an EMERGENCY\n";
+    }
+    info += "Requested by: " + this.getEmployeeName() + "\n";
+    info += "Employee ID: " + this.getEmployeeID() + "\n";
+    info += "";
+    return info;
+  }
 }

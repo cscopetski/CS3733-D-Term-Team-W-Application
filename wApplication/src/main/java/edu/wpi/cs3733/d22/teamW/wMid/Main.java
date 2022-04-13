@@ -3,7 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -11,6 +11,8 @@ import java.util.ArrayList;
 public class Main {
 
   public static void main(String[] args) throws SQLException, FileNotFoundException {
+
+    DBConnectionMode.INSTANCE.setEmbeddedConnection();
 
     final String locationFileName = "TowerLocations.csv";
     final String medEquipFileName = "MedicalEquipment.csv";
@@ -114,18 +116,18 @@ public class Main {
         "secur",
         "secur",
         "NEW");
-
-    edi.changeEmployee(
-        6,
-        "new Hasan",
-        "new G",
-        "new Type",
-        "new Email",
-        "new Phone",
-        "new Address",
-        "joe",
-        "joe123");
-
+    /*
+        edi.changeEmployee(
+            6,
+            "new Hasan",
+            "new G",
+            "Security",
+            "new Email",
+            "new Phone",
+            "new Address",
+            "joe",
+            "joe123");
+    */
     if (edi.passwordMatch("joe", "joe123")) {
       System.out.println("hzgan, spongeBob MATCH");
     } else {
@@ -139,7 +141,7 @@ public class Main {
     } else {
       System.out.println("no match");
     }
-    System.out.println(edi.getEmployee("joe").toCSVString());
+    // System.out.println(edi.getEmployee("joe").toCSVString());
     /* // Req23 cancelled
     merc.cancel(23);
     // Req7 complete
@@ -151,83 +153,26 @@ public class Main {
     merc.complete(2);
     // MedEquipManager.getMedEquipManager().markDirty("BED002", "FEXIT00301");
     System.out.println("\n\n\n\n");
+    /*
     for (Request e : requestFactory.getAllRequests()) {
       System.out.println(e.toValuesString());
-    }
+    } */
 
-    /*
-       edi.addEmployee(
-           1,
-           "N/A",
-           "Staff",
-           "Staff Member",
-           "staff@hospital.com",
-           "(123)4567890",
-           "Mass General",
-           "staff",
-           "staff",
-           "salt");
-       edi.addEmployee(
-           2,
-           "N/A",
-           "Administrator",
-           "admin",
-           "admin@hospital.com",
-           "(123)4567890",
-           "Office",
-           "admin",
-           "admin",
-           "salt");
-       edi.addEmployee(
-           3,
-           "Caleb",
-           "Scopetski",
-           "Doctor",
-           "N/A",
-           "(123)4567890",
-           "NeVer LeFt MaSs",
-           "Scoop",
-           "backEndGang",
-           "salt");
-       edi.addEmployee(
-           4,
-           "Edison",
-           "Zhang",
-           "Janitor",
-           "N/A",
-           "(123)4567890",
-           "Jamaica",
-           "ezhang",
-           "broMyASSSSS",
-           "salt");
-       edi.addEmployee(
-           5,
-           "Charlie",
-           "K-W",
-           "Nurse",
-           "N/A",
-           "(123)4567890",
-           "The North",
-           "charkw",
-           "Ih8Testing",
-           "salt");
-       edi.addEmployee(
-           6,
-           "Hasan",
-           "G",
-           "Lab Technician",
-           "N/A",
-           "(123)4567890",
-           "Bikini Bottom",
-           "hzgan",
-           "spongeBob",
-           "salt");
+    MedEquipManager mem = MedEquipManager.getMedEquipManager();
 
-       edi.exportEmpCSV("Employees.csv");
+    MedEquipManager.getMedEquipManager().markDirty("BED012", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED013", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED014", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED015", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED016", "wSTOR0033");
+    merc.complete(5);
+    mem.markDirty("XRY001", "wSTOR0033");
+    CleaningRequestManager.getCleaningRequestManager().complete(26, "wSTOR0013");
 
-    */
+    RequestFacade.getRequestFacade().getAllRequests();
 
     edi.exportEmpCSV("Employees.csv");
+
     App.launch(App.class, args);
   }
 }

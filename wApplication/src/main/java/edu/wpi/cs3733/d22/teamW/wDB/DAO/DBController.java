@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import java.sql.*;
 
@@ -31,6 +32,15 @@ public class DBController {
   }
 
   private DBController() {
+    try {
+      startConnection();
+    } catch (SQLException | ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+
+  public void startConnection() throws SQLException, ClassNotFoundException {
+    RequestFactory.getRequestFactory().resetTreeSet();
     String connectionStringEmbedded = String.format("jdbc:derby:%s;create=true", this.dbName);
     String connectionStringServer =
         String.format("jdbc:derby://localhost:1527/%s;create=true", this.dbName);
@@ -72,10 +82,11 @@ public class DBController {
       ((CleaningRequestDaoImpl) cleaningRequestDao).createTable();
 
     } catch (SQLException e) {
-      e.printStackTrace();
       System.out.println("Table Creation Failed");
+      throw (e);
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
+      throw (e);
     }
   }
 

@@ -559,7 +559,7 @@ public class MapEditorController extends LoadableController {
     size = reqList.size();
     for (int i = 0; i < size; i++) {
       Circle circ = new Circle(3, Color.BLACK);
-      circ.setCenterX((reqList.get(i).getXcoord() ));
+      circ.setCenterX((reqList.get(i).getXcoord()));
       circ.setCenterY((reqList.get(i).getYcoord()) - 8);
       reqDots.add(circ);
       scrollGroup.getChildren().add(circ);

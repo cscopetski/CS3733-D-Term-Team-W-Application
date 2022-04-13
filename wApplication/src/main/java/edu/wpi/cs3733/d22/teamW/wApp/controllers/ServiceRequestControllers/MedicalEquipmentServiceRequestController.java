@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
@@ -9,25 +11,20 @@ import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 
 public class MedicalEquipmentServiceRequestController {
-  Alert confirm =
+  Alert invalidFields =
       new Alert(
-          Alert.AlertType.CONFIRMATION,
-          "Would you like to confirm this request " + " ?",
+          Alert.AlertType.ERROR,
+          "Invalid characters in Employee ID input" + " !",
           ButtonType.OK,
           ButtonType.CANCEL);
 
-  Alert emptyFields =
-      new Alert(
-          Alert.AlertType.ERROR,
-          "There are required fields empty " + " !",
-          ButtonType.OK,
-          ButtonType.CANCEL);
+  Alert confirm = new ConfirmAlert();
+  Alert emptyFields = new EmptyAlert();
   @FXML ComboBox<String> equipmentSelection;
+  @FXML TextField id;
   // location here
-  @FXML TextField employeeName;
   boolean emergencyLevel = false;
   int emergency;
 
@@ -38,52 +35,36 @@ public class MedicalEquipmentServiceRequestController {
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
     System.out.println("Button Clicked");
-    if ((equipmentSelection.getValue() != null) && !employeeName.getText().isEmpty()) {
-      confirm.showAndWait();
-      if (confirm.getResult() == ButtonType.OK) {
-        ArrayList<String> fields = new ArrayList<String>();
-        fields.add(equipmentSelection.getValue());
-        System.out.println(equipmentSelection.getValue());
-        fields.add("wSTOR001L1"); // location
-        fields.add(employeeName.getText());
-        if (emergencyLevel) {
-          emergency = 1;
-        } else {
-          emergency = 0;
+    if ((equipmentSelection.getValue() != null) && (id.getText() != null)) {
+      if ((id.getText().matches("[0-9]+"))) {
+        confirm.showAndWait();
+        if (confirm.getResult() == ButtonType.OK) {
+          ArrayList<String> fields = new ArrayList<String>();
+          fields.add(equipmentSelection.getValue());
+          fields.add("wSTOR001L1"); // location
+          fields.add(id.getText());
+          if (emergencyLevel) {
+            emergency = 1;
+          } else {
+            emergency = 0;
+          }
+          fields.add("" + emergency);
+          requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
+          lastRequest = fields;
         }
-        fields.add("" + emergency);
-        requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
-        lastRequest = fields;
+      } else {
+        invalidFields.show();
       }
     } else {
       emptyFields.show();
     }
   }
 
-  public void cancelButton(ActionEvent actionEvent) {
-    // MedicalEquipmentController.cancel(requestFactory.getRequest("MEDEQUIPREQUEST", fields));
-  }
-
-  public void emergencyClicked(MouseEvent mouseEvent) {
-    if (emergencyLevel) {
-      emergencyLevel = false;
-      emergencyB.getStylesheets().clear();
-
-      emergencyB
-          .getStylesheets()
-          .add(
-              "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonFalse.css");
-    } else {
-      emergencyLevel = true;
-      emergencyB.getStylesheets().clear();
-      emergencyB
-          .getStylesheets()
-          .add(
-              "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonTrue.css");
-    }
-  }
-
   public void switchToRequestList(ActionEvent event) throws IOException {
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.RequestList);
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
+  }
+
+  public void onEnter(ActionEvent actionEvent) throws SQLException {
+    submitButton(actionEvent);
   }
 }
