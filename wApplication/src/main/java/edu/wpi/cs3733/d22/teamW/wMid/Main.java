@@ -39,22 +39,20 @@ public class Main {
       e.printStackTrace();
     }
 
-    /*
-        MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
+    MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
 
-        MedEquipManager mem = MedEquipManager.getMedEquipManager();
+    MedEquipManager mem = MedEquipManager.getMedEquipManager();
 
-        MedEquipManager.getMedEquipManager().markDirty("BED012", "wSTOR0033");
-        MedEquipManager.getMedEquipManager().markDirty("BED013", "wSTOR0033");
-        MedEquipManager.getMedEquipManager().markDirty("BED014", "wSTOR0033");
-        MedEquipManager.getMedEquipManager().markDirty("BED015", "wSTOR0033");
-        MedEquipManager.getMedEquipManager().markDirty("BED016", "wSTOR0033");
-        merc.complete(5);
-        mem.markDirty("XRY001", "wSTOR0033");
-        CleaningRequestManager.getCleaningRequestManager().complete(;
-    */
+    MedEquipManager.getMedEquipManager().markDirty("BED012", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED013", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED014", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED015", "wSTOR0033");
+    MedEquipManager.getMedEquipManager().markDirty("BED016", "wSTOR0033");
+    merc.complete(5);
+    mem.markDirty("XRY001", "wSTOR0033");
+    CleaningRequestManager.getCleaningRequestManager().complete(26, "wSTOR0013");
 
-    // RequestFactory.getRequestFactory().getAllRequests();
+    RequestFacade.getRequestFacade().getAllRequests();
 
     App.launch(App.class, args);
   }
