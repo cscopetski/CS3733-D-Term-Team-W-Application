@@ -27,7 +27,7 @@ public class CleaningRequestManager {
     return crd.getCleaningRequest(reqID);
   }
 
-  public ArrayList<CleaningRequest> getAllRequest() {
+  public ArrayList<Request> getAllRequests() {
     return crd.getAllCleaningRequests();
   }
 
