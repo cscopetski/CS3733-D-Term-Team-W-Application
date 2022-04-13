@@ -8,11 +8,13 @@ import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 
 public class RequestListController extends LoadableController {
   @FXML public RequestTable rt;
   @FXML public TextArea moreInfo;
+  public ComboBox equipmentSelection;
 
   @Override
   protected SceneManager.Scenes GetSceneType() {
@@ -67,5 +69,13 @@ public class RequestListController extends LoadableController {
     System.out.println(rt.getSelection().toString() + "cancelled");
     rt.refresh();
     */
+  }
+
+  // Filtering the requests by request service
+  public void filterRequest(ActionEvent actionEvent) {
+    // if ("Lab".equals(equipmentSelection.getValue())) {
+    // Only display lab
+    // rt.setItems(RequestFacade.getRequestFacade().);
+    // }
   }
 }

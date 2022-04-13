@@ -96,8 +96,7 @@ public class RequestFacade {
     }
   }
 
-  public void cancelRequest(Integer requestID, RequestType type)
-          throws SQLException {
+  public void cancelRequest(Integer requestID, RequestType type) throws SQLException {
 
     switch (type) {
       case MedicalEquipmentRequest:
@@ -114,13 +113,16 @@ public class RequestFacade {
     }
   }
 
-  //TODO might want to change this to use requests
-  public void startRequest(Integer requestID, RequestType type)
-          throws SQLException {
+  // TODO might want to change this to use requests
+  public void startRequest(Integer requestID, RequestType type) throws SQLException {
 
     switch (type) {
       case MedicalEquipmentRequest:
-        merm.start(requestID);
+        try {
+          merm.start(requestID);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
         break;
       case LabServiceRequest:
         lsrm.start(requestID);
@@ -133,8 +135,7 @@ public class RequestFacade {
     }
   }
 
-  public void requeueRequest(Integer requestID, RequestType type)
-          throws SQLException {
+  public void requeueRequest(Integer requestID, RequestType type) throws SQLException {
 
     switch (type) {
       case MedicalEquipmentRequest:

@@ -39,7 +39,11 @@ public class MedEquipRequestManager implements RequestManager {
     MedEquipRequest mer = getNext(itemType);
     if (mer != null) {
       System.out.println(mer.toValuesString());
-      start(mer.getRequestID());
+      try {
+        start(mer.getRequestID());
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
     } else {
       System.out.println("Nothing to start");
     }
@@ -82,13 +86,13 @@ public class MedEquipRequestManager implements RequestManager {
               request.getCreatedTimestamp(),
               new Timestamp(System.currentTimeMillis()));
         } else {
-          throw(new Exception("No available equipment of type " + request.getItemType()));
+          throw (new Exception("No available equipment of type " + request.getItemType()));
         }
       } else {
-        throw(new Exception("Cannot start, not in queue"));
+        throw (new Exception("Cannot start, not in queue"));
       }
     } else {
-      throw(new Exception("Request:" + requestID + " does not exist"));
+      throw (new Exception("Request:" + requestID + " does not exist"));
     }
   }
 
@@ -271,7 +275,11 @@ public class MedEquipRequestManager implements RequestManager {
       merd.addMedEquipRequest(mER);
 
       if (automation.getAuto()) {
-        start(mER.getRequestID());
+        try {
+          start(mER.getRequestID());
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
       }
     } else {
       mER = null;
