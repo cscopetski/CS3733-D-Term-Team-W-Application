@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
-public class MedRequestManager implements ServiceRequestManager {
+public class MedRequestManager implements RequestManager {
   private static MedRequestManager mrm = new MedRequestManager();
   private MedRequestDao mrd;
 
