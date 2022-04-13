@@ -54,8 +54,8 @@ public class MapEditorController extends LoadableController {
   Image img1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F1.png");
   Image img2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F2.png");
   Image img3 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F3.png");
-  Image imgL1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/L1.png");
-  Image imgL2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/L2.png");
+  Image imgL1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/LL1.png");
+  Image imgL2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/LL2.png");
   Image img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/SideView.png");
   Image img4 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F4.png");
   Image img5 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F5.png");
@@ -324,8 +324,8 @@ public class MapEditorController extends LoadableController {
           new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Location.png");
       ImagePattern bedPattern = new ImagePattern(locationIcon);
       circ.setFill(bedPattern);
-      circ.setCenterX((currFloorLoc.get(i).getXCoord() * 2.0 / 3.0));
-      circ.setCenterY((currFloorLoc.get(i).getYCoord() * 2.0 / 3.0));
+      circ.setCenterX((currFloorLoc.get(i).getXCoord() * 0.665));
+      circ.setCenterY((currFloorLoc.get(i).getYCoord() * 0.862));
       circ.setOnMouseClicked(
           (event -> {
             try {
@@ -389,8 +389,8 @@ public class MapEditorController extends LoadableController {
         circle = new Circle(10, Color.YELLOW);
         circle.setFill(ReclinerPattern);
       }
-      circle.setCenterX((equipList.get(i).getXCoord() * 0.665) - 1);
-      circle.setCenterY((equipList.get(i).getYCoord() * 0.862) - 41);
+      circle.setCenterX((equipList.get(i).getXCoord() * 0.665));
+      circle.setCenterY((equipList.get(i).getYCoord() * 0.862) - 8);
       eqDots.add(circle);
       scrollGroup.getChildren().add(circle);
     }
@@ -559,8 +559,8 @@ public class MapEditorController extends LoadableController {
     size = reqList.size();
     for (int i = 0; i < size; i++) {
       Circle circ = new Circle(3, Color.BLACK);
-      circ.setCenterX((reqList.get(i).getXcoord() * 0.665) - 1);
-      circ.setCenterY((reqList.get(i).getYcoord() * 0.862) - 41);
+      circ.setCenterX((reqList.get(i).getXcoord() * 0.665));
+      circ.setCenterY((reqList.get(i).getYcoord() * 0.862) - 8);
       reqDots.add(circ);
       scrollGroup.getChildren().add(circ);
     }
