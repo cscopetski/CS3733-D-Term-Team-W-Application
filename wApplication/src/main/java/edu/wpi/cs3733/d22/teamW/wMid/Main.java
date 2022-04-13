@@ -92,9 +92,8 @@ public class Main {
     */
     LocationManager.getLocationManager().exportLocationsCSV("LOCATIONTEST.csv");
     MedEquipManager.getMedEquipManager().exportMedicalEquipmentCSV("MEDEQUIPTEST.csv");
-    merc.exportMedEquipRequestCSV("MEDEQUIPREQUESTTEST.csv");
-    LabServiceRequestManager.getLabServiceRequestManager()
-        .exportLabServiceRequestCSV("LABTEST.csv");
+    merc.exportReqCSV("MEDEQUIPREQUESTTEST.csv");
+    LabServiceRequestManager.getLabServiceRequestManager().exportReqCSV("LABTEST.csv");
 
     EmployeeManager edi = EmployeeManager.getEmployeeManager();
     edi.addEmployee(
@@ -148,78 +147,6 @@ public class Main {
     for (Request e : requestFactory.getAllRequests()) {
       System.out.println(e.toValuesString());
     }
-
-    /*
-       edi.addEmployee(
-           1,
-           "N/A",
-           "Staff",
-           "Staff Member",
-           "staff@hospital.com",
-           "(123)4567890",
-           "Mass General",
-           "staff",
-           "staff",
-           "salt");
-       edi.addEmployee(
-           2,
-           "N/A",
-           "Administrator",
-           "admin",
-           "admin@hospital.com",
-           "(123)4567890",
-           "Office",
-           "admin",
-           "admin",
-           "salt");
-       edi.addEmployee(
-           3,
-           "Caleb",
-           "Scopetski",
-           "Doctor",
-           "N/A",
-           "(123)4567890",
-           "NeVer LeFt MaSs",
-           "Scoop",
-           "backEndGang",
-           "salt");
-       edi.addEmployee(
-           4,
-           "Edison",
-           "Zhang",
-           "Janitor",
-           "N/A",
-           "(123)4567890",
-           "Jamaica",
-           "ezhang",
-           "broMyASSSSS",
-           "salt");
-       edi.addEmployee(
-           5,
-           "Charlie",
-           "K-W",
-           "Nurse",
-           "N/A",
-           "(123)4567890",
-           "The North",
-           "charkw",
-           "Ih8Testing",
-           "salt");
-       edi.addEmployee(
-           6,
-           "Hasan",
-           "G",
-           "Lab Technician",
-           "N/A",
-           "(123)4567890",
-           "Bikini Bottom",
-           "hzgan",
-           "spongeBob",
-           "salt");
-
-       edi.exportEmpCSV("Employees.csv");
-
-    */
     edi.exportEmpCSV("Employees.csv");
     MedEquipManager.getMedEquipManager().markDirty("BED012", "wSTOR0033");
     MedEquipManager.getMedEquipManager().markDirty("BED013", "wSTOR0033");
@@ -229,6 +156,22 @@ public class Main {
     merc.complete(5);
     mem.markDirty("XRY001", "wSTOR0033");
     CleaningRequestManager.getCleaningRequestManager().complete(26, "wSTOR0013");
+
+    ArrayList<String> medRequestFields = new ArrayList<String>();
+    // this.requestID = Integer.parseInt(fields.get(0));
+    //    this.medicine = fields.get(1);
+    //    this.nodeID = fields.get(2);
+    //    this.employeeID = Integer.parseInt(fields.get(3));
+    //    this.emergency = Integer.parseInt(fields.get(4));
+    //    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(5)));
+    //    this.createdTimestamp = Timestamp.valueOf(fields.get(6));
+    //    this.updatedTimestamp = Timestamp.valueOf(fields.get(7));
+    medRequestFields.add("medicine");
+    medRequestFields.add("FDEPT00101");
+    medRequestFields.add("1");
+    medRequestFields.add("0");
+    MedRequestManager.getMedRequestManager().addRequest(50, medRequestFields);
+    MedRequestManager.getMedRequestManager().exportReqCSV("MEDREQUESTTEST.csv");
     // DBConnectionMode.INSTANCE.setServerConnection();
     /*DBController.getDBController().closeConnection();
 

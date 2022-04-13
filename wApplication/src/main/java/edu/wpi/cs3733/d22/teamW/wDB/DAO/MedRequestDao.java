@@ -27,4 +27,6 @@ public interface MedRequestDao {
   Request getMedRequest(Integer id) throws SQLException;
 
   ArrayList<Request> getAllMedRequest() throws SQLException;
+
+  void exportMedReqCSV(String fileName);
 }

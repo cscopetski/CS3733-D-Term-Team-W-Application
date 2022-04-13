@@ -44,5 +44,5 @@ public interface MedEquipRequestDao {
 
   MedEquipRequest getRequest(Integer reqID) throws SQLException;
 
-  void exportMedReqCSV(String fileName);
+  void exportMedEquipReqCSV(String fileName);
 }

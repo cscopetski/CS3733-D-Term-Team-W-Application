@@ -157,7 +157,7 @@ public class CleaningRequestManager {
     }
   }
 
-  public void exportCleaningRequestCSV(String filename) {
+  public void exportReqCSV(String filename) {
     crd.exportCleaningReqCSV(filename);
   }
 }
