@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.DefaultPageController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
@@ -19,10 +20,10 @@ public class MedicalEquipmentServiceRequestController {
 
   @FXML ComboBox<String> equipmentSelection;
   // location here
-  boolean emergencyLevel = false;
+  // boolean emergencyLevel = false;
   int emergency;
 
-  @FXML Button emergencyB;
+  @FXML EmergencyButton emergencyB;
 
   RequestFactory requestFactory = RequestFactory.getRequestFactory();
   ArrayList<String> lastRequest;
@@ -41,7 +42,7 @@ public class MedicalEquipmentServiceRequestController {
                 .getEmployee()
                 .getEmployeeID()
                 .toString());
-        if (emergencyLevel) {
+        if (emergencyB.getValue()) {
           emergency = 1;
         } else {
           emergency = 0;
