@@ -1,10 +1,12 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
@@ -37,6 +39,9 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   @FXML private TableView<MedicalEquipmentSR> table;
   private ArrayList<MedicalEquipmentSR> sr = new ArrayList<>();
 
+  // Alerts:
+  Alert emptyFields = new EmptyAlert();
+
   // Helper Fcn stuff -> NOT WORKING RIGHT NOW:
   // private Control[] fields = new Control[] {quantityField, itemCodeField, medNameCBox,
   // locationCBox, requesterCBox};
@@ -51,8 +56,6 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
           "18:30");
 
   // -----------------------------METHOD CODE STARTS HERE-----------------------------
-
-  public MedicineDeliveryServiceRequestController() throws SQLException {}
 
   protected SceneManager.Scenes GetSceneType() {
     return SceneManager.Scenes.MedicineDelivery;
@@ -163,7 +166,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   private void populateTable() {
     ArrayList<Request> requests = null;
     try {
-      requests = RequestFactory.getRequestFactory().getAllRequests();
+      requests = RequestFacade.getRequestFacade().getAllRequests();
     } catch (SQLException e) {
       System.out.println("Failed to unearth request form database");
       e.printStackTrace();
@@ -190,6 +193,8 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
         System.out.println("Unable to push Medicine Delivery request to DB");
         e.printStackTrace();
       }
+    } else {
+      emptyFields.show();
     }
   }
 
