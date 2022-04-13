@@ -3,7 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
-import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
@@ -85,7 +85,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   public void populateTable() {
     Collection<? extends Request> requests = null;
     try {
-      requests = RequestFactory.getRequestFactory().getAllRequests();
+      requests = RequestFacade.getRequestFacade().getAllRequests();
     } catch (SQLException e) {
       e.printStackTrace();
       System.out.println("Table did not populate");
