@@ -3,10 +3,10 @@ package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipRequestDao;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Automation;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.Automation;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 public class MedEquipRequestManager implements RequestManager {
 
-  Automation automation = Automation.getAutomation();
   private MedEquipRequestDao merd;
   private MedEquipManager mem = MedEquipManager.getMedEquipManager();
 
@@ -131,7 +130,7 @@ public class MedEquipRequestManager implements RequestManager {
       if (request.getStatus() == RequestStatus.InProgress) {
         MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(request.getItemID());
         MedEquipManager.getMedEquipManager().markClean(item.getMedID(), item.getNodeID());
-        if (automation.getAuto()) {
+        if (Automation.Automation.getAuto()) {
           startNext(request.getItemType());
         }
       }
@@ -168,7 +167,7 @@ public class MedEquipRequestManager implements RequestManager {
           request.getStatus(),
           request.getCreatedTimestamp(),
           new Timestamp(System.currentTimeMillis()));
-      if (automation.getAuto()) {
+      if (Automation.Automation.getAuto()) {
         startNext(request.getItemType());
       }
     }
@@ -277,7 +276,7 @@ public class MedEquipRequestManager implements RequestManager {
     if (RequestFactory.getRequestFactory().getReqIDList().add(mER.getRequestID())) {
       merd.addMedEquipRequest(mER);
 
-      if (automation.getAuto()) {
+      if (Automation.Automation.getAuto()) {
         try {
           start(mER.getRequestID());
         } catch (Exception e) {
