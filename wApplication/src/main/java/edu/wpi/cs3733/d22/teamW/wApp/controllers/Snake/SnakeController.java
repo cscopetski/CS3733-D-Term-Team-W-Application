@@ -31,7 +31,7 @@ public class SnakeController extends LoadableController {
 
   public final double borderSize = 500;
   public final double center = 200;
-  public final double xOffset = 335;
+  public final double xOffset = 320;
   public final double Min = center - (borderSize / 2);
   public final double Max = center + (borderSize / 2);
 
