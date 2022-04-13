@@ -79,13 +79,15 @@ public class LabServiceRequestController extends LoadableController {
       } catch (SQLException e) {
         System.out.println("Unable to push Medicine Delivery request to DB");
         e.printStackTrace();
+      } catch (Exception e) {
+        e.printStackTrace();
       }
     } else {
       emptyFields.show();
     }
   }
 
-  private void pushDataToDB() throws SQLException {
+  private void pushDataToDB() throws Exception {
 
     // Check Boxes:
     if (bloodBox.isSelected()) {
