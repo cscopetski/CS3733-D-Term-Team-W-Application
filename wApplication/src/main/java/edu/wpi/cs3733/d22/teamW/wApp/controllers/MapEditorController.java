@@ -324,7 +324,7 @@ public class MapEditorController extends LoadableController {
           new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Location.png");
       ImagePattern bedPattern = new ImagePattern(locationIcon);
       circ.setFill(bedPattern);
-      circ.setCenterX((currFloorLoc.get(i).getXCoord()));
+      circ.setCenterX((currFloorLoc.get(i).getXCoord()) - 75);
       circ.setCenterY((currFloorLoc.get(i).getYCoord()));
       circ.setOnMouseClicked(
           (event -> {
