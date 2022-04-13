@@ -42,6 +42,8 @@ public class RequestFacade {
         requests.addAll(crm.getAllRequests());
         break;
       default:
+        requests.addAll(getAllRequests());
+        break;
     }
     Collections.sort(requests);
 
