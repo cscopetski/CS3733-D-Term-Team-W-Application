@@ -95,4 +95,22 @@ public class RequestFacade {
         crm.complete(requestID, nodeID);
     }
   }
+
+  public void cancelRequest(Integer requestID, RequestType type)
+          throws SQLException {
+
+    switch (type) {
+      case MedicalEquipmentRequest:
+        merm.cancel(requestID);
+        break;
+      case LabServiceRequest:
+        lsrm.cancel(requestID);
+        break;
+      case MedicineDelivery:
+        mrm.cancel(requestID);
+        break;
+      case CleaningRequest:
+        crm.cancel(requestID);
+    }
+  }
 }
