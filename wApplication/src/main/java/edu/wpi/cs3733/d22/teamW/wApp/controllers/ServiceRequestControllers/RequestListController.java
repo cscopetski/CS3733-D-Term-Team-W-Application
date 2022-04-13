@@ -53,7 +53,7 @@ public class RequestListController extends LoadableController {
         .addListener((e, o, n) -> setItemsWithFilter(n.intValue()));
   }
 
-  public void onLoad() throws SQLException {
+  public void onLoad() {
     rt.setColumnWidth("Req. ID", 60);
     rt.setColumnWidth("Request Type", 130);
     rt.setColumnWidth("Employee Name", 140);
@@ -63,9 +63,8 @@ public class RequestListController extends LoadableController {
     resetItems();
   }
 
-  public void resetItems() throws SQLException {
+  public void resetItems() {
     setItemsWithFilter(equipmentSelection.getSelectionModel().getSelectedIndex());
-    equipmentSelection.getSelectionModel().clearSelection();
   }
 
   @Override
@@ -127,11 +126,14 @@ public class RequestListController extends LoadableController {
         }
         break;
     }
-    rt.getSelectionModel().clearSelection();
-    selectionButtons.setVisible(false);
+    clearSelection();
   }
 
-  public void cancel(ActionEvent actionEvent) throws SQLException {}
+  public void cancel(ActionEvent actionEvent) throws SQLException {
+    RequestFacade.getRequestFacade()
+        .cancelRequest(rt.getSelection().getRequestID(), rt.getSelection().getRequestType());
+    resetItems();
+  }
 
   public void confirm(ActionEvent event) throws SQLException {
     RequestFacade.getRequestFacade()
@@ -142,7 +144,7 @@ public class RequestListController extends LoadableController {
     resetItems();
   }
 
-  public void clearSelection(ActionEvent event) {
+  public void clearSelection() {
     rt.getSelectionModel().clearSelection();
     selectionButtons.setVisible(false);
   }
