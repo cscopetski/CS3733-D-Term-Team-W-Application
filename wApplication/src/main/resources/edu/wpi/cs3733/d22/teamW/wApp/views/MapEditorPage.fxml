@@ -47,7 +47,7 @@
                    <content>
                        <Group>
                            <Group fx:id="scrollGroup">
-                               <ImageView fx:id="mapList" fitHeight="862.0" fitWidth="665.0" layoutX="-81.0" onMouseClicked="#addLocation2" preserveRatio="true">
+                               <ImageView fx:id="mapList" fitHeight="1000.0" fitWidth="1000.0" layoutX="-81.0" onMouseClicked="#addLocation2" preserveRatio="true">
                                    <Image url="@../assets/Maps/SideView.png" />
                                </ImageView>
                            </Group>
