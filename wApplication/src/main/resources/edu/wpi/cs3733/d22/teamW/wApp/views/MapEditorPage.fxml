@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
@@ -18,160 +19,19 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="page" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
-   <right>
-      <Pane prefHeight="556.0" prefWidth="243.0" BorderPane.alignment="CENTER">
-         <children>
-              <Circle fill="DODGERBLUE" layoutX="197.0" layoutY="230.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
-              <Circle fill="#00ff26" layoutX="197.0" layoutY="263.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
-              <Circle fill="#6b3198" layoutX="197.0" layoutY="292.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
-              <Label layoutX="135.0" layoutY="188.0" text="Location:" />
-              <Label layoutX="162.0" layoutY="221.0" text="Bed:" />
-              <Label layoutX="150.0" layoutY="255.0" text="X-Ray:" />
-              <Label layoutX="106.0" layoutY="283.0" text="Infusion Pump:" />
-              <Label layoutX="139.0" layoutY="315.0" text="Recliner:" />
-              <Circle fill="#f6ff00" layoutX="197.0" layoutY="323.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
-              <Label layoutX="139.0" layoutY="152.0" text="Map Key">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-              <Circle fill="RED" layoutX="197.0" layoutY="197.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
-            <Button fx:id="resetButton" layoutX="14.0" layoutY="489.0" mnemonicParsing="false" onAction="#resetCSV" style="-fx-background-color: #189DA6;" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Load Map from CSV" />
-            <Button fx:id="exportButton" layoutX="149.0" layoutY="489.0" mnemonicParsing="false" onAction="#expCSV" style="-fx-background-color: #189DA6;" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Export to CSV" />
-         </children>
-      </Pane>
-   </right>
-   <top>
-      <Pane prefHeight="107.0" prefWidth="1009.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="484.0" layoutY="58.0" text="Welcome to Map Editor page." textFill="#013895">
-               <font>
-                  <Font name="System Bold" size="26.0" />
-               </font>
-            </Label>
-            <Label layoutX="501.0" layoutY="93.0" text="Need to check on things ? We have an interactive map for you" textFill="#706e6e" />
-            <ImageView fitHeight="75.0" fitWidth="75.0" layoutX="620.0" layoutY="-2.0">
-               <image>
-                  <Image url="@../assets/MapIcon.png" />
-               </image>
-            </ImageView>
-         </children>
-      </Pane>
-   </top>
-   <left>
-      <Pane prefHeight="693.0" prefWidth="362.0" BorderPane.alignment="CENTER">
-         <children>
-            <TableView fx:id="EqDashTab" layoutX="15.0" layoutY="254.0" prefHeight="185.0" prefWidth="301.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
-              <columns>
-                <TableColumn prefWidth="86.66667938232422" text="ID">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="MedID" />
-                    </cellValueFactory> </TableColumn>
-                  <TableColumn prefWidth="48.0" text="Floor">                     <cellValueFactory>
-                      <PropertyValueFactory property="Floor" />
-                  </cellValueFactory> </TableColumn>
-                  <TableColumn prefWidth="76.66671752929688" text="LocType">                     <cellValueFactory>
-                      <PropertyValueFactory property="LocType" />
-                  </cellValueFactory> </TableColumn>
-                  <TableColumn prefWidth="86.99998474121094" text="Status">                     <cellValueFactory>
-                      <PropertyValueFactory property="Status" />
-                  </cellValueFactory> </TableColumn>
-              </columns>
-            </TableView>
-            <Label alignment="CENTER_RIGHT" layoutY="26.0" prefHeight="38.0" prefWidth="123.0" style="-fx-background-color: #189DA6;" text="Location  " textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-             <TableView fx:id="FloorTab" layoutX="20.0" layoutY="68.0" prefHeight="135.0" prefWidth="294.0" stylesheets="@../CSS/UniversalCSS/Standard.css" visible="false">
-                 <columns>
-                     <TableColumn prefWidth="50.0" text="Floor">
-                     <cellValueFactory>
-                         <PropertyValueFactory property="Floor" />
-                     </cellValueFactory> </TableColumn>
-                     <TableColumn prefWidth="53.0" text="Beds">
-                         <cellValueFactory>
-                             <PropertyValueFactory property="BedCount" />
-                         </cellValueFactory> </TableColumn>
-                     <TableColumn prefWidth="55.0" text="XRAY">
-                         <cellValueFactory>
-                             <PropertyValueFactory property="XrayCount" />
-                         </cellValueFactory> </TableColumn>
-                     <TableColumn prefWidth="46.0" text="Pumps">
-                         <cellValueFactory>
-                             <PropertyValueFactory property="PumpCount" />
-                         </cellValueFactory> </TableColumn>
-                     <TableColumn prefWidth="72.0" text="Reclin">
-                         <cellValueFactory>
-                         <PropertyValueFactory property="ReclinCount" />
-                     </cellValueFactory> </TableColumn>
-                 </columns>
-             </TableView>
-              <TableView fx:id="LocTab" layoutX="20.0" layoutY="68.0" prefHeight="135.0" prefWidth="294.0" style="-fx-text-fill: white;" stylesheets="@../CSS/UniversalCSS/Standard.css">
-                  <columns>
-                      <TableColumn prefWidth="89.0" text="nodeID">
-                          <cellValueFactory>
-                              <PropertyValueFactory property="NodeID" />
-                          </cellValueFactory>
-                      </TableColumn>
-                      <TableColumn prefWidth="68.66667175292969" text="X">
-                          <cellValueFactory>
-                              <PropertyValueFactory property="XCoord" />
-                          </cellValueFactory>
-                      </TableColumn>
-                      <TableColumn prefWidth="80.66668701171875" text="Y">
-                          <cellValueFactory>
-                              <PropertyValueFactory property="YCoord" />
-                          </cellValueFactory>
-                      </TableColumn>
-                  </columns>
-                  <items>
-                      <FXCollections fx:factory="observableArrayList" />
-                  </items>
-              </TableView>
-              <Button fx:id="refreshButton" layoutX="247.0" layoutY="31.0" mnemonicParsing="false" onAction="#refresh" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Refresh" />
-              <TableView fx:id="EqTab" layoutX="15.0" layoutY="254.0" prefHeight="185.0" prefWidth="301.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
-                  <columns>
-                      <TableColumn prefWidth="62.666648864746094" text="Type">
-                          <cellValueFactory>
-                              <PropertyValueFactory property="Type" />
-                          </cellValueFactory>
-                      </TableColumn>
-                      <TableColumn prefWidth="66.0" text="medID">
-                          <cellValueFactory>
-                              <PropertyValueFactory property="MedID" />
-                          </cellValueFactory>
-                      </TableColumn>
-                      <TableColumn prefWidth="51.333404541015625" text="Y ">
-                          <cellValueFactory>
-                              <PropertyValueFactory property="YCoord" />
-                          </cellValueFactory>
-                      </TableColumn>
-                      <TableColumn prefWidth="73.99995422363281" text="X">
-                          <cellValueFactory>
-                              <PropertyValueFactory property="XCoord" />
-                          </cellValueFactory>
-                      </TableColumn>
-                  </columns>
-              </TableView>
-              <Label alignment="CENTER_RIGHT" layoutY="208.0" prefHeight="38.0" prefWidth="123.0" style="-fx-background-color: #189DA6;" text="Equipment  " textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-            </Label>
-         </children>
-      </Pane>
-   </left>
+    <stylesheets>
+        <URL value="@../CSS/MapEditorPage/mapEditor.css" />
+        <URL value="@../CSS/UniversalCSS/Standard.css" />
+    </stylesheets>
    <center>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
-              <MenuButton fx:id="dropdown" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Change Floor">
+              <MenuButton fx:id="dropdown" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" styleClass="margin-10" text="Change Floor">
                   <items>
                       <MenuItem fx:id="Side" mnemonicParsing="false" onAction="#swapSideView" text="Side View" />
                       <MenuItem fx:id="F1" mnemonicParsing="false" onAction="#swapFloor1" text="Floor 1" />
@@ -194,30 +54,237 @@
                        </Group>
                    </content>
                </ScrollPane>
-            <HBox alignment="CENTER">
-               <children>
-                  <VBox>
-                     <children>
-                        <Label text="Swipe right to zoom in" textFill="#aca1a1">
-                           <font>
-                              <Font name="System Italic" size="12.0" />
-                           </font>
-                        </Label>
-                           <Slider fx:id="scaleSlider" prefHeight="34.0" prefWidth="294.0" style="-fx-padding: 10px" />
-                     </children>
-                  </VBox>
-                  <HBox alignment="CENTER" spacing="10.0">
-                     <children>
-                        <ToggleButton fx:id="panButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Pan" />
-                        <ToggleButton fx:id="modifyButton" mnemonicParsing="false" prefHeight="100.0" prefWidth="100.0" text="Modify" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-               </children>
-            </HBox>
          </children>
       </VBox>
    </center>
+   <right>
+      <AnchorPane prefWidth="300.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER" fillWidth="false" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <VBox alignment="TOP_CENTER" spacing="10.0">
+                     <children>
+                          <Label text="Map Key">
+                           <font>
+                              <Font name="System Bold" size="16.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                           <children>
+                                <Label text="Location:" />
+                                <Circle fill="RED" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                           <children>
+                                <Label text="Bed:" />
+                                <Circle fill="DODGERBLUE" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                           <children>
+                                <Label text="X-Ray:" />
+                                <Circle fill="#00ff26" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                           <children>
+                                <Label text="Infusion Pump:" />
+                                <Circle fill="#6b3198" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER_RIGHT" spacing="10.0">
+                           <children>
+                                <Label text="Recliner:" />
+                                <Circle fill="#f6ff00" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Button fx:id="resetButton" mnemonicParsing="false" onAction="#resetCSV" text="Load Map from CSV" />
+                        <Button fx:id="exportButton" mnemonicParsing="false" onAction="#expCSV" text="Export to CSV" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </AnchorPane>
+   </right>
+   <left>
+      <AnchorPane prefWidth="300.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER_RIGHT" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane>
+                     <children>
+                        <Label alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="123.0" style="-fx-background-color: #189DA6;" text="Location  " textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                          <Button fx:id="refreshButton" layoutX="247.0" layoutY="5.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0" />
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="250.0">
+                     <children>
+                         <TableView fx:id="FloorTab" prefHeight="135.0" prefWidth="294.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                             <columns>
+                                 <TableColumn prefWidth="50.0" text="Floor">
+                                 <cellValueFactory>
+                                     <PropertyValueFactory property="Floor" />
+                                 </cellValueFactory> </TableColumn>
+                                 <TableColumn prefWidth="53.0" text="Beds">
+                                     <cellValueFactory>
+                                         <PropertyValueFactory property="BedCount" />
+                                     </cellValueFactory> </TableColumn>
+                                 <TableColumn prefWidth="55.0" text="XRAY">
+                                     <cellValueFactory>
+                                         <PropertyValueFactory property="XrayCount" />
+                                     </cellValueFactory> </TableColumn>
+                                 <TableColumn prefWidth="46.0" text="Pumps">
+                                     <cellValueFactory>
+                                         <PropertyValueFactory property="PumpCount" />
+                                     </cellValueFactory> </TableColumn>
+                                 <TableColumn prefWidth="72.0" text="Reclin">
+                                     <cellValueFactory>
+                                     <PropertyValueFactory property="ReclinCount" />
+                                 </cellValueFactory> </TableColumn>
+                             </columns>
+                         </TableView>
+                          <TableView fx:id="LocTab" prefHeight="135.0" prefWidth="294.0" style="-fx-text-fill: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <columns>
+                                  <TableColumn prefWidth="89.0" text="nodeID">
+                                      <cellValueFactory>
+                                          <PropertyValueFactory property="NodeID" />
+                                      </cellValueFactory>
+                                  </TableColumn>
+                                  <TableColumn prefWidth="68.66667175292969" text="X">
+                                      <cellValueFactory>
+                                          <PropertyValueFactory property="XCoord" />
+                                      </cellValueFactory>
+                                  </TableColumn>
+                                  <TableColumn prefWidth="80.66668701171875" text="Y">
+                                      <cellValueFactory>
+                                          <PropertyValueFactory property="YCoord" />
+                                      </cellValueFactory>
+                                  </TableColumn>
+                              </columns>
+                              <items>
+                                  <FXCollections fx:factory="observableArrayList" />
+                              </items>
+                          </TableView>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </AnchorPane>
+                  <AnchorPane>
+                     <children>
+                          <Label alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="123.0" style="-fx-background-color: #189DA6;" text="Equipment  " textFill="WHITE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <AnchorPane prefHeight="250.0">
+                     <children>
+                        <TableView fx:id="EqDashTab" prefHeight="185.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                          <columns>
+                            <TableColumn prefWidth="86.66667938232422" text="ID">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="MedID" />
+                                </cellValueFactory> </TableColumn>
+                              <TableColumn prefWidth="48.0" text="Floor">                     <cellValueFactory>
+                                  <PropertyValueFactory property="Floor" />
+                              </cellValueFactory> </TableColumn>
+                              <TableColumn prefWidth="76.66671752929688" text="LocType">                     <cellValueFactory>
+                                  <PropertyValueFactory property="LocType" />
+                              </cellValueFactory> </TableColumn>
+                              <TableColumn prefWidth="86.99998474121094" text="Status">                     <cellValueFactory>
+                                  <PropertyValueFactory property="Status" />
+                              </cellValueFactory> </TableColumn>
+                          </columns>
+                        </TableView>
+                          <TableView fx:id="EqTab" prefHeight="185.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <columns>
+                                  <TableColumn prefWidth="62.666648864746094" text="Type">
+                                      <cellValueFactory>
+                                          <PropertyValueFactory property="Type" />
+                                      </cellValueFactory>
+                                  </TableColumn>
+                                  <TableColumn prefWidth="66.0" text="medID">
+                                      <cellValueFactory>
+                                          <PropertyValueFactory property="MedID" />
+                                      </cellValueFactory>
+                                  </TableColumn>
+                                  <TableColumn prefWidth="51.333404541015625" text="Y ">
+                                      <cellValueFactory>
+                                          <PropertyValueFactory property="YCoord" />
+                                      </cellValueFactory>
+                                  </TableColumn>
+                                  <TableColumn prefWidth="73.99995422363281" text="X">
+                                      <cellValueFactory>
+                                          <PropertyValueFactory property="XCoord" />
+                                      </cellValueFactory>
+                                  </TableColumn>
+                              </columns>
+                          </TableView>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </VBox.margin>
+                  </AnchorPane>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </left>
+   <bottom>
+      <HBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label text="Swipe right to zoom in" textFill="#aca1a1">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                  </Label>
+                     <Slider fx:id="scaleSlider" prefHeight="34.0" prefWidth="294.0" style="-fx-padding: 10px" />
+               </children>
+            </VBox>
+            <HBox alignment="CENTER" spacing="10.0">
+               <children>
+                  <ToggleButton fx:id="panButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" styleClass="pan" />
+                  <ToggleButton fx:id="modifyButton" minHeight="50.0" minWidth="50.0" mnemonicParsing="false" styleClass="modify" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+         </children>
+      </HBox>
+   </bottom>
+   <top>
+      <VBox alignment="TOP_CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="75.0" fitWidth="75.0">
+               <image>
+                  <Image url="@../assets/MapIcon.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome to Map Editor page." textFill="#013895">
+               <font>
+                  <Font name="System Bold" size="26.0" />
+               </font>
+            </Label>
+            <Label text="Need to check on things ? We have an interactive map for you" textFill="#706e6e" />
+         </children>
+      </VBox>
+   </top>
 </BorderPane>
