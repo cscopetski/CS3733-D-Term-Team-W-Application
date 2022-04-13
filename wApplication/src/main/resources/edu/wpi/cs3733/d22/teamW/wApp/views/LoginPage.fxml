@@ -13,7 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.LoginController">
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
+<AnchorPane style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.LoginController">
    <children>
       <AnchorPane styleClass="body" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -74,18 +76,17 @@
                      </children>
                   </Pane>
                </center>
-               <top>
-                  <Pane prefHeight="42.0" prefWidth="634.0" BorderPane.alignment="TOP_LEFT">
-                     <children>
-                        <ComboBox fx:id="switchServer" layoutX="28.0" layoutY="30.0" onAction="#updateSwitchingServer" prefHeight="25.0" prefWidth="97.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
-                        <Label layoutX="28.0" layoutY="6.0" text="Switch Server" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="15.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-               </top>
+               <bottom>
+                  <HBox prefHeight="42.0" prefWidth="634.0" BorderPane.alignment="BOTTOM_LEFT">
+                     <Label layoutX="28.0" layoutY="6.0" text="Server: " textFill="WHITE" style="-fx-padding: 2px 0 0 10px">
+                        <font>
+                           <Font name="System Bold" size="15.0"/>
+                        </font>
+                     </Label>
+                     <Button fx:id="switchServer" layoutX="28.0" layoutY="30.0" onAction="#updateSwitchingServer"
+                             prefHeight="25.0" prefWidth="97.0" stylesheets="@../CSS/UniversalCSS/Standard.css"/>
+                  </HBox>
+               </bottom>
             </BorderPane>
          </children>
       </AnchorPane>

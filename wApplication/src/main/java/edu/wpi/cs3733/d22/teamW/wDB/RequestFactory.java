@@ -7,10 +7,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 public class RequestFactory {
 
@@ -27,7 +24,6 @@ public class RequestFactory {
   private static RequestFactory requestFactory = new RequestFactory();
 
   public static RequestFactory getRequestFactory() {
-
     return requestFactory;
   }
 
@@ -85,6 +81,8 @@ public class RequestFactory {
       case MedicineDelivery:
         request = mrm.getRequest(requestID);
         break;
+      case CleaningRequest:
+        request = crm.getRequest(requestID);
       default:
         request = null;
     }
@@ -96,6 +94,7 @@ public class RequestFactory {
     requests.addAll(mrm.getAllRequests());
     requests.addAll(merm.getAllRequests());
     requests.addAll(lsrm.getAllRequests());
+    requests.addAll(crm.getAllRequests());
     Collections.sort(requests);
     return requests;
   }

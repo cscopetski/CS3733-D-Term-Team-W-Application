@@ -10,7 +10,6 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -24,7 +23,8 @@ public class SnakeController extends LoadableController {
   private final Double snakeSize = 50.;
   // The head of the snake is created, at position (250,250)
   private Rectangle snakeHead;
-  private ImageView image;
+  // private ImageView image = new ImageView(new
+  // Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/SideView.jpg"));
   // x and y position of the snake head different from starting position
   double xPos;
   double yPos;
@@ -87,7 +87,7 @@ public class SnakeController extends LoadableController {
 
     snakeBody.add(snakeHead);
     // snakeHead.setFill(Color.TRANSPARENT);
-    snakeHead.setFill(Color.RED);
+    snakeHead.setFill(Color.rgb(152, 229, 219, 1.0));
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
 
@@ -157,9 +157,11 @@ public class SnakeController extends LoadableController {
     if (xPos <= Min || xPos > Max || yPos <= Min || yPos > Max) {
       System.out.println("Game_over");
       loss.setVisible(true);
+      loss.toFront();
       return true;
     } else if (snakeHitItSelf()) {
       loss.setVisible(true);
+      loss.toFront();
       return true;
     }
     return false;
@@ -222,7 +224,7 @@ public class SnakeController extends LoadableController {
     gameBorder.setLayoutY(center);
     gameBorder.setPrefWidth(borderSize);
     gameBorder.setPrefHeight(borderSize);
-    food = new Food(-50, -50, anchorPane, snakeSize);
+    food = new Food(0, 0, anchorPane, snakeSize);
     timeline =
         new Timeline(
             new KeyFrame(
@@ -240,13 +242,15 @@ public class SnakeController extends LoadableController {
                     timeline.stop();
                   }
                 }));
-    // image =  new ImageView(new
-    // Image(getClass().getResourceAsStream("edu/wpi/cs3733/d22/teamW/wApp/assets/Icons/wong.png")));
+
+    // image.setFitWidth(snakeSize);
+    // image.setFitHeight(snakeSize);
   }
 
   @Override
   public void onUnload() {
     timeline = null;
     food = null;
+    anchorPane.getChildren().clear();
   }
 }

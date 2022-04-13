@@ -108,7 +108,7 @@
                                                         </Pane>
                                                     </top>
                                                     <center>
-                                                        <TextArea prefHeight="200.0" prefWidth="200.0" scaleZ="0.0" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" BorderPane.alignment="CENTER">
+                                                        <TextArea fx:id="moreInfo" prefHeight="200.0" prefWidth="200.0" scaleZ="0.0" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" BorderPane.alignment="CENTER">
                                                             <BorderPane.margin>
                                                                 <Insets top="10.0" />
                                                             </BorderPane.margin>
@@ -126,7 +126,7 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                             <center>
-                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Cancel" BorderPane.alignment="CENTER">
+                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Cancel" onAction="#cancel" BorderPane.alignment="CENTER">
                                     <BorderPane.margin>
                                         <Insets bottom="20.0" />
                                     </BorderPane.margin>

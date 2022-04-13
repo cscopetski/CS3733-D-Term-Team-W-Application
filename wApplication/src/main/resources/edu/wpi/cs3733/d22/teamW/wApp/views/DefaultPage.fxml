@@ -77,9 +77,6 @@
                     <children>
                         <fx:include fx:id="mainMenuPage" source="MainMenuPage.fxml" />
                         <fx:include fx:id="mapEditorPage" source="MapEditorPage.fxml" />
-                        <fx:include fx:id="helpPage" source="HelpPage.fxml" />
-                        <fx:include fx:id="aboutPage" source="AboutPage.fxml" />
-                        <fx:include fx:id="profilePage" source="ProfilePage.fxml" />
                         <fx:include fx:id="labServiceRequestPage" source="ServiceRequestPages/LabServiceRequestPage.fxml" />
                         <fx:include fx:id="languageInterpreterServiceRequestPage" source="ServiceRequestPages/LanguageInterpreterServiceRequestPage.fxml" />
                         <fx:include fx:id="mealDeliveryServiceRequestPage" source="ServiceRequestPages/MealDeliveryServiceRequestPage.fxml" />
@@ -88,6 +85,9 @@
                         <fx:include fx:id="securityServiceRequestPage" source="ServiceRequestPages/SecurityServiceRequestPage.fxml" />
                         <fx:include fx:id="requestListPage" source="ServiceRequestPages/RequestListPage.fxml" />
                         <fx:include fx:id="requestHubPage" source="RequestHubPage.fxml" />
+                        <fx:include fx:id="helpPage" source="HelpPage.fxml" />
+                        <fx:include fx:id="aboutPage" source="AboutPage.fxml" />
+                        <fx:include fx:id="profilePage" source="ProfilePage.fxml" />
                         <fx:include fx:id="snakePage" source="Snake.fxml" />
                         <fx:include fx:id="loginPage" source="LoginPage.fxml" />
                     </children>

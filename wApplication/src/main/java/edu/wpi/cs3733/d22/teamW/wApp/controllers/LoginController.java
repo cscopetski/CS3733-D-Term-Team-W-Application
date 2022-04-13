@@ -20,7 +20,7 @@ import javafx.scene.layout.Pane;
 
 public class LoginController extends LoadableController {
 
-  public ComboBox switchServer;
+  @FXML public Button switchServer;
   @FXML Pane background;
   @FXML Button loginButton;
   @FXML TextField username;
@@ -44,14 +44,13 @@ public class LoginController extends LoadableController {
   @Override
   public void initialize(URL location, ResourceBundle rb) {
     super.initialize(location, rb);
-    switchServer.getItems().addAll(servers);
-    switchServer.setValue("Embedded"); // No null server at first
+    switchServer.setText("Embedded");
   }
 
   Alert emptyFields =
       new Alert(
           Alert.AlertType.ERROR,
-          "There are required fields empty " + " !",
+          "There are required fields empty" + " !",
           ButtonType.OK,
           ButtonType.CANCEL);
   @FXML ComboBox<String> equipmentSelection;
@@ -100,6 +99,8 @@ public class LoginController extends LoadableController {
 
   @FXML
   private void updateSwitchingServer() throws SQLException {
+    switchServer.setText(switchServer.getText().equals("Client") ? "Embedded" : "Client");
+    background.requestFocus();
 
     CSVController csvController =
         new CSVController(
@@ -112,9 +113,9 @@ public class LoginController extends LoadableController {
 
     System.out.println("SWAP CONNECTION ");
 
-    if (switchServer.getValue().equals("Embedded")) {
+    if (switchServer.getText().equals("Embedded")) {
       DBConnectionMode.INSTANCE.setEmbeddedConnection();
-    } else if (switchServer.getValue().equals("Client")) {
+    } else if (switchServer.getText().equals("Client")) {
       DBConnectionMode.INSTANCE.setServerConnection();
     }
 
@@ -122,14 +123,20 @@ public class LoginController extends LoadableController {
     try {
       DBController.getDBController().startConnection();
     } catch (SQLException | ClassNotFoundException e) {
+      if (!DBConnectionMode.INSTANCE.getConnectionType()) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Connection Failed", ButtonType.OK);
+        alert.setContentText(
+            "Connecting to the Client Server failed. Please contact your IT department to fix this issue.");
+        alert.show();
+        updateSwitchingServer();
+        return;
+      }
       e.printStackTrace();
     }
 
     try {
       csvController.populateTables();
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (SQLException e) {
+    } catch (FileNotFoundException | SQLException e) {
       e.printStackTrace();
     }
   }

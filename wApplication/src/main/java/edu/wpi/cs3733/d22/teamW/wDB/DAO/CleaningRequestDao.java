@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,5 +29,5 @@ public interface CleaningRequestDao {
 
   public ArrayList<Integer> CleaningRequestAtLocation(String nodeID) throws SQLException;
 
-  ArrayList<CleaningRequest> getAllCleaningRequests();
+  ArrayList<Request> getAllCleaningRequests();
 }

@@ -27,7 +27,7 @@ public class CleaningRequestManager {
     return crd.getCleaningRequest(reqID);
   }
 
-  public ArrayList<CleaningRequest> getAllRequest() {
+  public ArrayList<Request> getAllRequests() {
     return crd.getAllCleaningRequests();
   }
 
@@ -35,7 +35,6 @@ public class CleaningRequestManager {
     CleaningRequest cr;
     fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
     cr = new CleaningRequest(fields);
-    // counter = Integer.parseInt(fields.get(0));
     if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
       crd.addCleaningRequest(cr);
       checkStart();

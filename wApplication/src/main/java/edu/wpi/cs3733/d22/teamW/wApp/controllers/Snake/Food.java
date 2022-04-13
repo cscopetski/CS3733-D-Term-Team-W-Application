@@ -18,7 +18,6 @@ public class Food {
   public final int Max = (int) ((2 * center + (borderSize / 2) + 50) / 50);
 
   public Food(double xPos, double yPos, AnchorPane pane, double size) {
-    System.out.println(rectangle);
     this.size = (int) size;
 
     position = new Position(xPos, yPos);
@@ -27,8 +26,9 @@ public class Food {
     }
     rectangle = new Rectangle(position.getXPos(), position.getYPos(), size, size);
     rectangle.setFill(Color.rgb(0, 139, 176, 1.0));
+
     pane.getChildren().add(rectangle);
-    System.out.println(rectangle);
+    rectangle.setVisible(false);
   }
 
   public Position getPosition() {
@@ -36,6 +36,7 @@ public class Food {
   }
 
   public void moveFood() {
+    rectangle.setVisible(true);
     int pos1 = size * (random.nextInt(Max - Min) + Min);
     int pos2 = size * (random.nextInt(Max - Min) + Min);
     rectangle.setX(pos1 + xOffset);

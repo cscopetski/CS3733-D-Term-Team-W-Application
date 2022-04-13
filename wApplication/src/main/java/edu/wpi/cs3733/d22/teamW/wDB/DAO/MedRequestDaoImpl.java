@@ -3,6 +3,9 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -123,7 +126,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
   }
 
   @Override
-  public ArrayList<Request> getAllMedRequest() {
+  public ArrayList<Request> getAllMedRequest() throws SQLException {
     ArrayList<Request> medRequestList = new ArrayList<Request>();
 
     try {
@@ -144,7 +147,29 @@ public class MedRequestDaoImpl implements MedRequestDao {
 
     } catch (SQLException e) {
       System.out.println("Query from medicine request table failed.");
+      throw (e);
     }
     return medRequestList;
+  }
+
+  @Override
+  public void exportMedReqCSV(String fileName) {
+    File csvOutputFile = new File(fileName);
+    try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
+      // print Table headers
+      pw.print(
+          "reqID,medicine,nodeID,employeeID,isEmergency,status,createdTimestamp,updatedTimestamp");
+
+      // print all locations
+      for (Request m : getAllMedRequest()) {
+        pw.println();
+        pw.print(m.toCSVString());
+      }
+
+    } catch (FileNotFoundException | SQLException e) {
+
+      System.out.println(String.format("Error Exporting to File %s", fileName));
+      e.printStackTrace();
+    }
   }
 }
