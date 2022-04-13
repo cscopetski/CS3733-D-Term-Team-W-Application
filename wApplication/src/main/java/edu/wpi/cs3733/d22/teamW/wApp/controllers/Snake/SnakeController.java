@@ -10,6 +10,7 @@ import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
@@ -23,8 +24,7 @@ public class SnakeController extends LoadableController {
   private final Double snakeSize = 50.;
   // The head of the snake is created, at position (250,250)
   private Rectangle snakeHead;
-  // private ImageView image = new ImageView(new
-  // Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/SideView.jpg"));
+  @FXML private ImageView image;
   // x and y position of the snake head different from starting position
   double xPos;
   double yPos;
@@ -63,7 +63,6 @@ public class SnakeController extends LoadableController {
 
   @FXML
   void start(ActionEvent event) {
-
     loss.setVisible(false);
     counter = 0;
     score.setText("Score: " + counter);
@@ -76,18 +75,24 @@ public class SnakeController extends LoadableController {
     positions.clear();
     snakeBody.clear();
     snakeHead = new Rectangle(center + xOffset, center, snakeSize, snakeSize);
+
+    image.setLayoutX(xPos + xOffset + center);
+    image.setLayoutY(yPos + center);
+    image.setVisible(true);
+    image.toFront();
+
     // First snake tail created behind the head of the snake
     Rectangle snakeTail =
         new Rectangle(snakeHead.getX() - snakeSize, snakeHead.getY(), snakeSize, snakeSize);
     xPos = snakeHead.getLayoutX();
     yPos = snakeHead.getLayoutY();
     direction = Position.Direction.RIGHT;
+    image.setRotate(90);
     canChangeDirection = true;
     food.moveFood();
 
     snakeBody.add(snakeHead);
-    // snakeHead.setFill(Color.TRANSPARENT);
-    snakeHead.setFill(Color.rgb(152, 229, 219, 1.0));
+    snakeHead.setFill(Color.TRANSPARENT);
     timeline.setCycleCount(Animation.INDEFINITE);
     timeline.play();
 
@@ -118,19 +123,23 @@ public class SnakeController extends LoadableController {
     if (direction.equals(Position.Direction.RIGHT)) {
       xPos = xPos + snakeSize;
       snakeHead.setTranslateX(xPos);
+      image.setRotate(90);
     } else if (direction.equals(Position.Direction.LEFT)) {
       xPos = xPos - snakeSize;
       snakeHead.setTranslateX(xPos);
+      image.setRotate(270);
     } else if (direction.equals(Position.Direction.UP)) {
       yPos = yPos - snakeSize;
       snakeHead.setTranslateY(yPos);
+      image.setRotate(0);
     } else if (direction.equals(Position.Direction.DOWN)) {
       yPos = yPos + snakeSize;
       snakeHead.setTranslateY(yPos);
+      image.setRotate(180);
     }
 
-    // image.setX(xPos);
-    // image.setY(yPos);
+    image.setLayoutX(xPos + xOffset + center);
+    image.setLayoutY(yPos + center);
   }
 
   // A specific tail is moved to the position of the head x game ticks after the head was there
@@ -220,6 +229,7 @@ public class SnakeController extends LoadableController {
 
   @Override
   public void onLoad() {
+    image.setVisible(false);
     gameBorder.setLayoutX(center + xOffset);
     gameBorder.setLayoutY(center);
     gameBorder.setPrefWidth(borderSize);
@@ -242,15 +252,12 @@ public class SnakeController extends LoadableController {
                     timeline.stop();
                   }
                 }));
-
-    // image.setFitWidth(snakeSize);
-    // image.setFitHeight(snakeSize);
   }
 
   @Override
   public void onUnload() {
+    image.setVisible(false);
     timeline = null;
     food = null;
-    anchorPane.getChildren().clear();
   }
 }
