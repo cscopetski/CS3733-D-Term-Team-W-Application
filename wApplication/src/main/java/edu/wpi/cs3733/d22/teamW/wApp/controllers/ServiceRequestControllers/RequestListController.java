@@ -38,7 +38,7 @@ public class RequestListController extends LoadableController {
                 moreInfo.setText("Error loading request details.");
               }
             });
-            
+
     try {
       rt.setItems(RequestFactory.getRequestFactory().getAllRequests());
     } catch (SQLException e) {
