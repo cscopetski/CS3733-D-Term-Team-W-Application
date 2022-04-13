@@ -50,7 +50,7 @@ public class LoginController extends LoadableController {
   Alert emptyFields =
       new Alert(
           Alert.AlertType.ERROR,
-          "There are required fields empty " + " !",
+          "There are required fields empty" + " !",
           ButtonType.OK,
           ButtonType.CANCEL);
   @FXML ComboBox<String> equipmentSelection;

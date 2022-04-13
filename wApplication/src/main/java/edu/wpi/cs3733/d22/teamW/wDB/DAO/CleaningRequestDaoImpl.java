@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -110,8 +111,8 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
   }
 
   @Override
-  public ArrayList<CleaningRequest> getAllCleaningRequests() {
-    ArrayList<CleaningRequest> cleanRequestList = new ArrayList<>();
+  public ArrayList<Request> getAllCleaningRequests() {
+    ArrayList<Request> cleanRequestList = new ArrayList<>();
 
     try {
       ResultSet cleanRequests = statement.executeQuery("SELECT * FROM CLEANINGREQUESTS");
@@ -178,7 +179,7 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
       pw.print("ReqID,itemID,status");
 
       // print all locations
-      for (CleaningRequest m : getAllCleaningRequests()) {
+      for (Request m : getAllCleaningRequests()) {
         pw.println();
         pw.print(m.toCSVString());
       }

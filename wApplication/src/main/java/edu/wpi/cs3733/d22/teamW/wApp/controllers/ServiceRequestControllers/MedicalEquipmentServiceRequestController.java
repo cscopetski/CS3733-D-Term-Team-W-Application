@@ -14,10 +14,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 public class MedicalEquipmentServiceRequestController {
+  Alert invalidFields =
+      new Alert(
+          Alert.AlertType.ERROR,
+          "Invalid characters in Employee ID input" + " !",
+          ButtonType.OK,
+          ButtonType.CANCEL);
+
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
-
   @FXML ComboBox<String> equipmentSelection;
+  @FXML TextField id;
   // location here
   boolean emergencyLevel = false;
   int emergency;
@@ -29,26 +36,25 @@ public class MedicalEquipmentServiceRequestController {
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
     System.out.println("Button Clicked");
-    if ((equipmentSelection.getValue() != null)) {
-      confirm.showAndWait();
-      if (confirm.getResult() == ButtonType.OK) {
-        ArrayList<String> fields = new ArrayList<String>();
-        fields.add(equipmentSelection.getValue());
-        fields.add("wSTOR001L1"); // location
-        fields.add(
-            ((DefaultPageController)
-                    SceneManager.getInstance().getController(SceneManager.Scenes.Default))
-                .getEmployee()
-                .getEmployeeID()
-                .toString());
-        if (emergencyLevel) {
-          emergency = 1;
-        } else {
-          emergency = 0;
+    if ((equipmentSelection.getValue() != null) && (id.getText() != null)) {
+      if ((id.getText().matches("[0-9]+"))) {
+        confirm.showAndWait();
+        if (confirm.getResult() == ButtonType.OK) {
+          ArrayList<String> fields = new ArrayList<String>();
+          fields.add(equipmentSelection.getValue());
+          fields.add("wSTOR001L1"); // location
+          fields.add(id.getText());
+          if (emergencyLevel) {
+            emergency = 1;
+          } else {
+            emergency = 0;
+          }
+          fields.add("" + emergency);
+          requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
+          lastRequest = fields;
         }
-        fields.add("" + emergency);
-        requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
-        lastRequest = fields;
+      } else {
+        invalidFields.show();
       }
     } else {
       emptyFields.show();

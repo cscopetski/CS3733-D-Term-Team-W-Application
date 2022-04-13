@@ -4,4 +4,6 @@ employeeID,firstname,lastname,employeetype,email,phonenumber,address,username,pa
 3,Caleb,Scopetski,Doctor,N/A,(123)4567890,NeVer LeFt MaSs,Scoop,7c7f647ebd821e9b596ff91efdb9e2b3,293425e15e8fce656582a90e5e45864f
 4,Edison,Zhang,NoOne,N/A,(123)4567890,Jamaica,ezhang,855136eed1d20fd0b2acd4916e3efa58,4c041815a975a4b7453ad3b5b4e1bd9f
 5,Charlie,K-W,Nurse,N/A,(123)4567890,The North,charkw,750ad0b990a08d1272555925780de5a7,b0d6725d10af54045c56e303a4d754b1
-6,Hasan,G,Technician,N/A,(123)4567890,Bikini Bottom,hzgan,f4a17b813937811e18b58ad2e58415c6,6c02a6df737695ae78e94bc15670c6b6
+6,new Hasan,new G,Admin,new Email,new Phone,new Address,joe,b3592a97b5c57a81c51bf697e9065147,6c02a6df737695ae78e94bc15670c6b6
+7,Mr.,Secure,NoOne,security@hospital.com,(123)456789,somewhere,secur,f59cb615ce2c14e85c4338466485c001,2f79d1546a5881b854e6cdcacc3d192b
+8,frontend,no salt,NoOne,no salt,no salt,no salt,no,af17d6aa872539234c4caa16548bb28f,f78abac41239ea573a4cad0419498279
