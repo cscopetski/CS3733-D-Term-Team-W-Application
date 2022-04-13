@@ -66,7 +66,7 @@ public class MedRequestManager implements RequestManager {
     MedRequest request =
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
-    request.setStatus(RequestStatus.InProgress);
+    request.setStatus(RequestStatus.Completed);
     mrd.changeMedRequest(
         request.getRequestID(),
         request.getMedicine(),
@@ -82,7 +82,7 @@ public class MedRequestManager implements RequestManager {
     MedRequest request =
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
-    request.setStatus(RequestStatus.InProgress);
+    request.setStatus(RequestStatus.Cancelled);
     mrd.changeMedRequest(
         request.getRequestID(),
         request.getMedicine(),
@@ -98,7 +98,7 @@ public class MedRequestManager implements RequestManager {
     MedRequest request =
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
-    request.setStatus(RequestStatus.InProgress);
+    request.setStatus(RequestStatus.InQueue);
     mrd.changeMedRequest(
         request.getRequestID(),
         request.getMedicine(),

@@ -2,7 +2,10 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -34,6 +37,12 @@ public class Main {
       e.printStackTrace();
     }
 
+    ArrayList<Employee> employees = EmployeeManager.getEmployeeManager().getAllEmployees();
+
+    for (Employee e : employees) {
+      System.out.println(e.toCSVString());
+    }
+
     //    MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
     //
     //    MedEquipManager mem = MedEquipManager.getMedEquipManager();
@@ -50,6 +59,6 @@ public class Main {
     //    } catch (Exception e) {
     //      e.printStackTrace();
     //    }
-    App.launch(App.class, args);
+    // App.launch(App.class, args);
   }
 }
