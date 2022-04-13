@@ -15,10 +15,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 public class MedicalEquipmentServiceRequestController {
+  Alert invalidFields =
+      new Alert(
+          Alert.AlertType.ERROR,
+          "Invalid characters in Employee ID input" + " !",
+          ButtonType.OK,
+          ButtonType.CANCEL);
+
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
-
   @FXML ComboBox<String> equipmentSelection;
+  @FXML TextField id;
   // location here
   // boolean emergencyLevel = false;
   int emergency;
@@ -47,9 +54,8 @@ public class MedicalEquipmentServiceRequestController {
         } else {
           emergency = 0;
         }
-        fields.add("" + emergency);
-        requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
-        lastRequest = fields;
+      } else {
+        invalidFields.show();
       }
     } else {
       emptyFields.show();

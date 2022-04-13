@@ -13,6 +13,7 @@ public class CleaningRequest extends Request {
 
   String itemID;
 
+  /*
   public CleaningRequest(
       Integer requestID,
       Integer emergency,
@@ -47,6 +48,8 @@ public class CleaningRequest extends Request {
     this.createdTimestamp = createdTimestamp;
     this.updatedTimestamp = updatedTimestamp;
   }
+
+   */
 
   public CleaningRequest(Integer requestID, ArrayList<String> fields) {
     this.requestID = requestID;
