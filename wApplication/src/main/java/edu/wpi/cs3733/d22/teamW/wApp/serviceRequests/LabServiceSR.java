@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import java.sql.SQLException;
 
@@ -15,13 +17,16 @@ public class LabServiceSR extends SR {
 
   @Override
   public String getFormattedInfo() throws SQLException {
+    LabServiceRequest r =
+        (LabServiceRequest)
+            LabServiceRequestManager.getLabServiceRequestManager().getRequest(this.getRequestID());
     String info = "";
     if (this.getEmergency() == 1) {
       info += "Request marked as an EMERGENCY\n";
     }
     info += "Assigned Employee: " + this.getEmployeeName() + "\n";
     info += "Employee ID: " + this.getEmployeeID() + "\n";
-    info += "";
+    info += "Service requested: " + r.getLabType() + "\n";
     return info;
   }
 }
