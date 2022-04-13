@@ -124,8 +124,6 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   private void pushDataToDB() throws SQLException {
     ArrayList<String> fields = new ArrayList<>();
 
-    System.out.println("Start");
-
     fields.add(medNameCBox.getSelectionModel().getSelectedItem().toString());
     fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
     fields.add(employeeIDCBox.getSelectionModel().getSelectedItem().toString());
@@ -196,6 +194,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     }
   }
 
+  // TRUE if ALL filled
   private boolean fieldsFull() {
     boolean result =
         !(quantityField.getText().isEmpty()

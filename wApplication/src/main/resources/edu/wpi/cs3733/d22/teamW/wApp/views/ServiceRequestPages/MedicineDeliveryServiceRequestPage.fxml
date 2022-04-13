@@ -186,7 +186,7 @@
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
-                  <TableView fx:id="table" prefHeight="200.0" prefWidth="344.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                  <TableView fx:id="table" prefHeight="200.0" prefWidth="344.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" visible="false">
                     <columns>
                        <TableColumn fx:id="medCol" prefWidth="140.0" resizable="false" text="Medicine">
                           <cellValueFactory>
