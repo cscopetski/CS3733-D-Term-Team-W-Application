@@ -23,6 +23,7 @@ public class CleaningSR extends SR {
             .getItemID();
     String info = "Automated cleaning request for equipment.\n";
     info += "Assigned Employee: " + this.getEmployeeName() + "\n";
+    info += "Employee ID: " + this.getEmployeeID() + "\n";
     info +=
         "Equipment type: "
             + MedEquipManager.getMedEquipManager().getMedEquip(itemID).getType()
