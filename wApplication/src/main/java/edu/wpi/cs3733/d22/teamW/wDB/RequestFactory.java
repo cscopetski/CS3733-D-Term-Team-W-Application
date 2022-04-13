@@ -68,34 +68,4 @@ public class RequestFactory {
       return null;
     }
   }
-
-  public Request findRequest(Integer requestID, RequestType type) throws SQLException {
-    Request request = null;
-    switch (type) {
-      case MedicalEquipmentRequest:
-        request = merm.getRequest(requestID);
-        break;
-      case LabServiceRequest:
-        request = lsrm.getRequest(requestID);
-        break;
-      case MedicineDelivery:
-        request = mrm.getRequest(requestID);
-        break;
-      case CleaningRequest:
-        request = crm.getRequest(requestID);
-      default:
-        request = null;
-    }
-    return request;
-  }
-
-  public ArrayList<Request> getAllRequests() throws SQLException {
-    ArrayList<Request> requests = new ArrayList<Request>();
-    requests.addAll(mrm.getAllRequests());
-    requests.addAll(merm.getAllRequests());
-    requests.addAll(lsrm.getAllRequests());
-    requests.addAll(crm.getAllRequests());
-    Collections.sort(requests);
-    return requests;
-  }
 }
