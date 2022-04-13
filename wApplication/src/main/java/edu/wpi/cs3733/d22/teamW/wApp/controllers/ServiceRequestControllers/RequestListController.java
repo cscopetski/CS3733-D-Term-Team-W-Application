@@ -4,9 +4,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
-
-import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
-
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.sql.SQLException;
 import javafx.event.ActionEvent;
@@ -46,22 +44,81 @@ public class RequestListController extends LoadableController {
               }
             });
 
-    equipmentSelection.getSelectionModel().selectedIndexProperty().addListener((e, o, n) -> {
-      switch(n.intValue()){
-        case 0:
-          try {
-            rt.setItems(RequestFactory.getRequestFactory().getAllRequests());
-          } catch (SQLException ex) {
-            ex.printStackTrace();
-          }
-//        case 1:
-//          try {
-//            rt.setItems(RequestFac);
-//          } catch (SQLException ex) {
-//            ex.printStackTrace();
-//          }
-      }
-    });
+    equipmentSelection
+        .getSelectionModel()
+        .selectedIndexProperty()
+        .addListener(
+            (e, o, n) -> {
+              switch (n.intValue()) {
+                case 0:
+                  try {
+                    rt.setItems(RequestFacade.getRequestFacade().getAllRequests());
+                  } catch (SQLException ex) {
+                    ex.printStackTrace();
+                  }
+                  break;
+                case 1:
+                  try {
+                    rt.setItems(
+                        RequestFacade.getRequestFacade()
+                            .getAllRequests(RequestType.LabServiceRequest));
+                  } catch (SQLException ex) {
+                    ex.printStackTrace();
+                  }
+                  break;
+                case 2:
+                  try {
+                    rt.setItems(
+                        RequestFacade.getRequestFacade()
+                            .getAllRequests(RequestType.LanguageInterpreter));
+                  } catch (SQLException ex) {
+                    ex.printStackTrace();
+                  }
+                  break;
+                case 3:
+                  try {
+                    rt.setItems(
+                        RequestFacade.getRequestFacade().getAllRequests(RequestType.MealDelivery));
+                  } catch (SQLException ex) {
+                    ex.printStackTrace();
+                  }
+                  break;
+                case 4:
+                  try {
+                    rt.setItems(
+                        RequestFacade.getRequestFacade()
+                            .getAllRequests(RequestType.MedicalEquipmentRequest));
+                  } catch (SQLException ex) {
+                    ex.printStackTrace();
+                  }
+                  break;
+                case 5:
+                  try {
+                    rt.setItems(
+                        RequestFacade.getRequestFacade()
+                            .getAllRequests(RequestType.SecurityService));
+                  } catch (SQLException ex) {
+                    ex.printStackTrace();
+                  }
+                  break;
+                case 6:
+                  try {
+                    rt.setItems(
+                        RequestFacade.getRequestFacade()
+                            .getAllRequests(RequestType.CleaningRequest));
+                  } catch (SQLException ex) {
+                    ex.printStackTrace();
+                  }
+                  break;
+                default:
+                  try {
+                    rt.setItems(RequestFacade.getRequestFacade().getAllRequests());
+                  } catch (SQLException ex) {
+                    ex.printStackTrace();
+                  }
+                  break;
+              }
+            });
 
     try {
       rt.setItems(RequestFacade.getRequestFacade().getAllRequests());

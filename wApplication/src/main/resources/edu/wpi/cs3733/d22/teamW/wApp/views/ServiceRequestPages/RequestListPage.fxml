@@ -79,7 +79,7 @@
                                                             <items>
                                                                 <FXCollections fx:factory="observableArrayList">
                                                                     <String fx:value="All Requests" />
-                                                                    <String fx:value="Lab" />
+                                                                    <String fx:value="Lab Service" />
                                                                     <String fx:value="Language Interpreter" />
                                                                     <String fx:value="Meal Delivery" />
                                                                     <String fx:value="Medical Equipment" />
