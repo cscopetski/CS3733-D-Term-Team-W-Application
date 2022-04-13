@@ -21,7 +21,6 @@ import javafx.scene.control.*;
 
 public class MedicineDeliveryServiceRequestController extends LoadableController {
   // Buttons:
-  @FXML Button addButton;
   @FXML Button submitButton;
   @FXML Button cancelButton;
   int emergency = 0;
