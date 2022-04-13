@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
 
 public abstract class SR {
@@ -37,7 +38,9 @@ public abstract class SR {
     return REQUEST.getEmployeeID();
   }
 
-  public abstract String getRequestType();
+  public abstract RequestType getRequestType();
+
+  public abstract String getRequestTypeS();
 
   // returns a String for the More Info section of the RequestList page
   public abstract String getFormattedInfo() throws SQLException;

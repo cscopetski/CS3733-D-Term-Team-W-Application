@@ -1,21 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.*?>
+<?import java.lang.*?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable?>
-<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.RequestListController">
+<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.RequestListController"  stylesheets="@../../CSS/UniversalCSS/Standard.css" >
     <children>
         <AnchorPane prefHeight="473.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
             <children>
@@ -45,7 +39,7 @@
                                                         <Insets />
                                                     </VBox.margin>
                                                 </Label>
-                                                <RequestTable fx:id="rt" minHeight="175.0" minWidth="440.0" prefHeight="380.0" prefWidth="440.0"/>
+                                                <RequestTable fx:id="rt" minHeight="175.0" minWidth="440.0" prefHeight="380.0" prefWidth="440.0" />
                                             </children>
                                             <HBox.margin>
                                                 <Insets right="20.0" />
@@ -75,14 +69,16 @@
                                                 </BorderPane>
                                                 <BorderPane prefHeight="70.0" prefWidth="300.0">
                                                     <center>
-                                                        <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" BorderPane.alignment="CENTER">
+                                                        <ComboBox fx:id="equipmentSelection" onAction="#filterRequest" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" BorderPane.alignment="CENTER">
                                                             <items>
                                                                 <FXCollections fx:factory="observableArrayList">
-                                                                    <String fx:value="Lab" />
+                                                                    <String fx:value="All Requests" />
+                                                                    <String fx:value="Lab Service" />
                                                                     <String fx:value="Language Interpreter" />
                                                                     <String fx:value="Meal Delivery" />
                                                                     <String fx:value="Medical Equipment" />
                                                                     <String fx:value="Security" />
+                                                                    <String fx:value="Cleaning" />
                                                                 </FXCollections>
                                                             </items>
                                                         </ComboBox>
@@ -126,11 +122,15 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                             <center>
-                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Cancel" onAction="#cancel" BorderPane.alignment="CENTER">
+                                <HBox fx:id="selectionButtons" visible="false" spacing="10" BorderPane.alignment="CENTER" alignment="CENTER">
                                     <BorderPane.margin>
                                         <Insets bottom="20.0" />
                                     </BorderPane.margin>
-                                </Button>
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false"  text="Start" onAction="#start" />
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false"  text="Complete" onAction="#confirm" />
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" text="Cancel" onAction="#cancel" />
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false"  text="Clear Selection" onAction="#clearSelection" />
+                                </HBox>
                             </center>
                         </BorderPane>
                     </children>

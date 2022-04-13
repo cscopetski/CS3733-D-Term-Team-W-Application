@@ -62,7 +62,7 @@ public class LabServiceRequestManager implements RequestManager {
     return lSR;
   }
 
-  public void start(Integer requestID) throws SQLException {
+  public boolean start(Integer requestID) throws SQLException {
     LabServiceRequest request =
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
@@ -76,6 +76,7 @@ public class LabServiceRequestManager implements RequestManager {
         request.getStatus(),
         request.getCreatedTimestamp(),
         new Timestamp(System.currentTimeMillis()));
+    return true;
   }
 
   public void complete(Integer requestID) throws SQLException {

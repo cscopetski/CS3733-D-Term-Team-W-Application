@@ -1,12 +1,13 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.DefaultPageController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,33 +26,36 @@ public class MedicalEquipmentServiceRequestController {
   @FXML ComboBox<String> equipmentSelection;
   @FXML TextField id;
   // location here
-  boolean emergencyLevel = false;
+  // boolean emergencyLevel = false;
   int emergency;
 
-  @FXML Button emergencyB;
+  @FXML EmergencyButton emergencyB;
 
   RequestFactory requestFactory = RequestFactory.getRequestFactory();
   ArrayList<String> lastRequest;
 
-  public void submitButton(ActionEvent actionEvent) throws SQLException {
+  public void submitButton(ActionEvent actionEvent) throws Exception {
     System.out.println("Button Clicked");
-    if ((equipmentSelection.getValue() != null) && (id.getText() != null)) {
-      if ((id.getText().matches("[0-9]+"))) {
-        confirm.showAndWait();
-        if (confirm.getResult() == ButtonType.OK) {
-          ArrayList<String> fields = new ArrayList<String>();
-          fields.add(equipmentSelection.getValue());
-          fields.add("wSTOR001L1"); // location
-          fields.add(id.getText());
-          if (emergencyLevel) {
-            emergency = 1;
-          } else {
-            emergency = 0;
-          }
-          fields.add("" + emergency);
-          requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
-          lastRequest = fields;
+    if ((equipmentSelection.getValue() != null)) {
+      confirm.showAndWait();
+      if (confirm.getResult() == ButtonType.OK) {
+        ArrayList<String> fields = new ArrayList<String>();
+        fields.add(equipmentSelection.getValue());
+        fields.add("wSTOR001L1"); // location
+        fields.add(
+            ((DefaultPageController)
+                    SceneManager.getInstance().getController(SceneManager.Scenes.Default))
+                .getEmployee()
+                .getEmployeeID()
+                .toString());
+        if (emergencyB.getValue()) {
+          emergency = 1;
+        } else {
+          emergency = 0;
         }
+        fields.add("" + emergency);
+        requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
+        lastRequest = fields;
       } else {
         invalidFields.show();
       }
@@ -64,7 +68,7 @@ public class MedicalEquipmentServiceRequestController {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 
-  public void onEnter(ActionEvent actionEvent) throws SQLException {
+  public void onEnter(ActionEvent actionEvent) throws Exception {
     submitButton(actionEvent);
   }
 }
