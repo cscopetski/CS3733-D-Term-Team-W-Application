@@ -97,10 +97,7 @@ public class RequestFactory {
     requests.addAll(mrm.getAllRequests());
     requests.addAll(merm.getAllRequests());
     requests.addAll(lsrm.getAllRequests());
-<<<<<<< HEAD
     requests.addAll(crm.getAllRequests());
-=======
->>>>>>> parent of e8d516a3 (Fixed getAllRequest in RequestFactory)
     Collections.sort(requests);
     return requests;
   }
