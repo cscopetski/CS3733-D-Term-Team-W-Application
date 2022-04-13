@@ -66,6 +66,9 @@ public class RequestTable extends TableView<SR> {
         case MedicineDelivery:
           sr = new MedicineDeliverySR(r);
           break;
+        case CleaningRequest:
+          sr = new CleaningSR(r);
+          break;
       }
 
       getItems().add(sr);
