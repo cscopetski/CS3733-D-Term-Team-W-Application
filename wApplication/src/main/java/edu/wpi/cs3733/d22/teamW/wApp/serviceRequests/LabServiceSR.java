@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
 
 public class LabServiceSR extends SR {
@@ -11,7 +12,12 @@ public class LabServiceSR extends SR {
     super(r);
   }
 
-  public String getRequestType() {
+  @Override
+  public RequestType getRequestType() {
+    return RequestType.LabServiceRequest;
+  }
+
+  public String getRequestTypeS() {
     return "Lab Service";
   }
 

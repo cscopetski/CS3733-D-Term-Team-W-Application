@@ -6,7 +6,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
-import java.sql.SQLException;
 import java.util.*;
 
 public class RequestFactory {
@@ -39,7 +38,7 @@ public class RequestFactory {
     return reqIDList;
   }
 
-  public Request getRequest(RequestType requestType, ArrayList<String> fields) throws SQLException {
+  public Request getRequest(RequestType requestType, ArrayList<String> fields) throws Exception {
     int num;
     if (reqIDList.size() == 0) {
       num = 0;

@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
 
 public class MealDeliverySR extends SR {
@@ -10,7 +11,12 @@ public class MealDeliverySR extends SR {
   }
 
   @Override
-  public String getRequestType() {
+  public RequestType getRequestType() {
+    return RequestType.MealDelivery;
+  }
+
+  @Override
+  public String getRequestTypeS() {
     return "Meal Delivery";
   }
 

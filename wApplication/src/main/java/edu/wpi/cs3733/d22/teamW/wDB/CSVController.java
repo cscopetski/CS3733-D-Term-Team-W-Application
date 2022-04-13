@@ -35,7 +35,7 @@ public class CSVController {
     this.medRequestFileName = medRequestFileName;
   }
 
-  public void populateTables() throws FileNotFoundException, SQLException {
+  public void populateTables() throws Exception {
     insertIntoEmpTable(importCSV(employeeFileName));
     insertIntoLocationsTable(importCSV(locationFileName));
     insertIntoMedEquipTable(importCSV(medEquipFileName));
@@ -164,7 +164,7 @@ public class CSVController {
     }
   }
 
-  private void insertIntoMedEquipReqTable(ArrayList<String[]> tokens) throws SQLException {
+  private void insertIntoMedEquipReqTable(ArrayList<String[]> tokens) throws Exception {
     ArrayList<MedEquipRequest> medEquipReqList = new ArrayList<>();
 
     for (String[] s : tokens) {
@@ -178,7 +178,7 @@ public class CSVController {
     }
   }
 
-  private void insertIntoLabReqTable(ArrayList<String[]> tokens) throws SQLException {
+  private void insertIntoLabReqTable(ArrayList<String[]> tokens) throws Exception {
     // ArrayList<LabServiceRequest> labReqList = new ArrayList<>();
 
     for (String[] s : tokens) {
@@ -192,7 +192,7 @@ public class CSVController {
     }
   }
 
-  private void insertMedRequestTable(ArrayList<String[]> tokens) throws SQLException {
+  private void insertMedRequestTable(ArrayList<String[]> tokens) throws Exception {
     // ArrayList<MedRequest> medReqLists = new ArrayList<>();
 
     for (String[] s : tokens) {

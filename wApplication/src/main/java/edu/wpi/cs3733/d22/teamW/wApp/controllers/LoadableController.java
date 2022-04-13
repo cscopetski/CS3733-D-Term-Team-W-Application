@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -17,7 +18,7 @@ public abstract class LoadableController implements Initializable {
     SceneManager.getInstance().putController(GetSceneType(), this);
   }
 
-  public abstract void onLoad();
+  public abstract void onLoad() throws SQLException;
 
   public abstract void onUnload();
 

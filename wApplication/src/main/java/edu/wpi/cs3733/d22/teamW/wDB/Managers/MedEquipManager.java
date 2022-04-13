@@ -38,7 +38,7 @@ public class MedEquipManager {
     medi.changeMedEquip(medID, getMedEquip(medID).getType(), nodeID, MedEquipStatus.InUse);
   }
 
-  public void markDirty(String medID, String nodeID) throws SQLException {
+  public void markDirty(String medID, String nodeID) throws Exception {
     MedEquip me = medi.getMedEquip(medID);
     if (!me.getStatus().equals(MedEquipStatus.Dirty)) {
       medi.changeMedEquip(medID, me.getType(), nodeID, MedEquipStatus.Dirty);
@@ -72,6 +72,11 @@ public class MedEquipManager {
 
   public void add(String inputID, String type, String nodeID, Integer status) throws SQLException {
     medi.addMedEquip(inputID, type, nodeID, MedEquipStatus.getStatus(status));
+  }
+
+  public void change(String inputID, String type, String nodeID, MedEquipStatus status)
+      throws SQLException {
+    medi.changeMedEquip(inputID, type, nodeID, status);
   }
 
   public void delete(String inputID) throws SQLException {

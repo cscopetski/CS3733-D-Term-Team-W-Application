@@ -35,7 +35,7 @@ public class MedEquipRequestManager implements RequestManager {
     this.merd = merdi;
   }
 
-  public void startNext(String itemType) throws SQLException {
+  public void startNext(String itemType) throws Exception {
     MedEquipRequest mer = getNext(itemType);
     if (mer != null) {
       System.out.println(mer.toValuesString());
@@ -60,7 +60,7 @@ public class MedEquipRequestManager implements RequestManager {
     return null;
   }
 
-  public void start(Integer requestID) throws SQLException {
+  public boolean start(Integer requestID) throws Exception {
     MedEquipRequest request = (MedEquipRequest) getRequest(requestID);
     if (request != (null)) {
       // Can only start requests that are in queue
@@ -82,14 +82,15 @@ public class MedEquipRequestManager implements RequestManager {
               request.getCreatedTimestamp(),
               new Timestamp(System.currentTimeMillis()));
         } else {
-          System.out.println("No avavailable equipment");
+          return false;
         }
       } else {
-        System.out.println("Not in Queue");
+        // throw (new Exception("Cannot start, not in queue"));
       }
     } else {
-      System.out.println("Request:" + requestID + " does not exist");
+      // throw (new Exception("Request:" + requestID + " does not exist"));
     }
+    return true;
   }
 
   public void complete(Integer requestID) throws SQLException {
@@ -114,7 +115,7 @@ public class MedEquipRequestManager implements RequestManager {
     }
   }
 
-  public void cancel(Integer requestID) throws SQLException {
+  public void cancel(Integer requestID) throws Exception {
     MedEquipRequest request =
         (MedEquipRequest)
             RequestFacade.getRequestFacade()
@@ -142,7 +143,7 @@ public class MedEquipRequestManager implements RequestManager {
     }
   }
 
-  public void reQueue(Integer requestID) throws SQLException {
+  public void reQueue(Integer requestID) throws Exception {
     MedEquipRequest request =
         (MedEquipRequest)
             RequestFacade.getRequestFacade()
@@ -245,7 +246,7 @@ public class MedEquipRequestManager implements RequestManager {
   }
 
   @Override
-  public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException {
+  public Request addRequest(Integer num, ArrayList<String> fields) throws Exception {
     MedEquipRequest mER;
     // Set status to in queue if it is not already included (from CSVs)
     if (fields.size() == 4) {
@@ -281,6 +282,15 @@ public class MedEquipRequestManager implements RequestManager {
 
   public ArrayList<Request> getAllRequests() throws SQLException {
     return this.merd.getAllMedEquipRequests();
+  }
+
+  public void changeReq(MedEquipRequest req, String locID) throws SQLException {
+    req.setNodeID(locID);
+    merd.changeMedEquipRequest(req);
+  }
+
+  public void exportMedEquipRequestCSV(String filename) {
+    merd.exportMedEquipReqCSV(filename);
   }
 
   public void exportReqCSV(String filename) {

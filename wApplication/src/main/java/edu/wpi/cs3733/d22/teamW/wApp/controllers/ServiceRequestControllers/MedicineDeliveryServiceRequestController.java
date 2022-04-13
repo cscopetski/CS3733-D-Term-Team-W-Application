@@ -33,7 +33,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   @FXML ComboBox medNameCBox;
   @FXML ComboBox locationCBox;
   @FXML ComboBox timePrefCBox;
-  @FXML ComboBox requesterCBox;
+  @FXML ComboBox employeeIDCBox;
 
   // Tables:
   @FXML private TableView<MedicalEquipmentSR> table;
@@ -66,7 +66,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     medNameCBox.setItems(meds);
     locationCBox.setItems(FXCollections.observableArrayList(getLocations()));
     timePrefCBox.setItems(times);
-    requesterCBox.setItems(FXCollections.observableArrayList(getEmployeeIDs()));
+    employeeIDCBox.setItems(FXCollections.observableArrayList(getEmployeeIDs()));
   }
 
   public void onUnload() {
@@ -84,7 +84,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     medNameCBox.getSelectionModel().clearSelection();
     locationCBox.getSelectionModel().clearSelection();
     timePrefCBox.getSelectionModel().clearSelection();
-    requesterCBox.getSelectionModel().clearSelection();
+    employeeIDCBox.getSelectionModel().clearSelection();
   }
 
   // -------------------------RETRIEVAL FROM DB METHODS------------------------------
@@ -121,14 +121,14 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
   // ---------------------------------------------------------------------------
 
-  private void pushDataToDB() throws SQLException {
+  private void pushDataToDB() throws Exception {
     ArrayList<String> fields = new ArrayList<>();
 
     System.out.println("Start");
 
     fields.add(medNameCBox.getSelectionModel().getSelectedItem().toString());
     fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
-    fields.add(requesterCBox.getSelectionModel().getSelectedItem().toString());
+    fields.add(employeeIDCBox.getSelectionModel().getSelectedItem().toString());
     if (emergencyB.getValue()) {
       emergency = 1;
     } else {
@@ -139,9 +139,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
       System.out.println(e);
     }
 
-    Request test =
-        RequestFactory.getRequestFactory().getRequest(RequestType.MedicineDelivery, fields);
-    System.out.println(((MedRequest) test).toCSVString());
+    RequestFactory.getRequestFactory().getRequest(RequestType.MedicineDelivery, fields);
   }
 
   public String locationToNodeID(String target) {
@@ -192,6 +190,8 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
       } catch (SQLException e) {
         System.out.println("Unable to push Medicine Delivery request to DB");
         e.printStackTrace();
+      } catch (Exception e) {
+        e.printStackTrace();
       }
     } else {
       emptyFields.show();
@@ -204,7 +204,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
             && itemCodeField.getText().isEmpty()
             && locationCBox.getSelectionModel().isEmpty()
             && timePrefCBox.getSelectionModel().isEmpty()
-            && requesterCBox.getSelectionModel().isEmpty());
+            && employeeIDCBox.getSelectionModel().isEmpty());
 
     return result;
   }

@@ -133,12 +133,12 @@
                      <children>
                         <VBox prefHeight="200.0" prefWidth="130.0">
                            <children>
-                              <Label style="-fx-font-weight: bold;" text="Requester ID:">
+                              <Label style="-fx-font-weight: bold;" text="Employee ID:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="requesterCBox" prefHeight="28.0" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                              <ComboBox fx:id="employeeIDCBox" prefHeight="28.0" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
                                  <VBox.margin>
                                     <Insets bottom="10.0" top="5.0" />
                                  </VBox.margin>

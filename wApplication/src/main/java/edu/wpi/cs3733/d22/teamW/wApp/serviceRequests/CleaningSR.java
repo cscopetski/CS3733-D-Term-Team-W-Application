@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.CleaningRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
 
 public class CleaningSR extends SR {
@@ -11,7 +12,12 @@ public class CleaningSR extends SR {
     super(r);
   }
 
-  public String getRequestType() {
+  @Override
+  public RequestType getRequestType() {
+    return RequestType.CleaningRequest;
+  }
+
+  public String getRequestTypeS() {
     return "Cleaning";
   }
 

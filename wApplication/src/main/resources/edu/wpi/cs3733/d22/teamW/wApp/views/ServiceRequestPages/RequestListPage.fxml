@@ -132,8 +132,9 @@
                                     <BorderPane.margin>
                                         <Insets bottom="20.0" />
                                     </BorderPane.margin>
-                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" text="Cancel" onAction="#cancel" />
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false"  text="Start" onAction="#start" />
                                     <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false"  text="Complete" onAction="#confirm" />
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" text="Cancel" onAction="#cancel" />
                                     <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false"  text="Clear Selection" onAction="#clearSelection" />
                                 </HBox>
                             </center>

@@ -45,7 +45,7 @@ public class MedRequestManager implements RequestManager {
     return mr;
   }
 
-  public void start(Integer requestID) throws SQLException {
+  public boolean start(Integer requestID) throws SQLException {
     MedRequest request =
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
@@ -59,6 +59,7 @@ public class MedRequestManager implements RequestManager {
         request.getStatus(),
         request.getCreatedTimestamp(),
         new Timestamp(System.currentTimeMillis()));
+    return true;
   }
 
   public void complete(Integer requestID) throws SQLException {
@@ -114,7 +115,7 @@ public class MedRequestManager implements RequestManager {
   }
 
   // TODO should or should not have
-  /*
+
   public void changeMedRequest(
       Integer id,
       String m,
@@ -126,7 +127,7 @@ public class MedRequestManager implements RequestManager {
       Timestamp updatedTimestamp)
       throws SQLException {
     mrd.changeMedRequest(id, m, n, en, ie, rs, createdTimestamp, updatedTimestamp);
-  }*/
+  }
 
   @Override
   public Request getRequest(Integer ID) throws SQLException {

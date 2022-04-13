@@ -78,8 +78,8 @@ public class RequestFacade {
     return request;
   }
 
-  public void completeRequest(Integer requestID, RequestType type, String nodeID)
-      throws SQLException {
+
+  public void completeRequest(Integer requestID, RequestType type, String nodeID) throws Exception {
 
     switch (type) {
       case MedicalEquipmentRequest:
@@ -93,6 +93,57 @@ public class RequestFacade {
         break;
       case CleaningRequest:
         crm.complete(requestID, nodeID);
+    }
+  }
+
+  public void cancelRequest(Integer requestID, RequestType type) throws Exception {
+
+    switch (type) {
+      case MedicalEquipmentRequest:
+        merm.cancel(requestID);
+        break;
+      case LabServiceRequest:
+        lsrm.cancel(requestID);
+        break;
+      case MedicineDelivery:
+        mrm.cancel(requestID);
+        break;
+      case CleaningRequest:
+        crm.cancel(requestID);
+    }
+  }
+
+  // TODO might want to change this to use requests
+  public boolean startRequest(Integer requestID, RequestType type) throws Exception {
+
+    switch (type) {
+      case MedicalEquipmentRequest:
+        return merm.start(requestID);
+        // break;
+      case LabServiceRequest:
+        return lsrm.start(requestID);
+      case MedicineDelivery:
+        return mrm.start(requestID);
+      case CleaningRequest:
+        crm.start(requestID);
+    }
+    return false;
+  }
+
+  public void requeueRequest(Integer requestID, RequestType type) throws Exception {
+
+    switch (type) {
+      case MedicalEquipmentRequest:
+        merm.reQueue(requestID);
+        break;
+      case LabServiceRequest:
+        lsrm.reQueue(requestID);
+        break;
+      case MedicineDelivery:
+        mrm.reQueue(requestID);
+        break;
+      case CleaningRequest:
+        crm.reQueue(requestID);
     }
   }
 }

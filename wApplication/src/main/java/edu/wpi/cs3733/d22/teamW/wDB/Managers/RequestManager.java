@@ -12,19 +12,19 @@ public interface RequestManager {
   //
   //  public Request getNext(String ID);
 
-  public abstract void start(Integer requestID) throws SQLException;
+  public abstract boolean start(Integer requestID) throws Exception;
 
   public abstract void complete(Integer requestID) throws SQLException;
 
-  public abstract void cancel(Integer requestID) throws SQLException;
+  public abstract void cancel(Integer requestID) throws Exception;
 
-  public abstract void reQueue(Integer requestID) throws SQLException;
+  public abstract void reQueue(Integer requestID) throws Exception;
 
   public Request getRequest(Integer ID) throws SQLException;
 
   public ArrayList<Request> getAllRequests() throws SQLException;
 
-  public Request addRequest(Integer i, ArrayList<String> fields) throws SQLException;
+  public Request addRequest(Integer i, ArrayList<String> fields) throws Exception;
 
   public void exportReqCSV(String filename);
 }

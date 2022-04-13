@@ -138,6 +138,8 @@ public class LoginController extends LoadableController {
       csvController.populateTables();
     } catch (FileNotFoundException | SQLException e) {
       e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 }

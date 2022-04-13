@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
 
 public class MedicalEquipmentSR extends SR {
@@ -13,7 +14,12 @@ public class MedicalEquipmentSR extends SR {
     //    this.mer = (MedEquipRequest) REQUEST;
   }
 
-  public String getRequestType() {
+  @Override
+  public RequestType getRequestType() {
+    return RequestType.MedicalEquipmentRequest;
+  }
+
+  public String getRequestTypeS() {
     return "Medical Equipment";
   }
 
@@ -33,6 +39,9 @@ public class MedicalEquipmentSR extends SR {
     return info;
   }
 
+  public MedEquipRequest getOriginal() {
+    return (MedEquipRequest) REQUEST;
+  }
   /*
   public Integer getEmployeeID() {
     return mer.getEmployeeID();
