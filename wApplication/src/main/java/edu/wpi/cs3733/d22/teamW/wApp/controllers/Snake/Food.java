@@ -13,7 +13,7 @@ public class Food {
 
   public final double borderSize = 500;
   public final double center = 200;
-  public final double xOffset = 460;
+  public final double xOffset = 335;
   public final int Min = (int) (((borderSize / 2) - 50) / 50);
   public final int Max = (int) ((2 * center + (borderSize / 2) + 50) / 50);
 
