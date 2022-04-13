@@ -140,5 +140,4 @@ public class MedRequestManager implements RequestManager {
   public void exportMedicineRequestCSV(String filename) {
     mrd.exportMedReqCSV(filename);
   }
-
 }

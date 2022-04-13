@@ -118,7 +118,7 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
       ResultSet cleanRequests = statement.executeQuery("SELECT * FROM CLEANINGREQUESTS");
 
       // Size of num LabServiceRequest fields
-      int size = 6;
+      int size = 8;
       ArrayList<String> cleanRequestData = new ArrayList<String>();
 
       while (cleanRequests.next()) {
