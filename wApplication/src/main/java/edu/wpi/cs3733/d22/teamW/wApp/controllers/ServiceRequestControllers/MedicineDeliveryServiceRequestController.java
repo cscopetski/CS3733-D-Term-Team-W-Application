@@ -124,14 +124,14 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   private void pushDataToDB() throws SQLException {
     ArrayList<String> fields = new ArrayList<>();
     fields.add(medNameCBox.getSelectionModel().getSelectedItem().toString());
-    fields.add(locationCBox.getSelectionModel().getSelectedItem().toString());
-    fields.add(locationToNodeID(requesterCBox.getSelectionModel().getSelectedItem().toString()));
+    fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
+    fields.add(requesterCBox.getSelectionModel().getSelectedItem().toString());
     if (emergencyB.getValue()) {
       emergency = 1;
     } else {
       emergency = 0;
     }
-    fields.add("" + emergency);
+    fields.add(String.valueOf(emergency));
 
     RequestFactory.getRequestFactory().getRequest(RequestType.MedicineDelivery, fields);
   }
