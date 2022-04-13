@@ -130,4 +130,22 @@ public class RequestFacade {
         crm.start(requestID);
     }
   }
+
+  public void requeueRequest(Integer requestID, RequestType type)
+          throws SQLException {
+
+    switch (type) {
+      case MedicalEquipmentRequest:
+        merm.reQueue(requestID);
+        break;
+      case LabServiceRequest:
+        lsrm.reQueue(requestID);
+        break;
+      case MedicineDelivery:
+        mrm.reQueue(requestID);
+        break;
+      case CleaningRequest:
+        crm.reQueue(requestID);
+    }
+  }
 }
