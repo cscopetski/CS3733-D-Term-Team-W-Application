@@ -11,6 +11,8 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
@@ -147,5 +149,20 @@ public class RequestListController extends LoadableController {
   public void clearSelection() {
     rt.getSelectionModel().clearSelection();
     selectionButtons.setVisible(false);
+  }
+
+  public void start() throws SQLException {
+    try {
+      RequestFacade.getRequestFacade()
+          .startRequest(rt.getSelection().getRequestID(), rt.getSelection().getRequestType());
+    } catch (SQLException e) {
+      Alert alert = new Alert(Alert.AlertType.WARNING, "Something went wrong.", ButtonType.OK);
+      alert.showAndWait();
+      throw e;
+    } catch (Exception e) {
+      Alert alert = new Alert(Alert.AlertType.WARNING, e.getMessage(), ButtonType.OK);
+      alert.showAndWait();
+    }
+    resetItems();
   }
 }
