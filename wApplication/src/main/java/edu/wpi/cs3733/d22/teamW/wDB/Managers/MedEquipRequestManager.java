@@ -282,7 +282,7 @@ public class MedEquipRequestManager implements RequestManager {
     return this.merd.getAllMedEquipRequests();
   }
 
-  public void exportMedEquipRequestCSV(String filename) {
-    merd.exportMedReqCSV(filename);
+  public void exportReqCSV(String filename) {
+    merd.exportMedEquipReqCSV(filename);
   }
 }

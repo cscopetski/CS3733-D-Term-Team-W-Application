@@ -137,7 +137,7 @@ public class MedRequestManager implements RequestManager {
     return mrd.getAllMedRequest();
   }
 
-  public void exportMedicineRequestCSV(String filename) {
+  public void exportReqCSV(String filename) {
     mrd.exportMedReqCSV(filename);
   }
 }

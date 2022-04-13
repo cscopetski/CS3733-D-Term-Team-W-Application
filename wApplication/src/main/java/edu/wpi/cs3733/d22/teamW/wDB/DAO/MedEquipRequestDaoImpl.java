@@ -213,7 +213,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
   }
 
   @Override
-  public void exportMedReqCSV(String fileName) {
+  public void exportMedEquipReqCSV(String fileName) {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
