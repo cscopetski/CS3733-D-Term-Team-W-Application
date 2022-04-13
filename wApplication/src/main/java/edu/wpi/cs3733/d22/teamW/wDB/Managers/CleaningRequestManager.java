@@ -97,6 +97,10 @@ public class CleaningRequestManager {
 
   public void complete(Integer requestID, String nodeID) throws SQLException {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
+    if (cr == null) {
+      System.out.println("TRYING TO COMPLETE A NULL CLEANING REQUEST ID");
+      return;
+    }
     if (cr.getStatus() == RequestStatus.InProgress) {
       cr.setStatus(RequestStatus.Completed);
       crd.changeCleaningRequest(

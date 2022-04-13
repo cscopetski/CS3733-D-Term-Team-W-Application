@@ -155,22 +155,15 @@ public class Main {
     MedEquipManager.getMedEquipManager().markDirty("BED016", "wSTOR0033");
     merc.complete(5);
     mem.markDirty("XRY001", "wSTOR0033");
-    CleaningRequestManager.getCleaningRequestManager().complete(26, "wSTOR0013");
+    CleaningRequestManager.getCleaningRequestManager().complete(51, "wSTOR0013");
 
     ArrayList<String> medRequestFields = new ArrayList<String>();
-    // this.requestID = Integer.parseInt(fields.get(0));
-    //    this.medicine = fields.get(1);
-    //    this.nodeID = fields.get(2);
-    //    this.employeeID = Integer.parseInt(fields.get(3));
-    //    this.emergency = Integer.parseInt(fields.get(4));
-    //    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(5)));
-    //    this.createdTimestamp = Timestamp.valueOf(fields.get(6));
-    //    this.updatedTimestamp = Timestamp.valueOf(fields.get(7));
     medRequestFields.add("medicine");
     medRequestFields.add("FDEPT00101");
     medRequestFields.add("1");
     medRequestFields.add("0");
-    MedRequestManager.getMedRequestManager().addRequest(50, medRequestFields);
+
+    MedRequestManager.getMedRequestManager().addRequest(500, medRequestFields);
     MedRequestManager.getMedRequestManager().exportReqCSV("MEDREQUESTTEST.csv");
     // DBConnectionMode.INSTANCE.setServerConnection();
     /*DBController.getDBController().closeConnection();
