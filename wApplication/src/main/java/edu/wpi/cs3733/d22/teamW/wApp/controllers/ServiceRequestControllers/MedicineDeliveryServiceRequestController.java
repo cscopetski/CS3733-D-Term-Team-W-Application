@@ -6,10 +6,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.sql.SQLException;
@@ -123,6 +120,9 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
   private void pushDataToDB() throws SQLException {
     ArrayList<String> fields = new ArrayList<>();
+
+    System.out.println("Start");
+
     fields.add(medNameCBox.getSelectionModel().getSelectedItem().toString());
     fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
     fields.add(requesterCBox.getSelectionModel().getSelectedItem().toString());
@@ -132,8 +132,13 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
       emergency = 0;
     }
     fields.add(String.valueOf(emergency));
+    for (String e : fields) {
+      System.out.println(e);
+    }
 
-    RequestFactory.getRequestFactory().getRequest(RequestType.MedicineDelivery, fields);
+    Request test =
+        RequestFactory.getRequestFactory().getRequest(RequestType.MedicineDelivery, fields);
+    System.out.println(((MedRequest) test).toCSVString());
   }
 
   public String locationToNodeID(String target) {
@@ -178,7 +183,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   public void createRequest() {
     if (fieldsFull()) {
       populateTable();
-      clearFields();
+
       try {
         pushDataToDB();
       } catch (SQLException e) {
