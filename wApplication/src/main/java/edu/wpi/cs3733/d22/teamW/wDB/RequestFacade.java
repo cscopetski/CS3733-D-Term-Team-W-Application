@@ -96,8 +96,7 @@ public class RequestFacade {
     }
   }
 
-  public void cancelRequest(Integer requestID, RequestType type)
-          throws SQLException {
+  public void cancelRequest(Integer requestID, RequestType type) throws SQLException {
 
     switch (type) {
       case MedicalEquipmentRequest:
