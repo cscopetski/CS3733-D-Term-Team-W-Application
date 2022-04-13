@@ -1,9 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.CleaningRequestManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipRequestManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
@@ -19,13 +16,22 @@ public class RequestFacade {
 
   private static RequestFacade requestFacade = new RequestFacade();
 
-  private RequestFacade() {}
+  private RequestFacade() {
+  }
 
   public static RequestFacade getRequestFacade() {
     return requestFacade;
   }
 
-  public ArrayList<Request> getAllRequests(RequestType requestType) throws SQLException {
+  public ArrayList<Request> getRequests(RequestType... requestTypes) throws SQLException {
+    ArrayList<Request> requests = new ArrayList<>();
+    for (RequestType r : requestTypes) {
+      requests.addAll(getRequestsByType(r));
+    }
+    return requests;
+  }
+
+  public ArrayList<Request> getRequestsByType(RequestType requestType) throws SQLException {
     ArrayList<Request> requests = new ArrayList<Request>();
 
     switch (requestType) {
@@ -42,7 +48,7 @@ public class RequestFacade {
         requests.addAll(crm.getAllRequests());
         break;
       default:
-        requests.addAll(getAllRequests());
+        requests.addAll(getRequestsByType());
         break;
     }
     Collections.sort(requests);
@@ -50,7 +56,7 @@ public class RequestFacade {
     return requests;
   }
 
-  public ArrayList<Request> getAllRequests() throws SQLException {
+  public ArrayList<Request> getRequestsByType() throws SQLException {
     ArrayList<Request> requests = new ArrayList<Request>();
     requests.addAll(mrm.getAllRequests());
     requests.addAll(merm.getAllRequests());

@@ -162,7 +162,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   private void populateTable() {
     ArrayList<Request> requests = null;
     try {
-      requests = RequestFacade.getRequestFacade().getAllRequests();
+      requests = RequestFacade.getRequestFacade().getRequestsByType();
     } catch (SQLException e) {
       System.out.println("Failed to unearth request form database");
       e.printStackTrace();

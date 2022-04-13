@@ -77,7 +77,7 @@ public class RequestListController extends LoadableController {
       case -1:
       case 0:
         try {
-          rt.setItems(RequestFacade.getRequestFacade().getAllRequests());
+          rt.setItems(RequestFacade.getRequestFacade().getRequestsByType());
         } catch (SQLException ex) {
           ex.printStackTrace();
         }
@@ -85,7 +85,7 @@ public class RequestListController extends LoadableController {
       case 1:
         try {
           rt.setItems(
-              RequestFacade.getRequestFacade().getAllRequests(RequestType.LabServiceRequest));
+              RequestFacade.getRequestFacade().getRequestsByType(RequestType.LabServiceRequest));
         } catch (SQLException ex) {
           ex.printStackTrace();
         }
@@ -93,14 +93,14 @@ public class RequestListController extends LoadableController {
       case 2:
         try {
           rt.setItems(
-              RequestFacade.getRequestFacade().getAllRequests(RequestType.LanguageInterpreter));
+              RequestFacade.getRequestFacade().getRequestsByType(RequestType.LanguageInterpreter));
         } catch (SQLException ex) {
           ex.printStackTrace();
         }
         break;
       case 3:
         try {
-          rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.MealDelivery));
+          rt.setItems(RequestFacade.getRequestFacade().getRequestsByType(RequestType.MealDelivery));
         } catch (SQLException ex) {
           ex.printStackTrace();
         }
@@ -108,21 +108,21 @@ public class RequestListController extends LoadableController {
       case 4:
         try {
           rt.setItems(
-              RequestFacade.getRequestFacade().getAllRequests(RequestType.MedicalEquipmentRequest));
+              RequestFacade.getRequestFacade().getRequestsByType(RequestType.MedicalEquipmentRequest));
         } catch (SQLException ex) {
           ex.printStackTrace();
         }
         break;
       case 5:
         try {
-          rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.SecurityService));
+          rt.setItems(RequestFacade.getRequestFacade().getRequestsByType(RequestType.SecurityService));
         } catch (SQLException ex) {
           ex.printStackTrace();
         }
         break;
       case 6:
         try {
-          rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.CleaningRequest));
+          rt.setItems(RequestFacade.getRequestFacade().getRequestsByType(RequestType.CleaningRequest));
         } catch (SQLException ex) {
           ex.printStackTrace();
         }
