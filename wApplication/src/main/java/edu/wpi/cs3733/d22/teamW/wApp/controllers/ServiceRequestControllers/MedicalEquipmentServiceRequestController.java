@@ -54,6 +54,9 @@ public class MedicalEquipmentServiceRequestController {
         } else {
           emergency = 0;
         }
+        fields.add("" + emergency);
+        requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
+        lastRequest = fields;
       } else {
         invalidFields.show();
       }

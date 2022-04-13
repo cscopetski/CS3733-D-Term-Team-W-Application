@@ -6,7 +6,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class Main {
 
@@ -43,7 +42,6 @@ public class Main {
     MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
 
     MedEquipManager mem = MedEquipManager.getMedEquipManager();
-
 
     MedEquipManager.getMedEquipManager().markDirty("BED012", "wSTOR0033");
     MedEquipManager.getMedEquipManager().markDirty("BED013", "wSTOR0033");

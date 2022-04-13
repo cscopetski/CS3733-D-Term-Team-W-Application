@@ -3,7 +3,6 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -148,7 +147,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
 
     } catch (SQLException e) {
       System.out.println("Query from medicine request table failed.");
-      throw(e);
+      throw (e);
     }
     return medRequestList;
   }
@@ -159,7 +158,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
       pw.print(
-              "reqID,medicine,nodeID,employeeID,isEmergency,status,createdTimestamp,updatedTimestamp");
+          "reqID,medicine,nodeID,employeeID,isEmergency,status,createdTimestamp,updatedTimestamp");
 
       // print all locations
       for (Request m : getAllMedRequest()) {
