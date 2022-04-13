@@ -95,4 +95,41 @@ public class RequestFacade {
         crm.complete(requestID, nodeID);
     }
   }
+
+  public void cancelRequest(Integer requestID, RequestType type)
+          throws SQLException {
+
+    switch (type) {
+      case MedicalEquipmentRequest:
+        merm.cancel(requestID);
+        break;
+      case LabServiceRequest:
+        lsrm.cancel(requestID);
+        break;
+      case MedicineDelivery:
+        mrm.cancel(requestID);
+        break;
+      case CleaningRequest:
+        crm.cancel(requestID);
+    }
+  }
+
+  //TODO might want to change this to use requests 
+  public void startRequest(Integer requestID, RequestType type)
+          throws SQLException {
+
+    switch (type) {
+      case MedicalEquipmentRequest:
+        merm.start(requestID);
+        break;
+      case LabServiceRequest:
+        lsrm.start(requestID);
+        break;
+      case MedicineDelivery:
+        mrm.start(requestID);
+        break;
+      case CleaningRequest:
+        crm.start(requestID);
+    }
+  }
 }
