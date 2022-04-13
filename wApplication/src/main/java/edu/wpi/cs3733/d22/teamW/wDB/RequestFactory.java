@@ -94,7 +94,7 @@ public class RequestFactory {
     requests.addAll(mrm.getAllRequests());
     requests.addAll(merm.getAllRequests());
     requests.addAll(lsrm.getAllRequests());
-    requests.addAll(crm.getAllRequest());
+    requests.addAll(crm.getAllRequests());
     Collections.sort(requests);
     return requests;
   }
