@@ -180,8 +180,10 @@ public class LocationDaoImpl implements LocationDao {
 
   public Location getLocation(String nodeID) throws SQLException {
     Location loc = null;
-    ResultSet set = statement.executeQuery(String.format("SELECT * FROM LOCATIONS WHERE NODEID = '%s'", nodeID));
-    set.next(); //bypasses column headers
+    ResultSet set =
+        statement.executeQuery(
+            String.format("SELECT * FROM LOCATIONS WHERE NODEID = '%s'", nodeID));
+    set.next(); // bypasses column headers
 
     String nodeid = set.getString("NODEID");
     Integer xcoord = set.getInt("XCOORD");
@@ -195,5 +197,4 @@ public class LocationDaoImpl implements LocationDao {
     loc = new Location(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName);
     return loc;
   }
-
 }
