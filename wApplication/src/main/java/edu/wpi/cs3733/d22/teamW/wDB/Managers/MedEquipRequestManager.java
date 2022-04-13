@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Automation;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
@@ -94,7 +95,7 @@ public class MedEquipRequestManager implements RequestManager {
   public void complete(Integer requestID) throws SQLException {
     MedEquipRequest request =
         (MedEquipRequest)
-            RequestFactory.getRequestFactory()
+            RequestFacade.getRequestFacade()
                 .findRequest(requestID, RequestType.MedicalEquipmentRequest);
     // Can only complete requests that are started
     if (request.getStatus().equals(RequestStatus.InProgress)) {
@@ -116,7 +117,7 @@ public class MedEquipRequestManager implements RequestManager {
   public void cancel(Integer requestID) throws SQLException {
     MedEquipRequest request =
         (MedEquipRequest)
-            RequestFactory.getRequestFactory()
+            RequestFacade.getRequestFacade()
                 .findRequest(requestID, RequestType.MedicalEquipmentRequest);
     // Cannot cancel requests that are completed bc it makes no sense
     if (!request.getStatus().equals(RequestStatus.Completed)) {
@@ -144,7 +145,7 @@ public class MedEquipRequestManager implements RequestManager {
   public void reQueue(Integer requestID) throws SQLException {
     MedEquipRequest request =
         (MedEquipRequest)
-            RequestFactory.getRequestFactory()
+            RequestFacade.getRequestFacade()
                 .findRequest(requestID, RequestType.MedicalEquipmentRequest);
     // Only requeue cancelled requests
     if (request.getStatus().equals(RequestStatus.Cancelled)) {

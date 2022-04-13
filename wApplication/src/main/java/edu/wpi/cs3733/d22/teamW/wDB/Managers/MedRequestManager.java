@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -47,7 +48,7 @@ public class MedRequestManager implements RequestManager {
   public void start(Integer requestID) throws SQLException {
     MedRequest request =
         (MedRequest)
-            RequestFactory.getRequestFactory().findRequest(requestID, RequestType.MedicineDelivery);
+            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),
@@ -63,7 +64,7 @@ public class MedRequestManager implements RequestManager {
   public void complete(Integer requestID) throws SQLException {
     MedRequest request =
         (MedRequest)
-            RequestFactory.getRequestFactory().findRequest(requestID, RequestType.MedicineDelivery);
+            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),
@@ -79,7 +80,7 @@ public class MedRequestManager implements RequestManager {
   public void cancel(Integer requestID) throws SQLException {
     MedRequest request =
         (MedRequest)
-            RequestFactory.getRequestFactory().findRequest(requestID, RequestType.MedicineDelivery);
+            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),
@@ -95,7 +96,7 @@ public class MedRequestManager implements RequestManager {
   public void reQueue(Integer requestID) throws SQLException {
     MedRequest request =
         (MedRequest)
-            RequestFactory.getRequestFactory().findRequest(requestID, RequestType.MedicineDelivery);
+            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),
