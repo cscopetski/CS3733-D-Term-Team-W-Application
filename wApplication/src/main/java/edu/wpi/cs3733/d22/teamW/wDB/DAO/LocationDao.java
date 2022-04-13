@@ -33,4 +33,6 @@ public interface LocationDao {
   void deleteLocation(String nodeID) throws SQLException;
 
   void exportLocationCSV(String fileName);
+
+  Location getLocation(String nodeID) throws SQLException;
 }
