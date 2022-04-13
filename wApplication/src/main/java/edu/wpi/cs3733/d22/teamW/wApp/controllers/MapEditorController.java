@@ -324,7 +324,7 @@ public class MapEditorController extends LoadableController {
           new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Location.png");
       ImagePattern bedPattern = new ImagePattern(locationIcon);
       circ.setFill(bedPattern);
-      circ.setCenterX((currFloorLoc.get(i).getXCoord()));
+      circ.setCenterX((currFloorLoc.get(i).getXCoord()) - 75);
       circ.setCenterY((currFloorLoc.get(i).getYCoord()));
       circ.setOnMouseClicked(
           (event -> {
@@ -559,7 +559,7 @@ public class MapEditorController extends LoadableController {
     size = reqList.size();
     for (int i = 0; i < size; i++) {
       Circle circ = new Circle(3, Color.BLACK);
-      circ.setCenterX((reqList.get(i).getXcoord() ));
+      circ.setCenterX((reqList.get(i).getXcoord()));
       circ.setCenterY((reqList.get(i).getYcoord()) - 8);
       reqDots.add(circ);
       scrollGroup.getChildren().add(circ);
