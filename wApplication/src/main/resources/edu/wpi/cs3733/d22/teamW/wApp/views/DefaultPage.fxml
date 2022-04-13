@@ -25,7 +25,7 @@
                                         <MenuItem mnemonicParsing="false" onAction="#switchToProfile" text="Account" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToAbout" text="About" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToHelp" text="Help" />
-                                        <MenuItem mnemonicParsing="false" onAction="#switchToSnake" text="Snake" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToSnake" text="Wong" />
                                         <MenuItem mnemonicParsing="false" onAction="#logOut" text="Log Out" />
                                     </items>
                                     <HBox.margin>

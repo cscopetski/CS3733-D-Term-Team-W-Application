@@ -77,4 +77,22 @@ public class RequestFacade {
     }
     return request;
   }
+
+  public void completeRequest(Integer requestID, RequestType type, String nodeID) throws SQLException {
+    
+    switch (type) {
+      case MedicalEquipmentRequest:
+        merm.complete(requestID);
+        break;
+      case LabServiceRequest:
+        lsrm.complete(requestID);
+        break;
+      case MedicineDelivery:
+        mrm.complete(requestID);
+        break;
+      case CleaningRequest:
+        crm.complete(requestID, nodeID);
+    }
+
+  }
 }
