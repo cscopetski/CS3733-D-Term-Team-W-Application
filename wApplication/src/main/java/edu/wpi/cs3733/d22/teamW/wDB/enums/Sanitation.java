@@ -28,7 +28,7 @@ public enum Sanitation {
     return this.name;
   }
 
-  public Sanitation getSanitation(String type) throws Exception {
+  public static Sanitation getSanitation(String type) throws Exception {
     Sanitation sanType = (Sanitation) map.get(type);
     if (sanType == null) {
       throw (new Exception("Sanitation Request Choice does not exist in the enum"));

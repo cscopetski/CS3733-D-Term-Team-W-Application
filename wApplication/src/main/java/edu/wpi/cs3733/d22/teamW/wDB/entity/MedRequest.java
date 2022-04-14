@@ -81,7 +81,7 @@ public class MedRequest extends Request {
     return String.format(
         "%d,%s,%s,%d,%d,%d,%s,%s",
         requestID,
-        medicine,
+        medicine.getString(),
         nodeID,
         employeeID,
         emergency,
@@ -95,7 +95,7 @@ public class MedRequest extends Request {
     return String.format(
         "%d, '%s', '%s', %d, %d, %d, '%s', '%s'",
         requestID,
-        medicine,
+        medicine.getString(),
         nodeID,
         employeeID,
         emergency,
