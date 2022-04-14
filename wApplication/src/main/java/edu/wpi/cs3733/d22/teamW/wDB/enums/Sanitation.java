@@ -6,7 +6,7 @@ import java.util.Map;
 public enum Sanitation {
   RoomCleaning("Room Cleaning"),
   Mopping("Mopping"),
-  PatientExcretion("Patient Execretion"),
+  PatientExcretion("Patient Excretion"),
   Spill("Spills"),
   ChemicalSpill("Chemical Spill");
 
