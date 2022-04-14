@@ -20,11 +20,11 @@ public interface RequestManager {
 
   public abstract void reQueue(Integer requestID) throws Exception;
 
-  public Request getRequest(Integer ID) throws SQLException;
+  public Request getRequest(Integer ID) throws Exception;
 
-  public ArrayList<Request> getAllRequests() throws SQLException;
+  public ArrayList<Request> getAllRequests() throws Exception;
 
   public Request addRequest(Integer i, ArrayList<String> fields) throws Exception;
 
-  public void exportReqCSV(String filename);
+  public void exportReqCSV(String filename) throws Exception;
 }

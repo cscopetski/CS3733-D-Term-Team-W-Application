@@ -123,8 +123,6 @@ public class LabServiceRequestManager implements RequestManager {
         request.getUpdatedTimestamp());
   }
 
-  public void cancel(LabServiceRequest request) throws SQLException {}
-
   public void reQueue(Integer requestID) throws SQLException {
     LabServiceRequest request =
         (LabServiceRequest)

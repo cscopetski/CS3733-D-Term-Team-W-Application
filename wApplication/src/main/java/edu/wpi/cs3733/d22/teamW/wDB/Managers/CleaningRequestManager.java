@@ -3,13 +3,13 @@ package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.CleaningRequestDao;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.Automation;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class CleaningRequestManager {
-  Automation automation = Automation.getAutomation();
   private CleaningRequestDao crd;
   private static CleaningRequestManager cleaningRequestManager = new CleaningRequestManager();
 
@@ -68,7 +68,7 @@ public class CleaningRequestManager {
     if (RequestFactory.getRequestFactory().getReqIDList().add(mER.getRequestID())) {
       crd.addCleaningRequest(mER);
 
-      if (automation.getAuto()) {
+      if (Automation.Automation.getAuto()) {
         checkStart();
       }
     } else {
@@ -113,7 +113,7 @@ public class CleaningRequestManager {
       MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
       MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), nodeID);
       MedEquipManager.getMedEquipManager().markClean(item.getMedID(), nodeID);
-      if (automation.getAuto()) {
+      if (Automation.Automation.getAuto()) {
         MedEquipRequestManager.getMedEquipRequestManager().startNext(item.getType());
       }
     }
