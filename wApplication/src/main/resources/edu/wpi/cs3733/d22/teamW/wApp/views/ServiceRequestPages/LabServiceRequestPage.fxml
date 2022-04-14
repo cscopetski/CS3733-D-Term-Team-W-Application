@@ -1,11 +1,151 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LabServiceRequestController">
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton?>
+<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LabServiceRequestController">
    <children>
-      <Text layoutX="289.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lab" />
+      <AnchorPane layoutX="6.0" layoutY="7.0" prefHeight="537.0" prefWidth="946.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="537.0" prefWidth="946.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Group>
+                     <children>
+                        <ImageView fitHeight="60.0" fitWidth="70.0" layoutX="402.0" layoutY="48.0">
+                           <image>
+                              <Image url="@../../assets/labIcon-01.png" />
+                           </image>
+                        </ImageView>
+                        <Label layoutX="282.0" layoutY="88.0" prefHeight="62.0" prefWidth="302.0" text="Lab Service Request ">
+                           <font>
+                              <Font name="System Bold" size="31.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="333.0" layoutY="131.0" prefHeight="39.0" prefWidth="207.0" text="Need to send lab request? We got you." textFill="#013895" />
+                     </children>
+                  </Group>
+                  <HBox alignment="CENTER" prefHeight="328.0" prefWidth="946.0">
+                     <children>
+                        <Pane prefHeight="328.0" prefWidth="291.0">
+                           <children>
+                              <Group layoutX="36.0" layoutY="3.0">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#009ca8" height="27.0" layoutY="27.0" stroke="#009ca8" strokeType="INSIDE" width="143.0" />
+                                    <Label layoutX="18.0" layoutY="27.0" text="REQUEST" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Group>
+                              <Group layoutX="39.0" layoutY="91.0">
+                                 <children>
+                                    <CheckBox fx:id="bloodBox" mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Blood sample" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Gill Sans MT" size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="urineBox" layoutY="27.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Urine samples" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Gill Sans MT" size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="xRayBox" layoutX="152.0" layoutY="27.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="108.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="X-Rays" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Gill Sans MT" size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="catBox" layoutY="54.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="134.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="CAT scans" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Gill Sans MT" size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="mriBox" layoutX="152.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="108.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="MRIs" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Gill Sans MT" size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                 </children>
+                              </Group>
+                              <Label layoutX="40.0" layoutY="57.0" text="Check the appropriate box(es)" textFill="#013895" />
+                              <Label layoutX="64.0" layoutY="200.0" text="Toggle to undo the emergency" textFill="#96a1b2">
+                                 <padding>
+                                    <Insets bottom="5.0" />
+                                 </padding></Label>
+                              <EmergencyButton fx:id="emergencyB" layoutX="36.0" layoutY="222.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="220.0" />
+                           </children>
+                        </Pane>
+                        <Pane>
+                           <children>
+                              <Group>
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#013895" height="29.0" layoutX="29.0" layoutY="25.0" stroke="#013895" strokeType="INSIDE" width="159.0" />
+                                    <Label layoutX="47.0" layoutY="26.0" text="PATIENT INFO" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="29.0" layoutY="74.0" text="Employee ID">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox fx:id = "employeeIDCBox" layoutX="29.0" layoutY="92.0" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/comboBox.css" />
+                                    <Label layoutX="29.0" layoutY="135.0" text="Location ID">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <ComboBox fx:id="locationCBox" layoutX="29.0" layoutY="156.0" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/comboBox.css" />
+                                 </children>
+                              </Group>
+<!--                              <Label layoutX="31.0" layoutY="192.0" prefHeight="19.0" prefWidth="49.0" text="Notes">-->
+<!--                                 <font>-->
+<!--                                    <Font name="System Bold" size="13.0" />-->
+<!--                                 </font>-->
+<!--                              </Label>-->
+<!--                              <TextArea layoutX="31.0" layoutY="211.0" prefHeight="81.0" prefWidth="251.0" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />-->
+                           </children>
+                        </Pane>
+                        <Pane prefHeight="328.0" prefWidth="291.0">
+                           <children>
+                              <ImageView fitHeight="133.0" fitWidth="200.0" layoutX="54.0" layoutY="31.0">
+                                 <image>
+                                    <Image url="@../../assets/labTest.jpg" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="120.0" fitWidth="200.0" layoutX="53.0" layoutY="180.0">
+                                 <image>
+                                    <Image url="@../../assets/labTest2.jpg" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                        </Pane>
+                     </children>
+                  </HBox>
+                  <Button mnemonicParsing="false" onAction="#submitButton" prefHeight="33.0" prefWidth="71.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

@@ -1,0 +1,18 @@
+.button{
+    -fx-font-weight: bold;
+    -fx-background-color: white;
+    -fx-background-radius: 26;
+    -fx-fontsize: 22;
+    -fx-text-fill: #013895;
+    -fx-border-color: #013895;
+    -fx-border-radius: 26;
+    -fx-border-width: 1
+}
+.button:hover {
+    -fx-font-weight: bold;
+    -fx-background-color: #013895;
+    -fx-background-radius: 26;
+    -fx-fontsize: 22;
+    -fx-text-fill: white;
+
+}
