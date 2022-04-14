@@ -519,7 +519,7 @@ public class MapEditorController extends LoadableController {
     for (int i = 0; i < medr.size(); i++) {
       medRequestManager.changeMedRequest(
           medr.get(i).getRequestID(),
-          ((MedRequest) medr.get(i)).getMedicine(),
+          ((MedRequest) medr.get(i)).getMedicine().getString(),
           "HOLD",
           medr.get(i).getEmployeeID(),
           medr.get(i).getEmergency(),

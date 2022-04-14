@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
@@ -25,7 +26,7 @@ public class MedRequestManager implements RequestManager {
     this.mrd = mrd;
   }
 
-  public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException {
+  public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException, NoMedicine {
     MedRequest mr;
 
     if (fields.size() == 4) {
@@ -52,7 +53,7 @@ public class MedRequestManager implements RequestManager {
     request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(
         request.getRequestID(),
-        request.getMedicine(),
+        request.getMedicine().getString(),
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
@@ -69,7 +70,7 @@ public class MedRequestManager implements RequestManager {
     request.setStatus(RequestStatus.Completed);
     mrd.changeMedRequest(
         request.getRequestID(),
-        request.getMedicine(),
+        request.getMedicine().getString(),
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
@@ -85,7 +86,7 @@ public class MedRequestManager implements RequestManager {
     request.setStatus(RequestStatus.Cancelled);
     mrd.changeMedRequest(
         request.getRequestID(),
-        request.getMedicine(),
+        request.getMedicine().getString(),
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
@@ -101,7 +102,7 @@ public class MedRequestManager implements RequestManager {
     request.setStatus(RequestStatus.InQueue);
     mrd.changeMedRequest(
         request.getRequestID(),
-        request.getMedicine(),
+        request.getMedicine().getString(),
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),

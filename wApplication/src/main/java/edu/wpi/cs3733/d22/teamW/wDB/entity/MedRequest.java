@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.Medicine;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.Timestamp;
@@ -10,7 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MedRequest extends Request {
-  String medicine;
+  Medicine medicine;
 
   public MedRequest(
       Integer requestID,
@@ -20,7 +22,28 @@ public class MedRequest extends Request {
       Integer emergency,
       RequestStatus status,
       Timestamp createdTimestamp,
-      Timestamp updatedTimestamp) {
+      Timestamp updatedTimestamp)
+      throws NoMedicine {
+    this.requestID = requestID;
+    this.medicine = Medicine.getMedicine(medicine);
+    this.nodeID = nodeID;
+    this.employeeID = employeeID;
+    this.emergency = emergency;
+    this.status = status;
+    this.createdTimestamp = createdTimestamp;
+    this.updatedTimestamp = updatedTimestamp;
+  }
+
+  public MedRequest(
+      Integer requestID,
+      Medicine medicine,
+      String nodeID,
+      Integer employeeID,
+      Integer emergency,
+      RequestStatus status,
+      Timestamp createdTimestamp,
+      Timestamp updatedTimestamp)
+      throws NoMedicine {
     this.requestID = requestID;
     this.medicine = medicine;
     this.nodeID = nodeID;
@@ -31,9 +54,9 @@ public class MedRequest extends Request {
     this.updatedTimestamp = updatedTimestamp;
   }
 
-  public MedRequest(ArrayList<String> fields) {
+  public MedRequest(ArrayList<String> fields) throws NoMedicine {
     this.requestID = Integer.parseInt(fields.get(0));
-    this.medicine = fields.get(1);
+    this.medicine = Medicine.getMedicine(fields.get(1));
     this.nodeID = fields.get(2);
     this.employeeID = Integer.parseInt(fields.get(3));
     this.emergency = Integer.parseInt(fields.get(4));
@@ -42,9 +65,9 @@ public class MedRequest extends Request {
     this.updatedTimestamp = Timestamp.valueOf(fields.get(7));
   }
 
-  public MedRequest(Integer index, ArrayList<String> fields) {
+  public MedRequest(Integer index, ArrayList<String> fields) throws NoMedicine {
     this.requestID = index;
-    this.medicine = fields.get(0);
+    this.medicine = Medicine.getMedicine(fields.get(0));
     this.nodeID = fields.get(1);
     this.employeeID = Integer.parseInt(fields.get(2));
     this.emergency = Integer.parseInt(fields.get(3));

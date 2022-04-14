@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Medicine {
+  Adderall("Adderall"),
   Abacavir("Abacavir"),
   Acyclovir("Acyclovir"),
   Alemtuzumab("Alemtuzumab"),
@@ -213,7 +214,7 @@ public enum Medicine {
   Sunitinib("Sunitinib"),
   Tacrolimus("Tacrolimus"),
   Temozolomide("Temozolomide"),
-  Teniposide(""),
+  Teniposide("Teniposide"),
   Tenofovir("Tenofovir"),
   Thioguanine("Thioguanine"),
   Thiotepa("Thiotepa"),
@@ -255,7 +256,7 @@ public enum Medicine {
     Medicine type = null;
     type = (Medicine) map.get(medicine);
     if (type == null) {
-      throw new NoMedicine("Medicine does not exist in our list of medicine Enum");
+      throw new NoMedicine();
     }
     return type;
   }
