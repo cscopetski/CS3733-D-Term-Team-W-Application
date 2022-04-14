@@ -1,6 +1,6 @@
-package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
+package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
@@ -8,20 +8,27 @@ import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 public class RequestListController extends LoadableController {
   @FXML public RequestTable rt;
   @FXML public TextArea moreInfo;
-  @FXML public ComboBox equipmentSelection;
   @FXML public HBox selectionButtons;
+  @FXML public AutoCompleteInput filterList;
+
+  @FXML public VBox filterGroup;
+  private final ArrayList<RequestType> filters = new ArrayList<>();
 
   @Override
   protected SceneManager.Scenes GetSceneType() {
@@ -49,10 +56,35 @@ public class RequestListController extends LoadableController {
               selectionButtons.setVisible(newSelection != null);
             });
 
-    equipmentSelection
+    filterList.loadValues(
+        (ArrayList<String>)
+            Arrays.stream(RequestType.values())
+                .map(RequestType::getString)
+                .collect(Collectors.toList()));
+    filterList
         .getSelectionModel()
-        .selectedIndexProperty()
-        .addListener((e, o, n) -> setItemsWithFilter(n.intValue()));
+        .selectedItemProperty()
+        .addListener((e, o, n) -> addFilter(RequestType.getRequestType(n)));
+  }
+
+  private void addFilter(RequestType requestType) {
+    if (!filters.contains(requestType)) {
+      filters.add(requestType);
+      resetItems();
+      ToggleButton filter = new ToggleButton(requestType.getString());
+      filter.setOnAction(e -> {
+        if (filter.getText().equals("Remove?")) {
+          filterGroup.getChildren().remove(filter);
+        }else if (filter.getText().equals(requestType.getString()));
+      });
+    }
+  }
+
+  private void removeFilter(RequestType requestType) {
+    if (filters.contains(requestType)) {
+      filters.remove(requestType);
+      resetItems();
+    }
   }
 
   public void onLoad() {
@@ -66,70 +98,21 @@ public class RequestListController extends LoadableController {
   }
 
   public void resetItems() {
-    setItemsWithFilter(equipmentSelection.getSelectionModel().getSelectedIndex());
+    try {
+      if (filters.size() != 0) {
+        rt.setItems(
+            RequestFacade.getRequestFacade()
+                .getRequests(filters.toArray(new RequestType[filters.size()])));
+      } else {
+        rt.setItems(RequestFacade.getRequestFacade().getRequests());
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
   public void onUnload() {}
-
-  private void setItemsWithFilter(int index) {
-    switch (index) {
-      case -1:
-      case 0:
-        try {
-          rt.setItems(RequestFacade.getRequestFacade().getRequestsByType());
-        } catch (SQLException ex) {
-          ex.printStackTrace();
-        }
-        break;
-      case 1:
-        try {
-          rt.setItems(
-              RequestFacade.getRequestFacade().getRequestsByType(RequestType.LabServiceRequest));
-        } catch (SQLException ex) {
-          ex.printStackTrace();
-        }
-        break;
-      case 2:
-        try {
-          rt.setItems(
-              RequestFacade.getRequestFacade().getRequestsByType(RequestType.LanguageInterpreter));
-        } catch (SQLException ex) {
-          ex.printStackTrace();
-        }
-        break;
-      case 3:
-        try {
-          rt.setItems(RequestFacade.getRequestFacade().getRequestsByType(RequestType.MealDelivery));
-        } catch (SQLException ex) {
-          ex.printStackTrace();
-        }
-        break;
-      case 4:
-        try {
-          rt.setItems(
-              RequestFacade.getRequestFacade().getRequestsByType(RequestType.MedicalEquipmentRequest));
-        } catch (SQLException ex) {
-          ex.printStackTrace();
-        }
-        break;
-      case 5:
-        try {
-          rt.setItems(RequestFacade.getRequestFacade().getRequestsByType(RequestType.SecurityService));
-        } catch (SQLException ex) {
-          ex.printStackTrace();
-        }
-        break;
-      case 6:
-        try {
-          rt.setItems(RequestFacade.getRequestFacade().getRequestsByType(RequestType.CleaningRequest));
-        } catch (SQLException ex) {
-          ex.printStackTrace();
-        }
-        break;
-    }
-    clearSelection();
-  }
 
   public void cancel(ActionEvent actionEvent) throws Exception {
     RequestFacade.getRequestFacade()
@@ -163,13 +146,5 @@ public class RequestListController extends LoadableController {
       alert.showAndWait();
     }
     resetItems();
-  }
-
-  // Filtering the requests by request service
-  public void filterRequest(ActionEvent actionEvent) {
-    // if ("Lab".equals(equipmentSelection.getValue())) {
-    // Only display lab
-    // rt.setItems(RequestFacade.getRequestFacade().);
-    // }
   }
 }

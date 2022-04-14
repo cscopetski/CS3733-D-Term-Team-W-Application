@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls;
 
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.util.ArrayList;
 import javafx.scene.control.ComboBox;
 
@@ -121,29 +122,24 @@ public class AutoCompleteInput extends ComboBox<String> {
     getEditor()
         .setOnKeyTyped(
             e -> {
-              setItems(trie.getList(getText()));
+              getItems().clear();
+              getItems().addAll(trie.getList(getText()));
               if (!trie.contains(getText())) {
                 getEditor().setStyle("-fx-text-fill: red");
               } else {
                 getEditor().setStyle("-fx-text-fill: black");
               }
             });
-    // valueProperty().addListener((observable, oldValue, newValue) ->
-    // setItems(trie.getList(newValue)));
   }
 
   public void loadValues(ArrayList<String> values) {
     trie = new Trie(values);
-    setItems(trie.getList(getValue() != null ? getValue() : ""));
-  }
-
-  private void setItems(ArrayList<String> items) {
     getItems().clear();
-    getItems().addAll(items);
+    getItems().addAll(trie.getList(getValue() != null ? getValue() : ""));
   }
 
-  private String getSelection() {
-    return getSelectionModel().getSelectedItem();
+  private RequestType getSelection() {
+    return RequestType.getRequestType(getSelectionModel().getSelectedItem());
   }
 
   private String getText() {

@@ -16,14 +16,16 @@ public class RequestFacade {
 
   private static RequestFacade requestFacade = new RequestFacade();
 
-  private RequestFacade() {
-  }
+  private RequestFacade() {}
 
   public static RequestFacade getRequestFacade() {
     return requestFacade;
   }
 
   public ArrayList<Request> getRequests(RequestType... requestTypes) throws SQLException {
+    if (requestTypes == null || requestTypes.length == 0) {
+      return getRequestsByType();
+    }
     ArrayList<Request> requests = new ArrayList<>();
     for (RequestType r : requestTypes) {
       requests.addAll(getRequestsByType(r));

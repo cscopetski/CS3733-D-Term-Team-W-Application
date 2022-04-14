@@ -3,7 +3,6 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 
 public class Main {
 
@@ -52,7 +51,6 @@ public class Main {
     //      e.printStackTrace();
     //    }
 
-    RequestFacade.getRequestFacade().getRequests(RequestType.CleaningRequest);
     App.launch(App.class, args);
   }
 }
