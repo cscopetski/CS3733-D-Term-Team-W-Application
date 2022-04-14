@@ -4,6 +4,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.Units;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -34,8 +35,13 @@ public class MedRequestDaoImpl implements MedRequestDao {
       statement.execute(
           "CREATE TABLE MEDREQUESTS("
               + "requestID INT,"
+              + "patientLast varchar(25),"
+              + "patientFirst varchar(25),"
               + "medicine varchar(25),"
+              + "quantity DOUBLE,"
+              + "Unit varchar(25),"
               + "nodeID varchar(25),"
+              + "BedNum INT,"
               + "employeeID INT,"
               + "isEmergency INT,"
               + "reqStatus INT, "
@@ -61,26 +67,33 @@ public class MedRequestDaoImpl implements MedRequestDao {
 
   @Override
   public void changeMedRequest(
-      Integer id,
+      Integer requestID,
+      String patientLast,
+      String patientFirst,
       String medicine,
+      Double quantity,
+      Units unit,
       String nodeID,
+      Integer bedNumber,
       Integer employeeID,
-      Integer isEmergency,
-      RequestStatus requestStatus,
-      Timestamp createdTimestamp,
-      Timestamp updatedTimestamp)
+      Integer emergency,
+      RequestStatus status)
       throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDREQUESTS SET MEDICINE='%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE REQUESTID=%d",
+            "UPDATE MEDREQUESTS SET PATIENTLAST='%s', PATIENTFIRST='%s', MEDICINE='%s', QUANTITY = %.2f, UNIT = '%s', NODEID='%s', BEDNUM = %d, EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE REQUESTID=%d",
+            patientLast,
+            patientFirst,
             medicine,
+            quantity,
+            unit.getUnits(),
             nodeID,
+            bedNumber,
             employeeID,
-            isEmergency,
-            requestStatus.getValue(),
-            createdTimestamp.toString(),
-            updatedTimestamp.toString(),
-            id));
+            emergency,
+            status.getValue(),
+            new Timestamp(System.currentTimeMillis()),
+            requestID));
   }
 
   @Override
@@ -92,24 +105,34 @@ public class MedRequestDaoImpl implements MedRequestDao {
   public Request getMedRequest(Integer id) throws SQLException {
     MedRequest mr = null;
     try {
-      ResultSet medEquipRequests =
+      ResultSet medRequest =
           statement.executeQuery(
               String.format("SELECT * FROM MEDREQUESTS WHERE REQUESTID = %d", id));
 
-      medEquipRequests.next();
+      medRequest.next();
 
-      Integer medreqID = medEquipRequests.getInt("REQUESTID");
-      String medID = medEquipRequests.getString("MEDICINE");
-      String nodeID = medEquipRequests.getString("NODEID");
-      Integer employeeID = medEquipRequests.getInt("EMPLOYEEID");
-      Integer isEmergency = medEquipRequests.getInt("ISEMERGENCY");
-      Integer reqStatus = medEquipRequests.getInt("REQSTATUS");
-      String createdTimeStamp = medEquipRequests.getString("CREATEDTIMESTAMP");
-      String updatedTimeStamp = medEquipRequests.getString("UPDATEDTIMESTAMP");
+      Integer medreqID = medRequest.getInt("REQUESTID");
+      String patientLast = medRequest.getString("PATIENTLAST");
+      String patientFirst = medRequest.getString("PATIENTFIRST");
+      String medicine = medRequest.getString("MEDICINE");
+      Double quantity = medRequest.getDouble("QUANTITY");
+      String unit = medRequest.getString("Unit");
+      String nodeID = medRequest.getString("NODEID");
+      Integer bedNum = medRequest.getInt("BEDNUM");
+      Integer employeeID = medRequest.getInt("EMPLOYEEID");
+      Integer isEmergency = medRequest.getInt("ISEMERGENCY");
+      Integer reqStatus = medRequest.getInt("REQSTATUS");
+      String createdTimeStamp = medRequest.getString("CREATEDTIMESTAMP");
+      String updatedTimeStamp = medRequest.getString("UPDATEDTIMESTAMP");
       ArrayList<String> medEquipRequestData = new ArrayList<String>();
       medEquipRequestData.add(String.format("%d", medreqID));
-      medEquipRequestData.add(medID);
+      medEquipRequestData.add(patientLast);
+      medEquipRequestData.add(patientFirst);
+      medEquipRequestData.add(medicine);
+      medEquipRequestData.add(String.format("%.2f", quantity));
+      medEquipRequestData.add(unit);
       medEquipRequestData.add(nodeID);
+      medEquipRequestData.add(String.format("%d", bedNum));
       medEquipRequestData.add(String.format("%d", employeeID));
       medEquipRequestData.add(String.format("%d", isEmergency));
       medEquipRequestData.add(String.format("%d", reqStatus));

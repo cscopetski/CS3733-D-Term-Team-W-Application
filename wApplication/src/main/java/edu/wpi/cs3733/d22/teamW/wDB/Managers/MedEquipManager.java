@@ -70,6 +70,11 @@ public class MedEquipManager {
     return null;
   }
 
+  public void add(String inputID, String type, String nodeID, MedEquipStatus status)
+      throws SQLException {
+    medi.addMedEquip(inputID, type, nodeID, status);
+  }
+
   public void add(String inputID, String type, String nodeID, Integer status) throws SQLException {
     medi.addMedEquip(inputID, type, nodeID, MedEquipStatus.getStatus(status));
   }

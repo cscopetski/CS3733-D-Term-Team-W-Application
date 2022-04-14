@@ -155,7 +155,7 @@ public class CSVController {
       // add location objects to database
       try {
         MedEquipManager.getMedEquipManager()
-            .add(m.getMedID(), m.getType(), m.getNodeID(), m.getStatus().getValue());
+            .add(m.getMedID(), m.getType(), m.getNodeID(), m.getStatus());
       } catch (SQLException e) {
         System.out.println("Connection failed. Check output console.");
         e.printStackTrace();

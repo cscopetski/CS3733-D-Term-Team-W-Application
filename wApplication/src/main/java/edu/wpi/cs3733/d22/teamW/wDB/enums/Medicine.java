@@ -253,8 +253,10 @@ public enum Medicine {
   }
 
   public static Medicine getMedicine(String medicine) throws NoMedicine {
+    System.out.println(medicine);
     Medicine type = null;
     type = (Medicine) map.get(medicine);
+    System.out.println(type);
     if (type == null) {
       throw new NoMedicine();
     }
