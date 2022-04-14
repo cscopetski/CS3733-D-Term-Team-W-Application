@@ -222,7 +222,7 @@ public class CSVController {
                 e.getEmployeeID(),
                 e.getFirstName(),
                 e.getLastName(),
-                e.getType().getString(),
+                e.getType(),
                 e.getEmail(),
                 e.getPhoneNumber(),
                 e.getAddress(),

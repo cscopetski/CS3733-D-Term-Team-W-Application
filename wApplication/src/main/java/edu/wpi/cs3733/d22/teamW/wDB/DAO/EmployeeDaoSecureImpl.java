@@ -141,7 +141,7 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
       Integer employeeID,
       String firstname,
       String lastname,
-      String type,
+      EmployeeType type,
       String email,
       String phoneNumber,
       String address,
@@ -162,14 +162,18 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
             employeeID,
             firstname,
             lastname,
-            type,
+            type.getString(),
             email,
             phoneNumber,
             address,
             username,
             password,
             salt);
+
     statement.executeUpdate(
+        String.format("INSERT INTO EMPLOYEES VALUES (%s)", newEmployee.toValuesString()));
+
+    System.out.println(
         String.format("INSERT INTO EMPLOYEES VALUES (%s)", newEmployee.toValuesString()));
   }
 
@@ -197,7 +201,7 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
       Integer employeeID,
       String firstname,
       String lastname,
-      String type,
+      EmployeeType type,
       String email,
       String phoneNumber,
       String address,
@@ -211,7 +215,7 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
               "UPDATE EMPLOYEES SET FIRSTNAME = '%s', LASTNAME = '%s', EMPLOYEETYPE = '%s', EMAIL = '%s', PHONENUMBER = '%s', ADDRESS = '%s', USERNAME = '%s', PASSWORD = '%s' WHERE EMPLOYEEID = %d",
               firstname,
               lastname,
-              type,
+              type.getString(),
               email,
               phoneNumber,
               address,

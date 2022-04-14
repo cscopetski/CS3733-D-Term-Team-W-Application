@@ -48,7 +48,7 @@ public class EmployeeManager {
       Integer employeeID,
       String firstname,
       String lastname,
-      String type,
+      EmployeeType type,
       String email,
       String phoneNumber,
       String address,
@@ -73,7 +73,7 @@ public class EmployeeManager {
       Integer employeeID,
       String firstname,
       String lastname,
-      String type,
+      EmployeeType type,
       String email,
       String phoneNumber,
       String address,
@@ -109,15 +109,7 @@ public class EmployeeManager {
       String password)
       throws SQLException {
     ed.changeEmployee(
-        employeeID,
-        firstname,
-        lastname,
-        type.getString(),
-        email,
-        phoneNumber,
-        address,
-        username,
-        password);
+        employeeID, firstname, lastname, type, email, phoneNumber, address, username, password);
   }
 
   public ArrayList<Employee> getAllEmployees() throws SQLException {
