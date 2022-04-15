@@ -5,7 +5,11 @@ import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.Sanitation;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class SanitationRequest extends Request {
 
   Sanitation sanitation;

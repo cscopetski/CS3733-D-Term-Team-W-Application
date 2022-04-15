@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingLabServiceRequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.LabServiceRequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.Timestamp;
@@ -12,11 +14,11 @@ import lombok.Setter;
 @Setter
 public class LabServiceRequest extends Request {
 
-  private String labType;
+  private LabServiceRequestType labType;
 
   public LabServiceRequest(
       Integer requestID,
-      String labType,
+      LabServiceRequestType labType,
       String nodeID,
       Integer employeeID,
       Integer emergency,
@@ -33,9 +35,10 @@ public class LabServiceRequest extends Request {
     this.updatedTimestamp = updatedTimestamp;
   }
 
-  public LabServiceRequest(ArrayList<String> fields) throws StatusError {
+  public LabServiceRequest(ArrayList<String> fields)
+      throws StatusError, NonExistingLabServiceRequestType {
     this.requestID = Integer.parseInt(fields.get(0));
-    this.labType = fields.get(1);
+    this.labType = LabServiceRequestType.getLabServiceRequestType(fields.get(1));
     this.nodeID = fields.get(2);
     this.employeeID = Integer.parseInt(fields.get(3));
     this.emergency = Integer.parseInt(fields.get(4));
@@ -44,9 +47,10 @@ public class LabServiceRequest extends Request {
     this.updatedTimestamp = Timestamp.valueOf(fields.get(7));
   }
 
-  public LabServiceRequest(Integer index, ArrayList<String> fields) throws StatusError {
+  public LabServiceRequest(Integer index, ArrayList<String> fields)
+      throws StatusError, NonExistingLabServiceRequestType {
     this.requestID = index;
-    this.labType = fields.get(0);
+    this.labType = LabServiceRequestType.getLabServiceRequestType(fields.get(0));
     this.nodeID = fields.get(1);
     this.employeeID = Integer.parseInt(fields.get(2));
     this.emergency = Integer.parseInt(fields.get(3));
@@ -65,7 +69,7 @@ public class LabServiceRequest extends Request {
     return String.format(
         "%d,%s,%s,%d,%d,%d,%s,%s",
         requestID,
-        labType,
+        labType.getString(),
         nodeID,
         employeeID,
         emergency,
@@ -79,7 +83,7 @@ public class LabServiceRequest extends Request {
     return String.format(
         "%d, '%s',  '%s', %d, %d, %d, '%s', '%s'",
         requestID,
-        labType,
+        labType.getString(),
         nodeID,
         employeeID,
         emergency,

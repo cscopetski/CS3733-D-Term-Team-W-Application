@@ -4,7 +4,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.DAO.SanitationRequestDao;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.SanitationRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
@@ -65,13 +64,13 @@ public class SanitationRequestManager implements RequestManager {
   }
 
   public void start(Integer requestID) throws SQLException, StatusError {
-    LabServiceRequest request =
-        (LabServiceRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
+    SanitationRequest request =
+        (SanitationRequest)
+            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
     request.setStatus(RequestStatus.InProgress);
     srd.changeSanitationRequest(
         request.getRequestID(),
-        request.getLabType(),
+        request.getSanitation(),
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
@@ -79,13 +78,13 @@ public class SanitationRequestManager implements RequestManager {
   }
 
   public void complete(Integer requestID) throws SQLException, StatusError {
-    LabServiceRequest request =
-        (LabServiceRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
+    SanitationRequest request =
+        (SanitationRequest)
+            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
     request.setStatus(RequestStatus.Completed);
     srd.changeSanitationRequest(
         request.getRequestID(),
-        request.getLabType(),
+        request.getSanitation(),
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
@@ -93,13 +92,13 @@ public class SanitationRequestManager implements RequestManager {
   }
 
   public void cancel(Integer requestID) throws SQLException, StatusError {
-    LabServiceRequest request =
-        (LabServiceRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
+    SanitationRequest request =
+        (SanitationRequest)
+            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
     request.setStatus(RequestStatus.Cancelled);
     srd.changeSanitationRequest(
         request.getRequestID(),
-        request.getLabType(),
+        request.getSanitation(),
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
@@ -107,13 +106,13 @@ public class SanitationRequestManager implements RequestManager {
   }
 
   public void reQueue(Integer requestID) throws SQLException, StatusError {
-    LabServiceRequest request =
-        (LabServiceRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
+    SanitationRequest request =
+        (SanitationRequest)
+            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
     request.setStatus(RequestStatus.InQueue);
     srd.changeSanitationRequest(
         request.getRequestID(),
-        request.getLabType(),
+        request.getSanitation(),
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),

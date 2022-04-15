@@ -4,6 +4,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.SanitationRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.Sanitation;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -118,7 +119,7 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
   @Override
   public void changeSanitationRequest(
       Integer requestID,
-      String sanitation,
+      Sanitation sanitation,
       String nodeID,
       Integer employeeID,
       Integer emergency,
@@ -127,7 +128,7 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
     statement.executeUpdate(
         String.format(
             "UPDATE SANITATIONREQUESTS SET SANITATION='%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP='%s' WHERE REQID=%d",
-            sanitation,
+            sanitation.getString(),
             nodeID,
             employeeID,
             emergency,

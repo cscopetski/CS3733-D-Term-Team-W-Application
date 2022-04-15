@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.LabServiceRequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -15,7 +16,7 @@ public interface LabServiceRequestDao {
 
   void changeLabServiceRequest(
       Integer requestID,
-      String labType,
+      LabServiceRequestType labType,
       String nodeID,
       Integer employeeID,
       Integer emergency,

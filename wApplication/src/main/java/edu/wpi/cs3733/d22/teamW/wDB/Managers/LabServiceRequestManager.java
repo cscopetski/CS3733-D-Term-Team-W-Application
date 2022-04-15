@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.LabServiceRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingLabServiceRequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -43,7 +44,7 @@ public class LabServiceRequestManager implements RequestManager {
 
   @Override
   public Request addNewRequest(Integer num, ArrayList<String> fields)
-      throws SQLException, StatusError {
+      throws SQLException, StatusError, NonExistingLabServiceRequestType {
     LabServiceRequest lSR;
     // Set status to in queue if it is not already included (from CSVs)
     fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
@@ -60,7 +61,8 @@ public class LabServiceRequestManager implements RequestManager {
   }
 
   @Override
-  public Request addExistingRequest(ArrayList<String> fields) throws SQLException, StatusError {
+  public Request addExistingRequest(ArrayList<String> fields)
+      throws SQLException, StatusError, NonExistingLabServiceRequestType {
     LabServiceRequest lSR;
     System.out.println("Right before making lSR");
     lSR = new LabServiceRequest(fields);
