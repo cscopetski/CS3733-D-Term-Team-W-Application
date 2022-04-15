@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
@@ -98,7 +99,7 @@ public class MedEquipRequestManager implements RequestManager {
     return true;
   }
 
-  public void complete(Integer requestID) throws SQLException {
+  public void complete(Integer requestID) throws SQLException, StatusError {
     MedEquipRequest request =
         (MedEquipRequest)
             RequestFacade.getRequestFacade()
@@ -286,7 +287,7 @@ public class MedEquipRequestManager implements RequestManager {
   }
 
   @Override
-  public Request addExistingRequest(ArrayList<String> fields) throws SQLException {
+  public Request addExistingRequest(ArrayList<String> fields) throws SQLException, StatusError {
     MedEquipRequest mER;
     mER = new MedEquipRequest(fields);
 

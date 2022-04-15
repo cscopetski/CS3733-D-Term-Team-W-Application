@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
 import java.util.ArrayList;
 
@@ -20,7 +21,7 @@ public class MedEquip extends Entity {
     this.status = null;
   }
 
-  public MedEquip(String ID, String type, String nodeID, Integer status) {
+  public MedEquip(String ID, String type, String nodeID, Integer status) throws StatusError {
     this.medID = ID;
     this.type = type;
     this.nodeID = nodeID;
@@ -34,7 +35,7 @@ public class MedEquip extends Entity {
     this.nodeID = medEquipData.get(2);
     try {
       this.status = MedEquipStatus.getStatus(Integer.parseInt(medEquipData.get(3)));
-    } catch (NumberFormatException e) {
+    } catch (NumberFormatException | StatusError e) {
       this.status = null;
     }
   }

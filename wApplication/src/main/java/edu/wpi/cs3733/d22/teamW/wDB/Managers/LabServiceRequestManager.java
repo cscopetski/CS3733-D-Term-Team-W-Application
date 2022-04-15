@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.LabServiceRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
@@ -41,7 +42,8 @@ public class LabServiceRequestManager implements RequestManager {
   }
 
   @Override
-  public Request addNewRequest(Integer num, ArrayList<String> fields) throws SQLException {
+  public Request addNewRequest(Integer num, ArrayList<String> fields)
+      throws SQLException, StatusError {
     LabServiceRequest lSR;
     // Set status to in queue if it is not already included (from CSVs)
     fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
@@ -58,7 +60,7 @@ public class LabServiceRequestManager implements RequestManager {
   }
 
   @Override
-  public Request addExistingRequest(ArrayList<String> fields) throws SQLException {
+  public Request addExistingRequest(ArrayList<String> fields) throws SQLException, StatusError {
     LabServiceRequest lSR;
     System.out.println("Right before making lSR");
     lSR = new LabServiceRequest(fields);
@@ -71,7 +73,7 @@ public class LabServiceRequestManager implements RequestManager {
     return lSR;
   }
 
-  public boolean start(Integer requestID) throws SQLException {
+  public boolean start(Integer requestID) throws SQLException, StatusError {
     LabServiceRequest request =
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
@@ -88,7 +90,7 @@ public class LabServiceRequestManager implements RequestManager {
     return true;
   }
 
-  public void complete(Integer requestID) throws SQLException {
+  public void complete(Integer requestID) throws SQLException, StatusError {
     LabServiceRequest request =
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
@@ -104,7 +106,7 @@ public class LabServiceRequestManager implements RequestManager {
         new Timestamp(System.currentTimeMillis()));
   }
 
-  public void cancel(Integer requestID) throws SQLException {
+  public void cancel(Integer requestID) throws SQLException, StatusError {
     LabServiceRequest request =
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
@@ -132,7 +134,7 @@ public class LabServiceRequestManager implements RequestManager {
         request.getUpdatedTimestamp());
   }
 
-  public void reQueue(Integer requestID) throws SQLException {
+  public void reQueue(Integer requestID) throws SQLException, StatusError {
     LabServiceRequest request =
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);

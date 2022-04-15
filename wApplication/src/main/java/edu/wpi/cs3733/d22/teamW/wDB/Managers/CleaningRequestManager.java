@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.CleaningRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.Automation;
@@ -23,7 +24,7 @@ public class CleaningRequestManager {
     this.crd = crd;
   }
 
-  public CleaningRequest getRequest(Integer reqID) {
+  public CleaningRequest getRequest(Integer reqID) throws StatusError {
     return crd.getCleaningRequest(reqID);
   }
 
@@ -45,7 +46,8 @@ public class CleaningRequestManager {
   //  }
 
   // TODO auto start all cleaning requests at that location when it is 6
-  public CleaningRequest addNewRequest(Integer num, ArrayList<String> fields) throws SQLException {
+  public CleaningRequest addNewRequest(Integer num, ArrayList<String> fields)
+      throws SQLException, StatusError {
     CleaningRequest cr;
     fields.add(Integer.toString(RequestStatus.InQueue.getValue()));
     fields.add(new Timestamp(System.currentTimeMillis()).toString());
@@ -75,7 +77,8 @@ public class CleaningRequestManager {
     return cr;
   }
 
-  public CleaningRequest addExistingRequest(ArrayList<String> fields) throws SQLException {
+  public CleaningRequest addExistingRequest(ArrayList<String> fields)
+      throws SQLException, StatusError {
     CleaningRequest cr = new CleaningRequest(fields);
     // TODO special exception
     if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
@@ -93,7 +96,7 @@ public class CleaningRequestManager {
 
   // TODO Ask Caleb how to get OR Bed PARK
   // What happens if the OR BED PARK is deleted this function would break
-  public void start(Integer requestID) throws SQLException {
+  public void start(Integer requestID) throws SQLException, StatusError {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() == RequestStatus.InQueue) {
       cr.setStatus(RequestStatus.InProgress);
@@ -133,7 +136,7 @@ public class CleaningRequestManager {
     }
   }
 
-  public void cancel(Integer requestID) throws SQLException {
+  public void cancel(Integer requestID) throws SQLException, StatusError {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() != RequestStatus.Completed) {
       cr.setStatus(RequestStatus.Cancelled);
@@ -147,7 +150,7 @@ public class CleaningRequestManager {
     }
   }
 
-  public void reQueue(Integer requestID) throws SQLException {
+  public void reQueue(Integer requestID) throws SQLException, StatusError {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() == RequestStatus.Cancelled) {
       cr.setStatus(RequestStatus.InQueue);
@@ -161,7 +164,7 @@ public class CleaningRequestManager {
     }
   }
 
-  public void checkStart() throws SQLException {
+  public void checkStart() throws SQLException, StatusError {
     ArrayList<String> cleaningLocations = crd.getCleaningLocation();
     for (String location : cleaningLocations) {
       System.out.println(location);

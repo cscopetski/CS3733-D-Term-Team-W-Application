@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -78,6 +79,8 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
 
     } catch (SQLException e) {
       System.out.println("Query from lab service request table failed.");
+    } catch (StatusError e) {
+      e.printStackTrace();
     }
     return labServiceRequestList;
   }

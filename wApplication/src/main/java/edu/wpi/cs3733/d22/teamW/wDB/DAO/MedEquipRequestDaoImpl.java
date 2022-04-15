@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -81,6 +82,8 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     } catch (SQLException e) {
       System.out.println("Query from med equip request table failed");
       throw (e);
+    } catch (StatusError e) {
+      e.printStackTrace();
     }
     return medEquipRequestList;
   }
@@ -194,6 +197,8 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
     } catch (SQLException e) {
       System.out.println("Query from medical equip request table failed.");
+    } catch (StatusError e) {
+      e.printStackTrace();
     }
     return mr;
   }
@@ -243,6 +248,8 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     } catch (SQLException e) {
       System.out.println("Query from med equip request table failed");
       throw (e);
+    } catch (StatusError e) {
+      e.printStackTrace();
     }
     return medEquipRequestList;
   }

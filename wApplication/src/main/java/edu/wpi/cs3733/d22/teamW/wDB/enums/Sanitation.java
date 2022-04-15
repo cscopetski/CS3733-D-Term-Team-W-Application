@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.enums;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.InvalidSanitationType;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,10 +29,10 @@ public enum Sanitation {
     return this.name;
   }
 
-  public static Sanitation getSanitation(String type) throws Exception {
+  public static Sanitation getSanitation(String type) throws InvalidSanitationType {
     Sanitation sanType = (Sanitation) map.get(type);
     if (sanType == null) {
-      throw (new Exception("Sanitation Request Choice does not exist in the enum"));
+      throw new InvalidSanitationType();
     }
     return sanType;
   }

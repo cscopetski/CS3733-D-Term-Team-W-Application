@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public interface RequestManager {
 
   public abstract boolean start(Integer requestID) throws Exception;
 
-  public abstract void complete(Integer requestID) throws SQLException;
+  public abstract void complete(Integer requestID) throws SQLException, StatusError;
 
   public abstract void cancel(Integer requestID) throws Exception;
 

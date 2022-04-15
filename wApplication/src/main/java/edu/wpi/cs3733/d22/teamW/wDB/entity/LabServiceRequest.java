@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.Timestamp;
@@ -32,7 +33,7 @@ public class LabServiceRequest extends Request {
     this.updatedTimestamp = updatedTimestamp;
   }
 
-  public LabServiceRequest(ArrayList<String> fields) {
+  public LabServiceRequest(ArrayList<String> fields) throws StatusError {
     this.requestID = Integer.parseInt(fields.get(0));
     this.labType = fields.get(1);
     this.nodeID = fields.get(2);
@@ -43,7 +44,7 @@ public class LabServiceRequest extends Request {
     this.updatedTimestamp = Timestamp.valueOf(fields.get(7));
   }
 
-  public LabServiceRequest(Integer index, ArrayList<String> fields) {
+  public LabServiceRequest(Integer index, ArrayList<String> fields) throws StatusError {
     this.requestID = index;
     this.labType = fields.get(0);
     this.nodeID = fields.get(1);

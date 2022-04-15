@@ -1,7 +1,9 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.InvalidUnit;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
@@ -29,7 +31,7 @@ public class MedRequestManager implements RequestManager {
 
   @Override
   public Request addNewRequest(Integer num, ArrayList<String> fields)
-      throws SQLException, NoMedicine {
+      throws SQLException, NoMedicine, StatusError, InvalidUnit {
     MedRequest mr;
     fields.add(Integer.toString(RequestStatus.InQueue.getValue()));
     fields.add(new Timestamp(System.currentTimeMillis()).toString());
@@ -56,7 +58,7 @@ public class MedRequestManager implements RequestManager {
     return mr;
   }
 
-  public boolean start(Integer requestID) throws SQLException {
+  public boolean start(Integer requestID) throws SQLException, StatusError {
     MedRequest request =
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
@@ -76,7 +78,7 @@ public class MedRequestManager implements RequestManager {
     return true;
   }
 
-  public void complete(Integer requestID) throws SQLException {
+  public void complete(Integer requestID) throws SQLException, StatusError {
     MedRequest request =
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
@@ -95,7 +97,7 @@ public class MedRequestManager implements RequestManager {
         request.getStatus());
   }
 
-  public void cancel(Integer requestID) throws SQLException {
+  public void cancel(Integer requestID) throws SQLException, StatusError {
     MedRequest request =
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
@@ -114,7 +116,7 @@ public class MedRequestManager implements RequestManager {
         request.getStatus());
   }
 
-  public void reQueue(Integer requestID) throws SQLException {
+  public void reQueue(Integer requestID) throws SQLException, StatusError {
     MedRequest request =
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);

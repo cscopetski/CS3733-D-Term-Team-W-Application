@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.InvalidUnit;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.Medicine;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
@@ -79,7 +81,7 @@ public class MedRequest extends Request {
     this.updatedTimestamp = updatedTimestamp;
   }
 
-  public MedRequest(ArrayList<String> fields) throws NoMedicine {
+  public MedRequest(ArrayList<String> fields) throws NoMedicine, StatusError, InvalidUnit {
     this.requestID = Integer.parseInt(fields.get(0));
     this.patientLast = fields.get(1);
     this.patientFirst = fields.get(2);
@@ -95,7 +97,8 @@ public class MedRequest extends Request {
     this.updatedTimestamp = Timestamp.valueOf(fields.get(12));
   }
 
-  public MedRequest(Integer index, ArrayList<String> fields) throws NoMedicine {
+  public MedRequest(Integer index, ArrayList<String> fields)
+      throws NoMedicine, StatusError, InvalidUnit {
     this.requestID = index;
     this.patientLast = fields.get(0);
     this.patientFirst = fields.get(1);

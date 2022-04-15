@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -58,7 +59,7 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
   }
 
   @Override
-  public CleaningRequest getCleaningRequest(Integer requestID) {
+  public CleaningRequest getCleaningRequest(Integer requestID) throws StatusError {
     CleaningRequest cr = null;
 
     try {
@@ -131,6 +132,8 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
 
     } catch (SQLException e) {
       System.out.println("Query from cleaning request table failed.");
+    } catch (StatusError e) {
+      e.printStackTrace();
     }
     return cleanRequestList;
   }

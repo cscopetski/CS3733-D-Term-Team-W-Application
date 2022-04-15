@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.Timestamp;
@@ -32,7 +33,7 @@ public class MedEquipRequest extends Request {
     this.updatedTimestamp = updatedTimestamp;
   }
 
-  public MedEquipRequest(ArrayList<String> fields) {
+  public MedEquipRequest(ArrayList<String> fields) throws StatusError {
     try {
       this.requestID = Integer.parseInt(fields.get(0));
     } catch (NumberFormatException e) {
@@ -61,7 +62,7 @@ public class MedEquipRequest extends Request {
   }
 
   // TODO fixing this constructor, may be out of order??
-  public MedEquipRequest(Integer index, ArrayList<String> fields) {
+  public MedEquipRequest(Integer index, ArrayList<String> fields) throws StatusError {
     this.requestID = index;
     this.itemID = "NONE";
     this.itemType = fields.get(0);
@@ -84,7 +85,7 @@ public class MedEquipRequest extends Request {
     this.updatedTimestamp = Timestamp.valueOf(fields.get(6));
   }
 
-  public MedEquipRequest(String[] medEquipReqData) {
+  public MedEquipRequest(String[] medEquipReqData) throws StatusError {
     this.requestID = Integer.parseInt(medEquipReqData[0]);
     this.itemID = medEquipReqData[1];
     this.itemType = medEquipReqData[2];

@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.SanitationRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
@@ -63,7 +64,7 @@ public class SanitationRequestManager implements RequestManager {
     return SR;
   }
 
-  public boolean start(Integer requestID) throws SQLException {
+  public boolean start(Integer requestID) throws SQLException, StatusError {
     LabServiceRequest request =
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
@@ -78,7 +79,7 @@ public class SanitationRequestManager implements RequestManager {
     return true;
   }
 
-  public void complete(Integer requestID) throws SQLException {
+  public void complete(Integer requestID) throws SQLException, StatusError {
     LabServiceRequest request =
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
@@ -92,7 +93,7 @@ public class SanitationRequestManager implements RequestManager {
         request.getStatus());
   }
 
-  public void cancel(Integer requestID) throws SQLException {
+  public void cancel(Integer requestID) throws SQLException, StatusError {
     LabServiceRequest request =
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
@@ -106,7 +107,7 @@ public class SanitationRequestManager implements RequestManager {
         request.getStatus());
   }
 
-  public void reQueue(Integer requestID) throws SQLException {
+  public void reQueue(Integer requestID) throws SQLException, StatusError {
     LabServiceRequest request =
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);

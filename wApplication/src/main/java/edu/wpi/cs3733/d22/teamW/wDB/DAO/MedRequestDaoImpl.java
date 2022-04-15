@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.InvalidUnit;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
@@ -124,6 +126,10 @@ public class MedRequestDaoImpl implements MedRequestDao {
       System.out.println("Query from medicine request table failed.");
     } catch (NoMedicine e) {
       e.printStackTrace();
+    } catch (StatusError e) {
+      e.printStackTrace();
+    } catch (InvalidUnit e) {
+      e.printStackTrace();
     }
     return mr;
   }
@@ -147,7 +153,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
         medRequestList.add(new MedRequest(medRequestData));
       }
 
-    } catch (SQLException | NoMedicine e) {
+    } catch (SQLException | NoMedicine | StatusError | InvalidUnit e) {
       System.out.println("Query from medicine request table failed.");
     }
     return medRequestList;

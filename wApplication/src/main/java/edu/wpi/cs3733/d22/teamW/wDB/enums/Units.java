@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.enums;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.InvalidUnit;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,11 +35,21 @@ public enum Units {
     return this.full;
   }
 
-  public static Units getUnitFromFullName(String type) {
-    return (Units) map.get(type);
+  public static Units getUnitFromFullName(String type) throws InvalidUnit {
+    type = type.trim();
+    Units output = (Units) map.get(type);
+    if (output == null) {
+      throw new InvalidUnit();
+    }
+    return output;
   }
 
-  public static Units getUnitFromAbb(String type) {
-    return (Units) map2.get(type);
+  public static Units getUnitFromAbb(String type) throws InvalidUnit {
+    type = type.trim();
+    Units output = (Units) map2.get(type);
+    if (output == null) {
+      throw new InvalidUnit();
+    }
+    return output;
   }
 }

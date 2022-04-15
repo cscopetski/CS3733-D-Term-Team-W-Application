@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipDao;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
@@ -74,7 +75,8 @@ public class MedEquipManager {
     medi.addMedEquip(inputID, type, nodeID, status);
   }
 
-  public void add(String inputID, String type, String nodeID, Integer status) throws SQLException {
+  public void add(String inputID, String type, String nodeID, Integer status)
+      throws SQLException, StatusError {
     medi.addMedEquip(inputID, type, nodeID, MedEquipStatus.getStatus(status));
   }
 

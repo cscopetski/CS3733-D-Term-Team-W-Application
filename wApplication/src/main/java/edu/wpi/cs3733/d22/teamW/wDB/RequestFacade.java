@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.CleaningRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipRequestManager;
@@ -60,7 +61,7 @@ public class RequestFacade {
     return requests;
   }
 
-  public Request findRequest(Integer requestID, RequestType type) throws SQLException {
+  public Request findRequest(Integer requestID, RequestType type) throws SQLException, StatusError {
     Request request = null;
     switch (type) {
       case MedicalEquipmentRequest:
