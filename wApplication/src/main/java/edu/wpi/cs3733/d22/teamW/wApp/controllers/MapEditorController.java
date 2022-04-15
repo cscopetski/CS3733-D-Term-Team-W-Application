@@ -15,6 +15,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicReference;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
@@ -23,6 +24,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -318,22 +320,68 @@ public class MapEditorController extends LoadableController {
 
   private void generateMarkers() {
     size = currFloorLoc.size();
+    AtomicReference<Double> anchorX = new AtomicReference<>((double) 0);
+    AtomicReference<Double> anchorY = new AtomicReference<>((double) 0);
     for (int i = 0; i < size; i++) {
       Circle circ = new Circle(12, Color.RED);
       Image locationIcon =
           new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Location.png");
       ImagePattern bedPattern = new ImagePattern(locationIcon);
       circ.setFill(bedPattern);
-      circ.setCenterX((currFloorLoc.get(i).getXCoord()) - 75);
+      circ.setCenterX((currFloorLoc.get(i).getXCoord()));
       circ.setCenterY((currFloorLoc.get(i).getYCoord()));
+
       circ.setOnMouseClicked(
           (event -> {
-            try {
-              testUpdate(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
-            } catch (SQLException | IOException e) {
-              e.printStackTrace();
+            if (event.getButton() == MouseButton.SECONDARY) {
+              try {
+                testUpdate(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
+              } catch (SQLException | IOException e) {
+                e.printStackTrace();
+              }
             }
           }));
+      circ.setOnMousePressed(
+          event -> {
+            anchorX.set(event.getSceneX());
+            anchorY.set(event.getSceneY());
+          });
+      circ.setOnMouseDragged(
+          event -> {
+            circ.setTranslateX(event.getSceneX() - anchorX.get());
+            circ.setTranslateY(event.getSceneY() - anchorY.get());
+          });
+      circ.setOnMouseReleased(
+          event -> {
+            circ.relocate(
+                circ.getCenterX() + circ.getTranslateX(), circ.getCenterY() + circ.getTranslateY());
+            System.out.println(circ.getTranslateX() + " " + circ.getTranslateY());
+            circ.setTranslateX(0);
+            circ.setTranslateY(0);
+            anchorX.set(0.0);
+            anchorY.set(0.0);
+            Location val = null;
+            try {
+              val =
+                  locationManager.getLocation(
+                      currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
+            } catch (SQLException e) {
+              e.printStackTrace();
+            }
+            try {
+              locationManager.changeLocation(
+                  val.getNodeID(),
+                  (int) (circ.getLayoutX()),
+                  (int) (circ.getLayoutY()),
+                  val.getFloor(),
+                  val.getBuilding(),
+                  val.getNodeType(),
+                  val.getLongName(),
+                  val.getShortName());
+            } catch (SQLException e) {
+              e.printStackTrace();
+            }
+          });
       locDots.add(circ);
       scrollGroup.getChildren().add(circ);
     }
