@@ -24,6 +24,8 @@ public class MedEquipDaoImpl implements MedEquipDao {
     }
   }
 
+  String CSVHeaderString = "medID,type,nodeID,status";
+
   void createTable() throws SQLException {
 
     try {
@@ -49,13 +51,11 @@ public class MedEquipDaoImpl implements MedEquipDao {
     try {
       ResultSet medEquipment = statement.executeQuery("SELECT * FROM MEDICALEQUIPMENT");
 
-      // Size of num MedEquip fields
-      String[] medEquipData = new String[4];
-
       while (medEquipment.next()) {
+        ArrayList<String> medEquipData = new ArrayList<String>();
 
-        for (int i = 0; i < medEquipData.length; i++) {
-          medEquipData[i] = medEquipment.getString(i + 1);
+        for (int i = 0; i < medEquipment.getMetaData().getColumnCount(); i++) {
+          medEquipData.add(medEquipment.getString(i + 1));
         }
 
         medEquipList.add(new MedEquip(medEquipData));
@@ -79,13 +79,11 @@ public class MedEquipDaoImpl implements MedEquipDao {
           statement.executeQuery(
               String.format("SELECT * FROM MEDICALEQUIPMENT WHERE MEDID = '%s'", medID));
 
-      // Size of num MedEquip fields
-      String[] medEquipData = new String[4];
-
       while (medEquipment.next()) {
+        ArrayList<String> medEquipData = new ArrayList<String>();
 
-        for (int i = 0; i < medEquipData.length; i++) {
-          medEquipData[i] = medEquipment.getString(i + 1);
+        for (int i = 0; i < medEquipment.getMetaData().getColumnCount(); i++) {
+          medEquipData.add(medEquipment.getString(i + 1));
         }
 
         medEquip = new MedEquip(medEquipData);
@@ -128,7 +126,7 @@ public class MedEquipDaoImpl implements MedEquipDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print("medID,type,nodeID,status");
+      pw.print(CSVHeaderString);
 
       ArrayList<MedEquip> medEquipList = getAllMedEquip();
 

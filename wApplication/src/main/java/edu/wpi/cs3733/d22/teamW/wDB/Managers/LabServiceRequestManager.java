@@ -41,18 +41,27 @@ public class LabServiceRequestManager implements RequestManager {
   }
 
   @Override
-  public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException {
+  public Request addNewRequest(Integer num, ArrayList<String> fields) throws SQLException {
     LabServiceRequest lSR;
     // Set status to in queue if it is not already included (from CSVs)
-    if (fields.size() == 4) {
-      fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
-      fields.add(new Timestamp(System.currentTimeMillis()).toString());
-      fields.add(new Timestamp(System.currentTimeMillis()).toString());
-      lSR = new LabServiceRequest(num, fields);
+    fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
+    fields.add(new Timestamp(System.currentTimeMillis()).toString());
+    fields.add(new Timestamp(System.currentTimeMillis()).toString());
+    lSR = new LabServiceRequest(num, fields);
+    // TODO Special Exception
+    if (RequestFactory.getRequestFactory().getReqIDList().add(lSR.getRequestID())) {
+      lsrdi.addLabServiceRequest(lSR);
     } else {
-      System.out.println("Right before making lSR");
-      lSR = new LabServiceRequest(fields);
+      lSR = null;
     }
+    return lSR;
+  }
+
+  @Override
+  public Request addExistingRequest(ArrayList<String> fields) throws SQLException {
+    LabServiceRequest lSR;
+    System.out.println("Right before making lSR");
+    lSR = new LabServiceRequest(fields);
     // TODO Special Exception
     if (RequestFactory.getRequestFactory().getReqIDList().add(lSR.getRequestID())) {
       lsrdi.addLabServiceRequest(lSR);

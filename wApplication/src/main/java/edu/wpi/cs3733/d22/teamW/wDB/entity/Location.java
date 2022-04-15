@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import java.util.ArrayList;
+
 public class Location extends Entity {
 
   // Test
@@ -49,23 +51,23 @@ public class Location extends Entity {
    *
    * @param token
    */
-  public Location(String[] token) {
-    this.nodeID = token[0];
+  public Location(ArrayList<String> locationData) {
+    this.nodeID = locationData.get(0);
 
     // If the xcoord and ycoord are null, catch error
     try {
-      this.xCoord = Integer.parseInt(token[1]);
-      this.yCoord = Integer.parseInt(token[2]);
+      this.xCoord = Integer.parseInt(locationData.get(1));
+      this.yCoord = Integer.parseInt(locationData.get(2));
     } catch (NumberFormatException e) {
       this.xCoord = null;
       this.yCoord = null;
     }
 
-    this.floor = token[3];
-    this.building = token[4];
-    this.nodeType = token[5];
-    this.longName = token[6];
-    this.shortName = token[7];
+    this.floor = locationData.get(3);
+    this.building = locationData.get(4);
+    this.nodeType = locationData.get(5);
+    this.longName = locationData.get(6);
+    this.shortName = locationData.get(7);
   }
 
   /**

@@ -23,6 +23,8 @@ public class LocationDaoImpl implements LocationDao {
     }
   }
 
+  String CSVHeaderString = "nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName";
+
   void createTable() throws SQLException {
 
     try {
@@ -51,12 +53,11 @@ public class LocationDaoImpl implements LocationDao {
     try {
       ResultSet locations = statement.executeQuery("SELECT * FROM LOCATIONS");
 
-      String[] locationData = new String[8];
-
       while (locations.next()) {
+        ArrayList<String> locationData = new ArrayList<String>();
 
-        for (int i = 0; i < locationData.length; i++) {
-          locationData[i] = locations.getString(i + 1);
+        for (int i = 0; i < locations.getMetaData().getColumnCount(); i++) {
+          locationData.add(locations.getString(i + 1));
         }
 
         locationsList.add(new Location(locationData));
@@ -144,7 +145,7 @@ public class LocationDaoImpl implements LocationDao {
     File csvOutputFile = new File(String.valueOf(getClass().getResource("/" + fileName).getPath()));
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print("nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName");
+      pw.print(CSVHeaderString);
 
       ArrayList<Location> locationsList = getAllLocations();
 
@@ -184,17 +185,11 @@ public class LocationDaoImpl implements LocationDao {
         statement.executeQuery(
             String.format("SELECT * FROM LOCATIONS WHERE NODEID = '%s'", nodeID));
     set.next(); // bypasses column headers
-
-    String nodeid = set.getString("NODEID");
-    Integer xcoord = set.getInt("XCOORD");
-    Integer ycoord = set.getInt("YCOORD");
-    String floor = set.getString("FLOOR");
-    String building = set.getString("BUILDING");
-    String nodeType = set.getString("NODETYPE");
-    String longName = set.getString("LONGNAME");
-    String shortName = set.getString("SHORTNAME");
-
-    loc = new Location(nodeID, xcoord, ycoord, floor, building, nodeType, longName, shortName);
+    ArrayList<String> locationFields = new ArrayList<String>();
+    for (int i = 0; i < set.getMetaData().getColumnCount(); i++) {
+      locationFields.add(set.getString(i + 1));
+    }
+    loc = new Location(locationFields);
     return loc;
   }
 }

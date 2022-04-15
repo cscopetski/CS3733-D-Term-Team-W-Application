@@ -28,6 +28,9 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
   }
 
+  String CSVHeaderString =
+      "employeeID,firstName,lastName,employeeType,email,phoneNumber,address,username,password,salt";
+
   void createTable() throws SQLException {
     try {
       statement.execute(
@@ -61,7 +64,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
       while (employees.next()) {
         ArrayList<String> employeeData = new ArrayList<String>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < employees.getMetaData().getColumnCount(); i++) {
           employeeData.add(employees.getString(i + 1));
         }
 
@@ -81,18 +84,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
         statement.executeQuery(
             String.format("SELECT * FROM EMPLOYEES WHERE USERNAME = '%s'", username));
     rs.next();
-    Integer empID = rs.getInt("EMPLOYEEID");
-    String firstName = rs.getString("FIRSTNAME");
-    String lastName = rs.getString("LASTNAME");
-    String employeeType = rs.getString("EMPLOYEETYPE");
-    String email = rs.getString("EMAIL");
-    String phoneNum = rs.getString("PHONENUMBER");
-    String address = rs.getString("ADDRESS");
-    String user = rs.getString("USERNAME");
-    String pass = rs.getString("PASSWORD");
-    String salt = rs.getString("SALT");
-    return new Employee(
-        empID, firstName, lastName, employeeType, email, phoneNum, address, user, pass, salt);
+    ArrayList<String> employeeFields = new ArrayList<String>();
+    for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
+      employeeFields.add(rs.getString(i + 1));
+    }
+    return new Employee(employeeFields);
   }
 
   @Override
@@ -101,18 +97,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
         statement.executeQuery(
             String.format("SELECT * FROM EMPLOYEES WHERE EMPLOYEEID = %d", empID));
     rs.next();
-    Integer id = rs.getInt("EMPLOYEEID");
-    String firstName = rs.getString("FIRSTNAME");
-    String lastName = rs.getString("LASTNAME");
-    String employeeType = rs.getString("EMPLOYEETYPE");
-    String email = rs.getString("EMAIL");
-    String phoneNum = rs.getString("PHONENUMBER");
-    String address = rs.getString("ADDRESS");
-    String user = rs.getString("USERNAME");
-    String pass = rs.getString("PASSWORD");
-    String salt = rs.getString("SALT");
-    return new Employee(
-        id, firstName, lastName, employeeType, email, phoneNum, address, user, pass, salt);
+    ArrayList<String> employeeFields = new ArrayList<String>();
+    for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
+      employeeFields.add(rs.getString(i + 1));
+    }
+    return new Employee(employeeFields);
   }
 
   @Override
@@ -158,30 +147,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
               String.format(
                   "SELECT * FROM EMPLOYEES WHERE EMPLOYEETYPE='%s'", employeeType.toString()));
       employeeRequest.next();
-      Integer employeeID = employeeRequest.getInt("EMPLOYEEID");
-      String firstName = employeeRequest.getString("FIRSTNAME");
-      String lastName = employeeRequest.getString("LASTNAME");
-      String employeeTypeString = employeeRequest.getString("EMPLOYEETYPE");
-      String email = employeeRequest.getString("EMAIL");
-      String phoneNumber = employeeRequest.getString("PHONENUMBER");
-      String address = employeeRequest.getString("ADDRESS");
-      String username = employeeRequest.getString("USERNAME");
-      String password = employeeRequest.getString("PASSWORD");
-      String salt = employeeRequest.getString("SALT");
-
-      ArrayList<String> employeeData = new ArrayList<>();
-      employeeData.add(String.format("%d", employeeID));
-      employeeData.add(firstName);
-      employeeData.add(lastName);
-      employeeData.add(employeeTypeString);
-      employeeData.add(email);
-      employeeData.add(phoneNumber);
-      employeeData.add(address);
-      employeeData.add(username);
-      employeeData.add(password);
-      employeeData.add(salt);
-
-      employee = new Employee(employeeData);
+      ArrayList<String> employeeFields = new ArrayList<String>();
+      for (int i = 0; i < employeeRequest.getMetaData().getColumnCount(); i++) {
+        employeeFields.add(employeeRequest.getString(i + 1));
+      }
+      employee = new Employee(employeeFields);
     } catch (SQLException e) {
       System.out.println("Query from medical equip request table failed.");
     }
@@ -219,8 +189,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print(
-          "employeeID,firstname,lastname,employeetype,email,phonenumber,address,username,password,salt");
+      pw.print(CSVHeaderString);
 
       // print all locations
       for (Employee e : getAllEmployees()) {

@@ -31,6 +31,9 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
     }
   }
 
+  String CSVHeaderString =
+      "labReqID,labType,nodeID,employeeID,isEmergency,reqStatus,createdTimestamp,updatedTimestamp";
+
   void createTable() throws SQLException {
 
     try {
@@ -62,13 +65,12 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
       ResultSet labServiceRequests = statement.executeQuery("SELECT * FROM LABSERVICEREQUESTS");
 
       // Size of num LabServiceRequest fields
-      int size = 8;
-      ArrayList<String> labServiceRequestData = new ArrayList<String>();
 
       while (labServiceRequests.next()) {
+        ArrayList<String> labServiceRequestData = new ArrayList<String>();
 
-        for (int i = 0; i < size; i++) {
-          labServiceRequestData.add(i, labServiceRequests.getString(i + 1));
+        for (int i = 0; i < labServiceRequests.getMetaData().getColumnCount(); i++) {
+          labServiceRequestData.add(labServiceRequests.getString(i + 1));
         }
 
         labServiceRequestList.add(new LabServiceRequest(labServiceRequestData));
@@ -122,8 +124,7 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print(
-          "labReqID,labType,nodeID,employeeName,isEmergency,status,createdTimestamp,updatedTimestamp");
+      pw.print(CSVHeaderString);
 
       // print all locations
       for (Request m : getAllLabServiceRequests()) {

@@ -28,6 +28,9 @@ public class MedRequestDaoImpl implements MedRequestDao {
     }
   }
 
+  String CSVHeaderString =
+      "requestID,medicine,nodeID,employeeID,isEmergency,reqStatus,createdTimestamp,updatedTimestamp";
+
   void createTable() throws SQLException {
 
     try {
@@ -98,25 +101,11 @@ public class MedRequestDaoImpl implements MedRequestDao {
 
       medEquipRequests.next();
 
-      Integer medreqID = medEquipRequests.getInt("REQUESTID");
-      String medID = medEquipRequests.getString("MEDICINE");
-      String nodeID = medEquipRequests.getString("NODEID");
-      Integer employeeID = medEquipRequests.getInt("EMPLOYEEID");
-      Integer isEmergency = medEquipRequests.getInt("ISEMERGENCY");
-      Integer reqStatus = medEquipRequests.getInt("REQSTATUS");
-      String createdTimeStamp = medEquipRequests.getString("CREATEDTIMESTAMP");
-      String updatedTimeStamp = medEquipRequests.getString("UPDATEDTIMESTAMP");
-      ArrayList<String> medEquipRequestData = new ArrayList<String>();
-      medEquipRequestData.add(String.format("%d", medreqID));
-      medEquipRequestData.add(medID);
-      medEquipRequestData.add(nodeID);
-      medEquipRequestData.add(String.format("%d", employeeID));
-      medEquipRequestData.add(String.format("%d", isEmergency));
-      medEquipRequestData.add(String.format("%d", reqStatus));
-      medEquipRequestData.add(createdTimeStamp);
-      medEquipRequestData.add(updatedTimeStamp);
-
-      mr = new MedRequest(medEquipRequestData);
+      ArrayList<String> medRequestFields = new ArrayList<String>();
+      for (int i = 0; i < medEquipRequests.getMetaData().getColumnCount(); i++) {
+        medRequestFields.add(medEquipRequests.getString(i + 1));
+      }
+      mr = new MedRequest(medRequestFields);
 
     } catch (SQLException e) {
       System.out.println("Query from medicine request table failed.");
@@ -134,12 +123,11 @@ public class MedRequestDaoImpl implements MedRequestDao {
       ResultSet medRequests = statement.executeQuery("SELECT * FROM MEDREQUESTS");
 
       // Size of num LabServiceRequest fields
-      int size = 8;
       ArrayList<String> medRequestData = new ArrayList<String>();
 
       while (medRequests.next()) {
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < medRequests.getMetaData().getColumnCount(); i++) {
           medRequestData.add(i, medRequests.getString(i + 1));
         }
 
@@ -157,8 +145,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print(
-          "reqID,medicine,nodeID,employeeID,emergency,status,createdTimestamp,updatedTimestamp");
+      pw.print(CSVHeaderString);
 
       // print all locations
       for (Request m : getAllMedRequest()) {

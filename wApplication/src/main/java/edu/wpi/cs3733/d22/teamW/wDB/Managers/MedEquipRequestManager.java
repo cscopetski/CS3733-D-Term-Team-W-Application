@@ -251,17 +251,13 @@ public class MedEquipRequestManager implements RequestManager {
   }
 
   @Override
-  public Request addRequest(Integer num, ArrayList<String> fields) throws Exception {
+  public Request addNewRequest(Integer num, ArrayList<String> fields) throws Exception {
     MedEquipRequest mER;
     // Set status to in queue if it is not already included (from CSVs)
-    if (fields.size() == 4) {
-      fields.add("0");
-      fields.add(new Timestamp(System.currentTimeMillis()).toString());
-      fields.add(new Timestamp(System.currentTimeMillis()).toString());
-      mER = new MedEquipRequest(num, fields);
-    } else {
-      mER = new MedEquipRequest(fields);
-    }
+    fields.add(Integer.toString(RequestStatus.InQueue.getValue()));
+    fields.add(new Timestamp(System.currentTimeMillis()).toString());
+    fields.add(new Timestamp(System.currentTimeMillis()).toString());
+    mER = new MedEquipRequest(num, fields);
     /*
     // If the request does not have an item, aka has not been started
     if (mER.getItemID().equals("NONE") && mER.getStatusInt() == 0) {
@@ -273,6 +269,27 @@ public class MedEquipRequestManager implements RequestManager {
       }
     }*/
     // TODO special exception
+    if (RequestFactory.getRequestFactory().getReqIDList().add(mER.getRequestID())) {
+      merd.addMedEquipRequest(mER);
+
+      if (Automation.Automation.getAuto()) {
+        try {
+          start(mER.getRequestID());
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    } else {
+      mER = null;
+    }
+    return mER;
+  }
+
+  @Override
+  public Request addExistingRequest(ArrayList<String> fields) throws SQLException {
+    MedEquipRequest mER;
+    mER = new MedEquipRequest(fields);
+
     if (RequestFactory.getRequestFactory().getReqIDList().add(mER.getRequestID())) {
       merd.addMedEquipRequest(mER);
 

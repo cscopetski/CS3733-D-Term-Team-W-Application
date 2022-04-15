@@ -112,8 +112,9 @@ public class CSVController {
     ArrayList<Location> locationsList = new ArrayList<>();
 
     for (String[] s : tokens) {
-      Location l = new Location(s);
-      locationsList.add(l);
+      ArrayList<String> fields = new ArrayList<String>();
+      fields.addAll(Arrays.asList(s));
+      locationsList.add(new Location(fields));
     }
 
     for (Location l : locationsList) {
@@ -148,7 +149,9 @@ public class CSVController {
     ArrayList<MedEquip> medEquipList = new ArrayList<>();
 
     for (String[] s : tokens) {
-      medEquipList.add(new MedEquip(s));
+      ArrayList<String> fields = new ArrayList<String>();
+      fields.addAll(Arrays.asList(s));
+      medEquipList.add(new MedEquip(fields));
     }
 
     for (MedEquip m : medEquipList) {
@@ -172,7 +175,8 @@ public class CSVController {
       fields.addAll(Arrays.asList(s));
 
       MedEquipRequest mER =
-          (MedEquipRequest) requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields);
+          (MedEquipRequest)
+              requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields, true);
 
       medEquipReqList.add(mER);
     }
@@ -186,7 +190,8 @@ public class CSVController {
       fields.addAll(Arrays.asList(s));
 
       LabServiceRequest lSR =
-          (LabServiceRequest) requestFactory.getRequest(RequestType.LabServiceRequest, fields);
+          (LabServiceRequest)
+              requestFactory.getRequest(RequestType.LabServiceRequest, fields, true);
 
       // labReqList.add(lSR);
     }
@@ -199,7 +204,8 @@ public class CSVController {
       ArrayList<String> fields = new ArrayList<>();
       fields.addAll(Arrays.asList(s));
 
-      MedRequest mr = (MedRequest) requestFactory.getRequest(RequestType.MedicineDelivery, fields);
+      MedRequest mr =
+          (MedRequest) requestFactory.getRequest(RequestType.MedicineDelivery, fields, true);
 
       // medReqLists.add(mr);
     }

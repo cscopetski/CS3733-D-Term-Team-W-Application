@@ -26,18 +26,27 @@ public class MedRequestManager implements RequestManager {
     this.mrd = mrd;
   }
 
-  public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException, NoMedicine {
+  @Override
+  public Request addNewRequest(Integer num, ArrayList<String> fields)
+      throws SQLException, NoMedicine {
     MedRequest mr;
-
-    if (fields.size() == 4) {
-      fields.add("0");
-      fields.add(new Timestamp(System.currentTimeMillis()).toString());
-      fields.add(new Timestamp(System.currentTimeMillis()).toString());
-      mr = new MedRequest(num, fields);
-    } else {
-      mr = new MedRequest(fields);
-    }
+    fields.add(Integer.toString(RequestStatus.InQueue.getValue()));
+    fields.add(new Timestamp(System.currentTimeMillis()).toString());
+    fields.add(new Timestamp(System.currentTimeMillis()).toString());
+    mr = new MedRequest(num, fields);
     // TODO Special Exception
+    if (RequestFactory.getRequestFactory().getReqIDList().add(mr.getRequestID())) {
+      mrd.addMedRequest(mr);
+    } else {
+      mr = null;
+    }
+    return mr;
+  }
+
+  @Override
+  public Request addExistingRequest(ArrayList<String> fields) throws Exception {
+    MedRequest mr;
+    mr = new MedRequest(fields);
     if (RequestFactory.getRequestFactory().getReqIDList().add(mr.getRequestID())) {
       mrd.addMedRequest(mr);
     } else {

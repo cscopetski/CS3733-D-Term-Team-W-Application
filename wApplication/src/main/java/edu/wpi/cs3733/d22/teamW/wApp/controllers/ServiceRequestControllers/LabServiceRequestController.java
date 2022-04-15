@@ -105,7 +105,7 @@ public class LabServiceRequestController extends LoadableController {
       for (String e : fields) {
         System.out.println(e);
       }
-      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields);
+      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields, false);
     }
     if (urineBox.isSelected()) {
       ArrayList<String> fields = new ArrayList<>();
@@ -122,7 +122,7 @@ public class LabServiceRequestController extends LoadableController {
       for (String e : fields) {
         System.out.println(e);
       }
-      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields);
+      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields, false);
     }
     if (mriBox.isSelected()) {
       ArrayList<String> fields = new ArrayList<>();
@@ -139,7 +139,7 @@ public class LabServiceRequestController extends LoadableController {
       for (String e : fields) {
         System.out.println(e);
       }
-      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields);
+      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields, false);
     }
     if (xRayBox.isSelected()) {
       ArrayList<String> fields = new ArrayList<>();
@@ -156,7 +156,7 @@ public class LabServiceRequestController extends LoadableController {
       for (String e : fields) {
         System.out.println(e);
       }
-      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields);
+      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields, false);
     }
     if (catBox.isSelected()) {
       ArrayList<String> fields = new ArrayList<>();
@@ -173,7 +173,7 @@ public class LabServiceRequestController extends LoadableController {
       for (String e : fields) {
         System.out.println(e);
       }
-      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields);
+      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields, false);
     }
   }
 

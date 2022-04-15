@@ -31,6 +31,9 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     }
   }
 
+  String CSVHeaderString =
+      "medReqID,medID,equipType,nodeID,employeeID,isEmergency,reqStatus,createdTimestamp,updatedTimestamp";
+
   void createTable() throws SQLException {
     try {
       statement.execute(
@@ -64,12 +67,11 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       ResultSet medEquipment = statement.executeQuery("SELECT * FROM MEDICALEQUIPMENTREQUESTS");
 
       // Size of num MedEquipRequest fields
-      int size = 9;
       ArrayList<String> medEquipData = new ArrayList<>();
 
       while (medEquipment.next()) {
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < medEquipment.getMetaData().getColumnCount(); i++) {
           medEquipData.add(i, medEquipment.getString(i + 1));
         }
 
@@ -184,27 +186,11 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
       medEquipRequests.next();
 
-      Integer medreqID = medEquipRequests.getInt("MEDREQID");
-      String medID = medEquipRequests.getString("MEDID");
-      String equipType = medEquipRequests.getString("EQUIPTYPE");
-      String nodeID = medEquipRequests.getString("NODEID");
-      Integer employeeID = medEquipRequests.getInt("EMPLOYEEID");
-      Integer isEmergency = medEquipRequests.getInt("ISEMERGENCY");
-      Integer reqStatus = medEquipRequests.getInt("REQSTATUS");
-      String createdTimeStamp = medEquipRequests.getString("CREATEDTIMESTAMP");
-      String updatedTimeStamp = medEquipRequests.getString("UPDATEDTIMESTAMP");
-      ArrayList<String> medEquipRequestData = new ArrayList<String>();
-      medEquipRequestData.add(String.format("%d", medreqID));
-      medEquipRequestData.add(medID);
-      medEquipRequestData.add(equipType);
-      medEquipRequestData.add(nodeID);
-      medEquipRequestData.add(String.format("%d", employeeID));
-      medEquipRequestData.add(String.format("%d", isEmergency));
-      medEquipRequestData.add(String.format("%d", reqStatus));
-      medEquipRequestData.add(createdTimeStamp);
-      medEquipRequestData.add(updatedTimeStamp);
-
-      mr = new MedEquipRequest(medEquipRequestData);
+      ArrayList<String> medEquipRequestFields = new ArrayList<String>();
+      for (int i = 0; i < medEquipRequests.getMetaData().getColumnCount(); i++) {
+        medEquipRequestFields.add(medEquipRequests.getString(i + 1));
+      }
+      mr = new MedEquipRequest(medEquipRequestFields);
 
     } catch (SQLException e) {
       System.out.println("Query from medical equip request table failed.");
@@ -217,8 +203,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print(
-          "medReqID,medID,equipType,nodeID,employeeID,isEmergency,status,createdTimestamp,updatedTimestamp");
+      pw.print(CSVHeaderString);
 
       // print all locations
       for (Request m : getAllMedEquipRequests()) {
@@ -244,12 +229,11 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
                   "SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EQUIPTYPE='%s'", itemType));
 
       // Size of num MedEquipRequest fields
-      int size = 9;
       ArrayList<String> medEquipData = new ArrayList<>();
 
       while (medEquipment.next()) {
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < medEquipment.getMetaData().getColumnCount(); i++) {
           medEquipData.add(i, medEquipment.getString(i + 1));
         }
 

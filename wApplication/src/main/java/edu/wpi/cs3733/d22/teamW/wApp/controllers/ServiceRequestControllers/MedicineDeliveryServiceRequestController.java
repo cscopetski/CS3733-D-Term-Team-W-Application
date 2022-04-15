@@ -137,7 +137,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
       System.out.println(e);
     }
 
-    RequestFactory.getRequestFactory().getRequest(RequestType.MedicineDelivery, fields);
+    RequestFactory.getRequestFactory().getRequest(RequestType.MedicineDelivery, fields, false);
   }
 
   public String locationToNodeID(String target) {

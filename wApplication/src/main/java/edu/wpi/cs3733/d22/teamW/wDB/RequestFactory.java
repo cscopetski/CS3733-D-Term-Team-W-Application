@@ -38,7 +38,20 @@ public class RequestFactory {
     return reqIDList;
   }
 
-  public Request getRequest(RequestType requestType, ArrayList<String> fields) throws Exception {
+  /**
+   * Submits a new request to the database
+   *
+   * @param requestType Type of request to add
+   * @param fields Fields for the request in order (if adding a new request, leave out the request
+   *     status and timestamps)
+   * @param importingFromCSV True if this method is importing an already existing request (such as
+   *     from a CSV), false otherwise
+   * @return The added request
+   * @throws Exception
+   */
+  public Request getRequest(
+      RequestType requestType, ArrayList<String> fields, boolean importingFromCSV)
+      throws Exception {
     int num;
     if (reqIDList.size() == 0) {
       num = 0;
@@ -48,19 +61,39 @@ public class RequestFactory {
 
     int counter = num + 1;
     if (requestType.equals(RequestType.MedicalEquipmentRequest)) {
-      Request mER = merm.addRequest(counter, fields);
+      Request mER;
+      if (importingFromCSV) {
+        mER = merm.addExistingRequest(fields);
+      } else {
+        mER = merm.addNewRequest(counter, fields);
+      }
       System.out.println(mER.toValuesString());
       return mER;
     } else if (requestType.equals(RequestType.LabServiceRequest)) {
-      Request lSR = lsrm.addRequest(counter, fields);
+      Request lSR;
+      if (importingFromCSV) {
+        lSR = lsrm.addExistingRequest(fields);
+      } else {
+        lSR = lsrm.addNewRequest(counter, fields);
+      }
       System.out.println(lSR.toValuesString());
       return lSR;
     } else if (requestType.equals(RequestType.MedicineDelivery)) {
-      Request mDR = mrm.addRequest(counter, fields);
+      Request mDR;
+      if (importingFromCSV) {
+        mDR = mrm.addExistingRequest(fields);
+      } else {
+        mDR = mrm.addNewRequest(counter, fields);
+      }
       System.out.println(mDR.toValuesString());
       return mDR;
     } else if (requestType.equals(RequestType.CleaningRequest)) {
-      Request cr = crm.addRequest(counter, fields);
+      Request cr;
+      if (importingFromCSV) {
+        cr = crm.addExistingRequest(fields);
+      } else {
+        cr = crm.addNewRequest(counter, fields);
+      }
       System.out.println(cr.toValuesString());
       return cr;
     } else {

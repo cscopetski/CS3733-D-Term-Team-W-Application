@@ -24,7 +24,9 @@ public interface RequestManager {
 
   public ArrayList<Request> getAllRequests() throws Exception;
 
-  public Request addRequest(Integer i, ArrayList<String> fields) throws Exception;
+  public Request addNewRequest(Integer i, ArrayList<String> fields) throws Exception;
+
+  public Request addExistingRequest(ArrayList<String> fields) throws Exception;
 
   public void exportReqCSV(String filename) throws Exception;
 }

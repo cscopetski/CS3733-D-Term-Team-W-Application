@@ -31,29 +31,26 @@ public class CleaningRequestManager {
     return crd.getAllCleaningRequests();
   }
 
-  public CleaningRequest addRequest(ArrayList<String> fields) throws SQLException {
-    CleaningRequest cr;
-    fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
-    cr = new CleaningRequest(fields);
-    if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
-      crd.addCleaningRequest(cr);
-      checkStart();
-    } else {
-      cr = null;
-    }
-    return cr;
-  }
+  //  public CleaningRequest addRequest(ArrayList<String> fields) throws SQLException {
+  //    CleaningRequest cr;
+  //    fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
+  //    cr = new CleaningRequest(fields);
+  //    if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
+  //      crd.addCleaningRequest(cr);
+  //      checkStart();
+  //    } else {
+  //      cr = null;
+  //    }
+  //    return cr;
+  //  }
+
   // TODO auto start all cleaning requests at that location when it is 6
-  public CleaningRequest addRequest(Integer num, ArrayList<String> fields) throws SQLException {
-    CleaningRequest mER;
-    if (fields.size() == 5) {
-      fields.add("0");
-      fields.add(new Timestamp(System.currentTimeMillis()).toString());
-      fields.add(new Timestamp(System.currentTimeMillis()).toString());
-      mER = new CleaningRequest(num, fields);
-    } else {
-      mER = new CleaningRequest(fields);
-    }
+  public CleaningRequest addNewRequest(Integer num, ArrayList<String> fields) throws SQLException {
+    CleaningRequest cr;
+    fields.add(Integer.toString(RequestStatus.InQueue.getValue()));
+    fields.add(new Timestamp(System.currentTimeMillis()).toString());
+    fields.add(new Timestamp(System.currentTimeMillis()).toString());
+    cr = new CleaningRequest(num, fields);
     /*
     // If the request does not have an item, aka has not been started
     if (mER.getItemID().equals("NONE") && mER.getStatusInt() == 0) {
@@ -65,18 +62,35 @@ public class CleaningRequestManager {
       }
     }*/
     // TODO special exception
-    if (RequestFactory.getRequestFactory().getReqIDList().add(mER.getRequestID())) {
-      crd.addCleaningRequest(mER);
+    if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
+      crd.addCleaningRequest(cr);
 
       if (Automation.Automation.getAuto()) {
         checkStart();
       }
     } else {
-      mER = null;
+      cr = null;
     }
 
-    return mER;
+    return cr;
   }
+
+  public CleaningRequest addExistingRequest(ArrayList<String> fields) throws SQLException {
+    CleaningRequest cr = new CleaningRequest(fields);
+    // TODO special exception
+    if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
+      crd.addCleaningRequest(cr);
+
+      if (Automation.Automation.getAuto()) {
+        checkStart();
+      }
+    } else {
+      cr = null;
+    }
+
+    return cr;
+  }
+
   // TODO Ask Caleb how to get OR Bed PARK
   // What happens if the OR BED PARK is deleted this function would break
   public void start(Integer requestID) throws SQLException {
