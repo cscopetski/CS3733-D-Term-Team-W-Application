@@ -29,87 +29,17 @@ public class EmployeeManager {
     return ed.passwordMatch(username, password);
   }
 
-  /**
-   * Adds an existing employee to the database, remove the salt field to add a NEW one
-   *
-   * @param employeeID
-   * @param firstname
-   * @param lastname
-   * @param type
-   * @param email
-   * @param phoneNumber
-   * @param address
-   * @param username
-   * @param password
-   * @param salt
-   * @throws SQLException
-   */
-  public void addEmployee(
-      Integer employeeID,
-      String firstname,
-      String lastname,
-      EmployeeType type,
-      String email,
-      String phoneNumber,
-      String address,
-      String username,
-      String password,
-      String salt)
-      throws SQLException {
-    ed.addEmployee(
-        employeeID,
-        firstname,
-        lastname,
-        type,
-        email,
-        phoneNumber,
-        address,
-        username,
-        password,
-        salt);
-  }
-
-  public void addEmployee(
-      Integer employeeID,
-      String firstname,
-      String lastname,
-      EmployeeType type,
-      String email,
-      String phoneNumber,
-      String address,
-      String username,
-      String password)
-      throws SQLException {
-    ed.addEmployee(
-        employeeID,
-        firstname,
-        lastname,
-        type,
-        email,
-        phoneNumber,
-        address,
-        username,
-        password,
-        "NEW");
+  /** Adds an employee to the database. */
+  public void addEmployee(Employee employee) throws SQLException {
+    ed.addEmployee(employee);
   }
 
   public void deleteEmployee(Integer employeeID) throws SQLException {
     ed.deleteEmployee(employeeID);
   }
 
-  public void changeEmployee(
-      Integer employeeID,
-      String firstname,
-      String lastname,
-      EmployeeType type,
-      String email,
-      String phoneNumber,
-      String address,
-      String username,
-      String password)
-      throws SQLException {
-    ed.changeEmployee(
-        employeeID, firstname, lastname, type, email, phoneNumber, address, username, password);
+  public void changeEmployee(Employee employee) throws SQLException {
+    ed.changeEmployee(employee);
   }
 
   public ArrayList<Employee> getAllEmployees() throws SQLException {

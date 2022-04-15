@@ -61,42 +61,6 @@ public class MedEquipRequest extends Request {
     this.updatedTimestamp = Timestamp.valueOf(fields.get(8));
   }
 
-  // TODO fixing this constructor, may be out of order??
-  public MedEquipRequest(Integer index, ArrayList<String> fields) throws StatusError {
-    this.requestID = index;
-    this.itemID = "NONE";
-    this.itemType = fields.get(0);
-    this.nodeID = fields.get(1);
-    this.employeeID = Integer.parseInt(fields.get(2));
-
-    try {
-      this.emergency = Integer.parseInt(fields.get(3));
-    } catch (NumberFormatException e) {
-      this.emergency = 0;
-    }
-
-    try {
-      this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(4)));
-    } catch (NumberFormatException e) {
-      this.status = RequestStatus.InQueue;
-    }
-
-    this.createdTimestamp = Timestamp.valueOf(fields.get(5));
-    this.updatedTimestamp = Timestamp.valueOf(fields.get(6));
-  }
-
-  public MedEquipRequest(String[] medEquipReqData) throws StatusError {
-    this.requestID = Integer.parseInt(medEquipReqData[0]);
-    this.itemID = medEquipReqData[1];
-    this.itemType = medEquipReqData[2];
-    this.nodeID = medEquipReqData[3];
-    this.employeeID = Integer.parseInt(medEquipReqData[4]);
-    this.emergency = Integer.parseInt(medEquipReqData[5]);
-    this.status = RequestStatus.getRequestStatus(Integer.parseInt(medEquipReqData[6]));
-    this.createdTimestamp = Timestamp.valueOf(medEquipReqData[7]);
-    this.updatedTimestamp = Timestamp.valueOf(medEquipReqData[8]);
-  }
-
   public void dropItem() {
     this.itemID = "NONE";
   }

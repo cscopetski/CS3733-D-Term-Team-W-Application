@@ -416,7 +416,7 @@ public class MapEditorController extends LoadableController {
     if (loaded) {
 
     } else {
-      locationManager.addLocation("HOLD", -1, -1, "HOLD", null, null, null, null);
+      locationManager.addLocation(new Location("HOLD", -1, -1, "HOLD", null, null, null, null));
       loaded = true;
     }
     File inputCSV = fileChooser.showOpenDialog(SceneManager.getInstance().getPrimaryStage());
@@ -507,9 +507,9 @@ public class MapEditorController extends LoadableController {
 
   private void moveVals() throws SQLException {
     ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
-    for (int i = 0; i < eqList.size(); i++) {
-      equipController.change(
-          eqList.get(i).getMedID(), eqList.get(i).getType(), "HOLD", eqList.get(i).getStatus());
+    for (MedEquip medEquip : eqList) {
+      medEquip.setNodeID("HOLD");
+      equipController.change(medEquip);
     }
     ArrayList<Request> lsr = labServiceRequestManager.getAllRequests();
     for (int i = 0; i < lsr.size(); i++) {

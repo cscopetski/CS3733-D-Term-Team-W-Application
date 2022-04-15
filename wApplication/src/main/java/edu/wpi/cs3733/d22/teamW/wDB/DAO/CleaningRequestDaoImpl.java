@@ -4,14 +4,12 @@ import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class CleaningRequestDaoImpl implements CleaningRequestDao {
@@ -146,24 +144,17 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
   }
 
   @Override
-  public void changeCleaningRequest(
-      Integer requestID,
-      String itemID,
-      String nodeID,
-      Integer employeeID,
-      Integer emergency,
-      RequestStatus status)
-      throws SQLException {
+  public void changeCleaningRequest(CleaningRequest cr) throws SQLException {
     statement.executeUpdate(
         String.format(
             "UPDATE CLEANINGREQUESTS SET ITEMID='%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP='%s' WHERE REQID=%d",
-            itemID,
-            nodeID,
-            employeeID,
-            emergency,
-            status.getValue(),
-            new Timestamp(System.currentTimeMillis()),
-            requestID));
+            cr.getItemID(),
+            cr.getNodeID(),
+            cr.getEmployeeID(),
+            cr.getEmergency(),
+            cr.getStatus().getValue(),
+            cr.getUpdatedTimestamp().toString(),
+            cr.getRequestID()));
   }
 
   @Override

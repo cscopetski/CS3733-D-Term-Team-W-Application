@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipDao;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
@@ -30,18 +29,25 @@ public class MedEquipManager {
   }
 
   public void markClean(String medID, String nodeID) throws SQLException {
-
-    medi.changeMedEquip(medID, getMedEquip(medID).getType(), nodeID, MedEquipStatus.Clean);
+    MedEquip medEquip = medi.getMedEquip(medID);
+    medEquip.setNodeID(nodeID);
+    medEquip.setStatus(MedEquipStatus.Clean);
+    medi.changeMedEquip(medEquip);
   }
 
   public void markInUse(String medID, String nodeID) throws SQLException {
-    medi.changeMedEquip(medID, getMedEquip(medID).getType(), nodeID, MedEquipStatus.InUse);
+    MedEquip medEquip = medi.getMedEquip(medID);
+    medEquip.setNodeID(nodeID);
+    medEquip.setStatus(MedEquipStatus.InUse);
+    medi.changeMedEquip(medEquip);
   }
 
   public void markDirty(String medID, String nodeID) throws Exception {
     MedEquip me = medi.getMedEquip(medID);
     if (!me.getStatus().equals(MedEquipStatus.Dirty)) {
-      medi.changeMedEquip(medID, me.getType(), nodeID, MedEquipStatus.Dirty);
+      me.setNodeID(nodeID);
+      me.setStatus(MedEquipStatus.Dirty);
+      medi.changeMedEquip(me);
       ArrayList<String> fields = new ArrayList<>();
       Employee employee =
           EmployeeManager.getEmployeeManager().getEmployeeType(EmployeeType.Sanitation);
@@ -58,7 +64,8 @@ public class MedEquipManager {
 
   public void moveTo(String medID, String nodeID) throws SQLException {
     MedEquip medEquip = medi.getMedEquip(medID);
-    medi.changeMedEquip(medID, medEquip.getType(), nodeID, medEquip.getStatus());
+    medEquip.setNodeID(nodeID);
+    medi.changeMedEquip(medEquip);
   }
 
   public MedEquip getNextFree(String itemType) throws SQLException {
@@ -70,19 +77,12 @@ public class MedEquipManager {
     return null;
   }
 
-  public void add(String inputID, String type, String nodeID, MedEquipStatus status)
-      throws SQLException {
-    medi.addMedEquip(inputID, type, nodeID, status);
+  public void add(MedEquip medEquip) throws SQLException {
+    medi.addMedEquip(medEquip);
   }
 
-  public void add(String inputID, String type, String nodeID, Integer status)
-      throws SQLException, StatusError {
-    medi.addMedEquip(inputID, type, nodeID, MedEquipStatus.getStatus(status));
-  }
-
-  public void change(String inputID, String type, String nodeID, MedEquipStatus status)
-      throws SQLException {
-    medi.changeMedEquip(inputID, type, nodeID, status);
+  public void change(MedEquip medEquip) throws SQLException {
+    medi.changeMedEquip(medEquip);
   }
 
   public void delete(String inputID) throws SQLException {

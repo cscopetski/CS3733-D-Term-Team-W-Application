@@ -2,9 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public interface MedEquipRequestDao {
@@ -26,19 +24,7 @@ public interface MedEquipRequestDao {
 
   void addMedEquipRequest(MedEquipRequest mer) throws SQLException;
 
-  void changeMedEquipRequest(
-      int requestID,
-      String itemID,
-      String itemType,
-      String nodeID,
-      Integer employeeID,
-      Integer emergency,
-      RequestStatus status,
-      Timestamp createdTimestamp,
-      Timestamp updatedTimestamp)
-      throws SQLException;
-
-  void changeMedEquipRequest(MedEquipRequest mER) throws SQLException;
+  void changeMedEquipRequest(MedEquipRequest mer) throws SQLException;
 
   void deleteMedEquipRequest(Integer requestID) throws SQLException;
 

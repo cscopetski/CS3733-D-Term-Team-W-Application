@@ -109,57 +109,24 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
    * If the salt is the string 'NEW', the salt will be randomly generated and the password will get
    * hashed Otherwise the password and salt are just added normally
    *
-   * @param employeeID
-   * @param firstname
-   * @param lastname
-   * @param type
-   * @param email
-   * @param phoneNumber
-   * @param address
-   * @param username
-   * @param password
-   * @param salt
+   * @param emp Employee object to add
    * @throws SQLException
    */
   @Override
-  public void addEmployee(
-      Integer employeeID,
-      String firstname,
-      String lastname,
-      EmployeeType type,
-      String email,
-      String phoneNumber,
-      String address,
-      String username,
-      String password,
-      String salt)
-      throws SQLException {
-    if (salt.equals("NEW")) {
-      salt = generateSalt();
+  public void addEmployee(Employee emp) throws SQLException {
+    if (emp.getSalt().equals("NEW")) {
+      emp.setSalt(generateSalt());
       try {
-        password = generateHash(password, salt);
+        emp.setPassword(generateHash(emp.getPassword(), emp.getSalt()));
       } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
         e.printStackTrace();
       }
     }
-    Employee newEmployee =
-        new Employee(
-            employeeID,
-            firstname,
-            lastname,
-            type.getString(),
-            email,
-            phoneNumber,
-            address,
-            username,
-            password,
-            salt);
 
     statement.executeUpdate(
-        String.format("INSERT INTO EMPLOYEES VALUES (%s)", newEmployee.toValuesString()));
+        String.format("INSERT INTO EMPLOYEES VALUES (%s)", emp.toValuesString()));
 
-    System.out.println(
-        String.format("INSERT INTO EMPLOYEES VALUES (%s)", newEmployee.toValuesString()));
+    System.out.println(String.format("INSERT INTO EMPLOYEES VALUES (%s)", emp.toValuesString()));
   }
 
   @Override
@@ -168,45 +135,26 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
   }
 
   /**
-   * Does not change the username, password, or salt
+   * Does not change the username or salt
    *
-   * @param employeeID
-   * @param firstname
-   * @param lastname
-   * @param type
-   * @param email
-   * @param phoneNumber
-   * @param address
-   * @param username
-   * @param password
+   * @param emp Employee object to change
    * @throws SQLException
    */
-  @Override
-  public void changeEmployee(
-      Integer employeeID,
-      String firstname,
-      String lastname,
-      EmployeeType type,
-      String email,
-      String phoneNumber,
-      String address,
-      String username,
-      String password)
-      throws SQLException {
+  public void changeEmployee(Employee emp) throws SQLException {
     try {
-      String newPass = generateHash(password, getSalt(employeeID));
+      String newPass = generateHash(emp.getPassword(), getSalt(emp.getEmployeeID()));
       statement.executeUpdate(
           String.format(
               "UPDATE EMPLOYEES SET FIRSTNAME = '%s', LASTNAME = '%s', EMPLOYEETYPE = '%s', EMAIL = '%s', PHONENUMBER = '%s', ADDRESS = '%s', USERNAME = '%s', PASSWORD = '%s' WHERE EMPLOYEEID = %d",
-              firstname,
-              lastname,
-              type.getString(),
-              email,
-              phoneNumber,
-              address,
-              username,
+              emp.getFirstName(),
+              emp.getLastName(),
+              emp.getType().getString(),
+              emp.getEmail(),
+              emp.getPhoneNumber(),
+              emp.getAddress(),
+              emp.getUsername(),
               newPass,
-              employeeID));
+              emp.getEmployeeID()));
     } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
       e.printStackTrace();
     }

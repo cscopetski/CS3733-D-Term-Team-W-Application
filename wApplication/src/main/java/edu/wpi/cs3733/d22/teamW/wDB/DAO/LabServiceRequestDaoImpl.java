@@ -5,15 +5,12 @@ import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.LabServiceRequestType;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
@@ -96,27 +93,18 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
   }
 
   @Override
-  public void changeLabServiceRequest(
-      Integer requestID,
-      LabServiceRequestType labType,
-      String nodeID,
-      Integer employeeID,
-      Integer emergency,
-      RequestStatus status,
-      Timestamp createdTimestamp,
-      Timestamp updatedTimestamp)
-      throws SQLException {
+  public void changeLabServiceRequest(LabServiceRequest lsr) throws SQLException {
     statement.executeUpdate(
         String.format(
             "UPDATE LABSERVICEREQUESTS SET LABTYPE='%s', NODEID='%s', EMPLOYEEID= %d, ISEMERGENCY=%d, REQSTATUS=%d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE LABREQID=%d",
-            labType.getString(),
-            nodeID,
-            employeeID,
-            emergency,
-            status.getValue(),
-            createdTimestamp.toString(),
-            updatedTimestamp.toString(),
-            requestID));
+            lsr.getLabType().getString(),
+            lsr.getNodeID(),
+            lsr.getEmployeeID(),
+            lsr.getEmergency(),
+            lsr.getStatus().getValue(),
+            lsr.getCreatedTimestamp().toString(),
+            lsr.getUpdatedTimestamp().toString(),
+            lsr.getRequestID()));
   }
 
   @Override

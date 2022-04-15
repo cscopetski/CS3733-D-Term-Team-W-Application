@@ -79,16 +79,8 @@ public class MedEquipRequestManager implements RequestManager {
           // If available, we mark it in use and set the request to in progress
           MedEquipManager.getMedEquipManager().markInUse(medEquip.getMedID(), medEquip.getNodeID());
           request.setStatus(RequestStatus.InProgress);
-          merd.changeMedEquipRequest(
-              request.getRequestID(),
-              medEquip.getMedID(),
-              request.getItemType(),
-              request.getNodeID(),
-              request.getEmployeeID(),
-              request.getEmergency(),
-              request.getStatus(),
-              request.getCreatedTimestamp(),
-              new Timestamp(System.currentTimeMillis()));
+          request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+          merd.changeMedEquipRequest(request);
         } else {
           throw new NoAvailableEquipment();
         }
@@ -111,16 +103,8 @@ public class MedEquipRequestManager implements RequestManager {
           // If available, we mark it in use and set the request to in progress
           MedEquipManager.getMedEquipManager().markInUse(medEquip.getMedID(), medEquip.getNodeID());
           request.setStatus(RequestStatus.InProgress);
-          merd.changeMedEquipRequest(
-              request.getRequestID(),
-              medEquip.getMedID(),
-              request.getItemType(),
-              request.getNodeID(),
-              request.getEmployeeID(),
-              request.getEmergency(),
-              request.getStatus(),
-              request.getCreatedTimestamp(),
-              new Timestamp(System.currentTimeMillis()));
+          request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+          merd.changeMedEquipRequest(request);
         } else {
         }
       } else {
@@ -140,16 +124,8 @@ public class MedEquipRequestManager implements RequestManager {
     if (request.getStatus().equals(RequestStatus.InProgress)) {
       MedEquipManager.getMedEquipManager().markInUse(request.getItemID(), request.getNodeID());
       request.setStatus(RequestStatus.Completed);
-      merd.changeMedEquipRequest(
-          request.getRequestID(),
-          request.getItemID(),
-          request.getItemType(),
-          request.getNodeID(),
-          request.getEmployeeID(),
-          request.getEmergency(),
-          request.getStatus(),
-          request.getCreatedTimestamp(),
-          new Timestamp(System.currentTimeMillis()));
+      request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+      merd.changeMedEquipRequest(request);
     }
   }
 
@@ -168,16 +144,8 @@ public class MedEquipRequestManager implements RequestManager {
         }
       }
       request.setStatus(RequestStatus.Cancelled);
-      merd.changeMedEquipRequest(
-          request.getRequestID(),
-          request.getItemID(),
-          request.getItemType(),
-          request.getNodeID(),
-          request.getEmployeeID(),
-          request.getEmergency(),
-          request.getStatus(),
-          request.getCreatedTimestamp(),
-          new Timestamp(System.currentTimeMillis()));
+      request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+      merd.changeMedEquipRequest(request);
     }
   }
 
@@ -189,17 +157,9 @@ public class MedEquipRequestManager implements RequestManager {
     // Only requeue cancelled requests
     if (request.getStatus().equals(RequestStatus.Cancelled)) {
       request.setStatus(RequestStatus.InQueue);
+      request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
       request.dropItem();
-      merd.changeMedEquipRequest(
-          request.getRequestID(),
-          request.getItemID(),
-          request.getItemType(),
-          request.getNodeID(),
-          request.getEmployeeID(),
-          request.getEmergency(),
-          request.getStatus(),
-          request.getCreatedTimestamp(),
-          new Timestamp(System.currentTimeMillis()));
+      merd.changeMedEquipRequest(request);
       if (Automation.Automation.getAuto()) {
         startNext(request.getItemType());
       }
@@ -216,10 +176,12 @@ public class MedEquipRequestManager implements RequestManager {
   public Request addNewRequest(Integer num, ArrayList<String> fields) throws Exception {
     MedEquipRequest mER;
     // Set status to in queue if it is not already included (from CSVs)
+    fields.add(0, Integer.toString(num));
+    fields.add(1, "NONE");
     fields.add(Integer.toString(RequestStatus.InQueue.getValue()));
     fields.add(new Timestamp(System.currentTimeMillis()).toString());
     fields.add(new Timestamp(System.currentTimeMillis()).toString());
-    mER = new MedEquipRequest(num, fields);
+    mER = new MedEquipRequest(fields);
     /*
     // If the request does not have an item, aka has not been started
     if (mER.getItemID().equals("NONE") && mER.getStatusInt() == 0) {
@@ -274,6 +236,10 @@ public class MedEquipRequestManager implements RequestManager {
 
   public void changeReq(MedEquipRequest req, String locID) throws SQLException {
     req.setNodeID(locID);
+    merd.changeMedEquipRequest(req);
+  }
+
+  public void changeReq(MedEquipRequest req) throws SQLException {
     merd.changeMedEquipRequest(req);
   }
 

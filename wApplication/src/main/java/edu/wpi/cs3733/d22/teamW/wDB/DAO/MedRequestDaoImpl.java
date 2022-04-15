@@ -5,8 +5,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.Units;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -71,34 +69,22 @@ public class MedRequestDaoImpl implements MedRequestDao {
   }
 
   @Override
-  public void changeMedRequest(
-      Integer requestID,
-      String patientLast,
-      String patientFirst,
-      String medicine,
-      Double quantity,
-      Units unit,
-      String nodeID,
-      Integer bedNumber,
-      Integer employeeID,
-      Integer emergency,
-      RequestStatus status)
-      throws SQLException {
+  public void changeMedRequest(MedRequest mr) throws SQLException {
     statement.executeUpdate(
         String.format(
             "UPDATE MEDREQUESTS SET PATIENTLAST='%s', PATIENTFIRST='%s', MEDICINE='%s', QUANTITY = %.2f, UNIT = '%s', NODEID='%s', BEDNUM = %d, EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE REQUESTID=%d",
-            patientLast,
-            patientFirst,
-            medicine,
-            quantity,
-            unit.getUnits(),
-            nodeID,
-            bedNumber,
-            employeeID,
-            emergency,
-            status.getValue(),
-            new Timestamp(System.currentTimeMillis()),
-            requestID));
+            mr.getPatientLast(),
+            mr.getPatientFirst(),
+            mr.getMedicineType(),
+            mr.getQuantity(),
+            mr.getUnit().getUnits(),
+            mr.getNodeID(),
+            mr.getBedNumber(),
+            mr.getEmployeeID(),
+            mr.getEmergency(),
+            mr.getStatus().getValue(),
+            mr.getUpdatedTimestamp(),
+            mr.getRequestID()));
   }
 
   @Override

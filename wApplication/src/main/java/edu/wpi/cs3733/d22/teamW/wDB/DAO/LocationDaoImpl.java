@@ -72,20 +72,9 @@ public class LocationDaoImpl implements LocationDao {
   }
 
   @Override
-  public void addLocation(
-      String inputID,
-      int xCoord,
-      int yCoord,
-      String floor,
-      String building,
-      String nodeType,
-      String longName,
-      String shortName)
-      throws SQLException {
-    Location newLocation =
-        new Location(inputID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
+  public void addLocation(Location location) throws SQLException {
     statement.executeUpdate(
-        String.format("INSERT INTO LOCATIONS VALUES (%s)", newLocation.toValuesString()));
+        String.format("INSERT INTO LOCATIONS VALUES (%s)", location.toValuesString()));
   }
 
   @Override
@@ -94,22 +83,13 @@ public class LocationDaoImpl implements LocationDao {
   }
 
   @Override
-  public void changeLocation(
-      String nodeID,
-      int xCoord,
-      int yCoord,
-      String floor,
-      String building,
-      String nodeType,
-      String longName,
-      String shortName)
-      throws SQLException {
+  public void changeLocation(Location location) throws SQLException {
     // Check for valid data
-    if (!isValidFloor(floor)) {
+    if (!isValidFloor(location.getFloor())) {
       System.out.println("Invalid floor entered");
       return;
     }
-    if (!isValidNodeType(nodeType)) {
+    if (!isValidNodeType(location.getFloor())) {
       System.out.println("Invalid node type entered");
       return;
     }
@@ -117,7 +97,14 @@ public class LocationDaoImpl implements LocationDao {
     statement.executeUpdate(
         String.format(
             "UPDATE LOCATIONS SET XCOORD = %d, YCOORD = %d, FLOOR = '%s', BUILDING = '%s', NODETYPE = '%s', LONGNAME = '%s', SHORTNAME = '%s' WHERE nodeID = '%s'",
-            xCoord, yCoord, floor, building, nodeType, longName, shortName, nodeID));
+            location.getxCoord(),
+            location.getyCoord(),
+            location.getFloor(),
+            location.getBuilding(),
+            location.getNodeType(),
+            location.getLongName(),
+            location.getShortName(),
+            location.getNodeID()));
 
     // Disabled automatic id updating per Matthew
     /*
@@ -163,7 +150,8 @@ public class LocationDaoImpl implements LocationDao {
   }
 
   private boolean isValidNodeType(String nodeType) {
-    return nodeType.length() == 4 && nodeType.equals(nodeType.toUpperCase(Locale.ROOT));
+    return true;
+    // return nodeType.length() == 4 && nodeType.equals(nodeType.toUpperCase(Locale.ROOT));
   }
 
   private boolean isValidFloor(String floor) {

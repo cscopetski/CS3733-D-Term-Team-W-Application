@@ -68,13 +68,8 @@ public class SanitationRequestManager implements RequestManager {
         (SanitationRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
     request.setStatus(RequestStatus.InProgress);
-    srd.changeSanitationRequest(
-        request.getRequestID(),
-        request.getSanitationReqType(),
-        request.getNodeID(),
-        request.getEmployeeID(),
-        request.getEmergency(),
-        request.getStatus());
+    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+    srd.changeSanitationRequest(request);
   }
 
   public void complete(Integer requestID) throws SQLException, StatusError {
@@ -82,13 +77,8 @@ public class SanitationRequestManager implements RequestManager {
         (SanitationRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
     request.setStatus(RequestStatus.Completed);
-    srd.changeSanitationRequest(
-        request.getRequestID(),
-        request.getSanitationReqType(),
-        request.getNodeID(),
-        request.getEmployeeID(),
-        request.getEmergency(),
-        request.getStatus());
+    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+    srd.changeSanitationRequest(request);
   }
 
   public void cancel(Integer requestID) throws SQLException, StatusError {
@@ -96,13 +86,8 @@ public class SanitationRequestManager implements RequestManager {
         (SanitationRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
     request.setStatus(RequestStatus.Cancelled);
-    srd.changeSanitationRequest(
-        request.getRequestID(),
-        request.getSanitationReqType(),
-        request.getNodeID(),
-        request.getEmployeeID(),
-        request.getEmergency(),
-        request.getStatus());
+    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+    srd.changeSanitationRequest(request);
   }
 
   public void reQueue(Integer requestID) throws SQLException, StatusError {
@@ -110,13 +95,8 @@ public class SanitationRequestManager implements RequestManager {
         (SanitationRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
     request.setStatus(RequestStatus.InQueue);
-    srd.changeSanitationRequest(
-        request.getRequestID(),
-        request.getSanitationReqType(),
-        request.getNodeID(),
-        request.getEmployeeID(),
-        request.getEmergency(),
-        request.getStatus());
+    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+    srd.changeSanitationRequest(request);
   }
 
   @Override

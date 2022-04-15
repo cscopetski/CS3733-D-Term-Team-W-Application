@@ -20,30 +20,12 @@ public class LocationManager {
     this.ldi = ldi;
   }
 
-  public void changeLocation(
-      String inputID,
-      int xCoord,
-      int yCoord,
-      String floor,
-      String building,
-      String nodeType,
-      String longName,
-      String shortName)
-      throws SQLException {
-    ldi.changeLocation(inputID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
+  public void changeLocation(Location location) throws SQLException {
+    ldi.changeLocation(location);
   }
 
-  public void addLocation(
-      String inputID,
-      int xCoord,
-      int yCoord,
-      String floor,
-      String building,
-      String nodeType,
-      String longName,
-      String shortName)
-      throws SQLException {
-    ldi.addLocation(inputID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
+  public void addLocation(Location location) throws SQLException {
+    ldi.addLocation(location);
   }
 
   public void deleteLocation(String nodeID) throws SQLException {

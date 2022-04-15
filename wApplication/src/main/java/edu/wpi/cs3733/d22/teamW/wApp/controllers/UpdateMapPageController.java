@@ -52,26 +52,28 @@ public class UpdateMapPageController implements Initializable {
     Optional<ButtonType> result = confirmChoice.showAndWait();
     if (result.get() == ButtonType.OK) {
       locationManager.changeLocation(
-          nodeField.getText(),
-          Integer.parseInt(xField.getText()),
-          Integer.parseInt(yField.getText()),
-          floorField.getText(),
-          buildingField.getText(),
-          typeField.getText(),
-          lnameField.getText(),
-          snameField.getText());
+          new Location(
+              nodeField.getText(),
+              Integer.parseInt(xField.getText()),
+              Integer.parseInt(yField.getText()),
+              floorField.getText(),
+              buildingField.getText(),
+              typeField.getText(),
+              lnameField.getText(),
+              snameField.getText()));
       onLoad();
     }
 
     locationManager.changeLocation(
-        nodeField.getText(),
-        Integer.parseInt(xField.getText()),
-        Integer.parseInt(yField.getText()),
-        floorField.getText(),
-        buildingField.getText(),
-        typeField.getText(),
-        lnameField.getText(),
-        snameField.getText());
+        new Location(
+            nodeField.getText(),
+            Integer.parseInt(xField.getText()),
+            Integer.parseInt(yField.getText()),
+            floorField.getText(),
+            buildingField.getText(),
+            typeField.getText(),
+            lnameField.getText(),
+            snameField.getText()));
     onLoad();
   }
 

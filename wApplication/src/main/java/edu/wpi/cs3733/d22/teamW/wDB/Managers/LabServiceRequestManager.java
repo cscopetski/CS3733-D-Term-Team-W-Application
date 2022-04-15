@@ -80,15 +80,8 @@ public class LabServiceRequestManager implements RequestManager {
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
     request.setStatus(RequestStatus.InProgress);
-    lsrdi.changeLabServiceRequest(
-        request.getRequestID(),
-        request.getLabType(),
-        request.getNodeID(),
-        request.getEmployeeID(),
-        request.getEmergency(),
-        request.getStatus(),
-        request.getCreatedTimestamp(),
-        new Timestamp(System.currentTimeMillis()));
+    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+    lsrdi.changeLabServiceRequest(request);
   }
 
   public void complete(Integer requestID) throws SQLException, StatusError {
@@ -96,15 +89,8 @@ public class LabServiceRequestManager implements RequestManager {
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
     request.setStatus(RequestStatus.Completed);
-    lsrdi.changeLabServiceRequest(
-        request.getRequestID(),
-        request.getLabType(),
-        request.getNodeID(),
-        request.getEmployeeID(),
-        request.getEmergency(),
-        request.getStatus(),
-        request.getCreatedTimestamp(),
-        new Timestamp(System.currentTimeMillis()));
+    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+    lsrdi.changeLabServiceRequest(request);
   }
 
   public void cancel(Integer requestID) throws SQLException, StatusError {
@@ -112,27 +98,14 @@ public class LabServiceRequestManager implements RequestManager {
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
     request.setStatus(RequestStatus.Cancelled);
-    lsrdi.changeLabServiceRequest(
-        request.getRequestID(),
-        request.getLabType(),
-        request.getNodeID(),
-        request.getEmployeeID(),
-        request.getEmergency(),
-        request.getStatus(),
-        request.getCreatedTimestamp(),
-        new Timestamp(System.currentTimeMillis()));
+    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+    lsrdi.changeLabServiceRequest(request);
   }
 
   public void changeLoc(LabServiceRequest request, String nodeID) throws SQLException {
-    lsrdi.changeLabServiceRequest(
-        request.getRequestID(),
-        request.getLabType(),
-        nodeID,
-        request.getEmployeeID(),
-        request.getEmergency(),
-        request.getStatus(),
-        request.getCreatedTimestamp(),
-        request.getUpdatedTimestamp());
+    request.setNodeID(nodeID);
+    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+    lsrdi.changeLabServiceRequest(request);
   }
 
   public void reQueue(Integer requestID) throws SQLException, StatusError {
@@ -140,15 +113,8 @@ public class LabServiceRequestManager implements RequestManager {
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
     request.setStatus(RequestStatus.InQueue);
-    lsrdi.changeLabServiceRequest(
-        request.getRequestID(),
-        request.getLabType(),
-        request.getNodeID(),
-        request.getEmployeeID(),
-        request.getEmergency(),
-        request.getStatus(),
-        request.getCreatedTimestamp(),
-        new Timestamp(System.currentTimeMillis()));
+    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
+    lsrdi.changeLabServiceRequest(request);
   }
 
   @Override

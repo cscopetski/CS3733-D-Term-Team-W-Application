@@ -3,15 +3,12 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.SanitationRequest;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.SanitationReqType;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class SanitationRequestDaoImpl implements SanitationRequestDao {
@@ -117,24 +114,17 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
   }
 
   @Override
-  public void changeSanitationRequest(
-      Integer requestID,
-      SanitationReqType sanitationReqType,
-      String nodeID,
-      Integer employeeID,
-      Integer emergency,
-      RequestStatus status)
-      throws SQLException {
+  public void changeSanitationRequest(SanitationRequest sr) throws SQLException {
     statement.executeUpdate(
         String.format(
             "UPDATE SANITATIONREQUESTS SET SANITATION='%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP='%s' WHERE REQID=%d",
-            sanitationReqType.getString(),
-            nodeID,
-            employeeID,
-            emergency,
-            status.getValue(),
-            new Timestamp(System.currentTimeMillis()),
-            requestID));
+            sr.getSanitationReqType().getString(),
+            sr.getNodeID(),
+            sr.getEmployeeID(),
+            sr.getEmergency(),
+            sr.getStatus().getValue(),
+            sr.getUpdatedTimestamp(),
+            sr.getRequestID()));
   }
 
   @Override

@@ -2,10 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.LabServiceRequestType;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public interface LabServiceRequestDao {
@@ -14,16 +11,7 @@ public interface LabServiceRequestDao {
 
   void addLabServiceRequest(LabServiceRequest lsr) throws SQLException;
 
-  void changeLabServiceRequest(
-      Integer requestID,
-      LabServiceRequestType labType,
-      String nodeID,
-      Integer employeeID,
-      Integer emergency,
-      RequestStatus status,
-      Timestamp createdTimestamp,
-      Timestamp updatedTimestamp)
-      throws SQLException;
+  void changeLabServiceRequest(LabServiceRequest lsr) throws SQLException;
 
   void deleteLabServiceRequest(Integer requestID) throws SQLException;
 

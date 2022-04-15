@@ -4,14 +4,12 @@ import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
@@ -113,33 +111,6 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
   public void addMedEquipRequest(MedEquipRequest mer) throws SQLException {
     statement.executeUpdate(
         String.format("INSERT INTO MEDICALEQUIPMENTREQUESTS VALUES (%s)", mer.toValuesString()));
-  }
-
-  @Override
-  public void changeMedEquipRequest(
-      int requestID,
-      String itemID,
-      String itemType,
-      String nodeID,
-      Integer employeeID,
-      Integer emergency,
-      RequestStatus status,
-      Timestamp createdTimestamp,
-      Timestamp updatedTimestamp)
-      throws SQLException {
-
-    statement.executeUpdate(
-        String.format(
-            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE MEDREQID = %d",
-            itemID,
-            itemType,
-            nodeID,
-            employeeID,
-            emergency,
-            status.getValue(),
-            createdTimestamp.toString(),
-            updatedTimestamp.toString(),
-            requestID));
   }
 
   public void changeMedEquipRequest(MedEquipRequest mER) throws SQLException {
