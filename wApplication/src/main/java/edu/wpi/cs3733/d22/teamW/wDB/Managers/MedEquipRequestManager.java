@@ -79,7 +79,6 @@ public class MedEquipRequestManager implements RequestManager {
           // If available, we mark it in use and set the request to in progress
           MedEquipManager.getMedEquipManager().markInUse(medEquip.getMedID(), medEquip.getNodeID());
           request.setStatus(RequestStatus.InProgress);
-          request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
           merd.changeMedEquipRequest(request);
         } else {
           throw new NoAvailableEquipment();
@@ -103,7 +102,6 @@ public class MedEquipRequestManager implements RequestManager {
           // If available, we mark it in use and set the request to in progress
           MedEquipManager.getMedEquipManager().markInUse(medEquip.getMedID(), medEquip.getNodeID());
           request.setStatus(RequestStatus.InProgress);
-          request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
           merd.changeMedEquipRequest(request);
         } else {
         }
@@ -124,7 +122,6 @@ public class MedEquipRequestManager implements RequestManager {
     if (request.getStatus().equals(RequestStatus.InProgress)) {
       MedEquipManager.getMedEquipManager().markInUse(request.getItemID(), request.getNodeID());
       request.setStatus(RequestStatus.Completed);
-      request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
       merd.changeMedEquipRequest(request);
     }
   }
@@ -144,7 +141,6 @@ public class MedEquipRequestManager implements RequestManager {
         }
       }
       request.setStatus(RequestStatus.Cancelled);
-      request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
       merd.changeMedEquipRequest(request);
     }
   }
@@ -157,7 +153,6 @@ public class MedEquipRequestManager implements RequestManager {
     // Only requeue cancelled requests
     if (request.getStatus().equals(RequestStatus.Cancelled)) {
       request.setStatus(RequestStatus.InQueue);
-      request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
       request.dropItem();
       merd.changeMedEquipRequest(request);
       if (Automation.Automation.getAuto()) {
