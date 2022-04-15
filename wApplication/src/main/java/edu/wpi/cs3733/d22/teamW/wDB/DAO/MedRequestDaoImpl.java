@@ -4,6 +4,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.Units;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -29,7 +30,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
   }
 
   String CSVHeaderString =
-      "requestID,medicine,nodeID,employeeID,isEmergency,reqStatus,createdTimestamp,updatedTimestamp";
+      "requestID,patientLast,patientFirst,medicine,quantity,unit,nodeID,bedNum,employeeID,emergency,status,createdTimestamp,updatedTimestamp";
 
   void createTable() throws SQLException {
 
@@ -37,8 +38,13 @@ public class MedRequestDaoImpl implements MedRequestDao {
       statement.execute(
           "CREATE TABLE MEDREQUESTS("
               + "requestID INT,"
+              + "patientLast varchar(25),"
+              + "patientFirst varchar(25),"
               + "medicine varchar(25),"
+              + "quantity DOUBLE,"
+              + "Unit varchar(25),"
               + "nodeID varchar(25),"
+              + "BedNum INT,"
               + "employeeID INT,"
               + "isEmergency INT,"
               + "reqStatus INT, "
@@ -64,26 +70,33 @@ public class MedRequestDaoImpl implements MedRequestDao {
 
   @Override
   public void changeMedRequest(
-      Integer id,
+      Integer requestID,
+      String patientLast,
+      String patientFirst,
       String medicine,
+      Double quantity,
+      Units unit,
       String nodeID,
+      Integer bedNumber,
       Integer employeeID,
-      Integer isEmergency,
-      RequestStatus requestStatus,
-      Timestamp createdTimestamp,
-      Timestamp updatedTimestamp)
+      Integer emergency,
+      RequestStatus status)
       throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDREQUESTS SET MEDICINE='%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE REQUESTID=%d",
+            "UPDATE MEDREQUESTS SET PATIENTLAST='%s', PATIENTFIRST='%s', MEDICINE='%s', QUANTITY = %.2f, UNIT = '%s', NODEID='%s', BEDNUM = %d, EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE REQUESTID=%d",
+            patientLast,
+            patientFirst,
             medicine,
+            quantity,
+            unit.getUnits(),
             nodeID,
+            bedNumber,
             employeeID,
-            isEmergency,
-            requestStatus.getValue(),
-            createdTimestamp.toString(),
-            updatedTimestamp.toString(),
-            id));
+            emergency,
+            status.getValue(),
+            new Timestamp(System.currentTimeMillis()),
+            requestID));
   }
 
   @Override
