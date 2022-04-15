@@ -53,6 +53,9 @@ public class MapEditorController extends LoadableController {
   @FXML private TableView<Floor> FloorTab;
   @FXML private TableView<medEquip> EqDashTab;
   @FXML private FileChooser fileChooser = new FileChooser();
+  @FXML private CheckBox LocFilter;
+  @FXML private CheckBox EquipFilter;
+  @FXML private CheckBox ReqFilter;
   Image img1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F1.png");
   Image img2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F2.png");
   Image img3 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F3.png");
@@ -82,6 +85,12 @@ public class MapEditorController extends LoadableController {
   private ArrayList<Requests> reqList = new ArrayList<>();
   private ArrayList<Floor> floorList = new ArrayList<>();
   private boolean loaded = false;
+
+  public void locFilt(ActionEvent actionEvent) {}
+
+  public void equipFilt(ActionEvent actionEvent) {}
+
+  public void reqFilt(ActionEvent actionEvent) {}
 
   private enum InteractionStates {
     None,
@@ -252,9 +261,15 @@ public class MapEditorController extends LoadableController {
     LocTab.getItems().addAll(currFloorLoc);
     generateEquipList();
     generateRequestList();
-    generateMarkers();
-    generateEquipMarkers();
-    generateRequestDots();
+    if (LocFilter.isSelected()) {
+      generateMarkers();
+    }
+    if (EquipFilter.isSelected()) {
+      generateEquipMarkers();
+    }
+    if (ReqFilter.isSelected()) {
+      generateRequestDots();
+    }
     LocTab.getSelectionModel().clearSelection();
     EqTab.getSelectionModel().clearSelection();
     LocTab.setVisible(true);
