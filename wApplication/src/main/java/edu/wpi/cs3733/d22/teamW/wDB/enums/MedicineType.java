@@ -4,7 +4,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum Medicine {
+public enum MedicineType {
   Adderall("Adderall"),
   Abacavir("Abacavir"),
   Acyclovir("Acyclovir"),
@@ -238,13 +238,13 @@ public enum Medicine {
 
   private static Map map = new HashMap<>();
 
-  private Medicine(String name) {
+  private MedicineType(String name) {
     this.string = name;
   }
 
   static {
-    for (Medicine medicine : Medicine.values()) {
-      map.put(medicine.string, medicine);
+    for (MedicineType medicineType : MedicineType.values()) {
+      map.put(medicineType.string, medicineType);
     }
   }
 
@@ -252,9 +252,9 @@ public enum Medicine {
     return this.string;
   }
 
-  public static Medicine getMedicine(String medicine) throws NoMedicine {
-    Medicine type = null;
-    type = (Medicine) map.get(medicine);
+  public static MedicineType getMedicine(String medicine) throws NoMedicine {
+    MedicineType type = null;
+    type = (MedicineType) map.get(medicine);
     if (type == null) {
       throw new NoMedicine();
     }

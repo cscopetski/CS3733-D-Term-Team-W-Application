@@ -4,7 +4,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Errors.InvalidSanitationType;
 import java.util.HashMap;
 import java.util.Map;
 
-public enum Sanitation {
+public enum SanitationReqType {
   RoomCleaning("Room Cleaning"),
   Mopping("Mopping"),
   PatientExcretion("Patient Excretion"),
@@ -15,12 +15,12 @@ public enum Sanitation {
 
   private static Map map = new HashMap<>();
 
-  private Sanitation(String name) {
+  private SanitationReqType(String name) {
     this.name = name;
   }
 
   static {
-    for (Sanitation type : Sanitation.values()) {
+    for (SanitationReqType type : SanitationReqType.values()) {
       map.put(type.name, type);
     }
   }
@@ -29,8 +29,8 @@ public enum Sanitation {
     return this.name;
   }
 
-  public static Sanitation getSanitation(String type) throws InvalidSanitationType {
-    Sanitation sanType = (Sanitation) map.get(type);
+  public static SanitationReqType getSanitation(String type) throws InvalidSanitationType {
+    SanitationReqType sanType = (SanitationReqType) map.get(type);
     if (sanType == null) {
       throw new InvalidSanitationType();
     }

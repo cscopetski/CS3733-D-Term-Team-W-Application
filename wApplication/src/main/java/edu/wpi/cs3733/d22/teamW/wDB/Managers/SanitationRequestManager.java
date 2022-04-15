@@ -70,7 +70,7 @@ public class SanitationRequestManager implements RequestManager {
     request.setStatus(RequestStatus.InProgress);
     srd.changeSanitationRequest(
         request.getRequestID(),
-        request.getSanitation(),
+        request.getSanitationReqType(),
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
@@ -84,7 +84,7 @@ public class SanitationRequestManager implements RequestManager {
     request.setStatus(RequestStatus.Completed);
     srd.changeSanitationRequest(
         request.getRequestID(),
-        request.getSanitation(),
+        request.getSanitationReqType(),
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
@@ -98,7 +98,7 @@ public class SanitationRequestManager implements RequestManager {
     request.setStatus(RequestStatus.Cancelled);
     srd.changeSanitationRequest(
         request.getRequestID(),
-        request.getSanitation(),
+        request.getSanitationReqType(),
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),
@@ -112,7 +112,7 @@ public class SanitationRequestManager implements RequestManager {
     request.setStatus(RequestStatus.InQueue);
     srd.changeSanitationRequest(
         request.getRequestID(),
-        request.getSanitation(),
+        request.getSanitationReqType(),
         request.getNodeID(),
         request.getEmployeeID(),
         request.getEmergency(),

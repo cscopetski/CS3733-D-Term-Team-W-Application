@@ -3,7 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.entity;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.InvalidUnit;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.Medicine;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.MedicineType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.Units;
@@ -15,7 +15,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class MedRequest extends Request {
-  Medicine medicine;
+  MedicineType medicineType;
   Double quantity;
   Units unit;
   String patientFirst;
@@ -40,7 +40,7 @@ public class MedRequest extends Request {
     this.requestID = requestID;
     this.patientLast = patientLast;
     this.patientFirst = patientFirst;
-    this.medicine = Medicine.getMedicine(medicine);
+    this.medicineType = MedicineType.getMedicine(medicine);
     this.quantity = quantity;
     this.unit = unit;
     this.nodeID = nodeID;
@@ -56,7 +56,7 @@ public class MedRequest extends Request {
       Integer requestID,
       String patientLast,
       String patientFirst,
-      Medicine medicine,
+      MedicineType medicineType,
       Double quantity,
       Units unit,
       String nodeID,
@@ -69,7 +69,7 @@ public class MedRequest extends Request {
     this.requestID = requestID;
     this.patientLast = patientLast;
     this.patientFirst = patientFirst;
-    this.medicine = medicine;
+    this.medicineType = medicineType;
     this.quantity = quantity;
     this.unit = unit;
     this.nodeID = nodeID;
@@ -85,7 +85,7 @@ public class MedRequest extends Request {
     this.requestID = Integer.parseInt(fields.get(0));
     this.patientLast = fields.get(1);
     this.patientFirst = fields.get(2);
-    this.medicine = Medicine.getMedicine(fields.get(3));
+    this.medicineType = MedicineType.getMedicine(fields.get(3));
     this.quantity = Double.parseDouble(fields.get(4));
     this.unit = Units.getUnitFromAbb(fields.get(5));
     this.nodeID = fields.get(6);
@@ -102,7 +102,7 @@ public class MedRequest extends Request {
     this.requestID = index;
     this.patientLast = fields.get(0);
     this.patientFirst = fields.get(1);
-    this.medicine = Medicine.getMedicine(fields.get(0));
+    this.medicineType = MedicineType.getMedicine(fields.get(0));
     this.quantity = Double.parseDouble(fields.get(1));
     this.unit = Units.getUnitFromAbb(fields.get(2));
     this.nodeID = fields.get(3);
@@ -121,7 +121,7 @@ public class MedRequest extends Request {
         requestID,
         patientLast,
         patientFirst,
-        medicine.getString(),
+        medicineType.getString(),
         quantity,
         unit.getUnits(),
         nodeID,
@@ -140,7 +140,7 @@ public class MedRequest extends Request {
         requestID,
         patientLast,
         patientFirst,
-        medicine.getString(),
+        medicineType.getString(),
         quantity,
         unit.getUnits(),
         nodeID,

@@ -5,7 +5,8 @@ import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.Medicine;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.MedicineType;
+
 import java.util.ArrayList;
 
 public class Main {
@@ -44,7 +45,7 @@ public class Main {
       System.out.println(e.toCSVString());
     }
 
-    for (Medicine m : Medicine.values()) {
+    for (MedicineType m : MedicineType.values()) {
       System.out.println(m.toString());
       System.out.println(m.getString());
     }

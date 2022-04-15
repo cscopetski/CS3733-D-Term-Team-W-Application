@@ -3,7 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.SanitationRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.Sanitation;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.SanitationReqType;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public interface SanitationRequestDao {
 
   void changeSanitationRequest(
       Integer requestID,
-      Sanitation sanitation,
+      SanitationReqType sanitationReqType,
       String nodeID,
       Integer employeeID,
       Integer emergency,
