@@ -58,7 +58,7 @@ public class MedRequestManager implements RequestManager {
     return mr;
   }
 
-  public boolean start(Integer requestID) throws SQLException, StatusError {
+  public void start(Integer requestID) throws SQLException, StatusError {
     MedRequest request =
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
@@ -75,7 +75,6 @@ public class MedRequestManager implements RequestManager {
         request.getEmployeeID(),
         request.getEmergency(),
         request.getStatus());
-    return true;
   }
 
   public void complete(Integer requestID) throws SQLException, StatusError {

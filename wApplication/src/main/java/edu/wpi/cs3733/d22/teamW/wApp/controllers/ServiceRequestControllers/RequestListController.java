@@ -3,6 +3,9 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.CannotStart;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoAvailableEquipment;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingRequestID;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
@@ -154,9 +157,11 @@ public class RequestListController extends LoadableController {
     selectionButtons.setVisible(false);
   }
 
-  public void start() throws Exception {
-    if (!RequestFacade.getRequestFacade()
-        .startRequest(rt.getSelection().getRequestID(), rt.getSelection().getRequestType())) {
+  public void start() {
+    try {
+      RequestFacade.getRequestFacade()
+          .startRequest(rt.getSelection().getRequestID(), rt.getSelection().getRequestType());
+    } catch (NoAvailableEquipment e) {
       Alert alert =
           new Alert(
               Alert.AlertType.WARNING,
@@ -164,7 +169,21 @@ public class RequestListController extends LoadableController {
                   + ((MedicalEquipmentSR) rt.getSelection()).getOriginal().getItemType(),
               ButtonType.OK);
       alert.showAndWait();
+    } catch (CannotStart c) {
+      Alert alert =
+          new Alert(
+              Alert.AlertType.WARNING,
+              "Cannot Start A Request That Is Not In Queue!",
+              ButtonType.OK);
+      alert.showAndWait();
+    } catch (NonExistingRequestID r) {
+      Alert alert = new Alert(Alert.AlertType.WARNING, "RequestID Does Not Exist!", ButtonType.OK);
+      alert.showAndWait();
+    } catch (Exception s) {
+      Alert alert = new Alert(Alert.AlertType.WARNING, "Error", ButtonType.OK);
+      alert.showAndWait();
     }
+
     resetItems();
   }
 

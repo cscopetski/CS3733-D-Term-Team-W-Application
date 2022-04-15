@@ -116,20 +116,19 @@ public class RequestFacade {
   }
 
   // TODO might want to change this to use requests
-  public boolean startRequest(Integer requestID, RequestType type) throws Exception {
+  public void startRequest(Integer requestID, RequestType type) throws Exception {
 
     switch (type) {
       case MedicalEquipmentRequest:
-        return merm.start(requestID);
+        merm.start(requestID);
         // break;
       case LabServiceRequest:
-        return lsrm.start(requestID);
+        lsrm.start(requestID);
       case MedicineDelivery:
-        return mrm.start(requestID);
+        mrm.start(requestID);
       case CleaningRequest:
         crm.start(requestID);
     }
-    return false;
   }
 
   public void requeueRequest(Integer requestID, RequestType type) throws Exception {

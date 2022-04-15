@@ -13,7 +13,7 @@ public interface RequestManager {
   //
   //  public Request getNext(String ID);
 
-  public abstract boolean start(Integer requestID) throws Exception;
+  public abstract void start(Integer requestID) throws Exception;
 
   public abstract void complete(Integer requestID) throws SQLException, StatusError;
 
