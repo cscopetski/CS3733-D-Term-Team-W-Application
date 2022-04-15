@@ -19,7 +19,9 @@ public class RequestTable extends TableView<SR> {
             createColumn("Req. ID", "RequestID"),
             createColumn("Request Type", "RequestType"),
             createColumn("Employee Name", "EmployeeName"),
-            createColumn("Status", "Status"));
+            createColumn("Status", "Status"),
+            createColumn("Created", "CreatedTimestamp"),
+            createColumn("Last updated", "UpdatedTimestamp"));
   }
 
   public void setColumnWidth(String columnText, double prefWidth) {

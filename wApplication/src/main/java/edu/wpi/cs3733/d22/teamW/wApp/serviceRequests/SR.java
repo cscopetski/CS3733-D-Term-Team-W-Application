@@ -39,6 +39,14 @@ public abstract class SR {
     return REQUEST.getEmployeeID();
   }
 
+  public String getCreatedTimestamp() {
+    return REQUEST.getCreatedTimestamp().toString();
+  }
+
+  public String getUpdatedTimestamp() {
+    return REQUEST.getUpdatedTimestamp().toString();
+  }
+
   public abstract RequestType getRequestType();
 
   public abstract String getRequestTypeS();
