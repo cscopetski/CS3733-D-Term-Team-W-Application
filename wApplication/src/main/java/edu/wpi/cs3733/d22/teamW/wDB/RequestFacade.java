@@ -1,10 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.CleaningRequestManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipRequestManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
@@ -17,6 +14,7 @@ public class RequestFacade {
   private LabServiceRequestManager lsrm = LabServiceRequestManager.getLabServiceRequestManager();
   private MedRequestManager mrm = MedRequestManager.getMedRequestManager();
   private CleaningRequestManager crm = CleaningRequestManager.getCleaningRequestManager();
+  private SanitationRequestManager srm = SanitationRequestManager.getSanitationRequestManager();
 
   private static RequestFacade requestFacade = new RequestFacade();
 
@@ -146,5 +144,29 @@ public class RequestFacade {
       case CleaningRequest:
         crm.reQueue(requestID);
     }
+  }
+
+  public ArrayList<Request> getAllEmployeeRequests(Integer employeeID) {
+    ArrayList<Request> employeeRequests = new ArrayList<Request>();
+
+    ArrayList<Request> cleaningReqs = crm.getEmployeeRequests(employeeID);
+    employeeRequests.addAll(cleaningReqs);
+
+    ArrayList<Request> labServiceReqs = lsrm.getEmployeeRequests(employeeID);
+    employeeRequests.addAll(labServiceReqs);
+
+    ArrayList<Request> medEquipReqs = merm.getEmployeeRequests(employeeID);
+    employeeRequests.addAll(medEquipReqs);
+
+    ArrayList<Request> medReqs = mrm.getEmployeeRequests(employeeID);
+    employeeRequests.addAll(medReqs);
+
+    // TODO once sanitation DB is working
+    // ArrayList<Request> sanitationReqs = new ArrayList<Request>();
+    // empReqs.addAll(sanitationReqs);
+
+    Collections.sort(employeeRequests);
+
+    return employeeRequests;
   }
 }
