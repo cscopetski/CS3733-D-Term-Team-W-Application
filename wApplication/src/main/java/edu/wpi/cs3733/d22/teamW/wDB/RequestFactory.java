@@ -1,9 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.CleaningRequestManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipRequestManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.util.*;
@@ -17,6 +14,8 @@ public class RequestFactory {
   private LabServiceRequestManager lsrm = LabServiceRequestManager.getLabServiceRequestManager();
   private MedRequestManager mrm = MedRequestManager.getMedRequestManager();
   private CleaningRequestManager crm = CleaningRequestManager.getCleaningRequestManager();
+  private ComputerServiceRequestManager csrm =
+      ComputerServiceRequestManager.getComputerServiceRequestManager();
 
   private TreeSet<Integer> reqIDList = new TreeSet<>();
 
@@ -96,6 +95,15 @@ public class RequestFactory {
       }
       System.out.println(cr.toValuesString());
       return cr;
+    } else if (requestType.equals(RequestType.ComputerServiceRequest)) {
+      Request csr;
+      if (importingFromCSV) {
+        csr = csrm.addExistingRequest(fields);
+      } else {
+        csr = csrm.addNewRequest(counter, fields);
+      }
+      System.out.println(csr.toValuesString());
+      return csr;
     } else {
       return null;
     }

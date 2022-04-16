@@ -428,6 +428,7 @@ public class MapEditorController extends LoadableController {
     final String labServiceRequestFileName = "LabRequests.csv";
     final String employeesFileName = "Employees.csv";
     final String medRequestFileName = "MedRequests.csv";
+    final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
     CSVController csvController =
         new CSVController(
             locationFileName,
@@ -435,7 +436,8 @@ public class MapEditorController extends LoadableController {
             medEquipRequestFileName,
             labServiceRequestFileName,
             employeesFileName,
-            medRequestFileName);
+            medRequestFileName,
+            computerServiceRequestFileName);
     locationManager.clearLocations();
     csvController.insertIntoLocationsTable(csvController.importCSVfromFile(inputCSV));
     refresh();
