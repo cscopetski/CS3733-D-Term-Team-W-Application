@@ -371,3 +371,10 @@
     -fx-border-radius: 15;
     -fx-border-width: 3;
 }
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+.scroll-pane{
+    -fx-background-color: white;
+    -fx-border-color: #013895;
+}

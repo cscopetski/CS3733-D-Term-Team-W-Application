@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.*?>
-<?import java.lang.*?>
-<?import javafx.collections.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable?>
-<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.RequestListController" stylesheets="@../CSS/UniversalCSS/Standard.css" >
+<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.RequestListController">
     <children>
         <AnchorPane prefHeight="473.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
             <children>
@@ -49,17 +46,14 @@
                                             <children>
                                                 <BorderPane prefHeight="35.0" prefWidth="200.0">
                                                     <center>
-                                                        <Pane maxHeight="30.0" maxWidth="60.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
+                                                        <Pane maxHeight="30.0" maxWidth="302.0" minHeight="30.0" prefHeight="30.0" prefWidth="302.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
                                                             <children>
-                                                                <BorderPane maxHeight="30.0" maxWidth="60.0" prefHeight="200.0" prefWidth="200.0">
-                                                                    <center>
-                                                                        <Label style="-fx-font-weight: bold;" text="FILTER" textFill="WHITE" BorderPane.alignment="CENTER">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                        </Label>
-                                                                    </center>
-                                                                </BorderPane>
+                                                <Pane layoutX="-120.0" />
+                                                                  <Label layoutX="126.0" layoutY="4.0" prefHeight="20.0" prefWidth="48.0" style="-fx-font-weight: bold;" text="FILTER" textFill="WHITE">
+                                                                      <font>
+                                                                          <Font size="14.0" />
+                                                                      </font>
+                                                                  </Label>
                                                             </children>
                                                         </Pane>
                                                     </center>
@@ -67,33 +61,30 @@
                                                         <Insets top="20.0" />
                                                     </VBox.margin>
                                                 </BorderPane>
-                                                <FilterControl fx:id="filter" prefWidth="300" prefHeight="300"  stylesheets="@../CSS/UniversalCSS/Standard.css"/>
-                                                <BorderPane maxWidth="200.0" minWidth="300.0" prefHeight="200.0" prefWidth="304.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
+                                    <Pane prefHeight="310.0" prefWidth="300.0">
+                                       <children>
+                                                      <FilterControl fx:id="filter" prefHeight="224.0" prefWidth="300" style="-fx-background-color: white; -fx-border-color: #013895" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+                                       </children>
+                                    </Pane>
+                                                <BorderPane maxWidth="300.0" minWidth="300.0" prefHeight="131.0" prefWidth="300.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
                                                     <top>
-                                                        <Pane maxHeight="30.0" maxWidth="90.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
+                                                        <Pane maxHeight="30.0" maxWidth="299.0" prefHeight="30.0" prefWidth="299.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
                                                             <children>
-                                                                <BorderPane maxHeight="30.0" maxWidth="90.0" prefHeight="200.0" prefWidth="200.0">
-                                                                    <center>
-                                                                        <Label style="-fx-font-weight: bold;" text="MORE INFO" textFill="WHITE" BorderPane.alignment="CENTER">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                        </Label>
-                                                                    </center>
-                                                                </BorderPane>
+                                                                <BorderPane layoutY="-11.0" maxHeight="30.0" maxWidth="90.0" prefHeight="200.0" prefWidth="200.0" />
+                                                                  <Label layoutX="104.0" layoutY="5.0" style="-fx-font-weight: bold;" text="MORE INFO" textFill="WHITE">
+                                                                      <font>
+                                                                          <Font size="14.0" />
+                                                                      </font>
+                                                                  </Label>
                                                             </children>
                                                             <BorderPane.margin>
                                                                 <Insets />
                                                             </BorderPane.margin>
                                                         </Pane>
                                                     </top>
-                                                    <center>
-                                                        <TextArea fx:id="moreInfo" prefHeight="200.0" prefWidth="200.0" scaleZ="0.0" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" BorderPane.alignment="CENTER">
-                                                            <BorderPane.margin>
-                                                                <Insets top="10.0" />
-                                                            </BorderPane.margin>
-                                                        </TextArea>
-                                                    </center>
+                                       <left>
+                                                        <TextArea fx:id="moreInfo" prefHeight="63.0" prefWidth="300.0" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" BorderPane.alignment="CENTER" />
+                                       </left>
                                                 </BorderPane>
                                             </children>
                                         </VBox>
@@ -106,14 +97,14 @@
                                 <Insets top="10.0" />
                             </VBox.margin>
                             <center>
-                                <HBox fx:id="selectionButtons" visible="false" spacing="10" BorderPane.alignment="CENTER" alignment="CENTER">
+                                <HBox fx:id="selectionButtons" alignment="CENTER" spacing="10" visible="false" BorderPane.alignment="CENTER">
                                     <BorderPane.margin>
                                         <Insets bottom="20.0" />
                                     </BorderPane.margin>
-                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false"  text="Start" onAction="#start" />
-                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false"  text="Complete" onAction="#confirm" />
-                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" text="Cancel" onAction="#cancel" />
-                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false"  text="Clear Selection" onAction="#clearSelection" />
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#start" text="Start" />
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#confirm" text="Complete" />
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#clearSelection" text="Clear Selection" />
                                 </HBox>
                             </center>
                         </BorderPane>

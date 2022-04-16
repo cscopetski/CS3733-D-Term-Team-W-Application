@@ -20,6 +20,7 @@ public class RequestTable extends TableView<SR> {
             createColumn("Request Type", "RequestType"),
             createColumn("Employee Name", "EmployeeName"),
             createColumn("Status", "Status"));
+    distributeColumnWidths();
   }
 
   public void setColumnWidth(String columnText, double prefWidth) {

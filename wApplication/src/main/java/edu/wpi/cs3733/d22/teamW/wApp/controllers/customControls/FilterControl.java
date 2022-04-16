@@ -27,6 +27,7 @@ public class FilterControl<E extends Enum<E>> extends ScrollPane {
     container = new VBox();
     container.setSpacing(5);
     container.setAlignment(Pos.CENTER);
+
     setContent(container);
 
     filters =
@@ -61,6 +62,7 @@ public class FilterControl<E extends Enum<E>> extends ScrollPane {
 
     filterInput = new AutoCompleteInput();
     filterInput.autosize();
+    filterInput.setMaxWidth(300.0);
     filterInput
         .getSelectionModel()
         .selectedItemProperty()
@@ -84,10 +86,12 @@ public class FilterControl<E extends Enum<E>> extends ScrollPane {
     if (!filters.contains(value)) {
       filters.add(value);
       AnchorPane ap = new AnchorPane();
-      ap.setStyle("-fx-border-width: 2px; -fx-border-color: #013895; -fx-border-radius: 15px");
+      ap.setStyle(
+          "-fx-background-color: #98E5DB; -fx-text-fill: #214462; -fx-background-radius: 25");
       ap.setPadding(new Insets(5));
       Label filter = new Label(value.toString());
-      Button remove = new Button("Remove?");
+      filter.setStyle("-fx-text-fill:#214462; -fx-font-style: bold ");
+      Button remove = new Button("Remove");
       remove.setOnAction(
           e -> {
             container.getChildren().remove(ap);
