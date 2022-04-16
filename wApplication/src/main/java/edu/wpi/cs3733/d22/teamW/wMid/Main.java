@@ -20,6 +20,7 @@ public class Main {
     final String flowerRequestFileName = "FlowerRequests.csv";
     final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
     final String sanitationRequestsFileName = "SanitationRequests.csv";
+    final String languageFileName = "Languages.csv";
 
     DBController.getDBController();
 
@@ -33,7 +34,8 @@ public class Main {
             medRequestFileName,
             flowerRequestFileName,
             computerServiceRequestFileName,
-            sanitationRequestsFileName);
+            sanitationRequestsFileName,
+            languageFileName);
 
     try {
       csvController.populateTables();
@@ -41,9 +43,26 @@ public class Main {
       e.printStackTrace();
     }
 
+    /*
+    LanguageManager lm = LanguageManager.getLocationManager();
+    lm.addLanguage("French");
+    lm.addLanguage("English");
+    lm.addLanguage("Spanish");
+    lm.addLanguage("Mandarin");
+    lm.addLanguage("German");
+    lm.addLanguage("Swedish");
+    lm.addLanguage("Hindi");
+    lm.addLanguage("Portuguese");
+    lm.addLanguage("Arabic");
+    lm.addLanguage("Russian");
+    lm.addLanguage("Cantonese");
+    lm.addLanguage("Bengali");
+    lm.addLanguage("Indonesian");
 
+    lm.exportLocationsCSV(languageFileName);
+     */
 
-    App.launch(App.class, args);
+    // App.launch(App.class, args);
 
   }
 }

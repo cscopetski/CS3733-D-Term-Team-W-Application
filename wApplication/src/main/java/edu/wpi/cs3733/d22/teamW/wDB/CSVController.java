@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LanguageManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
@@ -21,6 +22,7 @@ public class CSVController {
   private String flowerRequestFileName;
   private String computerServiceRequestFileName;
   private String sanitationRequestFileName;
+  private String languageFileName;
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
@@ -33,7 +35,8 @@ public class CSVController {
       String medRequestFileName,
       String flowerRequestFileName,
       String computerServiceRequestFileName,
-      String sanitationRequestFileName) {
+      String sanitationRequestFileName,
+      String languageFileName) {
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
     this.medEquipRequestFileName = medEquipRequestFileName;
@@ -43,12 +46,14 @@ public class CSVController {
     this.flowerRequestFileName = flowerRequestFileName;
     this.computerServiceRequestFileName = computerServiceRequestFileName;
     this.sanitationRequestFileName = sanitationRequestFileName;
+    this.languageFileName = languageFileName;
   }
 
   public void populateTables() throws Exception {
     insertIntoEmpTable(importCSV(employeeFileName));
     insertIntoLocationsTable(importCSV(locationFileName));
     insertIntoMedEquipTable(importCSV(medEquipFileName));
+    insertIntoLangugesTable(importCSV(languageFileName));
 
     insertIntoMedEquipReqTable(importCSV(medEquipRequestFileName));
     insertIntoLabReqTable(importCSV(labServiceRequestFileName));
@@ -219,8 +224,13 @@ public class CSVController {
 
       FlowerRequest fr =
           (FlowerRequest) requestFactory.getRequest(RequestType.FlowerRequest, fields, true);
+    }
+  }
 
-      // medReqLists.add(mr);
+  private void insertIntoLangugesTable(ArrayList<String[]> tokens) throws SQLException {
+    LanguageManager lm = LanguageManager.getLocationManager();
+    for (String[] s : tokens) {
+      lm.addLanguage(s[0]);
     }
   }
 
