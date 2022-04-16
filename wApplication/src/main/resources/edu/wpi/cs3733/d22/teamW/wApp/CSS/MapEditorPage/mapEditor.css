@@ -6,16 +6,16 @@
     -fx-background-position: center;
 }
 .toggle-button.pan{
-    -fx-background-image: url('../../assets/Icons/mapEditor/iconsPanBlue.png');
-}
-.toggle-button:selected.pan {
     -fx-background-image: url('../../assets/Icons/mapEditor/iconsPanWhite.png');
 }
+.toggle-button:selected.pan {
+    -fx-background-image: url('../../assets/Icons/mapEditor/iconsPanBlue.png');
+}
 .toggle-button.modify{
-     -fx-background-image: url('../../assets/Icons/mapEditor/iconsModifyBlue.png');
+     -fx-background-image: url('../../assets/Icons/mapEditor/iconsModifyWhite.png');
  }
 .toggle-button:selected.modify{
-    -fx-background-image: url('../../assets/Icons/mapEditor/iconsModifyWhite.png');
+    -fx-background-image: url('../../assets/Icons/mapEditor/iconsModifyBlue.png');
 }
 
 .margin-10 {

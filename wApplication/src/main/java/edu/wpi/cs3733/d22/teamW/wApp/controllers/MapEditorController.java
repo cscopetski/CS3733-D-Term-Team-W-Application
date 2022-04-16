@@ -1,10 +1,10 @@
-/*
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Floor;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Requests;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
@@ -143,7 +143,7 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "02":
-              switchCase(eqList.get(j).getType(), F2);
+              switchCase(eqList.get(j).getType().getString(), F2);
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -152,7 +152,7 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "03":
-              switchCase(eqList.get(j).getType(), F3);
+              switchCase(eqList.get(j).getType().getString(), F3);
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -161,7 +161,7 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "04":
-              switchCase(eqList.get(j).getType(), F4);
+              switchCase(eqList.get(j).getType().getString(), F4);
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -170,7 +170,7 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "05":
-              switchCase(eqList.get(j).getType(), F5);
+              switchCase(eqList.get(j).getType().getString(), F5);
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -179,7 +179,7 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "L1":
-              switchCase(eqList.get(j).getType(), L1);
+              switchCase(eqList.get(j).getType().getString(), L1);
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -188,7 +188,7 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "L2":
-              switchCase(eqList.get(j).getType(), L2);
+              switchCase(eqList.get(j).getType().getString(), L2);
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -230,7 +230,7 @@ public class MapEditorController extends LoadableController {
     }
   }
 
-  public void refresh() throws SQLException {
+  public void refresh() throws SQLException, NonExistingMedEquip {
     if (currFloor == "0") {
       refreshDash();
       return;
@@ -261,7 +261,7 @@ public class MapEditorController extends LoadableController {
     FloorTab.setVisible(false);
   }
 
-  public void swapFloor1(ActionEvent actionEvent) throws SQLException {
+  public void swapFloor1(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     removeMarkers();
     currFloor = "01";
     refresh();
@@ -270,7 +270,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(img1);
   }
 
-  public void swapFloor2(ActionEvent actionEvent) throws SQLException {
+  public void swapFloor2(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     removeMarkers();
     currFloor = "02";
     refresh();
@@ -279,7 +279,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(img2);
   }
 
-  public void swapFloor3(ActionEvent actionEvent) throws SQLException {
+  public void swapFloor3(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     removeMarkers();
     currFloor = "03";
     refresh();
@@ -288,7 +288,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(img3);
   }
 
-  public void swapFloorL1(ActionEvent actionEvent) throws SQLException {
+  public void swapFloorL1(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     currFloor = "L1";
     removeMarkers();
     refresh();
@@ -297,7 +297,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(imgL1);
   }
 
-  public void swapFloorL2(ActionEvent actionEvent) throws SQLException {
+  public void swapFloorL2(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     currFloor = "L2";
     removeMarkers();
     refresh();
@@ -330,7 +330,7 @@ public class MapEditorController extends LoadableController {
           (event -> {
             try {
               testUpdate(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
-            } catch (SQLException | IOException e) {
+            } catch (SQLException | IOException | NonExistingMedEquip e) {
               e.printStackTrace();
             }
           }));
@@ -353,9 +353,8 @@ public class MapEditorController extends LoadableController {
           equipList.add(
               new medEquip(
                   eqList.get(i).getMedID(),
-                  eqList.get(i).getType(),
-                  currFloorLoc.get(j).getXCoord(),
-                  currFloorLoc.get(j).getYCoord()));
+                  eqList.get(i).getType().getString(),
+                  eqList.get(i).getStatus()));
           break;
         }
       }
@@ -405,7 +404,7 @@ public class MapEditorController extends LoadableController {
     reqDots.clear();
   }
 
-  public void testUpdate(String nodeID) throws SQLException, IOException {
+  public void testUpdate(String nodeID) throws SQLException, IOException, NonExistingMedEquip {
     SceneManager.getInstance()
         .putInformation(SceneManager.getInstance().getPrimaryStage(), "updateLoc", nodeID);
     Stage S = SceneManager.getInstance().openWindow("UpdateMapPage.fxml");
@@ -447,7 +446,7 @@ public class MapEditorController extends LoadableController {
   }
 
   public void addLocation2(javafx.scene.input.MouseEvent mouseEvent)
-      throws IOException, SQLException {
+      throws IOException, SQLException, NonExistingMedEquip {
     if (interactionState == InteractionStates.Modify) {
       Point p = new Point();
       p.x = (int) mouseEvent.getX();
@@ -461,7 +460,7 @@ public class MapEditorController extends LoadableController {
     }
   }
 
-  public void swapFloor4(ActionEvent actionEvent) throws SQLException {
+  public void swapFloor4(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     currFloor = "04";
     removeMarkers();
     refresh();
@@ -469,7 +468,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(img4);
   }
 
-  public void swapFloor5(ActionEvent actionEvent) throws SQLException {
+  public void swapFloor5(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     currFloor = "05";
     removeMarkers();
     refresh();
@@ -507,7 +506,7 @@ public class MapEditorController extends LoadableController {
   @Override
   public void onUnload() {}
 
-  private void moveVals() throws SQLException {
+  private void moveVals() throws SQLException, NonExistingMedEquip {
     ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
     for (MedEquip medEquip : eqList) {
       medEquip.setNodeID("HOLD");
@@ -519,55 +518,44 @@ public class MapEditorController extends LoadableController {
     }
     ArrayList<Request> medr = MedRequestManager.getMedRequestManager().getAllRequests();
     for (int i = 0; i < medr.size(); i++) {
-      */
-/*      medRequestManager.changeMedRequest(
-medr.get(i).getRequestID(),
-((MedRequest) medr.get(i)).getMedicine().getString(),
-"HOLD",
-medr.get(i).getEmployeeID(),
-medr.get(i).getEmergency(),
-medr.get(i).getStatus(),
-medr.get(i).getCreatedTimestamp(),
-medr.get(i).getUpdatedTimestamp());*//*
+      medRequestManager.changeMedRequest((MedRequest) medr.get(i));
+    }
+    ArrayList<Request> eqrl = medEquipRequestManager.getAllRequests();
+    for (int i = 0; i < eqrl.size(); i++) {
+      medEquipRequestManager.changeReq((MedEquipRequest) eqrl.get(i), "HOLD");
+    }
+  }
 
-                                         }
-                                         ArrayList<Request> eqrl = medEquipRequestManager.getAllRequests();
-                                         for (int i = 0; i < eqrl.size(); i++) {
-                                           medEquipRequestManager.changeReq((MedEquipRequest) eqrl.get(i), "HOLD");
-                                         }
-                                       }
+  private void generateRequestList() throws SQLException, NonExistingMedEquip {
+    reqList.clear();
+    ArrayList<Request> rList = new ArrayList<>();
+    rList.addAll(medRequestManager.getAllRequests());
+    rList.addAll(medEquipRequestManager.getAllRequests());
+    rList.addAll(labServiceRequestManager.getAllRequests());
+    for (int i = 0; i < rList.size(); i++) {
+      for (int j = 0; j < currFloorNodeID.size(); j++) {
+        if (rList.get(i).getNodeID().equalsIgnoreCase(currFloorLoc.get(j).getNodeID())) {
+          reqList.add(
+              new Requests(
+                  rList.get(i).getStatus().getString(),
+                  rList.get(i).getEmployeeID(),
+                  rList.get(i).getEmergency(),
+                  rList.get(i).getRequestID(),
+                  currFloorLoc.get(j).getXCoord(),
+                  currFloorLoc.get(j).getYCoord()));
+        }
+      }
+    }
+  }
 
-                                       private void generateRequestList() throws SQLException {
-                                         reqList.clear();
-                                         ArrayList<Request> rList = new ArrayList<>();
-                                         rList.addAll(medRequestManager.getAllRequests());
-                                         rList.addAll(medEquipRequestManager.getAllRequests());
-                                         rList.addAll(labServiceRequestManager.getAllRequests());
-                                         for (int i = 0; i < rList.size(); i++) {
-                                           for (int j = 0; j < currFloorNodeID.size(); j++) {
-                                             if (rList.get(i).getNodeID().equalsIgnoreCase(currFloorLoc.get(j).getNodeID())) {
-                                               reqList.add(
-                                                   new Requests(
-                                                       rList.get(i).getStatus().getString(),
-                                                       rList.get(i).getEmployeeID(),
-                                                       rList.get(i).getEmergency(),
-                                                       rList.get(i).getRequestID(),
-                                                       currFloorLoc.get(j).getXCoord(),
-                                                       currFloorLoc.get(j).getYCoord()));
-                                             }
-                                           }
-                                         }
-                                       }
-
-                                       private void generateRequestDots() {
-                                         size = reqList.size();
-                                         for (int i = 0; i < size; i++) {
-                                           Circle circ = new Circle(3, Color.BLACK);
-                                           circ.setCenterX((reqList.get(i).getXcoord()));
-                                           circ.setCenterY((reqList.get(i).getYcoord()) - 8);
-                                           reqDots.add(circ);
-                                           scrollGroup.getChildren().add(circ);
-                                         }
-                                       }
-                                     }
-                                     */
+  private void generateRequestDots() {
+    size = reqList.size();
+    for (int i = 0; i < size; i++) {
+      Circle circ = new Circle(3, Color.BLACK);
+      circ.setCenterX((reqList.get(i).getXcoord()));
+      circ.setCenterY((reqList.get(i).getYcoord()) - 8);
+      reqDots.add(circ);
+      scrollGroup.getChildren().add(circ);
+    }
+  }
+}
