@@ -189,4 +189,27 @@ public class ComputerServiceRequestDaoImpl implements ComputerServiceRequestDao 
             "UPDATE COMPUTERSERVICEREQUESTS SET employeeID=%d WHERE employeeID=%d",
             EmployeeManager.getEmployeeManager().getDeletedEmployee(), employeeID));
   }
+
+  @Override
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    ArrayList<Request> employeeRequestList = new ArrayList<>();
+    try {
+      ResultSet requests =
+          statement.executeQuery(
+              String.format(
+                  "SELECT * FROM COMPUTERSERVICEREQUESTS WHERE EMPLOYEEID = %d", employeeID));
+      while (requests.next()) {
+        ArrayList<String> requestData = new ArrayList<String>();
+
+        for (int i = 0; i < requests.getMetaData().getColumnCount(); i++) {
+          requestData.add(requests.getString(i + 1));
+        }
+
+        employeeRequestList.add(new ComputerServiceRequest(requestData));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return employeeRequestList;
+  }
 }

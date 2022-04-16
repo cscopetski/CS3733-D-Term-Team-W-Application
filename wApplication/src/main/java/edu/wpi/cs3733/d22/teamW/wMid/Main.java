@@ -2,9 +2,6 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 
 public class Main {
@@ -20,6 +17,7 @@ public class Main {
     final String employeesFileName = "Employees.csv";
     final String medRequestFileName = "MedRequests.csv";
     final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
+    final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
 
     DBController.getDBController();
 
@@ -31,7 +29,8 @@ public class Main {
             labServiceRequestFileName,
             employeesFileName,
             medRequestFileName,
-            computerServiceRequestFileName);
+            computerServiceRequestFileName,
+            giftDeliveryRequestFileName);
 
     try {
       csvController.populateTables();
@@ -39,6 +38,18 @@ public class Main {
       e.printStackTrace();
     }
 
+    /*
+
+       this.requestID = requestID;
+    this.recipientFirstName = recipientFirstName;
+    this.recipientLastName = recipientLastName;
+    this.nodeID = nodeID;
+    this.employeeID = employeeID;
+    this.emergency = emergency;
+    this.status = status;
+    this.createdTimestamp = createdTimestamp;
+    this.updatedTimestamp = updatedTimestamp;
+     */
     // App.launch(App.class, args);
   }
 }
