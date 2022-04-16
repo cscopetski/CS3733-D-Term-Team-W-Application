@@ -3,10 +3,8 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.FlowerRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.Flower;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.util.ArrayList;
 
 public class Main {
@@ -41,6 +39,7 @@ public class Main {
       e.printStackTrace();
     }
 
+    /*
     FlowerRequestManager frm = FlowerRequestManager.getFlowerRequestManager();
     ArrayList<String> fields = new ArrayList<String>();
     fields.add("Rose");
@@ -64,6 +63,16 @@ public class Main {
     FlowerRequest fr2 = (FlowerRequest) rq.getRequest(RequestType.FlowerRequest, fields2, false);
     fr2.setFlower(Flower.Daisy);
     frm.changeFlowerRequest(fr2);
+    frm.exportReqCSV(flowerRequestFileName);
+     */
+    RequestFacade rf = RequestFacade.getRequestFacade();
+    ArrayList<Request> reqs = rf.getAllRequests();
+    ArrayList<Integer> ids = new ArrayList<>();
+    for (Request r : reqs) {
+      ids.add(r.getRequestID());
+    }
+    System.out.println(ids);
+
     // App.launch(App.class, args);
 
   }

@@ -54,6 +54,7 @@ public class DBController {
 
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
+      FlowerRequestDao flowerRequestDao = new FlowerRequestDaoImpl(statement);
       MedRequestDao medRequestDao = new MedRequestDaoImpl(statement);
       CleaningRequestDao cleaningRequestDao = new CleaningRequestDaoImpl(statement);
       LabServiceRequestDao labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
@@ -61,7 +62,6 @@ public class DBController {
       MedEquipDao medEquipDao = new MedEquipDaoImpl(statement);
       EmployeeDao employeeDao = new EmployeeDaoSecureImpl(statement);
       LocationDao locationDao = new LocationDaoImpl(statement);
-      FlowerRequestDao flowerRequestDao = new FlowerRequestDaoImpl(statement);
 
       // Assign Daos to Managers
       EmployeeManager.getEmployeeManager().setEmployeeDao(employeeDao);

@@ -33,7 +33,7 @@ public class FlowerRequestDaoImpl implements FlowerRequestDao {
   }
 
   String CSVHeaderString =
-      "flowerReqID,flowerType,nodeID,employeeID,isEmergency,reqStatus,createdTimestamp,updatedTimestamp";
+      "ReqID,flowerType,lastName, firstName,nodeID,employeeID,isEmergency,reqStatus,createdTimestamp,updatedTimestamp";
 
   void createTable() throws SQLException {
 

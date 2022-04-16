@@ -71,9 +71,9 @@ public class FlowerRequest extends Request {
     return String.format(
         "%d,%s,%s,%s,%s,%d,%d,%d,%s,%s",
         requestID,
+        flower.getString(),
         patientLast,
         patientFirst,
-        flower.getString(),
         nodeID,
         employeeID,
         emergency,
