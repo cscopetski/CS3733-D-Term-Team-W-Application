@@ -18,6 +18,7 @@ public class CSVController {
   private String labServiceRequestFileName;
   private String employeeFileName;
   private String medRequestFileName;
+  private String computerServiceRequestFileName;
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
@@ -27,13 +28,15 @@ public class CSVController {
       String medEquipRequestFileName,
       String labServiceRequestFileName,
       String employeeFileName,
-      String medRequestFileName) {
+      String medRequestFileName,
+      String computerServiceRequestFileName) {
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
     this.medEquipRequestFileName = medEquipRequestFileName;
     this.labServiceRequestFileName = labServiceRequestFileName;
     this.employeeFileName = employeeFileName;
     this.medRequestFileName = medRequestFileName;
+    this.computerServiceRequestFileName = computerServiceRequestFileName;
   }
 
   public void populateTables() throws Exception {
@@ -44,6 +47,8 @@ public class CSVController {
     insertIntoMedEquipReqTable(importCSV(medEquipRequestFileName));
     insertIntoLabReqTable(importCSV(labServiceRequestFileName));
     insertMedRequestTable(importCSV(medRequestFileName));
+
+    insertComputerServiceRequestTable(importCSV(computerServiceRequestFileName));
   }
 
   public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
@@ -221,6 +226,17 @@ public class CSVController {
         s.printStackTrace();
         throw (s);
       }
+    }
+  }
+
+  private void insertComputerServiceRequestTable(ArrayList<String[]> tokens) throws Exception {
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+      ComputerServiceRequest csr =
+          (ComputerServiceRequest)
+              requestFactory.getRequest(RequestType.ComputerServiceRequest, fields, true);
     }
   }
 }

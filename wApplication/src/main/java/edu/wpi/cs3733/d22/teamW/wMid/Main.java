@@ -2,12 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.MedicineType;
-import java.util.ArrayList;
 
 public class Main {
 
@@ -21,6 +16,7 @@ public class Main {
     final String labServiceRequestFileName = "LabRequests.csv";
     final String employeesFileName = "Employees.csv";
     final String medRequestFileName = "MedRequests.csv";
+    final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
 
     DBController.getDBController();
 
@@ -31,7 +27,8 @@ public class Main {
             medEquipRequestFileName,
             labServiceRequestFileName,
             employeesFileName,
-            medRequestFileName);
+            medRequestFileName,
+            computerServiceRequestFileName);
 
     try {
       csvController.populateTables();
@@ -39,10 +36,6 @@ public class Main {
       e.printStackTrace();
     }
 
-
-
-
     App.launch(App.class, args);
-
   }
 }
