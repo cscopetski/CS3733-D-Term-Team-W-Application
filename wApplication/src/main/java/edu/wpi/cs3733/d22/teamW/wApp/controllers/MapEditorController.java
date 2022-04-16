@@ -335,9 +335,9 @@ public class MapEditorController extends LoadableController {
 
   private void generateMarkers() {
     size = currFloorLoc.size();
-    AtomicReference<Double> anchorX = new AtomicReference<>((double) 0);
-    AtomicReference<Double> anchorY = new AtomicReference<>((double) 0);
     for (int i = 0; i < size; i++) {
+      AtomicReference<Double> anchorX = new AtomicReference<>((double) 0);
+      AtomicReference<Double> anchorY = new AtomicReference<>((double) 0);
       Circle circ = new Circle(12, Color.RED);
       Image locationIcon =
           new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Location.png");
@@ -368,8 +368,11 @@ public class MapEditorController extends LoadableController {
           });
       circ.setOnMouseReleased(
           event -> {
-            circ.relocate(
-                circ.getCenterX() + circ.getTranslateX(), circ.getCenterY() + circ.getTranslateY());
+            //            circ.relocate(
+            //                circ.getCenterX() + circ.getTranslateX(), circ.getCenterY() +
+            // circ.getTranslateY());
+            circ.setCenterX(circ.getCenterX() + circ.getTranslateX());
+            circ.setCenterY(circ.getCenterY() + circ.getTranslateY());
             System.out.println(circ.getTranslateX() + " " + circ.getTranslateY());
             circ.setTranslateX(0);
             circ.setTranslateY(0);
@@ -383,11 +386,13 @@ public class MapEditorController extends LoadableController {
             } catch (SQLException e) {
               e.printStackTrace();
             }
+            currFloorLoc.get(locDots.indexOf(event.getSource())).setXCoord((int) circ.getCenterX());
+            currFloorLoc.get(locDots.indexOf(event.getSource())).setYCoord((int) circ.getCenterY());
             try {
               locationManager.changeLocation(
                   val.getNodeID(),
-                  (int) (circ.getLayoutX()),
-                  (int) (circ.getLayoutY()),
+                  (int) (circ.getCenterX()),
+                  (int) (circ.getCenterY()),
                   val.getFloor(),
                   val.getBuilding(),
                   val.getNodeType(),
@@ -430,6 +435,8 @@ public class MapEditorController extends LoadableController {
   private void generateEquipMarkers() {
     for (int i = 0; i < equipList.size(); i++) {
       Circle circle = new Circle(10, Color.TRANSPARENT);
+      AtomicReference<Double> anchorX = new AtomicReference<>((double) 0);
+      AtomicReference<Double> anchorY = new AtomicReference<>((double) 0);
       if (equipList.get(i).getType().equalsIgnoreCase("BED")) {
         Image bedIcon = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Bed.png");
         ImagePattern bedPattern = new ImagePattern(bedIcon);
@@ -454,9 +461,73 @@ public class MapEditorController extends LoadableController {
       }
       circle.setCenterX((equipList.get(i).getXCoord()));
       circle.setCenterY((equipList.get(i).getYCoord()) - 8);
+      circle.setOnMousePressed(
+          event -> {
+            anchorX.set(event.getSceneX());
+            anchorY.set(event.getSceneY());
+          });
+      Circle finalCircle1 = circle;
+      circle.setOnMouseDragged(
+          event -> {
+            finalCircle1.setTranslateX(event.getSceneX() - anchorX.get());
+            finalCircle1.setTranslateY(event.getSceneY() - anchorY.get());
+          });
+      Circle finalCircle = circle;
+      circle.setOnMouseReleased(
+          event -> {
+            //            finalCircle.relocate(
+            //                finalCircle.getCenterX() + finalCircle.getTranslateX(),
+            //                finalCircle.getCenterY() + finalCircle.getTranslateY());
+            finalCircle.setCenterY(finalCircle.getCenterY() + finalCircle.getTranslateY());
+            finalCircle.setCenterX(finalCircle.getCenterX() + finalCircle.getTranslateX());
+            System.out.println(finalCircle.getTranslateX() + " " + finalCircle.getTranslateY());
+            edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location loc =
+                snapToClosestLoc(finalCircle.getCenterX(), finalCircle.getCenterY());
+            finalCircle.setCenterX(loc.getXCoord());
+            finalCircle.setCenterY(loc.getYCoord());
+            medEquip eq = equipList.get(eqDots.indexOf(finalCircle));
+            //            try {
+            //
+            // System.out.println(equipController.getMedEquip(eq.getMedID()).getNodeID());
+            //            } catch (SQLException e) {
+            //              e.printStackTrace();
+            //            }
+            eq.setXCoord(loc.getXCoord());
+            eq.setYCoord(loc.getYCoord());
+            try {
+              equipController.change(
+                  eq.getMedID(),
+                  eq.getType(),
+                  loc.getNodeID(),
+                  equipController.getMedEquip(eq.getMedID()).getStatus());
+            } catch (SQLException e) {
+              e.printStackTrace();
+            }
+            finalCircle.setTranslateX(0);
+            finalCircle.setTranslateY(0);
+            anchorX.set(0.0);
+            anchorY.set(0.0);
+          });
       eqDots.add(circle);
       scrollGroup.getChildren().add(circle);
     }
+  }
+
+  private edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location snapToClosestLoc(double x, double y) {
+    int bestFit = 0;
+    double bestDist = 10000;
+    for (int i = 0; i < currFloorLoc.size(); i++) {
+      double euclid =
+          Math.sqrt(
+              Math.pow((currFloorLoc.get((i)).getXCoord() - x), 2)
+                  + (Math.pow((currFloorLoc.get((i)).getYCoord() - y), 2)));
+      if (euclid < bestDist) {
+        bestFit = Integer.valueOf(i);
+        bestDist = Double.valueOf(euclid);
+      }
+    }
+    System.out.println(bestFit);
+    return currFloorLoc.get(bestFit);
   }
 
   private void removeMarkers() {
