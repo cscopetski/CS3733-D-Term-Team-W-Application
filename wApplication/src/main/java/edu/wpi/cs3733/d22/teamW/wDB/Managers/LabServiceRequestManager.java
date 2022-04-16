@@ -6,6 +6,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
@@ -113,6 +114,9 @@ public class LabServiceRequestManager implements RequestManager {
     lsrdi.changeLabServiceRequest(request);
   }
 
+  public void changeRequest(Request request) throws SQLException {
+    lsrdi.changeLabServiceRequest((LabServiceRequest) request);
+  }
   @Override
   public ArrayList<Request> getAllRequests() {
     return this.lsrdi.getAllLabServiceRequests();

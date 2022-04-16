@@ -98,7 +98,7 @@ public class SecurityRequestManager implements RequestManager {
     return csr;
   }
 
-  public void changeExistingRequest(Request request) throws SQLException {
+  public void changeRequest(Request request) throws SQLException {
     csrd.changeSecurityRequest((SecurityRequest) request);
   }
 

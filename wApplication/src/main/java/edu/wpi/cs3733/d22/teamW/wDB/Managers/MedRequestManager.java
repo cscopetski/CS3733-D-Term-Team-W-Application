@@ -96,8 +96,8 @@ public class MedRequestManager implements RequestManager {
 
   // TODO should or should not have
 
-  public void changeMedRequest(MedRequest medRequest) throws SQLException {
-    mrd.changeMedRequest(medRequest);
+  public void changeRequest(Request medRequest) throws SQLException {
+    mrd.changeMedRequest((MedRequest) medRequest);
   }
 
   @Override

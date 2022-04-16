@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.SanitationRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
@@ -94,6 +95,10 @@ public class SanitationRequestManager implements RequestManager {
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
     request.setStatus(RequestStatus.InQueue);
     srd.changeSanitationRequest(request);
+  }
+
+  public void changeRequest(Request request) throws SQLException {
+    srd.changeSanitationRequest((SanitationRequest) request);
   }
 
   @Override
