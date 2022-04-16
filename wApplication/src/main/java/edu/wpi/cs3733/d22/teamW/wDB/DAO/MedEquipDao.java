@@ -21,4 +21,7 @@ public interface MedEquipDao {
   void exportMedCSV(String fileName);
 
   ArrayList<MedEquip> getAllMedEquip(MedEquipType type, MedEquipStatus status) throws SQLException;
+
+  void updateMedEquipsAtLocation(String nodeID) throws Exception;
+
 }

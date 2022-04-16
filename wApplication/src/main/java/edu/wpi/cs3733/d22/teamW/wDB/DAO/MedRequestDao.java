@@ -20,4 +20,9 @@ public interface MedRequestDao {
   void exportMedReqCSV(String fileName);
 
   ArrayList<Request> getEmployeeRequests(Integer employeeID);
+
+  void updateMedReqAtLocation(String nodeID) throws Exception;
+
+  void updateMedRequestsWithEmployee(Integer employeeID) throws Exception;
+
 }

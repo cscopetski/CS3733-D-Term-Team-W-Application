@@ -8,6 +8,8 @@ import java.util.ArrayList;
 public class LocationManager {
   private LocationDao ldi;
 
+  private final String noneLocationID = "NONE";
+
   private static LocationManager locationManager = new LocationManager();
 
   public static LocationManager getLocationManager() {
@@ -15,6 +17,10 @@ public class LocationManager {
   }
 
   private LocationManager() {}
+
+  public String getNoneLocation() {
+    return this.noneLocationID;
+  }
 
   public void setLocationDao(LocationDao ldi) {
     this.ldi = ldi;
@@ -28,7 +34,12 @@ public class LocationManager {
     ldi.addLocation(location);
   }
 
-  public void deleteLocation(String nodeID) throws SQLException {
+  public void deleteLocation(String nodeID) throws Exception {
+    MedEquipManager.getMedEquipManager().updateMedEquipAtLocation(nodeID);
+    MedRequestManager.getMedRequestManager().updateReqAtLocation(nodeID);
+    MedEquipRequestManager.getMedEquipRequestManager().updateReqAtLocation(nodeID);
+    LabServiceRequestManager.getLabServiceRequestManager().updateReqAtLocation(nodeID);
+    CleaningRequestManager.getCleaningRequestManager().updateReqAtLocation(nodeID);
     ldi.deleteLocation(nodeID);
   }
 
@@ -36,7 +47,7 @@ public class LocationManager {
     return ldi.getAllLocations();
   }
 
-  public void clearLocations() throws SQLException {
+  public void clearLocations() throws Exception {
     for (int i = 0; i < getAllLocations().size(); i++) {
       if (getAllLocations().get(i).getNodeID().equalsIgnoreCase("HOLD")) {
 

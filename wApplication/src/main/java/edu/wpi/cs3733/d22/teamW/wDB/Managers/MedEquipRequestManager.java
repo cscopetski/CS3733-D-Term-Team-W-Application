@@ -75,6 +75,7 @@ public class MedEquipRequestManager implements RequestManager {
         if (medEquip != null) {
           // If available, we mark it in use and set the request to in progress
           MedEquipManager.getMedEquipManager().markInUse(medEquip.getMedID(), medEquip.getNodeID());
+          request.setItemID(medEquip.getMedID());
           request.setStatus(RequestStatus.InProgress);
           merd.changeMedEquipRequest(request);
         } else {
@@ -98,6 +99,7 @@ public class MedEquipRequestManager implements RequestManager {
         if (medEquip != null) {
           // If available, we mark it in use and set the request to in progress
           MedEquipManager.getMedEquipManager().markInUse(medEquip.getMedID(), medEquip.getNodeID());
+          request.setItemID(medEquip.getMedID());
           request.setStatus(RequestStatus.InProgress);
           merd.changeMedEquipRequest(request);
         } else {
@@ -247,5 +249,19 @@ public class MedEquipRequestManager implements RequestManager {
 
   public void exportReqCSV(String filename) throws NonExistingMedEquip {
     merd.exportMedEquipReqCSV(filename);
+  }
+
+  @Override
+  public void updateReqAtLocation(String nodeID) throws Exception {
+    merd.updateMedEquipRequestsAtLocation(nodeID);
+  }
+
+  @Override
+  public void updateReqWithEmployee(Integer employeeID) throws Exception {
+    merd.updateMedEquipRequestsWithEmployee(employeeID);
+  }
+
+  public void updateReqWithEquipment(String nodeID) throws Exception {
+    this.merd.updateMedEquipRequestsWithEquipment(nodeID);
   }
 }

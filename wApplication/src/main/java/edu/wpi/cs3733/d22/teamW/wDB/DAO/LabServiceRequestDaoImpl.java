@@ -2,6 +2,9 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingLabServiceRequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -158,5 +161,52 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
       e.printStackTrace();
     }
     return employeeRequestList;
+
+  public void updateLabServiceRequestsAtLocation(String nodeID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format("SELECT labReqID FROM LABSERVICEREQUESTS WHERE nodeID='%s'", nodeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("labReqID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      LabServiceRequestManager.getLabServiceRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE LABSERVICEREQUESTS SET NODEID='%s' WHERE NODEID='%s'",
+            LocationManager.getLocationManager().getNoneLocation(), nodeID));
+  }
+
+  @Override
+  public void updateLabServiceRequestsWithEmployee(Integer employeeID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format(
+                "SELECT labReqID FROM LABSERVICEREQUESTS WHERE employeeID=%d", employeeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("labReqID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      LabServiceRequestManager.getLabServiceRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE LABSERVICEREQUESTS SET employeeID=%d WHERE employeeID=%d",
+            EmployeeManager.getEmployeeManager().getDeletedEmployee(), employeeID));
   }
 }

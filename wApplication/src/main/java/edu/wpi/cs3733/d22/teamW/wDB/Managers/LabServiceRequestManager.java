@@ -125,4 +125,14 @@ public class LabServiceRequestManager implements RequestManager {
   public void exportReqCSV(String filename) {
     lsrdi.exportLabServiceReqCSV(filename);
   }
+
+  @Override
+  public void updateReqAtLocation(String nodeID) throws Exception {
+    this.lsrdi.updateLabServiceRequestsAtLocation(nodeID);
+  }
+
+  @Override
+  public void updateReqWithEmployee(Integer employeeID) throws Exception {
+    this.lsrdi.updateLabServiceRequestsWithEmployee(employeeID);
+  }
 }

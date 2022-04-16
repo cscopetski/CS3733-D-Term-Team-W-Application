@@ -18,4 +18,9 @@ public interface LabServiceRequestDao {
   void exportLabServiceReqCSV(String filename);
 
   ArrayList<Request> getEmployeeRequests(Integer employeeID);
+
+  void updateLabServiceRequestsAtLocation(String nodeID) throws Exception;
+
+  void updateLabServiceRequestsWithEmployee(Integer employeeID) throws Exception;
+
 }

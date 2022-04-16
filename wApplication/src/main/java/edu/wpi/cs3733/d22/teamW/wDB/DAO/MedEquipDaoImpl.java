@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipType;
@@ -193,5 +194,14 @@ public class MedEquipDaoImpl implements MedEquipDao {
       System.out.println(String.format("Error Exporting to File %s", fileName));
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public void updateMedEquipsAtLocation(String nodeID) throws SQLException {
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE MEDICALEQUIPMENT SET NODEID='%s' WHERE NODEID='%s'",
+            LocationManager.getLocationManager().getNoneLocation(), nodeID));
   }
 }

@@ -25,4 +25,11 @@ public interface CleaningRequestDao {
   ArrayList<Request> getAllCleaningRequests();
 
   ArrayList<Request> getEmployeeRequests(Integer employeeID);
+
+  void updateCleaningRequestsAtLocation(String nodeID) throws Exception;
+
+  void updateCleaningRequestsWithEquipment(String medID) throws Exception;
+
+  void updateCleaningRequestsWithEmployee(Integer employeeID) throws Exception;
+
 }

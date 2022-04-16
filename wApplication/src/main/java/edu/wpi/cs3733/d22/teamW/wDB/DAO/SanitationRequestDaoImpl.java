@@ -1,5 +1,10 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.SanitationRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.SanitationRequest;
@@ -179,4 +184,54 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
     return employeeRequestList;
   }
    */
+
+  @Override
+  public void updateSanitationRequestsAtLocation(String nodeID) throws SQLException, StatusError {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format("SELECT ReqID FROM SANITATIONREQUESTS WHERE nodeID='%s'", nodeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("ReqID");
+      reqIDs.add(reqID);
+      System.out.println(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      LabServiceRequestManager.getLabServiceRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE SANITATIONREQUESTS SET NODEID='%s' WHERE NODEID='%s'",
+            LocationManager.getLocationManager().getNoneLocation(), nodeID));
+  }
+
+  @Override
+  public void updateSanitationRequestsWithEmployee(Integer employeeID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format("SELECT ReqID FROM SANITATIONREQUESTS WHERE employeeID=%d", employeeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("ReqID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      SanitationRequestManager.getSanitationRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE SANITATIONREQUESTS SET employeeID=%d WHERE employeeID=%d",
+            EmployeeManager.getEmployeeManager().getDeletedEmployee(), employeeID));
+  }
+
 }
