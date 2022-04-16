@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.enums;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public enum RequestType {
   MedicalEquipmentRequest(0, "Medical Equipment Request"),
@@ -50,5 +49,10 @@ public enum RequestType {
 
   public static RequestType getRequestType(String type) {
     return (RequestType) map2.get(type);
+  }
+
+  @Override
+  public String toString() {
+    return this.string;
   }
 }

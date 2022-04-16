@@ -22,6 +22,10 @@ public class RequestFacade {
     return requestFacade;
   }
 
+  public ArrayList<Request> getRequests(ArrayList<RequestType> requestTypes) throws SQLException {
+    return getRequests(requestTypes.toArray(new RequestType[requestTypes.size()]));
+  }
+
   public ArrayList<Request> getRequests(RequestType... requestTypes) throws SQLException {
     if (requestTypes == null || requestTypes.length == 0) {
       return getRequestsByType();
@@ -50,7 +54,7 @@ public class RequestFacade {
         requests.addAll(crm.getAllRequests());
         break;
       default:
-        requests.addAll(getRequestsByType());
+        // requests.addAll(getRequestsByType());
         break;
     }
     Collections.sort(requests);
