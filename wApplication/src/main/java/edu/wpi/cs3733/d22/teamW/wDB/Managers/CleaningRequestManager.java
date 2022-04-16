@@ -160,6 +160,18 @@ public class CleaningRequestManager {
     }
   }
 
+  public void updateReqAtLocation(String nodeID) throws Exception {
+    this.crd.updateCleaningRequestsAtLocation(nodeID);
+  }
+
+  public void updateReqWithEquipment(String nodeID) throws Exception {
+    this.crd.updateCleaningRequestsWithEquipment(nodeID);
+  }
+
+  public void updateReqWithEmployee(Integer employeeID) throws Exception {
+    this.crd.updateCleaningRequestsWithEmployee(employeeID);
+  }
+
   public void exportReqCSV(String filename) {
     crd.exportCleaningReqCSV(filename);
   }

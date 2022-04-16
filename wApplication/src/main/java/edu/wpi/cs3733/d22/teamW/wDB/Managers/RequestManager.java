@@ -30,4 +30,8 @@ public interface RequestManager {
   public Request addExistingRequest(ArrayList<String> fields) throws Exception;
 
   public void exportReqCSV(String filename) throws Exception;
+
+  public void updateReqAtLocation(String nodeID) throws Exception;
+
+  public void updateReqWithEmployee(Integer employeeID) throws Exception;
 }

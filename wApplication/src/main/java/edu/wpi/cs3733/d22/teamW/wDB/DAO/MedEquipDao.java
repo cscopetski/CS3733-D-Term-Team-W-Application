@@ -17,4 +17,6 @@ public interface MedEquipDao {
   void changeMedEquip(MedEquip medEquip) throws SQLException;
 
   void exportMedCSV(String fileName);
+
+  void updateMedEquipsAtLocation(String nodeID) throws Exception;
 }

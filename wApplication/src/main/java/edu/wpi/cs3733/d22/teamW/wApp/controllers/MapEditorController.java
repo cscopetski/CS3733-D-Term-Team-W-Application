@@ -9,7 +9,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -412,7 +411,7 @@ public class MapEditorController extends LoadableController {
     refresh();
   }
 
-  public void resetCSV(ActionEvent actionEvent) throws SQLException, FileNotFoundException {
+  public void resetCSV(ActionEvent actionEvent) throws Exception {
     if (loaded) {
 
     } else {

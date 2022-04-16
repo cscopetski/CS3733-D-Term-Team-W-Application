@@ -156,7 +156,7 @@ public class UpdateMapPageController implements Initializable {
     }
   }
 
-  public void removeLoc(ActionEvent actionEvent) throws SQLException {
+  public void removeLoc(ActionEvent actionEvent) throws Exception {
     Optional<ButtonType> result = confirmChoice.showAndWait();
     if (result.get() == ButtonType.OK) {
       locationManager.deleteLocation(loc.getNodeID());

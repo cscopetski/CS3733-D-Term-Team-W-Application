@@ -23,4 +23,10 @@ public interface CleaningRequestDao {
   public ArrayList<Integer> CleaningRequestAtLocation(String nodeID) throws SQLException;
 
   ArrayList<Request> getAllCleaningRequests();
+
+  void updateCleaningRequestsAtLocation(String nodeID) throws Exception;
+
+  void updateCleaningRequestsWithEquipment(String medID) throws Exception;
+
+  void updateCleaningRequestsWithEmployee(Integer employeeID) throws Exception;
 }

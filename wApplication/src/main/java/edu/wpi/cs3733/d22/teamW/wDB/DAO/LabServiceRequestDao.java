@@ -16,4 +16,8 @@ public interface LabServiceRequestDao {
   void deleteLabServiceRequest(Integer requestID) throws SQLException;
 
   void exportLabServiceReqCSV(String filename);
+
+  void updateLabServiceRequestsAtLocation(String nodeID) throws Exception;
+
+  void updateLabServiceRequestsWithEmployee(Integer employeeID) throws Exception;
 }

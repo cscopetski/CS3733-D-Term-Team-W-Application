@@ -54,6 +54,7 @@ public class DBController {
 
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
+      SanitationRequestDao sanitationRequestDao = new SanitationRequestDaoImpl(statement);
       MedRequestDao medRequestDao = new MedRequestDaoImpl(statement);
       CleaningRequestDao cleaningRequestDao = new CleaningRequestDaoImpl(statement);
       LabServiceRequestDao labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
@@ -71,6 +72,8 @@ public class DBController {
       LabServiceRequestManager.getLabServiceRequestManager()
           .setLabServiceRequestDao(labServiceRequestDao);
       CleaningRequestManager.getCleaningRequestManager().setCleaningRequestDao(cleaningRequestDao);
+      SanitationRequestManager.getSanitationRequestManager()
+          .setLabServiceRequestDao(sanitationRequestDao);
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ((EmployeeDaoSecureImpl) employeeDao).createTable();
@@ -80,6 +83,7 @@ public class DBController {
       ((MedEquipRequestDaoImpl) medEquipRequestDao).createTable();
       ((MedRequestDaoImpl) medRequestDao).createTable();
       ((CleaningRequestDaoImpl) cleaningRequestDao).createTable();
+      ((SanitationRequestDaoImpl) sanitationRequestDao).createTable();
 
     } catch (SQLException e) {
       System.out.println("Table Creation Failed");
