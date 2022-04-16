@@ -43,24 +43,7 @@ public class Main {
       e.printStackTrace();
     }
 
-    /*
-    LanguageManager lm = LanguageManager.getLocationManager();
-    lm.addLanguage("French");
-    lm.addLanguage("English");
-    lm.addLanguage("Spanish");
-    lm.addLanguage("Mandarin");
-    lm.addLanguage("German");
-    lm.addLanguage("Swedish");
-    lm.addLanguage("Hindi");
-    lm.addLanguage("Portuguese");
-    lm.addLanguage("Arabic");
-    lm.addLanguage("Russian");
-    lm.addLanguage("Cantonese");
-    lm.addLanguage("Bengali");
-    lm.addLanguage("Indonesian");
-
-    lm.exportLocationsCSV(languageFileName);
-     */
+    
 
     // App.launch(App.class, args);
 
