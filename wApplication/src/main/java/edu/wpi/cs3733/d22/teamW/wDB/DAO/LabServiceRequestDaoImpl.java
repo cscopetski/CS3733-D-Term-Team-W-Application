@@ -161,6 +161,7 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
       e.printStackTrace();
     }
     return employeeRequestList;
+  }
 
   public void updateLabServiceRequestsAtLocation(String nodeID) throws Exception {
 

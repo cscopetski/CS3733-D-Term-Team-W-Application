@@ -201,6 +201,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
       e.printStackTrace();
     }
     return employeeRequestList;
+  }
 
   public void updateMedReqAtLocation(String nodeID) throws Exception {
 

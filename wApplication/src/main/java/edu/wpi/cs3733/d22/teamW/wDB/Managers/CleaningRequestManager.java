@@ -160,6 +160,7 @@ public class CleaningRequestManager {
 
   public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
     return crd.getEmployeeRequests(employeeID);
+  }
 
   public void updateReqAtLocation(String nodeID) throws Exception {
     this.crd.updateCleaningRequestsAtLocation(nodeID);

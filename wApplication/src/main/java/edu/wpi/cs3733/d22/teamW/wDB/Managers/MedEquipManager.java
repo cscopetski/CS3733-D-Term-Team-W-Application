@@ -119,6 +119,7 @@ public class MedEquipManager {
   public ArrayList<MedEquip> getAllMedEquip(MedEquipType type, MedEquipStatus status)
       throws SQLException {
     return medi.getAllMedEquip(type, status);
+  }
 
   public void updateMedEquipAtLocation(String nodeID) throws Exception {
     this.medi.updateMedEquipsAtLocation(nodeID);

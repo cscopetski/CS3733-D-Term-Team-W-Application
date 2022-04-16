@@ -18,4 +18,8 @@ public interface ComputerServiceRequestDao {
   ComputerServiceRequest getComputerServiceRequest(Integer requestID) throws StatusError;
 
   ArrayList<Request> getAllComputerServiceRequests();
+
+  void updateCompServiceRequestsAtLocation(String nodeID) throws Exception;
+
+  void updateCompServiceRequestsWithEmployee(Integer employeeID) throws Exception;
 }

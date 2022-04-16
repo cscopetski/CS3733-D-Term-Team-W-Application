@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.SanitationRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -186,7 +186,8 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
    */
 
   @Override
-  public void updateSanitationRequestsAtLocation(String nodeID) throws SQLException, StatusError {
+  public void updateSanitationRequestsAtLocation(String nodeID)
+      throws SQLException, StatusError, NonExistingMedEquip {
 
     ResultSet resultSet =
         statement.executeQuery(
@@ -201,7 +202,7 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
     }
 
     for (Integer reqID : reqIDs) {
-      LabServiceRequestManager.getLabServiceRequestManager().cancel(reqID);
+      SanitationRequestManager.getSanitationRequestManager().cancel(reqID);
     }
 
     statement.executeUpdate(
@@ -233,5 +234,4 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
             "UPDATE SANITATIONREQUESTS SET employeeID=%d WHERE employeeID=%d",
             EmployeeManager.getEmployeeManager().getDeletedEmployee(), employeeID));
   }
-
 }

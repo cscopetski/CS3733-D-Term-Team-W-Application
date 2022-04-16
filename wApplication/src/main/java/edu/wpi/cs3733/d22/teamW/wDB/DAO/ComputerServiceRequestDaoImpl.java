@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.ComputerServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import java.io.File;
@@ -140,5 +141,52 @@ public class ComputerServiceRequestDaoImpl implements ComputerServiceRequestDao 
       e.printStackTrace();
     }
     return csrList;
+  }
+
+  @Override
+  public void updateCompServiceRequestsAtLocation(String nodeID) throws Exception {
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format("SELECT ReqID FROM COMPUTERSERVICEREQUESTS WHERE nodeID='%s'", nodeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("ReqID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      ComputerServiceRequestManager.getComputerServiceRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE COMPUTERSERVICEREQUESTS SET NODEID='%s' WHERE NODEID='%s'",
+            LocationManager.getLocationManager().getNoneLocation(), nodeID));
+  }
+
+  @Override
+  public void updateCompServiceRequestsWithEmployee(Integer employeeID) throws Exception {
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format(
+                "SELECT ReqID FROM COMPUTERSERVICEREQUESTS WHERE employeeID= %d", employeeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = Integer.parseInt(resultSet.getString("ReqID"));
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      ComputerServiceRequestManager.getComputerServiceRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE COMPUTERSERVICEREQUESTS SET employeeID=%d WHERE employeeID=%d",
+            EmployeeManager.getEmployeeManager().getDeletedEmployee(), employeeID));
   }
 }

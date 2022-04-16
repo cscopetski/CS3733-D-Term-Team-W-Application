@@ -22,5 +22,4 @@ public interface LabServiceRequestDao {
   void updateLabServiceRequestsAtLocation(String nodeID) throws Exception;
 
   void updateLabServiceRequestsWithEmployee(Integer employeeID) throws Exception;
-
 }

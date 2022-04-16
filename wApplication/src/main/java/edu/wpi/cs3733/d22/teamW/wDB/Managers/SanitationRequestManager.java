@@ -106,7 +106,8 @@ public class SanitationRequestManager implements RequestManager {
   }
 
   @Override
-  public void updateReqAtLocation(String nodeID) throws SQLException, StatusError {
+  public void updateReqAtLocation(String nodeID)
+      throws SQLException, StatusError, NonExistingMedEquip {
     this.srd.updateSanitationRequestsAtLocation(nodeID);
   }
 

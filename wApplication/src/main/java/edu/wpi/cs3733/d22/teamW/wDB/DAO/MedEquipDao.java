@@ -23,5 +23,4 @@ public interface MedEquipDao {
   ArrayList<MedEquip> getAllMedEquip(MedEquipType type, MedEquipStatus status) throws SQLException;
 
   void updateMedEquipsAtLocation(String nodeID) throws Exception;
-
 }

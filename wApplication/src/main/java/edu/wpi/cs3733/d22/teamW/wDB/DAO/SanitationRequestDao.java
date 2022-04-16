@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.SanitationRequest;
@@ -23,8 +24,8 @@ public interface SanitationRequestDao {
   // TODO write this once Edison makes the DB
   // ArrayList<Request> getEmployeeRequests(Integer employeeID);
 
-  void updateSanitationRequestsAtLocation(String nodeID) throws SQLException, StatusError;
+  void updateSanitationRequestsAtLocation(String nodeID)
+      throws SQLException, StatusError, NonExistingMedEquip;
 
   void updateSanitationRequestsWithEmployee(Integer employeeID) throws Exception;
-
 }

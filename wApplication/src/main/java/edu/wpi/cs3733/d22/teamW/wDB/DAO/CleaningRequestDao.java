@@ -31,5 +31,4 @@ public interface CleaningRequestDao {
   void updateCleaningRequestsWithEquipment(String medID) throws Exception;
 
   void updateCleaningRequestsWithEmployee(Integer employeeID) throws Exception;
-
 }

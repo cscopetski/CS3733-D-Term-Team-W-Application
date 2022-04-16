@@ -108,4 +108,14 @@ public class ComputerServiceRequestManager implements RequestManager {
   public void exportReqCSV(String filename) throws Exception {
     csrd.exportComputerServiceReqCSV(filename);
   }
+
+  @Override
+  public void updateReqAtLocation(String nodeID) throws Exception {
+    this.csrd.updateCompServiceRequestsAtLocation(nodeID);
+  }
+
+  @Override
+  public void updateReqWithEmployee(Integer employeeID) throws Exception {
+    this.csrd.updateCompServiceRequestsWithEmployee(employeeID);
+  }
 }

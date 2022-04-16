@@ -24,5 +24,4 @@ public interface MedRequestDao {
   void updateMedReqAtLocation(String nodeID) throws Exception;
 
   void updateMedRequestsWithEmployee(Integer employeeID) throws Exception;
-
 }

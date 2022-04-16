@@ -37,12 +37,9 @@ public interface MedEquipRequestDao {
 
   ArrayList<Request> getEmployeeRequests(Integer employeeID);
 
-  void exportMedEquipReqCSV(String fileName);
-
   void updateMedEquipRequestsAtLocation(String nodeID) throws Exception;
 
   void updateMedEquipRequestsWithEquipment(String medID) throws Exception;
 
   void updateMedEquipRequestsWithEmployee(Integer employeeID) throws Exception;
-
 }
