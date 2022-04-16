@@ -6,6 +6,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import java.util.ArrayList;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 
 public class Main {
 
@@ -20,6 +21,7 @@ public class Main {
     final String employeesFileName = "Employees.csv";
     final String medRequestFileName = "MedRequests.csv";
     final String flowerRequestFileName = "FlowerRequests.csv";
+    final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
 
     DBController.getDBController();
 
@@ -31,7 +33,8 @@ public class Main {
             labServiceRequestFileName,
             employeesFileName,
             medRequestFileName,
-            flowerRequestFileName);
+            flowerRequestFileName,
+            computerServiceRequestFileName);
 
     try {
       csvController.populateTables();
@@ -74,6 +77,8 @@ public class Main {
     System.out.println(ids);
 
     // App.launch(App.class, args);
+
+    App.launch(App.class, args);
 
   }
 }

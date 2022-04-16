@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipType;
@@ -59,7 +60,9 @@ public class MedEquipDaoImpl implements MedEquipDao {
         for (int i = 0; i < medEquipment.getMetaData().getColumnCount(); i++) {
           medEquipData.add(medEquipment.getString(i + 1));
         }
-
+        for (String e : medEquipData) {
+          System.out.println(e);
+        }
         medEquipList.add(new MedEquip(medEquipData));
       }
 
@@ -79,18 +82,18 @@ public class MedEquipDaoImpl implements MedEquipDao {
 
     ArrayList<MedEquip> medEquipList = new ArrayList<>();
 
-    String queury = "SELECT * FROM MEDICALEQUIPMENT";
+    String queury = "SELECT * FROM MEDICALEQUIPMENT ";
     if (type == null && status != null) {
-      queury += "WHERE REQSTATUS = ";
-      queury += status.getString();
+      queury += "WHERE STATUS = ";
+      queury += status.getValue();
     }
     if (type != null && status == null) {
       queury += "WHERE TYPE = ";
       queury += type.getAbb();
     }
     if (type != null && status != null) {
-      queury += "WHERE (REQSTATUS = ";
-      queury += status.getString();
+      queury += "WHERE (STATUS = ";
+      queury += status.getValue();
       queury += "AND TYPE = ";
       queury += type.getAbb();
       queury += ")";
@@ -165,7 +168,7 @@ public class MedEquipDaoImpl implements MedEquipDao {
     statement.executeUpdate(
         String.format(
             "UPDATE MEDICALEQUIPMENT SET TYPE = '%s', NODEID = '%s', STATUS = %d WHERE MEDID = '%s'",
-            medEquip.getType(),
+            medEquip.getType().getAbb(),
             medEquip.getNodeID(),
             medEquip.getStatus().getValue(),
             medEquip.getMedID()));
@@ -191,5 +194,14 @@ public class MedEquipDaoImpl implements MedEquipDao {
       System.out.println(String.format("Error Exporting to File %s", fileName));
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public void updateMedEquipsAtLocation(String nodeID) throws SQLException {
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE MEDICALEQUIPMENT SET NODEID='%s' WHERE NODEID='%s'",
+            LocationManager.getLocationManager().getNoneLocation(), nodeID));
   }
 }

@@ -16,6 +16,9 @@ public class MedEquipManager {
 
   private MedEquipDao medi;
 
+  private final String noneEquipment = "NONE";
+  private final String deletedEquipment = "DELETED";
+
   private static MedEquipManager medEquipManager = new MedEquipManager();
   private CleaningRequestManager crm = CleaningRequestManager.getCleaningRequestManager();
 
@@ -27,6 +30,14 @@ public class MedEquipManager {
 
   public void setMedEquipDao(MedEquipDao medi) {
     this.medi = medi;
+  }
+
+  public String getDeletedEquipment() {
+    return this.deletedEquipment;
+  }
+
+  public String getNoneEquipment() {
+    return this.noneEquipment;
   }
 
   public void markClean(String medID, String nodeID) throws SQLException {
@@ -70,9 +81,14 @@ public class MedEquipManager {
   }
 
   public MedEquip getNextFree(MedEquipType itemType) throws SQLException {
-    for (MedEquip e : medi.getAllMedEquip()) {
-      if (e.getType().equals(itemType) && e.getStatus().equals(MedEquipStatus.Clean)) {
-        return e;
+    ArrayList<MedEquip> list = medi.getAllMedEquip();
+    if (list.size() == 0) {
+      return null;
+    } else {
+      for (MedEquip e : list) {
+        if (e.getType().equals(itemType) && e.getStatus().equals(MedEquipStatus.Clean)) {
+          return e;
+        }
       }
     }
     return null;
@@ -86,7 +102,9 @@ public class MedEquipManager {
     medi.changeMedEquip(medEquip);
   }
 
-  public void delete(String inputID) throws SQLException {
+  public void delete(String inputID) throws Exception {
+    MedEquipRequestManager.getMedEquipRequestManager().updateReqWithEquipment(inputID);
+    CleaningRequestManager.getCleaningRequestManager().updateReqWithEquipment(inputID);
     medi.deleteMedEquip(inputID);
   }
 
@@ -101,6 +119,10 @@ public class MedEquipManager {
   public ArrayList<MedEquip> getAllMedEquip(MedEquipType type, MedEquipStatus status)
       throws SQLException {
     return medi.getAllMedEquip(type, status);
+  }
+
+  public void updateMedEquipAtLocation(String nodeID) throws Exception {
+    this.medi.updateMedEquipsAtLocation(nodeID);
   }
 
   public void exportMedicalEquipmentCSV(String filename) {

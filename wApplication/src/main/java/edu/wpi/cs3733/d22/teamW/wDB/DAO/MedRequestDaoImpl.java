@@ -3,6 +3,9 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.InvalidUnit;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import java.io.File;
@@ -145,6 +148,13 @@ public class MedRequestDaoImpl implements MedRequestDao {
     return medRequestList;
   }
 
+  public void updateMedRequestAtLocation(String nodeID) throws SQLException {
+    statement.executeUpdate(
+        String.format(
+            "UPDATE MEDREQUESTS SET NODEID='%s' WHERE NODEID='%s'",
+            LocationManager.getLocationManager().getNoneLocation(), nodeID));
+  }
+
   @Override
   public void exportMedReqCSV(String fileName) {
     File csvOutputFile = new File(fileName);
@@ -191,5 +201,52 @@ public class MedRequestDaoImpl implements MedRequestDao {
       e.printStackTrace();
     }
     return employeeRequestList;
+  }
+
+  public void updateMedReqAtLocation(String nodeID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format("SELECT requestID FROM MEDREQUESTS WHERE nodeID='%s'", nodeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("requestID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      MedRequestManager.getMedRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE MEDREQUESTS SET NODEID='%s' WHERE NODEID='%s'",
+            LocationManager.getLocationManager().getNoneLocation(), nodeID));
+  }
+
+  @Override
+  public void updateMedRequestsWithEmployee(Integer employeeID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format("SELECT requestID FROM MEDREQUESTS WHERE employeeID=%d", employeeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("requestID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      MedRequestManager.getMedRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE MEDREQUESTS SET employeeID=%d WHERE employeeID=%d",
+            EmployeeManager.getEmployeeManager().getDeletedEmployee(), employeeID));
   }
 }

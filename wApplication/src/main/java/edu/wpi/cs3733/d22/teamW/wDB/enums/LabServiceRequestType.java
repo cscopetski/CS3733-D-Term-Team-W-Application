@@ -51,6 +51,7 @@ public enum LabServiceRequestType {
       throws NonExistingLabServiceRequestType {
     LabServiceRequestType output = (LabServiceRequestType) map2.get(type);
     if (output == null) {
+      System.out.println(type);
       throw new NonExistingLabServiceRequestType();
     }
     return output;

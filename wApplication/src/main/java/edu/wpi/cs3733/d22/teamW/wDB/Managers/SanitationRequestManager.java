@@ -104,4 +104,15 @@ public class SanitationRequestManager implements RequestManager {
   public void exportReqCSV(String filename) throws Exception {
     srd.exportSanitationReqCSV(filename);
   }
+
+  @Override
+  public void updateReqAtLocation(String nodeID)
+      throws SQLException, StatusError, NonExistingMedEquip {
+    this.srd.updateSanitationRequestsAtLocation(nodeID);
+  }
+
+  @Override
+  public void updateReqWithEmployee(Integer employeeID) throws Exception {
+    this.srd.updateSanitationRequestsWithEmployee(employeeID);
+  }
 }

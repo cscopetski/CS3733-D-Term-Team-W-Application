@@ -9,6 +9,8 @@ import java.util.ArrayList;
 public class EmployeeManager {
   private EmployeeDao ed;
 
+  private final Integer deletedEmployee = -1;
+
   private static EmployeeManager employeeManager = new EmployeeManager();
 
   public static EmployeeManager getEmployeeManager() {
@@ -16,6 +18,10 @@ public class EmployeeManager {
   }
 
   private EmployeeManager() {}
+
+  public Integer getDeletedEmployee() {
+    return this.deletedEmployee;
+  }
 
   public void setEmployeeDao(EmployeeDao ed) {
     this.ed = ed;
@@ -34,7 +40,13 @@ public class EmployeeManager {
     ed.addEmployee(employee);
   }
 
-  public void deleteEmployee(Integer employeeID) throws SQLException {
+  public void deleteEmployee(Integer employeeID) throws Exception {
+
+    CleaningRequestManager.getCleaningRequestManager().updateReqWithEmployee(employeeID);
+    LabServiceRequestManager.getLabServiceRequestManager().updateReqWithEmployee(employeeID);
+    MedEquipRequestManager.getMedEquipRequestManager().updateReqWithEmployee(employeeID);
+    MedRequestManager.getMedRequestManager().updateReqWithEmployee(employeeID);
+    SanitationRequestManager.getSanitationRequestManager().updateReqWithEmployee(employeeID);
     ed.deleteEmployee(employeeID);
   }
 

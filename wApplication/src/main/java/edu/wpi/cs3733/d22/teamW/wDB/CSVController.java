@@ -19,6 +19,7 @@ public class CSVController {
   private String employeeFileName;
   private String medRequestFileName;
   private String flowerRequestFileName;
+  private String computerServiceRequestFileName;
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
@@ -29,7 +30,8 @@ public class CSVController {
       String labServiceRequestFileName,
       String employeeFileName,
       String medRequestFileName,
-      String flowerRequestFileName) {
+      String flowerRequestFileName,
+      String computerServiceRequestFileName) {
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
     this.medEquipRequestFileName = medEquipRequestFileName;
@@ -37,6 +39,8 @@ public class CSVController {
     this.employeeFileName = employeeFileName;
     this.medRequestFileName = medRequestFileName;
     this.flowerRequestFileName = flowerRequestFileName;
+    this.computerServiceRequestFileName = computerServiceRequestFileName;
+
   }
 
   public void populateTables() throws Exception {
@@ -48,6 +52,8 @@ public class CSVController {
     insertIntoLabReqTable(importCSV(labServiceRequestFileName));
     insertMedRequestTable(importCSV(medRequestFileName));
     insertFlowerRequestTable(importCSV(flowerRequestFileName));
+    insertComputerServiceRequestTable(importCSV(computerServiceRequestFileName));
+
   }
 
   public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
@@ -179,7 +185,6 @@ public class CSVController {
   }
 
   private void insertIntoLabReqTable(ArrayList<String[]> tokens) throws Exception {
-    // ArrayList<LabServiceRequest> labReqList = new ArrayList<>();
 
     for (String[] s : tokens) {
       ArrayList<String> fields = new ArrayList<>();
@@ -188,8 +193,6 @@ public class CSVController {
       LabServiceRequest lSR =
           (LabServiceRequest)
               requestFactory.getRequest(RequestType.LabServiceRequest, fields, true);
-
-      // labReqList.add(lSR);
     }
   }
 
@@ -239,6 +242,17 @@ public class CSVController {
         s.printStackTrace();
         throw (s);
       }
+    }
+  }
+
+  private void insertComputerServiceRequestTable(ArrayList<String[]> tokens) throws Exception {
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+      ComputerServiceRequest csr =
+          (ComputerServiceRequest)
+              requestFactory.getRequest(RequestType.ComputerServiceRequest, fields, true);
     }
   }
 }

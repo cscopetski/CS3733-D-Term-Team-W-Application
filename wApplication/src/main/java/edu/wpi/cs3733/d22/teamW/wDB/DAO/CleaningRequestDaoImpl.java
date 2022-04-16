@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -180,6 +181,77 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
             cr.getStatus().getValue(),
             new Timestamp(System.currentTimeMillis()),
             cr.getRequestID()));
+  }
+
+  @Override
+  public void updateCleaningRequestsAtLocation(String nodeID) throws Exception {
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format("SELECT REQID FROM CLEANINGREQUESTS WHERE nodeID='%s'", nodeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("REQID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      CleaningRequestManager.getCleaningRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE CLEANINGREQUESTS SET NODEID='%s' WHERE NODEID='%s'",
+            LocationManager.getLocationManager().getNoneLocation(), nodeID));
+  }
+
+  @Override
+  public void updateCleaningRequestsWithEquipment(String medID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format("SELECT ReqID FROM CLEANINGREQUESTS WHERE itemID='%s'", medID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("ReqID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      CleaningRequestManager.getCleaningRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE CLEANINGREQUESTS SET ITEMID='%s' WHERE ITEMID='%s'",
+            MedEquipManager.getMedEquipManager().getDeletedEquipment(), medID));
+  }
+
+  @Override
+  public void updateCleaningRequestsWithEmployee(Integer employeeID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format("SELECT ReqID FROM CLEANINGREQUESTS WHERE employeeID= %d", employeeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = Integer.parseInt(resultSet.getString("ReqID"));
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      CleaningRequestManager.getCleaningRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE CLEANINGREQUESTS SET employeeID=%d WHERE employeeID=%d",
+            EmployeeManager.getEmployeeManager().getDeletedEmployee(), employeeID));
   }
 
   @Override

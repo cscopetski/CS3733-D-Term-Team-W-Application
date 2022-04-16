@@ -117,4 +117,14 @@ public class MedRequestManager implements RequestManager {
   public void exportReqCSV(String filename) {
     mrd.exportMedReqCSV(filename);
   }
+
+  @Override
+  public void updateReqAtLocation(String nodeID) throws Exception {
+    this.mrd.updateMedReqAtLocation(nodeID);
+  }
+
+  @Override
+  public void updateReqWithEmployee(Integer employeeID) throws Exception {
+    this.mrd.updateMedRequestsWithEmployee(employeeID);
+  }
 }

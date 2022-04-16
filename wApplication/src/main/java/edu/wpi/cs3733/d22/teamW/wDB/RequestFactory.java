@@ -15,6 +15,8 @@ public class RequestFactory {
   private MedRequestManager mrm = MedRequestManager.getMedRequestManager();
   private CleaningRequestManager crm = CleaningRequestManager.getCleaningRequestManager();
   private FlowerRequestManager frm = FlowerRequestManager.getFlowerRequestManager();
+  private ComputerServiceRequestManager csrm =
+      ComputerServiceRequestManager.getComputerServiceRequestManager();
 
   private TreeSet<Integer> reqIDList = new TreeSet<>();
 
@@ -103,6 +105,15 @@ public class RequestFactory {
       }
       System.out.println(fr.toValuesString());
       return fr;
+    } else if (requestType.equals(RequestType.ComputerServiceRequest)) {
+      Request csr;
+      if (importingFromCSV) {
+        csr = csrm.addExistingRequest(fields);
+      } else {
+        csr = csrm.addNewRequest(counter, fields);
+      }
+      System.out.println(csr.toValuesString());
+      return csr;
     } else {
       return null;
     }

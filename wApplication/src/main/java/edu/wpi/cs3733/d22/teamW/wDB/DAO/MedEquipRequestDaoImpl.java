@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -136,7 +137,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
         String.format(
             "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d, UPDATEDTIMESTAMP = '%s' WHERE MEDREQID = %d",
             mER.getItemID(),
-            mER.getItemType(),
+            mER.getItemType().getAbb(),
             mER.getNodeID(),
             mER.getEmployeeID(),
             mER.getEmergency(),
@@ -227,6 +228,80 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
       e.printStackTrace();
     }
     return medEquipRequestList;
+  }
+
+  public void updateMedEquipRequestsAtLocation(String nodeID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format(
+                "SELECT MEDREQID FROM MEDICALEQUIPMENTREQUESTS WHERE nodeID='%s'", nodeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("MEDREQID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      MedEquipRequestManager.getMedEquipRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE MEDICALEQUIPMENTREQUESTS SET NODEID='%s' WHERE NODEID='%s'",
+            LocationManager.getLocationManager().getNoneLocation(), nodeID));
+  }
+
+  @Override
+  public void updateMedEquipRequestsWithEquipment(String medID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format("SELECT MEDREQID FROM MEDICALEQUIPMENTREQUESTS WHERE MEDID='%s'", medID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("MEDREQID");
+      reqIDs.add(reqID);
+      System.out.println(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      MedEquipRequestManager.getMedEquipRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE MEDICALEQUIPMENTREQUESTS SET medID='%s' WHERE medID='%s'",
+            MedEquipManager.getMedEquipManager().getDeletedEquipment(), medID));
+  }
+
+  @Override
+  public void updateMedEquipRequestsWithEmployee(Integer employeeID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format(
+                "SELECT MEDREQID FROM MEDICALEQUIPMENTREQUESTS WHERE employeeID=%d", employeeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("MEDREQID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      MedEquipRequestManager.getMedEquipRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE MEDICALEQUIPMENTREQUESTS SET employeeID=%d WHERE employeeID=%d",
+            EmployeeManager.getEmployeeManager().getDeletedEmployee(), employeeID));
   }
 
   public ArrayList<Request> getEmployeeRequests(Integer employeeID) {

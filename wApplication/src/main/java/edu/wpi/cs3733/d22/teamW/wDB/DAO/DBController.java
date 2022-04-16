@@ -55,6 +55,8 @@ public class DBController {
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       FlowerRequestDao flowerRequestDao = new FlowerRequestDaoImpl(statement);
+      ComputerServiceRequestDao csrDao = new ComputerServiceRequestDaoImpl(statement);
+      SanitationRequestDao sanitationRequestDao = new SanitationRequestDaoImpl(statement);
       MedRequestDao medRequestDao = new MedRequestDaoImpl(statement);
       CleaningRequestDao cleaningRequestDao = new CleaningRequestDaoImpl(statement);
       LabServiceRequestDao labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
@@ -73,6 +75,10 @@ public class DBController {
           .setLabServiceRequestDao(labServiceRequestDao);
       CleaningRequestManager.getCleaningRequestManager().setCleaningRequestDao(cleaningRequestDao);
       FlowerRequestManager.getFlowerRequestManager().setFlowerRequestDao(flowerRequestDao);
+      ComputerServiceRequestManager.getComputerServiceRequestManager()
+          .setComputerServiceRequestDao(csrDao);
+      SanitationRequestManager.getSanitationRequestManager()
+          .setLabServiceRequestDao(sanitationRequestDao);
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ((EmployeeDaoSecureImpl) employeeDao).createTable();
@@ -83,6 +89,8 @@ public class DBController {
       ((MedRequestDaoImpl) medRequestDao).createTable();
       ((CleaningRequestDaoImpl) cleaningRequestDao).createTable();
       ((FlowerRequestDaoImpl) flowerRequestDao).createTable();
+      ((ComputerServiceRequestDaoImpl) csrDao).createTable();
+      ((SanitationRequestDaoImpl) sanitationRequestDao).createTable();
 
     } catch (SQLException e) {
       System.out.println("Table Creation Failed");
