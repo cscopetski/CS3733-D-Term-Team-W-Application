@@ -69,6 +69,9 @@ public class RequestTable extends TableView<SR> {
         case CleaningRequest:
           sr = new CleaningSR(r);
           break;
+        case ComputerServiceRequest:
+          sr = new ComputerSR(r);
+          break;
       }
 
       getItems().add(sr);

@@ -62,12 +62,12 @@ public class ComputerServiceRequestManager implements RequestManager {
   }
 
   @Override
-  public Request getRequest(Integer ID) throws Exception {
+  public Request getRequest(Integer ID) throws StatusError {
     return csrd.getComputerServiceRequest(ID);
   }
 
   @Override
-  public ArrayList<Request> getAllRequests() throws Exception {
+  public ArrayList<Request> getAllRequests() {
     return csrd.getAllComputerServiceRequests();
   }
 
@@ -117,5 +117,9 @@ public class ComputerServiceRequestManager implements RequestManager {
   @Override
   public void updateReqWithEmployee(Integer employeeID) throws Exception {
     this.csrd.updateCompServiceRequestsWithEmployee(employeeID);
+  }
+
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    return this.csrd.getEmployeeRequests(employeeID);
   }
 }

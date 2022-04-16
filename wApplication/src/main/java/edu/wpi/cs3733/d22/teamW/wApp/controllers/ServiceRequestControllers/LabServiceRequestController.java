@@ -179,7 +179,7 @@ public class LabServiceRequestController extends LoadableController {
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      ids.add(e.getEmployeeID());
+      if (e.getEmployeeID() != -1) ids.add(e.getEmployeeID());
     }
     return ids;
   }
