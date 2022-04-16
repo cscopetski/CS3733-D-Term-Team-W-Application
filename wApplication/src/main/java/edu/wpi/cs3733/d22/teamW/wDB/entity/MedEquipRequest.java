@@ -43,6 +43,7 @@ public class MedEquipRequest extends Request {
     }
 
     this.itemID = fields.get(1);
+    // System.out.println(fields.get(2));
     this.itemType = MedEquipType.getMedEquipFromAbb(fields.get(2));
     this.nodeID = fields.get(3);
     this.employeeID = Integer.parseInt(fields.get(4));

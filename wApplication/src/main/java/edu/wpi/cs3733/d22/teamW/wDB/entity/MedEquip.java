@@ -45,11 +45,12 @@ public class MedEquip extends Entity {
 
   public String toValuesString() {
 
-    return String.format("'%s', '%s', '%s', %d", medID, type, nodeID, status.getValue());
+    return String.format(
+        "'%s', '%s', '%s', %d", medID, type.getString(), nodeID, status.getValue());
   }
 
   public String toCSVString() {
-    return String.format("%s,%s,%s,%d", medID, type, nodeID, status.getValue());
+    return String.format("%s,%s,%s,%d", medID, type.getAbb(), nodeID, status.getValue());
   }
 
   public void setMedID(String medID) {

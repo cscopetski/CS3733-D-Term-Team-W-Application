@@ -37,7 +37,6 @@ public class MedEquipRequestManager implements RequestManager {
   public void startNext(MedEquipType itemType) throws Exception {
     MedEquipRequest mer = getNext(itemType);
     if (mer != null) {
-      System.out.println(mer.toValuesString());
       try {
         AutoStart(mer.getRequestID());
       } catch (Exception e) {
@@ -89,7 +88,7 @@ public class MedEquipRequestManager implements RequestManager {
   }
 
   public void AutoStart(Integer requestID) throws SQLException, NonExistingMedEquip {
-    MedEquipRequest request = (MedEquipRequest) getRequest(requestID);
+    MedEquipRequest request = (MedEquipRequest) this.getRequest(requestID);
     if (request != (null)) {
       // Can only start requests that are in queue
       if (request.getStatus().equals(RequestStatus.InQueue)) {
@@ -100,13 +99,8 @@ public class MedEquipRequestManager implements RequestManager {
           MedEquipManager.getMedEquipManager().markInUse(medEquip.getMedID(), medEquip.getNodeID());
           request.setStatus(RequestStatus.InProgress);
           merd.changeMedEquipRequest(request);
-        } else {
         }
-      } else {
-        // throw (new Exception("Cannot start, not in queue"));
       }
-    } else {
-      // throw (new Exception("Request:" + requestID + " does not exist"));
     }
   }
 
@@ -206,11 +200,10 @@ public class MedEquipRequestManager implements RequestManager {
       throws SQLException, StatusError, NonExistingMedEquip {
     MedEquipRequest mER;
     mER = new MedEquipRequest(fields);
-
     if (RequestFactory.getRequestFactory().getReqIDList().add(mER.getRequestID())) {
       merd.addMedEquipRequest(mER);
 
-      if (Automation.Automation.getAuto()) {
+      if (!Automation.Automation.getAuto()) {
         try {
           AutoStart(mER.getRequestID());
         } catch (Exception e) {

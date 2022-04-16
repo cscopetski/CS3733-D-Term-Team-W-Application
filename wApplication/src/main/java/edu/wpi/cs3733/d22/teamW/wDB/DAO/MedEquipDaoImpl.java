@@ -79,18 +79,18 @@ public class MedEquipDaoImpl implements MedEquipDao {
 
     ArrayList<MedEquip> medEquipList = new ArrayList<>();
 
-    String queury = "SELECT * FROM MEDICALEQUIPMENT";
+    String queury = "SELECT * FROM MEDICALEQUIPMENT ";
     if (type == null && status != null) {
-      queury += "WHERE REQSTATUS = ";
-      queury += status.getString();
+      queury += "WHERE STATUS = ";
+      queury += status.getValue();
     }
     if (type != null && status == null) {
       queury += "WHERE TYPE = ";
       queury += type.getAbb();
     }
     if (type != null && status != null) {
-      queury += "WHERE (REQSTATUS = ";
-      queury += status.getString();
+      queury += "WHERE (STATUS = ";
+      queury += status.getValue();
       queury += "AND TYPE = ";
       queury += type.getAbb();
       queury += ")";

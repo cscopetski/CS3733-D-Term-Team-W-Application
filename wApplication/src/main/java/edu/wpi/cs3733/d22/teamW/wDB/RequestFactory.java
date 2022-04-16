@@ -67,7 +67,6 @@ public class RequestFactory {
       } else {
         mER = merm.addNewRequest(counter, fields);
       }
-      System.out.println(mER.toValuesString());
       return mER;
     } else if (requestType.equals(RequestType.LabServiceRequest)) {
       Request lSR;
@@ -76,7 +75,6 @@ public class RequestFactory {
       } else {
         lSR = lsrm.addNewRequest(counter, fields);
       }
-      System.out.println(lSR.toValuesString());
       return lSR;
     } else if (requestType.equals(RequestType.MedicineDelivery)) {
       Request mDR;
@@ -85,7 +83,6 @@ public class RequestFactory {
       } else {
         mDR = mrm.addNewRequest(counter, fields);
       }
-      System.out.println(mDR.toValuesString());
       return mDR;
     } else if (requestType.equals(RequestType.CleaningRequest)) {
       Request cr;
@@ -94,7 +91,6 @@ public class RequestFactory {
       } else {
         cr = crm.addNewRequest(counter, fields);
       }
-      System.out.println(cr.toValuesString());
       return cr;
     } else {
       return null;

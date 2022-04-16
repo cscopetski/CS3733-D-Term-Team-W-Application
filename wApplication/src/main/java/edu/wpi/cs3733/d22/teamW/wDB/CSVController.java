@@ -40,7 +40,6 @@ public class CSVController {
     insertIntoEmpTable(importCSV(employeeFileName));
     insertIntoLocationsTable(importCSV(locationFileName));
     insertIntoMedEquipTable(importCSV(medEquipFileName));
-
     insertIntoMedEquipReqTable(importCSV(medEquipRequestFileName));
     insertIntoLabReqTable(importCSV(labServiceRequestFileName));
     insertMedRequestTable(importCSV(medRequestFileName));
@@ -165,7 +164,6 @@ public class CSVController {
     for (String[] s : tokens) {
       ArrayList<String> fields = new ArrayList<>();
       fields.addAll(Arrays.asList(s));
-
       MedEquipRequest mER =
           (MedEquipRequest)
               requestFactory.getRequest(RequestType.MedicalEquipmentRequest, fields, true);

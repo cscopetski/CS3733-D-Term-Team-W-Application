@@ -70,10 +70,8 @@ public class MedEquipManager {
   }
 
   public MedEquip getNextFree(MedEquipType itemType) throws SQLException {
-    for (MedEquip e : medi.getAllMedEquip()) {
-      if (e.getType().equals(itemType) && e.getStatus().equals(MedEquipStatus.Clean)) {
-        return e;
-      }
+    for (MedEquip e : medi.getAllMedEquip(itemType, MedEquipStatus.Clean)) {
+      return e;
     }
     return null;
   }

@@ -40,7 +40,9 @@ public enum MedEquipType {
   public static MedEquipType getMedEquipFromAbb(String input) throws NonExistingMedEquip {
     input = input.trim();
     MedEquipType output = (MedEquipType) map.get(input);
+    System.out.println(input);
     if (output == null) {
+      System.out.println("\n\n\n\n\n" + "PENISSSSSSSSSS" + input + "\n\n\n\n");
       throw new NonExistingMedEquip();
     }
     return output;
@@ -49,7 +51,10 @@ public enum MedEquipType {
   public static MedEquipType getMedEquipFromString(String input) throws NonExistingMedEquip {
     input = input.trim();
     MedEquipType output = (MedEquipType) map2.get(input);
+
+    System.out.println(input);
     if (output == null) {
+      System.out.println("\n\n\n\n" + "PENISSSSSSSSSS2" + input + "\n\n\n\n");
       throw new NonExistingMedEquip();
     }
     return output;

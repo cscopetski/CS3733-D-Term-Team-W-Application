@@ -1,10 +1,10 @@
 ----------------------------------------------------------------
-Sat Apr 16 01:25:26 UTC 2022:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0180-2ff9-8fb3-000007603bb0 
-on database directory C:\Users\ediso\OneDrive\Documents\GitHub\WumboWhowies\wApplication\myDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@7aec35a 
-Loaded from file:/C:/Users/ediso/AppData/Roaming/JetBrains/IntelliJIdea2021.3/jdbc-drivers/Apache%20Derby/10.15.2.0/derby-10.15.2.0.jar
-java.vendor=JetBrains s.r.o.
-java.runtime.version=11.0.13+7-b1751.25
+Fri Apr 15 23:30:19 EDT 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0180-306b-e663-00000f3849a0 
+on database directory C:\Users\ediso\OneDrive\Documents\GitHub\WumboWhowies\myDB with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@30946e09 
+Loaded from file:/C:/Users/ediso/.gradle/caches/modules-2/files-2.1/org.apache.derby/derby/10.14.2.0/7efad40ef52fbb1f08142f07a83b42d29e47d8ce/derby-10.14.2.0.jar
+java.vendor=Microsoft
+java.runtime.version=11.0.14.1+1-LTS
 user.dir=C:\Users\ediso\OneDrive\Documents\GitHub\WumboWhowies
 os.name=Windows 11
 os.arch=amd64
