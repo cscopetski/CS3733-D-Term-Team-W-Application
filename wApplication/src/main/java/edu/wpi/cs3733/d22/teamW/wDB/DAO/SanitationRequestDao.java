@@ -18,4 +18,7 @@ public interface SanitationRequestDao {
   void deleteSanitationRequest(Integer requestID) throws SQLException;
 
   void exportSanitationReqCSV(String filename) throws Exception;
+
+  // TODO write this once Edison makes the DB
+  // ArrayList<Request> getEmployeeRequests(Integer employeeID);
 }

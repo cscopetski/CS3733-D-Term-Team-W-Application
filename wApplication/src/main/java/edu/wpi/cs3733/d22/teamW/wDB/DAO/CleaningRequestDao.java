@@ -23,4 +23,6 @@ public interface CleaningRequestDao {
   public ArrayList<Integer> CleaningRequestAtLocation(String nodeID) throws SQLException;
 
   ArrayList<Request> getAllCleaningRequests();
+
+  ArrayList<Request> getEmployeeRequests(Integer employeeID);
 }

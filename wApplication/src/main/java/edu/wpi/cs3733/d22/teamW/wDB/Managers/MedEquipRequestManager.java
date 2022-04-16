@@ -232,12 +232,17 @@ public class MedEquipRequestManager implements RequestManager {
     merd.changeMedEquipRequest(req);
   }
 
+
   public void changeReq(MedEquipRequest req) throws SQLException {
     merd.changeMedEquipRequest(req);
   }
 
   public void exportMedEquipRequestCSV(String filename) throws NonExistingMedEquip {
     merd.exportMedEquipReqCSV(filename);
+  }
+
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    return merd.getEmployeeRequests(employeeID);
   }
 
   public void exportReqCSV(String filename) throws NonExistingMedEquip {

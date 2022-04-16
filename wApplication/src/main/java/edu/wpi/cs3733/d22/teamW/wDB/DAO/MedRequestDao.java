@@ -18,4 +18,6 @@ public interface MedRequestDao {
   ArrayList<Request> getAllMedRequest() throws SQLException;
 
   void exportMedReqCSV(String fileName);
+
+  ArrayList<Request> getEmployeeRequests(Integer employeeID);
 }

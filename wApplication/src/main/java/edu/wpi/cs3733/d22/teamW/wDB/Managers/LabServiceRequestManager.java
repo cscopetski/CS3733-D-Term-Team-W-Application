@@ -118,6 +118,10 @@ public class LabServiceRequestManager implements RequestManager {
     return this.lsrdi.getAllLabServiceRequests();
   }
 
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    return lsrdi.getEmployeeRequests(employeeID);
+  }
+
   public void exportReqCSV(String filename) {
     lsrdi.exportLabServiceReqCSV(filename);
   }

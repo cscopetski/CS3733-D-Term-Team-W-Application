@@ -203,10 +203,10 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
     try {
       ResultSet medEquipment =
-          statement.executeQuery(
-              String.format(
-                  "SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EQUIPTYPE='%s'",
-                  itemType.getAbb()));
+              statement.executeQuery(
+                      String.format(
+                              "SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EQUIPTYPE='%s'",
+                              itemType.getAbb()));
 
       // Size of num MedEquipRequest fields
       ArrayList<String> medEquipData = new ArrayList<>();
@@ -228,4 +228,29 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     }
     return medEquipRequestList;
   }
+
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    ArrayList<Request> employeeRequestList = new ArrayList<>();
+    try {
+      ResultSet medEquipRequests =
+          statement.executeQuery(
+              String.format(
+                  "SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EMPLOYEEID = %d", employeeID));
+      while (medEquipRequests.next()) {
+        ArrayList<String> medEquipRequestData = new ArrayList<String>();
+
+        for (int i = 0; i < medEquipRequests.getMetaData().getColumnCount(); i++) {
+          medEquipRequestData.add(medEquipRequests.getString(i + 1));
+        }
+
+        employeeRequestList.add(new MedEquipRequest(medEquipRequestData));
+      }
+    } catch (SQLException | NonExistingMedEquip e) {
+      e.printStackTrace();
+    } catch (StatusError e) {
+      e.printStackTrace();
+    }
+    return employeeRequestList;
+  }
+
 }

@@ -133,4 +133,30 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
       e.printStackTrace();
     }
   }
+
+  @Override
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    ArrayList<Request> employeeRequestList = new ArrayList<>();
+    try {
+      ResultSet empLabRequests =
+          statement.executeQuery(
+              String.format("SELECT * FROM LABSERVICEREQUESTS WHERE EMPLOYEEID = %d", employeeID));
+      while (empLabRequests.next()) {
+        ArrayList<String> labServiceRequestData = new ArrayList<String>();
+
+        for (int i = 0; i < empLabRequests.getMetaData().getColumnCount(); i++) {
+          labServiceRequestData.add(empLabRequests.getString(i + 1));
+        }
+
+        employeeRequestList.add(new LabServiceRequest(labServiceRequestData));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } catch (StatusError e) {
+      e.printStackTrace();
+    } catch (NonExistingLabServiceRequestType e) {
+      e.printStackTrace();
+    }
+    return employeeRequestList;
+  }
 }

@@ -138,6 +138,30 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
   }
 
   @Override
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    ArrayList<Request> employeeRequestList = new ArrayList<>();
+    try {
+      ResultSet cleanRequests =
+          statement.executeQuery(
+              String.format("SELECT * FROM CLEANINGREQUESTS WHERE EMPLOYEEID = %d", employeeID));
+      while (cleanRequests.next()) {
+        ArrayList<String> cleanRequestData = new ArrayList<String>();
+
+        for (int i = 0; i < cleanRequests.getMetaData().getColumnCount(); i++) {
+          cleanRequestData.add(cleanRequests.getString(i + 1));
+        }
+
+        employeeRequestList.add(new CleaningRequest(cleanRequestData));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } catch (StatusError e) {
+      e.printStackTrace();
+    }
+    return employeeRequestList;
+  }
+
+  @Override
   public void addCleaningRequest(CleaningRequest cleaningRequest) throws SQLException {
     statement.executeUpdate(
         String.format(

@@ -110,6 +110,10 @@ public class MedRequestManager implements RequestManager {
     return mrd.getAllMedRequest();
   }
 
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    return mrd.getEmployeeRequests(employeeID);
+  }
+
   public void exportReqCSV(String filename) {
     mrd.exportMedReqCSV(filename);
   }

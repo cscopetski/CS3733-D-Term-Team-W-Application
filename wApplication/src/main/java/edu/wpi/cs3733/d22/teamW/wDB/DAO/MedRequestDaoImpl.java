@@ -164,4 +164,32 @@ public class MedRequestDaoImpl implements MedRequestDao {
       e.printStackTrace();
     }
   }
+
+  @Override
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    ArrayList<Request> employeeRequestList = new ArrayList<>();
+    try {
+      ResultSet medRequests =
+          statement.executeQuery(
+              String.format("SELECT * FROM MEDREQUESTS WHERE EMPLOYEEID = %d", employeeID));
+      while (medRequests.next()) {
+        ArrayList<String> medRequestData = new ArrayList<String>();
+
+        for (int i = 0; i < medRequests.getMetaData().getColumnCount(); i++) {
+          medRequestData.add(medRequests.getString(i + 1));
+        }
+
+        employeeRequestList.add(new MedRequest(medRequestData));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } catch (StatusError e) {
+      e.printStackTrace();
+    } catch (InvalidUnit e) {
+      e.printStackTrace();
+    } catch (NoMedicine e) {
+      e.printStackTrace();
+    }
+    return employeeRequestList;
+  }
 }

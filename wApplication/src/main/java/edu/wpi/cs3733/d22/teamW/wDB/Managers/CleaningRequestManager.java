@@ -156,6 +156,10 @@ public class CleaningRequestManager {
     }
   }
 
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    return crd.getEmployeeRequests(employeeID);
+  }
+
   public void exportReqCSV(String filename) {
     crd.exportCleaningReqCSV(filename);
   }
