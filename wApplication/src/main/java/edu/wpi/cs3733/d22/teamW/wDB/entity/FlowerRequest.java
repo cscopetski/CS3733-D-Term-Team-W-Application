@@ -3,10 +3,14 @@ package edu.wpi.cs3733.d22.teamW.wDB.entity;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoFlower;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
+@Setter
+@Getter
 public class FlowerRequest extends Request{
 
     Flower flower;

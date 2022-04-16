@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.entity.FlowerRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 
@@ -10,9 +11,9 @@ public interface FlowerRequestDao {
 
     ArrayList<Request> getFlowerRequests();
 
-    void addFlowerRequest(LabServiceRequest lsr) throws SQLException;
+    void addFlowerRequest(FlowerRequest fr) throws SQLException;
 
-    void changeFlowerRequest(LabServiceRequest lsr) throws SQLException;
+    void changeFlowerRequest(FlowerRequest fr) throws SQLException;
 
     void deleteFlowerRequest(Integer requestID) throws SQLException;
 

@@ -1,15 +1,18 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoFlower;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingLabServiceRequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.FlowerRequest;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class FlowerRequestDaoImpl implements FlowerRequestDao {
@@ -65,13 +68,13 @@ public class FlowerRequestDaoImpl implements FlowerRequestDao {
             ResultSet flowerRequests = statement.executeQuery("SELECT * FROM FLOWERREQUESTS");
 
             while (flowerRequests.next()) {
-                ArrayList<String> labServiceRequestData = new ArrayList<String>();
+                ArrayList<String> flowerRequestData = new ArrayList<String>();
 
                 for (int i = 0; i < flowerRequests.getMetaData().getColumnCount(); i++) {
-                    labServiceRequestData.add(flowerRequests.getString(i + 1));
+                    flowerRequestData.add(flowerRequests.getString(i + 1));
                 }
 
-                flowerRequestList.add(new FlowerRequest(labServiceRequestData));
+                flowerRequestList.add(new FlowerRequest(flowerRequestData));
             }
 
         } catch (SQLException e) {
@@ -85,27 +88,74 @@ public class FlowerRequestDaoImpl implements FlowerRequestDao {
     }
 
     @Override
-    public void addFlowerRequest(LabServiceRequest lsr) throws SQLException {
-
+    public void addFlowerRequest(FlowerRequest flowerRequest) throws SQLException {
+        statement.executeUpdate(
+                String.format("INSERT INTO FLOWERREQUESTS VALUES (%s)", flowerRequest.toValuesString()));
     }
 
     @Override
-    public void changeFlowerRequest(LabServiceRequest lsr) throws SQLException {
+    public void changeFlowerRequest(FlowerRequest fr) throws SQLException {
+        statement.executeUpdate(
+                String.format(
+                        "UPDATE FLOWERREQUESTS SET FLOWERTYPE='%s', NODEID='%s', EMPLOYEEID= %d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE LABREQID=%d",
+                        fr.getFlower().getString(),
+                        fr.getNodeID(),
+                        fr.getEmployeeID(),
+                        fr.getEmergency(),
+                        fr.getStatus().getValue(),
+                        new Timestamp(System.currentTimeMillis()),
+                        fr.getRequestID()));
 
     }
 
     @Override
     public void deleteFlowerRequest(Integer requestID) throws SQLException {
-
+        RequestFactory.getRequestFactory().getReqIDList().remove(requestID);
+        statement.executeUpdate(
+                String.format("DELETE FROM FLOWERREQUESTS WHERE FLOWERREQID=%d", requestID));
     }
 
     @Override
-    public void exportFlowerReqCSV(String filename) {
+    public void exportFlowerReqCSV(String fileName) {
+        File csvOutputFile = new File(fileName);
+        try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
+            // print Table headers
+            pw.print(CSVHeaderString);
+
+            // print all locations
+            for (Request f : getFlowerRequests()) {
+                pw.println();
+                pw.print(f.toCSVString());
+            }
+
+        } catch (FileNotFoundException e) {
+
+            System.out.println(String.format("Error Exporting to File %s", fileName));
+            e.printStackTrace();
+        }
 
     }
 
     @Override
     public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
-        return null;
+        ArrayList<Request> employeeRequestList = new ArrayList<>();
+        try {
+            ResultSet flowerRequests =
+                    statement.executeQuery(
+                            String.format("SELECT * FROM FLOWERREQUESTS WHERE EMPLOYEEID = %d", employeeID));
+            while (flowerRequests.next()) {
+                ArrayList<String> flowerRequestData = new ArrayList<String>();
+
+                for (int i = 0; i < flowerRequests.getMetaData().getColumnCount(); i++) {
+                    flowerRequestData.add(flowerRequests.getString(i + 1));
+                }
+
+                employeeRequestList.add(new FlowerRequest(flowerRequestData));
+            }
+        } catch (SQLException | NoFlower | StatusError e) {
+            e.printStackTrace();
+        }
+        return employeeRequestList;
     }
+    
 }
