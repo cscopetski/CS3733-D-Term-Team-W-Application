@@ -1,6 +1,10 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.InvalidUnit;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.SanitationRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
@@ -163,4 +167,30 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
       e.printStackTrace();
     }
   }
+
+
+  //TODO uncomment this once Edison writes the new DB
+  /*
+  @Override
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    ArrayList<Request> employeeRequestList = new ArrayList<>();
+    try {
+      ResultSet sanitationRequests =
+              statement.executeQuery(
+                      String.format("SELECT * FROM SANITATIONREQUESTS WHERE EMPLOYEEID = %d", employeeID));
+      while (sanitationRequests.next()) {
+        ArrayList<String> sanitationRequestData = new ArrayList<String>();
+
+        for (int i = 0; i < sanitationRequests.getMetaData().getColumnCount(); i++) {
+          sanitationRequestData.add(sanitationRequests.getString(i + 1));
+        }
+
+        employeeRequestList.add(new SanitationRequest(sanitationRequestData));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return employeeRequestList;
+  }
+   */
 }

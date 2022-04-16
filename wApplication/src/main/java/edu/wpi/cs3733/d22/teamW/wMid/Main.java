@@ -2,11 +2,11 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedicineType;
-
 import java.util.ArrayList;
 
 public class Main {
@@ -50,6 +50,34 @@ public class Main {
       System.out.println(m.getString());
     }
 
+    CleaningRequestManager crm = CleaningRequestManager.getCleaningRequestManager();
+    ArrayList<Request> test = crm.getEmployeeRequests(1);
+    System.out.println("Cleaning Requests: " + test);
+
+    LabServiceRequestManager lsrm = LabServiceRequestManager.getLabServiceRequestManager();
+    ArrayList<Request> testLab = lsrm.getEmployeeRequests(1);
+    ArrayList<Integer> reqs = new ArrayList<Integer>();
+    for (Request r : testLab) {
+      reqs.add(r.getRequestID());
+    }
+    System.out.println("Lab Service Requests: " + reqs);
+
+    MedEquipRequestManager merm = MedEquipRequestManager.getMedEquipRequestManager();
+    ArrayList<Request> requs = merm.getEmployeeRequests(1);
+    ArrayList<Integer> mernums = new ArrayList<Integer>();
+    for (Request r : requs) {
+      mernums.add(r.getRequestID());
+    }
+    System.out.println("Med Equip Requests: " + mernums);
+
+    MedRequestManager mrm = MedRequestManager.getMedRequestManager();
+    requs = mrm.getEmployeeRequests(1);
+    mernums = new ArrayList<Integer>();
+    for (Request r : requs) {
+      mernums.add(r.getRequestID());
+    }
+    System.out.println("Med Requests: " + mernums);
+
     //    MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
     //
     //    MedEquipManager mem = MedEquipManager.getMedEquipManager();
@@ -66,6 +94,6 @@ public class Main {
     //    } catch (Exception e) {
     //      e.printStackTrace();
     //    }
-    App.launch(App.class, args);
+    // App.launch(App.class, args);
   }
 }

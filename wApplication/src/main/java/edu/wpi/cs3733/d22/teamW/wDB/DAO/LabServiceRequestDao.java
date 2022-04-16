@@ -28,4 +28,6 @@ public interface LabServiceRequestDao {
   void deleteLabServiceRequest(Integer requestID) throws SQLException;
 
   void exportLabServiceReqCSV(String filename);
+
+  ArrayList<Request> getEmployeeRequests(Integer employeeID);
 }
