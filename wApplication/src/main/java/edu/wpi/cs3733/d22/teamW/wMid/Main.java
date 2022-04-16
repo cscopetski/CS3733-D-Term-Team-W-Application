@@ -42,7 +42,7 @@ public class Main {
 
 
 
-    App.launch(App.class, args);
+    //App.launch(App.class, args);
 
   }
 }

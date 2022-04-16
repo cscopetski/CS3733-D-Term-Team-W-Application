@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.InvalidUnit;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoFlower;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.*;
 import lombok.Getter;
@@ -51,6 +53,20 @@ public class FlowerRequest extends Request{
         this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(10)));
         this.createdTimestamp = Timestamp.valueOf(fields.get(11));
         this.updatedTimestamp = Timestamp.valueOf(fields.get(12));
+    }
+
+    public FlowerRequest(Integer index, ArrayList<String> fields)
+            throws StatusError, NoFlower {
+        this.requestID = index;
+        this.patientLast = fields.get(0);
+        this.patientFirst = fields.get(1);
+        this.flower = Flower.getFlower(fields.get(0));
+        this.nodeID = fields.get(3);
+        this.employeeID = Integer.parseInt(fields.get(4));
+        this.emergency = Integer.parseInt(fields.get(5));
+        this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(6)));
+        this.createdTimestamp = new Timestamp(System.currentTimeMillis());
+        this.updatedTimestamp = new Timestamp(System.currentTimeMillis());
     }
 
 

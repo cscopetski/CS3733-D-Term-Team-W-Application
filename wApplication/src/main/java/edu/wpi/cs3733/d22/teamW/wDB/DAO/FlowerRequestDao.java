@@ -19,4 +19,6 @@ public interface FlowerRequestDao {
     void exportFlowerReqCSV(String filename);
 
     ArrayList<Request> getEmployeeRequests(Integer employeeID);
+
+    Request getFlowerRequest(Integer id);
 }

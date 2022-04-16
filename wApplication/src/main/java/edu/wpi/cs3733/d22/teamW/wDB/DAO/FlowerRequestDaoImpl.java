@@ -1,9 +1,12 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.InvalidUnit;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoFlower;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.FlowerRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 
 import java.io.File;
@@ -156,6 +159,28 @@ public class FlowerRequestDaoImpl implements FlowerRequestDao {
             e.printStackTrace();
         }
         return employeeRequestList;
+    }
+
+    @Override
+    public Request getFlowerRequest(Integer id) {
+        FlowerRequest fr = null;
+        try {
+            ResultSet flowerRequests =
+                    statement.executeQuery(
+                            String.format("SELECT * FROM FLOWERREQUESTS WHERE REQUESTID = %d", id));
+
+            flowerRequests.next();
+
+            ArrayList<String> flowerRequestFields = new ArrayList<String>();
+            for (int i = 0; i < flowerRequests.getMetaData().getColumnCount(); i++) {
+                flowerRequestFields.add(flowerRequests.getString(i + 1));
+            }
+            fr = new FlowerRequest(flowerRequestFields);
+
+        } catch (SQLException | NoFlower | StatusError e) {
+            System.out.println("Query from flower request table failed.");
+        }
+        return fr;
     }
 
 }
