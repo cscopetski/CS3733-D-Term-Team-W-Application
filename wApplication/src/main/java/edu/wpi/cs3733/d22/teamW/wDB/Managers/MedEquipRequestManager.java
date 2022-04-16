@@ -232,7 +232,6 @@ public class MedEquipRequestManager implements RequestManager {
     merd.changeMedEquipRequest(req);
   }
 
-
   public void changeReq(MedEquipRequest req) throws SQLException {
     merd.changeMedEquipRequest(req);
   }
