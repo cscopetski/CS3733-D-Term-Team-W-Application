@@ -22,4 +22,6 @@ public interface ComputerServiceRequestDao {
   void updateCompServiceRequestsAtLocation(String nodeID) throws Exception;
 
   void updateCompServiceRequestsWithEmployee(Integer employeeID) throws Exception;
+
+  ArrayList<Request> getEmployeeRequests(Integer employeeID);
 }

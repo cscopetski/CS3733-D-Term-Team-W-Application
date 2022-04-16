@@ -16,6 +16,8 @@ public class RequestFacade {
   private MedRequestManager mrm = MedRequestManager.getMedRequestManager();
   private CleaningRequestManager crm = CleaningRequestManager.getCleaningRequestManager();
   private SanitationRequestManager srm = SanitationRequestManager.getSanitationRequestManager();
+  private ComputerServiceRequestManager csrm =
+      ComputerServiceRequestManager.getComputerServiceRequestManager();
 
   private static RequestFacade requestFacade = new RequestFacade();
 
@@ -42,6 +44,9 @@ public class RequestFacade {
       case CleaningRequest:
         requests.addAll(crm.getAllRequests());
         break;
+      case ComputerServiceRequest:
+        requests.addAll(csrm.getAllRequests());
+        break;
       default:
         requests.addAll(getAllRequests());
         break;
@@ -57,6 +62,7 @@ public class RequestFacade {
     requests.addAll(merm.getAllRequests());
     requests.addAll(lsrm.getAllRequests());
     requests.addAll(crm.getAllRequests());
+    requests.addAll(csrm.getAllRequests());
     Collections.sort(requests);
     return requests;
   }
@@ -76,6 +82,10 @@ public class RequestFacade {
         break;
       case CleaningRequest:
         request = crm.getRequest(requestID);
+        break;
+      case ComputerServiceRequest:
+        request = csrm.getRequest(requestID);
+        break;
       default:
         request = null;
     }
@@ -96,6 +106,10 @@ public class RequestFacade {
         break;
       case CleaningRequest:
         crm.complete(requestID, nodeID);
+        break;
+      case ComputerServiceRequest:
+        csrm.complete(requestID);
+        break;
     }
   }
 
@@ -113,6 +127,10 @@ public class RequestFacade {
         break;
       case CleaningRequest:
         crm.cancel(requestID);
+        break;
+      case ComputerServiceRequest:
+        csrm.cancel(requestID);
+        break;
     }
   }
 
@@ -129,6 +147,10 @@ public class RequestFacade {
         mrm.start(requestID);
       case CleaningRequest:
         crm.start(requestID);
+        break;
+      case ComputerServiceRequest:
+        csrm.start(requestID);
+        break;
     }
   }
 
@@ -146,6 +168,10 @@ public class RequestFacade {
         break;
       case CleaningRequest:
         crm.reQueue(requestID);
+        break;
+      case ComputerServiceRequest:
+        csrm.reQueue(requestID);
+        break;
     }
   }
 
@@ -163,6 +189,9 @@ public class RequestFacade {
 
     ArrayList<Request> medReqs = mrm.getEmployeeRequests(employeeID);
     employeeRequests.addAll(medReqs);
+
+    ArrayList<Request> compReqs = csrm.getEmployeeRequests(employeeID);
+    employeeRequests.addAll(compReqs);
 
     // TODO once sanitation DB is working
     // ArrayList<Request> sanitationReqs = new ArrayList<Request>();
