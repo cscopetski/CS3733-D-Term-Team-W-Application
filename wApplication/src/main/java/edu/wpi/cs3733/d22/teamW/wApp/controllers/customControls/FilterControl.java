@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ModifiableObservableListBase;
 import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -19,7 +20,7 @@ public class FilterControl<E extends Enum<E>> extends VBox {
 
   public FilterControl() {
     setAlignment(Pos.CENTER);
-    setSpacing(10);
+    setSpacing(5);
     filters =
         new ModifiableObservableListBase<E>() {
           ArrayList<E> list = new ArrayList<>();
@@ -74,6 +75,8 @@ public class FilterControl<E extends Enum<E>> extends VBox {
     if (!filters.contains(value)) {
       filters.add(value);
       AnchorPane ap = new AnchorPane();
+      ap.setStyle("-fx-border-width: 2px; -fx-border-color: #013895; -fx-border-radius: 15px");
+      ap.setPadding(new Insets(5));
       Label filter = new Label(value.toString());
       Button remove = new Button("Remove?");
       remove.setOnAction(
@@ -87,6 +90,10 @@ public class FilterControl<E extends Enum<E>> extends VBox {
 
       AnchorPane.setLeftAnchor(filter, 0.0);
       AnchorPane.setRightAnchor(remove, 0.0);
+      AnchorPane.setTopAnchor(filter, 0.0);
+      AnchorPane.setBottomAnchor(filter, 0.0);
+      AnchorPane.setTopAnchor(remove, 0.0);
+      AnchorPane.setBottomAnchor(remove, 0.0);
 
       getChildren().add(ap);
     }

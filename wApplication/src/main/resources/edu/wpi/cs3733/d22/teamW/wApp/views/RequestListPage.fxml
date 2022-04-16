@@ -70,9 +70,6 @@
                                                 <BorderPane prefHeight="70.0" prefWidth="300.0">
                                                     <center>
                                                         <FilterControl fx:id="filter" BorderPane.alignment="CENTER" stylesheets="@../CSS/UniversalCSS/Standard.css"/>
-                                                        <!--VBox fx:id="filterGroup" BorderPane.alignment="CENTER" stylesheets="@../CSS/UniversalCSS/Standard.css">
-                                                            <AutoCompleteInput fx:id="filterList" prefHeight="25.0" prefWidth="250.0" />
-                                                        </VBox-->
                                                     </center>
                                                 </BorderPane>
                                                 <BorderPane maxWidth="200.0" minWidth="300.0" prefHeight="200.0" prefWidth="304.0" stylesheets="@../CSS/UniversalCSS/Standard.css">

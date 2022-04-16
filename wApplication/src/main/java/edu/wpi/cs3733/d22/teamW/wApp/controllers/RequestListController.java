@@ -8,7 +8,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,10 +20,6 @@ public class RequestListController extends LoadableController {
   @FXML public RequestTable rt;
   @FXML public TextArea moreInfo;
   @FXML public HBox selectionButtons;
-  // @FXML public AutoCompleteInput filterList;
-
-  // @FXML public VBox filterGroup;
-  // private final ArrayList<RequestType> filters = new ArrayList<>();
   @FXML public FilterControl filter;
 
   @Override
@@ -54,69 +49,16 @@ public class RequestListController extends LoadableController {
             });
 
     filter.loadValues(RequestType.values());
-    filter.addValuesListener(
-        c -> {
-          try {
-            rt.setItems(RequestFacade.getRequestFacade().getRequests(filter.getEnabledValues()));
-          } catch (SQLException e) {
-            e.printStackTrace();
-          }
-        });
+    filter.addValuesListener(c -> resetItems());
+    resetItems();
+  }
+
+  private void resetItems() {
     try {
-      rt.setItems(RequestFacade.getRequestFacade().getRequests(new ArrayList<>()));
+      rt.setItems(RequestFacade.getRequestFacade().getRequests(filter.getEnabledValues()));
     } catch (SQLException e) {
       e.printStackTrace();
     }
-
-    /*filterList.loadValues(
-        (ArrayList<String>)
-            Arrays.stream(RequestType.values())
-                .map(RequestType::getString)
-                .collect(Collectors.toList()));
-    filterList
-        .getSelectionModel()
-        .selectedItemProperty()
-        .addListener((e, o, n) -> addFilter(RequestType.getRequestType(n)));*/
-  }
-
-  private void addFilter(RequestType requestType) {
-    if (requestType == null) {
-      return;
-    }
-    System.out.println("adding: " + requestType.getString());
-    /*if (!filters.contains(requestType)) {
-      filters.add(requestType);
-      resetItems();
-      ToggleButton filter = new ToggleButton(requestType.getString());
-      filter.setOnAction(
-          e -> {
-            if (filter.getText().equals("Remove?")) {
-              // filterGroup.getChildren().remove(filter);
-              removeFilter(requestType);
-            } else if (filter.getText().equals(requestType.getString())) {
-              filter.setText("Remove?");
-            }
-          });
-      filter
-          .focusedProperty()
-          .addListener(
-              (e, o, n) -> {
-                if (!n && filter.getText().equals("Remove?")) {
-                  filter.setText(requestType.getString());
-                }
-              });
-      // filterGroup.getChildren().add(filter);
-    }
-    filterList.getSelectionModel().clearSelection();
-    filterList.getEditor().clear();*/
-  }
-
-  private void removeFilter(RequestType requestType) {
-    System.out.println("removing: " + requestType.getString());
-    /*if (filters.contains(requestType)) {
-      filters.remove(requestType);
-      resetItems();
-    }*/
   }
 
   public void onLoad() {
@@ -126,22 +68,6 @@ public class RequestListController extends LoadableController {
     rt.setColumnWidth("Status", 80);
     rt.setEditable(false);
     moreInfo.setText("Select a request to view details.");
-    resetItems();
-  }
-
-  public void resetItems() {
-    /*
-    try {
-      if (filters.size() != 0) {
-        rt.setItems(
-            RequestFacade.getRequestFacade()
-                .getRequests(filters.toArray(new RequestType[filters.size()])));
-      } else {
-        rt.setItems(RequestFacade.getRequestFacade().getRequests());
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }*/
   }
 
   @Override
@@ -165,6 +91,7 @@ public class RequestListController extends LoadableController {
   public void clearSelection() {
     rt.getSelectionModel().clearSelection();
     selectionButtons.setVisible(false);
+    resetItems();
   }
 
   public void start() throws Exception {
