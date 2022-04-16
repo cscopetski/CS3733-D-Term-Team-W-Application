@@ -115,4 +115,14 @@ public class FlowerRequestManager implements RequestManager {
   public void exportReqCSV(String filename) {
     frd.exportFlowerReqCSV(filename);
   }
+
+  @Override
+  public void updateReqAtLocation(String nodeID) throws Exception {
+
+  }
+
+  @Override
+  public void updateReqWithEmployee(Integer employeeID) throws Exception {
+
+  }
 }

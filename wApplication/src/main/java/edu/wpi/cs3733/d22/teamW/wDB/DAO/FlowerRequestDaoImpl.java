@@ -2,9 +2,15 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoFlower;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.FlowerRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.FlowerRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.Flower;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -177,4 +183,54 @@ public class FlowerRequestDaoImpl implements FlowerRequestDao {
     }
     return fr;
   }
+
+  @Override
+  public void updateMedReqAtLocation(String nodeID) throws Exception {
+
+    ResultSet resultSet =
+            statement.executeQuery(
+                    String.format("SELECT requestID FROM FLOWERREQUESTS WHERE nodeID='%s'", nodeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("requestID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      FlowerRequestManager.getFlowerRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+            String.format(
+                    "UPDATE FLOWERREQUESTS SET NODEID='%s' WHERE NODEID='%s'",
+                    LocationManager.getLocationManager().getNoneLocation(), nodeID));
+
+  }
+
+  @Override
+  public void updateMedRequestsWithEmployee(Integer employeeID) throws Exception {
+
+    ResultSet resultSet =
+            statement.executeQuery(
+                    String.format("SELECT requestID FROM FLOWERREQUESTS WHERE employeeID=%d", employeeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("ReqID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      FlowerRequestManager.getFlowerRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+            String.format(
+                    "UPDATE FLOWERREQUESTS SET employeeID=%d WHERE employeeID=%d",
+                    EmployeeManager.getEmployeeManager().getDeletedEmployee(), employeeID));
+  }
+
 }

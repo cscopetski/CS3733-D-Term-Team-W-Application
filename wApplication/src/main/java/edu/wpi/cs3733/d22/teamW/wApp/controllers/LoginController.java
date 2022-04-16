@@ -42,7 +42,7 @@ public class LoginController extends LoadableController {
   final String medRequestFileName = "MedRequests.csv";
   final String flowerRequestFileName = "FlowerRequests.csv";
   final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
-
+  final String sanitationRequestFileName = "SanitationRequests.csv";
 
   @Override
   public void initialize(URL location, ResourceBundle rb) {
@@ -114,8 +114,8 @@ public class LoginController extends LoadableController {
             employeesFileName,
             medRequestFileName,
             flowerRequestFileName,
-            computerServiceRequestFileName);
-
+            computerServiceRequestFileName,
+            sanitationRequestFileName);
 
     System.out.println("SWAP CONNECTION ");
 

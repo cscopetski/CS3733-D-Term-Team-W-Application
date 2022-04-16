@@ -20,6 +20,7 @@ public class CSVController {
   private String medRequestFileName;
   private String flowerRequestFileName;
   private String computerServiceRequestFileName;
+  private String sanitationRequestFileName;
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
@@ -31,7 +32,8 @@ public class CSVController {
       String employeeFileName,
       String medRequestFileName,
       String flowerRequestFileName,
-      String computerServiceRequestFileName) {
+      String computerServiceRequestFileName,
+      String sanitationRequestFileName) {
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
     this.medEquipRequestFileName = medEquipRequestFileName;
@@ -40,7 +42,7 @@ public class CSVController {
     this.medRequestFileName = medRequestFileName;
     this.flowerRequestFileName = flowerRequestFileName;
     this.computerServiceRequestFileName = computerServiceRequestFileName;
-
+    this.sanitationRequestFileName = sanitationRequestFileName;
   }
 
   public void populateTables() throws Exception {
@@ -53,7 +55,6 @@ public class CSVController {
     insertMedRequestTable(importCSV(medRequestFileName));
     insertFlowerRequestTable(importCSV(flowerRequestFileName));
     insertComputerServiceRequestTable(importCSV(computerServiceRequestFileName));
-
   }
 
   public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {

@@ -20,4 +20,8 @@ public interface FlowerRequestDao {
   ArrayList<Request> getEmployeeRequests(Integer employeeID);
 
   Request getFlowerRequest(Integer id);
+
+  void updateMedReqAtLocation(String nodeID) throws Exception;
+
+  void updateMedRequestsWithEmployee(Integer employeeID) throws Exception;
 }
