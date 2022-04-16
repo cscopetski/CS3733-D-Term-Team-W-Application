@@ -138,7 +138,6 @@ public enum MedicineType {
   Isotretinoin("Isotretinoin"),
   Itraconazole("Itraconazole"),
   Ketoconazole("Ketoconazole"),
-  Kombuchu("Kombuchu"),
   LGlutamine("LGlutamine"),
   Labetalol("Labetalol"),
   Lamivudine("Lamivudine"),
