@@ -69,7 +69,6 @@ public class SanitationRequestManager implements RequestManager {
         (SanitationRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
     request.setStatus(RequestStatus.InProgress);
-    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
     srd.changeSanitationRequest(request);
   }
 
@@ -78,7 +77,6 @@ public class SanitationRequestManager implements RequestManager {
         (SanitationRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
     request.setStatus(RequestStatus.Completed);
-    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
     srd.changeSanitationRequest(request);
   }
 
@@ -87,7 +85,6 @@ public class SanitationRequestManager implements RequestManager {
         (SanitationRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
     request.setStatus(RequestStatus.Cancelled);
-    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
     srd.changeSanitationRequest(request);
   }
 
@@ -96,7 +93,6 @@ public class SanitationRequestManager implements RequestManager {
         (SanitationRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
     request.setStatus(RequestStatus.InQueue);
-    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
     srd.changeSanitationRequest(request);
   }
 

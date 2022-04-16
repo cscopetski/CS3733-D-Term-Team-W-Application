@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
@@ -133,15 +134,14 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE MEDREQID = %d",
+            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d, UPDATEDTIMESTAMP = '%s' WHERE MEDREQID = %d",
             mER.getItemID(),
             mER.getItemType(),
             mER.getNodeID(),
             mER.getEmployeeID(),
             mER.getEmergency(),
             mER.getStatusInt(),
-            mER.getCreatedTimestamp().toString(),
-            mER.getUpdatedTimestamp().toString(),
+            new Timestamp(System.currentTimeMillis()),
             mER.getRequestID()));
   }
 

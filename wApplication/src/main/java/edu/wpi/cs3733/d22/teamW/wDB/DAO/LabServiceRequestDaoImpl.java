@@ -11,6 +11,7 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
@@ -96,14 +97,13 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
   public void changeLabServiceRequest(LabServiceRequest lsr) throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE LABSERVICEREQUESTS SET LABTYPE='%s', NODEID='%s', EMPLOYEEID= %d, ISEMERGENCY=%d, REQSTATUS=%d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE LABREQID=%d",
+            "UPDATE LABSERVICEREQUESTS SET LABTYPE='%s', NODEID='%s', EMPLOYEEID= %d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE LABREQID=%d",
             lsr.getLabType().getString(),
             lsr.getNodeID(),
             lsr.getEmployeeID(),
             lsr.getEmergency(),
             lsr.getStatus().getValue(),
-            lsr.getCreatedTimestamp().toString(),
-            lsr.getUpdatedTimestamp().toString(),
+            new Timestamp(System.currentTimeMillis()),
             lsr.getRequestID()));
   }
 

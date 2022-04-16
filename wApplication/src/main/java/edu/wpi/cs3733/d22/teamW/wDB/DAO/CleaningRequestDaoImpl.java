@@ -10,6 +10,7 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class CleaningRequestDaoImpl implements CleaningRequestDao {
@@ -153,7 +154,7 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
             cr.getEmployeeID(),
             cr.getEmergency(),
             cr.getStatus().getValue(),
-            cr.getUpdatedTimestamp().toString(),
+            new Timestamp(System.currentTimeMillis()),
             cr.getRequestID()));
   }
 

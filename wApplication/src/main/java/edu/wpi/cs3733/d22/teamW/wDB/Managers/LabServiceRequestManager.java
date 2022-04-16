@@ -81,7 +81,6 @@ public class LabServiceRequestManager implements RequestManager {
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
     request.setStatus(RequestStatus.InProgress);
-    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
     lsrdi.changeLabServiceRequest(request);
   }
 
@@ -90,7 +89,6 @@ public class LabServiceRequestManager implements RequestManager {
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
     request.setStatus(RequestStatus.Completed);
-    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
     lsrdi.changeLabServiceRequest(request);
   }
 
@@ -99,13 +97,11 @@ public class LabServiceRequestManager implements RequestManager {
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
     request.setStatus(RequestStatus.Cancelled);
-    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
     lsrdi.changeLabServiceRequest(request);
   }
 
   public void changeLoc(LabServiceRequest request, String nodeID) throws SQLException {
     request.setNodeID(nodeID);
-    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
     lsrdi.changeLabServiceRequest(request);
   }
 
@@ -114,7 +110,6 @@ public class LabServiceRequestManager implements RequestManager {
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
     request.setStatus(RequestStatus.InQueue);
-    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
     lsrdi.changeLabServiceRequest(request);
   }
 

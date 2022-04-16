@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class SanitationRequestDaoImpl implements SanitationRequestDao {
@@ -123,7 +124,7 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
             sr.getEmployeeID(),
             sr.getEmergency(),
             sr.getStatus().getValue(),
-            sr.getUpdatedTimestamp(),
+            new Timestamp(System.currentTimeMillis()),
             sr.getRequestID()));
   }
 

@@ -101,7 +101,6 @@ public class CleaningRequestManager {
     if (cr.getStatus() == RequestStatus.InQueue) {
       cr.setStatus(RequestStatus.InProgress);
       cr.setNodeID("wSTOR001L1");
-      cr.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
       crd.changeCleaningRequest(cr);
       MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
       MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), "wSTOR001L1");
@@ -117,7 +116,6 @@ public class CleaningRequestManager {
     if (cr.getStatus() == RequestStatus.InProgress) {
       cr.setStatus(RequestStatus.Completed);
       cr.setNodeID(nodeID);
-      cr.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
       crd.changeCleaningRequest(cr);
       MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
       MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), nodeID);
@@ -132,7 +130,6 @@ public class CleaningRequestManager {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() != RequestStatus.Completed) {
       cr.setStatus(RequestStatus.Cancelled);
-      cr.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
       crd.changeCleaningRequest(cr);
     }
   }
@@ -141,7 +138,6 @@ public class CleaningRequestManager {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() == RequestStatus.Cancelled) {
       cr.setStatus(RequestStatus.InQueue);
-      cr.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
       crd.changeCleaningRequest(cr);
     }
   }

@@ -63,7 +63,6 @@ public class MedRequestManager implements RequestManager {
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.InProgress);
-    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
     mrd.changeMedRequest(request);
   }
 
@@ -72,7 +71,6 @@ public class MedRequestManager implements RequestManager {
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.Completed);
-    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
     mrd.changeMedRequest(request);
   }
 
@@ -81,7 +79,6 @@ public class MedRequestManager implements RequestManager {
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.Cancelled);
-    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
     mrd.changeMedRequest(request);
   }
 
@@ -90,7 +87,6 @@ public class MedRequestManager implements RequestManager {
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
     request.setStatus(RequestStatus.InQueue);
-    request.setUpdatedTimestamp(new Timestamp(System.currentTimeMillis()));
     mrd.changeMedRequest(request);
   }
 

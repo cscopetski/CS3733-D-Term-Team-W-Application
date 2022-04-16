@@ -83,7 +83,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
             mr.getEmployeeID(),
             mr.getEmergency(),
             mr.getStatus().getValue(),
-            mr.getUpdatedTimestamp(),
+            new Timestamp(System.currentTimeMillis()),
             mr.getRequestID()));
   }
 
