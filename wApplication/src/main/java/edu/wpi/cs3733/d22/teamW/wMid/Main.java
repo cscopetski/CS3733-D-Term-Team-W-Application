@@ -68,7 +68,7 @@ public class Main {
     RequestFactory.getRequestFactory().getRequest(RequestType.CleaningRequest, fields2, true);
 
     CleaningRequestManager.getCleaningRequestManager().exportReqCSV("CleaningRequest.csv");
-    // App.launch(App.class, args);
+    App.launch(App.class, args);
 
   }
 }
