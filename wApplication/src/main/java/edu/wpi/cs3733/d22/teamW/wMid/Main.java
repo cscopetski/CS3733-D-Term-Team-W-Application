@@ -3,9 +3,10 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.FlowerRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.Flower;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Main {
@@ -41,7 +42,6 @@ public class Main {
     }
 
     FlowerRequestManager frm = FlowerRequestManager.getFlowerRequestManager();
-    Timestamp current = new Timestamp(12);
     ArrayList<String> fields = new ArrayList<String>();
     fields.add("Rose");
     fields.add("K-W");
@@ -50,9 +50,20 @@ public class Main {
     fields.add("4");
     fields.add("0");
 
-    RequestFactory rq = RequestFactory.getRequestFactory();
-    rq.getRequest(RequestType.FlowerRequest, fields, false);
+    ArrayList<String> fields2 = new ArrayList<String>();
+    fields2.add("Succulent");
+    fields2.add("S");
+    fields2.add("Caleb");
+    fields2.add("FDEPT00101");
+    fields2.add("5");
+    fields2.add("0");
 
+    RequestFactory rq = RequestFactory.getRequestFactory();
+
+    FlowerRequest fr = (FlowerRequest) rq.getRequest(RequestType.FlowerRequest, fields, false);
+    FlowerRequest fr2 = (FlowerRequest) rq.getRequest(RequestType.FlowerRequest, fields2, false);
+    fr2.setFlower(Flower.Daisy);
+    frm.changeFlowerRequest(fr2);
     // App.launch(App.class, args);
 
   }

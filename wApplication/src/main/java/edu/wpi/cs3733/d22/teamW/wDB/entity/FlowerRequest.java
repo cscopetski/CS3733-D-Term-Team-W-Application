@@ -42,22 +42,22 @@ public class FlowerRequest extends Request {
 
   public FlowerRequest(ArrayList<String> fields) throws NoFlower, StatusError {
     this.requestID = Integer.parseInt(fields.get(0));
-    this.patientLast = fields.get(1);
-    this.patientFirst = fields.get(2);
-    this.flower = Flower.getFlower(fields.get(3));
-    this.nodeID = fields.get(6);
-    this.employeeID = Integer.parseInt(fields.get(8));
-    this.emergency = Integer.parseInt(fields.get(9));
-    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(10)));
-    this.createdTimestamp = Timestamp.valueOf(fields.get(11));
-    this.updatedTimestamp = Timestamp.valueOf(fields.get(12));
+    this.flower = Flower.getFlower(fields.get(1));
+    this.patientLast = fields.get(2);
+    this.patientFirst = fields.get(3);
+    this.nodeID = fields.get(4);
+    this.employeeID = Integer.parseInt(fields.get(5));
+    this.emergency = Integer.parseInt(fields.get(6));
+    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(7)));
+    this.createdTimestamp = Timestamp.valueOf(fields.get(8));
+    this.updatedTimestamp = Timestamp.valueOf(fields.get(9));
   }
 
   public FlowerRequest(Integer index, ArrayList<String> fields) throws StatusError, NoFlower {
     this.requestID = index;
     this.flower = Flower.getFlower(fields.get(0));
-    this.patientLast = fields.get(0);
-    this.patientFirst = fields.get(1);
+    this.patientLast = fields.get(1);
+    this.patientFirst = fields.get(2);
     this.nodeID = fields.get(3);
     this.employeeID = Integer.parseInt(fields.get(4));
     this.emergency = Integer.parseInt(fields.get(5));
@@ -87,9 +87,9 @@ public class FlowerRequest extends Request {
     return String.format(
         "%d, '%s', '%s', '%s', '%s', %d, %d, %d, '%s', '%s'",
         requestID,
+        flower.getString(),
         patientLast,
         patientFirst,
-        flower.getString(),
         nodeID,
         employeeID,
         emergency,

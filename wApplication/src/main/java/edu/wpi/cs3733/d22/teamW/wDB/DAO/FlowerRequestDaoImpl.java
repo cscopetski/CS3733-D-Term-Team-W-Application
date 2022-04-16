@@ -40,7 +40,7 @@ public class FlowerRequestDaoImpl implements FlowerRequestDao {
     try {
       statement.execute(
           "CREATE TABLE FLOWERREQUESTS(\n"
-              + "                flowerReqID INT,\n"
+              + "                ReqID INT,\n"
               + "                flowerType varchar(25),\n"
               + "                lastName varchar(25),\n"
               + "                firstName varchar(25),\n"
@@ -52,7 +52,7 @@ public class FlowerRequestDaoImpl implements FlowerRequestDao {
               + "                updatedTimestamp timestamp, \n"
               + "                constraint FlowerReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),\n"
               + "                constraint FlowerReq_Employee_FK foreign key (employeeID) references EMPLOYEES(employeeID),\n"
-              + "                constraint FlowReq_PK primary key (flowerReqID),\n"
+              + "                constraint FlowReq_PK primary key (ReqID),\n"
               + "                constraint FlowerReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
               + "                constraint FlowerIsEmergency_check check (isEmergency = 0 or isEmergency = 1))");
     } catch (SQLException e) {
@@ -98,7 +98,7 @@ public class FlowerRequestDaoImpl implements FlowerRequestDao {
   public void changeFlowerRequest(FlowerRequest fr) throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE FLOWERREQUESTS SET FLOWERTYPE='%s', NODEID='%s', EMPLOYEEID= %d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE LABREQID=%d",
+            "UPDATE FLOWERREQUESTS SET FLOWERTYPE='%s', NODEID='%s', EMPLOYEEID= %d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE REQID=%d",
             fr.getFlower().getString(),
             fr.getNodeID(),
             fr.getEmployeeID(),
@@ -111,8 +111,7 @@ public class FlowerRequestDaoImpl implements FlowerRequestDao {
   @Override
   public void deleteFlowerRequest(Integer requestID) throws SQLException {
     RequestFactory.getRequestFactory().getReqIDList().remove(requestID);
-    statement.executeUpdate(
-        String.format("DELETE FROM FLOWERREQUESTS WHERE FLOWERREQID=%d", requestID));
+    statement.executeUpdate(String.format("DELETE FROM FLOWERREQUESTS WHERE REQID=%d", requestID));
   }
 
   @Override
