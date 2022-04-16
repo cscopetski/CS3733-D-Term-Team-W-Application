@@ -54,6 +54,7 @@ public class DBController {
 
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
+      FlowerRequestDao flowerRequestDao = new FlowerRequestDaoImpl(statement);
       ComputerServiceRequestDao csrDao = new ComputerServiceRequestDaoImpl(statement);
       SanitationRequestDao sanitationRequestDao = new SanitationRequestDaoImpl(statement);
       MedRequestDao medRequestDao = new MedRequestDaoImpl(statement);
@@ -73,6 +74,7 @@ public class DBController {
       LabServiceRequestManager.getLabServiceRequestManager()
           .setLabServiceRequestDao(labServiceRequestDao);
       CleaningRequestManager.getCleaningRequestManager().setCleaningRequestDao(cleaningRequestDao);
+      FlowerRequestManager.getFlowerRequestManager().setFlowerRequestDao(flowerRequestDao);
       ComputerServiceRequestManager.getComputerServiceRequestManager()
           .setComputerServiceRequestDao(csrDao);
       SanitationRequestManager.getSanitationRequestManager()
@@ -86,6 +88,7 @@ public class DBController {
       ((MedEquipRequestDaoImpl) medEquipRequestDao).createTable();
       ((MedRequestDaoImpl) medRequestDao).createTable();
       ((CleaningRequestDaoImpl) cleaningRequestDao).createTable();
+      ((FlowerRequestDaoImpl) flowerRequestDao).createTable();
       ((ComputerServiceRequestDaoImpl) csrDao).createTable();
       ((SanitationRequestDaoImpl) sanitationRequestDao).createTable();
 

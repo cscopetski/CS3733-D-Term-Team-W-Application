@@ -14,6 +14,7 @@ public class RequestFactory {
   private LabServiceRequestManager lsrm = LabServiceRequestManager.getLabServiceRequestManager();
   private MedRequestManager mrm = MedRequestManager.getMedRequestManager();
   private CleaningRequestManager crm = CleaningRequestManager.getCleaningRequestManager();
+  private FlowerRequestManager frm = FlowerRequestManager.getFlowerRequestManager();
   private ComputerServiceRequestManager csrm =
       ComputerServiceRequestManager.getComputerServiceRequestManager();
 
@@ -95,6 +96,15 @@ public class RequestFactory {
       }
       System.out.println(cr.toValuesString());
       return cr;
+    } else if (requestType.equals(RequestType.FlowerRequest)) {
+      Request fr;
+      if (importingFromCSV) {
+        fr = frm.addExistingRequest(fields);
+      } else {
+        fr = frm.addNewRequest(counter, fields);
+      }
+      System.out.println(fr.toValuesString());
+      return fr;
     } else if (requestType.equals(RequestType.ComputerServiceRequest)) {
       Request csr;
       if (importingFromCSV) {

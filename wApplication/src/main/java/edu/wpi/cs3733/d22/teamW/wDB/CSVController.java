@@ -18,7 +18,9 @@ public class CSVController {
   private String labServiceRequestFileName;
   private String employeeFileName;
   private String medRequestFileName;
+  private String flowerRequestFileName;
   private String computerServiceRequestFileName;
+  private String sanitationRequestFileName;
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
@@ -29,14 +31,18 @@ public class CSVController {
       String labServiceRequestFileName,
       String employeeFileName,
       String medRequestFileName,
-      String computerServiceRequestFileName) {
+      String flowerRequestFileName,
+      String computerServiceRequestFileName,
+      String sanitationRequestFileName) {
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
     this.medEquipRequestFileName = medEquipRequestFileName;
     this.labServiceRequestFileName = labServiceRequestFileName;
     this.employeeFileName = employeeFileName;
     this.medRequestFileName = medRequestFileName;
+    this.flowerRequestFileName = flowerRequestFileName;
     this.computerServiceRequestFileName = computerServiceRequestFileName;
+    this.sanitationRequestFileName = sanitationRequestFileName;
   }
 
   public void populateTables() throws Exception {
@@ -47,7 +53,7 @@ public class CSVController {
     insertIntoMedEquipReqTable(importCSV(medEquipRequestFileName));
     insertIntoLabReqTable(importCSV(labServiceRequestFileName));
     insertMedRequestTable(importCSV(medRequestFileName));
-
+    insertFlowerRequestTable(importCSV(flowerRequestFileName));
     insertComputerServiceRequestTable(importCSV(computerServiceRequestFileName));
   }
 
@@ -200,6 +206,19 @@ public class CSVController {
 
       MedRequest mr =
           (MedRequest) requestFactory.getRequest(RequestType.MedicineDelivery, fields, true);
+
+      // medReqLists.add(mr);
+    }
+  }
+
+  private void insertFlowerRequestTable(ArrayList<String[]> tokens) throws Exception {
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+
+      FlowerRequest fr =
+          (FlowerRequest) requestFactory.getRequest(RequestType.FlowerRequest, fields, true);
 
       // medReqLists.add(mr);
     }
