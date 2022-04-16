@@ -21,6 +21,7 @@ public class CSVController {
   private String flowerRequestFileName;
   private String computerServiceRequestFileName;
   private String sanitationRequestFileName;
+  private String giftDeliveryRequestFileName;
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
@@ -33,7 +34,8 @@ public class CSVController {
       String medRequestFileName,
       String flowerRequestFileName,
       String computerServiceRequestFileName,
-      String sanitationRequestFileName) {
+      String sanitationRequestFileName,
+      String giftDeliveryRequestFileName) {
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
     this.medEquipRequestFileName = medEquipRequestFileName;
@@ -43,6 +45,7 @@ public class CSVController {
     this.flowerRequestFileName = flowerRequestFileName;
     this.computerServiceRequestFileName = computerServiceRequestFileName;
     this.sanitationRequestFileName = sanitationRequestFileName;
+    this.giftDeliveryRequestFileName = giftDeliveryRequestFileName;
   }
 
   public void populateTables() throws Exception {
@@ -55,6 +58,7 @@ public class CSVController {
     insertMedRequestTable(importCSV(medRequestFileName));
     insertFlowerRequestTable(importCSV(flowerRequestFileName));
     insertComputerServiceRequestTable(importCSV(computerServiceRequestFileName));
+    insertGiftDeliveryRequestTable(importCSV(giftDeliveryRequestFileName));
   }
 
   public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
@@ -253,6 +257,16 @@ public class CSVController {
       ComputerServiceRequest csr =
           (ComputerServiceRequest)
               requestFactory.getRequest(RequestType.ComputerServiceRequest, fields, true);
+    }
+  }
+
+  private void insertGiftDeliveryRequestTable(ArrayList<String[]> tokens) throws Exception {
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+      GiftDeliveryRequest gdr =
+          (GiftDeliveryRequest) requestFactory.getRequest(RequestType.GiftDelivery, fields, true);
     }
   }
 }

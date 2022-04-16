@@ -160,15 +160,13 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
     }
   }
 
-  // TODO uncomment this once Edison writes the new DB
-  /*
   @Override
   public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
     ArrayList<Request> employeeRequestList = new ArrayList<>();
     try {
       ResultSet sanitationRequests =
-              statement.executeQuery(
-                      String.format("SELECT * FROM SANITATIONREQUESTS WHERE EMPLOYEEID = %d", employeeID));
+          statement.executeQuery(
+              String.format("SELECT * FROM SANITATIONREQUESTS WHERE EMPLOYEEID = %d", employeeID));
       while (sanitationRequests.next()) {
         ArrayList<String> sanitationRequestData = new ArrayList<String>();
 
@@ -183,7 +181,6 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
     }
     return employeeRequestList;
   }
-   */
 
   @Override
   public void updateSanitationRequestsAtLocation(String nodeID)
