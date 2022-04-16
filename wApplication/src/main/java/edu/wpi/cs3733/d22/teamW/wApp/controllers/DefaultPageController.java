@@ -27,6 +27,7 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane aboutPage;
   @FXML public Pane profilePage;
   @FXML public Pane snakePage;
+  @FXML public Pane pacManPage;
   @FXML public HBox menuBar;
   @FXML public Pane buttonPane;
 
@@ -55,6 +56,7 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().putPane(SceneManager.Scenes.About, aboutPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Profile, profilePage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Snake, snakePage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.PacMan, pacManPage);
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Login);
   }
 
@@ -130,5 +132,9 @@ public class DefaultPageController implements Initializable {
 
   public void switchToSnake(ActionEvent actionEvent) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Snake);
+  }
+
+  public void switchToPacMan(ActionEvent actionEvent) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.PacMan);
   }
 }

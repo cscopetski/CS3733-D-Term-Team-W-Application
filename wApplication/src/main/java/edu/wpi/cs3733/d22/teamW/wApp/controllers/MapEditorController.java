@@ -1,4 +1,3 @@
-/*
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Floor;
@@ -9,13 +8,9 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.*;
@@ -24,11 +19,8 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
 public class MapEditorController extends LoadableController {
 
@@ -111,7 +103,7 @@ public class MapEditorController extends LoadableController {
               }
             });
   }
-
+  /*
   public void refreshDash() throws SQLException {
     floorList.clear();
     equipList.clear();
@@ -476,6 +468,7 @@ public class MapEditorController extends LoadableController {
     dropdown.setText("Floor 5");
     mapList.setImage(img5);
   }
+  */
 
   @Override
   protected SceneManager.Scenes GetSceneType() {
@@ -497,29 +490,33 @@ public class MapEditorController extends LoadableController {
     scrollPane.setPannable(true);
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+    /*
     try {
+
       refreshDash();
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    */
   }
 
   @Override
   public void onUnload() {}
-
-  private void moveVals() throws SQLException {
-    ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
-    for (MedEquip medEquip : eqList) {
-      medEquip.setNodeID("HOLD");
-      equipController.change(medEquip);
-    }
-    ArrayList<Request> lsr = labServiceRequestManager.getAllRequests();
-    for (int i = 0; i < lsr.size(); i++) {
-      labServiceRequestManager.changeLoc((LabServiceRequest) lsr.get(i), "HOLD");
-    }
-    ArrayList<Request> medr = MedRequestManager.getMedRequestManager().getAllRequests();
-    for (int i = 0; i < medr.size(); i++) {
-      */
+}
+/*
+private void moveVals() throws SQLException {
+  ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
+  for (MedEquip medEquip : eqList) {
+    medEquip.setNodeID("HOLD");
+    equipController.change(medEquip);
+  }
+  ArrayList<Request> lsr = labServiceRequestManager.getAllRequests();
+  for (int i = 0; i < lsr.size(); i++) {
+    labServiceRequestManager.changeLoc((LabServiceRequest) lsr.get(i), "HOLD");
+  }
+  ArrayList<Request> medr = MedRequestManager.getMedRequestManager().getAllRequests();
+  for (int i = 0; i < medr.size(); i++) {
+    */
 /*      medRequestManager.changeMedRequest(
 medr.get(i).getRequestID(),
 ((MedRequest) medr.get(i)).getMedicine().getString(),

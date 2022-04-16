@@ -68,7 +68,8 @@ public class SceneManager {
     Help,
     About,
     Profile,
-    Snake
+    Snake,
+    PacMan
   }
 
   private static class Instance {
