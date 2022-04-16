@@ -1,49 +1,41 @@
 package edu.wpi.cs3733.d22.teamW.wDB.enums;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoFlower;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public enum Flower {
-    Rose("ROS", "Rose"),
-    Lilac("LIL", "Lilac"),
-    Daisy("DAI", "Daisy"),
-    Orchid("ORC", "Orchid"),
-    Succulent("SUC", "Succulent");
+    Rose("Rose"),
+    Lilac("Lilac"),
+    Daisy("Daisy"),
+    Orchid("Orchid"),
+    Succulent("Succulent");
 
-    public final String abb;
     public final String string;
 
     private static Map map = new HashMap<>();
-    private static Map map2 = new HashMap<>();
 
-    private Flower(String abb, String string) {
-        this.abb = abb;
+    private Flower(String string) {
         this.string = string;
     }
 
     static {
-        for (MedEquipType type : MedEquipType.values()) {
-            map.put(type.abb, type);
-            map2.put(type.string, type);
+        for (Flower type : Flower.values()) {
+            map.put(type.string, type);
         }
-    }
-
-    public String getAbb() {
-        return this.abb;
     }
 
     public String getString() {
         return this.string;
     }
 
-    public static MedEquipType getMedEquipFromAbb(String input) throws NonExistingMedEquip {
-        input = input.trim();
-        MedEquipType output = (MedEquipType) map.get(input);
-        if (output == null) {
-            throw new NonExistingMedEquip();
+    public static Flower getFlower(String flower) throws NoFlower {
+        Flower type = null;
+        type = (Flower) map.get(flower);
+        if (type == null) {
+            throw new NoFlower();
         }
-        return output;
+        return type;
     }
 }
