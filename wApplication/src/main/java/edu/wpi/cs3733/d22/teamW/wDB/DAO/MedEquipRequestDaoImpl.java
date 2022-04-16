@@ -136,7 +136,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
         String.format(
             "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d, UPDATEDTIMESTAMP = '%s' WHERE MEDREQID = %d",
             mER.getItemID(),
-            mER.getItemType(),
+            mER.getItemType().getAbb(),
             mER.getNodeID(),
             mER.getEmployeeID(),
             mER.getEmergency(),
@@ -203,10 +203,10 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
     try {
       ResultSet medEquipment =
-              statement.executeQuery(
-                      String.format(
-                              "SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EQUIPTYPE='%s'",
-                              itemType.getAbb()));
+          statement.executeQuery(
+              String.format(
+                  "SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EQUIPTYPE='%s'",
+                  itemType.getAbb()));
 
       // Size of num MedEquipRequest fields
       ArrayList<String> medEquipData = new ArrayList<>();
@@ -252,5 +252,4 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     }
     return employeeRequestList;
   }
-
 }

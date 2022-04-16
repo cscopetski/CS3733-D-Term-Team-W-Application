@@ -36,6 +36,6 @@ public class Main {
       e.printStackTrace();
     }
 
-    App.launch(App.class, args);
+    // App.launch(App.class, args);
   }
 }

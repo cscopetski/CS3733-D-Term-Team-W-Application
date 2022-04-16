@@ -126,7 +126,7 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
     statement.executeUpdate(
         String.format("INSERT INTO EMPLOYEES VALUES (%s)", emp.toValuesString()));
 
-    System.out.println(String.format("INSERT INTO EMPLOYEES VALUES (%s)", emp.toValuesString()));
+    // System.out.println(String.format("INSERT INTO EMPLOYEES VALUES (%s)", emp.toValuesString()));
   }
 
   @Override

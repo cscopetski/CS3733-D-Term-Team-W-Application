@@ -41,7 +41,11 @@ public enum MedEquipType {
     input = input.trim();
     MedEquipType output = (MedEquipType) map.get(input);
     if (output == null) {
-      throw new NonExistingMedEquip();
+      output = (MedEquipType) map2.get(input);
+      if (output == null) {
+        System.out.println(input);
+        throw new NonExistingMedEquip();
+      }
     }
     return output;
   }

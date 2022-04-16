@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.CleaningRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.CleaningRequestMax;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
@@ -47,7 +48,7 @@ public class CleaningRequestManager {
 
   // TODO auto start all cleaning requests at that location when it is 6
   public CleaningRequest addNewRequest(Integer num, ArrayList<String> fields)
-      throws SQLException, StatusError {
+      throws SQLException, StatusError, CleaningRequestMax {
     CleaningRequest cr;
     fields.add(Integer.toString(RequestStatus.InQueue.getValue()));
     fields.add(new Timestamp(System.currentTimeMillis()).toString());
@@ -78,7 +79,7 @@ public class CleaningRequestManager {
   }
 
   public CleaningRequest addExistingRequest(ArrayList<String> fields)
-      throws SQLException, StatusError {
+      throws SQLException, StatusError, CleaningRequestMax {
     CleaningRequest cr = new CleaningRequest(fields);
     // TODO special exception
     if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
@@ -142,7 +143,7 @@ public class CleaningRequestManager {
     }
   }
 
-  public void checkStart() throws SQLException, StatusError {
+  public void checkStart() throws SQLException, StatusError, CleaningRequestMax {
     ArrayList<String> cleaningLocations = crd.getCleaningLocation();
     for (String location : cleaningLocations) {
       System.out.println(location);
@@ -152,6 +153,7 @@ public class CleaningRequestManager {
           System.out.println(c);
           start(c);
         }
+        throw new CleaningRequestMax();
       }
     }
   }

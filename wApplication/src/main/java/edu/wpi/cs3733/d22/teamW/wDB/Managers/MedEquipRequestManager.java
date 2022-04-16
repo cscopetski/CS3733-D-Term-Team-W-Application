@@ -205,6 +205,7 @@ public class MedEquipRequestManager implements RequestManager {
   public Request addExistingRequest(ArrayList<String> fields)
       throws SQLException, StatusError, NonExistingMedEquip {
     MedEquipRequest mER;
+
     mER = new MedEquipRequest(fields);
 
     if (RequestFactory.getRequestFactory().getReqIDList().add(mER.getRequestID())) {
@@ -231,7 +232,6 @@ public class MedEquipRequestManager implements RequestManager {
     req.setNodeID(locID);
     merd.changeMedEquipRequest(req);
   }
-
 
   public void changeReq(MedEquipRequest req) throws SQLException {
     merd.changeMedEquipRequest(req);

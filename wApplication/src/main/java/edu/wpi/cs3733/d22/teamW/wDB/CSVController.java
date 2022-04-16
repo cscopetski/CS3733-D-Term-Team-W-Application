@@ -180,7 +180,6 @@ public class CSVController {
   }
 
   private void insertIntoLabReqTable(ArrayList<String[]> tokens) throws Exception {
-    // ArrayList<LabServiceRequest> labReqList = new ArrayList<>();
 
     for (String[] s : tokens) {
       ArrayList<String> fields = new ArrayList<>();
@@ -189,8 +188,6 @@ public class CSVController {
       LabServiceRequest lSR =
           (LabServiceRequest)
               requestFactory.getRequest(RequestType.LabServiceRequest, fields, true);
-
-      // labReqList.add(lSR);
     }
   }
 
