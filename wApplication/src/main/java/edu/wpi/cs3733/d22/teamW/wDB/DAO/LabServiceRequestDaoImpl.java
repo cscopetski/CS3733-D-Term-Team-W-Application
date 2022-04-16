@@ -43,18 +43,20 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
     try {
       statement.execute(
           "CREATE TABLE LABSERVICEREQUESTS(\n"
-              + "                labReqID INT,\n"
-              + "                labType varchar(25),\n"
-              + "                nodeID varchar(25),\n"
-              + "                employeeID INT,\n"
-              + "                isEmergency INT,\n"
-              + "                reqStatus INT, \n"
-              + "                createdTimestamp timestamp, \n"
-              + "                updatedTimestamp timestamp, \n"
-              + "                constraint LabReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),\n"
-              + "                constraint LabReq_PK primary key (labReqID),\n"
-              + "                constraint LabReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
-              + "                constraint LabIsEmergency_check check (isEmergency = 0 or isEmergency = 1))");
+              + "labReqID INT,\n"
+              + "patientLast varchar(25),"
+              + "patientFirst varchar(25),"
+              + "labType varchar(25),\n"
+              + "nodeID varchar(25),\n"
+              + "employeeID INT,\n"
+              + "isEmergency INT,\n"
+              + "reqStatus INT, \n"
+              + "createdTimestamp timestamp, \n"
+              + "updatedTimestamp timestamp, \n"
+              + "constraint LabReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),\n"
+              + "constraint LabReq_PK primary key (labReqID),\n"
+              + "constraint LabReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
+              + "constraint LabIsEmergency_check check (isEmergency = 0 or isEmergency = 1))");
     } catch (SQLException e) {
       System.out.println("Lab Service Request Table failed to be created!");
       throw (e);
@@ -100,7 +102,9 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
   public void changeLabServiceRequest(LabServiceRequest lsr) throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE LABSERVICEREQUESTS SET LABTYPE='%s', NODEID='%s', EMPLOYEEID= %d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE LABREQID=%d",
+            "UPDATE LABSERVICEREQUESTS SET PATIENTLAST='%s', PATIENTFIRST='%s', LABTYPE='%s', NODEID='%s', EMPLOYEEID= %d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE LABREQID=%d",
+            lsr.getPatientLast(),
+            lsr.getPatientFirst(),
             lsr.getLabType().getString(),
             lsr.getNodeID(),
             lsr.getEmployeeID(),

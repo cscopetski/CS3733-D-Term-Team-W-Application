@@ -102,14 +102,14 @@ public class MedRequest extends Request {
     this.requestID = index;
     this.patientLast = fields.get(0);
     this.patientFirst = fields.get(1);
-    this.medicineType = MedicineType.getMedicine(fields.get(0));
-    this.quantity = Double.parseDouble(fields.get(1));
-    this.unit = Units.getUnitFromAbb(fields.get(2));
-    this.nodeID = fields.get(3);
-    this.bedNumber = Integer.parseInt(fields.get(7));
-    this.employeeID = Integer.parseInt(fields.get(4));
-    this.emergency = Integer.parseInt(fields.get(5));
-    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(6)));
+    this.medicineType = MedicineType.getMedicine(fields.get(2));
+    this.quantity = Double.parseDouble(fields.get(3));
+    this.unit = Units.getUnitFromAbb(fields.get(4));
+    this.nodeID = fields.get(5);
+    this.bedNumber = Integer.parseInt(fields.get(6));
+    this.employeeID = Integer.parseInt(fields.get(7));
+    this.emergency = Integer.parseInt(fields.get(8));
+    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(9)));
     this.createdTimestamp = new Timestamp(System.currentTimeMillis());
     this.updatedTimestamp = new Timestamp(System.currentTimeMillis());
   }
