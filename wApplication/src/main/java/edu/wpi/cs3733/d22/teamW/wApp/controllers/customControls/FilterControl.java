@@ -10,17 +10,25 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-public class FilterControl<E extends Enum<E>> extends VBox {
+public class FilterControl<E extends Enum<E>> extends ScrollPane {
+  private final VBox container;
   private final AutoCompleteInput filterInput;
   private final ObservableList<E> filters;
   private E[] values;
 
   public FilterControl() {
-    setAlignment(Pos.CENTER);
-    setSpacing(5);
+    setFitToWidth(true);
+    setHbarPolicy(ScrollBarPolicy.NEVER);
+
+    container = new VBox();
+    container.setSpacing(5);
+    container.setAlignment(Pos.CENTER);
+    setContent(container);
+
     filters =
         new ModifiableObservableListBase<E>() {
           ArrayList<E> list = new ArrayList<>();
@@ -52,6 +60,7 @@ public class FilterControl<E extends Enum<E>> extends VBox {
         };
 
     filterInput = new AutoCompleteInput();
+    filterInput.autosize();
     filterInput
         .getSelectionModel()
         .selectedItemProperty()
@@ -68,7 +77,7 @@ public class FilterControl<E extends Enum<E>> extends VBox {
               filterInput.getSelectionModel().clearSelection();
             });
 
-    getChildren().add(filterInput);
+    container.getChildren().add(filterInput);
   }
 
   public void addFilter(E value) {
@@ -81,7 +90,7 @@ public class FilterControl<E extends Enum<E>> extends VBox {
       Button remove = new Button("Remove?");
       remove.setOnAction(
           e -> {
-            getChildren().remove(ap);
+            container.getChildren().remove(ap);
             filters.remove(value);
           });
 
@@ -95,7 +104,7 @@ public class FilterControl<E extends Enum<E>> extends VBox {
       AnchorPane.setTopAnchor(remove, 0.0);
       AnchorPane.setBottomAnchor(remove, 0.0);
 
-      getChildren().add(ap);
+      container.getChildren().add(ap);
     }
   }
 
