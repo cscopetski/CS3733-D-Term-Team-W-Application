@@ -117,12 +117,8 @@ public class FlowerRequestManager implements RequestManager {
   }
 
   @Override
-  public void updateReqAtLocation(String nodeID) throws Exception {
-
-  }
+  public void updateReqAtLocation(String nodeID) throws Exception {}
 
   @Override
-  public void updateReqWithEmployee(Integer employeeID) throws Exception {
-
-  }
+  public void updateReqWithEmployee(Integer employeeID) throws Exception {}
 }

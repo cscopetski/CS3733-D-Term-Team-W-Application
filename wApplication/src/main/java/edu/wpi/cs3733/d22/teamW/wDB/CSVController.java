@@ -212,7 +212,6 @@ public class CSVController {
   }
 
   private void insertFlowerRequestTable(ArrayList<String[]> tokens) throws Exception {
-    // ArrayList<MedRequest> medReqLists = new ArrayList<>();
 
     for (String[] s : tokens) {
       ArrayList<String> fields = new ArrayList<>();
