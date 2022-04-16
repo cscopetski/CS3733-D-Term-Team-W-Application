@@ -18,6 +18,7 @@ public class CSVController {
   private String labServiceRequestFileName;
   private String employeeFileName;
   private String medRequestFileName;
+  private String flowerRequestFileName;
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
@@ -27,13 +28,15 @@ public class CSVController {
       String medEquipRequestFileName,
       String labServiceRequestFileName,
       String employeeFileName,
-      String medRequestFileName) {
+      String medRequestFileName,
+      String flowerRequestFileName) {
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
     this.medEquipRequestFileName = medEquipRequestFileName;
     this.labServiceRequestFileName = labServiceRequestFileName;
     this.employeeFileName = employeeFileName;
     this.medRequestFileName = medRequestFileName;
+    this.flowerRequestFileName = flowerRequestFileName;
   }
 
   public void populateTables() throws Exception {
@@ -44,6 +47,7 @@ public class CSVController {
     insertIntoMedEquipReqTable(importCSV(medEquipRequestFileName));
     insertIntoLabReqTable(importCSV(labServiceRequestFileName));
     insertMedRequestTable(importCSV(medRequestFileName));
+    insertFlowerRequestTable(importCSV(flowerRequestFileName));
   }
 
   public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
@@ -198,6 +202,20 @@ public class CSVController {
 
       MedRequest mr =
           (MedRequest) requestFactory.getRequest(RequestType.MedicineDelivery, fields, true);
+
+      // medReqLists.add(mr);
+    }
+  }
+
+  private void insertFlowerRequestTable(ArrayList<String[]> tokens) throws Exception {
+    // ArrayList<MedRequest> medReqLists = new ArrayList<>();
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+
+      FlowerRequest fr =
+          (FlowerRequest) requestFactory.getRequest(RequestType.FlowerRequest, fields, true);
 
       // medReqLists.add(mr);
     }

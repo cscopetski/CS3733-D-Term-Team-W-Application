@@ -3,10 +3,9 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.MedicineType;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class Main {
@@ -21,6 +20,7 @@ public class Main {
     final String labServiceRequestFileName = "LabRequests.csv";
     final String employeesFileName = "Employees.csv";
     final String medRequestFileName = "MedRequests.csv";
+    final String flowerRequestFileName = "FlowerRequests.csv";
 
     DBController.getDBController();
 
@@ -31,7 +31,8 @@ public class Main {
             medEquipRequestFileName,
             labServiceRequestFileName,
             employeesFileName,
-            medRequestFileName);
+            medRequestFileName,
+            flowerRequestFileName);
 
     try {
       csvController.populateTables();
@@ -39,10 +40,20 @@ public class Main {
       e.printStackTrace();
     }
 
+    FlowerRequestManager frm = FlowerRequestManager.getFlowerRequestManager();
+    Timestamp current = new Timestamp(12);
+    ArrayList<String> fields = new ArrayList<String>();
+    fields.add("Rose");
+    fields.add("K-W");
+    fields.add("Charlie");
+    fields.add("FDEPT00101");
+    fields.add("4");
+    fields.add("0");
 
+    RequestFactory rq = RequestFactory.getRequestFactory();
+    rq.getRequest(RequestType.FlowerRequest, fields, false);
 
-
-    //App.launch(App.class, args);
+    // App.launch(App.class, args);
 
   }
 }
