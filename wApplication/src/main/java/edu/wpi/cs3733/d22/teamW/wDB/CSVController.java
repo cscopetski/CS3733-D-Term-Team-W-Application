@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
@@ -136,7 +137,8 @@ public class CSVController {
    * @param tokens List of Medical Equipment Objects to populate the Location Table
    * @throws SQLException if insertion fails
    */
-  private void insertIntoMedEquipTable(ArrayList<String[]> tokens) throws SQLException {
+  private void insertIntoMedEquipTable(ArrayList<String[]> tokens)
+      throws SQLException, NonExistingMedEquip {
     ArrayList<MedEquip> medEquipList = new ArrayList<>();
 
     for (String[] s : tokens) {

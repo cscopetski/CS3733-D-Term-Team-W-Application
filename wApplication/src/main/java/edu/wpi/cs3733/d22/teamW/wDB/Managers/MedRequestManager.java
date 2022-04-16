@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedRequestDao;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.InvalidUnit;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -57,7 +58,7 @@ public class MedRequestManager implements RequestManager {
     return mr;
   }
 
-  public void start(Integer requestID) throws SQLException, StatusError {
+  public void start(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
     MedRequest request =
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
@@ -66,7 +67,7 @@ public class MedRequestManager implements RequestManager {
     mrd.changeMedRequest(request);
   }
 
-  public void complete(Integer requestID) throws SQLException, StatusError {
+  public void complete(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
     MedRequest request =
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
@@ -75,7 +76,7 @@ public class MedRequestManager implements RequestManager {
     mrd.changeMedRequest(request);
   }
 
-  public void cancel(Integer requestID) throws SQLException, StatusError {
+  public void cancel(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
     MedRequest request =
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
@@ -84,7 +85,7 @@ public class MedRequestManager implements RequestManager {
     mrd.changeMedRequest(request);
   }
 
-  public void reQueue(Integer requestID) throws SQLException, StatusError {
+  public void reQueue(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
     MedRequest request =
         (MedRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);

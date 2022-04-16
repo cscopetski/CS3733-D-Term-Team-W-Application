@@ -1,3 +1,4 @@
+/*
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Floor;
@@ -134,7 +135,7 @@ public class MapEditorController extends LoadableController {
         if (eqList.get(j).getNodeID().equalsIgnoreCase(locList.get(i).getNodeID())) {
           switch (locList.get(i).getFloor()) {
             case "01":
-              switchCase(eqList.get(j).getType(), F1);
+              switchCase(eqList.get(j).getType().getString(), F1);
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -517,52 +518,55 @@ public class MapEditorController extends LoadableController {
     }
     ArrayList<Request> medr = MedRequestManager.getMedRequestManager().getAllRequests();
     for (int i = 0; i < medr.size(); i++) {
-      /*      medRequestManager.changeMedRequest(
-      medr.get(i).getRequestID(),
-      ((MedRequest) medr.get(i)).getMedicine().getString(),
-      "HOLD",
-      medr.get(i).getEmployeeID(),
-      medr.get(i).getEmergency(),
-      medr.get(i).getStatus(),
-      medr.get(i).getCreatedTimestamp(),
-      medr.get(i).getUpdatedTimestamp());*/
-    }
-    ArrayList<Request> eqrl = medEquipRequestManager.getAllRequests();
-    for (int i = 0; i < eqrl.size(); i++) {
-      medEquipRequestManager.changeReq((MedEquipRequest) eqrl.get(i), "HOLD");
-    }
-  }
+      */
+/*      medRequestManager.changeMedRequest(
+medr.get(i).getRequestID(),
+((MedRequest) medr.get(i)).getMedicine().getString(),
+"HOLD",
+medr.get(i).getEmployeeID(),
+medr.get(i).getEmergency(),
+medr.get(i).getStatus(),
+medr.get(i).getCreatedTimestamp(),
+medr.get(i).getUpdatedTimestamp());*//*
 
-  private void generateRequestList() throws SQLException {
-    reqList.clear();
-    ArrayList<Request> rList = new ArrayList<>();
-    rList.addAll(medRequestManager.getAllRequests());
-    rList.addAll(medEquipRequestManager.getAllRequests());
-    rList.addAll(labServiceRequestManager.getAllRequests());
-    for (int i = 0; i < rList.size(); i++) {
-      for (int j = 0; j < currFloorNodeID.size(); j++) {
-        if (rList.get(i).getNodeID().equalsIgnoreCase(currFloorLoc.get(j).getNodeID())) {
-          reqList.add(
-              new Requests(
-                  rList.get(i).getStatus().getString(),
-                  rList.get(i).getEmployeeID(),
-                  rList.get(i).getEmergency(),
-                  rList.get(i).getRequestID(),
-                  currFloorLoc.get(j).getXCoord(),
-                  currFloorLoc.get(j).getYCoord()));
-        }
-      }
-    }
-  }
+                                         }
+                                         ArrayList<Request> eqrl = medEquipRequestManager.getAllRequests();
+                                         for (int i = 0; i < eqrl.size(); i++) {
+                                           medEquipRequestManager.changeReq((MedEquipRequest) eqrl.get(i), "HOLD");
+                                         }
+                                       }
 
-  private void generateRequestDots() {
-    size = reqList.size();
-    for (int i = 0; i < size; i++) {
-      Circle circ = new Circle(3, Color.BLACK);
-      circ.setCenterX((reqList.get(i).getXcoord()));
-      circ.setCenterY((reqList.get(i).getYcoord()) - 8);
-      reqDots.add(circ);
-      scrollGroup.getChildren().add(circ);
-    }
-  }
-}
+                                       private void generateRequestList() throws SQLException {
+                                         reqList.clear();
+                                         ArrayList<Request> rList = new ArrayList<>();
+                                         rList.addAll(medRequestManager.getAllRequests());
+                                         rList.addAll(medEquipRequestManager.getAllRequests());
+                                         rList.addAll(labServiceRequestManager.getAllRequests());
+                                         for (int i = 0; i < rList.size(); i++) {
+                                           for (int j = 0; j < currFloorNodeID.size(); j++) {
+                                             if (rList.get(i).getNodeID().equalsIgnoreCase(currFloorLoc.get(j).getNodeID())) {
+                                               reqList.add(
+                                                   new Requests(
+                                                       rList.get(i).getStatus().getString(),
+                                                       rList.get(i).getEmployeeID(),
+                                                       rList.get(i).getEmergency(),
+                                                       rList.get(i).getRequestID(),
+                                                       currFloorLoc.get(j).getXCoord(),
+                                                       currFloorLoc.get(j).getYCoord()));
+                                             }
+                                           }
+                                         }
+                                       }
+
+                                       private void generateRequestDots() {
+                                         size = reqList.size();
+                                         for (int i = 0; i < size; i++) {
+                                           Circle circ = new Circle(3, Color.BLACK);
+                                           circ.setCenterX((reqList.get(i).getXcoord()));
+                                           circ.setCenterY((reqList.get(i).getYcoord()) - 8);
+                                           reqDots.add(circ);
+                                           scrollGroup.getChildren().add(circ);
+                                         }
+                                       }
+                                     }
+                                     */

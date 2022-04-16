@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.LabServiceRequestDao;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingLabServiceRequestType;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -75,7 +76,7 @@ public class LabServiceRequestManager implements RequestManager {
     return lSR;
   }
 
-  public void start(Integer requestID) throws SQLException, StatusError {
+  public void start(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
     LabServiceRequest request =
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
@@ -84,7 +85,7 @@ public class LabServiceRequestManager implements RequestManager {
     lsrdi.changeLabServiceRequest(request);
   }
 
-  public void complete(Integer requestID) throws SQLException, StatusError {
+  public void complete(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
     LabServiceRequest request =
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
@@ -93,7 +94,7 @@ public class LabServiceRequestManager implements RequestManager {
     lsrdi.changeLabServiceRequest(request);
   }
 
-  public void cancel(Integer requestID) throws SQLException, StatusError {
+  public void cancel(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
     LabServiceRequest request =
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
@@ -108,7 +109,7 @@ public class LabServiceRequestManager implements RequestManager {
     lsrdi.changeLabServiceRequest(request);
   }
 
-  public void reQueue(Integer requestID) throws SQLException, StatusError {
+  public void reQueue(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
     LabServiceRequest request =
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);

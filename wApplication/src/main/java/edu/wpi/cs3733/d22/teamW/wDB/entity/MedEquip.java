@@ -1,14 +1,16 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipType;
 import java.util.ArrayList;
 
 public class MedEquip extends Entity {
 
   private String medID;
 
-  private String type;
+  private MedEquipType type;
 
   private String nodeID;
 
@@ -21,17 +23,18 @@ public class MedEquip extends Entity {
     this.status = null;
   }
 
-  public MedEquip(String ID, String type, String nodeID, Integer status) throws StatusError {
+  public MedEquip(String ID, String type, String nodeID, Integer status)
+      throws StatusError, NonExistingMedEquip {
     this.medID = ID;
-    this.type = type;
+    this.type = MedEquipType.getMedEquipFromAbb(type);
     this.nodeID = nodeID;
     this.status = MedEquipStatus.getStatus(status);
   }
 
-  public MedEquip(ArrayList<String> medEquipData) {
+  public MedEquip(ArrayList<String> medEquipData) throws NonExistingMedEquip {
 
     this.medID = medEquipData.get(0);
-    this.type = medEquipData.get(1);
+    this.type = MedEquipType.getMedEquipFromAbb(medEquipData.get(1));
     this.nodeID = medEquipData.get(2);
     try {
       this.status = MedEquipStatus.getStatus(Integer.parseInt(medEquipData.get(3)));
@@ -57,12 +60,12 @@ public class MedEquip extends Entity {
     return this.medID;
   }
 
-  public String getType() {
+  public MedEquipType getType() {
     return type;
   }
 
   public void setType(String type) {
-    this.type = type;
+    this.type = MedEquipType.valueOf(type);
   }
 
   public String getNodeID() {

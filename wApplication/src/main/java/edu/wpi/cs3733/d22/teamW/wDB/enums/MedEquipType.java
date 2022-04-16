@@ -8,7 +8,8 @@ public enum MedEquipType {
   Bed("BED", "Bed"),
   Recliners("REC", "Recliners"),
   InfusionPump("INP", "Infusion Pump"),
-  XRay("XRY", "X-Ray");
+  XRay("XRY", "X-Ray"),
+  NONE("NONE", "NONE");
 
   public final String abb;
   public final String string;

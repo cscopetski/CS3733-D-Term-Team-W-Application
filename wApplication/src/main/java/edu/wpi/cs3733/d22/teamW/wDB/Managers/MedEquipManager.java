@@ -7,6 +7,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -68,7 +69,7 @@ public class MedEquipManager {
     medi.changeMedEquip(medEquip);
   }
 
-  public MedEquip getNextFree(String itemType) throws SQLException {
+  public MedEquip getNextFree(MedEquipType itemType) throws SQLException {
     for (MedEquip e : medi.getAllMedEquip()) {
       if (e.getType().equals(itemType) && e.getStatus().equals(MedEquipStatus.Clean)) {
         return e;
@@ -95,6 +96,11 @@ public class MedEquipManager {
 
   public ArrayList<MedEquip> getAllMedEquip() throws SQLException {
     return medi.getAllMedEquip();
+  }
+
+  public ArrayList<MedEquip> getAllMedEquip(MedEquipType type, MedEquipStatus status)
+      throws SQLException {
+    return medi.getAllMedEquip(type, status);
   }
 
   public void exportMedicalEquipmentCSV(String filename) {

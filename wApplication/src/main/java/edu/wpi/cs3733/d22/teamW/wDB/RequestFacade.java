@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.CleaningRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
@@ -26,7 +27,8 @@ public class RequestFacade {
     return requestFacade;
   }
 
-  public ArrayList<Request> getAllRequests(RequestType requestType) throws SQLException {
+  public ArrayList<Request> getAllRequests(RequestType requestType)
+      throws SQLException, NonExistingMedEquip {
     ArrayList<Request> requests = new ArrayList<Request>();
 
     switch (requestType) {
@@ -51,7 +53,7 @@ public class RequestFacade {
     return requests;
   }
 
-  public ArrayList<Request> getAllRequests() throws SQLException {
+  public ArrayList<Request> getAllRequests() throws SQLException, NonExistingMedEquip {
     ArrayList<Request> requests = new ArrayList<Request>();
     requests.addAll(mrm.getAllRequests());
     requests.addAll(merm.getAllRequests());
@@ -61,7 +63,8 @@ public class RequestFacade {
     return requests;
   }
 
-  public Request findRequest(Integer requestID, RequestType type) throws SQLException, StatusError {
+  public Request findRequest(Integer requestID, RequestType type)
+      throws SQLException, StatusError, NonExistingMedEquip {
     Request request = null;
     switch (type) {
       case MedicalEquipmentRequest:

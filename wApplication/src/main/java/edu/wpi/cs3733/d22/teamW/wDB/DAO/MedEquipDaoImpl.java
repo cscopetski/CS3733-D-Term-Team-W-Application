@@ -1,6 +1,9 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipType;
 import java.io.*;
 import java.sql.*;
 import java.util.*;
@@ -63,8 +66,55 @@ public class MedEquipDaoImpl implements MedEquipDao {
     } catch (SQLException e) {
       System.out.println("Query from medical equipment table failed");
       throw (e);
+    } catch (NonExistingMedEquip e) {
+      e.printStackTrace();
     }
 
+    return medEquipList;
+  }
+
+  @Override
+  public ArrayList<MedEquip> getAllMedEquip(MedEquipType type, MedEquipStatus status)
+      throws SQLException {
+
+    ArrayList<MedEquip> medEquipList = new ArrayList<>();
+
+    String queury = "SELECT * FROM MEDICALEQUIPMENT";
+    if (type == null && status != null) {
+      queury += "WHERE REQSTATUS = ";
+      queury += status.getString();
+    }
+    if (type != null && status == null) {
+      queury += "WHERE TYPE = ";
+      queury += type.getAbb();
+    }
+    if (type != null && status != null) {
+      queury += "WHERE (REQSTATUS = ";
+      queury += status.getString();
+      queury += "AND TYPE = ";
+      queury += type.getAbb();
+      queury += ")";
+    }
+
+    try {
+      ResultSet medEquipment = statement.executeQuery(queury);
+
+      while (medEquipment.next()) {
+        ArrayList<String> medEquipData = new ArrayList<String>();
+
+        for (int i = 0; i < medEquipment.getMetaData().getColumnCount(); i++) {
+          medEquipData.add(medEquipment.getString(i + 1));
+        }
+
+        medEquipList.add(new MedEquip(medEquipData));
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from medical equipment table failed");
+      throw (e);
+    } catch (NonExistingMedEquip e) {
+      e.printStackTrace();
+    }
     return medEquipList;
   }
 
@@ -91,6 +141,8 @@ public class MedEquipDaoImpl implements MedEquipDao {
     } catch (SQLException e) {
       System.out.println("Query from medical equipment table failed");
       throw (e);
+    } catch (NonExistingMedEquip e) {
+      e.printStackTrace();
     }
 
     return medEquip;

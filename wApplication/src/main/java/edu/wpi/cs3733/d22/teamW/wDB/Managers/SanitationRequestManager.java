@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.SanitationRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -63,7 +64,7 @@ public class SanitationRequestManager implements RequestManager {
     return SR;
   }
 
-  public void start(Integer requestID) throws SQLException, StatusError {
+  public void start(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
     SanitationRequest request =
         (SanitationRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
@@ -72,7 +73,7 @@ public class SanitationRequestManager implements RequestManager {
     srd.changeSanitationRequest(request);
   }
 
-  public void complete(Integer requestID) throws SQLException, StatusError {
+  public void complete(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
     SanitationRequest request =
         (SanitationRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
@@ -81,7 +82,7 @@ public class SanitationRequestManager implements RequestManager {
     srd.changeSanitationRequest(request);
   }
 
-  public void cancel(Integer requestID) throws SQLException, StatusError {
+  public void cancel(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
     SanitationRequest request =
         (SanitationRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
@@ -90,7 +91,7 @@ public class SanitationRequestManager implements RequestManager {
     srd.changeSanitationRequest(request);
   }
 
-  public void reQueue(Integer requestID) throws SQLException, StatusError {
+  public void reQueue(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
     SanitationRequest request =
         (SanitationRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);

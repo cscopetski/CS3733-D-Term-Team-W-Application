@@ -1,9 +1,11 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipType;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -59,7 +61,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
   }
 
   @Override
-  public ArrayList<Request> getAllMedEquipRequests() throws SQLException {
+  public ArrayList<Request> getAllMedEquipRequests() throws SQLException, NonExistingMedEquip {
     ArrayList<Request> medEquipRequestList = new ArrayList<>();
 
     try {
@@ -151,7 +153,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
   }
 
   @Override
-  public MedEquipRequest getRequest(Integer reqID) throws SQLException {
+  public MedEquipRequest getRequest(Integer reqID) throws SQLException, NonExistingMedEquip {
     MedEquipRequest mr = null;
     try {
       ResultSet medEquipRequests =
@@ -175,7 +177,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
   }
 
   @Override
-  public void exportMedEquipReqCSV(String fileName) {
+  public void exportMedEquipReqCSV(String fileName) throws NonExistingMedEquip {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
@@ -195,14 +197,16 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
   }
 
   @Override
-  public ArrayList<MedEquipRequest> getTypeMedEquipRequests(String itemType) throws SQLException {
+  public ArrayList<MedEquipRequest> getTypeMedEquipRequests(MedEquipType itemType)
+      throws SQLException, NonExistingMedEquip {
     ArrayList<MedEquipRequest> medEquipRequestList = new ArrayList<>();
 
     try {
       ResultSet medEquipment =
           statement.executeQuery(
               String.format(
-                  "SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EQUIPTYPE='%s'", itemType));
+                  "SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EQUIPTYPE='%s'",
+                  itemType.getAbb()));
 
       // Size of num MedEquipRequest fields
       ArrayList<String> medEquipData = new ArrayList<>();

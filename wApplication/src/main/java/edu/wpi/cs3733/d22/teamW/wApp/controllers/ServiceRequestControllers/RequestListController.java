@@ -3,10 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.CannotStart;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoAvailableEquipment;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingRequestID;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
@@ -51,6 +48,8 @@ public class RequestListController extends LoadableController {
                 moreInfo.setText("Error loading request details.");
               } catch (StatusError e) {
                 e.printStackTrace();
+              } catch (NonExistingMedEquip e) {
+                e.printStackTrace();
               }
               selectionButtons.setVisible(newSelection != null);
             });
@@ -84,7 +83,7 @@ public class RequestListController extends LoadableController {
       case 0:
         try {
           rt.setItems(RequestFacade.getRequestFacade().getAllRequests());
-        } catch (SQLException ex) {
+        } catch (SQLException | NonExistingMedEquip ex) {
           ex.printStackTrace();
         }
         break;
@@ -94,20 +93,22 @@ public class RequestListController extends LoadableController {
               RequestFacade.getRequestFacade().getAllRequests(RequestType.LabServiceRequest));
         } catch (SQLException ex) {
           ex.printStackTrace();
+        } catch (NonExistingMedEquip e) {
+          e.printStackTrace();
         }
         break;
       case 2:
         try {
           rt.setItems(
               RequestFacade.getRequestFacade().getAllRequests(RequestType.LanguageInterpreter));
-        } catch (SQLException ex) {
+        } catch (SQLException | NonExistingMedEquip ex) {
           ex.printStackTrace();
         }
         break;
       case 3:
         try {
           rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.MealDelivery));
-        } catch (SQLException ex) {
+        } catch (SQLException | NonExistingMedEquip ex) {
           ex.printStackTrace();
         }
         break;
@@ -115,21 +116,21 @@ public class RequestListController extends LoadableController {
         try {
           rt.setItems(
               RequestFacade.getRequestFacade().getAllRequests(RequestType.MedicalEquipmentRequest));
-        } catch (SQLException ex) {
+        } catch (SQLException | NonExistingMedEquip ex) {
           ex.printStackTrace();
         }
         break;
       case 5:
         try {
           rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.SecurityService));
-        } catch (SQLException ex) {
+        } catch (SQLException | NonExistingMedEquip ex) {
           ex.printStackTrace();
         }
         break;
       case 6:
         try {
           rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.CleaningRequest));
-        } catch (SQLException ex) {
+        } catch (SQLException | NonExistingMedEquip ex) {
           ex.printStackTrace();
         }
         break;

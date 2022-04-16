@@ -1,18 +1,13 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipRequestDao;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.CannotStart;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoAvailableEquipment;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingRequestID;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.Automation;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -30,7 +25,8 @@ public class MedEquipRequestManager implements RequestManager {
 
   private MedEquipRequestManager() {}
 
-  public ArrayList<MedEquipRequest> getType(String type) throws SQLException {
+  public ArrayList<MedEquipRequest> getType(MedEquipType type)
+      throws SQLException, NonExistingMedEquip {
     return merd.getTypeMedEquipRequests(type);
   }
 
@@ -38,7 +34,7 @@ public class MedEquipRequestManager implements RequestManager {
     this.merd = merdi;
   }
 
-  public void startNext(String itemType) throws Exception {
+  public void startNext(MedEquipType itemType) throws Exception {
     MedEquipRequest mer = getNext(itemType);
     if (mer != null) {
       System.out.println(mer.toValuesString());
@@ -52,7 +48,7 @@ public class MedEquipRequestManager implements RequestManager {
     }
   }
 
-  public MedEquipRequest getNext(String itemType) throws SQLException {
+  public MedEquipRequest getNext(MedEquipType itemType) throws SQLException, NonExistingMedEquip {
     ArrayList<MedEquipRequest> requests = merd.getTypeMedEquipRequests(itemType);
     for (MedEquipRequest mer : requests) {
       if (mer.getEmergency() == 1 && mer.getStatus().equals(RequestStatus.InQueue)) {
@@ -68,7 +64,8 @@ public class MedEquipRequestManager implements RequestManager {
   }
 
   public void start(Integer requestID)
-      throws SQLException, NoAvailableEquipment, CannotStart, NonExistingRequestID {
+      throws SQLException, NoAvailableEquipment, CannotStart, NonExistingRequestID,
+          NonExistingMedEquip {
     MedEquipRequest request = (MedEquipRequest) getRequest(requestID);
     if (request != (null)) {
       // Can only start requests that are in queue
@@ -92,7 +89,7 @@ public class MedEquipRequestManager implements RequestManager {
     }
   }
 
-  public void AutoStart(Integer requestID) throws SQLException {
+  public void AutoStart(Integer requestID) throws SQLException, NonExistingMedEquip {
     MedEquipRequest request = (MedEquipRequest) getRequest(requestID);
     if (request != (null)) {
       // Can only start requests that are in queue
@@ -115,7 +112,7 @@ public class MedEquipRequestManager implements RequestManager {
     }
   }
 
-  public void complete(Integer requestID) throws SQLException, StatusError {
+  public void complete(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
     MedEquipRequest request =
         (MedEquipRequest)
             RequestFacade.getRequestFacade()
@@ -168,7 +165,7 @@ public class MedEquipRequestManager implements RequestManager {
 
   // TODO might wanna rework to just use sql
   @Override
-  public Request getRequest(Integer reqID) throws SQLException {
+  public Request getRequest(Integer reqID) throws SQLException, NonExistingMedEquip {
     return merd.getRequest(reqID);
   }
 
@@ -210,7 +207,8 @@ public class MedEquipRequestManager implements RequestManager {
   }
 
   @Override
-  public Request addExistingRequest(ArrayList<String> fields) throws SQLException, StatusError {
+  public Request addExistingRequest(ArrayList<String> fields)
+      throws SQLException, StatusError, NonExistingMedEquip {
     MedEquipRequest mER;
     mER = new MedEquipRequest(fields);
 
@@ -230,7 +228,7 @@ public class MedEquipRequestManager implements RequestManager {
     return mER;
   }
 
-  public ArrayList<Request> getAllRequests() throws SQLException {
+  public ArrayList<Request> getAllRequests() throws SQLException, NonExistingMedEquip {
     return this.merd.getAllMedEquipRequests();
   }
 
@@ -243,11 +241,11 @@ public class MedEquipRequestManager implements RequestManager {
     merd.changeMedEquipRequest(req);
   }
 
-  public void exportMedEquipRequestCSV(String filename) {
+  public void exportMedEquipRequestCSV(String filename) throws NonExistingMedEquip {
     merd.exportMedEquipReqCSV(filename);
   }
 
-  public void exportReqCSV(String filename) {
+  public void exportReqCSV(String filename) throws NonExistingMedEquip {
     merd.exportMedEquipReqCSV(filename);
   }
 }
