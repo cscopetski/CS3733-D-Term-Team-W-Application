@@ -22,7 +22,7 @@ public class App extends Application {
     // primaryStage.setFullScreen(true);
 
     primaryStage.setMaximized(true);
-    primaryStage.setResizable(false);
+    primaryStage.setResizable(true);
     primaryStage.toFront();
     primaryStage.setTitle("Mass General Brigham Service Requests");
     primaryStage
