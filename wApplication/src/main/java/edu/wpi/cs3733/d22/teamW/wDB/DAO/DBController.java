@@ -62,6 +62,7 @@ public class DBController {
       LabServiceRequestDao labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
       MedEquipRequestDao medEquipRequestDao = new MedEquipRequestDaoImpl(statement);
       MedEquipDao medEquipDao = new MedEquipDaoImpl(statement);
+      LanguageInterpreterDao languageInterpreterDao = new LanguageInterpreterDaoImpl(statement);
       EmployeeDao employeeDao = new EmployeeDaoSecureImpl(statement);
       LocationDao locationDao = new LocationDaoImpl(statement);
       LanguageDao languageDao = new LanguageDaoImpl(statement);
@@ -81,12 +82,15 @@ public class DBController {
       SanitationRequestManager.getSanitationRequestManager()
           .setLabServiceRequestDao(sanitationRequestDao);
       LanguageManager.getLocationManager().setLanguageDao(languageDao);
+      LanguageInterpreterManager.getLanguageInterpreterManager()
+          .setLanguageInterpreterDao(languageInterpreterDao);
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ((EmployeeDaoSecureImpl) employeeDao).createTable();
       ((LocationDaoImpl) locationDao).createTable();
       ((MedEquipDaoImpl) medEquipDao).createTable();
       ((LanguageDaoImpl) languageDao).createTable();
+      ((LanguageInterpreterDaoImpl) languageInterpreterDao).createTable();
       ((LabServiceRequestDaoImpl) labServiceRequestDao).createTable();
       ((MedEquipRequestDaoImpl) medEquipRequestDao).createTable();
       ((MedRequestDaoImpl) medRequestDao).createTable();
