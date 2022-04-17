@@ -4,6 +4,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.GiftDeliveryRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.GiftDeliveryRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import java.io.File;
@@ -124,6 +125,7 @@ public class GiftDeliveryRequestDaoImpl implements GiftDeliveryRequestDao {
 
   @Override
   public void deleteGiftDeliveryRequest(Integer requestID) throws SQLException {
+    RequestFactory.getRequestFactory().getReqIDList().remove(requestID);
     statement.executeUpdate(
         String.format("DELETE FROM GIFTDELIVERYREQUESTS WHERE REQID = %d", requestID));
   }

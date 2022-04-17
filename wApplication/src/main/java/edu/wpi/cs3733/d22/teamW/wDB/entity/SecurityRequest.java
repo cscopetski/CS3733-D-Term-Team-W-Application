@@ -43,8 +43,8 @@ public class SecurityRequest extends Request {
         requestID,
         nodeID,
         employeeID,
-        threatLevel,
         emergency,
+        threatLevel,
         status.getValue(),
         createdTimestamp.toString(),
         updatedTimestamp.toString());
@@ -57,8 +57,8 @@ public class SecurityRequest extends Request {
         requestID,
         nodeID,
         employeeID,
-        threatLevel,
         emergency,
+        threatLevel,
         status.getValue(),
         createdTimestamp.toString(),
         updatedTimestamp.toString());

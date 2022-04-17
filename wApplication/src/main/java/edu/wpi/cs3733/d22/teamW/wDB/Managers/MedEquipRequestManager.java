@@ -63,9 +63,7 @@ public class MedEquipRequestManager implements RequestManager {
     return null;
   }
 
-  public void start(Integer requestID)
-      throws SQLException, NoAvailableEquipment, CannotStart, NonExistingRequestID,
-          NonExistingMedEquip {
+  public void start(Integer requestID) throws Exception {
     MedEquipRequest request = (MedEquipRequest) getRequest(requestID);
     if (request != (null)) {
       // Can only start requests that are in queue
@@ -81,15 +79,11 @@ public class MedEquipRequestManager implements RequestManager {
         } else {
           throw new NoAvailableEquipment();
         }
-      } else {
-        throw new CannotStart();
       }
-    } else {
-      throw new NonExistingRequestID();
     }
   }
 
-  public void AutoStart(Integer requestID) throws SQLException, NonExistingMedEquip {
+  public void AutoStart(Integer requestID) throws Exception {
     MedEquipRequest request = (MedEquipRequest) getRequest(requestID);
     if (request != (null)) {
       // Can only start requests that are in queue
@@ -112,11 +106,16 @@ public class MedEquipRequestManager implements RequestManager {
     }
   }
 
-  public void complete(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    MedEquipRequest request =
-        (MedEquipRequest)
-            RequestFacade.getRequestFacade()
-                .findRequest(requestID, RequestType.MedicalEquipmentRequest);
+  public void complete(Integer requestID) throws Exception {
+    MedEquipRequest request = null;
+    try {
+      request =
+          (MedEquipRequest)
+              RequestFacade.getRequestFacade()
+                  .findRequest(requestID, RequestType.MedicalEquipmentRequest);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     // Can only complete requests that are started
     if (request.getStatus().equals(RequestStatus.InProgress)) {
       MedEquipManager.getMedEquipManager().markInUse(request.getItemID(), request.getNodeID());

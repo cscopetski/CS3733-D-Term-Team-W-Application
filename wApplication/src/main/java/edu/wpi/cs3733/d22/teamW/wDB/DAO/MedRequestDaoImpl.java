@@ -33,7 +33,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
   }
 
   String CSVHeaderString =
-      "requestID,patientLast,patientFirst,medicine,quantity,unit,nodeID,bedNum,employeeID,emergency,status,createdTimestamp,updatedTimestamp";
+      "requestID,medicine,quantity,unit,nodeID,bedNum,employeeID,emergency,status,createdTimestamp,updatedTimestamp";
 
   void createTable() throws SQLException {
 
@@ -41,13 +41,10 @@ public class MedRequestDaoImpl implements MedRequestDao {
       statement.execute(
           "CREATE TABLE MEDREQUESTS("
               + "requestID INT,"
-              + "patientLast varchar(25),"
-              + "patientFirst varchar(25),"
               + "medicine varchar(25),"
               + "quantity DOUBLE,"
               + "Unit varchar(25),"
               + "nodeID varchar(25),"
-              + "BedNum INT,"
               + "employeeID INT,"
               + "isEmergency INT,"
               + "reqStatus INT, "
@@ -75,14 +72,11 @@ public class MedRequestDaoImpl implements MedRequestDao {
   public void changeMedRequest(MedRequest mr) throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDREQUESTS SET PATIENTLAST='%s', PATIENTFIRST='%s', MEDICINE='%s', QUANTITY = %.2f, UNIT = '%s', NODEID='%s', BEDNUM = %d, EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE REQUESTID=%d",
-            mr.getPatientLast(),
-            mr.getPatientFirst(),
+            "UPDATE MEDREQUESTS SET PMEDICINE='%s', QUANTITY = %.2f, UNIT = '%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE REQUESTID=%d",
             mr.getMedicineType(),
             mr.getQuantity(),
             mr.getUnit().getUnits(),
             mr.getNodeID(),
-            mr.getBedNumber(),
             mr.getEmployeeID(),
             mr.getEmergency(),
             mr.getStatus().getValue(),

@@ -64,34 +64,63 @@ public class SanitationRequestManager implements RequestManager {
     return SR;
   }
 
+  @Override
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    return this.srd.getEmployeeRequests(employeeID);
+  }
+
   public void start(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    SanitationRequest request =
-        (SanitationRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
+    SanitationRequest request = null;
+    try {
+      request =
+          (SanitationRequest)
+              RequestFacade.getRequestFacade()
+                  .findRequest(requestID, RequestType.SanitationService);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.InProgress);
     srd.changeSanitationRequest(request);
   }
 
   public void complete(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    SanitationRequest request =
-        (SanitationRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
+    SanitationRequest request = null;
+    try {
+      request =
+          (SanitationRequest)
+              RequestFacade.getRequestFacade()
+                  .findRequest(requestID, RequestType.SanitationService);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.Completed);
     srd.changeSanitationRequest(request);
   }
 
   public void cancel(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    SanitationRequest request =
-        (SanitationRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
+    SanitationRequest request = null;
+    try {
+      request =
+          (SanitationRequest)
+              RequestFacade.getRequestFacade()
+                  .findRequest(requestID, RequestType.SanitationService);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.Cancelled);
     srd.changeSanitationRequest(request);
   }
 
   public void reQueue(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    SanitationRequest request =
-        (SanitationRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.SanitationService);
+    SanitationRequest request = null;
+    try {
+      request =
+          (SanitationRequest)
+              RequestFacade.getRequestFacade()
+                  .findRequest(requestID, RequestType.SanitationService);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.InQueue);
     srd.changeSanitationRequest(request);
   }

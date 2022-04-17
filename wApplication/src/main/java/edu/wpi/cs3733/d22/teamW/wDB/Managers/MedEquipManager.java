@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipDao;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.MarkingInUseEquipmentAsClean;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
@@ -40,18 +41,27 @@ public class MedEquipManager {
     return this.noneEquipment;
   }
 
-  public void markClean(String medID, String nodeID) throws SQLException {
+  public void markClean(String medID, String nodeID) throws Exception {
     MedEquip medEquip = medi.getMedEquip(medID);
-    medEquip.setNodeID(nodeID);
-    medEquip.setStatus(MedEquipStatus.Clean);
-    medi.changeMedEquip(medEquip);
+    if (medEquip.getStatus().equals(MedEquipStatus.Dirty)) {
+      medEquip.setNodeID(nodeID);
+      medEquip.setStatus(MedEquipStatus.Clean);
+      medi.changeMedEquip(medEquip);
+      CleaningRequestManager.getCleaningRequestManager().markComplete(medID, nodeID);
+    } else if (medEquip.getStatus().equals(MedEquipStatus.InUse)) {
+      throw new MarkingInUseEquipmentAsClean();
+    }
   }
 
-  public void markInUse(String medID, String nodeID) throws SQLException {
+  public void markInUse(String medID, String nodeID) throws Exception {
     MedEquip medEquip = medi.getMedEquip(medID);
-    medEquip.setNodeID(nodeID);
-    medEquip.setStatus(MedEquipStatus.InUse);
-    medi.changeMedEquip(medEquip);
+    if (medEquip.getStatus().equals(MedEquipStatus.Clean)) {
+      medEquip.setNodeID(nodeID);
+      medEquip.setStatus(MedEquipStatus.InUse);
+      medi.changeMedEquip(medEquip);
+    } else if (medEquip.getStatus().equals(MedEquipStatus.Dirty)) {
+      throw new MarkingInUseEquipmentAsClean();
+    }
   }
 
   public void markDirty(String medID, String nodeID) throws Exception {

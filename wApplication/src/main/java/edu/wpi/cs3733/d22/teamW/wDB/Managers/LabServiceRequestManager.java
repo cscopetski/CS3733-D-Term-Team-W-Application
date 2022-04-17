@@ -1,9 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.LabServiceRequestDao;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingLabServiceRequestType;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
@@ -76,26 +74,42 @@ public class LabServiceRequestManager implements RequestManager {
     return lSR;
   }
 
-  public void start(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
+  public void start(Integer requestID) throws Exception {
     LabServiceRequest request =
         (LabServiceRequest)
             RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
-    request.setStatus(RequestStatus.InProgress);
-    lsrdi.changeLabServiceRequest(request);
+    if (request != (null)) {
+      if (request.getStatus().equals(RequestStatus.InQueue)) {
+        request.setStatus(RequestStatus.InProgress);
+        lsrdi.changeLabServiceRequest(request);
+      }
+    }
   }
 
   public void complete(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    LabServiceRequest request =
-        (LabServiceRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
+    LabServiceRequest request = null;
+    try {
+      request =
+          (LabServiceRequest)
+              RequestFacade.getRequestFacade()
+                  .findRequest(requestID, RequestType.LabServiceRequest);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.Completed);
     lsrdi.changeLabServiceRequest(request);
   }
 
   public void cancel(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    LabServiceRequest request =
-        (LabServiceRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
+    LabServiceRequest request = null;
+    try {
+      request =
+          (LabServiceRequest)
+              RequestFacade.getRequestFacade()
+                  .findRequest(requestID, RequestType.LabServiceRequest);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.Cancelled);
     lsrdi.changeLabServiceRequest(request);
   }
@@ -106,9 +120,15 @@ public class LabServiceRequestManager implements RequestManager {
   }
 
   public void reQueue(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    LabServiceRequest request =
-        (LabServiceRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
+    LabServiceRequest request = null;
+    try {
+      request =
+          (LabServiceRequest)
+              RequestFacade.getRequestFacade()
+                  .findRequest(requestID, RequestType.LabServiceRequest);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.InQueue);
     lsrdi.changeLabServiceRequest(request);
   }

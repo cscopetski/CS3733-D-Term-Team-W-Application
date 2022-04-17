@@ -54,6 +54,8 @@ public class DBController {
 
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
+      SecurityRequestDao securityRequestDao = new SecurityRequestDaoImpl(statement);
+      MealRequestDao mealRequestDao = new MealRequestDaoImpl(statement);
       FlowerRequestDao flowerRequestDao = new FlowerRequestDaoImpl(statement);
       GiftDeliveryRequestDao giftDeliveryRequestDao = new GiftDeliveryRequestDaoImpl(statement);
       ComputerServiceRequestDao csrDao = new ComputerServiceRequestDaoImpl(statement);
@@ -82,11 +84,13 @@ public class DBController {
           .setComputerServiceRequestDao(csrDao);
       SanitationRequestManager.getSanitationRequestManager()
           .setLabServiceRequestDao(sanitationRequestDao);
-      LanguageManager.getLocationManager().setLanguageDao(languageDao);
+      LanguageManager.getLanguageManager().setLanguageDao(languageDao);
       LanguageInterpreterManager.getLanguageInterpreterManager()
           .setLanguageInterpreterDao(languageInterpreterDao);
       GiftDeliveryRequestManager.getGiftDeliveryRequestManager()
           .setGiftDeliveryRequestDao(giftDeliveryRequestDao);
+      MealRequestManager.getMealRequestManager().setMealRequestDao(mealRequestDao);
+      SecurityRequestManager.getSecurityRequestManager().setSecurityRequestDao(securityRequestDao);
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ((EmployeeDaoSecureImpl) employeeDao).createTable();
@@ -102,6 +106,8 @@ public class DBController {
       ((ComputerServiceRequestDaoImpl) csrDao).createTable();
       ((SanitationRequestDaoImpl) sanitationRequestDao).createTable();
       ((GiftDeliveryRequestDaoImpl) giftDeliveryRequestDao).createTable();
+      ((MealRequestDaoImpl) mealRequestDao).createTable();
+      ((SecurityRequestDaoImpl) securityRequestDao).createTable();
 
     } catch (SQLException e) {
       System.out.println("Table Creation Failed");

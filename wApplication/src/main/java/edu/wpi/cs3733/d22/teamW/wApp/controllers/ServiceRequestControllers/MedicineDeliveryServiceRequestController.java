@@ -10,6 +10,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.MedicineType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.sql.SQLException;
@@ -49,7 +50,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   // private ServiceRequestHelper helper = new ServiceRequestHelper(fields);
 
   // ComboBox Lists:
-  ObservableList<String> meds = FXCollections.observableArrayList("Advil", "Tylenol");
+  ObservableList<String> meds = FXCollections.observableArrayList(getListOfMedicine());
   ObservableList<String> times =
       FXCollections.observableArrayList(
           "8:30", "9:00", "9:30", "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00",
@@ -120,6 +121,13 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     return locations;
   }
 
+  private ArrayList<String> getListOfMedicine() {
+    ArrayList<String> medicineList = new ArrayList<>();
+    for (MedicineType m : MedicineType.values()) {
+      medicineList.add(m.getString());
+    }
+    return medicineList;
+  }
   // ---------------------------------------------------------------------------
 
   private void pushDataToDB() throws Exception {
@@ -168,6 +176,8 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
       System.out.println("Failed to unearth request form database");
       e.printStackTrace();
     } catch (NonExistingMedEquip e) {
+      e.printStackTrace();
+    } catch (Exception e) {
       e.printStackTrace();
     }
     for (int i = 0; i < requests.size(); i++) {
