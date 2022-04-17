@@ -23,6 +23,7 @@ public class CSVController {
   private String languageFileName;
   private String languageInterpFileName;
   private String giftDeliveryRequestFileName;
+  private String mealRequestFileName;
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
@@ -39,7 +40,9 @@ public class CSVController {
       String cleaningRequestFileName,
       String languageFileName,
       String languageInterpFileName,
-      String giftDeliveryRequestFileName) {
+      String giftDeliveryRequestFileName,
+      String mealRequestFileName) {
+
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
     this.medEquipRequestFileName = medEquipRequestFileName;
@@ -53,6 +56,7 @@ public class CSVController {
     this.languageInterpFileName = languageInterpFileName;
     this.giftDeliveryRequestFileName = giftDeliveryRequestFileName;
     this.cleaningRequestFileName = cleaningRequestFileName;
+    this.mealRequestFileName = mealRequestFileName;
   }
 
   public void populateTables() throws Exception {
@@ -70,6 +74,7 @@ public class CSVController {
     insertSanitationServiceRequestTable(importCSV(sanitationRequestFileName));
     insertCleaningRequestTable(importCSV(cleaningRequestFileName));
     insertGiftDeliveryRequestTable(importCSV(giftDeliveryRequestFileName));
+    insertMealRequestTable(importCSV(mealRequestFileName));
   }
 
   public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
@@ -308,13 +313,22 @@ public class CSVController {
   }
 
   private void insertSanitationServiceRequestTable(ArrayList<String[]> tokens) throws Exception {
-
     for (String[] s : tokens) {
       ArrayList<String> fields = new ArrayList<>();
       fields.addAll(Arrays.asList(s));
       SanitationRequest gdr =
           (SanitationRequest)
               requestFactory.getRequest(RequestType.SanitationService, fields, true);
+    }
+  }
+
+  private void insertMealRequestTable(ArrayList<String[]> tokens) throws Exception {
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+      MealRequest gdr =
+          (MealRequest) requestFactory.getRequest(RequestType.MealDelivery, fields, true);
     }
   }
 

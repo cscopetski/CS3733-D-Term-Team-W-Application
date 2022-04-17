@@ -85,6 +85,8 @@ public class RequestListController extends LoadableController {
           rt.setItems(RequestFacade.getRequestFacade().getAllRequests());
         } catch (SQLException | NonExistingMedEquip ex) {
           ex.printStackTrace();
+        } catch (Exception e) {
+          e.printStackTrace();
         }
         break;
       case 1:
@@ -95,6 +97,8 @@ public class RequestListController extends LoadableController {
           ex.printStackTrace();
         } catch (NonExistingMedEquip e) {
           e.printStackTrace();
+        } catch (Exception e) {
+          e.printStackTrace();
         }
         break;
       case 2:
@@ -103,34 +107,36 @@ public class RequestListController extends LoadableController {
               RequestFacade.getRequestFacade().getAllRequests(RequestType.LanguageInterpreter));
         } catch (SQLException | NonExistingMedEquip ex) {
           ex.printStackTrace();
+        } catch (Exception e) {
+          e.printStackTrace();
         }
         break;
       case 3:
         try {
           rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.MealDelivery));
-        } catch (SQLException | NonExistingMedEquip ex) {
-          ex.printStackTrace();
+        } catch (Exception e) {
+          e.printStackTrace();
         }
         break;
       case 4:
         try {
           rt.setItems(
               RequestFacade.getRequestFacade().getAllRequests(RequestType.MedicalEquipmentRequest));
-        } catch (SQLException | NonExistingMedEquip ex) {
+        } catch (Exception ex) {
           ex.printStackTrace();
         }
         break;
       case 5:
         try {
           rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.SecurityService));
-        } catch (SQLException | NonExistingMedEquip ex) {
+        } catch (Exception ex) {
           ex.printStackTrace();
         }
         break;
       case 6:
         try {
           rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.CleaningRequest));
-        } catch (SQLException | NonExistingMedEquip ex) {
+        } catch (Exception ex) {
           ex.printStackTrace();
         }
         break;

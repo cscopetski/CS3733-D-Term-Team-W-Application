@@ -46,6 +46,7 @@ public class LoginController extends LoadableController {
   final String languagesFileName = "Languages.csv";
   final String languageInterpFileName = "LanguageInterpreters.csv";
   final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
+  final String mealRequestFileName = "MealRequest.csv";
 
   @Override
   public void initialize(URL location, ResourceBundle rb) {
@@ -122,7 +123,8 @@ public class LoginController extends LoadableController {
             cleaningRequestFileName,
             languagesFileName,
             languageInterpFileName,
-            giftDeliveryRequestFileName);
+            giftDeliveryRequestFileName,
+            mealRequestFileName);
 
     System.out.println("SWAP CONNECTION ");
 

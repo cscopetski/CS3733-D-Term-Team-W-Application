@@ -433,6 +433,7 @@ public class MapEditorController extends LoadableController {
     final String sanitationRequestFileName = "SanitationRequests.csv";
     final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
     final String cleaningRequestFileName = "CleaningRequest.csv";
+    final String mealRequestFileName = "MealRequest.csv";
 
     CSVController csvController =
         new CSVController(
@@ -448,7 +449,9 @@ public class MapEditorController extends LoadableController {
             cleaningRequestFileName,
             languagesFileName,
             languageInterpFileName,
-            giftDeliveryRequestFileName);
+            giftDeliveryRequestFileName,
+            mealRequestFileName);
+
     locationManager.clearLocations();
     csvController.insertIntoLocationsTable(csvController.importCSVfromFile(inputCSV));
     refresh();
