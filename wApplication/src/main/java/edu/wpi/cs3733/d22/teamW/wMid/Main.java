@@ -75,15 +75,14 @@ public class Main {
     RequestFactory rf = RequestFactory.getRequestFactory();
 
     ArrayList<String> fields = new ArrayList<>();
-    fields.add("70");
+
     fields.add("Spanish");
     fields.add("FDEPT00101");
-    fields.add("5");
-    fields.add("0");
+    fields.add("4");
     fields.add("0");
 
     rf.getRequest(RequestType.LanguageRequest, fields, false);
 
-    App.launch(App.class, args);
+    // App.launch(App.class, args);
   }
 }

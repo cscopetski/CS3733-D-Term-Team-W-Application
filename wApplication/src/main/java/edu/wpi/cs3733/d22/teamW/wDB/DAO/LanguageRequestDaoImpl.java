@@ -38,6 +38,7 @@ public class LanguageRequestDaoImpl implements LanguageRequestDao {
   void createTable() throws SQLException {
 
     try {
+      System.out.println("Starting creation of LanguageRequest Table");
       statement.execute(
           "CREATE TABLE LANGUAGEREQUESTS("
               + "requestID INT,"
@@ -55,10 +56,10 @@ public class LanguageRequestDaoImpl implements LanguageRequestDao {
               + "constraint LangIsEmergency_check check (isEmergency = 0 or isEmergency = 1)"
               + ")");
     } catch (SQLException e) {
-      System.out.println("Medicine Service Request Table failed to be created!");
+      System.out.println("Language Request Table failed to be created!");
       throw (e);
     }
-    System.out.println("Medicine Service Request Table created!");
+    System.out.println("Language Request Table created!");
   }
 
   @Override

@@ -82,7 +82,7 @@ public class CSVController {
     insertGiftDeliveryRequestTable(importCSV(giftDeliveryRequestFileName));
     insertMealRequestTable(importCSV(mealRequestFileName));
     insertSecurityRequestTable(importCSV(securityRequestFileName));
-    insertLanguageRequestTable(importCSV(languageRequestFileName));
+    // insertLanguageRequestTable(importCSV(languageRequestFileName));
   }
 
   public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
