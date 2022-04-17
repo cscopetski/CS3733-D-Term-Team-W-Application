@@ -63,8 +63,7 @@ public class MedEquipRequestManager implements RequestManager {
     return null;
   }
 
-  public void start(Integer requestID)
-      throws SQLException, NoAvailableEquipment, NonExistingMedEquip {
+  public void start(Integer requestID) throws Exception {
     MedEquipRequest request = (MedEquipRequest) getRequest(requestID);
     if (request != (null)) {
       // Can only start requests that are in queue
@@ -84,7 +83,7 @@ public class MedEquipRequestManager implements RequestManager {
     }
   }
 
-  public void AutoStart(Integer requestID) throws SQLException, NonExistingMedEquip {
+  public void AutoStart(Integer requestID) throws Exception {
     MedEquipRequest request = (MedEquipRequest) getRequest(requestID);
     if (request != (null)) {
       // Can only start requests that are in queue
@@ -107,7 +106,7 @@ public class MedEquipRequestManager implements RequestManager {
     }
   }
 
-  public void complete(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
+  public void complete(Integer requestID) throws Exception {
     MedEquipRequest request = null;
     try {
       request =
