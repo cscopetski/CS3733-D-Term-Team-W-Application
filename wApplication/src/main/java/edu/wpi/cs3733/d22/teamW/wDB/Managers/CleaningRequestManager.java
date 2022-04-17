@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.CleaningRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.CannotStart;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.CleaningRequestMax;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -47,8 +48,7 @@ public class CleaningRequestManager {
   //  }
 
   // TODO auto start all cleaning requests at that location when it is 6
-  public CleaningRequest addNewRequest(Integer num, ArrayList<String> fields)
-      throws SQLException, StatusError, CleaningRequestMax {
+  public CleaningRequest addNewRequest(Integer num, ArrayList<String> fields) throws Exception {
     CleaningRequest cr;
     fields.add(Integer.toString(RequestStatus.InQueue.getValue()));
     fields.add(new Timestamp(System.currentTimeMillis()).toString());
@@ -78,8 +78,7 @@ public class CleaningRequestManager {
     return cr;
   }
 
-  public CleaningRequest addExistingRequest(ArrayList<String> fields)
-      throws SQLException, StatusError, CleaningRequestMax {
+  public CleaningRequest addExistingRequest(ArrayList<String> fields) throws Exception {
     CleaningRequest cr = new CleaningRequest(fields);
     // TODO special exception
     if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
@@ -97,7 +96,7 @@ public class CleaningRequestManager {
 
   // TODO Ask Caleb how to get OR Bed PARK
   // What happens if the OR BED PARK is deleted this function would break
-  public void start(Integer requestID) throws SQLException, StatusError {
+  public void start(Integer requestID) throws Exception {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() == RequestStatus.InQueue) {
       cr.setStatus(RequestStatus.InProgress);
@@ -105,6 +104,8 @@ public class CleaningRequestManager {
       crd.changeCleaningRequest(cr);
       MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
       MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), "wSTOR001L1");
+    } else {
+      throw new CannotStart();
     }
   }
 
@@ -143,7 +144,7 @@ public class CleaningRequestManager {
     }
   }
 
-  public void checkStart() throws SQLException, StatusError, CleaningRequestMax {
+  public void checkStart() throws Exception {
     ArrayList<String> cleaningLocations = crd.getCleaningLocation();
     for (String location : cleaningLocations) {
       System.out.println(location);

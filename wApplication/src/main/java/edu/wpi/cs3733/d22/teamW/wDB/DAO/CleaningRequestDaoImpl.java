@@ -105,7 +105,9 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
 
     ResultSet results =
         statement.executeQuery(
-            String.format("SELECT REQID FROM CLEANINGREQUESTS WHERE NODEID = '%s'", nodeID));
+            String.format(
+                "SELECT REQID FROM CLEANINGREQUESTS WHERE NODEID = '%s' AND reqStatus = 0",
+                nodeID));
 
     while (results.next()) {
       count.add(results.getInt("REQID"));
