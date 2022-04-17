@@ -2,7 +2,6 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 
 public class Main {
@@ -20,6 +19,8 @@ public class Main {
     final String flowerRequestFileName = "FlowerRequests.csv";
     final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
     final String sanitationRequestsFileName = "SanitationRequests.csv";
+    final String languageFileName = "Languages.csv";
+    final String languageInterpreterFilename = "LanguageInterpreter.csv";
     final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
 
     DBController.getDBController();
@@ -35,6 +36,8 @@ public class Main {
             flowerRequestFileName,
             computerServiceRequestFileName,
             sanitationRequestsFileName,
+            languageFileName,
+            languageInterpreterFilename,
             giftDeliveryRequestFileName);
 
     try {

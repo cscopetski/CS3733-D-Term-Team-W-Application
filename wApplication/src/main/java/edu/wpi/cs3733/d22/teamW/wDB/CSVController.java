@@ -1,9 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.io.*;
@@ -21,6 +19,8 @@ public class CSVController {
   private String flowerRequestFileName;
   private String computerServiceRequestFileName;
   private String sanitationRequestFileName;
+  private String languageFileName;
+  private String languageInterpFileName;
   private String giftDeliveryRequestFileName;
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
@@ -35,6 +35,8 @@ public class CSVController {
       String flowerRequestFileName,
       String computerServiceRequestFileName,
       String sanitationRequestFileName,
+      String languageFileName,
+      String languageInterpFileName,
       String giftDeliveryRequestFileName) {
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
@@ -45,6 +47,8 @@ public class CSVController {
     this.flowerRequestFileName = flowerRequestFileName;
     this.computerServiceRequestFileName = computerServiceRequestFileName;
     this.sanitationRequestFileName = sanitationRequestFileName;
+    this.languageFileName = languageFileName;
+    this.languageInterpFileName = languageInterpFileName;
     this.giftDeliveryRequestFileName = giftDeliveryRequestFileName;
   }
 
@@ -52,6 +56,8 @@ public class CSVController {
     insertIntoEmpTable(importCSV(employeeFileName));
     insertIntoLocationsTable(importCSV(locationFileName));
     insertIntoMedEquipTable(importCSV(medEquipFileName));
+    insertIntoLanguagesTable(importCSV(languageFileName));
+    insertIntoLanguageInterpreterTable(importCSV(languageInterpFileName));
 
     insertIntoMedEquipReqTable(importCSV(medEquipRequestFileName));
     insertIntoLabReqTable(importCSV(labServiceRequestFileName));
@@ -223,8 +229,34 @@ public class CSVController {
 
       FlowerRequest fr =
           (FlowerRequest) requestFactory.getRequest(RequestType.FlowerRequest, fields, true);
+    }
+  }
 
-      // medReqLists.add(mr);
+  private void insertIntoLanguagesTable(ArrayList<String[]> tokens) throws SQLException {
+    LanguageManager lm = LanguageManager.getLocationManager();
+    for (String[] s : tokens) {
+      lm.addLanguage(s[0]);
+    }
+  }
+
+  private void insertIntoLanguageInterpreterTable(ArrayList<String[]> tokens) throws SQLException {
+    ArrayList<LanguageInterpreter> langInterps = new ArrayList<>();
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<String>();
+      fields.addAll(Arrays.asList(s));
+      langInterps.add(new LanguageInterpreter(fields));
+    }
+
+    for (LanguageInterpreter e : langInterps) {
+      // add location objects to database
+      try {
+        LanguageInterpreterManager.getLanguageInterpreterManager().addLanguageInterpreter(e);
+      } catch (SQLException s) {
+        System.out.println("Connection failed. Check output console.");
+        s.printStackTrace();
+        throw (s);
+      }
     }
   }
 
