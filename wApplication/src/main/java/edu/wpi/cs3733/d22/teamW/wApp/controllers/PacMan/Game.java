@@ -464,17 +464,13 @@ public class Game {
         pacmanAt(ghost); // from the ghost's current position find out in which direction pacman is
 
     if (pacmanDir == Dir.DOWN && pacmanY - ghostY <= (wallSize * wallCount)) {
-      if (!checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.DOWN))
-        direction = Dir.DOWN;
+      if (!checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.DOWN)) direction = Dir.DOWN;
     } else if (pacmanDir == Dir.UP && ghostY - pacmanY <= (wallSize * wallCount)) {
-      if (!checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.UP))
-        direction = Dir.UP;
+      if (!checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.UP)) direction = Dir.UP;
     } else if (pacmanDir == Dir.LEFT && ghostX - pacmanX <= (wallSize * wallCount)) {
-      if (!checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.LEFT))
-        direction = Dir.LEFT;
+      if (!checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.LEFT)) direction = Dir.LEFT;
     } else if (pacmanDir == Dir.RIGHT && pacmanX - ghostX <= (wallSize * wallCount)) {
-      if (!checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.RIGHT))
-        direction = Dir.RIGHT;
+      if (!checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.RIGHT)) direction = Dir.RIGHT;
     }
 
     return direction;
@@ -562,26 +558,24 @@ public class Game {
       double checkX = rectangle.getX();
       double checkY = rectangle.getY();
 
-      boolean b = y_coord == checkY
+      boolean b =
+          y_coord == checkY
               || (y_coord < checkY + wallSize && y_coord > checkY)
               || y_coord + speed == checkY;
 
-      boolean a = x_coord == checkX
+      boolean a =
+          x_coord == checkX
               || (x_coord < checkX + wallSize && x_coord > checkX)
               || x_coord + speed == checkX;
 
       if (theDir == Dir.UP && checkY < y_coord) {
-        if (a
-            && y_coord - wallSize <= checkY) return true;
+        if (a && y_coord - wallSize <= checkY) return true;
       } else if (theDir == Dir.DOWN && checkY > y_coord) {
-        if (a
-            && y_coord + wallSize >= checkY) return true;
+        if (a && y_coord + wallSize >= checkY) return true;
       } else if (theDir == Dir.LEFT && checkX < x_coord) {
-        if (x_coord - wallSize <= checkX
-            && b) return true;
+        if (x_coord - wallSize <= checkX && b) return true;
       } else if (theDir == Dir.RIGHT && checkX > x_coord) {
-        if (x_coord + wallSize >= checkX
-            && b) return true;
+        if (x_coord + wallSize >= checkX && b) return true;
       }
     }
 
@@ -867,8 +861,8 @@ public class Game {
     ImageView img = new ImageView(assignIcon());
     img.setFitHeight(32);
     img.setFitWidth(32);
-    img.setX(x-16);
-    img.setY(y-16);
+    img.setX(x - 16);
+    img.setY(y - 16);
     pane.getChildren().add(img);
     bonusList.add(img);
   }
