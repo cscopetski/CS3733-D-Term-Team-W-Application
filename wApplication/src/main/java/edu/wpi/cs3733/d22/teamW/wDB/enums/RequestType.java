@@ -19,7 +19,8 @@ public enum RequestType {
   ComputerServiceRequest(10, "Computer Service Request"),
   AudioVisualRequest(11, "Audio Visual Request"),
   CleaningRequest(12, "Cleaning Request"),
-  FlowerRequest(13, "Flower Request");
+  FlowerRequest(13, "Flower Request"),
+  LanguageRequest(14, "Language Request");
   private final Integer value;
   private final String string;
 
