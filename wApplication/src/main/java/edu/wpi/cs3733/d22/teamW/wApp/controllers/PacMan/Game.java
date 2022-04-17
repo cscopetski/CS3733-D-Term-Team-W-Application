@@ -787,7 +787,7 @@ public class Game {
 
     if (score > highScore) setHighScore(Integer.toString(score));
 
-    Runtime.getRuntime().exit(0); // terminate the program
+    window.close(); // terminate the program
   }
 
   private void sleep(double num) // a method to put the system to sleep
@@ -861,15 +861,15 @@ public class Game {
     ImageView img = new ImageView(assignIcon());
     img.setFitHeight(32);
     img.setFitWidth(32);
-    img.setX(x - 16);
-    img.setY(y - 16);
+    img.setX(x);
+    img.setY(y);
     pane.getChildren().add(img);
     bonusList.add(img);
   }
 
   private Image assignIcon() {
     Image img = new Image("/edu/wpi/cs3733/d22/teamW/wApp/assets/mgb_logo.png");
-    int randomNum = (int) (Math.random() * 5);
+    int randomNum = (int) Math.floor(Math.random() * 5);
     switch (randomNum) {
       case 0:
         img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Bed.png");
