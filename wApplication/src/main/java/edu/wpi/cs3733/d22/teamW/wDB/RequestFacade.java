@@ -140,9 +140,10 @@ public class RequestFacade {
 
   public void completeRequest(Integer requestID, RequestType type, String nodeID) throws Exception {
     Request request = findRequest(requestID, type);
-    if (!(request.getStatus().equals(RequestStatus.InProgress)
-        || request.getStatus().equals(RequestStatus.Completed))) {
-      throw new CannotComplete();
+    if (!(request.getStatus().equals(RequestStatus.InProgress))) {
+      if (!request.getStatus().equals(RequestStatus.Completed)) {
+        throw new CannotComplete();
+      }
     } else {
       switch (type) {
         case MedicalEquipmentRequest:
@@ -183,7 +184,7 @@ public class RequestFacade {
     Request request = findRequest(requestID, type);
     if (request.getStatus().equals(RequestStatus.Completed)) {
       throw new CannotCancel();
-    } else {
+    } else if (!request.getStatus().equals(RequestStatus.Cancelled)) {
       switch (type) {
         case MedicalEquipmentRequest:
           merm.cancel(requestID);
@@ -222,14 +223,10 @@ public class RequestFacade {
   // TODO might want to change this to use requests
   public void startRequest(Integer requestID, RequestType type) throws Exception {
     Request request = findRequest(requestID, type);
-    System.out.println(request.getStatus().getString());
-    System.out.println(
-        (!(request.getStatus().equals(RequestStatus.InProgress)
-            || request.getStatus().equals(RequestStatus.InQueue))));
-    if (!(request.getStatus().equals(RequestStatus.InProgress)
-        || request.getStatus().equals(RequestStatus.InQueue))) {
-
-      throw new CannotStart();
+    if (!(request.getStatus().equals(RequestStatus.InQueue))) {
+      if (!request.getStatus().equals(RequestStatus.InProgress)) {
+        throw new CannotStart();
+      }
     } else {
       switch (type) {
         case MedicalEquipmentRequest:
