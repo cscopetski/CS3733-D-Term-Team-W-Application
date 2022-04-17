@@ -5,16 +5,14 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.PacMan; // DEPS
 
 import java.io.File;
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -62,7 +60,7 @@ public class Game {
 
   private ArrayList<Rectangle> wallList = new ArrayList<Rectangle>();
   private ArrayList<Circle> pelletList = new ArrayList<Circle>();
-  private ArrayList<Circle> bonusList = new ArrayList<Circle>();
+  private ArrayList<ImageView> bonusList = new ArrayList<ImageView>();
   private Dir red_movingAt, pink_movingAt, orange_movingAt, cyan_movingAt;
   private Dir movingAt, newDir;
 
@@ -169,7 +167,7 @@ public class Game {
                   || cyanGhost.caughtPacman(pacman, speed)) endGame();
 
               // only when pacman cannot continue in its current direction, its direction is updated
-              if (checkForWalls(newDir, pacmanX, pacmanY) == false) {
+              if (!checkForWalls(newDir, pacmanX, pacmanY)) {
                 if (movingAt
                     != newDir) // when pacman makes a turn, record the coordinates of the position
                 // he turned at
@@ -182,17 +180,13 @@ public class Game {
               }
 
               if (movingAt == Dir.UP) {
-                if (checkForWalls(movingAt, pacmanX, pacmanY) == false)
-                  pacman.setCenterY(pacmanY - speed);
+                if (!checkForWalls(movingAt, pacmanX, pacmanY)) pacman.setCenterY(pacmanY - speed);
               } else if (movingAt == Dir.DOWN) {
-                if (checkForWalls(movingAt, pacmanX, pacmanY) == false)
-                  pacman.setCenterY(pacmanY + speed);
+                if (!checkForWalls(movingAt, pacmanX, pacmanY)) pacman.setCenterY(pacmanY + speed);
               } else if (movingAt == Dir.LEFT) {
-                if (checkForWalls(movingAt, pacmanX, pacmanY) == false)
-                  pacman.setCenterX(pacmanX - speed);
+                if (!checkForWalls(movingAt, pacmanX, pacmanY)) pacman.setCenterX(pacmanX - speed);
               } else if (movingAt == Dir.RIGHT) {
-                if (checkForWalls(movingAt, pacmanX, pacmanY) == false)
-                  pacman.setCenterX(pacmanX + speed);
+                if (!checkForWalls(movingAt, pacmanX, pacmanY)) pacman.setCenterX(pacmanX + speed);
               }
 
               ateFood(pacmanX, pacmanY);
@@ -205,7 +199,7 @@ public class Game {
               moveCyan();
 
               // check if all the pellets & bonus food have been eaten and then end the game
-              if (pelletList.isEmpty() == true && bonusList.isEmpty()) endGame();
+              if (pelletList.isEmpty() && bonusList.isEmpty()) endGame();
 
               scoreLabel.setText("Score : " + Integer.toString(score));
 
@@ -226,14 +220,14 @@ public class Game {
     if (bonusEaten && redGhost.getColor() == Color.BLUE)
       dontGo = pacmanAt(redGhost); // the ghost must not go to this direction
 
-    if (redGhost.isTransparent() == true) // move the ghost out of the cell
+    if (redGhost.isTransparent()) // move the ghost out of the cell
     {
       if (redGhost.getX() < 210) red_movingAt = Dir.RIGHT;
       else
         redGhost.setTransparent(
             false); // only when the ghost has passed the right border of the cell it loses its
       // transparency
-    } else if (checkForWalls(red_movingAt, redGhost.getX(), redGhost.getY()) == true
+    } else if (checkForWalls(red_movingAt, redGhost.getX(), redGhost.getY())
         && numOfTurns(red_movingAt, redGhost.getX(), redGhost.getY())
             == 1) { // if the ghost runs to a dead end it goes in the direction opposite to its
       // current direction
@@ -253,7 +247,7 @@ public class Game {
 
         // move in a random direction
         Dir direction = getRandomDir();
-        if (checkForWalls(direction, redGhost.getX(), redGhost.getY()) == false) {
+        if (!checkForWalls(direction, redGhost.getX(), redGhost.getY())) {
           if (dontGo != null && direction != dontGo) {
             red_movingAt = direction;
             break;
@@ -266,17 +260,17 @@ public class Game {
     }
 
     if (red_movingAt == Dir.UP) {
-      if (checkForWalls(red_movingAt, redGhost.getX(), redGhost.getY()) == false
-          || redGhost.isTransparent() == true) redGhost.setY(redGhost.getY() - speed);
+      if (!checkForWalls(red_movingAt, redGhost.getX(), redGhost.getY())
+          || redGhost.isTransparent()) redGhost.setY(redGhost.getY() - speed);
     } else if (red_movingAt == Dir.DOWN) {
-      if (checkForWalls(red_movingAt, redGhost.getX(), redGhost.getY()) == false
-          || redGhost.isTransparent() == true) redGhost.setY(redGhost.getY() + speed);
+      if (!checkForWalls(red_movingAt, redGhost.getX(), redGhost.getY())
+          || redGhost.isTransparent()) redGhost.setY(redGhost.getY() + speed);
     } else if (red_movingAt == Dir.LEFT) {
-      if (checkForWalls(red_movingAt, redGhost.getX(), redGhost.getY()) == false
-          || redGhost.isTransparent() == true) redGhost.setX(redGhost.getX() - speed);
+      if (!checkForWalls(red_movingAt, redGhost.getX(), redGhost.getY())
+          || redGhost.isTransparent()) redGhost.setX(redGhost.getX() - speed);
     } else if (red_movingAt == Dir.RIGHT) {
-      if (checkForWalls(red_movingAt, redGhost.getX(), redGhost.getY()) == false
-          || redGhost.isTransparent() == true) redGhost.setX(redGhost.getX() + speed);
+      if (!checkForWalls(red_movingAt, redGhost.getX(), redGhost.getY())
+          || redGhost.isTransparent()) redGhost.setX(redGhost.getX() + speed);
     }
   }
 
@@ -287,14 +281,14 @@ public class Game {
     if (bonusEaten && pinkGhost.getColor() == Color.BLUE)
       dontGo = pacmanAt(pinkGhost); // the ghost must not go to this direction
 
-    if (pinkGhost.isTransparent() == true) // move the ghost out of the cell
+    if (pinkGhost.isTransparent()) // move the ghost out of the cell
     {
       if (pinkGhost.getY() < 200) pink_movingAt = Dir.DOWN;
       else
         pinkGhost.setTransparent(
             false); // only when the ghost has passed the bottom border of the cell it loses its
       // transparency
-    } else if (checkForWalls(pink_movingAt, pinkGhost.getX(), pinkGhost.getY()) == true
+    } else if (checkForWalls(pink_movingAt, pinkGhost.getX(), pinkGhost.getY())
         && numOfTurns(pink_movingAt, pinkGhost.getX(), pinkGhost.getY())
             == 1) { // if the ghost runs to a dead end it goes in the direction opposite to its
       // current direction
@@ -314,7 +308,7 @@ public class Game {
 
         // move in a random direction
         Dir direction = getRandomDir();
-        if (checkForWalls(direction, pinkGhost.getX(), pinkGhost.getY()) == false) {
+        if (!checkForWalls(direction, pinkGhost.getX(), pinkGhost.getY())) {
           if (dontGo != null && direction != dontGo) {
             pink_movingAt = direction;
             break;
@@ -327,17 +321,17 @@ public class Game {
     }
 
     if (pink_movingAt == Dir.UP) {
-      if (checkForWalls(pink_movingAt, pinkGhost.getX(), pinkGhost.getY()) == false
-          || pinkGhost.isTransparent() == true) pinkGhost.setY(pinkGhost.getY() - speed);
+      if (!checkForWalls(pink_movingAt, pinkGhost.getX(), pinkGhost.getY())
+          || pinkGhost.isTransparent()) pinkGhost.setY(pinkGhost.getY() - speed);
     } else if (pink_movingAt == Dir.DOWN) {
-      if (checkForWalls(pink_movingAt, pinkGhost.getX(), pinkGhost.getY()) == false
-          || pinkGhost.isTransparent() == true) pinkGhost.setY(pinkGhost.getY() + speed);
+      if (!checkForWalls(pink_movingAt, pinkGhost.getX(), pinkGhost.getY())
+          || pinkGhost.isTransparent()) pinkGhost.setY(pinkGhost.getY() + speed);
     } else if (pink_movingAt == Dir.LEFT) {
-      if (checkForWalls(pink_movingAt, pinkGhost.getX(), pinkGhost.getY()) == false
-          || pinkGhost.isTransparent() == true) pinkGhost.setX(pinkGhost.getX() - speed);
+      if (!checkForWalls(pink_movingAt, pinkGhost.getX(), pinkGhost.getY())
+          || pinkGhost.isTransparent()) pinkGhost.setX(pinkGhost.getX() - speed);
     } else if (pink_movingAt == Dir.RIGHT) {
-      if (checkForWalls(pink_movingAt, pinkGhost.getX(), pinkGhost.getY()) == false
-          || pinkGhost.isTransparent() == true) pinkGhost.setX(pinkGhost.getX() + speed);
+      if (!checkForWalls(pink_movingAt, pinkGhost.getX(), pinkGhost.getY())
+          || pinkGhost.isTransparent()) pinkGhost.setX(pinkGhost.getX() + speed);
     }
   }
 
@@ -348,14 +342,14 @@ public class Game {
     if (bonusEaten && orangeGhost.getColor() == Color.BLUE)
       dontGo = pacmanAt(orangeGhost); // the ghost must not go to this direction
 
-    if (orangeGhost.isTransparent() == true) // move the ghost out of the cell
+    if (orangeGhost.isTransparent()) // move the ghost out of the cell
     {
       if (orangeGhost.getY() > 70) orange_movingAt = Dir.UP;
       else
         orangeGhost.setTransparent(
             false); // only when the ghost has passed the top border of the cell it loses its
       // transparency
-    } else if (checkForWalls(orange_movingAt, orangeGhost.getX(), orangeGhost.getY()) == true
+    } else if (checkForWalls(orange_movingAt, orangeGhost.getX(), orangeGhost.getY())
         && numOfTurns(orange_movingAt, orangeGhost.getX(), orangeGhost.getY())
             == 1) { // if the ghost runs to a dead end it goes in the direction opposite to its
       // current direction
@@ -375,7 +369,7 @@ public class Game {
 
         // move in a random direction
         Dir direction = getRandomDir();
-        if (checkForWalls(direction, orangeGhost.getX(), orangeGhost.getY()) == false) {
+        if (!checkForWalls(direction, orangeGhost.getX(), orangeGhost.getY())) {
           if (dontGo != null && direction != dontGo) {
             orange_movingAt = direction;
             break;
@@ -388,17 +382,17 @@ public class Game {
     }
 
     if (orange_movingAt == Dir.UP) {
-      if (checkForWalls(orange_movingAt, orangeGhost.getX(), orangeGhost.getY()) == false
-          || orangeGhost.isTransparent() == true) orangeGhost.setY(orangeGhost.getY() - speed);
+      if (!checkForWalls(orange_movingAt, orangeGhost.getX(), orangeGhost.getY())
+          || orangeGhost.isTransparent()) orangeGhost.setY(orangeGhost.getY() - speed);
     } else if (orange_movingAt == Dir.DOWN) {
-      if (checkForWalls(orange_movingAt, orangeGhost.getX(), orangeGhost.getY()) == false
-          || orangeGhost.isTransparent() == true) orangeGhost.setY(orangeGhost.getY() + speed);
+      if (!checkForWalls(orange_movingAt, orangeGhost.getX(), orangeGhost.getY())
+          || orangeGhost.isTransparent()) orangeGhost.setY(orangeGhost.getY() + speed);
     } else if (orange_movingAt == Dir.LEFT) {
-      if (checkForWalls(orange_movingAt, orangeGhost.getX(), orangeGhost.getY()) == false
-          || orangeGhost.isTransparent() == true) orangeGhost.setX(orangeGhost.getX() - speed);
+      if (!checkForWalls(orange_movingAt, orangeGhost.getX(), orangeGhost.getY())
+          || orangeGhost.isTransparent()) orangeGhost.setX(orangeGhost.getX() - speed);
     } else if (orange_movingAt == Dir.RIGHT) {
-      if (checkForWalls(orange_movingAt, orangeGhost.getX(), orangeGhost.getY()) == false
-          || orangeGhost.isTransparent() == true) orangeGhost.setX(orangeGhost.getX() + speed);
+      if (!checkForWalls(orange_movingAt, orangeGhost.getX(), orangeGhost.getY())
+          || orangeGhost.isTransparent()) orangeGhost.setX(orangeGhost.getX() + speed);
     }
   }
 
@@ -408,14 +402,14 @@ public class Game {
     if (bonusEaten && cyanGhost.getColor() == Color.BLUE)
       dontGo = pacmanAt(cyanGhost); // the ghost must not go to this direction
 
-    if (cyanGhost.isTransparent() == true) // move the ghost out of the cell
+    if (cyanGhost.isTransparent()) // move the ghost out of the cell
     {
       if (cyanGhost.getX() > 50) cyan_movingAt = Dir.LEFT;
       else
         cyanGhost.setTransparent(
             false); // only when the ghost has passed the left border of the cell it loses its
       // transparency
-    } else if (checkForWalls(cyan_movingAt, cyanGhost.getX(), cyanGhost.getY()) == true
+    } else if (checkForWalls(cyan_movingAt, cyanGhost.getX(), cyanGhost.getY())
         && numOfTurns(cyan_movingAt, cyanGhost.getX(), cyanGhost.getY())
             == 1) { // if the ghost runs to a dead end it goes in the direction opposite to its
       // current direction
@@ -433,7 +427,7 @@ public class Game {
         }
 
         Dir direction = getRandomDir();
-        if (checkForWalls(direction, cyanGhost.getX(), cyanGhost.getY()) == false) {
+        if (!checkForWalls(direction, cyanGhost.getX(), cyanGhost.getY())) {
           if (dontGo != null && direction != dontGo) {
             cyan_movingAt = direction;
             break;
@@ -446,17 +440,17 @@ public class Game {
     }
 
     if (cyan_movingAt == Dir.UP) {
-      if (checkForWalls(cyan_movingAt, cyanGhost.getX(), cyanGhost.getY()) == false
-          || cyanGhost.isTransparent() == true) cyanGhost.setY(cyanGhost.getY() - speed);
+      if (!checkForWalls(cyan_movingAt, cyanGhost.getX(), cyanGhost.getY())
+          || cyanGhost.isTransparent()) cyanGhost.setY(cyanGhost.getY() - speed);
     } else if (cyan_movingAt == Dir.DOWN) {
-      if (checkForWalls(cyan_movingAt, cyanGhost.getX(), cyanGhost.getY()) == false
-          || cyanGhost.isTransparent() == true) cyanGhost.setY(cyanGhost.getY() + speed);
+      if (!checkForWalls(cyan_movingAt, cyanGhost.getX(), cyanGhost.getY())
+          || cyanGhost.isTransparent()) cyanGhost.setY(cyanGhost.getY() + speed);
     } else if (cyan_movingAt == Dir.LEFT) {
-      if (checkForWalls(cyan_movingAt, cyanGhost.getX(), cyanGhost.getY()) == false
-          || cyanGhost.isTransparent() == true) cyanGhost.setX(cyanGhost.getX() - speed);
+      if (!checkForWalls(cyan_movingAt, cyanGhost.getX(), cyanGhost.getY())
+          || cyanGhost.isTransparent()) cyanGhost.setX(cyanGhost.getX() - speed);
     } else if (cyan_movingAt == Dir.RIGHT) {
-      if (checkForWalls(cyan_movingAt, cyanGhost.getX(), cyanGhost.getY()) == false
-          || cyanGhost.isTransparent() == true) cyanGhost.setX(cyanGhost.getX() + speed);
+      if (!checkForWalls(cyan_movingAt, cyanGhost.getX(), cyanGhost.getY())
+          || cyanGhost.isTransparent()) cyanGhost.setX(cyanGhost.getX() + speed);
     }
   }
 
@@ -470,16 +464,16 @@ public class Game {
         pacmanAt(ghost); // from the ghost's current position find out in which direction pacman is
 
     if (pacmanDir == Dir.DOWN && pacmanY - ghostY <= (wallSize * wallCount)) {
-      if (checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.DOWN) == false)
+      if (!checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.DOWN))
         direction = Dir.DOWN;
     } else if (pacmanDir == Dir.UP && ghostY - pacmanY <= (wallSize * wallCount)) {
-      if (checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.UP) == false)
+      if (!checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.UP))
         direction = Dir.UP;
     } else if (pacmanDir == Dir.LEFT && ghostX - pacmanX <= (wallSize * wallCount)) {
-      if (checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.LEFT) == false)
+      if (!checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.LEFT))
         direction = Dir.LEFT;
     } else if (pacmanDir == Dir.RIGHT && pacmanX - ghostX <= (wallSize * wallCount)) {
-      if (checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.RIGHT) == false)
+      if (!checkForWallsBetween(ghostX, ghostY, pacmanX, pacmanY, Dir.RIGHT))
         direction = Dir.RIGHT;
     }
 
@@ -494,19 +488,19 @@ public class Game {
     if (y == pacmanY
         && (pacmanX - x) > 0
         && (pacmanX - x) < 100
-        && checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.RIGHT) == false) return Dir.RIGHT;
+        && !checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.RIGHT)) return Dir.RIGHT;
     else if (y == pacmanY
         && (x - pacmanX) > 0
         && (x - pacmanX) < 100
-        && checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.LEFT) == false) return Dir.LEFT;
+        && !checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.LEFT)) return Dir.LEFT;
     else if (x == pacmanX
         && (pacmanY - y) > 0
         && (pacmanY - y) < 100
-        && checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.DOWN) == false) return Dir.DOWN;
+        && !checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.DOWN)) return Dir.DOWN;
     else if (x == pacmanX
         && (y - pacmanY) > 0
         && (y - pacmanY) < 100
-        && checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.UP) == false) return Dir.UP;
+        && !checkForWallsBetween(x, y, pacmanX, pacmanY, Dir.UP)) return Dir.UP;
 
     return null;
   }
@@ -548,13 +542,13 @@ public class Game {
   private Integer numOfTurns(Dir currentDir, double x, double y) {
     int numOfTurns = 0;
 
-    if (currentDir != Dir.UP && checkForWalls(Dir.UP, x, y) == false) numOfTurns++;
+    if (currentDir != Dir.UP && !checkForWalls(Dir.UP, x, y)) numOfTurns++;
 
-    if (currentDir != Dir.DOWN && checkForWalls(Dir.DOWN, x, y) == false) numOfTurns++;
+    if (currentDir != Dir.DOWN && !checkForWalls(Dir.DOWN, x, y)) numOfTurns++;
 
-    if (currentDir != Dir.LEFT && checkForWalls(Dir.LEFT, x, y) == false) numOfTurns++;
+    if (currentDir != Dir.LEFT && !checkForWalls(Dir.LEFT, x, y)) numOfTurns++;
 
-    if (currentDir != Dir.RIGHT && checkForWalls(Dir.RIGHT, x, y) == false) numOfTurns++;
+    if (currentDir != Dir.RIGHT && !checkForWalls(Dir.RIGHT, x, y)) numOfTurns++;
 
     return numOfTurns;
   }
@@ -564,30 +558,30 @@ public class Game {
     x_coord = x_coord - speed;
     y_coord = y_coord - speed;
 
-    for (int counter = 0; counter < wallList.size(); counter++) {
-      double checkX = wallList.get(counter).getX();
-      double checkY = wallList.get(counter).getY();
+    for (Rectangle rectangle : wallList) {
+      double checkX = rectangle.getX();
+      double checkY = rectangle.getY();
+
+      boolean b = y_coord == checkY
+              || (y_coord < checkY + wallSize && y_coord > checkY)
+              || y_coord + speed == checkY;
+
+      boolean a = x_coord == checkX
+              || (x_coord < checkX + wallSize && x_coord > checkX)
+              || x_coord + speed == checkX;
 
       if (theDir == Dir.UP && checkY < y_coord) {
-        if ((x_coord == checkX
-                || (x_coord < checkX + wallSize && x_coord > checkX)
-                || x_coord + speed == checkX)
+        if (a
             && y_coord - wallSize <= checkY) return true;
       } else if (theDir == Dir.DOWN && checkY > y_coord) {
-        if ((x_coord == checkX
-                || (x_coord < checkX + wallSize && x_coord > checkX)
-                || x_coord + speed == checkX)
+        if (a
             && y_coord + wallSize >= checkY) return true;
       } else if (theDir == Dir.LEFT && checkX < x_coord) {
         if (x_coord - wallSize <= checkX
-            && (y_coord == checkY
-                || (y_coord < checkY + wallSize && y_coord > checkY)
-                || y_coord + speed == checkY)) return true;
+            && b) return true;
       } else if (theDir == Dir.RIGHT && checkX > x_coord) {
         if (x_coord + wallSize >= checkX
-            && (y_coord == checkY
-                || (y_coord < checkY + wallSize && y_coord > checkY)
-                || y_coord + speed == checkY)) return true;
+            && b) return true;
       }
     }
 
@@ -600,22 +594,22 @@ public class Game {
     boolean wall_present = false;
 
     if (direction == Dir.UP) {
-      while (from_y > to_y && wall_present == false) {
+      while (from_y > to_y && !wall_present) {
         wall_present = checkForWalls(direction, from_x, from_y);
         from_y -= wallSize;
       }
     } else if (direction == Dir.DOWN) {
-      while (from_y < to_y && wall_present == false) {
+      while (from_y < to_y && !wall_present) {
         wall_present = checkForWalls(direction, from_x, from_y);
         from_y += wallSize;
       }
     } else if (direction == Dir.LEFT) {
-      while (from_x > to_x && wall_present == false) {
+      while (from_x > to_x && !wall_present) {
         wall_present = checkForWalls(direction, from_x, from_y);
         from_x -= wallSize;
       }
     } else if (direction == Dir.RIGHT) {
-      while (from_x < to_x && wall_present == false) {
+      while (from_x < to_x && !wall_present) {
         wall_present = checkForWalls(direction, from_x, from_y);
         from_x += wallSize;
       }
@@ -676,7 +670,7 @@ public class Game {
   // method to check if pacman ate a bonus food
   private Boolean ateBonus(double x, double y) {
     for (int n = 0; n < bonusList.size(); n++) {
-      if (bonusList.get(n).getCenterX() == x && bonusList.get(n).getCenterY() == y) {
+      if (bonusList.get(n).getX() == x && bonusList.get(n).getY() == y) {
         pane.getChildren().remove(bonusList.get(n));
         bonusList.remove(n);
         score += 20; // increment the player's score by 20
@@ -789,11 +783,8 @@ public class Game {
   }
 
   private void blinkBonus() {
-    for (int index = 0; index < bonusList.size(); index++) {
-      Circle food = bonusList.get(index);
-
-      if (food.getFill() == Color.WHITE) food.setFill(Color.BLACK);
-      else food.setFill(Color.WHITE);
+    for (ImageView food : bonusList) {
+      food.setVisible(!food.isVisible());
     }
   }
 
@@ -856,7 +847,7 @@ public class Game {
 
     for (x = 30; x < mapWidth; x += wallSize) {
       for (y = 30; y < mapHeight; y += wallSize) {
-        if (isAWall(x - (wallSize / 2), y - (wallSize / 2)) == false
+        if (!isAWall(x - (wallSize / 2), y - (wallSize / 2))
             && !isABonusFood(x, y)
             && (x < 50 || x > 190 || y < 90 || y > 200)) {
           Circle pellet = new Circle();
@@ -872,53 +863,61 @@ public class Game {
     }
   }
 
+  private void createBF(int x, int y) {
+    ImageView img = new ImageView(assignIcon());
+    img.setFitHeight(32);
+    img.setFitWidth(32);
+    img.setX(x-16);
+    img.setY(y-16);
+    pane.getChildren().add(img);
+    bonusList.add(img);
+  }
+
+  private Image assignIcon() {
+    Image img = new Image("/edu/wpi/cs3733/d22/teamW/wApp/assets/mgb_logo.png");
+    int randomNum = (int) (Math.random() * 5);
+    switch (randomNum) {
+      case 0:
+        img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Bed.png");
+      case 1:
+        img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Inp.png");
+      case 2:
+        img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Recliner.png");
+      case 3:
+        img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_XRay.png");
+    }
+    return img;
+  }
+
   // method to put bonus food in the game. The cooridinates are held in an ArrayList
   private void drawBonusFood() {
     int x, y;
 
     for (y = 30; y < mapHeight; y += (mapHeight - (wallSize * 3))) {
       for (x = 30; x < mapWidth; x += (mapWidth - (wallSize * 3))) {
-        Circle c = new Circle();
-        c.setRadius(4);
-        c.setCenterX(x);
-        c.setCenterY(y);
-        c.setFill(Color.WHITE);
-        pane.getChildren().add(c);
-        bonusList.add(c);
+        createBF(x, y);
       }
     }
 
     y = 250;
     for (x = 410; x < 510; x += 80) {
-      Circle circ = new Circle();
-      circ.setRadius(4);
-      circ.setCenterX(x);
-      circ.setCenterY(y);
-      circ.setFill(Color.WHITE);
-      pane.getChildren().add(circ);
-      bonusList.add(circ);
+      createBF(x, y);
     }
 
-    Circle cr = new Circle();
-    cr.setRadius(4);
-    cr.setCenterX(90);
-    cr.setCenterY(310);
-    cr.setFill(Color.WHITE);
-    pane.getChildren().add(cr);
-    bonusList.add(cr);
+    createBF(x, y);
   }
 
   // method to check if coordinates of a certain point is the same as the coordinates of a wall
   private Boolean isAWall(double x, double y) {
-    for (int n = 0; n < wallList.size(); n++)
-      if (wallList.get(n).getX() == x && wallList.get(n).getY() == y) return true;
+    for (Rectangle rectangle : wallList)
+      if (rectangle.getX() == x && rectangle.getY() == y) return true;
 
     return false;
   }
 
   private Boolean isABonusFood(double x, double y) {
-    for (int n = 0; n < bonusList.size(); n++)
-      if (bonusList.get(n).getCenterX() == x && bonusList.get(n).getCenterY() == y) return true;
+    for (ImageView imageView : bonusList)
+      if (imageView.getX() == x && imageView.getY() == y) return true;
 
     return false;
   }
