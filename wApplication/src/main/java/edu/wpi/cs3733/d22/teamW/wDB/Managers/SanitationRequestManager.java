@@ -96,6 +96,10 @@ public class SanitationRequestManager implements RequestManager {
     srd.changeSanitationRequest(request);
   }
 
+  public void changeRequest(Request request) throws SQLException {
+    srd.changeSanitationRequest((SanitationRequest) request);
+  }
+
   @Override
   public ArrayList<Request> getAllRequests() throws Exception {
     return this.srd.getAllSanitationRequests();

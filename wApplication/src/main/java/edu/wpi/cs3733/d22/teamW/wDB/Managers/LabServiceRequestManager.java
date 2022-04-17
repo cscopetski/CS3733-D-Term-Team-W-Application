@@ -113,6 +113,10 @@ public class LabServiceRequestManager implements RequestManager {
     lsrdi.changeLabServiceRequest(request);
   }
 
+  public void changeRequest(Request request) throws SQLException {
+    lsrdi.changeLabServiceRequest((LabServiceRequest) request);
+  }
+
   @Override
   public ArrayList<Request> getAllRequests() {
     return this.lsrdi.getAllLabServiceRequests();

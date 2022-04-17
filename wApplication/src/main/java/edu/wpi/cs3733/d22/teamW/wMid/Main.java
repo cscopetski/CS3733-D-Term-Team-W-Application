@@ -21,6 +21,7 @@ public class Main {
     final String sanitationRequestsFileName = "SanitationRequests.csv";
     final String languageFileName = "Languages.csv";
     final String languageInterpreterFilename = "LanguageInterpreter.csv";
+    final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
 
     DBController.getDBController();
 
@@ -36,7 +37,8 @@ public class Main {
             computerServiceRequestFileName,
             sanitationRequestsFileName,
             languageFileName,
-            languageInterpreterFilename);
+            languageInterpreterFilename,
+            giftDeliveryRequestFileName);
 
     try {
       csvController.populateTables();
@@ -44,29 +46,6 @@ public class Main {
       e.printStackTrace();
     }
 
-    /*
-    LanguageInterpreterManager lim = LanguageInterpreterManager.getLanguageInterpreterManager();
-    ArrayList<String> fields = new ArrayList<>();
-    fields.add("1");
-    fields.add("Spanish");
-
-    ArrayList<String> fields2 = new ArrayList<>();
-    fields2.add("4");
-    fields2.add("Cantonese");
-
-    ArrayList<String> field = new ArrayList<>();
-    field.add("4");
-    field.add("Spanish");
-
-    LanguageInterpreter test = lim.addLanguageInterpreter(fields);
-    LanguageInterpreter test2 = lim.addLanguageInterpreter(fields2);
-    LanguageInterpreter test3 = lim.addLanguageInterpreter(field);
-
-    lim.exportReqCSV("LanguageInterpreter.csv");
-
-     */
-
-    // App.launch(App.class, args);
-
+    App.launch(App.class, args);
   }
 }

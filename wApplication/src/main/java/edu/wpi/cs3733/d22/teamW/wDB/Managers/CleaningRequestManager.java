@@ -158,6 +158,10 @@ public class CleaningRequestManager {
     }
   }
 
+  public void changeRequest(Request request) throws SQLException {
+    crd.changeCleaningRequest((CleaningRequest) request);
+  }
+
   public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
     return crd.getEmployeeRequests(employeeID);
   }

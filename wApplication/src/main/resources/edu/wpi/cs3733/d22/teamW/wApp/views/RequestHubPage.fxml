@@ -121,6 +121,21 @@
                                  </BorderPane>
                         </children>
                      </VBox>
+                           <VBox prefHeight="200.0" prefWidth="250.0">
+                              <children>
+                                 <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToComputerService" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonMeal.css" text="Computer Service" BorderPane.alignment="CENTER" />
+                                    </center>
+                                    <VBox.margin>
+                                       <Insets top="20.0" />
+                                    </VBox.margin>
+                                    <bottom>
+                                       <Label fx:id="computerCredit" text="Hasan Gandor" BorderPane.alignment="CENTER" />
+                                    </bottom>
+                                 </BorderPane>
+                              </children>
+                           </VBox>
                   </children>
                </HBox>
             </center>

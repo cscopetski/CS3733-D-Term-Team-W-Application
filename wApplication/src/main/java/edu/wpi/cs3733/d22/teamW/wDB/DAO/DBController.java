@@ -55,6 +55,7 @@ public class DBController {
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       FlowerRequestDao flowerRequestDao = new FlowerRequestDaoImpl(statement);
+      GiftDeliveryRequestDao giftDeliveryRequestDao = new GiftDeliveryRequestDaoImpl(statement);
       ComputerServiceRequestDao csrDao = new ComputerServiceRequestDaoImpl(statement);
       SanitationRequestDao sanitationRequestDao = new SanitationRequestDaoImpl(statement);
       MedRequestDao medRequestDao = new MedRequestDaoImpl(statement);
@@ -84,6 +85,8 @@ public class DBController {
       LanguageManager.getLocationManager().setLanguageDao(languageDao);
       LanguageInterpreterManager.getLanguageInterpreterManager()
           .setLanguageInterpreterDao(languageInterpreterDao);
+      GiftDeliveryRequestManager.getGiftDeliveryRequestManager()
+          .setGiftDeliveryRequestDao(giftDeliveryRequestDao);
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ((EmployeeDaoSecureImpl) employeeDao).createTable();
@@ -98,6 +101,7 @@ public class DBController {
       ((FlowerRequestDaoImpl) flowerRequestDao).createTable();
       ((ComputerServiceRequestDaoImpl) csrDao).createTable();
       ((SanitationRequestDaoImpl) sanitationRequestDao).createTable();
+      ((GiftDeliveryRequestDaoImpl) giftDeliveryRequestDao).createTable();
 
     } catch (SQLException e) {
       System.out.println("Table Creation Failed");

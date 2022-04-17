@@ -160,6 +160,10 @@ public class MedEquipRequestManager implements RequestManager {
     }
   }
 
+  public void changeRequest(Request request) throws SQLException {
+    merd.changeMedEquipRequest((MedEquipRequest) request);
+  }
+
   // TODO might wanna rework to just use sql
   @Override
   public Request getRequest(Integer reqID) throws SQLException, NonExistingMedEquip {

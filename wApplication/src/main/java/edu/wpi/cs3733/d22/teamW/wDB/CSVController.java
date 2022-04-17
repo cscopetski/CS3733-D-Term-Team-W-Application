@@ -21,6 +21,7 @@ public class CSVController {
   private String sanitationRequestFileName;
   private String languageFileName;
   private String languageInterpFileName;
+  private String giftDeliveryRequestFileName;
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
@@ -35,7 +36,8 @@ public class CSVController {
       String computerServiceRequestFileName,
       String sanitationRequestFileName,
       String languageFileName,
-      String languageInterpFileName) {
+      String languageInterpFileName,
+      String giftDeliveryRequestFileName) {
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
     this.medEquipRequestFileName = medEquipRequestFileName;
@@ -47,6 +49,7 @@ public class CSVController {
     this.sanitationRequestFileName = sanitationRequestFileName;
     this.languageFileName = languageFileName;
     this.languageInterpFileName = languageInterpFileName;
+    this.giftDeliveryRequestFileName = giftDeliveryRequestFileName;
   }
 
   public void populateTables() throws Exception {
@@ -61,6 +64,7 @@ public class CSVController {
     insertMedRequestTable(importCSV(medRequestFileName));
     insertFlowerRequestTable(importCSV(flowerRequestFileName));
     insertComputerServiceRequestTable(importCSV(computerServiceRequestFileName));
+    insertGiftDeliveryRequestTable(importCSV(giftDeliveryRequestFileName));
   }
 
   public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
@@ -285,6 +289,16 @@ public class CSVController {
       ComputerServiceRequest csr =
           (ComputerServiceRequest)
               requestFactory.getRequest(RequestType.ComputerServiceRequest, fields, true);
+    }
+  }
+
+  private void insertGiftDeliveryRequestTable(ArrayList<String[]> tokens) throws Exception {
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+      GiftDeliveryRequest gdr =
+          (GiftDeliveryRequest) requestFactory.getRequest(RequestType.GiftDelivery, fields, true);
     }
   }
 }

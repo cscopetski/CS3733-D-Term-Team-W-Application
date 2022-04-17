@@ -21,8 +21,7 @@ public interface SanitationRequestDao {
 
   void exportSanitationReqCSV(String filename) throws Exception;
 
-  // TODO write this once Edison makes the DB
-  // ArrayList<Request> getEmployeeRequests(Integer employeeID);
+  ArrayList<Request> getEmployeeRequests(Integer employeeID);
 
   void updateSanitationRequestsAtLocation(String nodeID)
       throws SQLException, StatusError, NonExistingMedEquip;

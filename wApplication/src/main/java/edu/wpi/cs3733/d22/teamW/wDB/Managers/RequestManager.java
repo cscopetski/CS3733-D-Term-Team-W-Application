@@ -1,9 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface RequestManager {
@@ -16,8 +13,7 @@ public interface RequestManager {
 
   public abstract void start(Integer requestID) throws Exception;
 
-  public abstract void complete(Integer requestID)
-      throws SQLException, StatusError, NonExistingMedEquip;
+  public abstract void complete(Integer requestID) throws Exception;
 
   public abstract void cancel(Integer requestID) throws Exception;
 
@@ -26,6 +22,8 @@ public interface RequestManager {
   public Request getRequest(Integer ID) throws Exception;
 
   public ArrayList<Request> getAllRequests() throws Exception;
+
+  public void changeRequest(Request request) throws Exception;
 
   public Request addNewRequest(Integer i, ArrayList<String> fields) throws Exception;
 
