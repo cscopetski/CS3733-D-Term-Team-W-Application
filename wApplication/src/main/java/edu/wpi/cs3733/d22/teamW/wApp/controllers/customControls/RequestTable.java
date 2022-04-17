@@ -54,7 +54,7 @@ public class RequestTable extends TableView<SR> {
         case LabServiceRequest:
           sr = new LabServiceSR(r);
           break;
-        case LanguageInterpreter:
+        case LanguageRequest:
           sr = new LanguageInterpreterSR(r);
           break;
         case MealDelivery:

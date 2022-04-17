@@ -28,6 +28,8 @@ public class RequestFacade {
       SanitationRequestManager.getSanitationRequestManager();
   private SecurityRequestManager securityRequestManager =
       SecurityRequestManager.getSecurityRequestManager();
+  private LanguageRequestManager languageRequestManager =
+      LanguageRequestManager.getLanguageRequestManager();
 
   private static RequestFacade requestFacade = new RequestFacade();
 
@@ -71,6 +73,9 @@ public class RequestFacade {
       case SecurityService:
         requests.addAll(securityRequestManager.getAllRequests());
         break;
+      case LanguageRequest:
+        requests.addAll(languageRequestManager.getAllRequests());
+        break;
       default:
         requests.addAll(getAllRequests());
         break;
@@ -92,6 +97,7 @@ public class RequestFacade {
     requests.addAll(giftDeliveryRequestManager.getAllRequests());
     requests.addAll(sanitationRequestManager.getAllRequests());
     requests.addAll(securityRequestManager.getAllRequests());
+    requests.addAll(languageRequestManager.getAllRequests());
     Collections.sort(requests);
     return requests;
   }
@@ -128,6 +134,9 @@ public class RequestFacade {
         break;
       case SecurityService:
         request = securityRequestManager.getRequest(requestID);
+        break;
+      case LanguageRequest:
+        request = languageRequestManager.getRequest(requestID);
         break;
       default:
         request = null;
@@ -176,6 +185,9 @@ public class RequestFacade {
         case SecurityService:
           securityRequestManager.complete(requestID);
           break;
+        case LanguageRequest:
+          languageRequestManager.complete(requestID);
+          break;
       }
     }
   }
@@ -215,6 +227,9 @@ public class RequestFacade {
           break;
         case SecurityService:
           securityRequestManager.cancel(requestID);
+          break;
+        case LanguageRequest:
+          languageRequestManager.cancel(requestID);
           break;
       }
     }
@@ -259,6 +274,9 @@ public class RequestFacade {
         case SecurityService:
           securityRequestManager.start(requestID);
           break;
+        case LanguageRequest:
+          languageRequestManager.start(requestID);
+          break;
       }
     }
   }
@@ -299,6 +317,9 @@ public class RequestFacade {
         case SecurityService:
           securityRequestManager.reQueue(requestID);
           break;
+        case LanguageRequest:
+          languageRequestManager.reQueue(requestID);
+          break;
       }
     }
   }
@@ -306,26 +327,17 @@ public class RequestFacade {
   public ArrayList<Request> getAllEmployeeRequests(Integer employeeID) {
     ArrayList<Request> employeeRequests = new ArrayList<Request>();
 
-    ArrayList<Request> cleaningReqs = crm.getEmployeeRequests(employeeID);
-    employeeRequests.addAll(cleaningReqs);
-
-    ArrayList<Request> labServiceReqs = lsrm.getEmployeeRequests(employeeID);
-    employeeRequests.addAll(labServiceReqs);
-
-    ArrayList<Request> medEquipReqs = merm.getEmployeeRequests(employeeID);
-    employeeRequests.addAll(medEquipReqs);
-
-    ArrayList<Request> medReqs = mrm.getEmployeeRequests(employeeID);
-    employeeRequests.addAll(medReqs);
-
-    ArrayList<Request> compReqs = csrm.getEmployeeRequests(employeeID);
-    employeeRequests.addAll(compReqs);
-
+    employeeRequests.addAll(crm.getEmployeeRequests(employeeID));
+    employeeRequests.addAll(lsrm.getEmployeeRequests(employeeID));
+    employeeRequests.addAll(merm.getEmployeeRequests(employeeID));
+    employeeRequests.addAll(mrm.getEmployeeRequests(employeeID));
+    employeeRequests.addAll(csrm.getEmployeeRequests(employeeID));
     employeeRequests.addAll(mealRequestManager.getEmployeeRequests(employeeID));
     employeeRequests.addAll(flowerRequestManager.getEmployeeRequests(employeeID));
     employeeRequests.addAll(giftDeliveryRequestManager.getEmployeeRequests(employeeID));
     employeeRequests.addAll(sanitationRequestManager.getEmployeeRequests(employeeID));
     employeeRequests.addAll(securityRequestManager.getEmployeeRequests(employeeID));
+    employeeRequests.addAll(languageRequestManager.getEmployeeRequests(employeeID));
 
     Collections.sort(employeeRequests);
 
