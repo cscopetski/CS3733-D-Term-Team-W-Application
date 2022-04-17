@@ -424,7 +424,8 @@ public class MapEditorController extends LoadableController {
               new medEquip(
                   eqList.get(i).getMedID(),
                   eqList.get(i).getType().getString(),
-                  eqList.get(i).getStatus()));
+                  currFloorLoc.get(j).getXCoord(),
+                  currFloorLoc.get(j).getYCoord()));
           break;
         }
       }
@@ -476,9 +477,6 @@ public class MapEditorController extends LoadableController {
       Circle finalCircle = circle;
       circle.setOnMouseReleased(
           event -> {
-            //            finalCircle.relocate(
-            //                finalCircle.getCenterX() + finalCircle.getTranslateX(),
-            //                finalCircle.getCenterY() + finalCircle.getTranslateY());
             finalCircle.setCenterY(finalCircle.getCenterY() + finalCircle.getTranslateY());
             finalCircle.setCenterX(finalCircle.getCenterX() + finalCircle.getTranslateX());
             System.out.println(finalCircle.getTranslateX() + " " + finalCircle.getTranslateY());
@@ -487,14 +485,10 @@ public class MapEditorController extends LoadableController {
             finalCircle.setCenterX(loc.getXCoord());
             finalCircle.setCenterY(loc.getYCoord());
             medEquip eq = equipList.get(eqDots.indexOf(finalCircle));
-            //            try {
-            //
-            // System.out.println(equipController.getMedEquip(eq.getMedID()).getNodeID());
-            //            } catch (SQLException e) {
-            //              e.printStackTrace();
-            //            }
             eq.setXCoord(loc.getXCoord());
             eq.setYCoord(loc.getYCoord());
+            System.out.println(finalCircle.getCenterX() + " " + finalCircle.getCenterY());
+            System.out.println(eq.getXCoord() + " " + eq.getYCoord());
             try {
               equipController.change(
                   new MedEquip(
