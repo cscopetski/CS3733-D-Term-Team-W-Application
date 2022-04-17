@@ -25,6 +25,7 @@ public class CSVController {
   private String giftDeliveryRequestFileName;
   private String mealRequestFileName;
   private String securityRequestFileName;
+  private String languageRequestFileName;
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
@@ -43,7 +44,8 @@ public class CSVController {
       String languageInterpFileName,
       String giftDeliveryRequestFileName,
       String mealRequestFileName,
-      String securityRequestFileName) {
+      String securityRequestFileName,
+      String languageRequestFileName) {
 
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
@@ -60,6 +62,7 @@ public class CSVController {
     this.cleaningRequestFileName = cleaningRequestFileName;
     this.mealRequestFileName = mealRequestFileName;
     this.securityRequestFileName = securityRequestFileName;
+    this.languageRequestFileName = languageRequestFileName;
   }
 
   public void populateTables() throws Exception {
@@ -79,6 +82,7 @@ public class CSVController {
     insertGiftDeliveryRequestTable(importCSV(giftDeliveryRequestFileName));
     insertMealRequestTable(importCSV(mealRequestFileName));
     insertSecurityRequestTable(importCSV(securityRequestFileName));
+    insertLanguageRequestTable(importCSV(languageRequestFileName));
   }
 
   public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
@@ -230,6 +234,18 @@ public class CSVController {
 
       MedRequest mr =
           (MedRequest) requestFactory.getRequest(RequestType.MedicineDelivery, fields, true);
+
+      // medReqLists.add(mr);
+    }
+  }
+
+  private void insertLanguageRequestTable(ArrayList<String[]> tokens) throws Exception {
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+
+      LanguageRequest lr =
+          (LanguageRequest) requestFactory.getRequest(RequestType.LanguageRequest, fields, true);
 
       // medReqLists.add(mr);
     }

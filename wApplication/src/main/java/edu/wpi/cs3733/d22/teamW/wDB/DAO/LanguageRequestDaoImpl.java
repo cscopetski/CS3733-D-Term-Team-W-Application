@@ -5,9 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LanguageRequest;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -65,20 +63,17 @@ public class LanguageRequestDaoImpl implements LanguageRequestDao {
 
   @Override
   public void addLanguageRequest(LanguageRequest lr) throws SQLException {
-    statement.executeUpdate(String.format("INSERT INTO LANGUAGEREQUESTS VALUES (%s)", lr.toValuesString()));
+    statement.executeUpdate(
+        String.format("INSERT INTO LANGUAGEREQUESTS VALUES (%s)", lr.toValuesString()));
   }
 
   @Override
-  public void changeLanguageRequest(LanguageRequest lr) throws SQLException {
-
-  }
+  public void changeLanguageRequest(LanguageRequest lr) throws SQLException {}
 
   @Override
   public void deleteLanguageRequest(Integer id) throws SQLException {
     RequestFactory.getRequestFactory().getReqIDList().remove(id);
-    statement.executeUpdate(
-            String.format("DELETE FROM LANGUAGEREQUESTS WHERE MEDREQID=%d", id));
-
+    statement.executeUpdate(String.format("DELETE FROM LANGUAGEREQUESTS WHERE MEDREQID=%d", id));
   }
 
   @Override
@@ -86,8 +81,8 @@ public class LanguageRequestDaoImpl implements LanguageRequestDao {
     LanguageRequest lr = null;
     try {
       ResultSet langRequests =
-              statement.executeQuery(
-                      String.format("SELECT * FROM LANGUAGEREQUESTS WHERE REQUESTID = %d", id));
+          statement.executeQuery(
+              String.format("SELECT * FROM LANGUAGEREQUESTS WHERE REQUESTID = %d", id));
 
       langRequests.next();
 
@@ -102,7 +97,8 @@ public class LanguageRequestDaoImpl implements LanguageRequestDao {
     } catch (StatusError e) {
       e.printStackTrace();
     }
-    return lr;  }
+    return lr;
+  }
 
   @Override
   public ArrayList<Request> getAllLanguageRequest() throws SQLException {
@@ -129,7 +125,8 @@ public class LanguageRequestDaoImpl implements LanguageRequestDao {
     } catch (StatusError e) {
       e.printStackTrace();
     }
-    return languageRequestList;  }
+    return languageRequestList;
+  }
 
   @Override
   public void exportLanguageReqCSV(String fileName) {
@@ -156,9 +153,8 @@ public class LanguageRequestDaoImpl implements LanguageRequestDao {
     ArrayList<Request> employeeRequestList = new ArrayList<>();
     try {
       ResultSet languageRequests =
-              statement.executeQuery(
-                      String.format(
-                              "SELECT * FROM LANGUAGEREQUESTS WHERE EMPLOYEEID = %d", employeeID));
+          statement.executeQuery(
+              String.format("SELECT * FROM LANGUAGEREQUESTS WHERE EMPLOYEEID = %d", employeeID));
       while (languageRequests.next()) {
         ArrayList<String> languageRequestData = new ArrayList<String>();
 
@@ -173,7 +169,8 @@ public class LanguageRequestDaoImpl implements LanguageRequestDao {
     } catch (StatusError e) {
       e.printStackTrace();
     }
-    return employeeRequestList;  }
+    return employeeRequestList;
+  }
 
   @Override
   public void updateLangReqAtLocation(String nodeID) throws Exception {}
@@ -181,9 +178,9 @@ public class LanguageRequestDaoImpl implements LanguageRequestDao {
   @Override
   public void updateLanguageRequestWithEmployee(Integer employeeID) throws Exception {
     ResultSet resultSet =
-            statement.executeQuery(
-                    String.format(
-                            "SELECT REQUESTID FROM LANGUAGEREQUESTS WHERE employeeID=%d", employeeID));
+        statement.executeQuery(
+            String.format(
+                "SELECT REQUESTID FROM LANGUAGEREQUESTS WHERE employeeID=%d", employeeID));
 
     ArrayList<Integer> reqIDs = new ArrayList<>();
     while (resultSet.next()) {
@@ -192,15 +189,14 @@ public class LanguageRequestDaoImpl implements LanguageRequestDao {
       reqIDs.add(reqID);
     }
 
-    //TODO Fix this once the manager is made
+    // TODO Fix this once the manager is made
     for (Integer reqID : reqIDs) {
       MedEquipRequestManager.getMedEquipRequestManager().cancel(reqID);
     }
 
     statement.executeUpdate(
-            String.format(
-                    "UPDATE LANGUAGEREQUESTS SET employeeID=%d WHERE employeeID=%d",
-                    EmployeeManager.getEmployeeManager().getDeletedEmployee(), employeeID));
-
+        String.format(
+            "UPDATE LANGUAGEREQUESTS SET employeeID=%d WHERE employeeID=%d",
+            EmployeeManager.getEmployeeManager().getDeletedEmployee(), employeeID));
   }
 }
