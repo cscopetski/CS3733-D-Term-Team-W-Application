@@ -40,11 +40,12 @@ public class MedEquipManager {
     return this.noneEquipment;
   }
 
-  public void markClean(String medID, String nodeID) throws SQLException {
+  public void markClean(String medID, String nodeID) throws Exception {
     MedEquip medEquip = medi.getMedEquip(medID);
     medEquip.setNodeID(nodeID);
     medEquip.setStatus(MedEquipStatus.Clean);
     medi.changeMedEquip(medEquip);
+    CleaningRequestManager.getCleaningRequestManager().markComplete(medID, nodeID);
   }
 
   public void markInUse(String medID, String nodeID) throws SQLException {

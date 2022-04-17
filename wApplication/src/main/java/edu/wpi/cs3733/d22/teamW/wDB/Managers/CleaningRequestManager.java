@@ -106,6 +106,45 @@ public class CleaningRequestManager {
     }
   }
 
+  public void markComplete(String medID, String nodeID) throws Exception {
+    CleaningRequest cr = crd.getCleaningRequest(medID);
+    if (cr == null) {
+      System.out.println("TRYING TO COMPLETE A NULL CLEANING REQUEST ID");
+      return;
+    }
+    if (cr.getStatus() == RequestStatus.InProgress
+        || cr.getStatus().equals(RequestStatus.InQueue)) {
+      cr.setStatus(RequestStatus.Completed);
+      cr.setNodeID(nodeID);
+      crd.changeCleaningRequest(cr);
+      MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
+      MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), nodeID);
+      MedEquipManager.getMedEquipManager().markClean(item.getMedID(), nodeID);
+      if (Automation.Automation.getAuto()) {
+        MedEquipRequestManager.getMedEquipRequestManager().startNext(item.getType());
+      }
+    }
+  }
+
+  public void complete(String medID, String nodeID) throws Exception {
+    CleaningRequest cr = crd.getCleaningRequest(medID);
+    if (cr == null) {
+      System.out.println("TRYING TO COMPLETE A NULL CLEANING REQUEST ID");
+      return;
+    }
+    if (cr.getStatus() == RequestStatus.InProgress) {
+      cr.setStatus(RequestStatus.Completed);
+      cr.setNodeID(nodeID);
+      crd.changeCleaningRequest(cr);
+      MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
+      MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), nodeID);
+      MedEquipManager.getMedEquipManager().markClean(item.getMedID(), nodeID);
+      if (Automation.Automation.getAuto()) {
+        MedEquipRequestManager.getMedEquipRequestManager().startNext(item.getType());
+      }
+    }
+  }
+
   public void complete(Integer requestID, String nodeID) throws Exception {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr == null) {

@@ -60,6 +60,12 @@ public class Main {
     for (MedEquip m : medEquipArrayList) {
       System.out.println(m.toCSVString());
     }
+    MedEquipManager.getMedEquipManager().markDirty("BED001", "FDEPT00101");
+    MedEquipManager.getMedEquipManager().markDirty("BED002", "FDEPT00101");
+    MedEquipManager.getMedEquipManager().markDirty("BED003", "FDEPT00101");
+    MedEquipManager.getMedEquipManager().markDirty("BED004", "FDEPT00101");
+    MedEquipManager.getMedEquipManager().markDirty("BED005", "FDEPT00101");
+    MedEquipManager.getMedEquipManager().markClean("BED005", "FDEPT00101");
     App.launch(App.class, args);
   }
 }

@@ -16,6 +16,8 @@ public interface CleaningRequestDao {
 
   void exportCleaningReqCSV(String filename);
 
+  CleaningRequest getCleaningRequest(String itemID) throws StatusError;
+
   CleaningRequest getCleaningRequest(Integer requestID) throws StatusError;
 
   ArrayList<String> getCleaningLocation() throws SQLException;
