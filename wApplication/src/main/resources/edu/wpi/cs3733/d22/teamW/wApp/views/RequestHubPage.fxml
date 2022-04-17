@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.RequestHubController">
+<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.RequestHubController">
 <children>
 <AnchorPane maxHeight="600.0" prefHeight="584.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
    <children>
@@ -121,6 +121,29 @@
                                  </BorderPane>
                         </children>
                      </VBox>
+                           <VBox prefHeight="200.0" prefWidth="250.0">
+                              <children>
+                                 <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToComputerService" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonMeal.css" text="Computer Service" BorderPane.alignment="CENTER" />
+                                    </center>
+                                    <VBox.margin>
+                                       <Insets top="20.0" />
+                                    </VBox.margin>
+                                    <bottom>
+                                       <Label fx:id="computerCredit" text="Hasan Gandor" BorderPane.alignment="CENTER" />
+                                    </bottom>
+                                 </BorderPane>
+                                 <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToSanitationService" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonMedEquip.css" text="Sanitation Service" BorderPane.alignment="CENTER" />
+                                    </center>
+                                    <bottom>
+                                       <Label fx:id="sanitationServiceCredit" text="Edison Zhang" BorderPane.alignment="CENTER" />
+                                    </bottom>
+                                 </BorderPane>
+                              </children>
+                           </VBox>
                   </children>
                </HBox>
             </center>

@@ -22,7 +22,7 @@
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="Women's Hospital in Boston. The application will allow the user navigating the " />
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="graphical map (with side-view) and let them create the service request that they " />
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="need. The two basics request are lab service request and medical equipment" />
-                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="service request, some additional requests include: medicine delivery request, " />
+                  <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="service request, some additional requests include: medicineType delivery request, " />
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="security service request and language interpreter. Hospital employees can also " />
                   <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="prioritize a request by our emergency button feature. " />
                </children>

@@ -42,6 +42,8 @@
                                         <MenuItem mnemonicParsing="false" onAction="#switchToMealDelivery" text="Meals" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToLanguageInterpreter" text="Interpreters" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToSecurity" text="Security" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToComputerService" text="Computer Services" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToSanitationService" text="Sanitation Services" />
                                     </items>
                                     <HBox.margin>
                                         <Insets right="10.0" top="10.0" />
@@ -83,6 +85,8 @@
                         <fx:include fx:id="medicalEquipmentServiceRequestPage" source="ServiceRequestPages/MedicalEquipmentServiceRequestPage.fxml" />
                         <fx:include fx:id="medicineDeliveryServiceRequestPage" source="ServiceRequestPages/MedicineDeliveryServiceRequestPage.fxml" />
                         <fx:include fx:id="securityServiceRequestPage" source="ServiceRequestPages/SecurityServiceRequestPage.fxml" />
+                        <fx:include fx:id="computerServiceRequestPage" source="ServiceRequestPages/ComputerServiceRequestPage.fxml" />
+                        <fx:include fx:id="sanitationRequestPage" source="ServiceRequestPages/SanitationRequest.fxml" />
                         <fx:include fx:id="requestListPage" source="ServiceRequestPages/RequestListPage.fxml" />
                         <fx:include fx:id="requestHubPage" source="RequestHubPage.fxml" />
                         <fx:include fx:id="helpPage" source="HelpPage.fxml" />

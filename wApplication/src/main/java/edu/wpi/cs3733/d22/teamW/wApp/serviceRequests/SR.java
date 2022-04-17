@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -43,5 +45,5 @@ public abstract class SR {
   public abstract String getRequestTypeS();
 
   // returns a String for the More Info section of the RequestList page
-  public abstract String getFormattedInfo() throws SQLException;
+  public abstract String getFormattedInfo() throws SQLException, StatusError, NonExistingMedEquip;
 }

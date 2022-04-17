@@ -20,6 +20,8 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane medicalEquipmentServiceRequestPage;
   @FXML public Pane medicineDeliveryServiceRequestPage;
   @FXML public Pane securityServiceRequestPage;
+  @FXML public Pane computerServiceRequestPage;
+  @FXML public Pane sanitationRequestPage;
   @FXML public Pane requestListPage;
   @FXML public Pane requestHubPage;
   @FXML public Pane loginPage;
@@ -49,6 +51,10 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance()
         .putPane(SceneManager.Scenes.MedicineDelivery, medicineDeliveryServiceRequestPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Security, securityServiceRequestPage);
+    SceneManager.getInstance()
+        .putPane(SceneManager.Scenes.ComputerService, computerServiceRequestPage);
+    SceneManager.getInstance()
+        .putPane(SceneManager.Scenes.SanitationService, sanitationRequestPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.RequestList, requestListPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.RequestHub, requestHubPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Help, helpPage);
@@ -88,6 +94,14 @@ public class DefaultPageController implements Initializable {
 
   public void switchToSecurity(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Security);
+  }
+
+  public void switchToComputerService(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.ComputerService);
+  }
+
+  public void switchToSanitationService(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.SanitationService);
   }
 
   public void switchToMapEditor(ActionEvent event) {

@@ -68,6 +68,8 @@ public class SceneManager {
     Help,
     About,
     Profile,
+    ComputerService,
+    SanitationService,
     Snake
   }
 

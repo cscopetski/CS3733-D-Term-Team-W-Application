@@ -1,7 +1,10 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipType;
 import java.io.*;
 import java.sql.*;
 import java.util.*;
@@ -23,6 +26,8 @@ public class MedEquipDaoImpl implements MedEquipDao {
       System.out.println("Failed to drop Medical Equipment Table");
     }
   }
+
+  String CSVHeaderString = "medID,type,nodeID,status";
 
   void createTable() throws SQLException {
 
@@ -49,13 +54,59 @@ public class MedEquipDaoImpl implements MedEquipDao {
     try {
       ResultSet medEquipment = statement.executeQuery("SELECT * FROM MEDICALEQUIPMENT");
 
-      // Size of num MedEquip fields
-      String[] medEquipData = new String[4];
+      while (medEquipment.next()) {
+        ArrayList<String> medEquipData = new ArrayList<String>();
+
+        for (int i = 0; i < medEquipment.getMetaData().getColumnCount(); i++) {
+          medEquipData.add(medEquipment.getString(i + 1));
+        }
+        for (String e : medEquipData) {
+          System.out.println(e);
+        }
+        medEquipList.add(new MedEquip(medEquipData));
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from medical equipment table failed");
+      throw (e);
+    } catch (NonExistingMedEquip e) {
+      e.printStackTrace();
+    }
+
+    return medEquipList;
+  }
+
+  @Override
+  public ArrayList<MedEquip> getAllMedEquip(MedEquipType type, MedEquipStatus status)
+      throws SQLException {
+
+    ArrayList<MedEquip> medEquipList = new ArrayList<>();
+
+    String queury = "SELECT * FROM MEDICALEQUIPMENT ";
+    if (type == null && status != null) {
+      queury += "WHERE STATUS = ";
+      queury += status.getValue();
+    }
+    if (type != null && status == null) {
+      queury += "WHERE TYPE = ";
+      queury += type.getAbb();
+    }
+    if (type != null && status != null) {
+      queury += "WHERE (STATUS = ";
+      queury += status.getValue();
+      queury += "AND TYPE = ";
+      queury += type.getAbb();
+      queury += ")";
+    }
+
+    try {
+      ResultSet medEquipment = statement.executeQuery(queury);
 
       while (medEquipment.next()) {
+        ArrayList<String> medEquipData = new ArrayList<String>();
 
-        for (int i = 0; i < medEquipData.length; i++) {
-          medEquipData[i] = medEquipment.getString(i + 1);
+        for (int i = 0; i < medEquipment.getMetaData().getColumnCount(); i++) {
+          medEquipData.add(medEquipment.getString(i + 1));
         }
 
         medEquipList.add(new MedEquip(medEquipData));
@@ -64,8 +115,9 @@ public class MedEquipDaoImpl implements MedEquipDao {
     } catch (SQLException e) {
       System.out.println("Query from medical equipment table failed");
       throw (e);
+    } catch (NonExistingMedEquip e) {
+      e.printStackTrace();
     }
-
     return medEquipList;
   }
 
@@ -79,13 +131,11 @@ public class MedEquipDaoImpl implements MedEquipDao {
           statement.executeQuery(
               String.format("SELECT * FROM MEDICALEQUIPMENT WHERE MEDID = '%s'", medID));
 
-      // Size of num MedEquip fields
-      String[] medEquipData = new String[4];
-
       while (medEquipment.next()) {
+        ArrayList<String> medEquipData = new ArrayList<String>();
 
-        for (int i = 0; i < medEquipData.length; i++) {
-          medEquipData[i] = medEquipment.getString(i + 1);
+        for (int i = 0; i < medEquipment.getMetaData().getColumnCount(); i++) {
+          medEquipData.add(medEquipment.getString(i + 1));
         }
 
         medEquip = new MedEquip(medEquipData);
@@ -94,19 +144,18 @@ public class MedEquipDaoImpl implements MedEquipDao {
     } catch (SQLException e) {
       System.out.println("Query from medical equipment table failed");
       throw (e);
+    } catch (NonExistingMedEquip e) {
+      e.printStackTrace();
     }
 
     return medEquip;
   }
 
   @Override
-  public void addMedEquip(String inputID, String type, String nodeID, MedEquipStatus status)
-      throws SQLException {
+  public void addMedEquip(MedEquip medEquip) throws SQLException {
 
     statement.executeUpdate(
-        String.format(
-            "INSERT INTO MEDICALEQUIPMENT VALUES ('%s','%s','%s',%d)",
-            inputID, type, nodeID, status.getValue()));
+        String.format("INSERT INTO MEDICALEQUIPMENT VALUES(%s)", medEquip.toValuesString()));
   }
 
   @Override
@@ -115,12 +164,14 @@ public class MedEquipDaoImpl implements MedEquipDao {
   }
 
   @Override
-  public void changeMedEquip(String medID, String type, String nodeID, MedEquipStatus status)
-      throws SQLException {
+  public void changeMedEquip(MedEquip medEquip) throws SQLException {
     statement.executeUpdate(
         String.format(
             "UPDATE MEDICALEQUIPMENT SET TYPE = '%s', NODEID = '%s', STATUS = %d WHERE MEDID = '%s'",
-            type, nodeID, status.getValue(), medID));
+            medEquip.getType().getAbb(),
+            medEquip.getNodeID(),
+            medEquip.getStatus().getValue(),
+            medEquip.getMedID()));
   }
 
   @Override
@@ -128,7 +179,7 @@ public class MedEquipDaoImpl implements MedEquipDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print("medID,type,nodeID,status");
+      pw.print(CSVHeaderString);
 
       ArrayList<MedEquip> medEquipList = getAllMedEquip();
 
@@ -143,5 +194,14 @@ public class MedEquipDaoImpl implements MedEquipDao {
       System.out.println(String.format("Error Exporting to File %s", fileName));
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public void updateMedEquipsAtLocation(String nodeID) throws SQLException {
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE MEDICALEQUIPMENT SET NODEID='%s' WHERE NODEID='%s'",
+            LocationManager.getLocationManager().getNoneLocation(), nodeID));
   }
 }

@@ -14,6 +14,8 @@ public class RequestHubController {
   @FXML Label securityCredit;
   @FXML Label labCredit;
   @FXML Label mealCredit;
+  @FXML Label computerCredit;
+  @FXML Label sanitationServiceCredit;
   @FXML ToggleButton toggleButton;
 
   public void switchToMedicineDelivery(ActionEvent event) throws IOException {
@@ -40,6 +42,14 @@ public class RequestHubController {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Security);
   }
 
+  public void switchToComputerService(ActionEvent event) throws IOException {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.ComputerService);
+  }
+
+  public void switchToSanitationService(ActionEvent event) throws IOException {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.SanitationService);
+  }
+
   public void creditsToggle(ActionEvent event) throws IOException {
     if (toggleButton.isSelected()) {
       medEquipCredit.setVisible(false);
@@ -48,6 +58,8 @@ public class RequestHubController {
       securityCredit.setVisible(false);
       labCredit.setVisible(false);
       mealCredit.setVisible(false);
+      computerCredit.setVisible(false);
+      sanitationServiceCredit.setVisible(false);
     } else {
       medEquipCredit.setVisible(true);
       languageCredit.setVisible(true);
@@ -55,6 +67,8 @@ public class RequestHubController {
       securityCredit.setVisible(true);
       labCredit.setVisible(true);
       mealCredit.setVisible(true);
+      computerCredit.setVisible(true);
+      sanitationServiceCredit.setVisible(true);
     }
   }
 }

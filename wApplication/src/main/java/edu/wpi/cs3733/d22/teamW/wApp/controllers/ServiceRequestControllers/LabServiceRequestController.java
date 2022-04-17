@@ -8,6 +8,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.LabServiceRequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.sql.SQLException;
@@ -88,92 +89,53 @@ public class LabServiceRequestController extends LoadableController {
   }
 
   private void pushDataToDB() throws Exception {
-
+    ArrayList<String> fields = new ArrayList<String>();
+    fields.add("");
+    fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
+    fields.add(employeeIDCBox.getSelectionModel().getSelectedItem().toString());
+    if (emergencyB.getValue()) {
+      emergency = 1;
+    } else {
+      emergency = 0;
+    }
+    fields.add(String.valueOf(emergency));
     // Check Boxes:
     if (bloodBox.isSelected()) {
-      ArrayList<String> fields = new ArrayList<>();
 
-      fields.add("Blood Sample");
-      fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
-      fields.add(employeeIDCBox.getSelectionModel().getSelectedItem().toString());
-      if (emergencyB.getValue()) {
-        emergency = 1;
-      } else {
-        emergency = 0;
-      }
-      fields.add(String.valueOf(emergency));
+      fields.set(0, LabServiceRequestType.BloodSamples.getString());
+
       for (String e : fields) {
         System.out.println(e);
       }
-      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields);
+      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields, false);
     }
     if (urineBox.isSelected()) {
-      ArrayList<String> fields = new ArrayList<>();
-
-      fields.add("Urine Sample");
-      fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
-      fields.add(employeeIDCBox.getSelectionModel().getSelectedItem().toString());
-      if (emergencyB.getValue()) {
-        emergency = 1;
-      } else {
-        emergency = 0;
-      }
-      fields.add(String.valueOf(emergency));
+      fields.set(0, LabServiceRequestType.UrineSamples.getString());
       for (String e : fields) {
         System.out.println(e);
       }
-      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields);
+      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields, false);
     }
     if (mriBox.isSelected()) {
-      ArrayList<String> fields = new ArrayList<>();
-
-      fields.add("MRI");
-      fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
-      fields.add(employeeIDCBox.getSelectionModel().getSelectedItem().toString());
-      if (emergencyB.getValue()) {
-        emergency = 1;
-      } else {
-        emergency = 0;
-      }
-      fields.add(String.valueOf(emergency));
+      fields.set(0, LabServiceRequestType.MRIs.getString());
       for (String e : fields) {
         System.out.println(e);
       }
-      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields);
+      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields, false);
     }
     if (xRayBox.isSelected()) {
-      ArrayList<String> fields = new ArrayList<>();
-
-      fields.add("X-Ray");
-      fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
-      fields.add(employeeIDCBox.getSelectionModel().getSelectedItem().toString());
-      if (emergencyB.getValue()) {
-        emergency = 1;
-      } else {
-        emergency = 0;
-      }
-      fields.add(String.valueOf(emergency));
+      fields.set(0, LabServiceRequestType.XRays.getString());
       for (String e : fields) {
         System.out.println(e);
       }
-      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields);
+      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields, false);
     }
     if (catBox.isSelected()) {
-      ArrayList<String> fields = new ArrayList<>();
-
-      fields.add("CAT Scan");
-      fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
-      fields.add(employeeIDCBox.getSelectionModel().getSelectedItem().toString());
-      if (emergencyB.getValue()) {
-        emergency = 1;
-      } else {
-        emergency = 0;
-      }
-      fields.add(String.valueOf(emergency));
+      fields.set(0, LabServiceRequestType.CATScans.getString());
       for (String e : fields) {
         System.out.println(e);
       }
-      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields);
+      RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields, false);
     }
   }
 
@@ -185,6 +147,7 @@ public class LabServiceRequestController extends LoadableController {
     mriBox.setSelected(false);
     xRayBox.setSelected(false);
     catBox.setSelected(false);
+    emergencyB.setValue(false);
   }
 
   public String locationToNodeID(String target) {
@@ -216,7 +179,7 @@ public class LabServiceRequestController extends LoadableController {
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      ids.add(e.getEmployeeID());
+      if (e.getEmployeeID() != -1) ids.add(e.getEmployeeID());
     }
     return ids;
   }

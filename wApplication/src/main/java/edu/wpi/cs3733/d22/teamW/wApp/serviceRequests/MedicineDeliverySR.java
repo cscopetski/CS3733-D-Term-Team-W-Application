@@ -32,7 +32,7 @@ public class MedicineDeliverySR extends SR {
     }
     info += "Assigned Employee: " + this.getEmployeeName() + "\n";
     info += "Employee ID: " + this.getEmployeeID() + "\n";
-    info += "Medicine requested: " + r.getMedicine() + "\n";
+    info += "Medicine requested: " + r.getMedicineType() + "\n";
     //    info += "Quantity requested: " + r.getQuantity() + "\n";
     return info;
   }

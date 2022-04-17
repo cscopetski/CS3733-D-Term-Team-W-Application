@@ -1,12 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.CleaningRequestManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipRequestManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -16,6 +12,17 @@ public class RequestFacade {
   private LabServiceRequestManager lsrm = LabServiceRequestManager.getLabServiceRequestManager();
   private MedRequestManager mrm = MedRequestManager.getMedRequestManager();
   private CleaningRequestManager crm = CleaningRequestManager.getCleaningRequestManager();
+  private ComputerServiceRequestManager csrm =
+      ComputerServiceRequestManager.getComputerServiceRequestManager();
+  private MealRequestManager mealRequestManager = MealRequestManager.getMealRequestManager();
+  private FlowerRequestManager flowerRequestManager =
+      FlowerRequestManager.getFlowerRequestManager();
+  private GiftDeliveryRequestManager giftDeliveryRequestManager =
+      GiftDeliveryRequestManager.getGiftDeliveryRequestManager();
+  private SanitationRequestManager sanitationRequestManager =
+      SanitationRequestManager.getSanitationRequestManager();
+  private SecurityRequestManager securityRequestManager =
+      SecurityRequestManager.getSecurityRequestManager();
 
   private static RequestFacade requestFacade = new RequestFacade();
 
@@ -25,7 +32,7 @@ public class RequestFacade {
     return requestFacade;
   }
 
-  public ArrayList<Request> getAllRequests(RequestType requestType) throws SQLException {
+  public ArrayList<Request> getAllRequests(RequestType requestType) throws Exception {
     ArrayList<Request> requests = new ArrayList<Request>();
 
     switch (requestType) {
@@ -41,6 +48,24 @@ public class RequestFacade {
       case CleaningRequest:
         requests.addAll(crm.getAllRequests());
         break;
+      case ComputerServiceRequest:
+        requests.addAll(csrm.getAllRequests());
+        break;
+      case MealDelivery:
+        requests.addAll(mealRequestManager.getAllRequests());
+        break;
+      case FlowerRequest:
+        requests.addAll(flowerRequestManager.getAllRequests());
+        break;
+      case GiftDelivery:
+        requests.addAll(giftDeliveryRequestManager.getAllRequests());
+        break;
+      case SanitationService:
+        requests.addAll(sanitationRequestManager.getAllRequests());
+        break;
+      case SecurityService:
+        requests.addAll(securityRequestManager.getAllRequests());
+        break;
       default:
         requests.addAll(getAllRequests());
         break;
@@ -50,17 +75,23 @@ public class RequestFacade {
     return requests;
   }
 
-  public ArrayList<Request> getAllRequests() throws SQLException {
+  public ArrayList<Request> getAllRequests() throws Exception {
     ArrayList<Request> requests = new ArrayList<Request>();
     requests.addAll(mrm.getAllRequests());
     requests.addAll(merm.getAllRequests());
     requests.addAll(lsrm.getAllRequests());
     requests.addAll(crm.getAllRequests());
+    requests.addAll(csrm.getAllRequests());
+    requests.addAll(mealRequestManager.getAllRequests());
+    requests.addAll(flowerRequestManager.getAllRequests());
+    requests.addAll(giftDeliveryRequestManager.getAllRequests());
+    requests.addAll(sanitationRequestManager.getAllRequests());
+    requests.addAll(securityRequestManager.getAllRequests());
     Collections.sort(requests);
     return requests;
   }
 
-  public Request findRequest(Integer requestID, RequestType type) throws SQLException {
+  public Request findRequest(Integer requestID, RequestType type) throws Exception {
     Request request = null;
     switch (type) {
       case MedicalEquipmentRequest:
@@ -74,6 +105,25 @@ public class RequestFacade {
         break;
       case CleaningRequest:
         request = crm.getRequest(requestID);
+        break;
+      case ComputerServiceRequest:
+        request = csrm.getRequest(requestID);
+        break;
+      case MealDelivery:
+        request = mealRequestManager.getRequest(requestID);
+        break;
+      case FlowerRequest:
+        request = flowerRequestManager.getRequest(requestID);
+        break;
+      case GiftDelivery:
+        request = giftDeliveryRequestManager.getRequest(requestID);
+        break;
+      case SanitationService:
+        request = sanitationRequestManager.getRequest(requestID);
+        break;
+      case SecurityService:
+        request = securityRequestManager.getRequest(requestID);
+        break;
       default:
         request = null;
     }
@@ -94,6 +144,25 @@ public class RequestFacade {
         break;
       case CleaningRequest:
         crm.complete(requestID, nodeID);
+        break;
+      case ComputerServiceRequest:
+        csrm.complete(requestID);
+        break;
+      case MealDelivery:
+        mealRequestManager.complete(requestID);
+        break;
+      case FlowerRequest:
+        flowerRequestManager.complete(requestID);
+        break;
+      case GiftDelivery:
+        giftDeliveryRequestManager.complete(requestID);
+        break;
+      case SanitationService:
+        sanitationRequestManager.complete(requestID);
+        break;
+      case SecurityService:
+        securityRequestManager.complete(requestID);
+        break;
     }
   }
 
@@ -111,24 +180,61 @@ public class RequestFacade {
         break;
       case CleaningRequest:
         crm.cancel(requestID);
+        break;
+      case ComputerServiceRequest:
+        csrm.cancel(requestID);
+        break;
+      case MealDelivery:
+        mealRequestManager.cancel(requestID);
+        break;
+      case FlowerRequest:
+        flowerRequestManager.cancel(requestID);
+        break;
+      case GiftDelivery:
+        giftDeliveryRequestManager.cancel(requestID);
+        break;
+      case SanitationService:
+        sanitationRequestManager.cancel(requestID);
+        break;
+      case SecurityService:
+        securityRequestManager.cancel(requestID);
+        break;
     }
   }
 
   // TODO might want to change this to use requests
-  public boolean startRequest(Integer requestID, RequestType type) throws Exception {
+  public void startRequest(Integer requestID, RequestType type) throws Exception {
 
     switch (type) {
       case MedicalEquipmentRequest:
-        return merm.start(requestID);
+        merm.start(requestID);
         // break;
       case LabServiceRequest:
-        return lsrm.start(requestID);
+        lsrm.start(requestID);
       case MedicineDelivery:
-        return mrm.start(requestID);
+        mrm.start(requestID);
       case CleaningRequest:
         crm.start(requestID);
+        break;
+      case ComputerServiceRequest:
+        csrm.start(requestID);
+        break;
+      case MealDelivery:
+        mealRequestManager.start(requestID);
+        break;
+      case FlowerRequest:
+        flowerRequestManager.start(requestID);
+        break;
+      case GiftDelivery:
+        giftDeliveryRequestManager.start(requestID);
+        break;
+      case SanitationService:
+        sanitationRequestManager.start(requestID);
+        break;
+      case SecurityService:
+        securityRequestManager.start(requestID);
+        break;
     }
-    return false;
   }
 
   public void requeueRequest(Integer requestID, RequestType type) throws Exception {
@@ -145,6 +251,54 @@ public class RequestFacade {
         break;
       case CleaningRequest:
         crm.reQueue(requestID);
+        break;
+      case ComputerServiceRequest:
+        csrm.reQueue(requestID);
+        break;
+      case MealDelivery:
+        mealRequestManager.reQueue(requestID);
+        break;
+      case FlowerRequest:
+        flowerRequestManager.reQueue(requestID);
+        break;
+      case GiftDelivery:
+        giftDeliveryRequestManager.reQueue(requestID);
+        break;
+      case SanitationService:
+        sanitationRequestManager.reQueue(requestID);
+        break;
+      case SecurityService:
+        securityRequestManager.reQueue(requestID);
+        break;
     }
+  }
+
+  public ArrayList<Request> getAllEmployeeRequests(Integer employeeID) {
+    ArrayList<Request> employeeRequests = new ArrayList<Request>();
+
+    ArrayList<Request> cleaningReqs = crm.getEmployeeRequests(employeeID);
+    employeeRequests.addAll(cleaningReqs);
+
+    ArrayList<Request> labServiceReqs = lsrm.getEmployeeRequests(employeeID);
+    employeeRequests.addAll(labServiceReqs);
+
+    ArrayList<Request> medEquipReqs = merm.getEmployeeRequests(employeeID);
+    employeeRequests.addAll(medEquipReqs);
+
+    ArrayList<Request> medReqs = mrm.getEmployeeRequests(employeeID);
+    employeeRequests.addAll(medReqs);
+
+    ArrayList<Request> compReqs = csrm.getEmployeeRequests(employeeID);
+    employeeRequests.addAll(compReqs);
+
+    employeeRequests.addAll(mealRequestManager.getEmployeeRequests(employeeID));
+    employeeRequests.addAll(flowerRequestManager.getEmployeeRequests(employeeID));
+    employeeRequests.addAll(giftDeliveryRequestManager.getEmployeeRequests(employeeID));
+    employeeRequests.addAll(sanitationRequestManager.getEmployeeRequests(employeeID));
+    employeeRequests.addAll(securityRequestManager.getEmployeeRequests(employeeID));
+
+    Collections.sort(employeeRequests);
+
+    return employeeRequests;
   }
 }

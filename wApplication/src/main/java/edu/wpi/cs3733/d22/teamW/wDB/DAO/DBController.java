@@ -54,13 +54,21 @@ public class DBController {
 
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
+      SecurityRequestDao securityRequestDao = new SecurityRequestDaoImpl(statement);
+      MealRequestDao mealRequestDao = new MealRequestDaoImpl(statement);
+      FlowerRequestDao flowerRequestDao = new FlowerRequestDaoImpl(statement);
+      GiftDeliveryRequestDao giftDeliveryRequestDao = new GiftDeliveryRequestDaoImpl(statement);
+      ComputerServiceRequestDao csrDao = new ComputerServiceRequestDaoImpl(statement);
+      SanitationRequestDao sanitationRequestDao = new SanitationRequestDaoImpl(statement);
       MedRequestDao medRequestDao = new MedRequestDaoImpl(statement);
       CleaningRequestDao cleaningRequestDao = new CleaningRequestDaoImpl(statement);
       LabServiceRequestDao labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
       MedEquipRequestDao medEquipRequestDao = new MedEquipRequestDaoImpl(statement);
       MedEquipDao medEquipDao = new MedEquipDaoImpl(statement);
+      LanguageInterpreterDao languageInterpreterDao = new LanguageInterpreterDaoImpl(statement);
       EmployeeDao employeeDao = new EmployeeDaoSecureImpl(statement);
       LocationDao locationDao = new LocationDaoImpl(statement);
+      LanguageDao languageDao = new LanguageDaoImpl(statement);
 
       // Assign Daos to Managers
       EmployeeManager.getEmployeeManager().setEmployeeDao(employeeDao);
@@ -71,15 +79,35 @@ public class DBController {
       LabServiceRequestManager.getLabServiceRequestManager()
           .setLabServiceRequestDao(labServiceRequestDao);
       CleaningRequestManager.getCleaningRequestManager().setCleaningRequestDao(cleaningRequestDao);
+      FlowerRequestManager.getFlowerRequestManager().setFlowerRequestDao(flowerRequestDao);
+      ComputerServiceRequestManager.getComputerServiceRequestManager()
+          .setComputerServiceRequestDao(csrDao);
+      SanitationRequestManager.getSanitationRequestManager()
+          .setLabServiceRequestDao(sanitationRequestDao);
+      LanguageManager.getLocationManager().setLanguageDao(languageDao);
+      LanguageInterpreterManager.getLanguageInterpreterManager()
+          .setLanguageInterpreterDao(languageInterpreterDao);
+      GiftDeliveryRequestManager.getGiftDeliveryRequestManager()
+          .setGiftDeliveryRequestDao(giftDeliveryRequestDao);
+      MealRequestManager.getMealRequestManager().setMealRequestDao(mealRequestDao);
+      SecurityRequestManager.getSecurityRequestManager().setSecurityRequestDao(securityRequestDao);
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ((EmployeeDaoSecureImpl) employeeDao).createTable();
       ((LocationDaoImpl) locationDao).createTable();
       ((MedEquipDaoImpl) medEquipDao).createTable();
+      ((LanguageDaoImpl) languageDao).createTable();
+      ((LanguageInterpreterDaoImpl) languageInterpreterDao).createTable();
       ((LabServiceRequestDaoImpl) labServiceRequestDao).createTable();
       ((MedEquipRequestDaoImpl) medEquipRequestDao).createTable();
       ((MedRequestDaoImpl) medRequestDao).createTable();
       ((CleaningRequestDaoImpl) cleaningRequestDao).createTable();
+      ((FlowerRequestDaoImpl) flowerRequestDao).createTable();
+      ((ComputerServiceRequestDaoImpl) csrDao).createTable();
+      ((SanitationRequestDaoImpl) sanitationRequestDao).createTable();
+      ((GiftDeliveryRequestDaoImpl) giftDeliveryRequestDao).createTable();
+      ((MealRequestDaoImpl) mealRequestDao).createTable();
+      ((SecurityRequestDaoImpl) securityRequestDao).createTable();
 
     } catch (SQLException e) {
       System.out.println("Table Creation Failed");

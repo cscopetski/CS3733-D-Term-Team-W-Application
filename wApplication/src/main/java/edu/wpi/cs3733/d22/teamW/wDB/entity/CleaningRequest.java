@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.Timestamp;
@@ -51,7 +52,7 @@ public class CleaningRequest extends Request {
 
    */
 
-  public CleaningRequest(Integer requestID, ArrayList<String> fields) {
+  public CleaningRequest(Integer requestID, ArrayList<String> fields) throws StatusError {
     this.requestID = requestID;
     this.itemID = fields.get(0);
     this.nodeID = fields.get(1);
@@ -73,7 +74,7 @@ public class CleaningRequest extends Request {
     this.updatedTimestamp = new Timestamp(System.currentTimeMillis());
   }
 
-  public CleaningRequest(ArrayList<String> fields) {
+  public CleaningRequest(ArrayList<String> fields) throws StatusError {
     try {
       this.requestID = Integer.parseInt(fields.get(0));
     } catch (NumberFormatException e) {

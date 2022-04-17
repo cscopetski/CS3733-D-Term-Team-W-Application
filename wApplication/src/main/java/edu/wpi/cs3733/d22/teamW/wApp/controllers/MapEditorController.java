@@ -4,12 +4,13 @@ import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Floor;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Requests;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.awt.*;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -145,7 +146,7 @@ public class MapEditorController extends LoadableController {
         if (eqList.get(j).getNodeID().equalsIgnoreCase(locList.get(i).getNodeID())) {
           switch (locList.get(i).getFloor()) {
             case "01":
-              switchCase(eqList.get(j).getType(), F1);
+              switchCase(eqList.get(j).getType().getString(), F1);
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -154,7 +155,7 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "02":
-              switchCase(eqList.get(j).getType(), F2);
+              switchCase(eqList.get(j).getType().getString(), F2);
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -163,7 +164,7 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "03":
-              switchCase(eqList.get(j).getType(), F3);
+              switchCase(eqList.get(j).getType().getString(), F3);
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -172,7 +173,7 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "04":
-              switchCase(eqList.get(j).getType(), F4);
+              switchCase(eqList.get(j).getType().getString(), F4);
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -181,7 +182,7 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "05":
-              switchCase(eqList.get(j).getType(), F5);
+              switchCase(eqList.get(j).getType().getString(), F5);
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -190,7 +191,7 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "L1":
-              switchCase(eqList.get(j).getType(), L1);
+              switchCase(eqList.get(j).getType().getString(), L1);
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -199,7 +200,7 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "L2":
-              switchCase(eqList.get(j).getType(), L2);
+              switchCase(eqList.get(j).getType().getString(), L2);
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -241,7 +242,7 @@ public class MapEditorController extends LoadableController {
     }
   }
 
-  public void refresh() throws SQLException {
+  public void refresh() throws SQLException, NonExistingMedEquip {
     if (currFloor == "0") {
       refreshDash();
       return;
@@ -278,7 +279,7 @@ public class MapEditorController extends LoadableController {
     FloorTab.setVisible(false);
   }
 
-  public void swapFloor1(ActionEvent actionEvent) throws SQLException {
+  public void swapFloor1(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     removeMarkers();
     currFloor = "01";
     refresh();
@@ -287,7 +288,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(img1);
   }
 
-  public void swapFloor2(ActionEvent actionEvent) throws SQLException {
+  public void swapFloor2(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     removeMarkers();
     currFloor = "02";
     refresh();
@@ -296,7 +297,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(img2);
   }
 
-  public void swapFloor3(ActionEvent actionEvent) throws SQLException {
+  public void swapFloor3(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     removeMarkers();
     currFloor = "03";
     refresh();
@@ -305,7 +306,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(img3);
   }
 
-  public void swapFloorL1(ActionEvent actionEvent) throws SQLException {
+  public void swapFloorL1(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     currFloor = "L1";
     removeMarkers();
     refresh();
@@ -314,7 +315,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(imgL1);
   }
 
-  public void swapFloorL2(ActionEvent actionEvent) throws SQLException {
+  public void swapFloorL2(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     currFloor = "L2";
     removeMarkers();
     refresh();
@@ -351,7 +352,7 @@ public class MapEditorController extends LoadableController {
             if (event.getButton() == MouseButton.SECONDARY) {
               try {
                 testUpdate(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
-              } catch (SQLException | IOException e) {
+              } catch (SQLException | IOException | NonExistingMedEquip e) {
                 e.printStackTrace();
               }
             }
@@ -390,14 +391,15 @@ public class MapEditorController extends LoadableController {
             currFloorLoc.get(locDots.indexOf(event.getSource())).setYCoord((int) circ.getCenterY());
             try {
               locationManager.changeLocation(
-                  val.getNodeID(),
-                  (int) (circ.getCenterX()),
-                  (int) (circ.getCenterY()),
-                  val.getFloor(),
-                  val.getBuilding(),
-                  val.getNodeType(),
-                  val.getLongName(),
-                  val.getShortName());
+                  new Location(
+                      val.getNodeID(),
+                      (int) (circ.getCenterX()),
+                      (int) (circ.getCenterY()),
+                      val.getFloor(),
+                      val.getBuilding(),
+                      val.getNodeType(),
+                      val.getLongName(),
+                      val.getShortName()));
             } catch (SQLException e) {
               e.printStackTrace();
             }
@@ -421,9 +423,8 @@ public class MapEditorController extends LoadableController {
           equipList.add(
               new medEquip(
                   eqList.get(i).getMedID(),
-                  eqList.get(i).getType(),
-                  currFloorLoc.get(j).getXCoord(),
-                  currFloorLoc.get(j).getYCoord()));
+                  eqList.get(i).getType().getString(),
+                  eqList.get(i).getStatus()));
           break;
         }
       }
@@ -496,11 +497,16 @@ public class MapEditorController extends LoadableController {
             eq.setYCoord(loc.getYCoord());
             try {
               equipController.change(
-                  eq.getMedID(),
-                  eq.getType(),
-                  loc.getNodeID(),
-                  equipController.getMedEquip(eq.getMedID()).getStatus());
+                  new MedEquip(
+                      eq.getMedID(),
+                      eq.getType(),
+                      loc.getNodeID(),
+                      equipController.getMedEquip(eq.getMedID()).getStatus().getValue()));
             } catch (SQLException e) {
+              e.printStackTrace();
+            } catch (NonExistingMedEquip e) {
+              e.printStackTrace();
+            } catch (StatusError e) {
               e.printStackTrace();
             }
             finalCircle.setTranslateX(0);
@@ -539,18 +545,18 @@ public class MapEditorController extends LoadableController {
     reqDots.clear();
   }
 
-  public void testUpdate(String nodeID) throws SQLException, IOException {
+  public void testUpdate(String nodeID) throws SQLException, IOException, NonExistingMedEquip {
     SceneManager.getInstance()
         .putInformation(SceneManager.getInstance().getPrimaryStage(), "updateLoc", nodeID);
     Stage S = SceneManager.getInstance().openWindow("UpdateMapPage.fxml");
     refresh();
   }
 
-  public void resetCSV(ActionEvent actionEvent) throws SQLException, FileNotFoundException {
+  public void resetCSV(ActionEvent actionEvent) throws Exception {
     if (loaded) {
 
     } else {
-      locationManager.addLocation("HOLD", -1, -1, "HOLD", null, null, null, null);
+      locationManager.addLocation(new Location("HOLD", -1, -1, "HOLD", null, null, null, null));
       loaded = true;
     }
     File inputCSV = fileChooser.showOpenDialog(SceneManager.getInstance().getPrimaryStage());
@@ -561,6 +567,15 @@ public class MapEditorController extends LoadableController {
     final String labServiceRequestFileName = "LabRequests.csv";
     final String employeesFileName = "Employees.csv";
     final String medRequestFileName = "MedRequests.csv";
+    final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
+    final String flowerRequestFileName = "FlowerRequests.csv";
+    final String languagesFileName = "Languages.csv";
+    final String languageInterpFileName = "LanguageInterpreters.csv";
+    final String sanitationRequestFileName = "SanitationRequests.csv";
+    final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
+    final String cleaningRequestFileName = "CleaningRequest.csv";
+    final String mealRequestFileName = "MealRequest.csv";
+
     CSVController csvController =
         new CSVController(
             locationFileName,
@@ -568,7 +583,16 @@ public class MapEditorController extends LoadableController {
             medEquipRequestFileName,
             labServiceRequestFileName,
             employeesFileName,
-            medRequestFileName);
+            medRequestFileName,
+            flowerRequestFileName,
+            computerServiceRequestFileName,
+            sanitationRequestFileName,
+            cleaningRequestFileName,
+            languagesFileName,
+            languageInterpFileName,
+            giftDeliveryRequestFileName,
+            mealRequestFileName);
+
     locationManager.clearLocations();
     csvController.insertIntoLocationsTable(csvController.importCSVfromFile(inputCSV));
     refresh();
@@ -579,7 +603,7 @@ public class MapEditorController extends LoadableController {
   }
 
   public void addLocation2(javafx.scene.input.MouseEvent mouseEvent)
-      throws IOException, SQLException {
+      throws IOException, SQLException, NonExistingMedEquip {
     if (interactionState == InteractionStates.Modify) {
       Point p = new Point();
       p.x = (int) mouseEvent.getX();
@@ -593,7 +617,7 @@ public class MapEditorController extends LoadableController {
     }
   }
 
-  public void swapFloor4(ActionEvent actionEvent) throws SQLException {
+  public void swapFloor4(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     currFloor = "04";
     removeMarkers();
     refresh();
@@ -601,7 +625,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(img4);
   }
 
-  public void swapFloor5(ActionEvent actionEvent) throws SQLException {
+  public void swapFloor5(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     currFloor = "05";
     removeMarkers();
     refresh();
@@ -639,11 +663,11 @@ public class MapEditorController extends LoadableController {
   @Override
   public void onUnload() {}
 
-  private void moveVals() throws SQLException {
+  private void moveVals() throws SQLException, NonExistingMedEquip {
     ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
-    for (int i = 0; i < eqList.size(); i++) {
-      equipController.change(
-          eqList.get(i).getMedID(), eqList.get(i).getType(), "HOLD", eqList.get(i).getStatus());
+    for (MedEquip medEquip : eqList) {
+      medEquip.setNodeID("HOLD");
+      equipController.change(medEquip);
     }
     ArrayList<Request> lsr = labServiceRequestManager.getAllRequests();
     for (int i = 0; i < lsr.size(); i++) {
@@ -651,15 +675,7 @@ public class MapEditorController extends LoadableController {
     }
     ArrayList<Request> medr = MedRequestManager.getMedRequestManager().getAllRequests();
     for (int i = 0; i < medr.size(); i++) {
-      medRequestManager.changeMedRequest(
-          medr.get(i).getRequestID(),
-          ((MedRequest) medr.get(i)).getMedicine().getString(),
-          "HOLD",
-          medr.get(i).getEmployeeID(),
-          medr.get(i).getEmergency(),
-          medr.get(i).getStatus(),
-          medr.get(i).getCreatedTimestamp(),
-          medr.get(i).getUpdatedTimestamp());
+      medRequestManager.changeRequest((MedRequest) medr.get(i));
     }
     ArrayList<Request> eqrl = medEquipRequestManager.getAllRequests();
     for (int i = 0; i < eqrl.size(); i++) {
@@ -667,7 +683,7 @@ public class MapEditorController extends LoadableController {
     }
   }
 
-  private void generateRequestList() throws SQLException {
+  private void generateRequestList() throws SQLException, NonExistingMedEquip {
     reqList.clear();
     ArrayList<Request> rList = new ArrayList<>();
     rList.addAll(medRequestManager.getAllRequests());

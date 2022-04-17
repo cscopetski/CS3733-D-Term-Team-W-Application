@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface RequestManager {
@@ -12,9 +11,9 @@ public interface RequestManager {
   //
   //  public Request getNext(String ID);
 
-  public abstract boolean start(Integer requestID) throws Exception;
+  public abstract void start(Integer requestID) throws Exception;
 
-  public abstract void complete(Integer requestID) throws SQLException;
+  public abstract void complete(Integer requestID) throws Exception;
 
   public abstract void cancel(Integer requestID) throws Exception;
 
@@ -24,7 +23,17 @@ public interface RequestManager {
 
   public ArrayList<Request> getAllRequests() throws Exception;
 
-  public Request addRequest(Integer i, ArrayList<String> fields) throws Exception;
+  public void changeRequest(Request request) throws Exception;
+
+  public Request addNewRequest(Integer i, ArrayList<String> fields) throws Exception;
+
+  public Request addExistingRequest(ArrayList<String> fields) throws Exception;
+
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID);
 
   public void exportReqCSV(String filename) throws Exception;
+
+  public void updateReqAtLocation(String nodeID) throws Exception;
+
+  public void updateReqWithEmployee(Integer employeeID) throws Exception;
 }

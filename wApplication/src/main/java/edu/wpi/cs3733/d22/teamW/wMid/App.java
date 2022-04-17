@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wMid;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import java.io.IOException;
 import javafx.application.Application;
@@ -40,8 +41,12 @@ public class App extends Application {
               .exportLocationsCSV("edu/wpi/cs3733/d22/teamW/wDB/CSVs/TowerLocations.csv");
           MedEquipManager.getMedEquipManager()
               .exportMedicalEquipmentCSV("edu/wpi/cs3733/d22/teamW/wDB/CSVs/MedicalEquipment.csv");
-          MedEquipRequestManager.getMedEquipRequestManager()
-              .exportReqCSV("edu/wpi/cs3733/d22/teamW/wDB/CSVs/MedicalEquipmentRequest.csv");
+          try {
+            MedEquipRequestManager.getMedEquipRequestManager()
+                .exportReqCSV("edu/wpi/cs3733/d22/teamW/wDB/CSVs/MedicalEquipmentRequest.csv");
+          } catch (NonExistingMedEquip ex) {
+            ex.printStackTrace();
+          }
           MedRequestManager.getMedRequestManager()
               .exportReqCSV("edu/wpi/cs3733/d22/teamW/wDB/CSVs/MedRequests.csv");
         });

@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.CleaningRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.CleaningRequestMax;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.Automation;
@@ -23,7 +25,7 @@ public class CleaningRequestManager {
     this.crd = crd;
   }
 
-  public CleaningRequest getRequest(Integer reqID) {
+  public CleaningRequest getRequest(Integer reqID) throws StatusError {
     return crd.getCleaningRequest(reqID);
   }
 
@@ -31,29 +33,27 @@ public class CleaningRequestManager {
     return crd.getAllCleaningRequests();
   }
 
-  public CleaningRequest addRequest(ArrayList<String> fields) throws SQLException {
-    CleaningRequest cr;
-    fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
-    cr = new CleaningRequest(fields);
-    if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
-      crd.addCleaningRequest(cr);
-      checkStart();
-    } else {
-      cr = null;
-    }
-    return cr;
-  }
+  //  public CleaningRequest addRequest(ArrayList<String> fields) throws SQLException {
+  //    CleaningRequest cr;
+  //    fields.add(String.format("%d", RequestStatus.InQueue.getValue()));
+  //    cr = new CleaningRequest(fields);
+  //    if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
+  //      crd.addCleaningRequest(cr);
+  //      checkStart();
+  //    } else {
+  //      cr = null;
+  //    }
+  //    return cr;
+  //  }
+
   // TODO auto start all cleaning requests at that location when it is 6
-  public CleaningRequest addRequest(Integer num, ArrayList<String> fields) throws SQLException {
-    CleaningRequest mER;
-    if (fields.size() == 5) {
-      fields.add("0");
-      fields.add(new Timestamp(System.currentTimeMillis()).toString());
-      fields.add(new Timestamp(System.currentTimeMillis()).toString());
-      mER = new CleaningRequest(num, fields);
-    } else {
-      mER = new CleaningRequest(fields);
-    }
+  public CleaningRequest addNewRequest(Integer num, ArrayList<String> fields)
+      throws SQLException, StatusError, CleaningRequestMax {
+    CleaningRequest cr;
+    fields.add(Integer.toString(RequestStatus.InQueue.getValue()));
+    fields.add(new Timestamp(System.currentTimeMillis()).toString());
+    fields.add(new Timestamp(System.currentTimeMillis()).toString());
+    cr = new CleaningRequest(num, fields);
     /*
     // If the request does not have an item, aka has not been started
     if (mER.getItemID().equals("NONE") && mER.getStatusInt() == 0) {
@@ -65,31 +65,44 @@ public class CleaningRequestManager {
       }
     }*/
     // TODO special exception
-    if (RequestFactory.getRequestFactory().getReqIDList().add(mER.getRequestID())) {
-      crd.addCleaningRequest(mER);
+    if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
+      crd.addCleaningRequest(cr);
 
       if (Automation.Automation.getAuto()) {
         checkStart();
       }
     } else {
-      mER = null;
+      cr = null;
     }
 
-    return mER;
+    return cr;
   }
+
+  public CleaningRequest addExistingRequest(ArrayList<String> fields)
+      throws SQLException, StatusError, CleaningRequestMax {
+    CleaningRequest cr = new CleaningRequest(fields);
+    // TODO special exception
+    if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
+      crd.addCleaningRequest(cr);
+
+      if (Automation.Automation.getAuto()) {
+        checkStart();
+      }
+    } else {
+      cr = null;
+    }
+
+    return cr;
+  }
+
   // TODO Ask Caleb how to get OR Bed PARK
   // What happens if the OR BED PARK is deleted this function would break
-  public void start(Integer requestID) throws SQLException {
+  public void start(Integer requestID) throws SQLException, StatusError {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() == RequestStatus.InQueue) {
       cr.setStatus(RequestStatus.InProgress);
-      crd.changeCleaningRequest(
-          requestID,
-          cr.getItemID(),
-          "wSTOR001L1",
-          cr.getEmployeeID(),
-          cr.getEmergency(),
-          RequestStatus.InProgress);
+      cr.setNodeID("wSTOR001L1");
+      crd.changeCleaningRequest(cr);
       MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
       MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), "wSTOR001L1");
     }
@@ -103,13 +116,8 @@ public class CleaningRequestManager {
     }
     if (cr.getStatus() == RequestStatus.InProgress) {
       cr.setStatus(RequestStatus.Completed);
-      crd.changeCleaningRequest(
-          requestID,
-          cr.getItemID(),
-          nodeID,
-          cr.getEmployeeID(),
-          cr.getEmergency(),
-          RequestStatus.Completed);
+      cr.setNodeID(nodeID);
+      crd.changeCleaningRequest(cr);
       MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
       MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), nodeID);
       MedEquipManager.getMedEquipManager().markClean(item.getMedID(), nodeID);
@@ -119,35 +127,23 @@ public class CleaningRequestManager {
     }
   }
 
-  public void cancel(Integer requestID) throws SQLException {
+  public void cancel(Integer requestID) throws SQLException, StatusError {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() != RequestStatus.Completed) {
       cr.setStatus(RequestStatus.Cancelled);
-      crd.changeCleaningRequest(
-          requestID,
-          cr.getItemID(),
-          cr.getNodeID(),
-          cr.getEmployeeID(),
-          cr.getEmergency(),
-          RequestStatus.Cancelled);
+      crd.changeCleaningRequest(cr);
     }
   }
 
-  public void reQueue(Integer requestID) throws SQLException {
+  public void reQueue(Integer requestID) throws SQLException, StatusError {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() == RequestStatus.Cancelled) {
       cr.setStatus(RequestStatus.InQueue);
-      crd.changeCleaningRequest(
-          requestID,
-          cr.getItemID(),
-          cr.getNodeID(),
-          cr.getEmployeeID(),
-          cr.getEmergency(),
-          RequestStatus.InQueue);
+      crd.changeCleaningRequest(cr);
     }
   }
 
-  public void checkStart() throws SQLException {
+  public void checkStart() throws SQLException, StatusError, CleaningRequestMax {
     ArrayList<String> cleaningLocations = crd.getCleaningLocation();
     for (String location : cleaningLocations) {
       System.out.println(location);
@@ -157,8 +153,29 @@ public class CleaningRequestManager {
           System.out.println(c);
           start(c);
         }
+        throw new CleaningRequestMax();
       }
     }
+  }
+
+  public void changeRequest(Request request) throws SQLException {
+    crd.changeCleaningRequest((CleaningRequest) request);
+  }
+
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    return crd.getEmployeeRequests(employeeID);
+  }
+
+  public void updateReqAtLocation(String nodeID) throws Exception {
+    this.crd.updateCleaningRequestsAtLocation(nodeID);
+  }
+
+  public void updateReqWithEquipment(String nodeID) throws Exception {
+    this.crd.updateCleaningRequestsWithEquipment(nodeID);
+  }
+
+  public void updateReqWithEmployee(Integer employeeID) throws Exception {
+    this.crd.updateCleaningRequestsWithEmployee(employeeID);
   }
 
   public void exportReqCSV(String filename) {

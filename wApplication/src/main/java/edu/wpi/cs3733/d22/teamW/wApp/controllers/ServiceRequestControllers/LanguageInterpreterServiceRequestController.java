@@ -42,7 +42,7 @@ public class LanguageInterpreterServiceRequestController {
           emergency = 0;
         }
         fields.add("" + emergency);
-        requestFactory.getRequest(RequestType.LanguageInterpreter, fields);
+        requestFactory.getRequest(RequestType.LanguageInterpreter, fields, false);
         lastRequest = fields;
       }
     } else {

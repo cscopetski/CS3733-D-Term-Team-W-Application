@@ -15,7 +15,6 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.effect.*;
 import javafx.scene.layout.Pane;
 
 public class LoginController extends LoadableController {
@@ -40,6 +39,14 @@ public class LoginController extends LoadableController {
   final String labServiceRequestFileName = "LabRequests.csv";
   final String employeesFileName = "Employees.csv";
   final String medRequestFileName = "MedRequests.csv";
+  final String flowerRequestFileName = "FlowerRequests.csv";
+  final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
+  final String sanitationRequestFileName = "SanitationRequests.csv";
+  final String cleaningRequestFileName = "CleaningRequest.csv";
+  final String languagesFileName = "Languages.csv";
+  final String languageInterpFileName = "LanguageInterpreters.csv";
+  final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
+  final String mealRequestFileName = "MealRequest.csv";
 
   @Override
   public void initialize(URL location, ResourceBundle rb) {
@@ -109,7 +116,15 @@ public class LoginController extends LoadableController {
             medEquipRequestFileName,
             labServiceRequestFileName,
             employeesFileName,
-            medRequestFileName);
+            medRequestFileName,
+            flowerRequestFileName,
+            computerServiceRequestFileName,
+            sanitationRequestFileName,
+            cleaningRequestFileName,
+            languagesFileName,
+            languageInterpFileName,
+            giftDeliveryRequestFileName,
+            mealRequestFileName);
 
     System.out.println("SWAP CONNECTION ");
 

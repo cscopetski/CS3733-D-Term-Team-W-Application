@@ -1,9 +1,13 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.SanitationRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.SanitationRequest;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -30,6 +34,9 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
       System.out.println("Failed to drop Sanitation Requests Table");
     }
   }
+
+  String CSVHeaderString =
+      "ReqID,Sanitation,nodeID,employeeID,isEmergency,reqStatus,createdTimestamp,updatedTimestamp";
 
   void createTable() throws SQLException {
 
@@ -64,12 +71,11 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
               String.format("SELECT * FROM SANITATIONREQUESTS WHERE REQID = %d", requestID));
 
       // Size of num LabServiceRequest fields
-      int size = 8;
       ArrayList<String> sanRequestData = new ArrayList<String>();
 
       while (sanRequests.next()) {
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < sanRequests.getMetaData().getColumnCount(); i++) {
           sanRequestData.add(i, sanRequests.getString(i + 1));
         }
 
@@ -90,12 +96,11 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
       ResultSet sanRequests = statement.executeQuery("SELECT * FROM SANITATIONREQUESTS");
 
       // Size of num LabServiceRequest fields
-      int size = 8;
       ArrayList<String> sanRequestData = new ArrayList<String>();
 
       while (sanRequests.next()) {
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < sanRequests.getMetaData().getColumnCount(); i++) {
           sanRequestData.add(i, sanRequests.getString(i + 1));
         }
 
@@ -115,24 +120,17 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
   }
 
   @Override
-  public void changeSanitationRequest(
-      Integer requestID,
-      String sanitation,
-      String nodeID,
-      Integer employeeID,
-      Integer emergency,
-      RequestStatus status)
-      throws SQLException {
+  public void changeSanitationRequest(SanitationRequest sr) throws SQLException {
     statement.executeUpdate(
         String.format(
             "UPDATE SANITATIONREQUESTS SET SANITATION='%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP='%s' WHERE REQID=%d",
-            sanitation,
-            nodeID,
-            employeeID,
-            emergency,
-            status.getValue(),
+            sr.getSanitationReqType().getString(),
+            sr.getNodeID(),
+            sr.getEmployeeID(),
+            sr.getEmergency(),
+            sr.getStatus().getValue(),
             new Timestamp(System.currentTimeMillis()),
-            requestID));
+            sr.getRequestID()));
   }
 
   @Override
@@ -147,8 +145,7 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print(
-          "ReqID,sanitation,nodeID,employeeID,isEmergency,reqStatus,createdTimeStamp,updatedTimeStamp");
+      pw.print(CSVHeaderString);
 
       // print all locations
       for (Request m : getAllSanitationRequests()) {
@@ -161,5 +158,77 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
       System.out.println(String.format("Error Exporting to File %s", fileName));
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    ArrayList<Request> employeeRequestList = new ArrayList<>();
+    try {
+      ResultSet sanitationRequests =
+          statement.executeQuery(
+              String.format("SELECT * FROM SANITATIONREQUESTS WHERE EMPLOYEEID = %d", employeeID));
+      while (sanitationRequests.next()) {
+        ArrayList<String> sanitationRequestData = new ArrayList<String>();
+
+        for (int i = 0; i < sanitationRequests.getMetaData().getColumnCount(); i++) {
+          sanitationRequestData.add(sanitationRequests.getString(i + 1));
+        }
+
+        employeeRequestList.add(new SanitationRequest(sanitationRequestData));
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return employeeRequestList;
+  }
+
+  @Override
+  public void updateSanitationRequestsAtLocation(String nodeID)
+      throws SQLException, StatusError, NonExistingMedEquip {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format("SELECT ReqID FROM SANITATIONREQUESTS WHERE nodeID='%s'", nodeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("ReqID");
+      reqIDs.add(reqID);
+      System.out.println(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      SanitationRequestManager.getSanitationRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE SANITATIONREQUESTS SET NODEID='%s' WHERE NODEID='%s'",
+            LocationManager.getLocationManager().getNoneLocation(), nodeID));
+  }
+
+  @Override
+  public void updateSanitationRequestsWithEmployee(Integer employeeID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format("SELECT ReqID FROM SANITATIONREQUESTS WHERE employeeID=%d", employeeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("ReqID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      SanitationRequestManager.getSanitationRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE SANITATIONREQUESTS SET employeeID=%d WHERE employeeID=%d",
+            EmployeeManager.getEmployeeManager().getDeletedEmployee(), employeeID));
   }
 }
