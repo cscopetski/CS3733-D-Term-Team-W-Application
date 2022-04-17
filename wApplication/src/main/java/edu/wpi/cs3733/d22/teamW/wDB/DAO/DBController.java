@@ -64,8 +64,10 @@ public class DBController {
       LabServiceRequestDao labServiceRequestDao = new LabServiceRequestDaoImpl(statement);
       MedEquipRequestDao medEquipRequestDao = new MedEquipRequestDaoImpl(statement);
       MedEquipDao medEquipDao = new MedEquipDaoImpl(statement);
+      LanguageInterpreterDao languageInterpreterDao = new LanguageInterpreterDaoImpl(statement);
       EmployeeDao employeeDao = new EmployeeDaoSecureImpl(statement);
       LocationDao locationDao = new LocationDaoImpl(statement);
+      LanguageDao languageDao = new LanguageDaoImpl(statement);
 
       // Assign Daos to Managers
       EmployeeManager.getEmployeeManager().setEmployeeDao(employeeDao);
@@ -81,6 +83,9 @@ public class DBController {
           .setComputerServiceRequestDao(csrDao);
       SanitationRequestManager.getSanitationRequestManager()
           .setLabServiceRequestDao(sanitationRequestDao);
+      LanguageManager.getLocationManager().setLanguageDao(languageDao);
+      LanguageInterpreterManager.getLanguageInterpreterManager()
+          .setLanguageInterpreterDao(languageInterpreterDao);
       GiftDeliveryRequestManager.getGiftDeliveryRequestManager()
           .setGiftDeliveryRequestDao(giftDeliveryRequestDao);
 
@@ -88,6 +93,8 @@ public class DBController {
       ((EmployeeDaoSecureImpl) employeeDao).createTable();
       ((LocationDaoImpl) locationDao).createTable();
       ((MedEquipDaoImpl) medEquipDao).createTable();
+      ((LanguageDaoImpl) languageDao).createTable();
+      ((LanguageInterpreterDaoImpl) languageInterpreterDao).createTable();
       ((LabServiceRequestDaoImpl) labServiceRequestDao).createTable();
       ((MedEquipRequestDaoImpl) medEquipRequestDao).createTable();
       ((MedRequestDaoImpl) medRequestDao).createTable();

@@ -69,6 +69,7 @@ public class SceneManager {
     About,
     Profile,
     ComputerService,
+    SanitationService,
     Snake
   }
 
