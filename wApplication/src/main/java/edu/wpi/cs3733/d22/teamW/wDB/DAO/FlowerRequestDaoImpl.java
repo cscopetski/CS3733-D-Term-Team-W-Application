@@ -165,7 +165,7 @@ public class FlowerRequestDaoImpl implements FlowerRequestDao {
     try {
       ResultSet flowerRequests =
           statement.executeQuery(
-              String.format("SELECT * FROM FLOWERREQUESTS WHERE REQUESTID = %d", id));
+              String.format("SELECT * FROM FLOWERREQUESTS WHERE ReqID = %d", id));
 
       flowerRequests.next();
 
@@ -186,12 +186,12 @@ public class FlowerRequestDaoImpl implements FlowerRequestDao {
 
     ResultSet resultSet =
         statement.executeQuery(
-            String.format("SELECT requestID FROM FLOWERREQUESTS WHERE nodeID='%s'", nodeID));
+            String.format("SELECT ReqID FROM FLOWERREQUESTS WHERE nodeID='%s'", nodeID));
 
     ArrayList<Integer> reqIDs = new ArrayList<>();
     while (resultSet.next()) {
 
-      Integer reqID = resultSet.getInt("requestID");
+      Integer reqID = resultSet.getInt("ReqID");
       reqIDs.add(reqID);
     }
 
@@ -210,7 +210,7 @@ public class FlowerRequestDaoImpl implements FlowerRequestDao {
 
     ResultSet resultSet =
         statement.executeQuery(
-            String.format("SELECT requestID FROM FLOWERREQUESTS WHERE employeeID=%d", employeeID));
+            String.format("SELECT ReqID FROM FLOWERREQUESTS WHERE employeeID=%d", employeeID));
 
     ArrayList<Integer> reqIDs = new ArrayList<>();
     while (resultSet.next()) {

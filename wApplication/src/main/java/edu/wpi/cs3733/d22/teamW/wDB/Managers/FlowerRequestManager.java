@@ -57,35 +57,64 @@ public class FlowerRequestManager implements RequestManager {
   }
 
   public void start(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    FlowerRequest request =
-        (FlowerRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.FlowerRequest);
-    request.setStatus(RequestStatus.InProgress);
-    frd.changeFlowerRequest(request);
+    FlowerRequest request = null;
+    try {
+      request =
+          (FlowerRequest)
+              RequestFacade.getRequestFacade().findRequest(requestID, RequestType.FlowerRequest);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (request.getStatus() == RequestStatus.InQueue) {
+      request.setStatus(RequestStatus.InProgress);
+      frd.changeFlowerRequest(request);
+    }
   }
 
   public void complete(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    FlowerRequest request =
-        (FlowerRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.FlowerRequest);
-    request.setStatus(RequestStatus.Completed);
-    frd.changeFlowerRequest(request);
+    FlowerRequest request = null;
+    try {
+      request =
+          (FlowerRequest)
+              RequestFacade.getRequestFacade().findRequest(requestID, RequestType.FlowerRequest);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (request.getStatus() == RequestStatus.InProgress) {
+      request.setStatus(RequestStatus.Completed);
+      frd.changeFlowerRequest(request);
+    }
   }
 
   public void cancel(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    FlowerRequest request =
-        (FlowerRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.FlowerRequest);
-    request.setStatus(RequestStatus.Cancelled);
-    frd.changeFlowerRequest(request);
+    FlowerRequest request = null;
+    try {
+      request =
+          (FlowerRequest)
+              RequestFacade.getRequestFacade().findRequest(requestID, RequestType.FlowerRequest);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (request.getStatus() == RequestStatus.InProgress
+        || request.getStatus() == RequestStatus.InQueue) {
+      request.setStatus(RequestStatus.Cancelled);
+      frd.changeFlowerRequest(request);
+    }
   }
 
   public void reQueue(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    FlowerRequest request =
-        (FlowerRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.FlowerRequest);
-    request.setStatus(RequestStatus.InQueue);
-    frd.changeFlowerRequest(request);
+    FlowerRequest request = null;
+    try {
+      request =
+          (FlowerRequest)
+              RequestFacade.getRequestFacade().findRequest(requestID, RequestType.FlowerRequest);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (request.getStatus() == RequestStatus.Cancelled) {
+      request.setStatus(RequestStatus.InQueue);
+      frd.changeFlowerRequest(request);
+    }
   }
 
   public void delete(Integer requestID) throws SQLException {

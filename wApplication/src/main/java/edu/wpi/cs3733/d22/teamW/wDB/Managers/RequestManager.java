@@ -29,6 +29,8 @@ public interface RequestManager {
 
   public Request addExistingRequest(ArrayList<String> fields) throws Exception;
 
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID);
+
   public void exportReqCSV(String filename) throws Exception;
 
   public void updateReqAtLocation(String nodeID) throws Exception;

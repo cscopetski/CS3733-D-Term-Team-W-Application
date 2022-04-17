@@ -113,10 +113,15 @@ public class MedEquipRequestManager implements RequestManager {
   }
 
   public void complete(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    MedEquipRequest request =
-        (MedEquipRequest)
-            RequestFacade.getRequestFacade()
-                .findRequest(requestID, RequestType.MedicalEquipmentRequest);
+    MedEquipRequest request = null;
+    try {
+      request =
+          (MedEquipRequest)
+              RequestFacade.getRequestFacade()
+                  .findRequest(requestID, RequestType.MedicalEquipmentRequest);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     // Can only complete requests that are started
     if (request.getStatus().equals(RequestStatus.InProgress)) {
       MedEquipManager.getMedEquipManager().markInUse(request.getItemID(), request.getNodeID());

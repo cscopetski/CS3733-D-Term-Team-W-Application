@@ -169,6 +169,8 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
       e.printStackTrace();
     } catch (NonExistingMedEquip e) {
       e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
     for (int i = 0; i < requests.size(); i++) {
       Request r = requests.get(i);
