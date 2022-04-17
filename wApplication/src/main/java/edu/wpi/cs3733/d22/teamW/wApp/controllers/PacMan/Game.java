@@ -857,12 +857,12 @@ public class Game {
     }
   }
 
-  private void createBF(int x, int y) {
+  private void createBF(double x, double y) {
     ImageView img = new ImageView(assignIcon());
     img.setFitHeight(32);
     img.setFitWidth(32);
-    img.setX(x);
-    img.setY(y);
+    img.setX(x - 16);
+    img.setY(y - 16);
     pane.getChildren().add(img);
     bonusList.add(img);
   }
