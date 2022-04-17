@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipRequestManager;
@@ -70,7 +69,9 @@ public class LanguageRequestDaoImpl implements LanguageRequestDao {
   }
 
   @Override
-  public void changeMedRequest(LanguageRequest lr) throws SQLException {}
+  public void changeLanguageRequest(LanguageRequest lr) throws SQLException {
+
+  }
 
   @Override
   public void deleteLanguageRequest(Integer id) throws SQLException {
@@ -82,8 +83,26 @@ public class LanguageRequestDaoImpl implements LanguageRequestDao {
 
   @Override
   public Request getLanguageRequest(Integer id) throws SQLException {
-    return null;
-  }
+    LanguageRequest lr = null;
+    try {
+      ResultSet langRequests =
+              statement.executeQuery(
+                      String.format("SELECT * FROM LANGUAGEREQUESTS WHERE REQUESTID = %d", id));
+
+      langRequests.next();
+
+      ArrayList<String> langRequestFields = new ArrayList<String>();
+      for (int i = 0; i < langRequests.getMetaData().getColumnCount(); i++) {
+        langRequestFields.add(langRequests.getString(i + 1));
+      }
+      lr = new LanguageRequest(langRequestFields);
+
+    } catch (SQLException e) {
+      System.out.println("Query from language request table failed.");
+    } catch (StatusError e) {
+      e.printStackTrace();
+    }
+    return lr;  }
 
   @Override
   public ArrayList<Request> getAllLanguageRequest() throws SQLException {
@@ -173,6 +192,7 @@ public class LanguageRequestDaoImpl implements LanguageRequestDao {
       reqIDs.add(reqID);
     }
 
+    //TODO Fix this once the manager is made
     for (Integer reqID : reqIDs) {
       MedEquipRequestManager.getMedEquipRequestManager().cancel(reqID);
     }
