@@ -96,19 +96,19 @@ public class Game {
     scene.setOnKeyPressed(
         event -> {
           switch (event.getCode()) {
-            case UP:
+            case W:
               newDir = Dir.UP;
               break;
 
-            case DOWN:
+            case S:
               newDir = Dir.DOWN;
               break;
 
-            case LEFT:
+            case A:
               newDir = Dir.LEFT;
               break;
 
-            case RIGHT:
+            case D:
               newDir = Dir.RIGHT;
               break;
           }
@@ -869,16 +869,15 @@ public class Game {
 
   private Image assignIcon() {
     Image img = new Image("/edu/wpi/cs3733/d22/teamW/wApp/assets/mgb_logo.png");
-    int randomNum = (int) Math.floor(Math.random() * 5);
-    switch (randomNum) {
-      case 0:
-        img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Bed.png");
-      case 1:
-        img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Inp.png");
-      case 2:
-        img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Recliner.png");
-      case 3:
-        img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_XRay.png");
+    int randomNum = ((int) Math.floor(Math.random() * 4));
+    if (randomNum == 0) {
+      img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Bed.png");
+    } else if (randomNum == 1) {
+      img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Inp.png");
+    } else if (randomNum == 2) {
+      img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Recliner.png");
+    } else if (randomNum == 3) {
+      img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_XRay.png");
     }
     return img;
   }
