@@ -22,12 +22,15 @@ public class LanguageInterpreterSR extends SR {
 
   @Override
   public String getFormattedInfo() throws SQLException {
+    // LanguageRequest languageRequest =
+    // LanguageRequestManager.getLanguageRequestManager.getLanguageRequest(this.getRequestID());
     String info = "";
     if (this.getEmergency() == 1) {
       info += "Request marked as an EMERGENCY\n";
     }
     info += "Assigned Employee: " + this.getEmployeeName() + "\n";
     info += "Employee ID: " + this.getEmployeeID() + "\n";
+    // info += "Language: " + languageRequest.getLanguage().getString() + "\n";
     info += "";
     return info;
   }

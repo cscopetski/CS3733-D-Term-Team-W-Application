@@ -247,7 +247,7 @@ public class CSVController {
   }
 
   private void insertIntoLanguagesTable(ArrayList<String[]> tokens) throws SQLException {
-    LanguageManager lm = LanguageManager.getLocationManager();
+    LanguageManager lm = LanguageManager.getLanguageManager();
     for (String[] s : tokens) {
       lm.addLanguage(s[0]);
     }

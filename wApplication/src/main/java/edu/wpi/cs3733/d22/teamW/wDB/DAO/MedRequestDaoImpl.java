@@ -45,7 +45,6 @@ public class MedRequestDaoImpl implements MedRequestDao {
               + "quantity DOUBLE,"
               + "Unit varchar(25),"
               + "nodeID varchar(25),"
-              + "BedNum INT,"
               + "employeeID INT,"
               + "isEmergency INT,"
               + "reqStatus INT, "
@@ -73,12 +72,11 @@ public class MedRequestDaoImpl implements MedRequestDao {
   public void changeMedRequest(MedRequest mr) throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDREQUESTS SET PMEDICINE='%s', QUANTITY = %.2f, UNIT = '%s', NODEID='%s', BEDNUM = %d, EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE REQUESTID=%d",
+            "UPDATE MEDREQUESTS SET PMEDICINE='%s', QUANTITY = %.2f, UNIT = '%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE REQUESTID=%d",
             mr.getMedicineType(),
             mr.getQuantity(),
             mr.getUnit().getUnits(),
             mr.getNodeID(),
-            mr.getBedNumber(),
             mr.getEmployeeID(),
             mr.getEmergency(),
             mr.getStatus().getValue(),

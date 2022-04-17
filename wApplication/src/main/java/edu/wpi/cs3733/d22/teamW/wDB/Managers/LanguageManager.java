@@ -9,7 +9,7 @@ public class LanguageManager {
 
   private static LanguageManager languageManager = new LanguageManager();
 
-  public static LanguageManager getLocationManager() {
+  public static LanguageManager getLanguageManager() {
     return languageManager;
   }
 

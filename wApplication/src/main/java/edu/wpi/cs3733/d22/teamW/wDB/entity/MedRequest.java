@@ -18,7 +18,6 @@ public class MedRequest extends Request {
   MedicineType medicineType;
   Double quantity;
   Units unit;
-  Integer bedNumber;
 
   public MedRequest(
       Integer requestID,
@@ -26,7 +25,6 @@ public class MedRequest extends Request {
       Double quantity,
       Units unit,
       String nodeID,
-      Integer bedNumber,
       Integer employeeID,
       Integer emergency,
       RequestStatus status,
@@ -38,7 +36,6 @@ public class MedRequest extends Request {
     this.quantity = quantity;
     this.unit = unit;
     this.nodeID = nodeID;
-    this.bedNumber = bedNumber;
     this.employeeID = employeeID;
     this.emergency = emergency;
     this.status = status;
@@ -63,7 +60,6 @@ public class MedRequest extends Request {
     this.quantity = quantity;
     this.unit = unit;
     this.nodeID = nodeID;
-    this.bedNumber = bedNumber;
     this.employeeID = employeeID;
     this.emergency = emergency;
     this.status = status;
@@ -77,12 +73,11 @@ public class MedRequest extends Request {
     this.quantity = Double.parseDouble(fields.get(2));
     this.unit = Units.getUnitFromAbb(fields.get(3));
     this.nodeID = fields.get(4);
-    this.bedNumber = Integer.parseInt(fields.get(5));
-    this.employeeID = Integer.parseInt(fields.get(6));
-    this.emergency = Integer.parseInt(fields.get(7));
-    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(8)));
-    this.createdTimestamp = Timestamp.valueOf(fields.get(9));
-    this.updatedTimestamp = Timestamp.valueOf(fields.get(10));
+    this.employeeID = Integer.parseInt(fields.get(5));
+    this.emergency = Integer.parseInt(fields.get(6));
+    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(7)));
+    this.createdTimestamp = Timestamp.valueOf(fields.get(8));
+    this.updatedTimestamp = Timestamp.valueOf(fields.get(9));
   }
 
   public MedRequest(Integer index, ArrayList<String> fields)
@@ -92,10 +87,9 @@ public class MedRequest extends Request {
     this.quantity = Double.parseDouble(fields.get(1));
     this.unit = Units.getUnitFromAbb(fields.get(2));
     this.nodeID = fields.get(3);
-    this.bedNumber = Integer.parseInt(fields.get(4));
-    this.employeeID = Integer.parseInt(fields.get(5));
-    this.emergency = Integer.parseInt(fields.get(6));
-    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(7)));
+    this.employeeID = Integer.parseInt(fields.get(4));
+    this.emergency = Integer.parseInt(fields.get(5));
+    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(6)));
     this.createdTimestamp = new Timestamp(System.currentTimeMillis());
     this.updatedTimestamp = new Timestamp(System.currentTimeMillis());
   }
@@ -109,7 +103,6 @@ public class MedRequest extends Request {
         quantity,
         unit.getUnits(),
         nodeID,
-        bedNumber,
         employeeID,
         emergency,
         status.getValue(),
@@ -120,13 +113,12 @@ public class MedRequest extends Request {
   @Override
   public String toValuesString() {
     return String.format(
-        "%d, '%s', %f, '%s', '%s', %d, %d, %d, %d, '%s', '%s'",
+        "%d, '%s', %f, '%s', '%s', %d, %d, %d, '%s', '%s'",
         requestID,
         medicineType.getString(),
         quantity,
         unit.getUnits(),
         nodeID,
-        bedNumber,
         employeeID,
         emergency,
         status.getValue(),

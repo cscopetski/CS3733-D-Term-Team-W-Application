@@ -84,7 +84,7 @@ public class DBController {
           .setComputerServiceRequestDao(csrDao);
       SanitationRequestManager.getSanitationRequestManager()
           .setLabServiceRequestDao(sanitationRequestDao);
-      LanguageManager.getLocationManager().setLanguageDao(languageDao);
+      LanguageManager.getLanguageManager().setLanguageDao(languageDao);
       LanguageInterpreterManager.getLanguageInterpreterManager()
           .setLanguageInterpreterDao(languageInterpreterDao);
       GiftDeliveryRequestManager.getGiftDeliveryRequestManager()

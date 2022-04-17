@@ -50,6 +50,8 @@ public class RequestListController extends LoadableController {
                 e.printStackTrace();
               } catch (NonExistingMedEquip e) {
                 e.printStackTrace();
+              } catch (Exception e) {
+                e.printStackTrace();
               }
               selectionButtons.setVisible(newSelection != null);
             });
