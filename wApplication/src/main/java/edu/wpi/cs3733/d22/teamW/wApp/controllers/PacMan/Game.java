@@ -861,8 +861,8 @@ public class Game {
     ImageView img = new ImageView(assignIcon());
     img.setFitHeight(32);
     img.setFitWidth(32);
-    img.setX(x - 16);
-    img.setY(y - 16);
+    img.setX(x);
+    img.setY(y);
     pane.getChildren().add(img);
     bonusList.add(img);
   }
