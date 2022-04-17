@@ -59,33 +59,53 @@ public class MedRequestManager implements RequestManager {
   }
 
   public void start(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    MedRequest request =
-        (MedRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+    MedRequest request = null;
+    try {
+      request =
+          (MedRequest)
+              RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.InProgress);
     mrd.changeMedRequest(request);
   }
 
   public void complete(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    MedRequest request =
-        (MedRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+    MedRequest request = null;
+    try {
+      request =
+          (MedRequest)
+              RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.Completed);
     mrd.changeMedRequest(request);
   }
 
   public void cancel(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    MedRequest request =
-        (MedRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+    MedRequest request = null;
+    try {
+      request =
+          (MedRequest)
+              RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.Cancelled);
     mrd.changeMedRequest(request);
   }
 
   public void reQueue(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    MedRequest request =
-        (MedRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+    MedRequest request = null;
+    try {
+      request =
+          (MedRequest)
+              RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.InQueue);
     mrd.changeMedRequest(request);
   }

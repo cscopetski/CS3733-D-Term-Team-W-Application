@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.ComputerServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import java.io.File;
@@ -76,6 +77,7 @@ public class ComputerServiceRequestDaoImpl implements ComputerServiceRequestDao 
 
   @Override
   public void deleteComputerServiceRequest(Integer requestID) throws SQLException {
+    RequestFactory.getRequestFactory().getReqIDList().remove(requestID);
     statement.executeUpdate(
         String.format("DELETE FROM COMPUTERSERVICEREQUESTS WHERE REQID = %d", requestID));
   }

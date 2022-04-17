@@ -22,6 +22,7 @@ public class CSVController {
   private String computerServiceRequestFileName;
   private String sanitationRequestFileName;
   private String giftDeliveryRequestFileName;
+  private String mealRequestFileName;
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
@@ -35,7 +36,8 @@ public class CSVController {
       String flowerRequestFileName,
       String computerServiceRequestFileName,
       String sanitationRequestFileName,
-      String giftDeliveryRequestFileName) {
+      String giftDeliveryRequestFileName,
+      String mealRequestFileName) {
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
     this.medEquipRequestFileName = medEquipRequestFileName;
@@ -46,6 +48,7 @@ public class CSVController {
     this.computerServiceRequestFileName = computerServiceRequestFileName;
     this.sanitationRequestFileName = sanitationRequestFileName;
     this.giftDeliveryRequestFileName = giftDeliveryRequestFileName;
+    this.mealRequestFileName = mealRequestFileName;
   }
 
   public void populateTables() throws Exception {
@@ -59,6 +62,7 @@ public class CSVController {
     insertFlowerRequestTable(importCSV(flowerRequestFileName));
     insertComputerServiceRequestTable(importCSV(computerServiceRequestFileName));
     insertGiftDeliveryRequestTable(importCSV(giftDeliveryRequestFileName));
+    insertMealRequestTable(importCSV(mealRequestFileName));
   }
 
   public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
@@ -267,6 +271,16 @@ public class CSVController {
       fields.addAll(Arrays.asList(s));
       GiftDeliveryRequest gdr =
           (GiftDeliveryRequest) requestFactory.getRequest(RequestType.GiftDelivery, fields, true);
+    }
+  }
+
+  private void insertMealRequestTable(ArrayList<String[]> tokens) throws Exception {
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+      MealRequest gdr =
+          (MealRequest) requestFactory.getRequest(RequestType.MealDelivery, fields, true);
     }
   }
 }

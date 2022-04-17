@@ -77,25 +77,43 @@ public class LabServiceRequestManager implements RequestManager {
   }
 
   public void start(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    LabServiceRequest request =
-        (LabServiceRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
+    LabServiceRequest request = null;
+    try {
+      request =
+          (LabServiceRequest)
+              RequestFacade.getRequestFacade()
+                  .findRequest(requestID, RequestType.LabServiceRequest);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.InProgress);
     lsrdi.changeLabServiceRequest(request);
   }
 
   public void complete(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    LabServiceRequest request =
-        (LabServiceRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
+    LabServiceRequest request = null;
+    try {
+      request =
+          (LabServiceRequest)
+              RequestFacade.getRequestFacade()
+                  .findRequest(requestID, RequestType.LabServiceRequest);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.Completed);
     lsrdi.changeLabServiceRequest(request);
   }
 
   public void cancel(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    LabServiceRequest request =
-        (LabServiceRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
+    LabServiceRequest request = null;
+    try {
+      request =
+          (LabServiceRequest)
+              RequestFacade.getRequestFacade()
+                  .findRequest(requestID, RequestType.LabServiceRequest);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.Cancelled);
     lsrdi.changeLabServiceRequest(request);
   }
@@ -106,9 +124,15 @@ public class LabServiceRequestManager implements RequestManager {
   }
 
   public void reQueue(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    LabServiceRequest request =
-        (LabServiceRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
+    LabServiceRequest request = null;
+    try {
+      request =
+          (LabServiceRequest)
+              RequestFacade.getRequestFacade()
+                  .findRequest(requestID, RequestType.LabServiceRequest);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.InQueue);
     lsrdi.changeLabServiceRequest(request);
   }
