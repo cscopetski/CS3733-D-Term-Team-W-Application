@@ -21,6 +21,8 @@ public class RequestFactory {
   private GiftDeliveryRequestManager gdrm =
       GiftDeliveryRequestManager.getGiftDeliveryRequestManager();
   private MealRequestManager mealRequestManager = MealRequestManager.getMealRequestManager();
+  private SecurityRequestManager securityRequestManager =
+      SecurityRequestManager.getSecurityRequestManager();
 
   private TreeSet<Integer> reqIDList = new TreeSet<>();
 
@@ -142,6 +144,15 @@ public class RequestFactory {
         mr = mealRequestManager.addExistingRequest(fields);
       } else {
         mr = mealRequestManager.addNewRequest(counter, fields);
+      }
+      System.out.println(mr.toValuesString());
+      return mr;
+    } else if (requestType.equals(RequestType.SecurityService)) {
+      Request mr;
+      if (importingFromCSV) {
+        mr = securityRequestManager.addExistingRequest(fields);
+      } else {
+        mr = securityRequestManager.addNewRequest(counter, fields);
       }
       System.out.println(mr.toValuesString());
       return mr;

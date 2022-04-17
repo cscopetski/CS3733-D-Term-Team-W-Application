@@ -2,7 +2,11 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.SecurityRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.SecurityRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
+import java.util.ArrayList;
 
 public class Main {
 
@@ -50,47 +54,33 @@ public class Main {
       e.printStackTrace();
     }
 
-    /*
-     String patientLast,
-     String patientFirst,
-     String mealType,
-     String nodeID,
-     Integer employeeID,
-     Integer emergency,
-    */
+    ArrayList<String> fields = new ArrayList<>();
 
-    //    ArrayList<String> fields = new ArrayList<>();
-    //    fields.add(MealType.Burger.getString());
-    //    fields.add("Bedison");
-    //    fields.add("Edison");
-    //    fields.add("FDEPT00101");
-    //    fields.add("1");
-    //    fields.add("0");
-    //
-    //    ArrayList<String> fields2 = new ArrayList<>();
-    //    fields2.add(MealType.Ramen.getString());
-    //    fields2.add("Joe");
-    //    fields2.add("Joe");
-    //    fields2.add("FDEPT00101");
-    //    fields2.add("1");
-    //    fields2.add("0");
-    //
-    //    ArrayList<String> fields3 = new ArrayList<>();
-    //    fields3.add(MealType.Burrito.getString());
-    //    fields3.add("Jim");
-    //    fields3.add("Joe");
-    //    fields3.add("FDEPT00101");
-    //    fields3.add("1");
-    //    fields3.add("0");
-    //
-    //    MealRequest mr =
-    //        (MealRequest)
-    //            RequestFactory.getRequestFactory().getRequest(RequestType.MealDelivery, fields,
-    // false);
-    //    RequestFactory.getRequestFactory().getRequest(RequestType.MealDelivery, fields2, false);
-    //    RequestFactory.getRequestFactory().getRequest(RequestType.MealDelivery, fields3, false);
+    fields.add("FDEPT00101");
+    fields.add("1");
+    fields.add("0");
+    fields.add("0");
 
-    // MealRequestManager.getMealRequestManager().exportReqCSV("MealRequest.csv");
+    ArrayList<String> fields2 = new ArrayList<>();
+    fields2.add("FDEPT00101");
+    fields2.add("1");
+    fields2.add("0");
+    fields2.add("5");
+
+    ArrayList<String> fields3 = new ArrayList<>();
+    fields3.add("FDEPT00101");
+    fields3.add("1");
+    fields3.add("0");
+    fields3.add("10");
+
+    SecurityRequest mr =
+        (SecurityRequest)
+            RequestFactory.getRequestFactory()
+                .getRequest(RequestType.SecurityService, fields, false);
+    RequestFactory.getRequestFactory().getRequest(RequestType.SecurityService, fields2, false);
+    RequestFactory.getRequestFactory().getRequest(RequestType.SecurityService, fields3, false);
+
+    SecurityRequestManager.getSecurityRequestManager().exportReqCSV("SecurityRequest.csv");
 
     App.launch(App.class, args);
   }
