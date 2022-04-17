@@ -33,7 +33,7 @@ public class CleaningSR extends SR {
     info += "Employee ID: " + this.getEmployeeID() + "\n";
     info +=
         "Equipment type: "
-            + MedEquipManager.getMedEquipManager().getMedEquip(itemID).getType()
+            + MedEquipManager.getMedEquipManager().getMedEquip(itemID).getType().getString()
             + "\n";
     info += "Equipment ID: " + itemID + "\n";
     // info += "Location: " + MedEquipManager.getMedEquipManager().getMedEquip(itemID).getNodeID()

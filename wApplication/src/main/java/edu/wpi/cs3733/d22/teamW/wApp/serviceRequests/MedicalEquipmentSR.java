@@ -35,7 +35,7 @@ public class MedicalEquipmentSR extends SR {
     }
     info += "Assigned Employee: " + this.getEmployeeName() + "\n";
     info += "Employee ID: " + this.getEmployeeID() + "\n";
-    info += "Requested Item: " + r.getItemType() + "\n";
+    info += "Requested Item: " + r.getItemType().getString() + "\n";
     info += "";
     return info;
   }
