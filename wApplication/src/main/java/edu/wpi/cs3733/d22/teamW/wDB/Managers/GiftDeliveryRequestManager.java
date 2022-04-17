@@ -25,7 +25,7 @@ public class GiftDeliveryRequestManager implements RequestManager {
     this.giftDeliveryRequestDao = csrd;
   }
 
-  public void changeReq(Request r) throws SQLException {
+  public void changeRequest(Request r) throws SQLException {
     this.giftDeliveryRequestDao.changeGiftDeliveryRequest((GiftDeliveryRequest) r);
   }
 

@@ -4,7 +4,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipRequestDao;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -160,6 +159,7 @@ public class MedEquipRequestManager implements RequestManager {
       }
     }
   }
+
   public void changeRequest(Request request) throws SQLException {
     merd.changeMedEquipRequest((MedEquipRequest) request);
   }

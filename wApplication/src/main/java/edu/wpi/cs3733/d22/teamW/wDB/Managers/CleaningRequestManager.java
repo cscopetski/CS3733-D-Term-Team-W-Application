@@ -157,6 +157,7 @@ public class CleaningRequestManager {
       }
     }
   }
+
   public void changeRequest(Request request) throws SQLException {
     crd.changeCleaningRequest((CleaningRequest) request);
   }

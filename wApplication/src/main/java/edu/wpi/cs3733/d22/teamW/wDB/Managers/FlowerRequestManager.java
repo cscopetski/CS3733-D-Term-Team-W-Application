@@ -95,7 +95,7 @@ public class FlowerRequestManager implements RequestManager {
   // TODO should or should not have
 
   public void changeRequest(Request flowerRequest) throws SQLException {
-    frd.changeFlowerRequest((FlowerRequest)flowerRequest);
+    frd.changeFlowerRequest((FlowerRequest) flowerRequest);
   }
 
   @Override

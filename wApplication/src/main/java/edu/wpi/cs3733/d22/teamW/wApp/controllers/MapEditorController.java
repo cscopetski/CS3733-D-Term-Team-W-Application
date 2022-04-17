@@ -428,7 +428,8 @@ public class MapEditorController extends LoadableController {
     final String medRequestFileName = "MedRequests.csv";
     final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
     final String flowerRequestFileName = "FlowerRequests.csv";
-    final String sanitationRequestFileName = "sanitationRequests.csv";
+    final String sanitationRequestFileName = "SanitationRequests.csv";
+    final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
     CSVController csvController =
         new CSVController(
             locationFileName,
@@ -439,7 +440,8 @@ public class MapEditorController extends LoadableController {
             medRequestFileName,
             flowerRequestFileName,
             computerServiceRequestFileName,
-            sanitationRequestFileName);
+            sanitationRequestFileName,
+            giftDeliveryRequestFileName);
     locationManager.clearLocations();
     csvController.insertIntoLocationsTable(csvController.importCSVfromFile(inputCSV));
     refresh();
@@ -522,7 +524,7 @@ public class MapEditorController extends LoadableController {
     }
     ArrayList<Request> medr = MedRequestManager.getMedRequestManager().getAllRequests();
     for (int i = 0; i < medr.size(); i++) {
-      medRequestManager.changeMedRequest((MedRequest) medr.get(i));
+      medRequestManager.changeRequest((MedRequest) medr.get(i));
     }
     ArrayList<Request> eqrl = medEquipRequestManager.getAllRequests();
     for (int i = 0; i < eqrl.size(); i++) {
