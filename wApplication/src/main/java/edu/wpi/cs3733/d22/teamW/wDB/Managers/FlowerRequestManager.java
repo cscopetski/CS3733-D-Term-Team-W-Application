@@ -56,7 +56,7 @@ public class FlowerRequestManager implements RequestManager {
     return fr;
   }
 
-  public void start(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
+  public void start(Integer requestID) throws Exception {
     FlowerRequest request = null;
     try {
       request =

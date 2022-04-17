@@ -1,7 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.CleaningRequestDao;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.CannotStart;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.CleaningRequestMax;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -104,8 +103,6 @@ public class CleaningRequestManager {
       crd.changeCleaningRequest(cr);
       MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
       MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), "wSTOR001L1");
-    } else {
-      throw new CannotStart();
     }
   }
 

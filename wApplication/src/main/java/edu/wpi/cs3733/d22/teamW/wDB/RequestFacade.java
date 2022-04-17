@@ -1,7 +1,12 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.CannotCancel;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.CannotComplete;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.CannotStart;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingRequestID;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -127,149 +132,175 @@ public class RequestFacade {
       default:
         request = null;
     }
+    if (request.equals(null)) {
+      throw new NonExistingRequestID();
+    }
     return request;
   }
 
   public void completeRequest(Integer requestID, RequestType type, String nodeID) throws Exception {
-
-    switch (type) {
-      case MedicalEquipmentRequest:
-        merm.complete(requestID);
-        break;
-      case LabServiceRequest:
-        lsrm.complete(requestID);
-        break;
-      case MedicineDelivery:
-        mrm.complete(requestID);
-        break;
-      case CleaningRequest:
-        crm.complete(requestID, nodeID);
-        break;
-      case ComputerServiceRequest:
-        csrm.complete(requestID);
-        break;
-      case MealDelivery:
-        mealRequestManager.complete(requestID);
-        break;
-      case FlowerRequest:
-        flowerRequestManager.complete(requestID);
-        break;
-      case GiftDelivery:
-        giftDeliveryRequestManager.complete(requestID);
-        break;
-      case SanitationService:
-        sanitationRequestManager.complete(requestID);
-        break;
-      case SecurityService:
-        securityRequestManager.complete(requestID);
-        break;
+    Request request = findRequest(requestID, type);
+    if (!(request.getStatus().equals(RequestStatus.InProgress)
+        || request.getStatus().equals(RequestStatus.Completed))) {
+      throw new CannotComplete();
+    } else {
+      switch (type) {
+        case MedicalEquipmentRequest:
+          merm.complete(requestID);
+          break;
+        case LabServiceRequest:
+          lsrm.complete(requestID);
+          break;
+        case MedicineDelivery:
+          mrm.complete(requestID);
+          break;
+        case CleaningRequest:
+          crm.complete(requestID, nodeID);
+          break;
+        case ComputerServiceRequest:
+          csrm.complete(requestID);
+          break;
+        case MealDelivery:
+          mealRequestManager.complete(requestID);
+          break;
+        case FlowerRequest:
+          flowerRequestManager.complete(requestID);
+          break;
+        case GiftDelivery:
+          giftDeliveryRequestManager.complete(requestID);
+          break;
+        case SanitationService:
+          sanitationRequestManager.complete(requestID);
+          break;
+        case SecurityService:
+          securityRequestManager.complete(requestID);
+          break;
+      }
     }
   }
 
   public void cancelRequest(Integer requestID, RequestType type) throws Exception {
-
-    switch (type) {
-      case MedicalEquipmentRequest:
-        merm.cancel(requestID);
-        break;
-      case LabServiceRequest:
-        lsrm.cancel(requestID);
-        break;
-      case MedicineDelivery:
-        mrm.cancel(requestID);
-        break;
-      case CleaningRequest:
-        crm.cancel(requestID);
-        break;
-      case ComputerServiceRequest:
-        csrm.cancel(requestID);
-        break;
-      case MealDelivery:
-        mealRequestManager.cancel(requestID);
-        break;
-      case FlowerRequest:
-        flowerRequestManager.cancel(requestID);
-        break;
-      case GiftDelivery:
-        giftDeliveryRequestManager.cancel(requestID);
-        break;
-      case SanitationService:
-        sanitationRequestManager.cancel(requestID);
-        break;
-      case SecurityService:
-        securityRequestManager.cancel(requestID);
-        break;
+    Request request = findRequest(requestID, type);
+    if (request.getStatus().equals(RequestStatus.Completed)) {
+      throw new CannotCancel();
+    } else {
+      switch (type) {
+        case MedicalEquipmentRequest:
+          merm.cancel(requestID);
+          break;
+        case LabServiceRequest:
+          lsrm.cancel(requestID);
+          break;
+        case MedicineDelivery:
+          mrm.cancel(requestID);
+          break;
+        case CleaningRequest:
+          crm.cancel(requestID);
+          break;
+        case ComputerServiceRequest:
+          csrm.cancel(requestID);
+          break;
+        case MealDelivery:
+          mealRequestManager.cancel(requestID);
+          break;
+        case FlowerRequest:
+          flowerRequestManager.cancel(requestID);
+          break;
+        case GiftDelivery:
+          giftDeliveryRequestManager.cancel(requestID);
+          break;
+        case SanitationService:
+          sanitationRequestManager.cancel(requestID);
+          break;
+        case SecurityService:
+          securityRequestManager.cancel(requestID);
+          break;
+      }
     }
   }
 
   // TODO might want to change this to use requests
   public void startRequest(Integer requestID, RequestType type) throws Exception {
+    Request request = findRequest(requestID, type);
+    System.out.println(request.getStatus().getString());
+    System.out.println(
+        (!(request.getStatus().equals(RequestStatus.InProgress)
+            || request.getStatus().equals(RequestStatus.InQueue))));
+    if (!(request.getStatus().equals(RequestStatus.InProgress)
+        || request.getStatus().equals(RequestStatus.InQueue))) {
 
-    switch (type) {
-      case MedicalEquipmentRequest:
-        merm.start(requestID);
-        // break;
-      case LabServiceRequest:
-        lsrm.start(requestID);
-      case MedicineDelivery:
-        mrm.start(requestID);
-      case CleaningRequest:
-        crm.start(requestID);
-        break;
-      case ComputerServiceRequest:
-        csrm.start(requestID);
-        break;
-      case MealDelivery:
-        mealRequestManager.start(requestID);
-        break;
-      case FlowerRequest:
-        flowerRequestManager.start(requestID);
-        break;
-      case GiftDelivery:
-        giftDeliveryRequestManager.start(requestID);
-        break;
-      case SanitationService:
-        sanitationRequestManager.start(requestID);
-        break;
-      case SecurityService:
-        securityRequestManager.start(requestID);
-        break;
+      throw new CannotStart();
+    } else {
+      switch (type) {
+        case MedicalEquipmentRequest:
+          merm.start(requestID);
+          // break;
+        case LabServiceRequest:
+          lsrm.start(requestID);
+        case MedicineDelivery:
+          mrm.start(requestID);
+        case CleaningRequest:
+          crm.start(requestID);
+          break;
+        case ComputerServiceRequest:
+          csrm.start(requestID);
+          break;
+        case MealDelivery:
+          mealRequestManager.start(requestID);
+          break;
+        case FlowerRequest:
+          flowerRequestManager.start(requestID);
+          break;
+        case GiftDelivery:
+          giftDeliveryRequestManager.start(requestID);
+          break;
+        case SanitationService:
+          sanitationRequestManager.start(requestID);
+          break;
+        case SecurityService:
+          securityRequestManager.start(requestID);
+          break;
+      }
     }
   }
 
   public void requeueRequest(Integer requestID, RequestType type) throws Exception {
-
-    switch (type) {
-      case MedicalEquipmentRequest:
-        merm.reQueue(requestID);
-        break;
-      case LabServiceRequest:
-        lsrm.reQueue(requestID);
-        break;
-      case MedicineDelivery:
-        mrm.reQueue(requestID);
-        break;
-      case CleaningRequest:
-        crm.reQueue(requestID);
-        break;
-      case ComputerServiceRequest:
-        csrm.reQueue(requestID);
-        break;
-      case MealDelivery:
-        mealRequestManager.reQueue(requestID);
-        break;
-      case FlowerRequest:
-        flowerRequestManager.reQueue(requestID);
-        break;
-      case GiftDelivery:
-        giftDeliveryRequestManager.reQueue(requestID);
-        break;
-      case SanitationService:
-        sanitationRequestManager.reQueue(requestID);
-        break;
-      case SecurityService:
-        securityRequestManager.reQueue(requestID);
-        break;
+    Request request = findRequest(requestID, type);
+    if (!request.getStatus().equals(RequestStatus.Cancelled)) {
+      throw new CannotStart();
+    } else {
+      switch (type) {
+        case MedicalEquipmentRequest:
+          merm.reQueue(requestID);
+          break;
+        case LabServiceRequest:
+          lsrm.reQueue(requestID);
+          break;
+        case MedicineDelivery:
+          mrm.reQueue(requestID);
+          break;
+        case CleaningRequest:
+          crm.reQueue(requestID);
+          break;
+        case ComputerServiceRequest:
+          csrm.reQueue(requestID);
+          break;
+        case MealDelivery:
+          mealRequestManager.reQueue(requestID);
+          break;
+        case FlowerRequest:
+          flowerRequestManager.reQueue(requestID);
+          break;
+        case GiftDelivery:
+          giftDeliveryRequestManager.reQueue(requestID);
+          break;
+        case SanitationService:
+          sanitationRequestManager.reQueue(requestID);
+          break;
+        case SecurityService:
+          securityRequestManager.reQueue(requestID);
+          break;
+      }
     }
   }
 

@@ -64,8 +64,7 @@ public class MedEquipRequestManager implements RequestManager {
   }
 
   public void start(Integer requestID)
-      throws SQLException, NoAvailableEquipment, CannotStart, NonExistingRequestID,
-          NonExistingMedEquip {
+      throws SQLException, NoAvailableEquipment, NonExistingMedEquip {
     MedEquipRequest request = (MedEquipRequest) getRequest(requestID);
     if (request != (null)) {
       // Can only start requests that are in queue
@@ -81,11 +80,7 @@ public class MedEquipRequestManager implements RequestManager {
         } else {
           throw new NoAvailableEquipment();
         }
-      } else {
-        throw new CannotStart();
       }
-    } else {
-      throw new NonExistingRequestID();
     }
   }
 

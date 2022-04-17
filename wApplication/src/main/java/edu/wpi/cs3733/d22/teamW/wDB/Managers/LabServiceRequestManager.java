@@ -1,9 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.LabServiceRequestDao;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingLabServiceRequestType;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
@@ -76,18 +74,16 @@ public class LabServiceRequestManager implements RequestManager {
     return lSR;
   }
 
-  public void start(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
-    LabServiceRequest request = null;
-    try {
-      request =
-          (LabServiceRequest)
-              RequestFacade.getRequestFacade()
-                  .findRequest(requestID, RequestType.LabServiceRequest);
-    } catch (Exception e) {
-      e.printStackTrace();
+  public void start(Integer requestID) throws Exception {
+    LabServiceRequest request =
+        (LabServiceRequest)
+            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LabServiceRequest);
+    if (request != (null)) {
+      if (request.getStatus().equals(RequestStatus.InQueue)) {
+        request.setStatus(RequestStatus.InProgress);
+        lsrdi.changeLabServiceRequest(request);
+      }
     }
-    request.setStatus(RequestStatus.InProgress);
-    lsrdi.changeLabServiceRequest(request);
   }
 
   public void complete(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {

@@ -144,18 +144,46 @@ public class RequestListController extends LoadableController {
     clearSelection();
   }
 
-  public void cancel(ActionEvent actionEvent) throws Exception {
-    RequestFacade.getRequestFacade()
-        .cancelRequest(rt.getSelection().getRequestID(), rt.getSelection().getRequestType());
+  public void cancel(ActionEvent actionEvent) {
+    try {
+      RequestFacade.getRequestFacade()
+          .cancelRequest(rt.getSelection().getRequestID(), rt.getSelection().getRequestType());
+    } catch (CannotCancel c) {
+      Alert alert =
+          new Alert(
+              Alert.AlertType.WARNING, "Cannot Cancel A Request That Is Complete!", ButtonType.OK);
+      alert.showAndWait();
+    } catch (NonExistingRequestID r) {
+      Alert alert = new Alert(Alert.AlertType.WARNING, "RequestID Does Not Exist!", ButtonType.OK);
+      alert.showAndWait();
+    } catch (Exception s) {
+      Alert alert = new Alert(Alert.AlertType.WARNING, "Error", ButtonType.OK);
+      alert.showAndWait();
+    }
     resetItems();
   }
 
-  public void confirm(ActionEvent event) throws Exception {
-    RequestFacade.getRequestFacade()
-        .completeRequest(
-            rt.getSelection().getRequestID(),
-            rt.getSelection().getRequestType(),
-            rt.getSelection().getNodeID());
+  public void confirm(ActionEvent event) {
+    try {
+      RequestFacade.getRequestFacade()
+          .completeRequest(
+              rt.getSelection().getRequestID(),
+              rt.getSelection().getRequestType(),
+              rt.getSelection().getNodeID());
+    } catch (CannotComplete c) {
+      Alert alert =
+          new Alert(
+              Alert.AlertType.WARNING,
+              "Cannot Complete A Request That Is Not Started!",
+              ButtonType.OK);
+      alert.showAndWait();
+    } catch (NonExistingRequestID r) {
+      Alert alert = new Alert(Alert.AlertType.WARNING, "RequestID Does Not Exist!", ButtonType.OK);
+      alert.showAndWait();
+    } catch (Exception s) {
+      Alert alert = new Alert(Alert.AlertType.WARNING, "Error", ButtonType.OK);
+      alert.showAndWait();
+    }
     resetItems();
   }
 
@@ -173,7 +201,10 @@ public class RequestListController extends LoadableController {
           new Alert(
               Alert.AlertType.WARNING,
               "Equipment Not Available: "
-                  + ((MedicalEquipmentSR) rt.getSelection()).getOriginal().getItemType(),
+                  + ((MedicalEquipmentSR) rt.getSelection())
+                      .getOriginal()
+                      .getItemType()
+                      .getString(),
               ButtonType.OK);
       alert.showAndWait();
     } catch (CannotStart c) {
