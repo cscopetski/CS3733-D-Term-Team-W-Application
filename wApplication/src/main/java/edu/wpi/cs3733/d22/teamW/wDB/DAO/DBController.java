@@ -88,6 +88,7 @@ public class DBController {
           .setLanguageInterpreterDao(languageInterpreterDao);
       GiftDeliveryRequestManager.getGiftDeliveryRequestManager()
           .setGiftDeliveryRequestDao(giftDeliveryRequestDao);
+      EmployeeMessageManager.getEmployeeMessageManager().setEmployeeMessageDao(employeeMessageDao);
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ((EmployeeDaoSecureImpl) employeeDao).createTable();

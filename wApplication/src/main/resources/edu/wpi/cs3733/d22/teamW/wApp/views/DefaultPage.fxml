@@ -26,6 +26,7 @@
                                         <MenuItem mnemonicParsing="false" onAction="#switchToAbout" text="About" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToHelp" text="Help" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToSnake" text="Wong" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToMessaging" text="Messaging" />
                                         <MenuItem mnemonicParsing="false" onAction="#logOut" text="Log Out" />
                                     </items>
                                     <HBox.margin>
@@ -93,6 +94,7 @@
                         <fx:include fx:id="aboutPage" source="AboutPage.fxml" />
                         <fx:include fx:id="profilePage" source="ProfilePage.fxml" />
                         <fx:include fx:id="snakePage" source="Snake.fxml" />
+                        <fx:include fx:id="messagingPage" source="MessagingPage.fxml" />
                         <fx:include fx:id="loginPage" source="LoginPage.fxml" />
                     </children>
                 </AnchorPane>

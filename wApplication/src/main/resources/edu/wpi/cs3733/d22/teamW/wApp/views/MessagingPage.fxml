@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MessagingPageController">
+   <children>
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefWidth="835.0">
+         <children>
+            <VBox layoutX="72.0" prefHeight="100.0" prefWidth="800.0" style="-fx-alignment: center;" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="80.0">
+               <children>
+                  <HBox prefHeight="127.0" prefWidth="190.0" style="-fx-alignment: center;">
+                     <children>
+                        <Label fx:id="messageTitleLabel" prefHeight="35.0" prefWidth="407.0" text="Select an Employee to message">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                        </Label>
+                        <VBox alignment="CENTER" prefHeight="43.0" prefWidth="154.0">
+                           <children>
+                              <Label prefHeight="18.0" prefWidth="121.0" text="Selected Employee" />
+                              <ComboBox fx:id="employeeComboBox" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <Separator prefWidth="200.0" />
+                  <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="182.0" prefWidth="695.0" vbarPolicy="ALWAYS">
+                    <content>
+                      <AnchorPane>
+                           <children>
+                              <VBox fx:id="messagesWindow" nodeOrientation="LEFT_TO_RIGHT" prefHeight="182.0" prefWidth="656.0">
+                                 <children>
+                                    <VBox fillWidth="false" nodeOrientation="RIGHT_TO_LEFT" prefHeight="200.0" prefWidth="100.0">
+                                       <children>
+                                          <Label style="-fx-background-color: #248bf5; -fx-background-radius: 50; -fx-label-padding: 5;" text="Label" textFill="WHITE">
+                                             <font>
+                                                <Font size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <padding>
+                                          <Insets bottom="10.0" />
+                                       </padding>
+                                       <VBox.margin>
+                                          <Insets />
+                                       </VBox.margin>
+                                    </VBox>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
+                  <Separator prefWidth="200.0" />
+                  <HBox prefHeight="127.0" prefWidth="190.0" style="-fx-alignment: center;">
+                     <children>
+                        <TextArea fx:id="messageTextField" prefHeight="38.0" prefWidth="471.0">
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                        </TextArea>
+                        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="30.0" prefWidth="107.0" text="SendThem" />
+                        <Button fx:id="sendButtonMe" mnemonicParsing="false" onAction="#onSendMeButtonClick" prefHeight="30.0" prefWidth="99.0" text="SendMe" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -79,6 +79,9 @@ public class LoginController extends LoadableController {
         ((DefaultPageController)
                 SceneManager.getInstance().getController(SceneManager.Scenes.Default))
             .setEmployee(eM.getEmployee(username.getText()));
+        ((MessagingPageController)
+                SceneManager.getInstance().getController(SceneManager.Scenes.Messaging))
+            .setEmployee(eM.getEmployee(username.getText()));
         ((DefaultPageController)
                 SceneManager.getInstance().getController(SceneManager.Scenes.Default))
             .menuBar.setVisible(true);

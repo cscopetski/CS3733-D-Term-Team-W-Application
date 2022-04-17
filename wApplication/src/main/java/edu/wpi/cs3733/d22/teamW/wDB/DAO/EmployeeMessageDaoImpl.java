@@ -13,6 +13,7 @@ public class EmployeeMessageDaoImpl implements EmployeeMessageDao {
 
   EmployeeMessageDaoImpl(Statement statement) {
     this.statement = statement;
+    dropTable();
   }
 
   @Override
