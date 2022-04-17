@@ -21,7 +21,7 @@ public class Main {
     final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
     final String sanitationRequestsFileName = "SanitationRequests.csv";
     final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
-
+    final String cleaningRequestFileName = "CleaningRequest.csv";
     DBController.getDBController();
 
     CSVController csvController =
@@ -35,7 +35,8 @@ public class Main {
             flowerRequestFileName,
             computerServiceRequestFileName,
             sanitationRequestsFileName,
-            giftDeliveryRequestFileName);
+            giftDeliveryRequestFileName,
+            cleaningRequestFileName);
 
     try {
       csvController.populateTables();

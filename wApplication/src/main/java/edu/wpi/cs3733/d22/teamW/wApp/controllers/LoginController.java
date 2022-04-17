@@ -43,6 +43,7 @@ public class LoginController extends LoadableController {
   final String flowerRequestFileName = "FlowerRequests.csv";
   final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
   final String sanitationRequestFileName = "SanitationRequests.csv";
+  final String cleaningRequestFileName = "CleaningRequest.csv";
   final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
 
   @Override
@@ -117,7 +118,8 @@ public class LoginController extends LoadableController {
             flowerRequestFileName,
             computerServiceRequestFileName,
             sanitationRequestFileName,
-            giftDeliveryRequestFileName);
+            giftDeliveryRequestFileName,
+            cleaningRequestFileName);
 
     System.out.println("SWAP CONNECTION ");
 
