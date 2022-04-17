@@ -11,12 +11,15 @@ import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.io.File;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class MedicineDeliveryServiceRequestController extends LoadableController {
   // Buttons:
@@ -41,6 +44,13 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
   // Alerts:
   Alert emptyFields = new EmptyAlert();
+
+  // Media:
+  String path =
+      "C:\\Users\\Heim Crab\\Documents\\PlatformIO\\Projects\\WumboWhowies\\wApplication\\src\\main\\resources\\edu\\wpi\\cs3733\\d22\\teamW\\wApp\\assets\\Sounds\\Button.mp4";
+  Media media = new Media(new File(path).toURI().toString());
+
+  MediaPlayer mediaPlayer = new MediaPlayer(media);
 
   // Helper Fcn stuff -> NOT WORKING RIGHT NOW:
   // private Control[] fields = new Control[] {quantityField, itemCodeField, medNameCBox,
@@ -71,9 +81,11 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
   public void onUnload() {
     clearFields();
+    mediaPlayer.play();
   }
 
   public void submitButton() throws SQLException {
+    mediaPlayer.play();
     createRequest();
     clearFields();
   }
