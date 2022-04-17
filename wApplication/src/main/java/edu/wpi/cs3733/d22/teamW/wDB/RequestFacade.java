@@ -231,11 +231,13 @@ public class RequestFacade {
       switch (type) {
         case MedicalEquipmentRequest:
           merm.start(requestID);
-          // break;
+          break;
         case LabServiceRequest:
           lsrm.start(requestID);
+          break;
         case MedicineDelivery:
           mrm.start(requestID);
+          break;
         case CleaningRequest:
           crm.start(requestID);
           break;
