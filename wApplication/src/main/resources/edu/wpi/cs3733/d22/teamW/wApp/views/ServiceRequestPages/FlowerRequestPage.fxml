@@ -28,7 +28,7 @@
                                     <children>
                                         <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                                             <image>
-                                                <Image url="@../../assets/mealicon.png" />
+                                                <Image url="@../../assets/Icons/FlowerBlue.png" />
                                             </image>
                                         </ImageView>
                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Flower Delivery Service" textAlignment="CENTER" wrappingWidth="370.800048828125">

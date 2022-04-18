@@ -125,7 +125,7 @@
                               <children>
                                  <BorderPane prefHeight="200.0" prefWidth="200.0">
                                     <center>
-                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToComputerService" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonMeal.css" text="Computer Service" BorderPane.alignment="CENTER">
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToComputerService" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonComputer.css" text="Computer Service" BorderPane.alignment="CENTER">
                                           <BorderPane.margin>
                                              <Insets />
                                           </BorderPane.margin>
@@ -140,7 +140,7 @@
                                  </BorderPane>
                                  <BorderPane prefHeight="200.0" prefWidth="200.0">
                                     <center>
-                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToSanitationService" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonMedEquip.css" text="Sanitation Service" BorderPane.alignment="CENTER" />
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToSanitationService" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonSanitation.css" text="Sanitation Service" BorderPane.alignment="CENTER" />
                                     </center>
                                     <VBox.margin>
                                        <Insets top="20.0" />
@@ -155,7 +155,7 @@
                               <children>
                                  <BorderPane prefHeight="200.0" prefWidth="200.0">
                                     <center>
-                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToFlowerDelivery" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonMeal.css" text="Flower Delivery" BorderPane.alignment="CENTER">
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToFlowerDelivery" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonFlower.css" text="Flower Delivery" BorderPane.alignment="CENTER">
                                           <BorderPane.margin>
                                              <Insets />
                                           </BorderPane.margin>
@@ -170,7 +170,7 @@
                                  </BorderPane>
                                  <BorderPane prefHeight="200.0" prefWidth="200.0">
                                     <center>
-                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToGiftDelivery" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonMedEquip.css" text="Gift Delivery " BorderPane.alignment="CENTER" />
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToGiftDelivery" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonGift.css" text="Gift Delivery " BorderPane.alignment="CENTER" />
                                     </center>
                                     <VBox.margin>
                                        <Insets top="20.0" />
