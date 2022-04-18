@@ -105,8 +105,7 @@ public class RequestListController extends LoadableController {
         break;
       case 2:
         try {
-          rt.setItems(
-              RequestFacade.getRequestFacade().getAllRequests(RequestType.LanguageRequest));
+          rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.LanguageRequest));
         } catch (SQLException | NonExistingMedEquip ex) {
           ex.printStackTrace();
         } catch (Exception e) {

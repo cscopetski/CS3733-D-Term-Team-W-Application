@@ -49,4 +49,8 @@ public class LanguageInterpreterManager {
   public void exportReqCSV(String filename) {
     lid.exportLangInterpCSV(filename);
   }
+
+  public ArrayList<Integer> getEligibleEmployees(String lanuage) throws SQLException {
+    return lid.getEligibleEmployees(lanuage);
+  }
 }

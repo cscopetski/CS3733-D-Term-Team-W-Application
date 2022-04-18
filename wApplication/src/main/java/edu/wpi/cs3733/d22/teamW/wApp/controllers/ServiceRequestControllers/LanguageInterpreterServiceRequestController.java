@@ -6,6 +6,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LanguageInterpreterManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
@@ -20,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.Duration;
+import javax.swing.*;
 
 public class LanguageInterpreterServiceRequestController extends LoadableController {
 
@@ -30,6 +32,8 @@ public class LanguageInterpreterServiceRequestController extends LoadableControl
   @FXML Label successLabel;
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
+  private LanguageInterpreterManager languageInterpreterManager =
+      LanguageInterpreterManager.getLanguageInterpreterManager();
 
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
 
@@ -58,8 +62,19 @@ public class LanguageInterpreterServiceRequestController extends LoadableControl
     fadeOut.setAutoReverse(false);
     employeeSelection.setDisable(true);
     locationSelection.setItems(FXCollections.observableArrayList(getLocations()));
-    employeeSelection.setItems(FXCollections.observableArrayList(getEmployeeNames()));
     languageSelection.setItems(FXCollections.observableArrayList(getLanguageTypeList()));
+    languageSelection.setOnAction(
+        (event) -> {
+          String language = languageSelection.getSelectionModel().getSelectedItem().toString();
+          employeeSelection.setDisable(false);
+          try {
+            employeeSelection.setItems(
+                FXCollections.observableArrayList(getEmployeeNames(language)));
+          } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Lmao front end ez");
+          }
+        });
   }
 
   @Override
@@ -96,6 +111,7 @@ public class LanguageInterpreterServiceRequestController extends LoadableControl
     employeeSelection.getSelectionModel().clearSelection();
     languageSelection.getSelectionModel().clearSelection();
     emergencyB.setValue(false);
+    employeeSelection.setDisable(true);
   }
 
   private String getEmployeeID(String name) throws SQLException {
@@ -134,22 +150,27 @@ public class LanguageInterpreterServiceRequestController extends LoadableControl
     return nodeID;
   }
 
-  private ArrayList<String> getEmployeeNames() {
-    ArrayList<String> name = new ArrayList<>();
-    ArrayList<Employee> employees = null;
-    try {
-      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
-    } catch (SQLException e) {
-      System.out.println("Failed to unearth employees from database");
-      e.printStackTrace();
+  private ArrayList<String> getEmployeeNames(String language) throws SQLException {
+    ArrayList<Integer> ids = languageInterpreterManager.getEligibleEmployees(language);
+    ArrayList<Employee> employees = new ArrayList<>();
+    ArrayList<String> names = new ArrayList<>();
+
+    for (Integer id : ids) {
+      try {
+        employees.add(EmployeeManager.getEmployeeManager().getEmployee(id));
+      } catch (SQLException e) {
+        System.out.println("Failed to unearth employees from database");
+        e.printStackTrace();
+      }
     }
+
     for (Employee e : employees) {
       if (e.getEmployeeID() != -1) {
         String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
-        name.add(empName);
+        names.add(empName);
       }
     }
-    return name;
+    return names;
   }
 
   private ArrayList<String> getLocations() {
