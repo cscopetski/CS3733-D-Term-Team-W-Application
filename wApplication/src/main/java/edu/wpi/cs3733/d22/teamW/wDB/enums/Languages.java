@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public enum Languages {
-  Arabic("Arabuc"),
+  Arabic("Arabic"),
   Bengali("Bengali"),
   Cantonese("Cantonese"),
   English("English"),
