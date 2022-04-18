@@ -16,7 +16,10 @@ public class RequestHubController {
   @FXML Label mealCredit;
   @FXML Label computerCredit;
   @FXML Label sanitationServiceCredit;
+  @FXML Label flowerCredit;
+  @FXML Label giftDeliveryCredit;
   @FXML ToggleButton toggleButton;
+
 
   public void switchToMedicineDelivery(ActionEvent event) throws IOException {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicineDelivery);
@@ -50,6 +53,14 @@ public class RequestHubController {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.SanitationService);
   }
 
+  public void switchToFlowerService(ActionEvent event) throws IOException {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.FlowerRequest);
+  }
+
+  public void switchToGiftService(ActionEvent event) throws IOException {
+    //SceneManager.getInstance().transitionTo(SceneManager.Scenes.GiftDeliveryRequest);
+  }
+
   public void creditsToggle(ActionEvent event) throws IOException {
     if (toggleButton.isSelected()) {
       medEquipCredit.setVisible(false);
@@ -60,6 +71,8 @@ public class RequestHubController {
       mealCredit.setVisible(false);
       computerCredit.setVisible(false);
       sanitationServiceCredit.setVisible(false);
+      flowerCredit.setVisible(false);
+      giftDeliveryCredit.setVisible(false);
     } else {
       medEquipCredit.setVisible(true);
       languageCredit.setVisible(true);
@@ -69,6 +82,8 @@ public class RequestHubController {
       mealCredit.setVisible(true);
       computerCredit.setVisible(true);
       sanitationServiceCredit.setVisible(true);
+      flowerCredit.setVisible(true);
+      giftDeliveryCredit.setVisible(true);
     }
   }
 }

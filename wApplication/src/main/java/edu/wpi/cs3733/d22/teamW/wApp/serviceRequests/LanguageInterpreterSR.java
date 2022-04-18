@@ -24,7 +24,9 @@ public class LanguageInterpreterSR extends SR {
 
   @Override
   public String getFormattedInfo() throws SQLException {
-    LanguageRequest languageRequest = (LanguageRequest) LanguageRequestManager.getLanguageRequestManager().getRequest(this.getRequestID());
+    LanguageRequest languageRequest =
+        (LanguageRequest)
+            LanguageRequestManager.getLanguageRequestManager().getRequest(this.getRequestID());
     String info = "";
     if (this.getEmergency() == 1) {
       info += "Request marked as an EMERGENCY\n";

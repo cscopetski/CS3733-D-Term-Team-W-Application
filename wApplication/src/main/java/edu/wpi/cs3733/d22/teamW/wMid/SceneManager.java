@@ -70,6 +70,7 @@ public class SceneManager {
     Profile,
     ComputerService,
     SanitationService,
+    FlowerRequest,
     Snake
   }
 
