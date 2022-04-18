@@ -40,7 +40,8 @@ public class ProfileController extends LoadableController {
     rt.setColumnWidth("Location", 80);
     rt.setColumnWidth("Status", 80);
     try {
-      rt.setItems(RequestFacade.getRequestFacade().getAllEmployeeRequests(3));
+      rt.setItems(
+          RequestFacade.getRequestFacade().getAllEmployeeRequests(employee.getEmployeeID()));
     } catch (Exception e) {
       e.printStackTrace();
     }
