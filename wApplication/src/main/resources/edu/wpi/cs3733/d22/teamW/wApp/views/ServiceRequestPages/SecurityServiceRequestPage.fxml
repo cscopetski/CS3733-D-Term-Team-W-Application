@@ -39,7 +39,7 @@
                                  <children>
                                     <BorderPane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="164.0">
                                        <center>
-                                          <Label style="-fx-font-weight: bold;" text="ROOM NUMBER" textFill="WHITE" BorderPane.alignment="CENTER">
+                                          <Label style="-fx-font-weight: bold;" text="THREAT LEVEL" textFill="WHITE" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -48,11 +48,11 @@
                                     </BorderPane>
                                  </children>
                               </Pane>
-                              <TextField fx:id="roomNumber" maxWidth="250.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-                                 <VBox.margin>
-                                    <Insets bottom="20.0" top="10.0" />
-                                 </VBox.margin>
-                              </TextField>
+                              <BorderPane prefHeight="53.0" prefWidth="0.0">
+                                 <left>
+                                    <ChoiceBox fx:id="threatChoice" prefHeight="25.0" prefWidth="252.0" BorderPane.alignment="CENTER" />
+                                 </left>
+                              </BorderPane>
                               <BorderPane maxWidth="250.0" prefHeight="17.0" prefWidth="250.0">
                                  <center>
                                     <Label prefHeight="17.0" prefWidth="140.0" style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" BorderPane.alignment="CENTER" />
@@ -85,7 +85,7 @@
                                  <children>
                                     <BorderPane maxHeight="30.0" maxWidth="150.0" prefHeight="30.0" prefWidth="150.0">
                                        <center>
-                                          <Label prefHeight="30.0" prefWidth="150.0" style="-fx-font-weight: bold; -fx-alignment: center;" text="MAP INTERACTION" textFill="WHITE" BorderPane.alignment="CENTER">
+                                          <Label prefHeight="30.0" prefWidth="150.0" style="-fx-font-weight: bold; -fx-alignment: center;" text="LOCATION" textFill="WHITE" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -94,17 +94,15 @@
                                     </BorderPane>
                                  </children>
                               </Pane>
-                              <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="You can drag the map to see and select availiable items " wrappingWidth="336.800048828125" />
                               <Pane fx:id="map" minHeight="300.0" minWidth="380.0" prefHeight="310.0" prefWidth="380.0">
                                  <children>
-                                    <BorderPane prefHeight="300.0" prefWidth="380.0">
-                                       <center>
-                                          <Label text="Map Functionality Coming Soon!" BorderPane.alignment="CENTER" />
-                                       </center>
+                                    <BorderPane prefHeight="53.0" prefWidth="238.0">
+                                       <left>
+                                            <AutoCompleteInput fx:id="locationBox" prefHeight="30.0" prefWidth="220.0" BorderPane.alignment="CENTER" />
+                                       </left>
                                     </BorderPane>
                                  </children>
                               </Pane>
-                              <BorderPane prefHeight="0.0" prefWidth="376.0" />
                            </children>
                            <HBox.margin>
                               <Insets left="20.0" />
