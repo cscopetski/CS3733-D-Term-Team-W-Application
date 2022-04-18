@@ -20,10 +20,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.util.Duration;
 
 public class FlowerRequestController extends LoadableController {
-
+  @FXML TextField recipientLastName;
+  @FXML TextField recipientFirstName;
   @FXML ComboBox locationComboBox;
   @FXML ComboBox employeeIDComboBox;
   @FXML ComboBox flowerTypeBox;
@@ -69,12 +71,16 @@ public class FlowerRequestController extends LoadableController {
   private boolean emptyFields() {
     return employeeIDComboBox.getSelectionModel().isEmpty()
         || locationComboBox.getSelectionModel().isEmpty()
-        || flowerTypeBox.getSelectionModel().isEmpty();
+        || flowerTypeBox.getSelectionModel().isEmpty()
+        || recipientFirstName.getText().isEmpty()
+        || recipientLastName.getText().isEmpty();
   }
 
   private void pushFlowerRequestToDB() throws SQLException {
     ArrayList<String> srFields = new ArrayList<String>();
     srFields.add(flowerTypeBox.getSelectionModel().getSelectedItem().toString());
+    srFields.add(recipientLastName.getText());
+    srFields.add(recipientFirstName.getText());
     srFields.add(
         locationToNodeID(locationComboBox.getSelectionModel().getSelectedItem().toString()));
     srFields.add(
@@ -95,6 +101,8 @@ public class FlowerRequestController extends LoadableController {
     locationComboBox.getSelectionModel().clearSelection();
     employeeIDComboBox.getSelectionModel().clearSelection();
     flowerTypeBox.getSelectionModel().clearSelection();
+    recipientFirstName.clear();
+    recipientLastName.clear();
     emergencyButton.setValue(false);
   }
 
