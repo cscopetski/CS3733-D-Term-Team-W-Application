@@ -81,11 +81,11 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
   public void onUnload() {
     clearFields();
-    mediaPlayer.play();
   }
 
   public void submitButton() throws SQLException {
     mediaPlayer.play();
+    mediaPlayer.stop();
     createRequest();
     clearFields();
   }
