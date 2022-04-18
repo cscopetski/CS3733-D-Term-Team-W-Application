@@ -59,6 +59,7 @@ public class MedEquipManager {
       medEquip.setNodeID(nodeID);
       medEquip.setStatus(MedEquipStatus.InUse);
       medi.changeMedEquip(medEquip);
+      CleaningRequestManager.getCleaningRequestManager().checkStart();
     } else if (medEquip.getStatus().equals(MedEquipStatus.Dirty)) {
       throw new MarkingInUseEquipmentAsClean();
     }
