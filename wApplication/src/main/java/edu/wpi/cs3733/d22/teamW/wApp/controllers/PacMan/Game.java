@@ -61,6 +61,8 @@ public class Game {
   private Dir red_movingAt, pink_movingAt, orange_movingAt, cyan_movingAt;
   private Dir movingAt, newDir;
 
+  private ImageView image;
+
   public Game(Stage primaryStage) {
     window = primaryStage;
     window.setTitle("Wild Wild Wongs");
@@ -125,10 +127,17 @@ public class Game {
 
     pacman = new Circle(); // create pacman
     pacman.setRadius(size);
-    pacman.setFill(wallColor);
+    pacman.setFill(Color.TRANSPARENT);
     pacman.setCenterX(pacmanX);
     pacman.setCenterY(pacmanY);
     pane.getChildren().add(pacman);
+
+    image = new ImageView(new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/mgb_logo.png"));
+    image.setFitWidth(16);
+    image.setFitHeight(16);
+    image.setX(pacmanX - 8);
+    image.setY(pacmanY - 8);
+    pane.getChildren().add(image);
 
     redGhost = new Ghost(pane, 120, 110, ghostSize, ghostSize); // create the red ghost
     redGhost.setColor(Color.RED);
@@ -203,6 +212,8 @@ public class Game {
               // update pacman's coordinates
               pacmanX = pacman.getCenterX();
               pacmanY = pacman.getCenterY();
+              image.setX(pacmanX - 8);
+              image.setY(pacmanY - 8);
             });
 
     timeline = new Timeline(pacman_keyFrame);
