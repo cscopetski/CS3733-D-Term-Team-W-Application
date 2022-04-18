@@ -72,7 +72,8 @@ public class SceneManager {
     SanitationService,
     FlowerRequest,
     GiftDelivery,
-    Snake
+    Snake,
+    AdminHub
   }
 
   private static class Instance {

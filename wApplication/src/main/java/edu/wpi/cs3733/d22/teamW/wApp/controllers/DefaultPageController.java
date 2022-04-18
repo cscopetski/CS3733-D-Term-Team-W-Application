@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
@@ -33,6 +35,7 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane snakePage;
   @FXML public HBox menuBar;
   @FXML public Pane buttonPane;
+  @FXML public Pane adminHubPage;
 
   protected Employee employee;
 
@@ -66,6 +69,7 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().putPane(SceneManager.Scenes.Profile, profilePage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Snake, snakePage);
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Login);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.AdminHub, adminHubPage);
   }
 
   public void setEmployee(Employee em) {
@@ -130,6 +134,16 @@ public class DefaultPageController implements Initializable {
 
   public void switchToMainMenu() {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MainMenu);
+  }
+
+  public void switchToAdminHub() {
+    if (employee.getType().getAccessLevel() == 5) {
+      SceneManager.getInstance().transitionTo(SceneManager.Scenes.AdminHub);
+    } else {
+      Alert warningAlert =
+          new Alert(Alert.AlertType.WARNING, "Sorry you cannot access to this site", ButtonType.OK);
+      warningAlert.showAndWait();
+    }
   }
 
   public void logOut(ActionEvent actionEvent) {
