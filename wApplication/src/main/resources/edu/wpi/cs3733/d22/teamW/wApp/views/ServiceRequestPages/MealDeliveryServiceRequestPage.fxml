@@ -200,7 +200,15 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="patientLast" onAction="#onEnter" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
+                              <TextField fx:id="patientLast" onAction="#onEnter" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" />
+                                 </VBox.margin></TextField>
+                              <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
                            </children>
                            <HBox.margin>
                               <Insets left="20.0" />
@@ -225,11 +233,6 @@
                                                 <Insets left="180.0" />
                                              </VBox.margin>
                                           </Button>
-                                          <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
                                        </children>
                                     </VBox>
                                  </children>
