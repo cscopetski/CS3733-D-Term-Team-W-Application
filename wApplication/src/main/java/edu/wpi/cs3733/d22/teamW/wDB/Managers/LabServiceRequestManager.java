@@ -63,7 +63,6 @@ public class LabServiceRequestManager implements RequestManager {
   public Request addExistingRequest(ArrayList<String> fields)
       throws SQLException, StatusError, NonExistingLabServiceRequestType {
     LabServiceRequest lSR;
-    System.out.println("Right before making lSR");
     lSR = new LabServiceRequest(fields);
     // TODO Special Exception
     if (RequestFactory.getRequestFactory().getReqIDList().add(lSR.getRequestID())) {

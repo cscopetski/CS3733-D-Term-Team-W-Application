@@ -2,11 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipType;
-import java.util.ArrayList;
 
 public class Main {
 
@@ -57,12 +53,6 @@ public class Main {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    ArrayList<MedEquip> medEquipArrayList =
-        MedEquipManager.getMedEquipManager().getAllMedEquip(MedEquipType.Recliners, null);
-    for (MedEquip m : medEquipArrayList) {
-      System.out.println(m.toCSVString());
-    }
-
     App.launch(App.class, args);
   }
 }

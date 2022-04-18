@@ -117,4 +117,17 @@ public class LanguageInterpreterDaoImpl implements LanguageInterpreterDao {
       e.printStackTrace();
     }
   }
+
+  public ArrayList<Integer> getEligibleEmployees(String language) throws SQLException {
+    ArrayList<Integer> ids = new ArrayList<>();
+    ResultSet employees =
+        statement.executeQuery(
+            String.format(
+                "SELECT EMPLOYEEID FROM LANGUAGEINTERPRETERS WHERE LANGUAGE = '%s'", language));
+
+    while (employees.next()) {
+      ids.add(employees.getInt(1));
+    }
+    return ids;
+  }
 }

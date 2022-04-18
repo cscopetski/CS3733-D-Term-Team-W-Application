@@ -12,8 +12,8 @@ public class Food {
   private int size;
 
   public final double borderSize = 500;
-  public final double center = 200;
-  public final double xOffset = 320;
+  public final double center = SnakeController.center;
+  public final double xOffset = SnakeController.xOffset;
   public final int Min = (int) (((borderSize / 2) - 50) / 50);
   public final int Max = (int) ((2 * center + (borderSize / 2) + 50) / 50);
 
@@ -44,5 +44,9 @@ public class Food {
 
     position.setXPos(pos1 + xOffset);
     position.setYPos(pos2);
+  }
+
+  public Rectangle getRectangle() {
+    return this.rectangle;
   }
 }

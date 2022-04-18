@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.Snake;
 
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.Animation;
@@ -9,6 +7,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -18,51 +17,46 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class SnakeController extends LoadableController {
+public class SnakeController {
 
+  public final double borderSize = 500;
+  public static final double center = 200;
+  public static final double xOffset = -200;
+  public final double Min = center - (borderSize / 2);
+  public final double Max = center + (borderSize / 2);
   // A snake body part is 50x50
   private final Double snakeSize = 50.;
-  // The head of the snake is created, at position (250,250)
-  private Rectangle snakeHead;
-  @FXML private ImageView image;
+  // List of all position of thew snake head
+  private final List<Position> positions = new ArrayList<>();
+  // List of all snake body parts
+  private final ArrayList<Rectangle> snakeBody = new ArrayList<>();
+  public Button startButton;
   // x and y position of the snake head different from starting position
   double xPos;
   double yPos;
-
-  public final double borderSize = 500;
-  public final double center = 200;
-  public final double xOffset = 320;
-  public final double Min = center - (borderSize / 2);
-  public final double Max = center + (borderSize / 2);
-
   // Food
   Food food;
-
+  Timeline timeline;
+  // The head of the snake is created, at position (250,250)
+  private Rectangle snakeHead;
+  @FXML private ImageView image;
   // Direction snake is moving at start
   private Position.Direction direction;
-
-  // List of all position of thew snake head
-  private final List<Position> positions = new ArrayList<>();
-
-  // List of all snake body parts
-  private final ArrayList<Rectangle> snakeBody = new ArrayList<>();
-
   // Game ticks is how many times the snake have moved
   private int gameTicks;
-
   @FXML private AnchorPane anchorPane;
   @FXML private AnchorPane gameBorder;
   @FXML private Label score;
   @FXML private Label loss;
-
   private int counter = 0;
-
-  Timeline timeline;
-
   private boolean canChangeDirection;
 
   @FXML
-  void start(ActionEvent event) {
+  void start(ActionEvent actionEvent) {
+    onLoad();
+    gameBorder.setVisible(true);
+    image.setVisible(true);
+    loss.toFront();
     loss.setVisible(false);
     counter = 0;
     score.setText("Score: " + counter);
@@ -165,12 +159,14 @@ public class SnakeController extends LoadableController {
   public boolean checkIfGameIsOver(Rectangle snakeHead) {
     if (xPos <= Min || xPos > Max || yPos <= Min || yPos > Max) {
       System.out.println("Game_over");
-      loss.setVisible(true);
       loss.toFront();
+      loss.setVisible(true);
+      anchorPane.getChildren().remove(food.getRectangle());
       return true;
     } else if (snakeHitItSelf()) {
-      loss.setVisible(true);
       loss.toFront();
+      loss.setVisible(true);
+      anchorPane.getChildren().remove(food.getRectangle());
       return true;
     }
     return false;
@@ -222,12 +218,6 @@ public class SnakeController extends LoadableController {
     return false;
   }
 
-  @Override
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.Snake;
-  }
-
-  @Override
   public void onLoad() {
     image.setVisible(false);
     gameBorder.setLayoutX(center + xOffset);
@@ -254,7 +244,6 @@ public class SnakeController extends LoadableController {
                 }));
   }
 
-  @Override
   public void onUnload() {
     image.setVisible(false);
     timeline = null;

@@ -1,12 +1,11 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.CleaningRequestDao;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.CleaningRequestMax;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.*;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.Automation;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -99,10 +98,15 @@ public class CleaningRequestManager {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() == RequestStatus.InQueue) {
       cr.setStatus(RequestStatus.InProgress);
-      cr.setNodeID("wSTOR001L1");
-      crd.changeCleaningRequest(cr);
       MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
-      MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), "wSTOR001L1");
+      if (item.getType().equals(MedEquipType.Bed)) {
+        cr.setNodeID("wSTOR001L1");
+        MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), "wSTOR001L1");
+      } else if (item.getType().equals(MedEquipType.InfusionPump)) {
+        cr.setNodeID("wSTOR0011");
+        MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), "wSTOR0011");
+      }
+      crd.changeCleaningRequest(cr);
     }
   }
 
@@ -183,14 +187,52 @@ public class CleaningRequestManager {
   public void checkStart() throws Exception {
     ArrayList<String> cleaningLocations = crd.getCleaningLocation();
     for (String location : cleaningLocations) {
-      System.out.println(location);
       ArrayList<Integer> requests = crd.CleaningRequestAtLocation(location);
+      ArrayList<Integer> ids = new ArrayList<>();
+      ArrayList<Integer> ids2 = new ArrayList<>();
       if (requests.size() >= 6) {
+        Integer counter = 0;
+        Integer counter2 = 0;
         for (Integer c : requests) {
-          System.out.println(c);
-          start(c);
+          CleaningRequest cr =
+              (CleaningRequest)
+                  RequestFacade.getRequestFacade().findRequest(c, RequestType.CleaningRequest);
+          MedEquip me = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
+          if (me.getType().equals(MedEquipType.Bed)) {
+            ids.add(c);
+            counter++;
+          } else if (me.getType().equals(MedEquipType.InfusionPump)) {
+            ids2.add(c);
+            counter2++;
+          }
         }
-        throw new CleaningRequestMax();
+        if (counter >= 6) {
+          for (Integer id : ids) {
+            start(id);
+          }
+          throw new SixDirtyBeds();
+        }
+        if (counter2 >= 10) {
+          for (Integer id : ids2) {
+            start(id);
+          }
+          throw new TenDirtyInfusionPumps();
+        }
+      }
+    }
+    ArrayList<MedEquip> medEquipArrayList =
+        MedEquipManager.getMedEquipManager()
+            .getAllMedEquip(MedEquipType.InfusionPump, MedEquipStatus.Clean);
+    ArrayList<Location> locations = LocationManager.getLocationManager().getLocationClean();
+    for (Location location : locations) {
+      Integer counter = 0;
+      for (MedEquip med : medEquipArrayList) {
+        if (med.getNodeID().equals(location.getNodeID())) {
+          counter++;
+        }
+      }
+      if (counter < 5) {
+        throw new FewerThanFiveCleanINP();
       }
     }
   }

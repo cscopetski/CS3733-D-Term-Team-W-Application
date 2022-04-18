@@ -41,25 +41,32 @@ public class RequestListController extends LoadableController {
                 moreInfo.setText("Select a request to view details.");
               }
               SR request = rt.getSelection();
-              try {
-                moreInfo.setText(request.getFormattedInfo());
-              } catch (SQLException e) {
-                e.printStackTrace();
-                moreInfo.setText("Error loading request details.");
-              } catch (StatusError e) {
-                e.printStackTrace();
-              } catch (NonExistingMedEquip e) {
-                e.printStackTrace();
-              } catch (Exception e) {
-                e.printStackTrace();
+              if (request != null) {
+                try {
+                  moreInfo.setText(request.getFormattedInfo());
+                } catch (SQLException e) {
+                  e.printStackTrace();
+                  moreInfo.setText("Error loading request details.");
+                } catch (StatusError e) {
+                  e.printStackTrace();
+                } catch (NonExistingMedEquip e) {
+                  e.printStackTrace();
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
               }
+
               selectionButtons.setVisible(newSelection != null);
             });
 
-    equipmentSelection
-        .getSelectionModel()
-        .selectedIndexProperty()
-        .addListener((e, o, n) -> setItemsWithFilter(n.intValue()));
+    try {
+      equipmentSelection
+          .getSelectionModel()
+          .selectedIndexProperty()
+          .addListener((e, o, n) -> setItemsWithFilter(n.intValue()));
+    } catch (Exception e) {
+      System.out.println(e);
+    }
   }
 
   public void onLoad() {
@@ -105,8 +112,7 @@ public class RequestListController extends LoadableController {
         break;
       case 2:
         try {
-          rt.setItems(
-              RequestFacade.getRequestFacade().getAllRequests(RequestType.LanguageInterpreter));
+          rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.LanguageRequest));
         } catch (SQLException | NonExistingMedEquip ex) {
           ex.printStackTrace();
         } catch (Exception e) {
@@ -233,5 +239,24 @@ public class RequestListController extends LoadableController {
     // Only display lab
     // rt.setItems(RequestFacade.getRequestFacade().);
     // }
+  }
+
+  public void requeue(ActionEvent actionEvent) {
+    try {
+      RequestFacade.getRequestFacade()
+          .requeueRequest(rt.getSelection().getRequestID(), rt.getSelection().getRequestType());
+    } catch (CannotRequeue c) {
+      Alert alert =
+          new Alert(
+              Alert.AlertType.WARNING, "Cannot Requeue A Request That Is Complete!", ButtonType.OK);
+      alert.showAndWait();
+    } catch (NonExistingRequestID r) {
+      Alert alert = new Alert(Alert.AlertType.WARNING, "RequestID Does Not Exist!", ButtonType.OK);
+      alert.showAndWait();
+    } catch (Exception s) {
+      Alert alert = new Alert(Alert.AlertType.WARNING, "Error", ButtonType.OK);
+      alert.showAndWait();
+    }
+    resetItems();
   }
 }
