@@ -22,6 +22,8 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane securityServiceRequestPage;
   @FXML public Pane computerServiceRequestPage;
   @FXML public Pane sanitationRequestPage;
+  @FXML public Pane flowerRequestPage;
+  @FXML public Pane giftDeliveryPage;
   @FXML public Pane requestListPage;
   @FXML public Pane requestHubPage;
   @FXML public Pane loginPage;
@@ -55,6 +57,8 @@ public class DefaultPageController implements Initializable {
         .putPane(SceneManager.Scenes.ComputerService, computerServiceRequestPage);
     SceneManager.getInstance()
         .putPane(SceneManager.Scenes.SanitationService, sanitationRequestPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.FlowerRequest, flowerRequestPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.GiftDelivery, giftDeliveryPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.RequestList, requestListPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.RequestHub, requestHubPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Help, helpPage);
@@ -98,6 +102,14 @@ public class DefaultPageController implements Initializable {
 
   public void switchToComputerService(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.ComputerService);
+  }
+
+  public void switchToFlowerService(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.FlowerRequest);
+  }
+
+  public void switchToGiftService(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.GiftDelivery);
   }
 
   public void switchToSanitationService(ActionEvent event) {

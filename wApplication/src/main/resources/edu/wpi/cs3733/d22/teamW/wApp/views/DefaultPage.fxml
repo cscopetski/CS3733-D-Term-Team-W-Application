@@ -43,6 +43,8 @@
                                         <MenuItem mnemonicParsing="false" onAction="#switchToLanguageInterpreter" text="Interpreters" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToSecurity" text="Security" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToComputerService" text="Computer Services" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToFlowerService" text="Flower Delivery" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToGiftService" text="Gift Delivery" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToSanitationService" text="Sanitation Services" />
                                     </items>
                                     <HBox.margin>
@@ -87,6 +89,8 @@
                         <fx:include fx:id="securityServiceRequestPage" source="ServiceRequestPages/SecurityServiceRequestPage.fxml" />
                         <fx:include fx:id="computerServiceRequestPage" source="ServiceRequestPages/ComputerServiceRequestPage.fxml" />
                         <fx:include fx:id="sanitationRequestPage" source="ServiceRequestPages/SanitationRequest.fxml" />
+                        <fx:include fx:id="flowerRequestPage" source="ServiceRequestPages/FlowerRequestPage.fxml" />
+                        <fx:include fx:id="giftDeliveryPage" source="ServiceRequestPages/GiftDeliveryRequest.fxml" />
                         <fx:include fx:id="requestListPage" source="ServiceRequestPages/RequestListPage.fxml" />
                         <fx:include fx:id="requestHubPage" source="RequestHubPage.fxml" />
                         <fx:include fx:id="helpPage" source="HelpPage.fxml" />

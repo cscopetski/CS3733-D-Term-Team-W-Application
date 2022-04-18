@@ -58,7 +58,7 @@ public class MedRequestManager implements RequestManager {
     return mr;
   }
 
-  public void start(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
+  public void start(Integer requestID) throws SQLException {
     MedRequest request = null;
     try {
       request =
@@ -71,7 +71,7 @@ public class MedRequestManager implements RequestManager {
     mrd.changeMedRequest(request);
   }
 
-  public void complete(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
+  public void complete(Integer requestID) throws SQLException {
     MedRequest request = null;
     try {
       request =
@@ -84,7 +84,7 @@ public class MedRequestManager implements RequestManager {
     mrd.changeMedRequest(request);
   }
 
-  public void cancel(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
+  public void cancel(Integer requestID) throws SQLException {
     MedRequest request = null;
     try {
       request =

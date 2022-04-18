@@ -67,7 +67,7 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
       ResultSet employeeRequest =
           statement.executeQuery(
               String.format(
-                  "SELECT * FROM EMPLOYEES WHERE EMPLOYEETYPE='%s'", employeeType.toString()));
+                  "SELECT * FROM EMPLOYEES WHERE EMPLOYEETYPE='%s'", employeeType.getString()));
       employeeRequest.next();
 
       ArrayList<String> employeeFields = new ArrayList<String>();

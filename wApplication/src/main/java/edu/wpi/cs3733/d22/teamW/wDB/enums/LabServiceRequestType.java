@@ -8,7 +8,7 @@ import java.util.Map;
 public enum LabServiceRequestType {
   BloodSamples(0, "Blood Sample"),
   UrineSamples(1, "Urine Sample"),
-  XRays(2, "X-Rays"),
+  XRays(2, "X-Ray"),
   CATScans(3, "CAT Scan"),
   MRIs(4, "MRI");
 

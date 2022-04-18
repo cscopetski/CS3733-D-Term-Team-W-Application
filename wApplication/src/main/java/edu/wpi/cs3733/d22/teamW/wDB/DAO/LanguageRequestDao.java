@@ -9,7 +9,7 @@ public interface LanguageRequestDao {
 
   void addLanguageRequest(LanguageRequest lr) throws SQLException;
 
-  void changeMedRequest(LanguageRequest lr) throws SQLException;
+  void changeLanguageRequest(LanguageRequest lr) throws SQLException;
 
   void deleteLanguageRequest(Integer id) throws SQLException;
 

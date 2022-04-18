@@ -47,8 +47,7 @@ public class CleaningRequestManager {
   //  }
 
   // TODO auto start all cleaning requests at that location when it is 6
-  public CleaningRequest addNewRequest(Integer num, ArrayList<String> fields)
-      throws SQLException, StatusError, CleaningRequestMax {
+  public CleaningRequest addNewRequest(Integer num, ArrayList<String> fields) throws Exception {
     CleaningRequest cr;
     fields.add(Integer.toString(RequestStatus.InQueue.getValue()));
     fields.add(new Timestamp(System.currentTimeMillis()).toString());
@@ -78,8 +77,7 @@ public class CleaningRequestManager {
     return cr;
   }
 
-  public CleaningRequest addExistingRequest(ArrayList<String> fields)
-      throws SQLException, StatusError, CleaningRequestMax {
+  public CleaningRequest addExistingRequest(ArrayList<String> fields) throws Exception {
     CleaningRequest cr = new CleaningRequest(fields);
     // TODO special exception
     if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
@@ -97,7 +95,7 @@ public class CleaningRequestManager {
 
   // TODO Ask Caleb how to get OR Bed PARK
   // What happens if the OR BED PARK is deleted this function would break
-  public void start(Integer requestID) throws SQLException, StatusError {
+  public void start(Integer requestID) throws Exception {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() == RequestStatus.InQueue) {
       cr.setStatus(RequestStatus.InProgress);
@@ -105,6 +103,45 @@ public class CleaningRequestManager {
       crd.changeCleaningRequest(cr);
       MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
       MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), "wSTOR001L1");
+    }
+  }
+
+  public void markComplete(String medID, String nodeID) throws Exception {
+    CleaningRequest cr = crd.getCleaningRequest(medID);
+    if (cr == null) {
+      System.out.println("TRYING TO COMPLETE A NULL CLEANING REQUEST ID");
+      return;
+    }
+    if (cr.getStatus() == RequestStatus.InProgress
+        || cr.getStatus().equals(RequestStatus.InQueue)) {
+      cr.setStatus(RequestStatus.Completed);
+      cr.setNodeID(nodeID);
+      crd.changeCleaningRequest(cr);
+      MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
+      MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), nodeID);
+      MedEquipManager.getMedEquipManager().markClean(item.getMedID(), nodeID);
+      if (Automation.Automation.getAuto()) {
+        MedEquipRequestManager.getMedEquipRequestManager().startNext(item.getType());
+      }
+    }
+  }
+
+  public void complete(String medID, String nodeID) throws Exception {
+    CleaningRequest cr = crd.getCleaningRequest(medID);
+    if (cr == null) {
+      System.out.println("TRYING TO COMPLETE A NULL CLEANING REQUEST ID");
+      return;
+    }
+    if (cr.getStatus() == RequestStatus.InProgress) {
+      cr.setStatus(RequestStatus.Completed);
+      cr.setNodeID(nodeID);
+      crd.changeCleaningRequest(cr);
+      MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
+      MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), nodeID);
+      MedEquipManager.getMedEquipManager().markClean(item.getMedID(), nodeID);
+      if (Automation.Automation.getAuto()) {
+        MedEquipRequestManager.getMedEquipRequestManager().startNext(item.getType());
+      }
     }
   }
 
@@ -143,7 +180,7 @@ public class CleaningRequestManager {
     }
   }
 
-  public void checkStart() throws SQLException, StatusError, CleaningRequestMax {
+  public void checkStart() throws Exception {
     ArrayList<String> cleaningLocations = crd.getCleaningLocation();
     for (String location : cleaningLocations) {
       System.out.println(location);

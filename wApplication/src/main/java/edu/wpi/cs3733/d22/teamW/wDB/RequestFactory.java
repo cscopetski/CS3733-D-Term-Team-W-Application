@@ -23,6 +23,8 @@ public class RequestFactory {
   private MealRequestManager mealRequestManager = MealRequestManager.getMealRequestManager();
   private SecurityRequestManager securityRequestManager =
       SecurityRequestManager.getSecurityRequestManager();
+  private LanguageRequestManager languageRequestManager =
+      LanguageRequestManager.getLanguageRequestManager();
 
   private TreeSet<Integer> reqIDList = new TreeSet<>();
 
@@ -156,6 +158,15 @@ public class RequestFactory {
       }
       System.out.println(mr.toValuesString());
       return mr;
+    } else if (requestType.equals(RequestType.LanguageRequest)) {
+      Request lr;
+      if (importingFromCSV) {
+        lr = languageRequestManager.addExistingRequest(fields);
+      } else {
+        lr = languageRequestManager.addNewRequest(counter, fields);
+      }
+      System.out.println(lr.toValuesString());
+      return lr;
     } else {
       return null;
     }

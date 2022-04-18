@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.FlowerRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.FlowerRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
@@ -22,12 +24,22 @@ public class FlowerSR extends SR {
 
   @Override
   public String getFormattedInfo() throws SQLException {
+    FlowerRequest flowerRequest =
+        (FlowerRequest)
+            FlowerRequestManager.getFlowerRequestManager().getRequest(this.getRequestID());
     String info = "";
     if (this.getEmergency() == 1) {
       info += "Request marked as an EMERGENCY\n";
     }
     info += "Assigned Employee: " + this.getEmployeeName() + "\n";
     info += "Employee ID: " + this.getEmployeeID() + "\n";
+    info += "Flower: " + flowerRequest.getFlower().getString() + "\n";
+    info +=
+        "Recipient Name: "
+            + flowerRequest.getPatientFirst()
+            + " "
+            + flowerRequest.getPatientLast()
+            + "\n";
     info += "";
     return info;
   }
