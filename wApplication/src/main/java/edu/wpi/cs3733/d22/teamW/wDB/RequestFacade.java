@@ -1,13 +1,12 @@
 package edu.wpi.cs3733.d22.teamW.wDB;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.CannotCancel;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.CannotComplete;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.CannotStart;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingRequestID;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -30,6 +29,32 @@ public class RequestFacade {
       SecurityRequestManager.getSecurityRequestManager();
   private LanguageRequestManager languageRequestManager =
       LanguageRequestManager.getLanguageRequestManager();
+
+  final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
+  final String labServiceRequestFileName = "LabRequests.csv";
+  final String medRequestFileName = "MedRequests.csv";
+  final String flowerRequestFileName = "FlowerRequests.csv";
+  final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
+  final String sanitationRequestsFileName = "SanitationRequests.csv";
+  final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
+  final String cleaningRequestFileName = "CleaningRequest.csv";
+  final String mealRequestFileName = "MealRequest.csv";
+  final String securityRequestFileName = "SecurityRequest.csv";
+  final String languageRequestFileName = "LanguageRequests.csv";
+
+  private File medEquipReqs = new File("edu/wpi/cs3733/d22/teamW/wDB/CSVs/MedicalEquipmentRequest.csv");
+  private File labServiceReqs = new File("edu/wpi/cs3733/d22/teamW/wDB/CSVs/LabRequests.csv");
+  private File medReqs = new File("edu/wpi/cs3733/d22/teamW/wDB/CSVs/MedRequests.csv");
+  private File flowerReqs = new File("edu/wpi/cs3733/d22/teamW/wDB/CSVs/FlowerRequests.csv");
+  private File computerServiceReqs = new File("edu/wpi/cs3733/d22/teamW/wDB/CSVs/ComputerServiceRequest.csv");
+  private File sanitationReqs = new File("edu/wpi/cs3733/d22/teamW/wDB/CSVs/SanitationRequests.csv");
+  private File giftDeliveryReqs = new File("edu/wpi/cs3733/d22/teamW/wDB/CSVs/GiftDeliveryRequest.csv");
+  private File cleaningReqs = new File("edu/wpi/cs3733/d22/teamW/wDB/CSVs/CleaningRequest.csv");
+  private File mealDeliveryReqs = new File("edu/wpi/cs3733/d22/teamW/wDB/CSVs/MealRequest.csv");
+  private File securityReqs = new File("edu/wpi/cs3733/d22/teamW/wDB/CSVs/SecurityRequest.csv");
+  private File languageReqs = new File("edu/wpi/cs3733/d22/teamW/wDB/CSVs/LanguageRequest.csv");
+
+
 
   private static RequestFacade requestFacade = new RequestFacade();
 
@@ -343,4 +368,28 @@ public class RequestFacade {
 
     return employeeRequests;
   }
+
+  public void exportAllRequests() {
+    try {
+      crm.exportReqCSV(cleaningRequestFileName);
+      lsrm.exportReqCSV(labServiceRequestFileName);
+      merm.exportReqCSV(medEquipRequestFileName);
+      mrm.exportReqCSV(medRequestFileName);
+      csrm.exportReqCSV(computerServiceRequestFileName);
+      mealRequestManager.exportReqCSV(mealRequestFileName);
+      flowerRequestManager.exportReqCSV(flowerRequestFileName);
+      giftDeliveryRequestManager.exportReqCSV(giftDeliveryRequestFileName);
+      sanitationRequestManager.exportReqCSV(sanitationRequestsFileName);
+      securityRequestManager.exportReqCSV(securityRequestFileName);
+      languageRequestManager.exportReqCSV(languageRequestFileName);
+    } catch (NonExistingMedEquip e) {
+      e.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+  }
+
+  File labReq = new File();
+
 }

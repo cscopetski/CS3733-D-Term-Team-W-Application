@@ -36,9 +36,9 @@ public class ProfileController extends LoadableController {
 
     rt.setColumnWidth("Req. ID", 60);
     rt.setColumnWidth("Request Type", 130);
-    //TODO get rid of this column?
+    // TODO get rid of this column?
     rt.setColumnWidth("Employee Name", 140);
-    //TODO Bring back this column?
+    // TODO Bring back this column?
     // rt.setColumnWidth("Location", 80);
     rt.setColumnWidth("Status", 80);
     try {

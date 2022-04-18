@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 import static edu.wpi.cs3733.d22.teamW.wMid.SceneManager.Transitions.TranslateY;
 
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Dictionary;
@@ -102,6 +103,7 @@ public class SceneManager {
     if (pages.get(current).controller != null) {
       pages.get(current).tryOnUnload();
     }
+    RequestFacade.getRequestFacade().exportAllRequests();
     System.exit(0);
   }
 
