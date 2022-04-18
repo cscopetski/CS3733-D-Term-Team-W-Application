@@ -135,15 +135,15 @@ public class Game {
     setTimerForTransparency(redGhost, 5);
 
     pinkGhost = new Ghost(pane, 120, 150, ghostSize, ghostSize); // create the pink ghost
-    pinkGhost.setColor(Color.PINK);
+    pinkGhost.setColor(Color.RED);
     setTimerForTransparency(pinkGhost, 15);
 
     orangeGhost = new Ghost(pane, 100, 120, ghostSize, ghostSize); // create the orange ghost
-    orangeGhost.setColor(Color.ORANGE);
+    orangeGhost.setColor(Color.RED);
     setTimerForTransparency(orangeGhost, 30);
 
     cyanGhost = new Ghost(pane, 80, 100, ghostSize, ghostSize); // create the cyan ghost
-    cyanGhost.setColor(Color.CYAN);
+    cyanGhost.setColor(Color.RED);
     setTimerForTransparency(cyanGhost, 40);
 
     highScore = Integer.parseInt(getHighScore());

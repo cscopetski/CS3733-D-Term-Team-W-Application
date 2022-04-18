@@ -6,10 +6,12 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 
 public class Ghost {
-  private Polygon triangle;
+  private final Polygon triangle;
+  private final Circle circle;
   private double x1, y1, x2, y2, x3, y3;
   private double centerX, centerY; // these are the coordinates used to move the triangle
-  private double width, height;
+  private final double width;
+  private final double height;
   private Color color;
   private boolean transparent;
 
@@ -36,18 +38,19 @@ public class Ghost {
     this.y3 = y + (height / 2);
 
     // create the triangle using the 3 coordinates
+    circle = new Circle(centerX, centerY - 2, 10);
+    circle.setFill(Color.rgb(202, 202, 202));
     triangle = new Polygon();
-    triangle
-        .getPoints()
-        .addAll(
-            new Double[] {
-              x1, y1,
-              x2, y2,
-              x3, y3
-            });
+    triangle.getPoints().addAll(x1, y1, x2, y2, x3, y3);
 
     this.transparent = false;
+    pane.getChildren().add(circle);
     pane.getChildren().add(triangle);
+    triangle.toFront();
+  }
+
+  public Color getColor() {
+    return this.color;
   }
 
   public void setColor(Color c) {
@@ -55,16 +58,8 @@ public class Ghost {
     this.triangle.setFill(c);
   }
 
-  public Color getColor() {
-    return this.color;
-  }
-
   public Double getX() {
     return this.centerX;
-  }
-
-  public Double getY() {
-    return this.centerY;
   }
 
   public void setX(double x_coord) {
@@ -76,6 +71,10 @@ public class Ghost {
     this.centerX = x_coord;
 
     updateCoords();
+  }
+
+  public Double getY() {
+    return this.centerY;
   }
 
   public void setY(double y_coord) {
@@ -91,14 +90,9 @@ public class Ghost {
 
   private void updateCoords() {
     triangle.getPoints().clear(); // get rid of all the current coordinates
-    triangle
-        .getPoints()
-        .addAll(
-            new Double[] {
-              this.x1, this.y1,
-              this.x2, this.y2,
-              this.x3, this.y3
-            });
+    triangle.getPoints().addAll(this.x1, this.y1, this.x2, this.y2, this.x3, this.y3);
+    circle.setCenterX(centerX);
+    circle.setCenterY(centerY - 2);
   }
 
   public void setTransparent(boolean b) {
@@ -118,8 +112,6 @@ public class Ghost {
     if ((this.centerX == pacman.getCenterX() && this.centerY - speed == pacman.getCenterY())
         || (this.centerX == pacman.getCenterX() && this.centerY + speed == pacman.getCenterY()))
       return true;
-    if (this.centerX == pacman.getCenterX() && this.centerY == pacman.getCenterY()) return true;
-
-    return false;
+    return this.centerX == pacman.getCenterX() && this.centerY == pacman.getCenterY();
   }
 }
