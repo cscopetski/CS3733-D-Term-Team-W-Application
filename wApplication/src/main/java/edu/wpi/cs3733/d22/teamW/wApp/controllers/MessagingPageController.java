@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.EmployeeMessage;
+import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -51,6 +52,7 @@ public class MessagingPageController extends LoadableController {
 
   @Override
   public void onLoad() throws SQLException {
+    this.currentEmployee = Account.getInstance().getEmployee();
     employeeComboBox.setItems(FXCollections.observableArrayList(getEmployeeIDs()));
     resetMessagePage();
   }
@@ -182,7 +184,7 @@ public class MessagingPageController extends LoadableController {
           }
         });
     for (EmployeeMessage message : currentMessages) {
-      if (message.getEmpIDto().equals(currentEmployee.getEmployeeID())) {
+      if (message.getEmpIDto().equals(this.currentEmployee.getEmployeeID())) {
         addMessageToList(message, true);
       } else {
         addMessageToList(message, false);
@@ -276,10 +278,6 @@ public class MessagingPageController extends LoadableController {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-  }
-
-  public void setEmployee(Employee employee) {
-    this.currentEmployee = employee;
   }
 
   public void resetMessagePage() throws SQLException {
