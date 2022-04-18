@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Orientation;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -148,6 +149,7 @@ public class MessagingPageController extends LoadableController {
     if (hasUnread) {
       newHBOX.setStyle("-fx-background-color: #ffcccc;");
     }
+    newHBOX.setAlignment(Pos.CENTER_LEFT);
     VBox cardVBox = new VBox(newHBOX, new Separator());
     employeeCardView.getChildren().add(cardVBox);
   }

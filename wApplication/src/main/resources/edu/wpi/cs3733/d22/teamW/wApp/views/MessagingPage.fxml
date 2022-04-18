@@ -29,6 +29,12 @@
                            </children>
                         </VBox>
                         <Separator prefWidth="200.0" />
+                        <Label text="Recent messages">
+                           <font>
+                              <Font size="17.0" />
+                           </font>
+                        </Label>
+                        <Separator prefWidth="200.0" />
                         <ScrollPane>
                           <content>
                             <AnchorPane>
@@ -37,7 +43,7 @@
                                        <children>
                                           <VBox>
                                              <children>
-                                                <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" prefHeight="100.0">
+                                                <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" prefHeight="100.0" style="-fx-background-color: #ffcccc;">
                                                    <children>
                                                       <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
