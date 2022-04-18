@@ -43,10 +43,10 @@
                                         <MenuItem mnemonicParsing="false" onAction="#switchToMealDelivery" text="Meals" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToLanguageInterpreter" text="Interpreters" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToSecurity" text="Security" />
-                                        <MenuItem mnemonicParsing="false" onAction="#switchToComputerService" text="Computer Services" />
-                                        <MenuItem mnemonicParsing="false" onAction="#switchToFlowerService" text="Flower Delivery" />
-                                        <MenuItem mnemonicParsing="false" onAction="#switchToGiftService" text="Gift Delivery" />
-                                        <MenuItem mnemonicParsing="false" onAction="#switchToSanitationService" text="Sanitation Services" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToComputerService" text="Computer" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToFlowerService" text="Flowers" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToGiftService" text="Gifts" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToSanitationService" text="Sanitation" />
                                     </items>
                                     <HBox.margin>
                                         <Insets right="10.0" top="10.0" />
