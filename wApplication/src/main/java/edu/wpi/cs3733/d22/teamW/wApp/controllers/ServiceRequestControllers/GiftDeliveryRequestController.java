@@ -46,7 +46,7 @@ public class GiftDeliveryRequestController extends LoadableController {
 
   @Override
   protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.SanitationService;
+    return SceneManager.Scenes.GiftDelivery;
   }
 
   @Override
