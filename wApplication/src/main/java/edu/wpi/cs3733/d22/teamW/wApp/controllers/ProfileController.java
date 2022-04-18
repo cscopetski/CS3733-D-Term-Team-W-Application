@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
+import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -16,7 +17,6 @@ public class ProfileController extends LoadableController {
   @FXML Label email;
   @FXML Label phoneNumber;
   @FXML Label address;
-  Employee employee;
 
   @Override
   protected SceneManager.Scenes GetSceneType() {
@@ -25,10 +25,7 @@ public class ProfileController extends LoadableController {
 
   @Override
   public void onLoad() {
-    employee =
-        ((DefaultPageController)
-                SceneManager.getInstance().getController(SceneManager.Scenes.Default))
-            .getEmployee();
+    Employee employee = Account.getInstance().getEmployee();
     name.setText(employee.getFirstName() + " " + employee.getLastName());
     id.setText(employee.getEmployeeID().toString());
     type.setText(employee.getType().getString());
