@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
@@ -33,11 +34,62 @@ public class ProfileController extends LoadableController {
     phoneNumber.setText(employee.getPhoneNumber());
     address.setText(employee.getAddress());
 
+    rt.setColumnWidth("Req. ID", 60);
     rt.setColumnWidth("Request Type", 130);
-    rt.setColumnWidth("Employee Name", 150);
-    rt.setColumnWidth("Status", 60);
+    rt.setColumnWidth("Employee Name", 140);
+    rt.setColumnWidth("Location", 80);
+    rt.setColumnWidth("Status", 80);
+    try {
+      rt.setItems(RequestFacade.getRequestFacade().getAllEmployeeRequests(3));
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    rt.setEditable(false);
   }
 
   @Override
   public void onUnload() {}
+
+  /*
+  @Override
+  public void initialize(URL location, ResourceBundle rb) {
+    super.initialize(location, rb);
+
+    rt.getSelectionModel()
+            .selectedItemProperty()
+            .addListener(
+                    (obs, oldSelection, newSelection) -> {
+                      if (newSelection == null) {
+                        moreInfo.setText("Select a request to view details.");
+                      }
+                      SR request = rt.getSelection();
+                      if (request != null) {
+                        try {
+                          moreInfo.setText(request.getFormattedInfo());
+                        } catch (SQLException e) {
+                          e.printStackTrace();
+                          moreInfo.setText("Error loading request details.");
+                        } catch (StatusError e) {
+                          e.printStackTrace();
+                        } catch (NonExistingMedEquip e) {
+                          e.printStackTrace();
+                        } catch (Exception e) {
+                          e.printStackTrace();
+                        }
+                      }
+
+                      selectionButtons.setVisible(newSelection != null);
+                    });
+
+    try {
+      equipmentSelection
+              .getSelectionModel()
+              .selectedIndexProperty()
+              .addListener((e, o, n) -> setItemsWithFilter(n.intValue()));
+    } catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+
+   */
 }
