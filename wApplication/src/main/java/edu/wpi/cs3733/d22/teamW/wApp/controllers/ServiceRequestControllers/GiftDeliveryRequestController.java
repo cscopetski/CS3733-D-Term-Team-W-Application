@@ -25,8 +25,8 @@ import javafx.util.Duration;
 public class GiftDeliveryRequestController extends LoadableController {
   @FXML TextField recipientLastName;
   @FXML TextField recipientFirstName;
-  @FXML ComboBox locationComboBox1;
-  @FXML ComboBox employeeIDComboBox1;
+  @FXML ComboBox locationComboBox;
+  @FXML ComboBox employeeIDComboBox;
   @FXML EmergencyButton emergencyButton1;
   @FXML Label successLabel;
 
@@ -46,7 +46,7 @@ public class GiftDeliveryRequestController extends LoadableController {
 
   @Override
   protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.SanitationService;
+    return SceneManager.Scenes.GiftDelivery;
   }
 
   @Override
@@ -56,8 +56,8 @@ public class GiftDeliveryRequestController extends LoadableController {
     fadeOut.setToValue(0.0);
     fadeOut.setCycleCount(1);
     fadeOut.setAutoReverse(false);
-    locationComboBox1.setItems(FXCollections.observableArrayList(getLocations()));
-    employeeIDComboBox1.setItems(FXCollections.observableArrayList(getEmployeeNames()));
+    locationComboBox.setItems(FXCollections.observableArrayList(getLocations()));
+    employeeIDComboBox.setItems(FXCollections.observableArrayList(getEmployeeNames()));
   }
 
   @Override
@@ -66,27 +66,20 @@ public class GiftDeliveryRequestController extends LoadableController {
   }
 
   private boolean emptyFields() {
-    return employeeIDComboBox1.getSelectionModel().isEmpty()
-        || locationComboBox1.getSelectionModel().isEmpty()
+    return employeeIDComboBox.getSelectionModel().isEmpty()
+        || locationComboBox.getSelectionModel().isEmpty()
         || recipientFirstName.getText().isEmpty()
         || recipientLastName.getText().isEmpty();
   }
-
-  /*
-  this.recipientFirstName = fields.get(1);
-    this.recipientLastName = fields.get(2);
-    this.nodeID = fields.get(3);
-    this.employeeID = Integer.parseInt(fields.get(4));
-    this.emergency = Integer.parseInt(fields.get(5));
-   */
 
   private void pushSanitationServiceRequestToDB() throws SQLException {
     ArrayList<String> srFields = new ArrayList<String>();
     srFields.add(recipientFirstName.getText());
     srFields.add(recipientLastName.getText());
-    locationToNodeID(locationComboBox1.getSelectionModel().getSelectedItem().toString());
     srFields.add(
-        getEmployeeID(employeeIDComboBox1.getSelectionModel().getSelectedItem().toString()));
+        locationToNodeID(locationComboBox.getSelectionModel().getSelectedItem().toString()));
+    srFields.add(
+        getEmployeeID(employeeIDComboBox.getSelectionModel().getSelectedItem().toString()));
     if (emergencyButton1.getValue()) {
       srFields.add("1");
     } else {
@@ -100,8 +93,8 @@ public class GiftDeliveryRequestController extends LoadableController {
   }
 
   private void clearFields() {
-    locationComboBox1.getSelectionModel().clearSelection();
-    employeeIDComboBox1.getSelectionModel().clearSelection();
+    locationComboBox.getSelectionModel().clearSelection();
+    employeeIDComboBox.getSelectionModel().clearSelection();
     recipientFirstName.clear();
     recipientLastName.clear();
     emergencyButton1.setValue(false);

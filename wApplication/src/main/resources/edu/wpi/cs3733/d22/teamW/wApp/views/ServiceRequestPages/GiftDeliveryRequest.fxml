@@ -98,7 +98,7 @@
                                     <Insets top="10.0" />
                                  </padding>
                               </Label>
-                              <ComboBox fx:id="locationComboBox1" prefWidth="150.0">
+                              <ComboBox fx:id="locationComboBox" prefWidth="150.0">
                                  <VBox.margin>
                                     <Insets bottom="20.0" />
                                  </VBox.margin>
@@ -108,7 +108,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="employeeIDComboBox1" prefWidth="150.0">
+                              <ComboBox fx:id="employeeIDComboBox" prefWidth="150.0">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
