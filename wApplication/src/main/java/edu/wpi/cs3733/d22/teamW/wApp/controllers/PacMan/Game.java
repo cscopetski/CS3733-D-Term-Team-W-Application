@@ -34,6 +34,9 @@ public class Game {
     RIGHT;
   }
 
+  private final Color strokeColor = Color.rgb(152, 229, 219);
+  private final Color wallColor = Color.rgb(1, 56, 149);
+
   private final int mapWidth = 600;
   private final int mapHeight = 400;
   private final int size = 8; // refers to the radius of the circle
@@ -60,7 +63,7 @@ public class Game {
 
   private ArrayList<Rectangle> wallList = new ArrayList<Rectangle>();
   private ArrayList<Circle> pelletList = new ArrayList<Circle>();
-  private ArrayList<ImageView> bonusList = new ArrayList<ImageView>();
+  private ArrayList<PowerPellet> bonusList = new ArrayList<PowerPellet>();
   private Dir red_movingAt, pink_movingAt, orange_movingAt, cyan_movingAt;
   private Dir movingAt, newDir;
 
@@ -76,7 +79,7 @@ public class Game {
     window.setResizable(false);
 
     pane = new Pane();
-    pane.setStyle("-fx-background-color : black");
+    pane.setStyle("-fx-background-color : white");
 
     initialize();
 
@@ -128,7 +131,7 @@ public class Game {
 
     pacman = new Circle(); // create pacman
     pacman.setRadius(size);
-    pacman.setFill(Color.YELLOW);
+    pacman.setFill(wallColor);
     pacman.setCenterX(pacmanX);
     pacman.setCenterY(pacmanY);
     pane.getChildren().add(pacman);
@@ -664,8 +667,10 @@ public class Game {
   // method to check if pacman ate a bonus food
   private Boolean ateBonus(double x, double y) {
     for (int n = 0; n < bonusList.size(); n++) {
-      if (bonusList.get(n).getX() == x && bonusList.get(n).getY() == y) {
-        pane.getChildren().remove(bonusList.get(n));
+      if (bonusList.get(n).getCirc().getCenterX() == x
+          && bonusList.get(n).getCirc().getCenterY() == y) {
+        pane.getChildren().remove(bonusList.get(n).getImg());
+        pane.getChildren().remove(bonusList.get(n).getCirc());
         bonusList.remove(n);
         score += 20; // increment the player's score by 20
         bonusEaten = true;
@@ -777,8 +782,8 @@ public class Game {
   }
 
   private void blinkBonus() {
-    for (ImageView food : bonusList) {
-      food.setVisible(!food.isVisible());
+    for (PowerPellet food : bonusList) {
+      food.getImg().setVisible(!food.getImg().isVisible());
     }
   }
 
@@ -848,7 +853,7 @@ public class Game {
           pellet.setRadius(1.5);
           pellet.setCenterX(x);
           pellet.setCenterY(y);
-          pellet.setFill(Color.WHITE);
+          pellet.setFill(Color.rgb(0, 139, 176, 1.0));
           pane.getChildren().add(pellet);
           pelletList.add(pellet);
           num++;
@@ -861,23 +866,25 @@ public class Game {
     ImageView img = new ImageView(assignIcon());
     img.setFitHeight(32);
     img.setFitWidth(32);
-    img.setX(x);
-    img.setY(y);
-    pane.getChildren().add(img);
-    bonusList.add(img);
+    img.setX(x - 16);
+    img.setY(y - 16);
+    PowerPellet pp = new PowerPellet(img, new Circle(x, y, 0));
+    pane.getChildren().add(pp.getImg());
+    pane.getChildren().add(pp.getCirc());
+    bonusList.add(pp);
   }
 
   private Image assignIcon() {
-    Image img = new Image("/edu/wpi/cs3733/d22/teamW/wApp/assets/mgb_logo.png");
+    Image img = null;
     int randomNum = ((int) Math.floor(Math.random() * 4));
     if (randomNum == 0) {
-      img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Bed.png");
+      img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Icons/PacMan/Center-01.png");
     } else if (randomNum == 1) {
-      img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Inp.png");
+      img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Icons/PacMan/Center-03.png");
     } else if (randomNum == 2) {
-      img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Recliner.png");
+      img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Icons/PacMan/Center-04.png");
     } else if (randomNum == 3) {
-      img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_XRay.png");
+      img = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Icons/PacMan/Center-05.png");
     }
     return img;
   }
@@ -909,12 +916,24 @@ public class Game {
   }
 
   private Boolean isABonusFood(double x, double y) {
-    for (ImageView imageView : bonusList)
-      if (imageView.getX() == x && imageView.getY() == y) return true;
+    for (PowerPellet food : bonusList)
+      if (food.getCirc().getCenterX() == x && food.getCirc().getCenterY() == y) return true;
 
     return false;
   }
 
+
+  private void makeWall(double x, double y){
+    Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
+    wall.setStroke(strokeColor);
+    wall.setFill(wallColor);
+    wall.setStrokeWidth(2.0);
+    wallList.add(wall);
+    pane.getChildren().add(wall);
+
+    x += wallSize;
+    numOfWalls++;
+  }
   // method to make the walls
   private void drawWalls() {
     int x, y;
@@ -925,7 +944,8 @@ public class Game {
     while (x < mapWidth) // walls on the top
     {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -939,7 +959,8 @@ public class Game {
     while (y < mapHeight) // walls on the left edge
     {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -953,7 +974,8 @@ public class Game {
     while (y < mapHeight) // walls on the right edge
     {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -967,7 +989,8 @@ public class Game {
     while (x < mapWidth) // walls on the bottom
     {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -979,7 +1002,8 @@ public class Game {
     y = 40;
     for (x = 40; x < 320; x += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -989,7 +1013,8 @@ public class Game {
     x = 40;
     for (y = 80; y < 180; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -999,7 +1024,8 @@ public class Game {
     y = 80;
     for (x = 60; x < 200; x += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1009,7 +1035,8 @@ public class Game {
     x = 180;
     for (y = 100; y < 180; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1019,7 +1046,8 @@ public class Game {
     y = 180;
     for (x = 40; x < 200; x += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1029,7 +1057,8 @@ public class Game {
     y = 220;
     for (x = 20; x < 200; x += (wallSize * 2)) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1039,7 +1068,8 @@ public class Game {
     x = 40;
     for (y = 260; y < 360; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1049,7 +1079,8 @@ public class Game {
     y = 340;
     for (x = 60; x < 140; x += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1060,7 +1091,8 @@ public class Game {
     for (x = 400; x < 600; x += wallSize) {
       if (x != 500) {
         Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-        wall.setStroke(Color.CORNFLOWERBLUE);
+        wall.setStroke(strokeColor);
+        wall.setFill(wallColor);
         wall.setStrokeWidth(2.0);
         wallList.add(wall);
         pane.getChildren().add(wall);
@@ -1071,7 +1103,8 @@ public class Game {
     y = 300;
     for (x = 340; x < mapWidth; x += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1081,7 +1114,8 @@ public class Game {
     y = 260;
     for (x = 80; x < 140; x += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1091,7 +1125,8 @@ public class Game {
     x = 120;
     for (y = 280; y < 320; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1101,7 +1136,8 @@ public class Game {
     y = 340;
     for (x = 200; x < 280; x += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1111,7 +1147,8 @@ public class Game {
     x = 340;
     for (y = 20; y < 160; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1121,7 +1158,8 @@ public class Game {
     x = 380;
     for (y = 40; y < 180; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1131,7 +1169,8 @@ public class Game {
     x = 420;
     for (y = 20; y < 160; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1141,7 +1180,8 @@ public class Game {
     x = 460;
     for (y = 40; y < 180; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1151,7 +1191,8 @@ public class Game {
     x = 500;
     for (y = 20; y < 160; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1161,7 +1202,8 @@ public class Game {
     x = 540;
     for (y = 40; y < 180; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1171,7 +1213,8 @@ public class Game {
     y = 180;
     for (x = 340; x < 560; x += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1181,7 +1224,8 @@ public class Game {
     y = 80;
     for (x = 220; x < 320; x += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1191,7 +1235,8 @@ public class Game {
     x = 260;
     for (y = 100; y < 220; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1201,7 +1246,8 @@ public class Game {
     x = 220;
     for (y = 120; y < 200; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1211,7 +1257,8 @@ public class Game {
     y = 220;
     for (x = 220; x < 320; x += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1221,7 +1268,8 @@ public class Game {
     x = 300;
     for (y = 120; y < 200; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1231,7 +1279,8 @@ public class Game {
     x = 300;
     for (y = 260; y < 360; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1241,7 +1290,8 @@ public class Game {
     y = 340;
     for (x = 320; x < 380; x += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1251,7 +1301,8 @@ public class Game {
     x = 160;
     for (y = 320; y < mapHeight; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1261,7 +1312,8 @@ public class Game {
     y = 300;
     for (x = 160; x < 240; x += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1271,7 +1323,8 @@ public class Game {
     y = 260;
     for (x = 160; x < 260; x += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1281,7 +1334,8 @@ public class Game {
     x = 260;
     for (y = 260; y < 360; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1291,7 +1345,8 @@ public class Game {
     y = 220;
     for (x = 340; x < mapWidth; x += (wallSize * 2)) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1301,7 +1356,8 @@ public class Game {
     y = 240;
     for (x = 360; x < mapWidth - wallSize; x += (wallSize * 4)) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
@@ -1311,7 +1367,8 @@ public class Game {
     y = 260;
     for (x = 340; x < mapWidth; x += (wallSize * 2)) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
-      wall.setStroke(Color.CORNFLOWERBLUE);
+      wall.setStroke(strokeColor);
+      wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
       pane.getChildren().add(wall);
