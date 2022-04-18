@@ -115,12 +115,11 @@ public class MealDeliveryServiceRequestController extends LoadableController {
 
   private void pushMealDeliveryToDB() throws SQLException {
     ArrayList<String> mdFields = new ArrayList<String>();
+    mdFields.add(getMealTypeList().get(currentSelection));
     mdFields.add(patientLast.getText());
     mdFields.add(patientFirst.getText());
-    mdFields.add(getMealTypeList().get(currentSelection));
-    System.out.println(currentSelection);
-    System.out.println(getMealTypeList().get(currentSelection));
-    locationToNodeID(locationComboBox.getSelectionModel().getSelectedItem().toString());
+    mdFields.add(
+        locationToNodeID(locationComboBox.getSelectionModel().getSelectedItem().toString()));
     mdFields.add(
         getEmployeeID(employeeNameComboBox.getSelectionModel().getSelectedItem().toString()));
     if (emergencyB.getValue()) {
