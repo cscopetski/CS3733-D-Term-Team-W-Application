@@ -99,21 +99,26 @@
                                                 <Font name="System Bold" size="14.0" />
                                              </font>
                                           </Label>
-                                          <BorderPane maxWidth="250.0" prefHeight="17.0" prefWidth="250.0" />
                                           <ComboBox fx:id="employeeSelection" prefHeight="25.0" prefWidth="179.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                                          <BorderPane maxWidth="250.0" prefHeight="39.0" prefWidth="265.0">
-                                             <VBox.margin>
-                                                <Insets top="5.0" />
-                                             </VBox.margin>
-                                          </BorderPane>
                                           <BorderPane maxWidth="250.0" prefHeight="30.0" prefWidth="250.0">
                                              <VBox.margin>
                                                 <Insets top="20.0" />
                                              </VBox.margin>
                                           </BorderPane>
+                                          <BorderPane maxWidth="250.0" prefHeight="17.0" prefWidth="250.0" />
+                                          <BorderPane maxWidth="250.0" prefHeight="39.0" prefWidth="265.0">
+                                             <VBox.margin>
+                                                <Insets top="5.0" />
+                                             </VBox.margin>
+                                          </BorderPane>
                                        </children>
                                     </VBox>
-                                                <Button layoutX="120.0" layoutY="152.0" minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
+                                    <Label fx:id="successLabel" layoutY="182.0" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                                <Button layoutY="152.0" minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
                                             </children>
                                         </Pane>
                                         <BorderPane prefHeight="0.0" prefWidth="376.0" />
