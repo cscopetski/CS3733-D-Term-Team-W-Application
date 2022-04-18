@@ -1,40 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.AdminHub">
-    <children>
-        <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="600.0" prefWidth="600.0" style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable?>
+<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.AdminHub">
+   <children>
+      <VBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TabPane layoutX="90.0" layoutY="38.0" prefHeight="600.0" prefWidth="600.0" stylesheets="@../CSS/UniversalCSS/Standard.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-              <tabs>
-                <Tab text="Employee Manager">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                           <children>
-                              <TableView layoutX="14.0" layoutY="156.0" prefHeight="243.0" prefWidth="341.0">
-                                <columns>
-                                  <TableColumn prefWidth="75.0" text="C1" />
-                                  <TableColumn prefWidth="75.0" text="C2" />
-                                </columns>
-                              </TableView>
-                              <Label layoutX="14.0" layoutY="138.0" text="Employee Information" />
-                           </children>
-                        </AnchorPane>
-                  </content>
-                </Tab>
-                <Tab text="Map Editor">
-                  <content>
-                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                  </content>
-                </Tab>
-              </tabs>
-            </TabPane>
-         </children></AnchorPane>
-    </children>
+            <BorderPane>
+               <center>
+                  <TabPane prefHeight="600.0" prefWidth="940.0" style="-fx-background-color: white; -fx-background-position: center;" stylesheets="@../CSS/UniversalCSS/Standard.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                    <tabs>
+                      <Tab text="Employee Manager">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <RequestTable fx:id="employeeTable" layoutX="382.0" layoutY="223.0" prefHeight="322.0" prefWidth="557.0"/>
+                                    <Group layoutX="551.0" layoutY="191.0">
+                                       <children>
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#189da6" height="33.0" layoutX="4.0" layoutY="2.0" stroke="#24141400" strokeType="INSIDE" style="-fx-background-color: #189DA6;" width="371.0" />
+                                          <Label layoutX="49.0" layoutY="3.0" text="Employee Information Table" textFill="WHITE">
+                                             <font>
+                                                <Font name="System Bold" size="21.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Group>
+                                    <Label layoutX="432.0" layoutY="93.0" text="ADMIN HUB" textFill="#013895">
+                                       <font>
+                                          <Font name="System Bold" size="19.0" />
+                                       </font>
+                                    </Label>
+                                    <Label layoutX="403.0" layoutY="116.0" text="Top secret page for admins only" textFill="#8f8d8d" />
+                                    <ImageView fitHeight="90.0" fitWidth="90.0" layoutX="444.0" layoutY="5.0">
+                                       <image>
+                                          <Image url="@../assets/Icons/adminIcon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label layoutX="29.0" layoutY="204.0" text="Search Employee">
+                                       <font>
+                                          <Font size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField layoutX="29.0" layoutY="227.0" prefHeight="28.0" prefWidth="211.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#189da6" height="54.0" layoutX="3.0" layoutY="203.0" stroke="TRANSPARENT" strokeType="INSIDE" width="22.0" />
+                                 </children>
+                              </AnchorPane>
+                        </content>
+                      </Tab>
+                      <Tab text="Map Editor">
+                        <content>
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                        </content>
+                      </Tab>
+                    </tabs>
+                  </TabPane>
+               </center>
+            </BorderPane>
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>
