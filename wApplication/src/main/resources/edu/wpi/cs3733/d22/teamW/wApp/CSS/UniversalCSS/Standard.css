@@ -3,6 +3,16 @@
     -fx-button-second-font-color: #013895;
 }
 
+.scroll-pane .scroll-bar {
+    -fx-background-color: white;
+    -fx-opacity: 1;
+    -fx-padding: 2;
+}
+
+.scroll-pane .scroll-bar .thumb{
+    -fx-background-color:  #013895;
+}
+
 .check-box .box {
 
     -fx-background-color: white;
@@ -173,6 +183,16 @@
     -fx-background-color: white;
     -fx-background-radius: 6.4, 4, 5, 3;
     -fx-background-insets: -1.4, 0, 1, 2;
+}
+
+.combo-box .scroll-bar {
+    -fx-background-color: white;
+    -fx-opacity: 1;
+    -fx-padding: 2;
+}
+
+.combo-box .scroll-bar .thumb {
+    -fx-background-color:  #013895;
 }
 
 .table-view {
@@ -370,4 +390,38 @@
     -fx-border-color: #013895;
     -fx-border-radius: 15;
     -fx-border-width: 3;
+}
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:90px;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-background-color: #e6e6e6;
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #013895;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #828282;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
 }

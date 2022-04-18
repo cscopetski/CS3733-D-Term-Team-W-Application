@@ -54,6 +54,7 @@ public class DBController {
 
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
+      EmployeeMessageDao employeeMessageDao = new EmployeeMessageDaoImpl(statement);
       LanguageRequestDao languageRequestDao = new LanguageRequestDaoImpl(statement);
       SecurityRequestDao securityRequestDao = new SecurityRequestDaoImpl(statement);
       MealRequestDao mealRequestDao = new MealRequestDaoImpl(statement);
@@ -90,6 +91,7 @@ public class DBController {
           .setLanguageInterpreterDao(languageInterpreterDao);
       GiftDeliveryRequestManager.getGiftDeliveryRequestManager()
           .setGiftDeliveryRequestDao(giftDeliveryRequestDao);
+      EmployeeMessageManager.getEmployeeMessageManager().setEmployeeMessageDao(employeeMessageDao);
       MealRequestManager.getMealRequestManager().setMealRequestDao(mealRequestDao);
       SecurityRequestManager.getSecurityRequestManager().setSecurityRequestDao(securityRequestDao);
       LanguageRequestManager.getLanguageRequestManager().setLanguageRequestDao(languageRequestDao);
@@ -108,6 +110,7 @@ public class DBController {
       ((ComputerServiceRequestDaoImpl) csrDao).createTable();
       ((SanitationRequestDaoImpl) sanitationRequestDao).createTable();
       ((GiftDeliveryRequestDaoImpl) giftDeliveryRequestDao).createTable();
+      employeeMessageDao.createTable();
       ((MealRequestDaoImpl) mealRequestDao).createTable();
       ((SecurityRequestDaoImpl) securityRequestDao).createTable();
       ((LanguageRequestDaoImpl) languageRequestDao).createTable();

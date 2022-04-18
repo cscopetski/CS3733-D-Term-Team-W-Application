@@ -97,32 +97,20 @@
                         <Pane prefHeight="65.0" prefWidth="30.0" />
                         <VBox prefHeight="200.0" prefWidth="130.0">
                            <children>
-                              <Label text="Item Code:">
+                              <Label text="Unit:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="itemCodeField" minWidth="120.0" prefHeight="28.0" prefWidth="126.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </TextField>
-                           </children>
-                        </VBox>
-                        <Pane prefHeight="65.0" prefWidth="30.0" />
-                        <VBox prefHeight="59.0" prefWidth="130.0">
-                           <children>
-                              <Label text="Time Preferance:">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <ComboBox fx:id="timePrefCBox" prefHeight="28.0" prefWidth="185.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                              <ComboBox fx:id="unitCBox" minWidth="120.0" prefHeight="28.0" prefWidth="126.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
                                  <VBox.margin>
                                     <Insets bottom="5.0" top="5.0" />
                                  </VBox.margin>
                               </ComboBox>
                            </children>
+                        </VBox>
+                        <Pane prefHeight="65.0" prefWidth="30.0" />
+                        <VBox prefHeight="59.0" prefWidth="130.0">
                         </VBox>
                      </children>
                      <opaqueInsets>

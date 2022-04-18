@@ -33,6 +33,30 @@ public class medEquip {
     Status.set(status.getString());
   }
 
+  public void setMedID(String medID) {
+    this.MedID.set(medID);
+  }
+
+  public void setXCoord(int XCoord) {
+    this.XCoord.set(XCoord);
+  }
+
+  public void setYCoord(int YCoord) {
+    this.YCoord.set(YCoord);
+  }
+
+  public void setType(String type) {
+    this.Type.set(type);
+  }
+
+  public void setStatus(String status) {
+    this.Status.set(status);
+  }
+
+  public void setFloor(String floor) {
+    this.Floor.set(floor);
+  }
+
   public int getXCoord() {
     return XCoord.get();
   }
