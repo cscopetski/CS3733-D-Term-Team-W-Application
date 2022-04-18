@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.MessageCardHBox;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
@@ -10,19 +11,23 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.TreeSet;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
+import javafx.geometry.Orientation;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import javafx.util.Duration;
 
 public class MessagingPageController extends LoadableController {
 
@@ -33,6 +38,7 @@ public class MessagingPageController extends LoadableController {
   @FXML Label messageTitleLabel;
   @FXML VBox messagesWindow;
   @FXML VBox messageWindow;
+  @FXML VBox employeeCardView;
   @FXML TextArea messageTextField;
   @FXML Button sendButton;
   @FXML Button sendButtonMe;
@@ -45,6 +51,115 @@ public class MessagingPageController extends LoadableController {
   @Override
   public void onLoad() throws SQLException {
     employeeComboBox.setItems(FXCollections.observableArrayList(getEmployeeIDs()));
+    resetMessagePage();
+  }
+
+  public void refreshEmployeeCard() throws SQLException {
+    clearEmployeeCards();
+    ArrayList<EmployeeMessage> allMessages =
+        EmployeeMessageManager.getEmployeeMessageManager().getAllMessages();
+    Collections.sort(
+        allMessages,
+        new Comparator<EmployeeMessage>() {
+          @Override
+          public int compare(EmployeeMessage o1, EmployeeMessage o2) {
+            return -1 * o1.getSentTimestamp().compareTo(o2.getSentTimestamp());
+          }
+        });
+    TreeSet<Integer> uniqueID = new TreeSet<>();
+    for (EmployeeMessage message : allMessages) {
+      if (message.getEmpIDto().equals(this.currentEmployee.getEmployeeID())) {
+        if (uniqueID.add(message.getEmpIDfrom())) {
+          if (message.getIsRead() == 0) {
+            addEmployeeCard(message.getEmpIDfrom(), true);
+          } else {
+            addEmployeeCard(message.getEmpIDfrom(), false);
+          }
+        }
+      }
+      if (message.getEmpIDfrom().equals(this.currentEmployee.getEmployeeID())) {
+        if (uniqueID.add(message.getEmpIDto())) {
+          addEmployeeCard(message.getEmpIDto(), false);
+        }
+      }
+    }
+  }
+
+  public void clearEmployeeCards() {
+    employeeCardView.getChildren().clear();
+  }
+
+  public void addEmployeeCard(Integer empID, boolean hasUnread) throws SQLException {
+    Employee emp = EmployeeManager.getEmployeeManager().getEmployee(empID);
+    ImageView placeHolderImage = new ImageView();
+    placeHolderImage.setImage(
+        new Image(
+            MessagingPageController.class
+                .getClassLoader()
+                .getResource("edu/wpi/cs3733/d22/teamW/wApp/assets/Icons/profilePicture.png")
+                .toString()));
+    placeHolderImage.setFitWidth(80);
+    placeHolderImage.setFitHeight(80);
+    Label employeeNameLabel =
+        new Label(String.format("%s %s", emp.getFirstName(), emp.getLastName()));
+    if (hasUnread) {
+      employeeNameLabel =
+          new Label(
+              String.format(
+                  "(%d) %s %s",
+                  EmployeeMessageManager.getEmployeeMessageManager()
+                      .countUnreadMessagesAsFrom(this.currentEmployee.getEmployeeID(), empID),
+                  emp.getFirstName(),
+                  emp.getLastName()));
+    }
+    MessageCardHBox newHBOX =
+        new MessageCardHBox(
+            placeHolderImage, new Separator(Orientation.VERTICAL), employeeNameLabel);
+    newHBOX.setEmpID(emp.getEmployeeID());
+    newHBOX.setHasUrgent(hasUnread);
+    newHBOX.setPrefHeight(100);
+    newHBOX.setMinHeight(-1.0 / 0.0);
+    newHBOX.setMinWidth(-1.0 / 0.0);
+    newHBOX.setOnMouseClicked(
+        new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent event) {
+            try {
+              clickEmployeeCard(event);
+            } catch (SQLException e) {
+              e.printStackTrace();
+            }
+          }
+        });
+    newHBOX.setOnMouseEntered(
+        new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent event) {
+            mouseOverCard(event);
+          }
+        });
+    newHBOX.setOnMouseExited(
+        new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent event) {
+            mouseExitCard(event);
+          }
+        });
+    if (hasUnread) {
+      newHBOX.setStyle("-fx-background-color: #ffcccc;");
+    }
+    VBox cardVBox = new VBox(newHBOX, new Separator());
+    employeeCardView.getChildren().add(cardVBox);
+  }
+
+  public void clickEmployeeCard(MouseEvent event) throws SQLException {
+    Integer selectedID = ((MessageCardHBox) event.getSource()).getEmpID();
+    this.selectedEmployee = EmployeeManager.getEmployeeManager().getEmployee(selectedID);
+    if (!this.employeeComboBox.getSelectionModel().isEmpty()) {
+      this.employeeComboBox.getSelectionModel().clearSelection();
+    }
+    updateMessageWindow();
+    refreshEmployeeCard();
   }
 
   @Override
@@ -66,16 +181,20 @@ public class MessagingPageController extends LoadableController {
         });
     for (EmployeeMessage message : currentMessages) {
       if (message.getEmpIDto().equals(currentEmployee.getEmployeeID())) {
-        addMessageToList(message.getMessageContent(), true);
+        addMessageToList(message, true);
       } else {
-        addMessageToList(message.getMessageContent(), false);
+        addMessageToList(message, false);
       }
     }
   }
 
-  public void addMessageToList(String text, boolean fromOther) {
+  public void addMessageToList(EmployeeMessage message, boolean fromOther) {
+    Tooltip timestampTooltip = new Tooltip(message.getSentTimestamp().toString());
+    timestampTooltip.setShowDelay(Duration.ZERO);
+    timestampTooltip.setHideDelay(Duration.ZERO);
+
     if (fromOther) { // Display on left
-      Label otherMessageLabel = new Label(text);
+      Label otherMessageLabel = new Label(message.getMessageContent());
       otherMessageLabel.setStyle(
           "-fx-background-color: #e5e5ea;"
               + "-fx-label-padding: 5;"
@@ -84,6 +203,7 @@ public class MessagingPageController extends LoadableController {
       otherMessageLabel.setMinHeight(-1.0 / 0.0);
       otherMessageLabel.setMaxHeight(-1.0 / 0.0);
       otherMessageLabel.setWrapText(true);
+      otherMessageLabel.setTooltip(timestampTooltip);
 
       VBox otherMessageVBox = new VBox(otherMessageLabel);
       otherMessageVBox.setFillWidth(true);
@@ -92,7 +212,7 @@ public class MessagingPageController extends LoadableController {
       otherMessageVBox.setPadding(new Insets(0, 0, 10, 0));
       messagesWindow.getChildren().add(otherMessageVBox);
     } else { // Display on right
-      Label myMessageLabel = new Label(text);
+      Label myMessageLabel = new Label(message.getMessageContent());
       myMessageLabel.setStyle(
           "-fx-background-color: #248bf5;"
               + "-fx-label-padding: 5;"
@@ -102,6 +222,7 @@ public class MessagingPageController extends LoadableController {
       myMessageLabel.setMinHeight(-1.0 / 0.0);
       myMessageLabel.setMaxHeight(-1.0 / 0.0);
       myMessageLabel.setWrapText(true);
+      myMessageLabel.setTooltip(timestampTooltip);
 
       VBox myMessageVBox = new VBox(myMessageLabel);
 
@@ -159,7 +280,19 @@ public class MessagingPageController extends LoadableController {
     this.currentEmployee = employee;
   }
 
+  public void resetMessagePage() throws SQLException {
+    clearMessages();
+    refreshEmployeeCard();
+    messageTitleLabel.setText("Select an Employee");
+    messageTextField.clear();
+    if (!this.employeeComboBox.getSelectionModel().isEmpty()) {
+      this.employeeComboBox.getSelectionModel().clearSelection();
+    }
+    messageWindow.setDisable(true);
+  }
+
   public void refreshMessages() throws SQLException {
+    refreshEmployeeCard();
     ArrayList<EmployeeMessage> messagesFromThemToMe =
         EmployeeMessageManager.getEmployeeMessageManager()
             .getMessagesFromTo(
@@ -168,16 +301,30 @@ public class MessagingPageController extends LoadableController {
         EmployeeMessageManager.getEmployeeMessageManager()
             .getMessagesFromTo(
                 this.currentEmployee.getEmployeeID(), this.selectedEmployee.getEmployeeID());
+    markMessagesRead(messagesFromThemToMe);
     messagesFromThemToMe.addAll(messagesFromMeToThem);
     loadMessages(messagesFromThemToMe);
   }
 
+  public void markMessagesRead(ArrayList<EmployeeMessage> messages) throws SQLException {
+    for (EmployeeMessage message : messages) {
+      message.setIsRead(1);
+      EmployeeMessageManager.getEmployeeMessageManager().changeEmployeeMessage(message);
+    }
+  }
+
   public void employeeSelected(ActionEvent actionEvent) throws SQLException {
+    if (employeeComboBox.getSelectionModel().isEmpty()) return;
     this.selectedEmployee =
         EmployeeManager.getEmployeeManager()
             .getEmployee(
                 Integer.parseInt(
                     employeeComboBox.getSelectionModel().getSelectedItem().toString()));
+    updateMessageWindow();
+    refreshEmployeeCard();
+  }
+
+  public void updateMessageWindow() throws SQLException {
     messageWindow.setDisable(false);
     messageTitleLabel.setText(
         this.selectedEmployee.getFirstName() + " " + this.selectedEmployee.getLastName());
@@ -205,6 +352,22 @@ public class MessagingPageController extends LoadableController {
     if (keyEvent.getCode().equals(KeyCode.ENTER)) {
       onSendButtonClick();
       messageTextField.clear();
+    }
+  }
+
+  public void mouseOverCard(MouseEvent mouseEvent) {
+    if (((MessageCardHBox) mouseEvent.getSource()).isHasUrgent()) {
+      ((MessageCardHBox) mouseEvent.getSource()).setStyle("-fx-background-color: #ffb2b2;");
+    } else {
+      ((MessageCardHBox) mouseEvent.getSource()).setStyle("-fx-background-color: AliceBlue;");
+    }
+  }
+
+  public void mouseExitCard(MouseEvent mouseEvent) {
+    if (((MessageCardHBox) mouseEvent.getSource()).isHasUrgent()) {
+      ((MessageCardHBox) mouseEvent.getSource()).setStyle("-fx-background-color: #ffcccc;");
+    } else {
+      ((MessageCardHBox) mouseEvent.getSource()).setStyle("");
     }
   }
 }

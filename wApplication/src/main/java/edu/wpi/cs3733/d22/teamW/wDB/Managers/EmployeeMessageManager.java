@@ -39,6 +39,14 @@ public class EmployeeMessageManager {
     return this.emd.getEmployeeMessage(messageID);
   }
 
+  public Integer countUnreadMessagesAs(Integer empIDto) throws SQLException {
+    return this.emd.countUnreadMessagesAs(empIDto);
+  }
+
+  public Integer countUnreadMessagesAsFrom(Integer empIDto, Integer empIDfrom) throws SQLException {
+    return this.emd.countUnreadMessagesAsFrom(empIDto, empIDfrom);
+  }
+
   public void addEmployeeMessage(EmployeeMessage em) throws SQLException {
     this.emd.addEmployeeMessage(em);
     count++;

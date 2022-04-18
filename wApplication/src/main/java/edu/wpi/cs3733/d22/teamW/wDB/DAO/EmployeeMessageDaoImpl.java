@@ -74,6 +74,27 @@ public class EmployeeMessageDaoImpl implements EmployeeMessageDao {
   }
 
   @Override
+  public Integer countUnreadMessagesAs(Integer empIDto) throws SQLException {
+    ResultSet messageDatabase =
+        statement.executeQuery(
+            String.format(
+                "SELECT COUNT(*) FROM EMPLOYEEMESSAGES WHERE EMPIDTO=%d AND ISREAD=0", empIDto));
+    messageDatabase.next();
+    return messageDatabase.getInt(1);
+  }
+
+  @Override
+  public Integer countUnreadMessagesAsFrom(Integer empIDto, Integer empIDfrom) throws SQLException {
+    ResultSet messageDatabase =
+        statement.executeQuery(
+            String.format(
+                "SELECT COUNT(*) FROM EMPLOYEEMESSAGES WHERE EMPIDTO=%d AND EMPIDFROM=%d AND ISREAD=0",
+                empIDto, empIDfrom));
+    messageDatabase.next();
+    return messageDatabase.getInt(1);
+  }
+
+  @Override
   public EmployeeMessage getEmployeeMessage(Integer messageID) throws SQLException {
     ResultSet messageDatabase =
         statement.executeQuery(
