@@ -46,6 +46,7 @@ public class ComputerServiceRequestDaoImpl implements ComputerServiceRequestDao 
               + "createdTimeStamp TIMESTAMP,"
               + "updatedTimeStamp TIMESTAMP,"
               + "constraint computerServReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),\n"
+              + "constraint computerServReq_Employee_FK foreign key (employeeID) references EMPLOYEES(employeeID),"
               + "constraint computerServReq_PK primary key (ReqID),\n"
               + "constraint computerServReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
               + "constraint ComputerServIsEmergency_check check (isEmergency = 0 or isEmergency = 1))");

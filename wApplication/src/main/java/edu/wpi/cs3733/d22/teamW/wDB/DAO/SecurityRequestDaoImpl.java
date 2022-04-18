@@ -47,6 +47,7 @@ public class SecurityRequestDaoImpl implements SecurityRequestDao {
               + "reqStatus INT,"
               + "createdTimeStamp TIMESTAMP,"
               + "updatedTimeStamp TIMESTAMP,"
+              + "constraint secServReq_Employee_FK foreign key (employeeID) references EMPLOYEES(employeeID),"
               + "constraint secServReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),\n"
               + "constraint secServReq_PK primary key (ReqID),\n"
               + "constraint secServReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"

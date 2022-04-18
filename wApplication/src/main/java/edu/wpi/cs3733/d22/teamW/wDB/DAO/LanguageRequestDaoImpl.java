@@ -2,7 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LanguageRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LanguageRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -12,6 +12,7 @@ import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class LanguageRequestDaoImpl implements LanguageRequestDao {
@@ -68,8 +69,32 @@ public class LanguageRequestDaoImpl implements LanguageRequestDao {
         String.format("INSERT INTO LANGUAGEREQUESTS VALUES (%s)", lr.toValuesString()));
   }
 
+  /*
+
+  "requestID INT,"
+              + "language varchar(25),"
+              + "nodeID varchar(25),"
+              + "employeeID INT,"
+              + "isEmergency INT,"
+              + "reqStatus INT, "
+              + "createdTimestamp timestamp, "
+              + "updatedTimestamp timestamp, "
+
+   */
+
   @Override
-  public void changeLanguageRequest(LanguageRequest lr) throws SQLException {}
+  public void changeLanguageRequest(LanguageRequest lr) throws SQLException {
+    statement.executeUpdate(
+        String.format(
+            "UPDATE LANGUAGEREQUESTS SET LANGUAGE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d, UPDATEDTIMESTAMP = '%s' WHERE REQUESTID = %d",
+            lr.getLanguage(),
+            lr.getNodeID(),
+            lr.getEmployeeID(),
+            lr.getEmergency(),
+            lr.getStatus().getValue(),
+            new Timestamp(System.currentTimeMillis()),
+            lr.getRequestID()));
+  }
 
   @Override
   public void deleteLanguageRequest(Integer id) throws SQLException {
@@ -190,9 +215,8 @@ public class LanguageRequestDaoImpl implements LanguageRequestDao {
       reqIDs.add(reqID);
     }
 
-    // TODO Fix this once the manager is made
     for (Integer reqID : reqIDs) {
-      MedEquipRequestManager.getMedEquipRequestManager().cancel(reqID);
+      LanguageRequestManager.getLanguageRequestManager().cancel(reqID);
     }
 
     statement.executeUpdate(

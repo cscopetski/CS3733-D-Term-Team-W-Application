@@ -62,11 +62,15 @@ public class LanguageRequestManager implements RequestManager {
       request =
           (LanguageRequest)
               RequestFacade.getRequestFacade().findRequest(requestID, RequestType.LanguageRequest);
+      System.out.println("START LANGUAGE");
+      System.out.println(request.toValuesString());
     } catch (Exception e) {
       e.printStackTrace();
     }
     request.setStatus(RequestStatus.InProgress);
     lrd.changeLanguageRequest(request);
+    System.out.println("START LANGUAGE");
+    System.out.println(request.toValuesString());
   }
 
   public void complete(Integer requestID) throws SQLException {

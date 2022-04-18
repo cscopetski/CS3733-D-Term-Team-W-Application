@@ -50,6 +50,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
               + "reqStatus INT, "
               + "createdTimestamp timestamp, "
               + "updatedTimestamp timestamp, "
+              + "constraint MedReq_Employee_FK foreign key (employeeID) references EMPLOYEES(employeeID),"
               + "constraint MEDIREQ_Location_FK foreign key (nodeID) references LOCATIONS,"
               + "constraint MediReq_PK primary key (requestID),"
               + "constraint MediReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
@@ -72,7 +73,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
   public void changeMedRequest(MedRequest mr) throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDREQUESTS SET PMEDICINE='%s', QUANTITY = %.2f, UNIT = '%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE REQUESTID=%d",
+            "UPDATE MEDREQUESTS SET MEDICINE='%s', QUANTITY = %.2f, UNIT = '%s', NODEID='%s', EMPLOYEEID=%d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE REQUESTID=%d",
             mr.getMedicineType(),
             mr.getQuantity(),
             mr.getUnit().getUnits(),

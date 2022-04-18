@@ -49,6 +49,7 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
               + "createdTimeStamp TIMESTAMP,"
               + "updatedTimeStamp TIMESTAMP,"
               + "constraint cleanReq_itemID_FK foreign key (itemID) references MEDICALEQUIPMENT(medID),\n"
+              + "constraint cleanReq_Employee_FK foreign key (employeeID) references EMPLOYEES(employeeID),"
               + "constraint cleanReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),\n"
               + "constraint cleanReq_PK primary key (ReqID),\n"
               + "constraint cleaningReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
