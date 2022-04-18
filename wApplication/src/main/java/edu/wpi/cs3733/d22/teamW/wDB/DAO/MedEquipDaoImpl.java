@@ -60,7 +60,6 @@ public class MedEquipDaoImpl implements MedEquipDao {
         list += " or ";
       }
     }
-    System.out.println(list);
     return list;
   }
 
@@ -77,9 +76,6 @@ public class MedEquipDaoImpl implements MedEquipDao {
 
         for (int i = 0; i < medEquipment.getMetaData().getColumnCount(); i++) {
           medEquipData.add(medEquipment.getString(i + 1));
-        }
-        for (String e : medEquipData) {
-          System.out.println(e);
         }
         medEquipList.add(new MedEquip(medEquipData));
       }
@@ -115,7 +111,6 @@ public class MedEquipDaoImpl implements MedEquipDao {
       queury += status.getValue();
       queury += ")";
     }
-    System.out.println(queury);
     try {
       ResultSet medEquipment = statement.executeQuery(queury);
 
