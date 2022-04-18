@@ -20,7 +20,6 @@ public class RequestHubController {
   @FXML Label giftDeliveryCredit;
   @FXML ToggleButton toggleButton;
 
-
   public void switchToMedicineDelivery(ActionEvent event) throws IOException {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicineDelivery);
   }
@@ -53,12 +52,12 @@ public class RequestHubController {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.SanitationService);
   }
 
-  public void switchToFlowerService(ActionEvent event) throws IOException {
+  public void switchToFlowerDelivery(ActionEvent event) throws IOException {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.FlowerRequest);
   }
 
-  public void switchToGiftService(ActionEvent event) throws IOException {
-    //SceneManager.getInstance().transitionTo(SceneManager.Scenes.GiftDeliveryRequest);
+  public void switchToGiftDelivery(ActionEvent event) throws IOException {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.GiftDelivery);
   }
 
   public void creditsToggle(ActionEvent event) throws IOException {
