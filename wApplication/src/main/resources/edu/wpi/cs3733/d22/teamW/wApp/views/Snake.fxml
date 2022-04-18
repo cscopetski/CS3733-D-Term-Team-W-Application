@@ -11,62 +11,65 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#moveSquareKeyPressed" prefHeight="750.0" prefWidth="600.0" style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.Snake.SnakeController">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#moveSquareKeyPressed" prefHeight="600.0" prefWidth="600.0" style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.Snake.SnakeController">
     <children>
-      <VBox prefHeight="42.0" prefWidth="600.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="608.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <AnchorPane layoutX="10.0" layoutY="10.0" style="-fx-alignment: center;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <BorderPane prefHeight="40.0" prefWidth="600.0">
-               <center>
-                    <Button fx:id="startButton" mnemonicParsing="false" onAction="#start" onKeyPressed="#moveSquareKeyPressed" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Start" BorderPane.alignment="CENTER" />
-               </center>
-               <bottom>
-                  <Label fx:id="score" text="Score: 0" BorderPane.alignment="CENTER">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <BorderPane.margin>
-                        <Insets top="10.0" />
-                     </BorderPane.margin></Label>
-               </bottom>
-               <top>
-                  <Pane maxHeight="30.0" maxWidth="150.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
-                     <children>
-                        <BorderPane maxHeight="30.0" maxWidth="150.0" prefHeight="200.0" prefWidth="200.0">
-                           <center>
-                              <Label alignment="CENTER" maxWidth="150.0" prefWidth="100.0" style="-fx-font-weight: bold;" text="WIGGLING WONG" textFill="WHITE" BorderPane.alignment="CENTER">
+            <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="650.0" prefWidth="600.0" style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <AnchorPane fx:id="gameBorder" layoutX="250.0" layoutY="250.0" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #013895;" />
+                  <ImageView fx:id="image" fitHeight="50.0" fitWidth="50.0" layoutX="275.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../assets/Icons/wong.png" />
+                     </image>
+                  </ImageView>
+                  <BorderPane prefHeight="40.0" prefWidth="600.0">
+                     <center>
+                          <Button fx:id="startButton" mnemonicParsing="false" onAction="#start" onKeyPressed="#moveSquareKeyPressed" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Start" BorderPane.alignment="CENTER" />
+                     </center>
+                     <top>
+                        <Pane maxHeight="30.0" maxWidth="150.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
+                           <children>
+                              <BorderPane maxHeight="30.0" maxWidth="150.0" prefHeight="200.0" prefWidth="200.0">
+                                 <center>
+                                    <Label alignment="CENTER" maxWidth="150.0" prefWidth="100.0" style="-fx-font-weight: bold;" text="WIGGLING WONG" textFill="WHITE" BorderPane.alignment="CENTER">
+                                       <font>
+                                          <Font size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </center>
+                              </BorderPane>
+                           </children>
+                           <BorderPane.margin>
+                              <Insets bottom="20.0" top="10.0" />
+                           </BorderPane.margin>
+                        </Pane>
+                     </top>
+                     <bottom>
+                        <VBox prefHeight="42.0" prefWidth="600.0" style="-fx-alignment: center;" BorderPane.alignment="CENTER">
+                           <children>
+                              <Label fx:id="score" text="Score: 0">
                                  <font>
-                                    <Font size="14.0" />
+                                    <Font name="System Bold" size="12.0" />
                                  </font>
                               </Label>
-                           </center>
-                        </BorderPane>
-                     </children>
-                     <BorderPane.margin>
-                        <Insets bottom="20.0" top="10.0" />
-                     </BorderPane.margin>
-                  </Pane>
-               </top>
-            </BorderPane>
-            <Label fx:id="score1" text="Use the WASD keys to move around." textFill="#767676">
-               <font>
-                  <Font name="System Italic" size="12.0" />
-               </font>
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </Label>
+                              <Label fx:id="score1" text="Use the WASD keys to move around." textFill="#767676">
+                                 <font>
+                                    <Font name="System Italic" size="12.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </bottom>
+                  </BorderPane>
+                  <Label fx:id="loss" alignment="CENTER" prefWidth="600.0" text="YOU LOSE!" textFill="RED" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
+                     <font>
+                        <Font name="System Bold" size="60.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
          </children>
-      </VBox>
-      <AnchorPane fx:id="gameBorder" prefHeight="100.0" prefWidth="100.0" style="-fx-background-color: #013895;" />
-      <Label fx:id="loss" alignment="CENTER" prefWidth="600.0" text="YOU LOSE!" textFill="RED" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
-         <font>
-            <Font name="System Bold" size="60.0" />
-         </font>
-      </Label>
-      <ImageView fx:id="image" fitHeight="50.0" fitWidth="50.0" layoutX="200.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../assets/Icons/wong.png" />
-         </image>
-      </ImageView>
+      </AnchorPane>
     </children>
 </AnchorPane>

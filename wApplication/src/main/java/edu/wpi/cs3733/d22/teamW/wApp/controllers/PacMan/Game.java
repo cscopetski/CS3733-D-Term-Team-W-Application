@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -55,6 +56,7 @@ public class Game {
 
   public Game(Stage primaryStage) {
     window = primaryStage;
+    window.initModality(Modality.APPLICATION_MODAL);
     window.setTitle("Wild Wild Wongs");
     primaryStage
         .getIcons()

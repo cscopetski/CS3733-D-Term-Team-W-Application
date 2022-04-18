@@ -68,8 +68,7 @@ public class SceneManager {
     Help,
     About,
     Profile,
-    Snake,
-    PacMan
+    Gaming,
   }
 
   private static class Instance {
@@ -247,6 +246,22 @@ public class SceneManager {
     getScene().getRoot().setEffect(new GaussianBlur(5));
     stage.setOnCloseRequest(e -> getScene().getRoot().setEffect(null));
 
+    stage.showAndWait();
+
+    return stage;
+  }
+
+  public Stage openGameWindow(String fileName, String title, String icon) throws IOException {
+    Stage stage = new Stage();
+    stage.initOwner(primaryStage);
+    stage.initModality(Modality.APPLICATION_MODAL);
+    stage.setTitle(title);
+    stage.getIcons().add(new Image(getClass().getResourceAsStream(icon)));
+    Parent root =
+        FXMLLoader.load(getClass().getResource("/edu/wpi/cs3733/d22/teamW/wApp/views/" + fileName));
+    stage.setScene(new Scene(root));
+    stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
+    stage.setResizable(false);
     stage.showAndWait();
 
     return stage;
