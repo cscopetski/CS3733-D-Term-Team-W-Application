@@ -65,14 +65,16 @@ public class LanguageInterpreterServiceRequestController extends LoadableControl
     languageSelection.setItems(FXCollections.observableArrayList(getLanguageTypeList()));
     languageSelection.setOnAction(
         (event) -> {
-          String language = languageSelection.getSelectionModel().getSelectedItem().toString();
-          employeeSelection.setDisable(false);
-          try {
-            employeeSelection.setItems(
-                FXCollections.observableArrayList(getEmployeeNames(language)));
-          } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Lmao front end ez");
+          if (!languageSelection.getSelectionModel().isEmpty()) {
+            String language = languageSelection.getSelectionModel().getSelectedItem().toString();
+            employeeSelection.setDisable(false);
+            try {
+              employeeSelection.setItems(
+                  FXCollections.observableArrayList(getEmployeeNames(language)));
+            } catch (SQLException e) {
+              e.printStackTrace();
+              System.out.println("Lmao front end ez");
+            }
           }
         });
   }
@@ -107,9 +109,16 @@ public class LanguageInterpreterServiceRequestController extends LoadableControl
   }
 
   private void clearFields() {
-    locationSelection.getSelectionModel().clearSelection();
-    employeeSelection.getSelectionModel().clearSelection();
-    languageSelection.getSelectionModel().clearSelection();
+    if (!locationSelection.getSelectionModel().isEmpty()) {
+      locationSelection.getSelectionModel().clearSelection();
+    }
+    if (!employeeSelection.getSelectionModel().isEmpty()) {
+      employeeSelection.getSelectionModel().clearSelection();
+    }
+    if (!languageSelection.getSelectionModel().isEmpty()) {
+      languageSelection.getSelectionModel().clearSelection();
+    }
+
     emergencyB.setValue(false);
     employeeSelection.setDisable(true);
   }
