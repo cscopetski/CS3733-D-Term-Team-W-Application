@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
@@ -17,6 +18,7 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
@@ -26,16 +28,19 @@ public class ComputerServiceRequestController extends LoadableController {
   @FXML ComboBox employeeIDComboBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
+  Alert confirm = new ConfirmAlert();
 
   Alert emptyFields = new EmptyAlert();
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
 
   public void submitButton(ActionEvent actionEvent) {
     if (!emptyFields()) {
-      pushComputerServiceRequestToDB();
-      clearFields();
-      successLabel.setVisible(true);
-      fadeOut.playFromStart();
+      if (confirm.getResult() == ButtonType.OK) {
+        pushComputerServiceRequestToDB();
+        clearFields();
+        successLabel.setVisible(true);
+        fadeOut.playFromStart();
+      }
     } else {
       emptyFields.show();
     }
