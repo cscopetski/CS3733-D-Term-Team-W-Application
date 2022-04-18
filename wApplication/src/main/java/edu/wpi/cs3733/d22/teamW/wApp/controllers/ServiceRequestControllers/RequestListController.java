@@ -233,4 +233,23 @@ public class RequestListController extends LoadableController {
     // rt.setItems(RequestFacade.getRequestFacade().);
     // }
   }
+
+  public void requeue(ActionEvent actionEvent) {
+    try {
+      RequestFacade.getRequestFacade()
+          .requeueRequest(rt.getSelection().getRequestID(), rt.getSelection().getRequestType());
+    } catch (CannotRequeue c) {
+      Alert alert =
+          new Alert(
+              Alert.AlertType.WARNING, "Cannot Requeue A Request That Is Complete!", ButtonType.OK);
+      alert.showAndWait();
+    } catch (NonExistingRequestID r) {
+      Alert alert = new Alert(Alert.AlertType.WARNING, "RequestID Does Not Exist!", ButtonType.OK);
+      alert.showAndWait();
+    } catch (Exception s) {
+      Alert alert = new Alert(Alert.AlertType.WARNING, "Error", ButtonType.OK);
+      alert.showAndWait();
+    }
+    resetItems();
+  }
 }
