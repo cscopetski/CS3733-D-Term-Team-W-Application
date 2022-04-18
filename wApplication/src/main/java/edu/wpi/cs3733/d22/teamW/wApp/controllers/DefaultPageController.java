@@ -4,6 +4,8 @@ import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.HBox;
@@ -30,6 +32,7 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane aboutPage;
   @FXML public Pane profilePage;
   @FXML public Pane snakePage;
+  @FXML public Pane messagingPage;
   @FXML public HBox menuBar;
   @FXML public Pane buttonPane;
 
@@ -62,6 +65,7 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().putPane(SceneManager.Scenes.About, aboutPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Profile, profilePage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Snake, snakePage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Messaging, messagingPage);
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Login);
   }
 
@@ -113,7 +117,11 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 
-  public void switchToRequestHub() {
+  public void switchToMessaging(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Messaging);
+  }
+
+  public void switchToRequestHub(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestHub);
   }
 

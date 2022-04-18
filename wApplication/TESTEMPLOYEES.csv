@@ -1,0 +1,15 @@
+employeeID,firstName,lastName,employeeType,email,phoneNumber,address,username,password,salt
+-1,N/A,Deleted,Denied,N/A,N/A,N/A,N/A,b89cc67afdc1019ece9b2b1a31a22328,58e7af1c7331b1d12057ef1972cba70f
+1,N/A,Staff,Staff,staff@hospital.com,(123)4567890,Mass General,staff,97adb5a6171ea3e2b6a73035c92e89b5,f57fef973ec5f6ad3b7e5550e2ab5974
+2,N/A,Administrator,Administrator,admin@hospital.com,(123)4567890,Office,admin,860bb9a34d1aec116efb54eee7e81341,3dc0ddd4c54c9c9a3b37a346893c87de
+3,Caleb,Scopetski,Doctor,N/A,(123)4567890,NeVer LeFt MaSs,Scoop,7c7f647ebd821e9b596ff91efdb9e2b3,293425e15e8fce656582a90e5e45864f
+4,Edison,Zhang,Sanitation Officer,N/A,(123)4567890,Jamaica,ezhang,855136eed1d20fd0b2acd4916e3efa58,4c041815a975a4b7453ad3b5b4e1bd9f
+5,Charlie,K-W,Nurse,N/A,(123)4567890,The North,charkw,750ad0b990a08d1272555925780de5a7,b0d6725d10af54045c56e303a4d754b1
+6,Hasan,G,Technician,N/A,(123)4567890,Bikini Bottom,hzgan,f4a17b813937811e18b58ad2e58415c6,6c02a6df737695ae78e94bc15670c6b6
+7,Ethan,Pollack,Staff,ethan@hospital.com,(123) 456-7890,75 Francis St Boston MA 02115,ethan31,6cd0849f835ddda1c6af8689f91de727,38fd47c636087673e9694b064d137318
+8,Jason,Odell,Staff,jason@hospital.com,(123) 456-7890,75 Francis St Boston MA 02115,uginghostdragon,9b804be9434be83a8a52caf182f62246,6100c717f26409033304150579edca9e
+9,Edward,Enyedy,Staff,edward@hospital.com,(123) 456-7890,75 Francis St Boston MA 02115,Tarkus,ef1939114a9faeab4625b7f0fbbfb563,0368507dc6873b0d0bd35f64367adb66
+10,Phil,Bui,Staff,phil@hospital.com,(123) 456-7890,75 Francis St Boston MA 02115,philbui,995e7d6881e1c20d28a4066747812943,217e39777e3e69018f21f6f038320d0a
+11,Jack,McEvoy,Staff,jack@hospital.com,(123) 456-7890,75 Francis St Boston MA 02115,LinkdAether,d5fcea4c6f45f2cc98766d44f5b2e000,4b9e40121c5706479d1a85e8aeb875f9
+12,Leona,Nguyen,Staff,leona@hospital.com,(123) 456-7890,75 Francis St Boston MA 02115,JustLeona,6fc71a81d6f9caa615b8a4e603583b82,83d901c3f1a71ed2db662c231c285ef2
+13,Dylan,Olmsted,Staff,dylan@hospital.com,(123) 456-7890,75 Francis St Boston MA 02115,SAFARIOLMY,964c1da086595459cff6182771257e5c,aec2d1303f4d2e8a3bdeaad07adf8b54
