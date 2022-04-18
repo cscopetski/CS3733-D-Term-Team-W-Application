@@ -98,6 +98,11 @@ public class SecurityRequestManager implements RequestManager {
     return csr;
   }
 
+  @Override
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    return this.csrd.getEmployeeRequests(employeeID);
+  }
+
   public void changeRequest(Request request) throws SQLException {
     csrd.changeSecurityRequest((SecurityRequest) request);
   }

@@ -71,6 +71,8 @@ public class SceneManager {
     ComputerService,
     SanitationService,
     Messaging,
+    FlowerRequest,
+    GiftDelivery,
     Snake
   }
 

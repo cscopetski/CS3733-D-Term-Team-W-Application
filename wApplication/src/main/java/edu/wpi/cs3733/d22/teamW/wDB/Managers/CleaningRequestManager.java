@@ -1,12 +1,11 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.CleaningRequestDao;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.CleaningRequestMax;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.*;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.Automation;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.*;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -47,8 +46,7 @@ public class CleaningRequestManager {
   //  }
 
   // TODO auto start all cleaning requests at that location when it is 6
-  public CleaningRequest addNewRequest(Integer num, ArrayList<String> fields)
-      throws SQLException, StatusError, CleaningRequestMax {
+  public CleaningRequest addNewRequest(Integer num, ArrayList<String> fields) throws Exception {
     CleaningRequest cr;
     fields.add(Integer.toString(RequestStatus.InQueue.getValue()));
     fields.add(new Timestamp(System.currentTimeMillis()).toString());
@@ -78,8 +76,7 @@ public class CleaningRequestManager {
     return cr;
   }
 
-  public CleaningRequest addExistingRequest(ArrayList<String> fields)
-      throws SQLException, StatusError, CleaningRequestMax {
+  public CleaningRequest addExistingRequest(ArrayList<String> fields) throws Exception {
     CleaningRequest cr = new CleaningRequest(fields);
     // TODO special exception
     if (RequestFactory.getRequestFactory().getReqIDList().add(cr.getRequestID())) {
@@ -97,14 +94,58 @@ public class CleaningRequestManager {
 
   // TODO Ask Caleb how to get OR Bed PARK
   // What happens if the OR BED PARK is deleted this function would break
-  public void start(Integer requestID) throws SQLException, StatusError {
+  public void start(Integer requestID) throws Exception {
     CleaningRequest cr = crd.getCleaningRequest(requestID);
     if (cr.getStatus() == RequestStatus.InQueue) {
       cr.setStatus(RequestStatus.InProgress);
-      cr.setNodeID("wSTOR001L1");
+      MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
+      if (item.getType().equals(MedEquipType.Bed)) {
+        cr.setNodeID("wSTOR001L1");
+        MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), "wSTOR001L1");
+      } else if (item.getType().equals(MedEquipType.InfusionPump)) {
+        cr.setNodeID("wSTOR0011");
+        MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), "wSTOR0011");
+      }
+      crd.changeCleaningRequest(cr);
+    }
+  }
+
+  public void markComplete(String medID, String nodeID) throws Exception {
+    CleaningRequest cr = crd.getCleaningRequest(medID);
+    if (cr == null) {
+      System.out.println("TRYING TO COMPLETE A NULL CLEANING REQUEST ID");
+      return;
+    }
+    if (cr.getStatus() == RequestStatus.InProgress
+        || cr.getStatus().equals(RequestStatus.InQueue)) {
+      cr.setStatus(RequestStatus.Completed);
+      cr.setNodeID(nodeID);
       crd.changeCleaningRequest(cr);
       MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
-      MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), "wSTOR001L1");
+      MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), nodeID);
+      MedEquipManager.getMedEquipManager().markClean(item.getMedID(), nodeID);
+      if (Automation.Automation.getAuto()) {
+        MedEquipRequestManager.getMedEquipRequestManager().startNext(item.getType());
+      }
+    }
+  }
+
+  public void complete(String medID, String nodeID) throws Exception {
+    CleaningRequest cr = crd.getCleaningRequest(medID);
+    if (cr == null) {
+      System.out.println("TRYING TO COMPLETE A NULL CLEANING REQUEST ID");
+      return;
+    }
+    if (cr.getStatus() == RequestStatus.InProgress) {
+      cr.setStatus(RequestStatus.Completed);
+      cr.setNodeID(nodeID);
+      crd.changeCleaningRequest(cr);
+      MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
+      MedEquipManager.getMedEquipManager().moveTo(item.getMedID(), nodeID);
+      MedEquipManager.getMedEquipManager().markClean(item.getMedID(), nodeID);
+      if (Automation.Automation.getAuto()) {
+        MedEquipRequestManager.getMedEquipRequestManager().startNext(item.getType());
+      }
     }
   }
 
@@ -143,17 +184,55 @@ public class CleaningRequestManager {
     }
   }
 
-  public void checkStart() throws SQLException, StatusError, CleaningRequestMax {
+  public void checkStart() throws Exception {
     ArrayList<String> cleaningLocations = crd.getCleaningLocation();
     for (String location : cleaningLocations) {
-      System.out.println(location);
       ArrayList<Integer> requests = crd.CleaningRequestAtLocation(location);
+      ArrayList<Integer> ids = new ArrayList<>();
+      ArrayList<Integer> ids2 = new ArrayList<>();
       if (requests.size() >= 6) {
+        Integer counter = 0;
+        Integer counter2 = 0;
         for (Integer c : requests) {
-          System.out.println(c);
-          start(c);
+          CleaningRequest cr =
+              (CleaningRequest)
+                  RequestFacade.getRequestFacade().findRequest(c, RequestType.CleaningRequest);
+          MedEquip me = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
+          if (me.getType().equals(MedEquipType.Bed)) {
+            ids.add(c);
+            counter++;
+          } else if (me.getType().equals(MedEquipType.InfusionPump)) {
+            ids2.add(c);
+            counter2++;
+          }
         }
-        throw new CleaningRequestMax();
+        if (counter >= 6) {
+          for (Integer id : ids) {
+            start(id);
+          }
+          throw new SixDirtyBeds();
+        }
+        if (counter2 >= 10) {
+          for (Integer id : ids2) {
+            start(id);
+          }
+          throw new TenDirtyInfusionPumps();
+        }
+      }
+    }
+    ArrayList<MedEquip> medEquipArrayList =
+        MedEquipManager.getMedEquipManager()
+            .getAllMedEquip(MedEquipType.InfusionPump, MedEquipStatus.Clean);
+    ArrayList<Location> locations = LocationManager.getLocationManager().getLocationClean();
+    for (Location location : locations) {
+      Integer counter = 0;
+      for (MedEquip med : medEquipArrayList) {
+        if (med.getNodeID().equals(location.getNodeID())) {
+          counter++;
+        }
+      }
+      if (counter < 5) {
+        throw new FewerThanFiveCleanINP();
       }
     }
   }

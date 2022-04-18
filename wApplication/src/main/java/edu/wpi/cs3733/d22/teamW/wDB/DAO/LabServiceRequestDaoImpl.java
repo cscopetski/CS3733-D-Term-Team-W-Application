@@ -53,6 +53,7 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
               + "reqStatus INT, \n"
               + "createdTimestamp timestamp, \n"
               + "updatedTimestamp timestamp, \n"
+              + "constraint LabReq_Employee_FK foreign key (employeeID) references EMPLOYEES(employeeID),"
               + "constraint LabReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),\n"
               + "constraint LabReq_PK primary key (labReqID),\n"
               + "constraint LabReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"

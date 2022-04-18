@@ -71,6 +71,32 @@ public class LocationDaoImpl implements LocationDao {
     return locationsList;
   }
 
+  public ArrayList<Location> getAllCleanLocations() throws SQLException {
+    ArrayList<Location> locationsList = new ArrayList<>();
+
+    try {
+      ResultSet locations =
+          statement.executeQuery(
+              "SELECT * FROM LOCATIONS WHERE (SHORTNAME = 'Pod B Equip Stor' OR SHORTNAME = 'Pod C Equip Stor')");
+
+      while (locations.next()) {
+        ArrayList<String> locationData = new ArrayList<String>();
+
+        for (int i = 0; i < locations.getMetaData().getColumnCount(); i++) {
+          locationData.add(locations.getString(i + 1));
+        }
+
+        locationsList.add(new Location(locationData));
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from locations table failed");
+      throw (e);
+    }
+
+    return locationsList;
+  }
+
   @Override
   public void addLocation(Location location) throws SQLException {
     statement.executeUpdate(

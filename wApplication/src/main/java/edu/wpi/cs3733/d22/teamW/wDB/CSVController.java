@@ -18,10 +18,14 @@ public class CSVController {
   private String medRequestFileName;
   private String flowerRequestFileName;
   private String computerServiceRequestFileName;
+  private String cleaningRequestFileName;
   private String sanitationRequestFileName;
   private String languageFileName;
   private String languageInterpFileName;
   private String giftDeliveryRequestFileName;
+  private String mealRequestFileName;
+  private String securityRequestFileName;
+  private String languageRequestFileName;
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
@@ -35,9 +39,14 @@ public class CSVController {
       String flowerRequestFileName,
       String computerServiceRequestFileName,
       String sanitationRequestFileName,
+      String cleaningRequestFileName,
       String languageFileName,
       String languageInterpFileName,
-      String giftDeliveryRequestFileName) {
+      String giftDeliveryRequestFileName,
+      String mealRequestFileName,
+      String securityRequestFileName,
+      String languageRequestFileName) {
+
     this.locationFileName = locationFileName;
     this.medEquipFileName = medEquipFileName;
     this.medEquipRequestFileName = medEquipRequestFileName;
@@ -50,6 +59,10 @@ public class CSVController {
     this.languageFileName = languageFileName;
     this.languageInterpFileName = languageInterpFileName;
     this.giftDeliveryRequestFileName = giftDeliveryRequestFileName;
+    this.cleaningRequestFileName = cleaningRequestFileName;
+    this.mealRequestFileName = mealRequestFileName;
+    this.securityRequestFileName = securityRequestFileName;
+    this.languageRequestFileName = languageRequestFileName;
   }
 
   public void populateTables() throws Exception {
@@ -64,7 +77,12 @@ public class CSVController {
     insertMedRequestTable(importCSV(medRequestFileName));
     insertFlowerRequestTable(importCSV(flowerRequestFileName));
     insertComputerServiceRequestTable(importCSV(computerServiceRequestFileName));
+    insertSanitationServiceRequestTable(importCSV(sanitationRequestFileName));
+    insertCleaningRequestTable(importCSV(cleaningRequestFileName));
     insertGiftDeliveryRequestTable(importCSV(giftDeliveryRequestFileName));
+    insertMealRequestTable(importCSV(mealRequestFileName));
+    insertSecurityRequestTable(importCSV(securityRequestFileName));
+    insertLanguageRequestTable(importCSV(languageRequestFileName));
   }
 
   public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
@@ -221,6 +239,18 @@ public class CSVController {
     }
   }
 
+  private void insertLanguageRequestTable(ArrayList<String[]> tokens) throws Exception {
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+
+      LanguageRequest lr =
+          (LanguageRequest) requestFactory.getRequest(RequestType.LanguageRequest, fields, true);
+
+      // medReqLists.add(mr);
+    }
+  }
+
   private void insertFlowerRequestTable(ArrayList<String[]> tokens) throws Exception {
 
     for (String[] s : tokens) {
@@ -233,7 +263,7 @@ public class CSVController {
   }
 
   private void insertIntoLanguagesTable(ArrayList<String[]> tokens) throws SQLException {
-    LanguageManager lm = LanguageManager.getLocationManager();
+    LanguageManager lm = LanguageManager.getLanguageManager();
     for (String[] s : tokens) {
       lm.addLanguage(s[0]);
     }
@@ -299,6 +329,46 @@ public class CSVController {
       fields.addAll(Arrays.asList(s));
       GiftDeliveryRequest gdr =
           (GiftDeliveryRequest) requestFactory.getRequest(RequestType.GiftDelivery, fields, true);
+    }
+  }
+
+  private void insertSanitationServiceRequestTable(ArrayList<String[]> tokens) throws Exception {
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+      SanitationRequest gdr =
+          (SanitationRequest)
+              requestFactory.getRequest(RequestType.SanitationService, fields, true);
+    }
+  }
+
+  private void insertMealRequestTable(ArrayList<String[]> tokens) throws Exception {
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+      MealRequest gdr =
+          (MealRequest) requestFactory.getRequest(RequestType.MealDelivery, fields, true);
+    }
+  }
+
+  private void insertCleaningRequestTable(ArrayList<String[]> tokens) throws Exception {
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+      CleaningRequest gdr =
+          (CleaningRequest) requestFactory.getRequest(RequestType.CleaningRequest, fields, true);
+    }
+  }
+
+  private void insertSecurityRequestTable(ArrayList<String[]> tokens) throws Exception {
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+      SecurityRequest gdr =
+          (SecurityRequest) requestFactory.getRequest(RequestType.SecurityService, fields, true);
     }
   }
 }

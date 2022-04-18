@@ -1,9 +1,10 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
+import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -22,6 +23,8 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane securityServiceRequestPage;
   @FXML public Pane computerServiceRequestPage;
   @FXML public Pane sanitationRequestPage;
+  @FXML public Pane flowerRequestPage;
+  @FXML public Pane giftDeliveryPage;
   @FXML public Pane requestListPage;
   @FXML public Pane requestHubPage;
   @FXML public Pane loginPage;
@@ -32,8 +35,6 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane messagingPage;
   @FXML public HBox menuBar;
   @FXML public Pane buttonPane;
-
-  protected Employee employee;
 
   public void initialize(URL location, ResourceBundle rb) {
 
@@ -56,6 +57,8 @@ public class DefaultPageController implements Initializable {
         .putPane(SceneManager.Scenes.ComputerService, computerServiceRequestPage);
     SceneManager.getInstance()
         .putPane(SceneManager.Scenes.SanitationService, sanitationRequestPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.FlowerRequest, flowerRequestPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.GiftDelivery, giftDeliveryPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.RequestList, requestListPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.RequestHub, requestHubPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Help, helpPage);
@@ -66,51 +69,51 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Login);
   }
 
-  public void setEmployee(Employee em) {
-    this.employee = em;
-  }
-
-  public Employee getEmployee() {
-    return this.employee;
-  }
-
-  public void switchToMedicineDelivery(ActionEvent event) {
+  public void switchToMedicineDelivery() {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicineDelivery);
   }
 
-  public void switchToLab(ActionEvent event) {
+  public void switchToLab() {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Lab);
   }
 
-  public void switchToMedicalEquipmentDelivery(ActionEvent event) {
+  public void switchToMedicalEquipmentDelivery() {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicalEquipment);
   }
 
-  public void switchToMealDelivery(ActionEvent event) {
+  public void switchToMealDelivery() {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MealDelivery);
   }
 
-  public void switchToLanguageInterpreter(ActionEvent event) {
+  public void switchToLanguageInterpreter() {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.LanguageInterpreter);
   }
 
-  public void switchToSecurity(ActionEvent event) {
+  public void switchToSecurity() {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Security);
   }
 
-  public void switchToComputerService(ActionEvent event) {
+  public void switchToComputerService() {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.ComputerService);
   }
 
-  public void switchToSanitationService(ActionEvent event) {
+  public void switchToFlowerService() {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.FlowerRequest);
+  }
+
+  public void switchToGiftService() {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.GiftDelivery);
+  }
+
+  public void switchToSanitationService() {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.SanitationService);
   }
 
-  public void switchToMapEditor(ActionEvent event) {
+  public void switchToMapEditor() {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MapEditor);
   }
 
-  public void switchToRequestList(ActionEvent event) {
+  public void switchToRequestList() {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 
@@ -126,9 +129,10 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MainMenu);
   }
 
-  public void logOut(ActionEvent actionEvent) {
+  public void logOut() {
     menuBar.setVisible(false);
     buttonPane.setDisable(true);
+    Account.getInstance().setEmployee(null);
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Login);
   }
 
@@ -136,19 +140,19 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().exitApplication();
   }
 
-  public void switchToProfile(ActionEvent actionEvent) {
+  public void switchToProfile() {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Profile);
   }
 
-  public void switchToAbout(ActionEvent actionEvent) {
+  public void switchToAbout() {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.About);
   }
 
-  public void switchToHelp(ActionEvent actionEvent) {
+  public void switchToHelp() {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Help);
   }
 
-  public void switchToSnake(ActionEvent actionEvent) {
+  public void switchToSnake() {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Snake);
   }
 }

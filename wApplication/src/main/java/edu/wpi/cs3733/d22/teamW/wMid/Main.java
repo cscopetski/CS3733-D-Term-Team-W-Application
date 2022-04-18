@@ -22,6 +22,10 @@ public class Main {
     final String languageFileName = "Languages.csv";
     final String languageInterpreterFilename = "LanguageInterpreter.csv";
     final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
+    final String cleaningRequestFileName = "CleaningRequest.csv";
+    final String mealRequestFileName = "MealRequest.csv";
+    final String securityRequestFileName = "SecurityRequest.csv";
+    final String languageRequestFileName = "LanguageRequests.csv";
 
     DBController.getDBController();
 
@@ -36,16 +40,19 @@ public class Main {
             flowerRequestFileName,
             computerServiceRequestFileName,
             sanitationRequestsFileName,
+            cleaningRequestFileName,
             languageFileName,
             languageInterpreterFilename,
-            giftDeliveryRequestFileName);
+            giftDeliveryRequestFileName,
+            mealRequestFileName,
+            securityRequestFileName,
+            languageRequestFileName);
 
     try {
       csvController.populateTables();
     } catch (Exception e) {
       e.printStackTrace();
     }
-
     App.launch(App.class, args);
   }
 }

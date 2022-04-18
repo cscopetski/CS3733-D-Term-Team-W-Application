@@ -50,6 +50,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
               + "reqStatus INT, "
               + "createdTimestamp timestamp, "
               + "updatedTimestamp timestamp, "
+              + "constraint MedEReq_Employee_FK foreign key (employeeID) references EMPLOYEES(employeeID),"
               + "constraint MedReq_MedEquip_FK foreign key (medID) references MEDICALEQUIPMENT(medID),"
               + "constraint MedReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),"
               + "constraint MedEquipReq_PK primary key (medReqID),"

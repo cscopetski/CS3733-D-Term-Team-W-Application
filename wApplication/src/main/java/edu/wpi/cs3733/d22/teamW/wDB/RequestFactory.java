@@ -20,6 +20,11 @@ public class RequestFactory {
   private SanitationRequestManager srm = SanitationRequestManager.getSanitationRequestManager();
   private GiftDeliveryRequestManager gdrm =
       GiftDeliveryRequestManager.getGiftDeliveryRequestManager();
+  private MealRequestManager mealRequestManager = MealRequestManager.getMealRequestManager();
+  private SecurityRequestManager securityRequestManager =
+      SecurityRequestManager.getSecurityRequestManager();
+  private LanguageRequestManager languageRequestManager =
+      LanguageRequestManager.getLanguageRequestManager();
 
   private TreeSet<Integer> reqIDList = new TreeSet<>();
 
@@ -70,7 +75,6 @@ public class RequestFactory {
       } else {
         mER = merm.addNewRequest(counter, fields);
       }
-      System.out.println(mER.toValuesString());
       return mER;
     } else if (requestType.equals(RequestType.LabServiceRequest)) {
       Request lSR;
@@ -79,7 +83,6 @@ public class RequestFactory {
       } else {
         lSR = lsrm.addNewRequest(counter, fields);
       }
-      System.out.println(lSR.toValuesString());
       return lSR;
     } else if (requestType.equals(RequestType.MedicineDelivery)) {
       Request mDR;
@@ -88,7 +91,6 @@ public class RequestFactory {
       } else {
         mDR = mrm.addNewRequest(counter, fields);
       }
-      System.out.println(mDR.toValuesString());
       return mDR;
     } else if (requestType.equals(RequestType.CleaningRequest)) {
       Request cr;
@@ -97,7 +99,6 @@ public class RequestFactory {
       } else {
         cr = crm.addNewRequest(counter, fields);
       }
-      System.out.println(cr.toValuesString());
       return cr;
     } else if (requestType.equals(RequestType.FlowerRequest)) {
       Request fr;
@@ -106,7 +107,6 @@ public class RequestFactory {
       } else {
         fr = frm.addNewRequest(counter, fields);
       }
-      System.out.println(fr.toValuesString());
       return fr;
     } else if (requestType.equals(RequestType.ComputerServiceRequest)) {
       Request csr;
@@ -115,7 +115,6 @@ public class RequestFactory {
       } else {
         csr = csrm.addNewRequest(counter, fields);
       }
-      System.out.println(csr.toValuesString());
       return csr;
     } else if (requestType.equals(RequestType.SanitationService)) {
       Request sr;
@@ -124,7 +123,6 @@ public class RequestFactory {
       } else {
         sr = srm.addNewRequest(counter, fields);
       }
-      System.out.println(sr.toValuesString());
       return sr;
     } else if (requestType.equals(RequestType.GiftDelivery)) {
       Request gdr;
@@ -133,8 +131,31 @@ public class RequestFactory {
       } else {
         gdr = gdrm.addNewRequest(counter, fields);
       }
-      System.out.println(gdr.toValuesString());
       return gdr;
+    } else if (requestType.equals(RequestType.MealDelivery)) {
+      Request mr;
+      if (importingFromCSV) {
+        mr = mealRequestManager.addExistingRequest(fields);
+      } else {
+        mr = mealRequestManager.addNewRequest(counter, fields);
+      }
+      return mr;
+    } else if (requestType.equals(RequestType.SecurityService)) {
+      Request mr;
+      if (importingFromCSV) {
+        mr = securityRequestManager.addExistingRequest(fields);
+      } else {
+        mr = securityRequestManager.addNewRequest(counter, fields);
+      }
+      return mr;
+    } else if (requestType.equals(RequestType.LanguageRequest)) {
+      Request lr;
+      if (importingFromCSV) {
+        lr = languageRequestManager.addExistingRequest(fields);
+      } else {
+        lr = languageRequestManager.addNewRequest(counter, fields);
+      }
+      return lr;
     } else {
       return null;
     }

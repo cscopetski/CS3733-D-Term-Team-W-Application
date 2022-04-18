@@ -105,6 +105,11 @@ public class GiftDeliveryRequestManager implements RequestManager {
   }
 
   @Override
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    return this.giftDeliveryRequestDao.getEmployeeRequests(employeeID);
+  }
+
+  @Override
   public void exportReqCSV(String filename) throws Exception {
     this.giftDeliveryRequestDao.exportGiftDeliveryReqCSV(filename);
   }

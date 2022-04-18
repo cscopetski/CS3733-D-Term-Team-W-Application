@@ -52,6 +52,7 @@ public class SanitationRequestDaoImpl implements SanitationRequestDao {
               + "createdTimeStamp TIMESTAMP,"
               + "updatedTimeStamp TIMESTAMP,"
               + "constraint sanReq_PK primary key (ReqID),\n"
+              + "constraint sanReq_Employee_FK foreign key (employeeID) references EMPLOYEES(employeeID),"
               + "constraint sanReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),\n"
               + "constraint sanReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
               + "constraint sanIsEmergency_check check (isEmergency = 0 or isEmergency = 1))");

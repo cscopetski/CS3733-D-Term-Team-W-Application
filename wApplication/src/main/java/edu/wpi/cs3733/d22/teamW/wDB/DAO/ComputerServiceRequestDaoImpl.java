@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.ComputerServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import java.io.File;
@@ -45,6 +46,7 @@ public class ComputerServiceRequestDaoImpl implements ComputerServiceRequestDao 
               + "createdTimeStamp TIMESTAMP,"
               + "updatedTimeStamp TIMESTAMP,"
               + "constraint computerServReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),\n"
+              + "constraint computerServReq_Employee_FK foreign key (employeeID) references EMPLOYEES(employeeID),"
               + "constraint computerServReq_PK primary key (ReqID),\n"
               + "constraint computerServReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
               + "constraint ComputerServIsEmergency_check check (isEmergency = 0 or isEmergency = 1))");
@@ -76,6 +78,7 @@ public class ComputerServiceRequestDaoImpl implements ComputerServiceRequestDao 
 
   @Override
   public void deleteComputerServiceRequest(Integer requestID) throws SQLException {
+    RequestFactory.getRequestFactory().getReqIDList().remove(requestID);
     statement.executeUpdate(
         String.format("DELETE FROM COMPUTERSERVICEREQUESTS WHERE REQID = %d", requestID));
   }

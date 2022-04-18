@@ -16,6 +16,10 @@ public class LocationManager {
     return locationManager;
   }
 
+  public ArrayList<Location> getLocationClean() throws SQLException {
+    return ldi.getAllCleanLocations();
+  }
+
   private LocationManager() {}
 
   public String getNoneLocation() {

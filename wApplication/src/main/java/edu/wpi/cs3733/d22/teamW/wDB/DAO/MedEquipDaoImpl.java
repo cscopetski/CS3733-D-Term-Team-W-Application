@@ -39,11 +39,28 @@ public class MedEquipDaoImpl implements MedEquipDao {
               + "nodeID varchar(25),"
               + "status INT,"
               + "constraint MedEquip_PK primary key (medID),"
+              + "constraint type_Check check ("
+              + getTypeList()
+              + "),"
               + "constraint Location_FK foreign key (nodeID) references LOCATIONS(nodeID),"
               + "constraint Status_check check (status = 0 or status = 1 or status = 2))");
     } catch (SQLException e) {
       System.out.println("Medical Equipment Table failed to be created!");
     }
+  }
+
+  private String getTypeList() {
+    String list = "";
+    MedEquipType[] medEquipTypeArrayList = MedEquipType.values();
+    for (int index = 0; index < medEquipTypeArrayList.length; index++) {
+      list += "type = '";
+      list += medEquipTypeArrayList[index].getAbb();
+      list += "'";
+      if (index < medEquipTypeArrayList.length - 1) {
+        list += " or ";
+      }
+    }
+    return list;
   }
 
   @Override
@@ -59,9 +76,6 @@ public class MedEquipDaoImpl implements MedEquipDao {
 
         for (int i = 0; i < medEquipment.getMetaData().getColumnCount(); i++) {
           medEquipData.add(medEquipment.getString(i + 1));
-        }
-        for (String e : medEquipData) {
-          System.out.println(e);
         }
         medEquipList.add(new MedEquip(medEquipData));
       }
@@ -86,19 +100,17 @@ public class MedEquipDaoImpl implements MedEquipDao {
     if (type == null && status != null) {
       queury += "WHERE STATUS = ";
       queury += status.getValue();
-    }
-    if (type != null && status == null) {
-      queury += "WHERE TYPE = ";
+    } else if (type != null && status == null) {
+      queury += "WHERE TYPE = '";
       queury += type.getAbb();
-    }
-    if (type != null && status != null) {
-      queury += "WHERE (STATUS = ";
+      queury += "'";
+    } else if (type != null && status != null) {
+      queury += "WHERE ( TYPE = '";
+      queury += type.getAbb();
+      queury += "' AND STATUS = ";
       queury += status.getValue();
-      queury += "AND TYPE = ";
-      queury += type.getAbb();
       queury += ")";
     }
-
     try {
       ResultSet medEquipment = statement.executeQuery(queury);
 

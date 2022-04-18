@@ -16,4 +16,6 @@ public interface LanguageInterpreterDao {
   ArrayList<LanguageInterpreter> getAllLanguageInterpreters() throws SQLException;
 
   void exportLangInterpCSV(String fileName);
+
+  public ArrayList<Integer> getEligibleEmployees(String language) throws SQLException;
 }

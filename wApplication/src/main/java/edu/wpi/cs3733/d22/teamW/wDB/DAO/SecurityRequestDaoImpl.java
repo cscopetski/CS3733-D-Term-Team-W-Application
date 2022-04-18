@@ -47,6 +47,7 @@ public class SecurityRequestDaoImpl implements SecurityRequestDao {
               + "reqStatus INT,"
               + "createdTimeStamp TIMESTAMP,"
               + "updatedTimeStamp TIMESTAMP,"
+              + "constraint secServReq_Employee_FK foreign key (employeeID) references EMPLOYEES(employeeID),"
               + "constraint secServReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),\n"
               + "constraint secServReq_PK primary key (ReqID),\n"
               + "constraint secServReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
@@ -143,6 +144,30 @@ public class SecurityRequestDaoImpl implements SecurityRequestDao {
       e.printStackTrace();
     }
     return csrList;
+  }
+
+  @Override
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    ArrayList<Request> employeeRequestList = new ArrayList<>();
+    try {
+      ResultSet compRequests =
+          statement.executeQuery(
+              String.format("SELECT * FROM SECURITYREQUESTS WHERE EMPLOYEEID = %d", employeeID));
+      while (compRequests.next()) {
+        ArrayList<String> compReqData = new ArrayList<String>();
+
+        for (int i = 0; i < compRequests.getMetaData().getColumnCount(); i++) {
+          compReqData.add(compRequests.getString(i + 1));
+        }
+
+        employeeRequestList.add(new SecurityRequest(compReqData));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } catch (StatusError e) {
+      e.printStackTrace();
+    }
+    return employeeRequestList;
   }
 
   @Override

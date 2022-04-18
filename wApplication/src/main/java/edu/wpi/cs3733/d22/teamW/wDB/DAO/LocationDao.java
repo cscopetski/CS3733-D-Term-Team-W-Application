@@ -14,6 +14,8 @@ public interface LocationDao {
 
   void deleteLocation(String nodeID) throws SQLException;
 
+  ArrayList<Location> getAllCleanLocations() throws SQLException;
+
   void exportLocationCSV(String fileName);
 
   Location getLocation(String nodeID) throws SQLException;

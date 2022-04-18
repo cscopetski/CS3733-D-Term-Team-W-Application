@@ -32,7 +32,7 @@ public class LabServiceSR extends SR {
     }
     info += "Assigned Employee: " + this.getEmployeeName() + "\n";
     info += "Employee ID: " + this.getEmployeeID() + "\n";
-    info += "Service requested: " + r.getLabType() + "\n";
+    info += "Service requested: " + r.getLabType().getString() + "\n";
     return info;
   }
 }

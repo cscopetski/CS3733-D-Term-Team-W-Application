@@ -20,6 +20,8 @@ public interface SecurityRequestDao {
 
   ArrayList<Request> getAllSecurityRequests();
 
+  ArrayList<Request> getEmployeeRequests(Integer employeeID);
+
   void updateSecurityRequestsAtLocation(String nodeID) throws Exception;
 
   void updateSecurityRequestsWithEmployee(Integer employeeID) throws Exception;

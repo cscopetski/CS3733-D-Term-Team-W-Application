@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -48,6 +49,7 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
               + "createdTimeStamp TIMESTAMP,"
               + "updatedTimeStamp TIMESTAMP,"
               + "constraint cleanReq_itemID_FK foreign key (itemID) references MEDICALEQUIPMENT(medID),\n"
+              + "constraint cleanReq_Employee_FK foreign key (employeeID) references EMPLOYEES(employeeID),"
               + "constraint cleanReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),\n"
               + "constraint cleanReq_PK primary key (ReqID),\n"
               + "constraint cleaningReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
@@ -105,7 +107,9 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
 
     ResultSet results =
         statement.executeQuery(
-            String.format("SELECT REQID FROM CLEANINGREQUESTS WHERE NODEID = '%s'", nodeID));
+            String.format(
+                "SELECT REQID FROM CLEANINGREQUESTS WHERE NODEID = '%s' AND reqStatus = 0",
+                nodeID));
 
     while (results.next()) {
       count.add(results.getInt("REQID"));
@@ -279,5 +283,38 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
       System.out.println(String.format("Error Exporting to File %s", fileName));
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public CleaningRequest getCleaningRequest(String itemID) throws StatusError {
+    CleaningRequest cr = null;
+    /*   String queury =
+    String.format(
+        "SELECT * FROM CLEANINGREQUESTS WHERE (ITEMID = '%s' AND (REQSTATUS = %d OR REQSTATUS %d))",
+        itemID, RequestStatus.InQueue.getValue(), RequestStatus.InProgress.getValue());*/
+    String queury =
+        String.format(
+            "SELECT * FROM CLEANINGREQUESTS WHERE (ITEMID = '%s' AND REQSTATUS = %d)",
+            itemID, RequestStatus.InQueue.getValue());
+    System.out.println(queury);
+    try {
+      ResultSet cleanRequests = statement.executeQuery(queury);
+
+      // Size of num LabServiceRequest fields
+
+      while (cleanRequests.next()) {
+        ArrayList<String> cleanRequestData = new ArrayList<String>();
+
+        for (int i = 0; i < cleanRequests.getMetaData().getColumnCount(); i++) {
+          cleanRequestData.add(cleanRequests.getString(i + 1));
+        }
+
+        cr = new CleaningRequest(cleanRequestData);
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from cleaning request table failed.");
+    }
+    return cr;
   }
 }
