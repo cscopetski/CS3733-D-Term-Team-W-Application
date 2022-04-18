@@ -8,6 +8,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.LabServiceRequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
@@ -30,6 +31,9 @@ public class LabServiceRequestController extends LoadableController {
   @FXML CheckBox xRayBox;
   @FXML CheckBox catBox;
 
+  @FXML TextField patientLastName;
+  @FXML TextField patientFirstName;
+
   int emergency = 0;
   @FXML EmergencyButton emergencyB;
 
@@ -49,7 +53,7 @@ public class LabServiceRequestController extends LoadableController {
   @Override
   public void onLoad() {
     locationCBox.setItems(FXCollections.observableArrayList(getLocations()));
-    employeeIDCBox.setItems(FXCollections.observableArrayList(getEmployeeIDs()));
+    employeeIDCBox.setItems(FXCollections.observableArrayList(getEmployeeNames()));
   }
 
   @Override
@@ -64,6 +68,8 @@ public class LabServiceRequestController extends LoadableController {
     boolean result =
         (!(employeeIDCBox.getSelectionModel().isEmpty())
             && !(locationCBox.getSelectionModel().isEmpty())
+            && !patientFirstName.getText().isEmpty()
+            && !patientLastName.getText().isEmpty()
             && (catBox.isSelected()
                 || mriBox.isSelected()
                 || xRayBox.isSelected()
@@ -90,9 +96,11 @@ public class LabServiceRequestController extends LoadableController {
 
   private void pushDataToDB() throws Exception {
     ArrayList<String> fields = new ArrayList<String>();
+    fields.add(patientLastName.getText());
+    fields.add(patientFirstName.getText());
     fields.add("");
     fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
-    fields.add(employeeIDCBox.getSelectionModel().getSelectedItem().toString());
+    fields.add(getEmployeeID(employeeIDCBox.getSelectionModel().getSelectedItem().toString()));
     if (emergencyB.getValue()) {
       emergency = 1;
     } else {
@@ -102,7 +110,7 @@ public class LabServiceRequestController extends LoadableController {
     // Check Boxes:
     if (bloodBox.isSelected()) {
 
-      fields.set(0, LabServiceRequestType.BloodSamples.getString());
+      fields.set(2, LabServiceRequestType.BloodSamples.getString());
 
       for (String e : fields) {
         System.out.println(e);
@@ -110,28 +118,28 @@ public class LabServiceRequestController extends LoadableController {
       RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields, false);
     }
     if (urineBox.isSelected()) {
-      fields.set(0, LabServiceRequestType.UrineSamples.getString());
+      fields.set(2, LabServiceRequestType.UrineSamples.getString());
       for (String e : fields) {
         System.out.println(e);
       }
       RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields, false);
     }
     if (mriBox.isSelected()) {
-      fields.set(0, LabServiceRequestType.MRIs.getString());
+      fields.set(2, LabServiceRequestType.MRIs.getString());
       for (String e : fields) {
         System.out.println(e);
       }
       RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields, false);
     }
     if (xRayBox.isSelected()) {
-      fields.set(0, LabServiceRequestType.XRays.getString());
+      fields.set(2, LabServiceRequestType.XRays.getString());
       for (String e : fields) {
         System.out.println(e);
       }
       RequestFactory.getRequestFactory().getRequest(RequestType.LabServiceRequest, fields, false);
     }
     if (catBox.isSelected()) {
-      fields.set(0, LabServiceRequestType.CATScans.getString());
+      fields.set(2, LabServiceRequestType.CATScans.getString());
       for (String e : fields) {
         System.out.println(e);
       }
@@ -142,6 +150,8 @@ public class LabServiceRequestController extends LoadableController {
   private void clearFields() {
     employeeIDCBox.getSelectionModel().clearSelection();
     locationCBox.getSelectionModel().clearSelection();
+    patientFirstName.clear();
+    patientLastName.clear();
     bloodBox.setSelected(false);
     urineBox.setSelected(false);
     mriBox.setSelected(false);
@@ -184,6 +194,24 @@ public class LabServiceRequestController extends LoadableController {
     return ids;
   }
 
+  private String getEmployeeID(String name) throws SQLException {
+    name = name.trim();
+    Integer employeeID = null;
+    String employeeLastName;
+    String employeeFirstName;
+    Integer commaIndex = name.indexOf(',');
+    employeeLastName = name.substring(0, commaIndex);
+    employeeFirstName = name.substring(commaIndex + 2);
+
+    for (Employee e : EmployeeManager.getEmployeeManager().getAllEmployees()) {
+      if (e.getLastName().equals(employeeLastName) && e.getFirstName().equals(employeeFirstName)) {
+        employeeID = e.getEmployeeID();
+      }
+    }
+
+    return String.format("%d", employeeID);
+  }
+
   private ArrayList<String> getLocations() {
     ArrayList<String> locations = new ArrayList<>();
     ArrayList<Location> locationsRaw = null;
@@ -194,8 +222,30 @@ public class LabServiceRequestController extends LoadableController {
       e.printStackTrace();
     }
     for (Location l : locationsRaw) {
-      locations.add(l.getLongName());
+      if (!l.getNodeID().equals("NONE")) {
+        locations.add(l.getLongName());
+      }
     }
     return locations;
+  }
+
+  private ArrayList<String> getEmployeeNames() {
+    ArrayList<String> name = new ArrayList<>();
+    ArrayList<Employee> employees = null;
+    try {
+      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
+    } catch (SQLException e) {
+      System.out.println("Failed to unearth employees from database");
+      e.printStackTrace();
+    }
+    for (Employee e : employees) {
+      if (e.getEmployeeID() != -1
+          && ((e.getType().equals(EmployeeType.Doctor))
+              || (e.getType().equals(EmployeeType.Nurse)))) {
+        String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
+        name.add(empName);
+      }
+    }
+    return name;
   }
 }
