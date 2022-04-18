@@ -30,8 +30,7 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane helpPage;
   @FXML public Pane aboutPage;
   @FXML public Pane profilePage;
-  @FXML public Pane snakePage;
-  @FXML public Pane messagingPage;
+  @FXML public Pane gamingPage;
   @FXML public HBox menuBar;
   @FXML public Pane buttonPane;
 
@@ -63,8 +62,7 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().putPane(SceneManager.Scenes.Help, helpPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.About, aboutPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Profile, profilePage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.Snake, snakePage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.Messaging, messagingPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Gaming, gamingPage);
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Login);
   }
 
@@ -151,7 +149,7 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Help);
   }
 
-  public void switchToSnake() {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Snake);
+  public void switchToGaming(ActionEvent actionEvent) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Gaming);
   }
 }

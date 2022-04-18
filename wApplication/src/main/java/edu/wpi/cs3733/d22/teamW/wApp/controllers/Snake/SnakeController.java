@@ -1,7 +1,5 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.Snake;
 
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.Animation;
@@ -9,6 +7,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -18,10 +17,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class SnakeController extends LoadableController {
+public class SnakeController {
 
   // A snake body part is 50x50
   private final Double snakeSize = 50.;
+  public Button startButton;
   // The head of the snake is created, at position (250,250)
   private Rectangle snakeHead;
   @FXML private ImageView image;
@@ -30,8 +30,8 @@ public class SnakeController extends LoadableController {
   double yPos;
 
   public final double borderSize = 500;
-  public final double center = 200;
-  public final double xOffset = 320;
+  public final double center = 150;
+  public final double xOffset = -100;
   public final double Min = center - (borderSize / 2);
   public final double Max = center + (borderSize / 2);
 
@@ -62,7 +62,8 @@ public class SnakeController extends LoadableController {
   private boolean canChangeDirection;
 
   @FXML
-  void start(ActionEvent event) {
+  void start(ActionEvent actionEvent) {
+    onLoad();
     loss.setVisible(false);
     counter = 0;
     score.setText("Score: " + counter);
@@ -222,12 +223,6 @@ public class SnakeController extends LoadableController {
     return false;
   }
 
-  @Override
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.Snake;
-  }
-
-  @Override
   public void onLoad() {
     image.setVisible(false);
     gameBorder.setLayoutX(center + xOffset);
@@ -254,7 +249,6 @@ public class SnakeController extends LoadableController {
                 }));
   }
 
-  @Override
   public void onUnload() {
     image.setVisible(false);
     timeline = null;
