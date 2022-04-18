@@ -3,7 +3,6 @@
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -149,10 +148,7 @@
                                     </BorderPane>
                                  </children>
                               </Pane>
-                               <RequestTable fx:id="rt" minHeight="175.0" minWidth="440.0" prefHeight="380.0" prefWidth="440.0">
-                                 <columns>
-                                    <TableColumn prefWidth="75.0" text="Location" />
-                                 </columns></RequestTable>
+                               <RequestTable fx:id="rt" minHeight="175.0" minWidth="440.0" prefHeight="380.0" prefWidth="440.0" />
                            </children>
                            <HBox.margin>
                               <Insets />
