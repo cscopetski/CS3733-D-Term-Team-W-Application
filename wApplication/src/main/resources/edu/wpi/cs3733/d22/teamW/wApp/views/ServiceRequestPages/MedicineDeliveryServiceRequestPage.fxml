@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
@@ -11,14 +12,11 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
-
-<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton?>
-<?import javafx.scene.layout.AnchorPane?>
 
 <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicineDeliveryServiceRequestController">
    <children>
@@ -40,9 +38,9 @@
       </Group>
       <HBox alignment="CENTER" prefHeight="300.0" prefWidth="940.0">
          <children>
-            <VBox prefHeight="250.0" prefWidth="500.0">
+            <VBox prefHeight="300.0" prefWidth="181.0">
                <children>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
+                  <HBox prefHeight="100.0" prefWidth="230.0">
                      <children>
                         <VBox prefHeight="94.0" prefWidth="150.0">
                            <children>
@@ -53,108 +51,66 @@
                               </Label>
                               <ComboBox fx:id="medNameCBox" prefHeight="28.0" prefWidth="272.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
                                  <VBox.margin>
-                                    <Insets bottom="10.0" top="5.0" />
+                                    <Insets bottom="20.0" top="5.0" />
                                  </VBox.margin>
                               </ComboBox>
-                           </children>
-                        </VBox>
-                        <Pane prefHeight="65.0" prefWidth="30.0" />
-                        <VBox prefHeight="200.0" prefWidth="150.0">
-                           <children>
-                              <Label text="Location:">
+                              <Label text="Quantity:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="locationCBox" prefHeight="28.0" prefWidth="185.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" top="5.0" />
-                                 </VBox.margin>
-                              </ComboBox>
                            </children>
                         </VBox>
+                        <Pane prefHeight="65.0" prefWidth="30.0" />
                      </children>
                   </HBox>
                   <HBox prefHeight="65.0" prefWidth="254.0">
                      <children>
                         <VBox prefHeight="53.0" prefWidth="130.0">
                            <children>
-                              <Label text="Quantity:">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
                               <TextField fx:id="quantityField" minWidth="120.0" prefHeight="28.0" prefWidth="130.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
                                  <VBox.margin>
-                                    <Insets bottom="5.0" top="5.0" />
+                                    <Insets bottom="20.0" top="5.0" />
                                  </VBox.margin>
                               </TextField>
+                              <Label prefHeight="20.0" prefWidth="184.0" style="-fx-font-weight: bold;" text="Employee :">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
                            </children>
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                         </VBox>
                         <Pane prefHeight="65.0" prefWidth="30.0" />
-                        <VBox prefHeight="200.0" prefWidth="130.0">
-                           <children>
-                              <Label text="Unit:">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                              <ComboBox fx:id="unitCBox" minWidth="120.0" prefHeight="28.0" prefWidth="126.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-                                 <VBox.margin>
-                                    <Insets bottom="5.0" top="5.0" />
-                                 </VBox.margin>
-                              </ComboBox>
-                           </children>
-                        </VBox>
                         <Pane prefHeight="65.0" prefWidth="30.0" />
-                        <VBox prefHeight="59.0" prefWidth="130.0">
-                        </VBox>
+                        <VBox prefHeight="200.0" prefWidth="100.0" />
                      </children>
                      <opaqueInsets>
                         <Insets />
                      </opaqueInsets>
                   </HBox>
+                  <ComboBox fx:id="employeeIDCBox" prefHeight="28.0" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="5.0" />
+                     </VBox.margin>
+                  </ComboBox>
+<!--                                    <Button fx:id="addButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Add" />-->
+<!--                                    <Pane prefHeight="70.0" prefWidth="30.0" />-->
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#clearFields" prefHeight="27.0" prefWidth="76.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Cancel" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
                         <VBox prefHeight="200.0" prefWidth="130.0">
                            <children>
-                              <Label style="-fx-font-weight: bold;" text="Employee ID:">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <ComboBox fx:id="employeeIDCBox" prefHeight="28.0" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" top="5.0" />
-                                 </VBox.margin>
-                              </ComboBox>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-<!--                                    <Button fx:id="addButton" mnemonicParsing="false" prefHeight="27.0" prefWidth="59.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Add" />-->
-<!--                                    <Pane prefHeight="70.0" prefWidth="30.0" />-->
-                                    <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#clearFields" prefHeight="27.0" prefWidth="76.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Cancel" />
                                     <Pane prefHeight="70.0" prefWidth="15.0" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
                         <Pane prefHeight="94.0" prefWidth="100.0" />
-                        <VBox prefHeight="200.0" prefWidth="220.0">
-                           <children>
-                              <Label alignment="CENTER" prefHeight="22.0" prefWidth="217.0" text="Toggle to undo the emergency" textFill="#96a1b2">
-                                 <padding>
-                                    <Insets bottom="5.0" />
-                                 </padding>
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <EmergencyButton fx:id="emergencyB" layoutX="36.0" layoutY="222.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="220.0" />
-                           </children>
-                        </VBox>
                      </children>
                      <VBox.margin>
                         <Insets top="20.0" />
@@ -162,18 +118,43 @@
                   </HBox>
                </children>
             </VBox>
-            <VBox prefHeight="228.0" prefWidth="33.0">
-               <children>
-                  <Line endX="-100.70710754394531" endY="228.2928924560547" startX="-100.70716857910156" startY="-15.215749740600586" />
-               </children>
-            </VBox>
+            <VBox prefHeight="228.0" prefWidth="33.0" />
             <VBox prefHeight="230.0" prefWidth="292.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="16.0" prefWidth="292.0" text="Your Order">
+                  <Label text="Location:">
                      <font>
-                        <Font name="System Bold" size="18.0" />
+                        <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
+                  <ComboBox fx:id="locationCBox" prefHeight="28.0" prefWidth="185.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                     <VBox.margin>
+                        <Insets bottom="20.0" top="5.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <Label text="Unit:">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="unitCBox" minWidth="120.0" prefHeight="28.0" prefWidth="126.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                     <VBox.margin>
+                        <Insets bottom="15.0" top="5.0" />
+                     </VBox.margin>
+                  </ComboBox>
+                  <Label alignment="CENTER" prefHeight="22.0" prefWidth="217.0" text="Toggle to change the emergency status" textFill="#96a1b2">
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <EmergencyButton fx:id="emergencyB" mnemonicParsing="false" prefHeight="30.0" prefWidth="220.0">
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                  </EmergencyButton>
+                  <Button fx:id="submitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#submitButton" prefHeight="25.0" prefWidth="85.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
                   <TableView fx:id="table" prefHeight="200.0" prefWidth="344.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" visible="false">
                     <columns>
                        <TableColumn fx:id="medCol" prefWidth="140.0" resizable="false" text="Medicine">
@@ -193,6 +174,7 @@
                        </TableColumn>
                     </columns>
                   </TableView>
+                  <VBox prefHeight="200.0" prefWidth="100.0" />
                </children>
             </VBox>
          </children>
@@ -203,9 +185,6 @@
                <VBox.margin>
                   <Insets top="5.0" />
                </VBox.margin>
-               <children>
-                  <Button fx:id="submitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#submitButton" prefHeight="25.0" prefWidth="85.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
-               </children>
             </VBox>
          </children>
       </VBox>

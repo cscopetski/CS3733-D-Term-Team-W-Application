@@ -10,6 +10,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedicineType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.Units;
@@ -81,7 +82,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   // -------------------------RETRIEVAL FROM DB METHODS------------------------------
 
   private ArrayList<String> getEmployeeNames() {
-    ArrayList<String> names = new ArrayList<>();
+    ArrayList<String> name = new ArrayList<>();
     ArrayList<Employee> employees = null;
     try {
       employees = EmployeeManager.getEmployeeManager().getAllEmployees();
@@ -90,9 +91,15 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      names.add(String.format("%s, %s", e.getLastName(), e.getFirstName()));
+      if (e.getEmployeeID() != -1
+          && ((e.getType().equals(EmployeeType.Doctor))
+              || (e.getType().equals(EmployeeType.Nurse))
+              || (e.getType().equals(EmployeeType.Staff)))) {
+        String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
+        name.add(empName);
+      }
     }
-    return names;
+    return name;
   }
 
   private String getEmployeeID(String name) throws SQLException {
