@@ -10,48 +10,59 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
 public class ProfileController extends LoadableController {
-  public RequestTable rt;
-  @FXML ImageView profile;
-  @FXML Label name;
-  @FXML Label id;
-  @FXML Label type;
-  @FXML Label email;
-  @FXML Label phoneNumber;
-  @FXML Label address;
+    public RequestTable rt;
+    @FXML
+    ImageView profile;
+    @FXML
+    Label name;
+    @FXML
+    Label id;
+    @FXML
+    Label type;
+    @FXML
+    Label email;
+    @FXML
+    Label phoneNumber;
+    @FXML
+    Label address;
 
-  @Override
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.Profile;
-  }
-
-  @Override
-  public void onLoad() {
-    Employee employee = Account.getInstance().getEmployee();
-    name.setText(employee.getFirstName() + " " + employee.getLastName());
-    id.setText(employee.getEmployeeID().toString());
-    type.setText(employee.getType().getString());
-    email.setText(employee.getEmail());
-    phoneNumber.setText(employee.getPhoneNumber());
-    address.setText(employee.getAddress());
-
-    rt.setColumnWidth("Req. ID", 60);
-    rt.setColumnWidth("Request Type", 130);
-    // TODO get rid of this column?
-    rt.setColumnWidth("Employee Name", 140);
-    // TODO Bring back this column?
-    // rt.setColumnWidth("Location", 80);
-    rt.setColumnWidth("Status", 80);
-    try {
-      rt.setItems(
-          RequestFacade.getRequestFacade().getAllEmployeeRequests(employee.getEmployeeID()));
-    } catch (Exception e) {
-      e.printStackTrace();
+    @Override
+    protected SceneManager.Scenes GetSceneType() {
+        return SceneManager.Scenes.Profile;
     }
-    rt.setEditable(false);
-  }
 
-  @Override
-  public void onUnload() {}
+    @Override
+    public void onLoad() {
+        Employee employee = Account.getInstance().getEmployee();
+        name.setText(employee.getFirstName() + " " + employee.getLastName());
+        id.setText(employee.getEmployeeID().toString());
+        type.setText(employee.getType().getString());
+        email.setText(employee.getEmail());
+        phoneNumber.setText(employee.getPhoneNumber());
+        address.setText(employee.getAddress());
+
+        rt.setColumnWidth("Req. ID", 60);
+        rt.setColumnWidth("Request Type", 130);
+        // TODO get rid of this column?
+        rt.setColumnWidth("Employee Name", 140);
+        // TODO Bring back this column?
+        // rt.setColumnWidth("Location", 80);
+        rt.setColumnWidth("Status", 80);
+        rt.setColumnWidth("Location", 120);
+        rt.setColumnWidth("Created", 120);
+        rt.setColumnWidth("Last Updated", 120);
+        try {
+            rt.setItems(
+                    RequestFacade.getRequestFacade().getAllEmployeeRequests(employee.getEmployeeID()));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        rt.setEditable(false);
+    }
+
+    @Override
+    public void onUnload() {
+    }
 
   /*
   @Override
