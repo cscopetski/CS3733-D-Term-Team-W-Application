@@ -8,10 +8,10 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.SanitationReqType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -21,9 +21,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.util.Duration;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class GiftDeliveryRequestController extends LoadableController {
   @FXML TextField recipientLastName;
@@ -71,8 +68,8 @@ public class GiftDeliveryRequestController extends LoadableController {
   private boolean emptyFields() {
     return employeeIDComboBox1.getSelectionModel().isEmpty()
         || locationComboBox1.getSelectionModel().isEmpty()
-            || recipientFirstName.getText().isEmpty()
-            || recipientLastName.getText().isEmpty();
+        || recipientFirstName.getText().isEmpty()
+        || recipientLastName.getText().isEmpty();
   }
 
   /*
@@ -87,7 +84,7 @@ public class GiftDeliveryRequestController extends LoadableController {
     ArrayList<String> srFields = new ArrayList<String>();
     srFields.add(recipientFirstName.getText());
     srFields.add(recipientLastName.getText());
-        locationToNodeID(locationComboBox1.getSelectionModel().getSelectedItem().toString());
+    locationToNodeID(locationComboBox1.getSelectionModel().getSelectedItem().toString());
     srFields.add(
         getEmployeeID(employeeIDComboBox1.getSelectionModel().getSelectedItem().toString()));
     if (emergencyButton1.getValue()) {
@@ -181,5 +178,4 @@ public class GiftDeliveryRequestController extends LoadableController {
     }
     return locations;
   }
-
 }
