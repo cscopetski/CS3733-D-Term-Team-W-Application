@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Requests;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
@@ -15,14 +16,17 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicReference;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -49,8 +53,12 @@ public class MapEditorController extends LoadableController {
   @FXML private TableView<edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location> LocTab;
   @FXML private TableView<medEquip> EqTab;
   @FXML private TableView<Floor> FloorTab;
-  @FXML private TableView<medEquip> EqDashTab;
+  @FXML private TableView<Floor> EqDashTab;
   @FXML private FileChooser fileChooser = new FileChooser();
+  @FXML private CheckBox LocFilter;
+  @FXML private CheckBox EquipFilter;
+  @FXML private CheckBox ReqFilter;
+  @FXML private Label dirtLab;
   Image img1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F1.png");
   Image img2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F2.png");
   Image img3 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F3.png");
@@ -79,6 +87,7 @@ public class MapEditorController extends LoadableController {
   private ArrayList<medEquip> equipList = new ArrayList<>();
   private ArrayList<Requests> reqList = new ArrayList<>();
   private ArrayList<Floor> floorList = new ArrayList<>();
+  private ArrayList<Floor> locEqList = new ArrayList<>();
   private boolean loaded = false;
 
   private enum InteractionStates {
@@ -119,6 +128,7 @@ public class MapEditorController extends LoadableController {
     EqTab.setVisible(false);
     LocTab.setVisible(false);
     FloorTab.setVisible(true);
+    dirtLab.setVisible(true);
     ArrayList<edu.wpi.cs3733.d22.teamW.wDB.entity.Location> locList =
         locationManager.getAllLocations();
     ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
@@ -134,7 +144,8 @@ public class MapEditorController extends LoadableController {
         if (eqList.get(j).getNodeID().equalsIgnoreCase(locList.get(i).getNodeID())) {
           switch (locList.get(i).getFloor()) {
             case "01":
-              switchCase(eqList.get(j).getType().getString(), F1);
+              switchCase(
+                  eqList.get(j).getType().getString(), F1, eqList.get(j).getStatus().getValue());
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -143,7 +154,8 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "02":
-              switchCase(eqList.get(j).getType().getString(), F2);
+              switchCase(
+                  eqList.get(j).getType().getString(), F2, eqList.get(j).getStatus().getValue());
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -152,7 +164,8 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "03":
-              switchCase(eqList.get(j).getType().getString(), F3);
+              switchCase(
+                  eqList.get(j).getType().getString(), F3, eqList.get(j).getStatus().getValue());
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -161,7 +174,8 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "04":
-              switchCase(eqList.get(j).getType().getString(), F4);
+              switchCase(
+                  eqList.get(j).getType().getString(), F4, eqList.get(j).getStatus().getValue());
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -170,7 +184,8 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "05":
-              switchCase(eqList.get(j).getType().getString(), F5);
+              switchCase(
+                  eqList.get(j).getType().getString(), F5, eqList.get(j).getStatus().getValue());
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -179,7 +194,8 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "L1":
-              switchCase(eqList.get(j).getType().getString(), L1);
+              switchCase(
+                  eqList.get(j).getType().getString(), L1, eqList.get(j).getStatus().getValue());
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -188,7 +204,8 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "L2":
-              switchCase(eqList.get(j).getType().getString(), L2);
+              switchCase(
+                  eqList.get(j).getType().getString(), L2, eqList.get(j).getStatus().getValue());
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -208,26 +225,84 @@ public class MapEditorController extends LoadableController {
     floorList.add(L1);
     floorList.add(L2);
     EqDashTab.getItems().clear();
-    EqDashTab.getItems().addAll(equipList);
+    generateLocEqList();
+    EqDashTab.getItems().addAll(locEqList);
     FloorTab.getItems().clear();
     FloorTab.getItems().addAll(floorList);
   }
 
-  private void switchCase(String eqType, Floor floor) {
+  private void switchCase(String eqType, Floor floor, Integer Status) {
     switch (eqType) {
-      case "BED":
-        floor.setBedCount(floor.getBedCount() + 1);
+      case "Bed":
+        switch (Status) {
+          case 0:
+            floor.setCleanBedCount(floor.getCleanBedCount() + 1);
+            break;
+          case 2:
+            floor.setDirtyBedCount(floor.getDirtyBedCount() + 1);
+            break;
+        }
         break;
-      case "XRY":
-        floor.setXrayCount(floor.getXrayCount() + 1);
+      case "X-Ray":
+        switch (Status) {
+          case 0:
+            floor.setCleanXrayCount(floor.getCleanXrayCount() + 1);
+            break;
+          case 2:
+            floor.setDirtyXrayCount(floor.getDirtyXrayCount() + 1);
+        }
         break;
-      case "INP":
-        floor.setPumpCount(floor.getPumpCount() + 1);
+      case "Infusion Pump":
+        switch (Status) {
+          case 0:
+            floor.setCleanPumpCount(floor.getCleanPumpCount() + 1);
+            break;
+          case 2:
+            floor.setDirtyPumpCount(floor.getDirtyPumpCount() + 1);
+        }
         break;
-      case "REC":
-        floor.setReclinCount(floor.getReclinCount() + 1);
+      case "Recliners":
+        switch (Status) {
+          case 0:
+            floor.setCleanReclinCount(floor.getCleanReclinCount() + 1);
+            break;
+          case 2:
+            floor.setDirtyReclinCount(floor.getDirtyReclinCount() + 1);
+        }
         break;
     }
+  }
+
+  private void generateLocEqList() throws SQLException {
+    locEqList.clear();
+    ArrayList<edu.wpi.cs3733.d22.teamW.wDB.entity.Location> locList =
+        locationManager.getAllLocations();
+    ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
+    ArrayList<String> arr = new ArrayList<>();
+    for (int i = 0; i < locList.size(); i++) {
+      for (int j = 0; j < eqList.size(); j++) {
+        if (eqList.get(j).getNodeID().equalsIgnoreCase(locList.get(i).getNodeID())) {
+          if (arr.indexOf(locList.get(i).getNodeID()) == -1) {
+            Floor F = new Floor(locList.get(i).getNodeID());
+            locEqList.add(F);
+            arr.add(locList.get(i).getNodeID());
+          }
+          switchCase(
+              eqList.get(j).getType().getString(),
+              locEqList.get(arr.indexOf(locList.get(i).getNodeID())),
+              eqList.get(j).getStatus().getValue());
+        }
+      }
+    }
+    locEqList.remove(arr.indexOf("NONE"));
+  }
+
+  private int locateList(String ID, ArrayList<String> arr) {
+    for (int i = 0; i < arr.size(); i++) {
+      if (arr.get(i).equalsIgnoreCase(ID)) ;
+      return i;
+    }
+    return -1;
   }
 
   public void refresh() throws SQLException, NonExistingMedEquip {
@@ -250,15 +325,22 @@ public class MapEditorController extends LoadableController {
     LocTab.getItems().addAll(currFloorLoc);
     generateEquipList();
     generateRequestList();
-    generateMarkers();
-    generateEquipMarkers();
-    generateRequestDots();
+    if (LocFilter.isSelected()) {
+      generateMarkers();
+    }
+    if (EquipFilter.isSelected()) {
+      generateEquipMarkers();
+    }
+    if (ReqFilter.isSelected()) {
+      generateRequestDots();
+    }
     LocTab.getSelectionModel().clearSelection();
     EqTab.getSelectionModel().clearSelection();
     LocTab.setVisible(true);
     EqTab.setVisible(true);
     EqDashTab.setVisible(false);
     FloorTab.setVisible(false);
+    dirtLab.setVisible(false);
   }
 
   public void swapFloor1(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
@@ -319,21 +401,73 @@ public class MapEditorController extends LoadableController {
   private void generateMarkers() {
     size = currFloorLoc.size();
     for (int i = 0; i < size; i++) {
+      AtomicReference<Double> anchorX = new AtomicReference<>((double) 0);
+      AtomicReference<Double> anchorY = new AtomicReference<>((double) 0);
       Circle circ = new Circle(12, Color.RED);
       Image locationIcon =
           new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Location.png");
-      ImagePattern bedPattern = new ImagePattern(locationIcon);
-      circ.setFill(bedPattern);
-      circ.setCenterX((currFloorLoc.get(i).getXCoord()) - 75);
+      ImagePattern locPattern = new ImagePattern(locationIcon);
+      circ.setFill(locPattern);
+      circ.setCenterX((currFloorLoc.get(i).getXCoord()));
       circ.setCenterY((currFloorLoc.get(i).getYCoord()));
+
       circ.setOnMouseClicked(
           (event -> {
-            try {
-              testUpdate(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
-            } catch (SQLException | IOException | NonExistingMedEquip e) {
-              e.printStackTrace();
+            if (event.getButton() == MouseButton.SECONDARY) {
+              try {
+                testUpdate(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
+              } catch (SQLException | IOException | NonExistingMedEquip e) {
+                e.printStackTrace();
+              }
             }
           }));
+      circ.setOnMousePressed(
+          event -> {
+            anchorX.set(event.getSceneX());
+            anchorY.set(event.getSceneY());
+          });
+      circ.setOnMouseDragged(
+          event -> {
+            circ.setTranslateX(event.getSceneX() - anchorX.get());
+            circ.setTranslateY(event.getSceneY() - anchorY.get());
+          });
+      circ.setOnMouseReleased(
+          event -> {
+            //            circ.relocate(
+            //                circ.getCenterX() + circ.getTranslateX(), circ.getCenterY() +
+            // circ.getTranslateY());
+            circ.setCenterX(circ.getCenterX() + circ.getTranslateX());
+            circ.setCenterY(circ.getCenterY() + circ.getTranslateY());
+            System.out.println(circ.getTranslateX() + " " + circ.getTranslateY());
+            circ.setTranslateX(0);
+            circ.setTranslateY(0);
+            anchorX.set(0.0);
+            anchorY.set(0.0);
+            Location val = null;
+            try {
+              val =
+                  locationManager.getLocation(
+                      currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
+            } catch (SQLException e) {
+              e.printStackTrace();
+            }
+            currFloorLoc.get(locDots.indexOf(event.getSource())).setXCoord((int) circ.getCenterX());
+            currFloorLoc.get(locDots.indexOf(event.getSource())).setYCoord((int) circ.getCenterY());
+            try {
+              locationManager.changeLocation(
+                  new Location(
+                      val.getNodeID(),
+                      (int) (circ.getCenterX()),
+                      (int) (circ.getCenterY()),
+                      val.getFloor(),
+                      val.getBuilding(),
+                      val.getNodeType(),
+                      val.getLongName(),
+                      val.getShortName()));
+            } catch (SQLException e) {
+              e.printStackTrace();
+            }
+          });
       locDots.add(circ);
       scrollGroup.getChildren().add(circ);
     }
@@ -354,7 +488,8 @@ public class MapEditorController extends LoadableController {
               new medEquip(
                   eqList.get(i).getMedID(),
                   eqList.get(i).getType().getString(),
-                  eqList.get(i).getStatus()));
+                  currFloorLoc.get(j).getXCoord(),
+                  currFloorLoc.get(j).getYCoord()));
           break;
         }
       }
@@ -366,6 +501,8 @@ public class MapEditorController extends LoadableController {
   private void generateEquipMarkers() {
     for (int i = 0; i < equipList.size(); i++) {
       Circle circle = new Circle(10, Color.TRANSPARENT);
+      AtomicReference<Double> anchorX = new AtomicReference<>((double) 0);
+      AtomicReference<Double> anchorY = new AtomicReference<>((double) 0);
       if (equipList.get(i).getType().equalsIgnoreCase("BED")) {
         Image bedIcon = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Bed.png");
         ImagePattern bedPattern = new ImagePattern(bedIcon);
@@ -390,9 +527,71 @@ public class MapEditorController extends LoadableController {
       }
       circle.setCenterX((equipList.get(i).getXCoord()));
       circle.setCenterY((equipList.get(i).getYCoord()) - 8);
+      circle.setOnMousePressed(
+          event -> {
+            anchorX.set(event.getSceneX());
+            anchorY.set(event.getSceneY());
+          });
+      Circle finalCircle1 = circle;
+      circle.setOnMouseDragged(
+          event -> {
+            finalCircle1.setTranslateX(event.getSceneX() - anchorX.get());
+            finalCircle1.setTranslateY(event.getSceneY() - anchorY.get());
+          });
+      Circle finalCircle = circle;
+      circle.setOnMouseReleased(
+          event -> {
+            finalCircle.setCenterY(finalCircle.getCenterY() + finalCircle.getTranslateY());
+            finalCircle.setCenterX(finalCircle.getCenterX() + finalCircle.getTranslateX());
+            System.out.println(finalCircle.getTranslateX() + " " + finalCircle.getTranslateY());
+            edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location loc =
+                snapToClosestLoc(finalCircle.getCenterX(), finalCircle.getCenterY());
+            finalCircle.setCenterX(loc.getXCoord());
+            finalCircle.setCenterY(loc.getYCoord());
+            medEquip eq = equipList.get(eqDots.indexOf(finalCircle));
+            eq.setXCoord(loc.getXCoord());
+            eq.setYCoord(loc.getYCoord());
+            System.out.println(finalCircle.getCenterX() + " " + finalCircle.getCenterY());
+            System.out.println(eq.getXCoord() + " " + eq.getYCoord());
+            try {
+              equipController.change(
+                  new MedEquip(
+                      eq.getMedID(),
+                      eq.getType(),
+                      loc.getNodeID(),
+                      equipController.getMedEquip(eq.getMedID()).getStatus().getValue()));
+            } catch (SQLException e) {
+              e.printStackTrace();
+            } catch (NonExistingMedEquip e) {
+              e.printStackTrace();
+            } catch (StatusError e) {
+              e.printStackTrace();
+            }
+            finalCircle.setTranslateX(0);
+            finalCircle.setTranslateY(0);
+            anchorX.set(0.0);
+            anchorY.set(0.0);
+          });
       eqDots.add(circle);
       scrollGroup.getChildren().add(circle);
     }
+  }
+
+  private edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location snapToClosestLoc(double x, double y) {
+    int bestFit = 0;
+    double bestDist = 10000;
+    for (int i = 0; i < currFloorLoc.size(); i++) {
+      double euclid =
+          Math.sqrt(
+              Math.pow((currFloorLoc.get((i)).getXCoord() - x), 2)
+                  + (Math.pow((currFloorLoc.get((i)).getYCoord() - y), 2)));
+      if (euclid < bestDist) {
+        bestFit = Integer.valueOf(i);
+        bestDist = Double.valueOf(euclid);
+      }
+    }
+    System.out.println(bestFit);
+    return currFloorLoc.get(bestFit);
   }
 
   private void removeMarkers() {

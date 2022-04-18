@@ -11,6 +11,25 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class App extends Application {
 
+  /*
+  final String locationFileName = "TowerLocations.csv";
+  final String medEquipFileName = "MedicalEquipment.csv";
+  final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
+  final String labServiceRequestFileName = "LabRequests.csv";
+  final String employeesFileName = "Employees.csv";
+  final String medRequestFileName = "MedRequests.csv";
+  final String flowerRequestFileName = "FlowerRequests.csv";
+  final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
+  final String sanitationRequestsFileName = "SanitationRequests.csv";
+  final String languageFileName = "Languages.csv";
+  final String languageInterpreterFilename = "LanguageInterpreter.csv";
+  final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
+  final String cleaningRequestFileName = "CleaningRequest.csv";
+  final String mealRequestFileName = "MealRequest.csv";
+  final String securityRequestFileName = "SecurityRequest.csv";
+  final String languageRequestFileName = "LanguageRequests.csv";
+   */
+
   @Override
   public void init() {
     log.info("Starting Up");

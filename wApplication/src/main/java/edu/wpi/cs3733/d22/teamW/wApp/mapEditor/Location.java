@@ -43,4 +43,40 @@ public class Location {
   public Integer getYCoord() {
     return YCoord.get();
   }
+
+  public void setNodeID(String nodeID) {
+    this.NodeID.set(nodeID);
+  }
+
+  public void setXCoord(int XCoord) {
+    this.XCoord.set(XCoord);
+  }
+
+  public void setYCoord(int YCoord) {
+    this.YCoord.set(YCoord);
+  }
+
+  public void setFloor(String floor) {
+    this.floor = floor;
+  }
+
+  public void setBuilding(String building) {
+    this.building = building;
+  }
+
+  public void setNodeType(String nodeType) {
+    this.nodeType = nodeType;
+  }
+
+  public void setLongName(String longName) {
+    this.longName = longName;
+  }
+
+  public void setShortName(String shortName) {
+    this.shortName = shortName;
+  }
+
+  public void setOgLoc(edu.wpi.cs3733.d22.teamW.wDB.entity.Location ogLoc) {
+    this.ogLoc = ogLoc;
+  }
 }
