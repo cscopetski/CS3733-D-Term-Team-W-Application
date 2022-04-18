@@ -21,6 +21,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -57,6 +58,7 @@ public class MapEditorController extends LoadableController {
   @FXML private CheckBox LocFilter;
   @FXML private CheckBox EquipFilter;
   @FXML private CheckBox ReqFilter;
+  @FXML private Label dirtLab;
   Image img1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F1.png");
   Image img2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F2.png");
   Image img3 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F3.png");
@@ -131,6 +133,7 @@ public class MapEditorController extends LoadableController {
     EqTab.setVisible(false);
     LocTab.setVisible(false);
     FloorTab.setVisible(true);
+    dirtLab.setVisible(true);
     ArrayList<edu.wpi.cs3733.d22.teamW.wDB.entity.Location> locList =
         locationManager.getAllLocations();
     ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
@@ -146,7 +149,8 @@ public class MapEditorController extends LoadableController {
         if (eqList.get(j).getNodeID().equalsIgnoreCase(locList.get(i).getNodeID())) {
           switch (locList.get(i).getFloor()) {
             case "01":
-              switchCase(eqList.get(j).getType().getString(), F1);
+              switchCase(
+                  eqList.get(j).getType().getString(), F1, eqList.get(j).getStatus().getValue());
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -155,7 +159,8 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "02":
-              switchCase(eqList.get(j).getType().getString(), F2);
+              switchCase(
+                  eqList.get(j).getType().getString(), F2, eqList.get(j).getStatus().getValue());
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -164,7 +169,8 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "03":
-              switchCase(eqList.get(j).getType().getString(), F3);
+              switchCase(
+                  eqList.get(j).getType().getString(), F3, eqList.get(j).getStatus().getValue());
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -173,7 +179,8 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "04":
-              switchCase(eqList.get(j).getType().getString(), F4);
+              switchCase(
+                  eqList.get(j).getType().getString(), F4, eqList.get(j).getStatus().getValue());
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -182,7 +189,8 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "05":
-              switchCase(eqList.get(j).getType().getString(), F5);
+              switchCase(
+                  eqList.get(j).getType().getString(), F5, eqList.get(j).getStatus().getValue());
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -191,7 +199,8 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "L1":
-              switchCase(eqList.get(j).getType().getString(), L1);
+              switchCase(
+                  eqList.get(j).getType().getString(), L1, eqList.get(j).getStatus().getValue());
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -200,7 +209,8 @@ public class MapEditorController extends LoadableController {
                       eqList.get(j).getStatus().getString()));
               break;
             case "L2":
-              switchCase(eqList.get(j).getType().getString(), L2);
+              switchCase(
+                  eqList.get(j).getType().getString(), L2, eqList.get(j).getStatus().getValue());
               equipList.add(
                   new medEquip(
                       eqList.get(j).getMedID(),
@@ -225,19 +235,44 @@ public class MapEditorController extends LoadableController {
     FloorTab.getItems().addAll(floorList);
   }
 
-  private void switchCase(String eqType, Floor floor) {
+  private void switchCase(String eqType, Floor floor, Integer Status) {
     switch (eqType) {
-      case "BED":
-        floor.setBedCount(floor.getBedCount() + 1);
+      case "Bed":
+        switch (Status) {
+          case 0:
+            floor.setCleanBedCount(floor.getCleanBedCount() + 1);
+            break;
+          case 2:
+            floor.setDirtyBedCount(floor.getDirtyBedCount() + 1);
+            break;
+        }
         break;
-      case "XRY":
-        floor.setXrayCount(floor.getXrayCount() + 1);
+      case "X-Ray":
+        switch (Status) {
+          case 0:
+            floor.setCleanXrayCount(floor.getCleanXrayCount() + 1);
+            break;
+          case 2:
+            floor.setDirtyXrayCount(floor.getDirtyXrayCount() + 1);
+        }
         break;
-      case "INP":
-        floor.setPumpCount(floor.getPumpCount() + 1);
+      case "Infusion Pump":
+        switch (Status) {
+          case 0:
+            floor.setCleanPumpCount(floor.getCleanPumpCount() + 1);
+            break;
+          case 2:
+            floor.setDirtyPumpCount(floor.getDirtyPumpCount() + 1);
+        }
         break;
-      case "REC":
-        floor.setReclinCount(floor.getReclinCount() + 1);
+      case "Recliners":
+        switch (Status) {
+          case 0:
+            floor.setCleanReclinCount(floor.getCleanReclinCount() + 1);
+            break;
+          case 2:
+            floor.setDirtyReclinCount(floor.getDirtyReclinCount() + 1);
+        }
         break;
     }
   }
@@ -277,6 +312,7 @@ public class MapEditorController extends LoadableController {
     EqTab.setVisible(true);
     EqDashTab.setVisible(false);
     FloorTab.setVisible(false);
+    dirtLab.setVisible(false);
   }
 
   public void swapFloor1(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
