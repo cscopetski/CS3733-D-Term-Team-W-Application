@@ -210,19 +210,27 @@
                      <children>
                         <TableView fx:id="EqDashTab" prefHeight="185.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
-                            <TableColumn prefWidth="86.66667938232422" text="ID">
-                                <cellValueFactory>
-                                    <PropertyValueFactory property="MedID" />
-                                </cellValueFactory> </TableColumn>
-                              <TableColumn prefWidth="48.0" text="Floor">                     <cellValueFactory>
-                                  <PropertyValueFactory property="Floor" />
-                              </cellValueFactory> </TableColumn>
-                              <TableColumn prefWidth="76.66671752929688" text="LocType">                     <cellValueFactory>
-                                  <PropertyValueFactory property="LocType" />
-                              </cellValueFactory> </TableColumn>
-                              <TableColumn prefWidth="86.99998474121094" text="Status">                     <cellValueFactory>
-                                  <PropertyValueFactory property="Status" />
-                              </cellValueFactory> </TableColumn>
+                              <TableColumn prefWidth="100.0" text="LocID">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="Floor" />
+                                  </cellValueFactory> </TableColumn>
+                              <TableColumn prefWidth="43.0" text="Beds">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="BedCount" />
+                                  </cellValueFactory> </TableColumn>
+                              <TableColumn prefWidth="43.0" text="XRAY">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="XrayCount" />
+                                  </cellValueFactory> </TableColumn>
+                              <TableColumn prefWidth="46.0" text="Pumps">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="PumpCount" />
+                                  </cellValueFactory> </TableColumn>
+                              <TableColumn prefWidth="50.0" text="Reclin">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="ReclinCount" />
+                                  </cellValueFactory> </TableColumn>
+
                           </columns>
                         </TableView>
                           <TableView fx:id="EqTab" prefHeight="185.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

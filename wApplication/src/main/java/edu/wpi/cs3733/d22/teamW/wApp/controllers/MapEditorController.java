@@ -53,7 +53,7 @@ public class MapEditorController extends LoadableController {
   @FXML private TableView<edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location> LocTab;
   @FXML private TableView<medEquip> EqTab;
   @FXML private TableView<Floor> FloorTab;
-  @FXML private TableView<medEquip> EqDashTab;
+  @FXML private TableView<Floor> EqDashTab;
   @FXML private FileChooser fileChooser = new FileChooser();
   @FXML private CheckBox LocFilter;
   @FXML private CheckBox EquipFilter;
@@ -87,13 +87,8 @@ public class MapEditorController extends LoadableController {
   private ArrayList<medEquip> equipList = new ArrayList<>();
   private ArrayList<Requests> reqList = new ArrayList<>();
   private ArrayList<Floor> floorList = new ArrayList<>();
+  private ArrayList<Floor> locEqList = new ArrayList<>();
   private boolean loaded = false;
-
-  public void locFilt(ActionEvent actionEvent) {}
-
-  public void equipFilt(ActionEvent actionEvent) {}
-
-  public void reqFilt(ActionEvent actionEvent) {}
 
   private enum InteractionStates {
     None,
@@ -230,7 +225,8 @@ public class MapEditorController extends LoadableController {
     floorList.add(L1);
     floorList.add(L2);
     EqDashTab.getItems().clear();
-    EqDashTab.getItems().addAll(equipList);
+    generateLocEqList();
+    EqDashTab.getItems().addAll(locEqList);
     FloorTab.getItems().clear();
     FloorTab.getItems().addAll(floorList);
   }
@@ -275,6 +271,38 @@ public class MapEditorController extends LoadableController {
         }
         break;
     }
+  }
+
+  private void generateLocEqList() throws SQLException {
+    locEqList.clear();
+    ArrayList<edu.wpi.cs3733.d22.teamW.wDB.entity.Location> locList =
+        locationManager.getAllLocations();
+    ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
+    ArrayList<String> arr = new ArrayList<>();
+    for (int i = 0; i < locList.size(); i++) {
+      for (int j = 0; j < eqList.size(); j++) {
+        if (eqList.get(j).getNodeID().equalsIgnoreCase(locList.get(i).getNodeID())) {
+          if (arr.indexOf(locList.get(i).getNodeID()) == -1) {
+            Floor F = new Floor(locList.get(i).getNodeID());
+            locEqList.add(F);
+            arr.add(locList.get(i).getNodeID());
+          }
+          switchCase(
+              eqList.get(j).getType().getString(),
+              locEqList.get(arr.indexOf(locList.get(i).getNodeID())),
+              eqList.get(j).getStatus().getValue());
+        }
+      }
+    }
+    locEqList.remove(arr.indexOf("NONE"));
+  }
+
+  private int locateList(String ID, ArrayList<String> arr) {
+    for (int i = 0; i < arr.size(); i++) {
+      if (arr.get(i).equalsIgnoreCase(ID)) ;
+      return i;
+    }
+    return -1;
   }
 
   public void refresh() throws SQLException, NonExistingMedEquip {
