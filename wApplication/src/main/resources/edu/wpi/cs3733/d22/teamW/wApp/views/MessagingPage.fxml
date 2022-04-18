@@ -6,7 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,18 +14,21 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MessagingPageController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MessagingPageController">
    <children>
-      <AnchorPane layoutX="10.0" layoutY="10.0" prefWidth="835.0">
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefWidth="835.0" style="-fx-background-color: white;">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
+            <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-background-color: white;">
                <children>
                   <VBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="279.0" prefWidth="354.0">
                      <children>
                         <VBox alignment="CENTER" prefHeight="43.0" prefWidth="154.0">
                            <children>
                               <Label text="Find an Employee" />
-                              <ComboBox fx:id="employeeComboBox" onAction="#employeeSelected" prefWidth="150.0" />
+                              <ComboBox fx:id="employeeComboBox" onAction="#employeeSelected" prefWidth="150.0" styleClass="scroll-bar">
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" />
+                                 </VBox.margin></ComboBox>
                            </children>
                         </VBox>
                         <Separator prefWidth="200.0" />
@@ -35,15 +38,15 @@
                            </font>
                         </Label>
                         <Separator prefWidth="200.0" />
-                        <ScrollPane>
+                        <ScrollPane style="-fx-background-color: white;">
                           <content>
-                            <AnchorPane>
+                            <AnchorPane style="-fx-background-color: white;">
                                  <children>
-                                    <VBox fx:id="employeeCardView">
+                                    <VBox fx:id="employeeCardView" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                                        <children>
                                           <VBox>
                                              <children>
-                                                <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" prefHeight="100.0" style="-fx-background-color: #ffcccc;">
+                                                <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" prefHeight="100.0" prefWidth="330.0" style="-fx-background-color: #ffcccc;">
                                                    <children>
                                                       <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
                                                          <image>
@@ -89,7 +92,7 @@
                           <content>
                             <AnchorPane>
                                  <children>
-                                    <VBox fx:id="messagesWindow" nodeOrientation="LEFT_TO_RIGHT" prefHeight="182.0" prefWidth="656.0">
+                                    <VBox fx:id="messagesWindow" nodeOrientation="LEFT_TO_RIGHT" prefHeight="182.0" prefWidth="656.0" style="-fx-background-color: white;">
                                        <children>
                                           <VBox minHeight="-Infinity" nodeOrientation="RIGHT_TO_LEFT" visible="false">
                                              <children>
@@ -115,12 +118,15 @@
                         <Separator prefWidth="200.0" />
                         <HBox prefHeight="127.0" prefWidth="190.0" style="-fx-alignment: center;">
                            <children>
-                              <TextArea fx:id="messageTextField" onKeyPressed="#messageTextKeyPress" prefHeight="38.0" prefWidth="471.0">
+                              <TextField fx:id="messageTextField" onKeyPressed="#messageTextKeyPress" prefHeight="40.0" prefWidth="450.0">
                                  <HBox.margin>
-                                    <Insets top="5.0" />
+                                    <Insets right="10.0" top="5.0" />
                                  </HBox.margin>
-                              </TextArea>
-                              <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="30.0" prefWidth="107.0" text="SendThem" />
+                              </TextField>
+                              <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" prefHeight="30.0" prefWidth="107.0" text="SendThem">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin></Button>
                               <Button fx:id="sendButtonMe" mnemonicParsing="false" onAction="#onSendMeButtonClick" prefHeight="30.0" prefWidth="99.0" text="SendMe" />
                            </children>
                         </HBox>

@@ -41,7 +41,7 @@ public class MessagingPageController extends LoadableController {
   @FXML VBox messagesWindow;
   @FXML VBox messageWindow;
   @FXML VBox employeeCardView;
-  @FXML TextArea messageTextField;
+  @FXML TextField messageTextField;
   @FXML Button sendButton;
   @FXML Button sendButtonMe;
 
