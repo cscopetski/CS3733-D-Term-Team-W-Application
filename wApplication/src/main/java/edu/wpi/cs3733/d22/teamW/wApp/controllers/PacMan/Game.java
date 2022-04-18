@@ -5,10 +5,8 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.PacMan; // DEPS
 
 import java.io.File;
 import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -34,29 +32,22 @@ public class Game {
   private final Color wallColor = Color.rgb(1, 56, 149);
   private final int mapWidth = 600;
   private final int mapHeight = 400;
-  private final int size = 8; // refers to the radius of the circle
   private final int speed = 10; // both, pacman and the ghosts move with the same speed
-  private final int ghostSize =
-      size * 2; // the width & height of the ghosts are equal to pacman's diameter
   private final int wallSize = 20;
   private final Stage window;
-  private final Scene scene;
   private final Pane pane;
   private final Label scoreLabel;
-  private final Label highLabel;
-  private final ArrayList<Rectangle> wallList = new ArrayList<Rectangle>();
-  private final ArrayList<Circle> pelletList = new ArrayList<Circle>();
-  private final ArrayList<PowerPellet> bonusList = new ArrayList<PowerPellet>();
+  private final ArrayList<Rectangle> wallList = new ArrayList<>();
+  private final ArrayList<Circle> pelletList = new ArrayList<>();
+  private final ArrayList<PowerPellet> bonusList = new ArrayList<>();
   private boolean bonusEaten;
   private double pacmanX = 280;
   private double pacmanY = 30;
   private double pacmanTurnedAt_x,
       pacmanTurnedAt_y; // holds the coordinates of the point where pacman made a turn
-  private int numOfWalls; // keeps track of the number of walls created
   private int score, highScore;
   private Circle pacman;
   private Ghost redGhost, pinkGhost, orangeGhost, cyanGhost;
-  private KeyFrame pacman_keyFrame;
   private Timeline timeline;
   private Dir red_movingAt, pink_movingAt, orange_movingAt, cyan_movingAt;
   private Dir movingAt, newDir;
@@ -70,8 +61,8 @@ public class Game {
         .getIcons()
         .add(
             new Image(
-                getClass()
-                    .getResourceAsStream("/edu/wpi/cs3733/d22/teamW/wApp/assets/Icons/wong.png")));
+                    Objects.requireNonNull(getClass()
+                            .getResourceAsStream("/edu/wpi/cs3733/d22/teamW/wApp/assets/Icons/wong.png"))));
     window.setResizable(false);
 
     pane = new Pane();
@@ -82,7 +73,7 @@ public class Game {
     scoreLabel = new Label();
     scoreLabel.setPrefWidth(130);
 
-    highLabel = new Label("High Score : " + highScore);
+    Label highLabel = new Label("High Score : " + highScore);
     highLabel.setPrefWidth(150);
 
     HBox h_box = new HBox(250);
@@ -91,7 +82,7 @@ public class Game {
 
     VBox vbox = new VBox(h_box, pane);
 
-    scene = new Scene(vbox, mapWidth, mapHeight + 20);
+    Scene scene = new Scene(vbox, mapWidth, mapHeight + 20);
     scene.setOnKeyPressed(
         event -> {
           switch (event.getCode()) {
@@ -126,6 +117,8 @@ public class Game {
     drawPellets();
 
     pacman = new Circle(); // create pacman
+    // refers to the radius of the circle
+    int size = 8;
     pacman.setRadius(size);
     pacman.setFill(Color.TRANSPARENT);
     pacman.setCenterX(pacmanX);
@@ -139,6 +132,8 @@ public class Game {
     image.setY(pacmanY - 8);
     pane.getChildren().add(image);
 
+    // the width & height of the ghosts are equal to pacman's diameter
+    int ghostSize = size * 2;
     redGhost = new Ghost(pane, 120, 110, ghostSize, ghostSize); // create the red ghost
     redGhost.setColor(Color.RED);
     setTimerForTransparency(redGhost, 5);
@@ -159,23 +154,29 @@ public class Game {
   }
 
   private void play() {
-    pacman_keyFrame =
-        new KeyFrame(
+    // check whether any of the ghosts have caught pacman
+    // only when pacman cannot continue in its current direction, its direction is updated
+    // when pacman makes a turn, record the coordinates of the position
+    // he turned at
+    // move the ghosts
+    // check if all the pellets & bonus food have been eaten and then end the game
+    // update pacman's coordinates
+    KeyFrame pacman_keyFrame = new KeyFrame(
             Duration.millis(110),
             e -> {
               blinkBonus();
 
               if (bonusEaten) ateGhost();
               else // check whether any of the ghosts have caught pacman
-              if (redGhost.caughtPacman(pacman, speed)
-                  || pinkGhost.caughtPacman(pacman, speed)
-                  || orangeGhost.caughtPacman(pacman, speed)
-                  || cyanGhost.caughtPacman(pacman, speed)) endGame();
+                if (redGhost.caughtPacman(pacman, speed)
+                        || pinkGhost.caughtPacman(pacman, speed)
+                        || orangeGhost.caughtPacman(pacman, speed)
+                        || cyanGhost.caughtPacman(pacman, speed)) endGame();
 
               // only when pacman cannot continue in its current direction, its direction is updated
               if (!checkForWalls(newDir, pacmanX, pacmanY)) {
                 if (movingAt
-                    != newDir) // when pacman makes a turn, record the coordinates of the position
+                        != newDir) // when pacman makes a turn, record the coordinates of the position
                 // he turned at
                 {
                   pacmanTurnedAt_x = pacman.getCenterX();
@@ -656,21 +657,20 @@ public class Game {
   }
 
   // method to check if pacman ate a pellet
-  private Boolean ateFood(double x, double y) {
+  private void ateFood(double x, double y) {
     for (int n = 0; n < pelletList.size(); n++) {
       if (pelletList.get(n).getCenterX() == x && pelletList.get(n).getCenterY() == y) {
         pane.getChildren().remove(pelletList.get(n));
         pelletList.remove(n);
         score += 10; // increment the player's score by 10
-        return true;
+        return;
       }
     }
 
-    return false;
   }
 
   // method to check if pacman ate a bonus food
-  private Boolean ateBonus(double x, double y) {
+  private void ateBonus(double x, double y) {
     for (int n = 0; n < bonusList.size(); n++) {
       if (bonusList.get(n).getCirc().getCenterX() == x
           && bonusList.get(n).getCirc().getCenterY() == y) {
@@ -687,11 +687,10 @@ public class Game {
         cyanGhost.setColor(Color.BLUE);
 
         setTimerForGhosts();
-        return true;
+        return;
       }
     }
 
-    return false;
   }
 
   private void setGhost(Ghost ghost, double x, double y, Color col, long del) {
@@ -754,24 +753,20 @@ public class Game {
     return s;
   }
 
-  private Boolean setHighScore(String newScore) {
-    boolean highScoreUpdated = false;
+  private void setHighScore(String newScore) {
     try {
       FileWriter writer = new FileWriter("high_score.txt");
       writer.write(newScore);
       writer.close();
 
-      highScoreUpdated = true;
     } catch (Exception e) {
       System.out.println("Failed to set the new high score");
     }
-
-    return highScoreUpdated;
   }
 
   // method to create pellets, store them in an ArrayList and put them on the pane
   private void drawPellets() {
-    int x, y, num = 0;
+    int x, y;
 
     for (x = 30; x < mapWidth; x += wallSize) {
       for (y = 30; y < mapHeight; y += wallSize) {
@@ -785,7 +780,6 @@ public class Game {
           pellet.setFill(Color.rgb(0, 139, 176, 1.0));
           pane.getChildren().add(pellet);
           pelletList.add(pellet);
-          num++;
         }
       }
     }
@@ -854,7 +848,8 @@ public class Game {
   // method to make the walls
   private void drawWalls() {
     int x, y;
-    numOfWalls = 0;
+    // keeps track of the number of walls created
+    int numOfWalls = 0;
 
     x = 0;
     y = 0;
@@ -1004,7 +999,6 @@ public class Game {
       numOfWalls++;
     }
 
-    y = 340;
     for (x = 400; x < 600; x += wallSize) {
       if (x != 500) {
         Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
@@ -1193,7 +1187,6 @@ public class Game {
       numOfWalls++;
     }
 
-    x = 300;
     for (y = 260; y < 360; y += wallSize) {
       Rectangle wall = new Rectangle(x, y, wallSize, wallSize); // pass in x, y, width and height
       wall.setStroke(strokeColor);
