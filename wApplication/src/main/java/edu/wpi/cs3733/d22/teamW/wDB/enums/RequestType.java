@@ -8,7 +8,7 @@ public enum RequestType {
   MedicalEquipmentRequest(0, "Medical Equipment Request"),
   LabServiceRequest(1, "Lab Service Request"),
   MedicineDelivery(2, "Medicine Delivery"),
-  LanguageInterpreter(3, "Language Interpreter"),
+  LanguageRequest(3, "Language Request"),
   SanitationService(4, "Sanitation Service"),
   LaundryService(5, "Laundry Service"),
   MealDelivery(6, "Meal Delivery"),
@@ -19,8 +19,7 @@ public enum RequestType {
   ComputerServiceRequest(10, "Computer Service Request"),
   AudioVisualRequest(11, "Audio Visual Request"),
   CleaningRequest(12, "Cleaning Request"),
-  FlowerRequest(13, "Flower Request"),
-  LanguageRequest(14, "Language Request");
+  FlowerRequest(13, "Flower Request");
   private final Integer value;
   private final String string;
 
