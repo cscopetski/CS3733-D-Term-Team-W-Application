@@ -88,9 +88,9 @@ public class FilterControl<E extends Enum<E>> extends ScrollPane {
       AnchorPane ap = new AnchorPane();
       ap.setStyle(
           "-fx-background-color: #98E5DB; -fx-text-fill: #214462; -fx-background-radius: 25");
-      ap.setPadding(new Insets(5));
+      ap.setPadding(new Insets(5, 5, 5, 15));
       Label filter = new Label(value.toString());
-      filter.setStyle("-fx-text-fill:#214462; -fx-font-style: bold ");
+      filter.setStyle("-fx-text-fill:#214462; -fx-font-style: bold;  ");
       Button remove = new Button("Remove");
       remove.setOnAction(
           e -> {

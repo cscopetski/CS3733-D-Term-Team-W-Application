@@ -22,7 +22,7 @@ public class RequestListController extends LoadableController {
   @FXML public RequestTable rt;
   @FXML public TextArea moreInfo;
   @FXML public HBox selectionButtons;
-  @FXML public FilterControl filter;
+  @FXML public FilterControl<RequestType> filter;
 
   @Override
   protected SceneManager.Scenes GetSceneType() {
@@ -47,10 +47,6 @@ public class RequestListController extends LoadableController {
                 } catch (SQLException e) {
                   e.printStackTrace();
                   moreInfo.setText("Error loading request details.");
-                } catch (StatusError e) {
-                  e.printStackTrace();
-                } catch (NonExistingMedEquip e) {
-                  e.printStackTrace();
                 } catch (Exception e) {
                   e.printStackTrace();
                 }
@@ -66,28 +62,31 @@ public class RequestListController extends LoadableController {
 
   private void resetItems() {
     try {
-      rt.setItems(RequestFacade.getRequestFacade().getRequests(filter.getEnabledValues()));
-    } catch (SQLException e) {
+      rt.setItems(
+          RequestFacade.getRequestFacade()
+              .getRequests(filter.getEnabledValues().toArray(new RequestType[] {})));
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
   public void onLoad() {
-    rt.setColumnWidth("Req. ID", 60);
+    /*rt.setColumnWidth("Request ID", 60);
     rt.setColumnWidth("Request Type", 130);
     rt.setColumnWidth("Employee Name", 140);
     rt.setColumnWidth("Status", 80);
     rt.setColumnWidth("Location", 80);
     rt.setColumnWidth("Created", 145);
-    rt.setColumnWidth("Last Updated", 145);
-    rt.setEditable(false);
+    rt.setColumnWidth("Last Updated", 145);*/
+    rt.distributeColumnWidths();
+    rt.setEditable(true);
     moreInfo.setText("Select a request to view details.");
   }
 
   @Override
   public void onUnload() {}
 
-public void cancel(ActionEvent actionEvent) {
+  public void cancel(ActionEvent actionEvent) {
     if (Account.getInstance().getEmployee().getType().getAccessLevel() == 5) {
       try {
         RequestFacade.getRequestFacade()

@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.InValidRequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.util.ArrayList;
 import javafx.scene.control.ComboBox;
@@ -52,10 +53,6 @@ public class AutoCompleteInput extends ComboBox<String> {
     }
 
     private Node head;
-
-    public Trie() {
-      head = new Node('\0');
-    }
 
     public Trie(ArrayList<String> input) {
       loadValues(input);
@@ -138,7 +135,7 @@ public class AutoCompleteInput extends ComboBox<String> {
     getItems().addAll(trie.getList(getValue() != null ? getValue() : ""));
   }
 
-  private RequestType getSelection() {
+  private RequestType getSelection() throws InValidRequestType {
     return RequestType.getRequestType(getSelectionModel().getSelectedItem());
   }
 

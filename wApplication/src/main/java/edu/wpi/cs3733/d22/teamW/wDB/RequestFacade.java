@@ -39,6 +39,18 @@ public class RequestFacade {
     return requestFacade;
   }
 
+  public ArrayList<Request> getRequests(RequestType... requestTypes) throws Exception {
+    if (requestTypes == null || requestTypes.length == 0) {
+      return getAllRequests();
+    }
+    ArrayList<Request> requests = new ArrayList<>();
+
+    for (RequestType rt : requestTypes) {
+      requests.addAll(getAllRequests(rt));
+    }
+    return requests;
+  }
+
   public ArrayList<Request> getAllRequests(RequestType requestType) throws Exception {
     ArrayList<Request> requests = new ArrayList<Request>();
 
