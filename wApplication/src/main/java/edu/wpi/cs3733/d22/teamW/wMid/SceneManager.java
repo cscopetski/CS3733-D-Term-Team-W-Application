@@ -72,7 +72,6 @@ public class SceneManager {
     SanitationService,
     FlowerRequest,
     GiftDelivery,
-    Snake,
     AdminHub,
     Messaging,
     Gaming
