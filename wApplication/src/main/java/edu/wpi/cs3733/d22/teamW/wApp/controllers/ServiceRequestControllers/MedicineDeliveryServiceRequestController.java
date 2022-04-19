@@ -28,7 +28,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   @FXML Button submitButton;
   @FXML Button cancelButton;
   int emergency = 0;
-  @FXML EmergencyButton emergencyB;
+  @FXML EmergencyButton emergencyButton;
 
   // TextFields:
   @FXML TextField quantityField;
@@ -37,7 +37,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   @FXML ComboBox<String> unitCBox;
   @FXML ComboBox<String> medNameCBox;
   @FXML ComboBox<String> locationCBox;
-  @FXML ComboBox<String> employeeNameCBox;
+  @FXML ComboBox<String> employee;
 
   // Tables:
   @FXML private TableView<MedicalEquipmentSR> table;
@@ -62,7 +62,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     medNameCBox.setItems(FXCollections.observableArrayList(getListOfMedicine()));
     locationCBox.setItems(FXCollections.observableArrayList(getLocations()));
     unitCBox.setItems(FXCollections.observableArrayList(getListOfUnits()));
-    employeeNameCBox.setItems(FXCollections.observableArrayList(getEmployeeNames()));
+    employee.setItems(FXCollections.observableArrayList(getEmployeeNames()));
   }
 
   public void onUnload() {
@@ -79,7 +79,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     unitCBox.getSelectionModel().clearSelection();
     medNameCBox.getSelectionModel().clearSelection();
     locationCBox.getSelectionModel().clearSelection();
-    employeeNameCBox.getSelectionModel().clearSelection();
+    employee.getSelectionModel().clearSelection();
   }
 
   // -------------------------RETRIEVAL FROM DB METHODS------------------------------
@@ -156,8 +156,8 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     fields.add(quantityField.getText());
     fields.add(unitCBox.getSelectionModel().getSelectedItem().toString());
     fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
-    fields.add(getEmployeeID(employeeNameCBox.getSelectionModel().getSelectedItem().toString()));
-    if (emergencyB.getValue()) {
+    fields.add(getEmployeeID(employee.getSelectionModel().getSelectedItem().toString()));
+    if (emergencyButton.getValue()) {
       emergency = 1;
     } else {
       emergency = 0;
@@ -237,7 +237,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
         !(quantityField.getText().isEmpty()
             && unitCBox.getSelectionModel().isEmpty()
             && locationCBox.getSelectionModel().isEmpty()
-            && employeeNameCBox.getSelectionModel().isEmpty());
+            && employee.getSelectionModel().isEmpty());
 
     return result;
   }

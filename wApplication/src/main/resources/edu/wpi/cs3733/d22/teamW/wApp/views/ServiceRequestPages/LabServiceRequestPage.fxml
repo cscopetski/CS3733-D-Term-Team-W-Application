@@ -185,6 +185,6 @@
             </Button>
          </children>
       </VBox>
-      <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="View Request List" />
+      <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" text="View Request List" />
    </children>
 </VBox>
