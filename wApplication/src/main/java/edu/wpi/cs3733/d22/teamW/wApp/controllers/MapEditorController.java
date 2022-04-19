@@ -142,6 +142,14 @@ public class MapEditorController extends LoadableController {
     Floor L2 = new Floor("L2");
     for (int i = 0; i < locList.size(); i++) {
       for (int j = 0; j < eqList.size(); j++) {
+        if (eqList.get(j).getMedID().equalsIgnoreCase("BED005")) ;
+        {
+          try {
+            equipController.markDirty("BED005", "wDIRT0013");
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
         if (eqList.get(j).getNodeID().equalsIgnoreCase(locList.get(i).getNodeID())) {
           switch (locList.get(i).getFloor()) {
             case "01":
@@ -449,14 +457,13 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(imgL2);
   }
 
-  public void swapSideView(ActionEvent actionEvent) throws SQLException {
+  public void swapSideView(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     removeMarkers();
     currFloor = "0";
-    // refresh();
-    refreshDash();
     System.out.println(Side.getText());
     dropdown.setText("Side View");
     mapList.setImage(img);
+    refresh();
   }
 
   private void generateMarkers() {
