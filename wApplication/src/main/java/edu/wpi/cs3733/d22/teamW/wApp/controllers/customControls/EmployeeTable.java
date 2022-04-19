@@ -23,7 +23,8 @@ public class EmployeeTable extends TableView<EMPLOYEE> {
             createColumn("Type", "Type"),
             createColumn("Email", "Email"),
             createColumn("Phone Num", "Phone Number"),
-            createColumn("Address", "Address"));
+            createColumn("Address", "Address"),
+            createColumn("Username", "Username"));
   }
 
   public void setColumnWidth(String columnText, double prefWidth) {
