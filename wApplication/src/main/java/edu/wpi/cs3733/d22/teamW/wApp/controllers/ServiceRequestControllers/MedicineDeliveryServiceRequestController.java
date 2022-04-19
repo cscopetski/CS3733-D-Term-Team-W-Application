@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
@@ -42,6 +43,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
   // Alerts:
   Alert emptyFields = new EmptyAlert();
+  Alert confirm = new ConfirmAlert();
 
   // Helper Fcn stuff -> NOT WORKING RIGHT NOW:
   // private Control[] fields = new Control[] {quantityField, itemCodeField, medNameCBox,
@@ -211,6 +213,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
   public void createRequest() {
     if (fieldsFull()) {
+      confirm.showAndWait();
       populateTable();
 
       try {
