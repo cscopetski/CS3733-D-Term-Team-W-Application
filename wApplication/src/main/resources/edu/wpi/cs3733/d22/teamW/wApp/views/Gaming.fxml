@@ -76,7 +76,7 @@
                                  <children>
                                     <BorderPane maxHeight="30.0" maxWidth="150.0" prefHeight="200.0" prefWidth="164.0">
                                        <center>
-                                          <Label alignment="CENTER" prefWidth="150.0" style="-fx-font-weight: bold;" text="WILD WILD WONGS" textFill="WHITE" BorderPane.alignment="CENTER">
+                                          <Label alignment="CENTER" prefWidth="150.0" style="-fx-font-weight: bold;" text="THREAT LEVEL WONG" textFill="WHITE" BorderPane.alignment="CENTER">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>

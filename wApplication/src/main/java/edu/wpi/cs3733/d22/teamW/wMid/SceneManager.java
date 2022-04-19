@@ -70,9 +70,11 @@ public class SceneManager {
     Profile,
     ComputerService,
     SanitationService,
-    Messaging,
     FlowerRequest,
     GiftDelivery,
+    Snake,
+    AdminHub,
+    Messaging,
     Gaming
   }
 
@@ -256,6 +258,14 @@ public class SceneManager {
     return stage;
   }
 
+  public Object getController(Scenes scene) {
+    return pages.get(scene).controller;
+  }
+
+  private void closeWindowEvent(WindowEvent e) {
+    information.remove(e.getSource());
+  }
+
   public Stage openGameWindow(String fileName, String title, String icon) throws IOException {
     Stage stage = new Stage();
     stage.initOwner(primaryStage);
@@ -270,13 +280,5 @@ public class SceneManager {
     stage.showAndWait();
 
     return stage;
-  }
-
-  public Object getController(Scenes scene) {
-    return pages.get(scene).controller;
-  }
-
-  private void closeWindowEvent(WindowEvent e) {
-    information.remove(e.getSource());
   }
 }

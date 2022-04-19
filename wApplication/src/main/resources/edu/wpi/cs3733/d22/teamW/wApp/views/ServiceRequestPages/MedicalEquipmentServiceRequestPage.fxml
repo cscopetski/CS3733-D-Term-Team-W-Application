@@ -9,183 +9,114 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicalEquipmentServiceRequestController">
-    <children>
-        <AnchorPane prefHeight="600.0" prefWidth="940.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <VBox layoutX="72.0" prefHeight="600.0" prefWidth="800.0" style="-fx-alignment: center;" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="0.0">
-                    <children>
-                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../assets/Icons/Icons-04.png" />
-                            </image>
-                        </ImageView>
-                        <Label prefHeight="30.0" prefWidth="278.0" text="Medical Equipment">
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                            <font>
-                                <Font name="System Bold" size="30.0" />
-                            </font>
-                        </Label>
-                        <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Select equipment from the dropdown menu." wrappingWidth="265.1999969482422">
-                            <VBox.margin>
-                                <Insets bottom="20.0" />
-                            </VBox.margin>
-                        </Text>
-                        <HBox prefHeight="500.0" prefWidth="800.0" style="-fx-alignment: center;">
-                            <children>
-                        <VBox maxWidth="250.0" minWidth="275.0" prefHeight="295.0" prefWidth="250.0">
-                           <children>
-                              <Pane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
-                                 <children>
-                                    <BorderPane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="200.0">
-                                       <center>
-                                          <Label style="-fx-font-weight: bold;" text="EMPLOYEE NAME" textFill="WHITE" BorderPane.alignment="CENTER">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                       </center>
-                                    </BorderPane>
-                                 </children>
-                              </Pane>
-                              <ComboBox fx:id="employeeNameComboBox" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-                                 <items>
+
+    <VBox spacing="50.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"  stylesheets="@../../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicalEquipmentServiceRequestController">
+        <children>
+      <VBox alignment="CENTER">
+         <children>
+                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                      <image>
+                          <Image url="@../../assets/Icons/Icons-04.png" />
+                      </image>
+                  </ImageView>
+                  <Label text="Medical Equipment" textAlignment="CENTER">
+                      <font>
+                          <Font name="System Bold" size="30.0" />
+                      </font>
+                  </Label>
+                  <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Select equipment from the dropdown menu." textAlignment="CENTER" wrappingWidth="265.1999969482422" />
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" spacing="10.0">
+         <children>
+            <Label styleClass="label-major" text="INFO" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <VBox alignment="CENTER">
+               <children>
+                                <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Location:" textFill="WHITE">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                            <ComboBox fx:id="locationComboBox" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                                <items>
                                     <FXCollections fx:factory="observableArrayList">
-                                       <String fx:value="Patient Bed" />
-                                       <String fx:value="Infusion Pump" />
-                                       <String fx:value="Recliner" />
-                                       <String fx:value="XRay Machine" />
+                                        <String fx:value="Patient Bed" />
+                                        <String fx:value="Infusion Pump" />
+                                        <String fx:value="Recliner" />
+                                        <String fx:value="XRay Machine" />
                                     </FXCollections>
-                                 </items>
-                                 <VBox.margin>
-                                    <Insets bottom="20.0" top="10.0" />
-                                 </VBox.margin>
-                              </ComboBox>
-                              <Pane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
-                                 <children>
-                                    <BorderPane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="200.0">
-                                       <center>
-                                          <Label style="-fx-font-weight: bold;" text="EQUIPMENT" textFill="WHITE" BorderPane.alignment="CENTER">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                       </center>
-                                    </BorderPane>
-                                 </children>
-                              </Pane>
-                              <ComboBox fx:id="equipmentSelection" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-                                 <items>
-                                    <FXCollections fx:factory="observableArrayList">
-                                       <String fx:value="Patient Bed" />
-                                       <String fx:value="Infusion Pump" />
-                                       <String fx:value="Recliner" />
-                                       <String fx:value="XRay Machine" />
-                                    </FXCollections>
-                                 </items>
-                                 <VBox.margin>
-                                    <Insets bottom="20.0" top="10.0" />
-                                 </VBox.margin>
-                              </ComboBox>
-                              <BorderPane maxWidth="250.0" prefHeight="17.0" prefWidth="250.0" />
-                              <BorderPane maxWidth="250.0" prefHeight="39.0" prefWidth="265.0">
-                                 <VBox.margin>
-                                    <Insets top="5.0" />
-                                 </VBox.margin>
-                              </BorderPane>
-                              <BorderPane maxWidth="250.0" prefHeight="30.0" prefWidth="250.0">
-                                 <VBox.margin>
-                                    <Insets top="20.0" />
-                                 </VBox.margin>
-                              </BorderPane>
-                           </children>
-                        </VBox>
-                                <VBox maxWidth="250.0" minWidth="275.0" prefHeight="295.0" prefWidth="250.0">
-                                    <children>
-                                        <Pane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
-                                            <children>
-                                                <BorderPane maxHeight="30.0" maxWidth="130.0" prefHeight="200.0" prefWidth="200.0">
-                                                    <center>
-                                                        <Label style="-fx-font-weight: bold;" text="LOCATION" textFill="WHITE" BorderPane.alignment="CENTER">
-                                                            <font>
-                                                                <Font size="14.0" />
-                                                            </font>
-                                                        </Label>
-                                                    </center>
-                                                </BorderPane>
-                                            </children>
-                                        </Pane>
-                                        <ComboBox fx:id="locationComboBox" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-                                            <items>
-                                                <FXCollections fx:factory="observableArrayList">
-                                                    <String fx:value="Patient Bed" />
-                                                    <String fx:value="Infusion Pump" />
-                                                    <String fx:value="Recliner" />
-                                                    <String fx:value="XRay Machine" />
-                                                </FXCollections>
-                                            </items>
-                                            <VBox.margin>
-                                                <Insets bottom="20.0" top="10.0" />
-                                            </VBox.margin>
-                                        </ComboBox>
-                                        <BorderPane maxWidth="250.0" prefHeight="17.0" prefWidth="250.0">
-                                            <center>
-                                                <Label prefHeight="17.0" prefWidth="140.0" style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" BorderPane.alignment="CENTER" />
-                                            </center>
-                                        </BorderPane>
-                                        <BorderPane maxWidth="250.0" prefHeight="39.0" prefWidth="265.0">
-                                            <center>
-                                                <EmergencyButton fx:id="emergencyB" layoutX="36.0" layoutY="222.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="220.0" />
-                                            </center>
-                                            <VBox.margin>
-                                                <Insets top="5.0" />
-                                            </VBox.margin>
-                                        </BorderPane>
-                                        <BorderPane maxWidth="250.0" prefHeight="30.0" prefWidth="250.0">
-                                            <VBox.margin>
-                                                <Insets top="20.0" />
-                                            </VBox.margin>
-                                            <left>
-                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" BorderPane.alignment="CENTER" />
-                                            </left>
-                                            <right>
-                                                <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Request List" BorderPane.alignment="CENTER">
-                                                    <BorderPane.margin>
-                                                        <Insets bottom="20.0" top="20.0" />
-                                                    </BorderPane.margin>
-                                                </Button>
-                                            </right>
-                                 <top>
-                                    <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false" BorderPane.alignment="CENTER">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                 </top>
-                                        </BorderPane>
-                                    </children>
-                                    <HBox.margin>
-                                        <Insets right="20.0" />
-                                    </HBox.margin>
-                                </VBox>
-                            </children>
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </HBox>
-                    </children>
-                </VBox>
-            </children>
-        </AnchorPane>
-    </children>
-</AnchorPane>
+                                </items>
+                            </ComboBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label styleClass="label-minor" text="Employee Name:" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="employeeNameComboBox" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Patient Bed" />
+                           <String fx:value="Infusion Pump" />
+                           <String fx:value="Recliner" />
+                           <String fx:value="XRay Machine" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Equipment:" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="equipmentSelection" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                     <items>
+                        <FXCollections fx:factory="observableArrayList">
+                           <String fx:value="Patient Bed" />
+                           <String fx:value="Infusion Pump" />
+                           <String fx:value="Recliner" />
+                           <String fx:value="XRay Machine" />
+                        </FXCollections>
+                     </items>
+                  </ComboBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
+                  <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER">
+               <children>
+                              <Button mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
+                  <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </VBox>
+                        <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="View Request List" />
+         </children>
+      </VBox>
+        </children>
+    </VBox>

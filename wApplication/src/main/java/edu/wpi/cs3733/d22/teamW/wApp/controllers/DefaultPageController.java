@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
@@ -7,11 +8,14 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 public class DefaultPageController implements Initializable {
-
+  @FXML public Pane gamingPage;
+  @FXML public Pane messagingPage;
   @FXML public Pane mainMenuPage;
   @FXML public Pane mapEditorPage;
   @FXML public Pane labServiceRequestPage;
@@ -30,12 +34,14 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane helpPage;
   @FXML public Pane aboutPage;
   @FXML public Pane profilePage;
-  @FXML public Pane gamingPage;
+  @FXML public Pane snakePage;
   @FXML public HBox menuBar;
   @FXML public Pane buttonPane;
+  @FXML public Pane adminHubPage;
+
+  protected Employee employee;
 
   public void initialize(URL location, ResourceBundle rb) {
-
     SceneManager.getInstance().putController(SceneManager.Scenes.Default, this);
 
     SceneManager.getInstance().putPane(SceneManager.Scenes.Login, loginPage);
@@ -62,60 +68,67 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().putPane(SceneManager.Scenes.Help, helpPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.About, aboutPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Profile, profilePage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.Gaming, gamingPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Snake, snakePage);
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Login);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.AdminHub, adminHubPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Messaging, messagingPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Gaming, gamingPage);
   }
 
-  public void switchToMedicineDelivery() {
+  public void setEmployee(Employee em) {
+    this.employee = em;
+  }
+
+  public Employee getEmployee() {
+    return this.employee;
+  }
+
+  public void switchToMedicineDelivery(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicineDelivery);
   }
 
-  public void switchToLab() {
+  public void switchToLab(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Lab);
   }
 
-  public void switchToMedicalEquipmentDelivery() {
+  public void switchToMedicalEquipmentDelivery(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicalEquipment);
   }
 
-  public void switchToMealDelivery() {
+  public void switchToMealDelivery(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MealDelivery);
   }
 
-  public void switchToLanguageInterpreter() {
+  public void switchToLanguageInterpreter(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.LanguageInterpreter);
   }
 
-  public void switchToSecurity() {
+  public void switchToSecurity(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Security);
   }
 
-  public void switchToComputerService() {
+  public void switchToComputerService(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.ComputerService);
   }
 
-  public void switchToFlowerService() {
+  public void switchToFlowerService(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.FlowerRequest);
   }
 
-  public void switchToGiftService() {
+  public void switchToGiftService(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.GiftDelivery);
   }
 
-  public void switchToSanitationService() {
+  public void switchToSanitationService(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.SanitationService);
   }
 
-  public void switchToMapEditor() {
+  public void switchToMapEditor(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MapEditor);
   }
 
-  public void switchToRequestList() {
+  public void switchToRequestList(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
-  }
-
-  public void switchToMessaging(ActionEvent event) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Messaging);
   }
 
   public void switchToRequestHub(ActionEvent event) {
@@ -126,7 +139,17 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.MainMenu);
   }
 
-  public void logOut() {
+  public void switchToAdminHub() {
+    if (Account.getInstance().getEmployee().getType().getAccessLevel() == 5) {
+      SceneManager.getInstance().transitionTo(SceneManager.Scenes.AdminHub);
+    } else {
+      Alert warningAlert =
+          new Alert(Alert.AlertType.WARNING, "Sorry you cannot access to this site", ButtonType.OK);
+      warningAlert.showAndWait();
+    }
+  }
+
+  public void logOut(ActionEvent actionEvent) {
     menuBar.setVisible(false);
     buttonPane.setDisable(true);
     Account.getInstance().setEmployee(null);
@@ -137,19 +160,27 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().exitApplication();
   }
 
-  public void switchToProfile() {
+  public void switchToProfile(ActionEvent actionEvent) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Profile);
   }
 
-  public void switchToAbout() {
+  public void switchToAbout(ActionEvent actionEvent) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.About);
   }
 
-  public void switchToHelp() {
+  public void switchToHelp(ActionEvent actionEvent) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Help);
+  }
+
+  public void switchToSnake(ActionEvent actionEvent) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Snake);
   }
 
   public void switchToGaming(ActionEvent actionEvent) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Gaming);
+  }
+
+  public void switchToMessaging(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Messaging);
   }
 }

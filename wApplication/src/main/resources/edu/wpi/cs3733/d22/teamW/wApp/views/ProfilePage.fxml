@@ -3,7 +3,6 @@
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ProfileController">
+<AnchorPane style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ProfileController">
     <children>
         <AnchorPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -131,7 +130,7 @@
                         </HBox>
                   <HBox prefHeight="400.0" prefWidth="600.0" style="-fx-alignment: center;">
                      <children>
-                        <VBox fx:id="table" prefHeight="400.0" prefWidth="600.0">
+                        <VBox fx:id="table" prefHeight="400.0" prefWidth="800.0">
                            <children>
                               <Pane maxHeight="30.0" maxWidth="150.0" minHeight="30.0" prefHeight="200.0" prefWidth="150.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
                                  <VBox.margin>
@@ -149,10 +148,7 @@
                                     </BorderPane>
                                  </children>
                               </Pane>
-                               <RequestTable fx:id="rt" minHeight="175.0" minWidth="440.0" prefHeight="380.0" prefWidth="440.0">
-                                 <columns>
-                                    <TableColumn prefWidth="75.0" text="Location" />
-                                 </columns></RequestTable>
+                               <RequestTable fx:id="rt" minHeight="175.0" minWidth="440.0" prefHeight="380.0" prefWidth="440.0" />
                            </children>
                            <HBox.margin>
                               <Insets />

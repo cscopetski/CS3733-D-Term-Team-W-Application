@@ -8,141 +8,84 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" stylesheets="@../../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.RequestListController">
-    <children>
-        <AnchorPane prefHeight="473.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
-            <children>
-                <VBox maxWidth="250.0" minWidth="250.0" prefHeight="295.0" prefWidth="250.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <children>
-                        <Label prefHeight="30.0" prefWidth="220.0" style="-fx-alignment: center;" text="Request List">
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                            <font>
-                                <Font name="System Bold" size="20.0" />
-                            </font>
-                        </Label>
-                        <Label prefHeight="30.0" prefWidth="310.0" style="-fx-alignment: center;" text="Use the filter to sort requests. Select request to cancel it." textFill="#013895">
-                            <VBox.margin>
-                                <Insets bottom="20.0" />
-                            </VBox.margin>
-                        </Label>
-                        <BorderPane maxWidth="600.0" prefHeight="200.0" prefWidth="200.0">
-                            <center>
-                                <HBox maxHeight="400.0" maxWidth="800.0" minHeight="400.0" minWidth="800.0" prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                    <children>
-                                        <VBox minHeight="0.0" minWidth="440.0" prefHeight="400.0" prefWidth="100.0">
-                                            <children>
-                                                <Label prefHeight="17.0" prefWidth="271.0" style="-fx-alignment: center;" text="Click on the headers to change order of the items." textFill="#013895">
-                                                    <VBox.margin>
-                                                        <Insets />
-                                                    </VBox.margin>
-                                                </Label>
-                                                <RequestTable fx:id="rt" minHeight="175.0" minWidth="440.0" prefHeight="380.0" prefWidth="440.0" />
-                                            </children>
-                                            <HBox.margin>
-                                                <Insets right="20.0" />
-                                            </HBox.margin>
-                                        </VBox>
-                                        <VBox minWidth="300.0" prefHeight="200.0" prefWidth="100.0">
-                                            <children>
-                                                <BorderPane prefHeight="35.0" prefWidth="200.0">
-                                                    <center>
-                                                        <Pane maxHeight="30.0" maxWidth="60.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
-                                                            <children>
-                                                                <BorderPane maxHeight="30.0" maxWidth="60.0" prefHeight="200.0" prefWidth="200.0">
-                                                                    <center>
-                                                                        <Label style="-fx-font-weight: bold;" text="FILTER" textFill="WHITE" BorderPane.alignment="CENTER">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                        </Label>
-                                                                    </center>
-                                                                </BorderPane>
-                                                            </children>
-                                                        </Pane>
-                                                    </center>
-                                                    <VBox.margin>
-                                                        <Insets top="20.0" />
-                                                    </VBox.margin>
-                                                </BorderPane>
-                                                <BorderPane prefHeight="70.0" prefWidth="300.0">
-                                                    <center>
-                                                        <ComboBox fx:id="equipmentSelection" onAction="#filterRequest" prefHeight="25.0" prefWidth="250.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" BorderPane.alignment="CENTER">
-                                                            <items>
-                                                                <FXCollections fx:factory="observableArrayList">
-                                                                    <String fx:value="All Requests" />
-                                                                    <String fx:value="Lab Service" />
-                                                                    <String fx:value="Language Interpreter" />
-                                                                    <String fx:value="Meal Delivery" />
-                                                                    <String fx:value="Medical Equipment" />
-                                                                    <String fx:value="Security" />
-                                                                    <String fx:value="Cleaning" />
-                                                                </FXCollections>
-                                                            </items>
-                                                        </ComboBox>
-                                                    </center>
-                                                </BorderPane>
-                                                <BorderPane maxWidth="200.0" minWidth="300.0" prefHeight="200.0" prefWidth="304.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-                                                    <top>
-                                                        <Pane maxHeight="30.0" maxWidth="90.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
-                                                            <children>
-                                                                <BorderPane maxHeight="30.0" maxWidth="90.0" prefHeight="200.0" prefWidth="200.0">
-                                                                    <center>
-                                                                        <Label style="-fx-font-weight: bold;" text="MORE INFO" textFill="WHITE" BorderPane.alignment="CENTER">
-                                                                            <font>
-                                                                                <Font size="14.0" />
-                                                                            </font>
-                                                                        </Label>
-                                                                    </center>
-                                                                </BorderPane>
-                                                            </children>
-                                                            <BorderPane.margin>
-                                                                <Insets />
-                                                            </BorderPane.margin>
-                                                        </Pane>
-                                                    </top>
-                                                    <center>
-                                                        <TextArea fx:id="moreInfo" prefHeight="200.0" prefWidth="200.0" scaleZ="0.0" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" BorderPane.alignment="CENTER">
-                                                            <BorderPane.margin>
-                                                                <Insets top="10.0" />
-                                                            </BorderPane.margin>
-                                                        </TextArea>
-                                                    </center>
-                                                </BorderPane>
-                                            </children>
-                                        </VBox>
-                                    </children>
-                                </HBox>
-                            </center>
-                        </BorderPane>
-                        <BorderPane prefHeight="39.0" prefWidth="265.0">
-                            <VBox.margin>
-                                <Insets top="10.0" />
-                            </VBox.margin>
-                            <center>
-                                <HBox fx:id="selectionButtons" alignment="CENTER" spacing="10" visible="false" BorderPane.alignment="CENTER">
-                                    <BorderPane.margin>
-                                        <Insets bottom="20.0" />
-                                    </BorderPane.margin>
-                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#start" text="Start" />
-                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#confirm" text="Complete" />
-                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
-                           <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#requeue" text="Requeue" />
-                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#clearSelection" text="Clear Selection" />
-                                </HBox>
-                            </center>
-                        </BorderPane>
-                    </children>
-                </VBox>
-            </children>
-        </AnchorPane>
-    </children>
-</AnchorPane>
+    <VBox alignment="CENTER" spacing="50.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.RequestListController">
+        <children>
+      <VBox alignment="CENTER">
+         <children>
+                  <Label style="-fx-alignment: center;" text="Request List">
+                      <font>
+                          <Font name="System Bold" size="30.0" />
+                      </font>
+                  </Label>
+                  <Label style="-fx-alignment: center;" text="Use the filter to sort requests. Select request to cancel it." textFill="#013895" />
+         </children>
+      </VBox>
+              <HBox alignment="CENTER">
+                  <children>
+                      <VBox alignment="CENTER">
+                          <children>
+                              <Label style="-fx-alignment: center;" text="Click on the headers to change order of the items." textFill="#013895">
+                                  <VBox.margin>
+                                      <Insets />
+                                  </VBox.margin>
+                              </Label>
+                              <RequestTable fx:id="rt" prefWidth="600.0">
+                     <VBox.margin>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                     </VBox.margin>
+                  </RequestTable>
+                          </children>
+                          <HBox.margin>
+                              <Insets right="20.0" />
+                          </HBox.margin>
+                      </VBox>
+                      <VBox alignment="CENTER" spacing="10.0">
+                          <children>
+                                    <Label styleClass="label-major" text="FILTER" textFill="WHITE">
+                                        <font>
+                                            <Font size="14.0" />
+                                        </font>
+                                    </Label>
+                                <ComboBox fx:id="equipmentSelection" onAction="#filterRequest" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                                    <items>
+                                        <FXCollections fx:factory="observableArrayList">
+                                            <String fx:value="All Requests" />
+                                            <String fx:value="Lab Service" />
+                                            <String fx:value="Language Interpreter" />
+                                            <String fx:value="Meal Delivery" />
+                                            <String fx:value="Medical Equipment" />
+                                            <String fx:value="Security" />
+                                            <String fx:value="Cleaning" />
+                                        </FXCollections>
+                                    </items>
+                                </ComboBox>
+                                    <Label styleClass="label-major" text="MORE INFO" textFill="WHITE">
+                                        <font>
+                                            <Font size="14.0" />
+                                        </font>
+                                    </Label>
+                                <TextArea fx:id="moreInfo" prefColumnCount="20" scaleZ="0.0" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" />
+                          </children>
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+                      </VBox>
+                  </children>
+              </HBox>
+              <HBox fx:id="selectionButtons" alignment="CENTER" spacing="10" visible="false">
+                  <Button mnemonicParsing="false" onAction="#start" text="Start" />
+                  <Button mnemonicParsing="false" onAction="#confirm" text="Complete" />
+                  <Button mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+         <Button mnemonicParsing="false" onAction="#requeue" text="Requeue" />
+                  <Button mnemonicParsing="false" onAction="#clearSelection" text="Clear Selection" />
+         <VBox.margin>
+            <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+         </VBox.margin>
+              </HBox>
+        </children>
+    </VBox>
