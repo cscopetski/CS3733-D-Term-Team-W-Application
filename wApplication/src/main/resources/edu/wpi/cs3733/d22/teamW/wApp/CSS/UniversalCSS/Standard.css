@@ -244,9 +244,12 @@
 }
 
 .table-row-cell:pressed {
-    -fx-background-color: #013895;
+    -fx-background-color: white;
     -fx-background-radius: 15px;
-    -fx-text-fill: white;
+    -fx-border-color: #013895;
+    -fx-border-radius: 15px;
+    -fx-border-width: 3;
+    -fx-text-fill: black;
     /*-fx-background-insets: 0px 11px 0px 0px;*/
 }
 

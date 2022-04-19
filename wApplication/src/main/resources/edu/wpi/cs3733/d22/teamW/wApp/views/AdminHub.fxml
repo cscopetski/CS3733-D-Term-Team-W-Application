@@ -1,24 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.Group?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Tab?>
-<?import javafx.scene.control.TabPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
-<?import javafx.scene.text.Font?>
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-
-<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable?>
-<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmployeeTable?>
-<AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.AdminHub">
+<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.AdminHub">
    <children>
       <VBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -30,7 +20,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <EmployeeTable fx:id="employeeTable" layoutX="382.0" layoutY="223.0" prefHeight="322.0" prefWidth="557.0"/>
+                                    <EmployeeTable fx:id="employeeTable" layoutX="382.0" layoutY="223.0" prefHeight="322.0" prefWidth="557.0" />
                                     <Group layoutX="551.0" layoutY="191.0">
                                        <children>
                                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#189da6" height="33.0" layoutX="4.0" layoutY="2.0" stroke="#24141400" strokeType="INSIDE" style="-fx-background-color: #189DA6;" width="371.0" />
@@ -59,6 +49,7 @@
                                     </Label>
                                     <TextField layoutX="29.0" layoutY="227.0" prefHeight="28.0" prefWidth="211.0" />
                                     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#189da6" height="54.0" layoutX="3.0" layoutY="203.0" stroke="TRANSPARENT" strokeType="INSIDE" width="22.0" />
+                                    <Button fx:id="addEmployee" layoutX="31.0" layoutY="273.0" mnemonicParsing="false" onAction="#openAddEmployee" prefHeight="28.0" prefWidth="211.0" text="Add employee" />
                                  </children>
                               </AnchorPane>
                         </content>
