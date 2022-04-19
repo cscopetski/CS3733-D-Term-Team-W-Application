@@ -239,8 +239,8 @@ public class LabServiceRequestController extends LoadableController {
     for (Employee e : employees) {
       if (e.getEmployeeID() != -1
               && ((e.getType().equals(EmployeeType.Doctor))
-                  || (e.getType().equals(EmployeeType.Nurse))
-          || e.getType().equals(EmployeeType.Staff))) {
+                  || (e.getType().equals(EmployeeType.Nurse)))
+          || e.getType().equals(EmployeeType.Staff)) {
         String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
         name.add(empName);
       }
