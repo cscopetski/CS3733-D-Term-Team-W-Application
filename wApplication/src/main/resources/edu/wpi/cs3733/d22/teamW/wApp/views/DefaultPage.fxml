@@ -29,7 +29,7 @@
                          <fx:include fx:id="sanitationRequestPage" source="ServiceRequestPages/SanitationRequest.fxml" />
                          <fx:include fx:id="flowerRequestPage" source="ServiceRequestPages/FlowerRequestPage.fxml" />
                          <fx:include fx:id="giftDeliveryPage" source="ServiceRequestPages/GiftDeliveryRequest.fxml" />
-                         <fx:include fx:id="requestListPage" source="ServiceRequestPages/RequestListPage.fxml" />
+                         <fx:include fx:id="requestListPage" source="RequestListPage.fxml" />
                          <fx:include fx:id="requestHubPage" source="RequestHubPage.fxml" />
                          <fx:include fx:id="helpPage" source="HelpPage.fxml" />
                          <fx:include fx:id="aboutPage" source="AboutPage.fxml" />

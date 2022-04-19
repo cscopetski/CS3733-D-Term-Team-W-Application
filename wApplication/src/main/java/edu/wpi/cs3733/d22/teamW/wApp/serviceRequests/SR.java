@@ -39,6 +39,13 @@ public abstract class SR {
     return REQUEST.getEmployeeID();
   }
 
+  public String getEmployeeType() throws SQLException {
+    return EmployeeManager.getEmployeeManager()
+        .getEmployee(REQUEST.getEmployeeID())
+        .getType()
+        .getString();
+  }
+
   public String getLocation() throws SQLException {
     return LocationManager.getLocationManager().getLocation(REQUEST.getNodeID()).getShortName();
   }
