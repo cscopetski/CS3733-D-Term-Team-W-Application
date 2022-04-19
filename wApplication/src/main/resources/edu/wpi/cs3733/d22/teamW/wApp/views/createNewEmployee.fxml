@@ -37,7 +37,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="322.0" layoutY="266.0" text="Type">
+      <Label layoutX="317.0" layoutY="267.0" text="Type">
          <font>
             <Font size="14.0" />
          </font>
@@ -57,5 +57,11 @@
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#06c6c7" height="3.0" layoutX="129.0" layoutY="79.0" stroke="TRANSPARENT" strokeType="INSIDE" width="263.0" />
       <ComboBox fx:id="typebox" layoutX="357.0" layoutY="263.0" prefHeight="25.0" prefWidth="103.0" />
       <Button layoutX="270.0" layoutY="357.0" mnemonicParsing="false" onAction="#cancelAdd" text="Cancel" />
+      <Label layoutX="316.0" layoutY="297.0" text="Phone">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="phonetxt" layoutX="358.0" layoutY="294.0" prefHeight="28.0" prefWidth="103.0" />
    </children>
 </AnchorPane>

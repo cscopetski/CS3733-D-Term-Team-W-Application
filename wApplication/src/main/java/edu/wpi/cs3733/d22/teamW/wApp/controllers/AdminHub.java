@@ -37,7 +37,6 @@ public class AdminHub {
             SceneManager.getInstance().getPrimaryStage(), "Create", "Create new Employee");
     Stage S = SceneManager.getInstance().openWindow("createNewEmployee.fxml");
     SceneManager.getInstance().eraseBlur();
-    // Employee newE = new Employee();
-    // em.addEmployee(newE);
+    setItems(); // Refresh the table
   }
 }
