@@ -21,6 +21,8 @@ import javafx.scene.control.*;
 
 public class LabServiceRequestController extends LoadableController {
 
+  @FXML public TextField patientFirstName;
+  @FXML public TextField patientLastName;
   // Combo Boxes:
   @FXML ComboBox employeeIDCBox;
   @FXML ComboBox locationCBox;
@@ -150,6 +152,8 @@ public class LabServiceRequestController extends LoadableController {
     xRayBox.setSelected(false);
     catBox.setSelected(false);
     emergencyButton.setValue(false);
+    patientFirstName.clear();
+    patientLastName.clear();
   }
 
   public String locationToNodeID(String target) {

@@ -6,7 +6,6 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,6 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.control.TextField?>
 <VBox alignment="CENTER" fillWidth="false" spacing="50.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LabServiceRequestController">
    <children>
       <HBox>
@@ -65,7 +65,7 @@
                         </Label>
                         <VBox alignment="CENTER">
                            <children>
-                              <Label styleClass="label-minor" text="Employee ID:">
+                              <Label styleClass="label-minor" text="Employee:">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
@@ -75,12 +75,32 @@
                         </VBox>
                         <VBox alignment="CENTER">
                            <children>
-                              <Label styleClass="label-minor" text="Location ID:">
+                              <Label styleClass="label-minor" text="Location:">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
                               <ComboBox fx:id="locationCBox" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <Label styleClass="label-minor" text="First Name:">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="patientFirstName" prefWidth="150.0" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER">
+                           <children>
+                              <Label styleClass="label-minor" text="Last Name:">
+                                 <font>
+                                    <Font name="System Bold" size="13.0" />
+                                 </font>
+                              </Label>
+                              <TextField fx:id="patientLastName" prefWidth="150.0" />
                            </children>
                         </VBox>
                      </children>
@@ -102,12 +122,12 @@
                         </VBox>
                         <VBox alignment="CENTER_LEFT" spacing="2.0">
                            <children>
-                              <CheckBox fx:id="bloodBox" mnemonicParsing="false"  text="Blood sample" textAlignment="CENTER">
+                              <CheckBox fx:id="bloodBox" mnemonicParsing="false" text="Blood sample" textAlignment="CENTER">
                                  <font>
                                     <Font name="Gill Sans MT" size="16.0" />
                                  </font>
                               </CheckBox>
-                              <CheckBox fx:id="urineBox" mnemonicParsing="false"  text="Urine samples" textAlignment="CENTER">
+                              <CheckBox fx:id="urineBox" mnemonicParsing="false" text="Urine samples" textAlignment="CENTER">
                                  <font>
                                     <Font name="Gill Sans MT" size="16.0" />
                                  </font>
