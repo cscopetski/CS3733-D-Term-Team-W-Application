@@ -35,7 +35,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   @FXML ComboBox unitCBox;
   @FXML ComboBox medNameCBox;
   @FXML ComboBox locationCBox;
-  @FXML ComboBox employeeIDCBox;
+  @FXML ComboBox employeeNameCBox;
 
   // Tables:
   @FXML private TableView<MedicalEquipmentSR> table;
@@ -60,7 +60,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     medNameCBox.setItems(FXCollections.observableArrayList(getListOfMedicine()));
     locationCBox.setItems(FXCollections.observableArrayList(getLocations()));
     unitCBox.setItems(FXCollections.observableArrayList(getListOfUnits()));
-    employeeIDCBox.setItems(FXCollections.observableArrayList(getEmployeeNames()));
+    employeeNameCBox.setItems(FXCollections.observableArrayList(getEmployeeNames()));
   }
 
   public void onUnload() {
@@ -77,7 +77,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     unitCBox.getSelectionModel().clearSelection();
     medNameCBox.getSelectionModel().clearSelection();
     locationCBox.getSelectionModel().clearSelection();
-    employeeIDCBox.getSelectionModel().clearSelection();
+    employeeNameCBox.getSelectionModel().clearSelection();
   }
 
   // -------------------------RETRIEVAL FROM DB METHODS------------------------------
@@ -154,7 +154,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     fields.add(quantityField.getText());
     fields.add(unitCBox.getSelectionModel().getSelectedItem().toString());
     fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
-    fields.add(getEmployeeID(employeeIDCBox.getSelectionModel().getSelectedItem().toString()));
+    fields.add(getEmployeeID(employeeNameCBox.getSelectionModel().getSelectedItem().toString()));
     if (emergencyB.getValue()) {
       emergency = 1;
     } else {
@@ -235,7 +235,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
         !(quantityField.getText().isEmpty()
             && unitCBox.getSelectionModel().isEmpty()
             && locationCBox.getSelectionModel().isEmpty()
-            && employeeIDCBox.getSelectionModel().isEmpty());
+            && employeeNameCBox.getSelectionModel().isEmpty());
 
     return result;
   }

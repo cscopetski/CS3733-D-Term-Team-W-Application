@@ -56,15 +56,15 @@
                                                 </BorderPane>
                                             </children>
                                         </Pane>
-                                          <Label prefHeight="17.0" prefWidth="73.0" text="Language">
+                                          <Label prefHeight="17.0" prefWidth="73.0" text="Language:">
                                               <font>
                                                   <Font name="System Bold" size="14.0" />
                                               </font>
                                           </Label>
                               <ComboBox fx:id="languageSelection" prefHeight="25.0" prefWidth="179.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                                          <Label style="-fx-font-weight: bold;" text="Location">
+                                          <Label style="-fx-font-weight: bold;" text="Location:">
                                               <font>
-                                                  <Font size="14.0" />
+                                                  <Font name="System Bold" size="14.0" />
                                               </font>
                                           </Label>
                               <ComboBox fx:id="locationSelection" prefHeight="25.0" prefWidth="179.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
@@ -94,7 +94,7 @@
                                             <children>
                                     <VBox layoutY="30.0" maxWidth="256.0" minWidth="180.0" prefHeight="81.0" prefWidth="180.0">
                                        <children>
-                                          <Label prefHeight="17.0" prefWidth="73.0" text="Employee">
+                                          <Label prefHeight="17.0" prefWidth="73.0" text="Possible Interpreters:">
                                              <font>
                                                 <Font name="System Bold" size="14.0" />
                                              </font>

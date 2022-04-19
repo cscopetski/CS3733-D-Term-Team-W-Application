@@ -99,13 +99,13 @@
                                           <Font name="System Bold" size="18.0" />
                                        </font>
                                     </Label>
-                                    <Label layoutX="29.0" layoutY="74.0" text="Employee Name">
+                                    <Label layoutX="29.0" layoutY="74.0" text="Employee Name:">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
                                     </Label>
                                     <ComboBox fx:id="employeeIDCBox" layoutX="29.0" layoutY="92.0" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                                    <Label layoutX="32.0" layoutY="127.0" text="Location ID">
+                                    <Label layoutX="32.0" layoutY="127.0" text="Location:">
                                        <font>
                                           <Font name="System Bold" size="13.0" />
                                        </font>
@@ -115,12 +115,12 @@
                               </Group>
                               <TextField fx:id="patientFirstName" layoutX="29.0" layoutY="202.0" style="-fx-border-color: #013895; -fx-border-radius: 4;" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
                               <TextField fx:id="patientLastName" layoutX="29.0" layoutY="258.0" style="-fx-border-color: #013895; -fx-border-radius: 4;" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                              <Label layoutX="29.0" layoutY="183.0" text="Patient First Name">
+                              <Label layoutX="29.0" layoutY="183.0" text="Patient First Name:">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <Label layoutX="30.0" layoutY="239.0" text="Patient Last Name">
+                              <Label layoutX="30.0" layoutY="239.0" text="Patient Last Name:">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>

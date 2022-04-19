@@ -37,7 +37,11 @@ public class ComputerServiceRequestController extends LoadableController {
     if (!emptyFields()) {
       confirm.showAndWait();
       if (confirm.getResult() == ButtonType.OK) {
-        pushComputerServiceRequestToDB();
+        try {
+          pushComputerServiceRequestToDB();
+        } catch (Exception e) {
+          System.out.println("Failed to push to database");
+        }
         clearFields();
         successLabel.setVisible(true);
         fadeOut.playFromStart();
@@ -60,7 +64,7 @@ public class ComputerServiceRequestController extends LoadableController {
     fadeOut.setCycleCount(1);
     fadeOut.setAutoReverse(false);
     locationComboBox.setItems(FXCollections.observableArrayList(getLocations()));
-    employeeIDComboBox.setItems(FXCollections.observableArrayList(getEmployeeIDs()));
+    employeeIDComboBox.setItems(FXCollections.observableArrayList(getEmployeeNames()));
   }
 
   @Override
@@ -73,11 +77,12 @@ public class ComputerServiceRequestController extends LoadableController {
         || locationComboBox.getSelectionModel().isEmpty();
   }
 
-  private void pushComputerServiceRequestToDB() {
+  private void pushComputerServiceRequestToDB() throws Exception {
     ArrayList<String> csrFields = new ArrayList<String>();
     csrFields.add(
         locationToNodeID(locationComboBox.getSelectionModel().getSelectedItem().toString()));
-    csrFields.add(employeeIDComboBox.getSelectionModel().getSelectedItem().toString());
+    csrFields.add(
+        getEmployeeID(employeeIDComboBox.getSelectionModel().getSelectedItem().toString()));
     if (emergencyButton.getValue()) {
       csrFields.add("1");
     } else {
@@ -115,6 +120,7 @@ public class ComputerServiceRequestController extends LoadableController {
     return nodeID;
   }
 
+  // NOT SURE IF NEEDED:
   private ArrayList<Integer> getEmployeeIDs() {
     ArrayList<Integer> ids = new ArrayList<>();
     ArrayList<Employee> employees = null;
@@ -128,6 +134,39 @@ public class ComputerServiceRequestController extends LoadableController {
       if (e.getEmployeeID() != -1) ids.add(e.getEmployeeID());
     }
     return ids;
+  }
+
+  private String getEmployeeID(String name) throws SQLException {
+    name = name.trim();
+    Integer employeeID = null;
+    String employeeLastName;
+    String employeeFirstName;
+    Integer commaIndex = name.indexOf(',');
+    employeeLastName = name.substring(0, commaIndex);
+    employeeFirstName = name.substring(commaIndex + 2);
+
+    for (Employee e : EmployeeManager.getEmployeeManager().getAllEmployees()) {
+      if (e.getLastName().equals(employeeLastName) && e.getFirstName().equals(employeeFirstName)) {
+        employeeID = e.getEmployeeID();
+      }
+    }
+
+    return String.format("%d", employeeID);
+  }
+
+  private ArrayList<String> getEmployeeNames() {
+    ArrayList<String> names = new ArrayList<>();
+    ArrayList<Employee> employees = null;
+    try {
+      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
+    } catch (SQLException e) {
+      System.out.println("Failed to unearth employees from database");
+      e.printStackTrace();
+    }
+    for (Employee e : employees) {
+      names.add(String.format("%s, %s", e.getLastName(), e.getFirstName()));
+    }
+    return names;
   }
 
   private ArrayList<String> getLocations() {

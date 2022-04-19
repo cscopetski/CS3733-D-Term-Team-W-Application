@@ -54,7 +54,7 @@
                                     </Pane>
                                  </center>
                               </BorderPane>
-                              <Label style="-fx-font-weight: bold;" text="Recipient First Name">
+                              <Label style="-fx-font-weight: bold;" text="Recipient First Name:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -63,7 +63,7 @@
                                  </padding>
                               </Label>
                               <TextField fx:id="recipientFirstName" style="-fx-border-color: #013895; -fx-border-radius: 4;" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                              <Label prefHeight="20.0" prefWidth="141.0" style="-fx-font-weight: bold;" text="Recipient Last Name">
+                              <Label prefHeight="20.0" prefWidth="141.0" style="-fx-font-weight: bold;" text="Recipient Last Name:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -92,7 +92,7 @@
                                                 </BorderPane>
                                             </children>
                                         </Pane>
-                                        <Label style="-fx-font-weight: bold;" text="Location">
+                                        <Label style="-fx-font-weight: bold;" text="Location:">
                                             <font>
                                                 <Font size="14.0" />
                                             </font>
@@ -105,7 +105,7 @@
                                                 <Insets bottom="20.0" />
                                             </VBox.margin>
                                         </ComboBox>
-                                        <Label prefHeight="20.0" prefWidth="124.0" style="-fx-font-weight: bold;" text="Type of Flower">
+                                        <Label prefHeight="20.0" prefWidth="124.0" style="-fx-font-weight: bold;" text="Flower Type:">
                                             <font>
                                                 <Font size="14.0" />
                                             </font>
@@ -115,7 +115,7 @@
                                                 <Insets bottom="30.0" />
                                             </VBox.margin>
                                         </ComboBox>
-                                        <Label prefHeight="20.0" prefWidth="114.0" style="-fx-font-weight: bold;" text="Employee">
+                                        <Label prefHeight="20.0" prefWidth="114.0" style="-fx-font-weight: bold;" text="Employee Name:">
                                             <font>
                                                 <Font size="14.0" />
                                             </font>

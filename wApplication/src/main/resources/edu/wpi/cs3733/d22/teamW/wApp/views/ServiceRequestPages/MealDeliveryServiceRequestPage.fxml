@@ -157,7 +157,7 @@
                                     </BorderPane>
                                  </children>
                               </Pane>
-                              <Label style="-fx-font-weight: bold;" text="Location">
+                              <Label style="-fx-font-weight: bold;" text="Location:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -173,7 +173,7 @@
                                     <Insets bottom="20.0" />
                                  </VBox.margin>
                               </ComboBox>
-                              <Label prefHeight="20.0" prefWidth="114.0" style="-fx-font-weight: bold;" text="Employee ID">
+                              <Label prefHeight="20.0" prefWidth="114.0" style="-fx-font-weight: bold;" text="Employee Name:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
@@ -186,7 +186,7 @@
                                     <Insets bottom="20.0" />
                                  </VBox.margin>
                               </ComboBox>
-                              <Label style="-fx-font-weight: bold;" text="Patient First Name">
+                              <Label style="-fx-font-weight: bold;" text="Patient First Name:">
                                  <font>
                                     <Font size="14.0" />
                                  </font></Label>
@@ -195,7 +195,7 @@
                                     <Insets bottom="20.0" top="10.0" />
                                  </VBox.margin>
                               </TextField>
-                              <Label style="-fx-font-weight: bold;" text="Patient Last Name">
+                              <Label style="-fx-font-weight: bold;" text="Patient Last Name:">
                                  <font>
                                     <Font size="14.0" />
                                  </font>
