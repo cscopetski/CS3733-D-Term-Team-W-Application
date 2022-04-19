@@ -17,6 +17,7 @@
 
 
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable?>
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmployeeTable?>
 <AnchorPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.AdminHub">
    <children>
       <VBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -29,7 +30,7 @@
                         <content>
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                  <children>
-                                    <RequestTable fx:id="employeeTable" layoutX="382.0" layoutY="223.0" prefHeight="322.0" prefWidth="557.0"/>
+                                    <EmployeeTable fx:id="employeeTable" layoutX="382.0" layoutY="223.0" prefHeight="322.0" prefWidth="557.0"/>
                                     <Group layoutX="551.0" layoutY="191.0">
                                        <children>
                                           <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#189da6" height="33.0" layoutX="4.0" layoutY="2.0" stroke="#24141400" strokeType="INSIDE" style="-fx-background-color: #189DA6;" width="371.0" />

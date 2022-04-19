@@ -1,13 +1,13 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmployeeTable;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.sql.SQLException;
 import javafx.fxml.FXML;
 
 public class AdminHub {
-  @FXML RequestTable employeeTable;
+  @FXML EmployeeTable employeeTable;
   EmployeeManager em = EmployeeManager.getEmployeeManager();
 
   protected SceneManager.Scenes GetSceneType() {
@@ -15,16 +15,16 @@ public class AdminHub {
   }
 
   public void initialize() {
-    employeeTable
-        .getSelectionModel()
-        .selectedItemProperty()
-        .addListener(
-            (obs, oldSelection, newSelection) -> {
-              try {
-                em.getAllEmployees();
-              } catch (SQLException e) {
-                e.printStackTrace();
-              }
-            });
+    setItems();
+  }
+
+  private void setItems() {
+    try {
+      employeeTable.setItems(em.getAllEmployees());
+    } catch (SQLException ex) {
+      ex.printStackTrace();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 }
