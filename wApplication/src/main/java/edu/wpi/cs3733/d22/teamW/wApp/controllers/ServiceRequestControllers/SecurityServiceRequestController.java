@@ -21,17 +21,17 @@ public class SecurityServiceRequestController {
   //  public void emergencyClicked(MouseEvent mouseEvent) {
   //    if (emergencyLevel) {
   //      emergencyLevel = false;
-  //      emergencyB.getStylesheets().clear();
+  //      emergencyButton.getStylesheets().clear();
   //
-  //      emergencyB
+  //      emergencyButton
   //          .getStylesheets()
   //          .add(
   //
   // "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonFalse.css");
   //    } else {
   //      emergencyLevel = true;
-  //      emergencyB.getStylesheets().clear();
-  //      emergencyB
+  //      emergencyButton.getStylesheets().clear();
+  //      emergencyButton
   //          .getStylesheets()
   //          .add(
   //

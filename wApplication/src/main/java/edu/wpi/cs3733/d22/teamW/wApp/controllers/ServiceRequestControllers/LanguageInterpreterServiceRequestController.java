@@ -21,14 +21,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.util.Duration;
-import javax.swing.*;
 
 public class LanguageInterpreterServiceRequestController extends LoadableController {
 
   @FXML ComboBox locationSelection;
   @FXML ComboBox employeeSelection;
   @FXML ComboBox languageSelection;
-  @FXML EmergencyButton emergencyB;
+  @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
@@ -96,7 +95,7 @@ public class LanguageInterpreterServiceRequestController extends LoadableControl
     srFields.add(
         locationToNodeID(locationSelection.getSelectionModel().getSelectedItem().toString()));
     srFields.add(getEmployeeID(employeeSelection.getSelectionModel().getSelectedItem().toString()));
-    if (emergencyB.getValue()) {
+    if (emergencyButton.getValue()) {
       srFields.add("1");
     } else {
       srFields.add("0");
@@ -119,7 +118,7 @@ public class LanguageInterpreterServiceRequestController extends LoadableControl
       languageSelection.getSelectionModel().clearSelection();
     }
 
-    emergencyB.setValue(false);
+    emergencyButton.setValue(false);
     employeeSelection.setDisable(true);
   }
 

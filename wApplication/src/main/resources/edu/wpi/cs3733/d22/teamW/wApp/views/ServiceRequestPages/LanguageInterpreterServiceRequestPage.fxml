@@ -8,133 +8,87 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LanguageInterpreterServiceRequestController">
+<VBox alignment="CENTER" spacing="50.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LanguageInterpreterServiceRequestController">
     <children>
-        <AnchorPane prefHeight="473.0" prefWidth="940.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox alignment="CENTER">
             <children>
-                <VBox layoutX="72.0" prefHeight="406.0" prefWidth="800.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="80.0">
+                <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../assets/Icons/Icons-05.png" />
+                    </image>
+                </ImageView>
+                <Label text="Language Interpreter">
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                    <font>
+                        <Font name="System Bold" size="30.0" />
+                    </font>
+                </Label>
+                <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Use this to request a translator or interpreter" textAlignment="CENTER" wrappingWidth="265.1999969482422">
+                    <VBox.margin>
+                        <Insets bottom="20.0" />
+                    </VBox.margin>
+                </Text>
+            </children>
+        </VBox>
+        <VBox alignment="CENTER" spacing="10.0">
+            <children>
+                <Label styleClass="label-major" text="INFO" />
+                <VBox alignment="CENTER">
                     <children>
-                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../../assets/Icons/Icons-05.png" />
-                            </image>
-                        </ImageView>
-                        <Label prefHeight="45.0" prefWidth="304.0" text="Language Interpreter">
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
+                        <Label styleClass="label-minor" text="Language:">
                             <font>
-                                <Font name="System Bold" size="30.0" />
+                                <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                        <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Use this to request a translator or interpreter" wrappingWidth="265.1999969482422">
-                            <VBox.margin>
-                                <Insets bottom="20.0" />
-                            </VBox.margin>
-                        </Text>
-                        <HBox prefHeight="500.0" prefWidth="800.0" style="-fx-alignment: center;">
-                            <children>
-                                <VBox maxWidth="256.0" minWidth="180.0" prefHeight="350.0" prefWidth="180.0">
-                                    <children>
-                                        <Pane maxHeight="30.0" maxWidth="187.0" prefHeight="30.0" prefWidth="187.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
-                                            <children>
-                                                <BorderPane layoutY="-6.0" maxHeight="36.0" maxWidth="224.0" prefHeight="36.0" prefWidth="174.0">
-                                                    <center>
-                                                        <Label prefHeight="20.0" prefWidth="151.0" style="-fx-font-weight: bold;" text="ENTER INFORMATION" textFill="WHITE" BorderPane.alignment="CENTER">
-                                                            <font>
-                                                                <Font size="14.0" />
-                                                            </font>
-                                                        </Label>
-                                                    </center>
-                                                </BorderPane>
-                                            </children>
-                                        </Pane>
-                                          <Label prefHeight="17.0" prefWidth="73.0" text="Language">
-                                              <font>
-                                                  <Font name="System Bold" size="14.0" />
-                                              </font>
-                                          </Label>
-                              <ComboBox fx:id="languageSelection" prefHeight="25.0" prefWidth="179.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                                          <Label style="-fx-font-weight: bold;" text="Location">
-                                              <font>
-                                                  <Font size="14.0" />
-                                              </font>
-                                          </Label>
-                              <ComboBox fx:id="locationSelection" prefHeight="25.0" prefWidth="179.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                                        <BorderPane maxWidth="250.0" prefHeight="39.0" prefWidth="265.0">
-                                            <VBox.margin>
-                                                <Insets top="5.0" />
-                                            </VBox.margin>
-                                 <center>
-                                                <Label prefHeight="17.0" prefWidth="140.0" style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" BorderPane.alignment="CENTER" />
-                                 </center>
-                                        </BorderPane>
-                                          <EmergencyButton fx:id="emergencyB" mnemonicParsing="false" prefHeight="30.0" prefWidth="220.0" />
-
-                                        <BorderPane maxWidth="250.0" prefHeight="30.0" prefWidth="250.0">
-                                            <VBox.margin>
-                                                <Insets top="20.0" />
-                                            </VBox.margin>
-                                        </BorderPane>
-                                    </children>
-                                    <HBox.margin>
-                                        <Insets right="20.0" />
-                                    </HBox.margin>
-                                </VBox>
-                                <VBox prefHeight="344.0" prefWidth="376.0">
-                                    <children>
-                                        <Pane fx:id="map" minHeight="227.0" minWidth="201.0" prefHeight="227.0" prefWidth="311.0">
-                                            <children>
-                                    <VBox layoutY="30.0" maxWidth="256.0" minWidth="180.0" prefHeight="81.0" prefWidth="180.0">
-                                       <children>
-                                          <Label prefHeight="17.0" prefWidth="73.0" text="Employee">
-                                             <font>
-                                                <Font name="System Bold" size="14.0" />
-                                             </font>
-                                          </Label>
-                                          <ComboBox fx:id="employeeSelection" prefHeight="25.0" prefWidth="179.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                                          <BorderPane maxWidth="250.0" prefHeight="30.0" prefWidth="250.0">
-                                             <VBox.margin>
-                                                <Insets top="20.0" />
-                                             </VBox.margin>
-                                          </BorderPane>
-                                          <BorderPane maxWidth="250.0" prefHeight="17.0" prefWidth="250.0" />
-                                          <BorderPane maxWidth="250.0" prefHeight="39.0" prefWidth="265.0">
-                                             <VBox.margin>
-                                                <Insets top="5.0" />
-                                             </VBox.margin>
-                                          </BorderPane>
-                                       </children>
-                                    </VBox>
-                                    <Label fx:id="successLabel" layoutY="182.0" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
-                                       <font>
-                                          <Font size="14.0" />
-                                       </font>
-                                    </Label>
-                                                <Button layoutY="152.0" minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
-                                            </children>
-                                        </Pane>
-                                        <BorderPane prefHeight="0.0" prefWidth="376.0" />
-                                    </children>
-                                    <HBox.margin>
-                                        <Insets left="20.0" />
-                                    </HBox.margin>
-                                </VBox>
-                            </children>
-                            <VBox.margin>
-                                <Insets />
-                            </VBox.margin>
-                        </HBox>
+                        <ComboBox fx:id="languageSelection" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
                     </children>
                 </VBox>
+                <VBox alignment="CENTER">
+                    <children>
+                        <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Location:">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <ComboBox fx:id="locationSelection" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER">
+                    <children>
+                        <Label styleClass="label-minor" text="Employee:">
+                            <font>
+                                <Font name="System Bold" size="14.0" />
+                            </font>
+                        </Label>
+                        <ComboBox fx:id="employeeSelection" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
+                    </children>
+                </VBox>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
+                  <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" />
+               </children>
+            </VBox>
+                <VBox alignment="CENTER">
+                    <children>
+                        <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
+                        <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                    </children>
+                    <VBox.margin>
+                        <Insets top="20.0" />
+                    </VBox.margin>
+                </VBox>
             </children>
-        </AnchorPane>
+        </VBox>
     </children>
-</AnchorPane>
+</VBox>

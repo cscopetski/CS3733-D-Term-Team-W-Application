@@ -9,142 +9,113 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"  style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.FlowerRequestController">
-    <children>
-        <AnchorPane layoutX="10.0" layoutY="10.0" prefWidth="900.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <children>
-                <VBox layoutX="72.0" layoutY="13.0" prefHeight="349.0" prefWidth="695.0" style="-fx-alignment: center;" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="0.0">
-                    <children>
-                        <HBox prefHeight="371.0" prefWidth="700.0" style="-fx-alignment: center;">
-                            <children>
-                                <VBox alignment="TOP_CENTER" prefHeight="260.0" prefWidth="371.0">
-                                    <children>
-                                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                                            <image>
-                                                <Image url="@../../assets/Icons/FlowerBlue.png" />
-                                            </image>
-                                        </ImageView>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Flower Delivery Service" textAlignment="CENTER" wrappingWidth="370.800048828125">
-                                            <font>
-                                                <Font size="30.0" />
-                                            </font>
-                                        </Text>
-                              <Label fx:id="successLabel1" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
-                                 <font>
+<VBox alignment="CENTER" fillWidth="false" spacing="50.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.FlowerRequestController">
+        <children>
+              <VBox alignment="CENTER">
+                  <children>
+                      <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                          <image>
+                              <Image url="@../../assets/Icons/FlowerBlue.png" />
+                          </image>
+                      </ImageView>
+                      <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Flower Delivery Service" textAlignment="CENTER" wrappingWidth="370.800048828125">
+                          <font>
+                              <Font size="30.0" />
+                          </font>
+                      </Text>
+            <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="fix this label" textAlignment="CENTER" wrappingWidth="333.5999803543091" />
+                  </children>
+              </VBox>
+              <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
+                  <children>
+                          <Label styleClass="label-major" text="INFO" textFill="WHITE">
+                              <font>
+                                  <Font size="14.0" />
+                              </font>
+                          </Label>
+            <VBox alignment="CENTER" fillWidth="false" VBox.vgrow="NEVER">
+               <children>
+                  <Label styleClass="label-minor" text="Recipient First Name:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets top="5.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="recipientFirstName" styleClass="text-field" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" fillWidth="false">
+               <children>
+                  <Label styleClass="label-minor" text="Recipient Last Name:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets top="17.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="recipientLastName" styleClass="text-field" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" fillWidth="false">
+               <children>
+                            <Label styleClass="label-minor" text="Location:">
+                                <font>
                                     <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <BorderPane maxHeight="30.0" maxWidth="60.0" prefHeight="200.0" prefWidth="200.0">
-                                 <center>
-                                    <Pane maxHeight="30.0" maxWidth="60.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;" BorderPane.alignment="CENTER">
-                                       <children>
-                                          <Label layoutX="13.0" layoutY="4.0" style="-fx-font-weight: bold;" text="INFO" textFill="WHITE">
-                                             <font>
-                                                <Font size="14.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </Pane>
-                                 </center>
-                              </BorderPane>
-                              <Label style="-fx-font-weight: bold;" text="Recipient First Name">
-                                 <font>
+                                </font>
+                                <padding>
+                                    <Insets top="10.0" />
+                                </padding>
+                            </Label>
+                            <ComboBox fx:id="locationComboBox" prefWidth="150.0" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" fillWidth="false">
+               <children>
+                            <Label styleClass="label-minor" text="Type of Flower:">
+                                <font>
                                     <Font size="14.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets top="5.0" />
-                                 </padding>
-                              </Label>
-                              <TextField fx:id="recipientFirstName" style="-fx-border-color: #013895; -fx-border-radius: 4;" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                              <Label prefHeight="20.0" prefWidth="141.0" style="-fx-font-weight: bold;" text="Recipient Last Name">
-                                 <font>
+                                </font>
+                            </Label>
+                            <ComboBox fx:id="flowerTypeBox" prefWidth="150.0" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" fillWidth="false">
+               <children>
+                            <Label styleClass="label-minor" text="Employee:">
+                                <font>
                                     <Font size="14.0" />
-                                 </font>
-                                 <padding>
-                                    <Insets top="17.0" />
-                                 </padding>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </Label>
-                              <TextField fx:id="recipientLastName" style="-fx-border-color: #013895; -fx-border-radius: 4;" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                                    </children>
-                                </VBox>
-                                <VBox prefHeight="364.0" prefWidth="260.0">
-                                    <children>
-                                        <Pane maxHeight="30.0" maxWidth="60.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
-                                            <children>
-                                                <BorderPane maxHeight="30.0" maxWidth="60.0" prefHeight="200.0" prefWidth="200.0">
-                                                    <center>
-                                                        <Label style="-fx-font-weight: bold;" text="INFO" textFill="WHITE" BorderPane.alignment="CENTER">
-                                                            <font>
-                                                                <Font size="14.0" />
-                                                            </font>
-                                                        </Label>
-                                                    </center>
-                                                </BorderPane>
-                                            </children>
-                                        </Pane>
-                                        <Label style="-fx-font-weight: bold;" text="Location">
-                                            <font>
-                                                <Font size="14.0" />
-                                            </font>
-                                            <padding>
-                                                <Insets top="10.0" />
-                                            </padding>
-                                        </Label>
-                                        <ComboBox fx:id="locationComboBox" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-                                            <VBox.margin>
-                                                <Insets bottom="20.0" />
-                                            </VBox.margin>
-                                        </ComboBox>
-                                        <Label prefHeight="20.0" prefWidth="124.0" style="-fx-font-weight: bold;" text="Type of Flower">
-                                            <font>
-                                                <Font size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <ComboBox fx:id="flowerTypeBox" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-                                            <VBox.margin>
-                                                <Insets bottom="30.0" />
-                                            </VBox.margin>
-                                        </ComboBox>
-                                        <Label prefHeight="20.0" prefWidth="114.0" style="-fx-font-weight: bold;" text="Employee">
-                                            <font>
-                                                <Font size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <ComboBox fx:id="employeeIDComboBox" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                                        <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
-                                            <font>
-                                                <Font size="14.0" />
-                                            </font>
-                                        </Label>
-                                        <EmergencyButton fx:id="emergencyButton" layoutX="36.0" layoutY="222.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="220.0">
-                                            <VBox.margin>
-                                                <Insets bottom="20.0" />
-                                            </VBox.margin></EmergencyButton>
-                                        <Button mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit">
-                                            <VBox.margin>
-                                                <Insets bottom="10.0" />
-                                            </VBox.margin>
-                                        </Button>
-                                    </children>
-                                    <HBox.margin>
-                                        <Insets left="20.0" />
-                                    </HBox.margin>
-                                </VBox>
-                            </children>
-                        </HBox>
-                    </children>
-                </VBox>
-            </children>
-        </AnchorPane>
-    </children>
-</AnchorPane>
+                                </font>
+                            </Label>
+                            <ComboBox fx:id="employeeIDComboBox" prefWidth="150.0" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER">
+               <children>
+                  <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
+                  <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER">
+               <children>
+                            <Button mnemonicParsing="false" onAction="#submitButton" text="Submit" />
+                            <Label fx:id="successLabel" styleClass="label-minor" text="Successfully submitted request." textFill="#3ccc63" visible="false">
+                                <font>
+                                    <Font size="14.0" />
+                                </font>
+                            </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="25.0" />
+               </VBox.margin>
+            </VBox>
+                  </children>
+              </VBox>
+        </children>
+    </VBox>

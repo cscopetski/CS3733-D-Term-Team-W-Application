@@ -20,14 +20,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 public class GiftDeliveryRequestController extends LoadableController {
+  @FXML public VBox patientFieldsBox;
   @FXML TextField recipientLastName;
   @FXML TextField recipientFirstName;
   @FXML ComboBox locationComboBox;
   @FXML ComboBox employeeIDComboBox;
-  @FXML EmergencyButton emergencyButton1;
+  @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
 
   Alert emptyFields = new EmptyAlert();
@@ -80,7 +82,7 @@ public class GiftDeliveryRequestController extends LoadableController {
         locationToNodeID(locationComboBox.getSelectionModel().getSelectedItem().toString()));
     srFields.add(
         getEmployeeID(employeeIDComboBox.getSelectionModel().getSelectedItem().toString()));
-    if (emergencyButton1.getValue()) {
+    if (emergencyButton.getValue()) {
       srFields.add("1");
     } else {
       srFields.add("0");
@@ -97,7 +99,7 @@ public class GiftDeliveryRequestController extends LoadableController {
     employeeIDComboBox.getSelectionModel().clearSelection();
     recipientFirstName.clear();
     recipientLastName.clear();
-    emergencyButton1.setValue(false);
+    emergencyButton.setValue(false);
   }
 
   private String getEmployeeID(String name) throws SQLException {

@@ -27,7 +27,7 @@ public class MealDeliveryServiceRequestController extends LoadableController {
 
   @FXML ComboBox locationComboBox;
   @FXML ComboBox employeeNameComboBox;
-  @FXML EmergencyButton emergencyB;
+  @FXML EmergencyButton emergencyButton;
   @FXML Button menuButton1;
   @FXML Button menuButton2;
   @FXML Button menuButton3;
@@ -121,7 +121,7 @@ public class MealDeliveryServiceRequestController extends LoadableController {
         locationToNodeID(locationComboBox.getSelectionModel().getSelectedItem().toString()));
     mdFields.add(
         getEmployeeID(employeeNameComboBox.getSelectionModel().getSelectedItem().toString()));
-    if (emergencyB.getValue()) {
+    if (emergencyButton.getValue()) {
       mdFields.add("1");
     } else {
       mdFields.add("0");
@@ -136,7 +136,7 @@ public class MealDeliveryServiceRequestController extends LoadableController {
   private void clearFields() {
     locationComboBox.getSelectionModel().clearSelection();
     employeeNameComboBox.getSelectionModel().clearSelection();
-    emergencyB.setValue(false);
+    emergencyButton.setValue(false);
   }
 
   private String getEmployeeID(String name) throws SQLException {
