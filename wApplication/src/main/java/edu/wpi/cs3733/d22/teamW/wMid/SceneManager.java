@@ -257,6 +257,10 @@ public class SceneManager {
     return stage;
   }
 
+  public void eraseBlur() {
+    getScene().getRoot().setEffect(null);
+  }
+
   public Object getController(Scenes scene) {
     return pages.get(scene).controller;
   }
