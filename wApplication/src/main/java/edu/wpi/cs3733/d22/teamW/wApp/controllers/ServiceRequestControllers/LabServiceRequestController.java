@@ -37,7 +37,6 @@ public class LabServiceRequestController extends LoadableController {
   Alert emptyFields = new EmptyAlert();
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
-
     createRequest();
     clearFields();
   }
@@ -91,7 +90,9 @@ public class LabServiceRequestController extends LoadableController {
 
   private void pushDataToDB() throws Exception {
     ArrayList<String> fields = new ArrayList<String>();
-    fields.add("");
+    fields.add(patientLastName.getText());
+    fields.add(patientFirstName.getText());
+    fields.add(""); // placeholder for remaining code: check if statements below
     fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
     fields.add(getEmployeeID(employeeIDCBox.getSelectionModel().getSelectedItem().toString()));
     if (emergencyButton.getValue()) {

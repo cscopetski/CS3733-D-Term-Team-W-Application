@@ -53,7 +53,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="medNameCBox" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                              <ComboBox fx:id="medNameCBox" prefWidth="150.0" >
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -67,7 +67,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="locationCBox" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                              <ComboBox fx:id="locationCBox" prefWidth="150.0">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -88,7 +88,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="quantityField" minWidth="120.0" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                              <TextField fx:id="quantityField" prefWidth="150.0" >
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -105,7 +105,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="unitCBox" minWidth="120.0" prefHeight="28.0" prefWidth="126.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                              <ComboBox fx:id="unitCBox" prefWidth="150.0">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -126,7 +126,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="timePrefCBox" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                              <ComboBox fx:id="timePrefCBox" prefWidth="150.0">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -140,7 +140,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="employeeIDCBox" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
+                              <ComboBox fx:id="employee" prefWidth="150.0">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>

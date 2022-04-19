@@ -152,7 +152,7 @@
                                     <Insets top="10.0" />
                                  </padding>
                               </Label>
-                              <ComboBox fx:id="locationComboBox" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
+                              <ComboBox fx:id="locationComboBox" prefWidth="150.0" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER">
@@ -162,7 +162,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="employeeNameComboBox" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
+                              <ComboBox fx:id="employee" prefWidth="150.0" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER">
@@ -172,7 +172,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="patientFirst" onAction="#onEnter" prefWidth="150.0" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
+                              <TextField fx:id="patientFirst" onAction="#onEnter" prefWidth="150.0" styleClass="text-field" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER">
@@ -182,7 +182,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="patientLast" onAction="#onEnter" prefWidth="150.0" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
+                              <TextField fx:id="patientLast" onAction="#onEnter" prefWidth="150.0" styleClass="text-field" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER">
@@ -200,7 +200,7 @@
             </HBox>
             <VBox alignment="CENTER">
                <children>
-                  <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit">
+                  <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#submitButton" text="Submit">
                      <VBox.margin>
                         <Insets />
                      </VBox.margin>

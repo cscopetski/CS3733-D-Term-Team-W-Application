@@ -39,7 +39,11 @@ public class ComputerServiceRequestController extends LoadableController {
     if (!emptyFields()) {
       confirm.showAndWait();
       if (confirm.getResult() == ButtonType.OK) {
-        pushComputerServiceRequestToDB();
+        try {
+          pushComputerServiceRequestToDB();
+        } catch (Exception e) {
+          System.out.println("Failed to push to database");
+        }
         clearFields();
         successLabel.setVisible(true);
         fadeOut.playFromStart();
