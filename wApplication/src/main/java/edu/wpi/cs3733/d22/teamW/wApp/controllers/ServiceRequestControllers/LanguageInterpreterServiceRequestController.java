@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
@@ -25,9 +26,9 @@ import javafx.util.Duration;
 
 public class LanguageInterpreterServiceRequestController extends LoadableController {
 
-  @FXML ComboBox<String> locationSelection;
-  @FXML ComboBox<String> employeeSelection;
-  @FXML ComboBox<String> languageSelection;
+  @FXML AutoCompleteInput locationSelection;
+  @FXML AutoCompleteInput employeeSelection;
+  @FXML AutoCompleteInput languageSelection;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
   Alert confirm = new ConfirmAlert();

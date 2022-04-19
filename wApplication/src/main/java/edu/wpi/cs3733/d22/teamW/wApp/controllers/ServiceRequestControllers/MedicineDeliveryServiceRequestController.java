@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
@@ -34,10 +35,10 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   @FXML TextField quantityField;
 
   // ComboBoxes:
-  @FXML ComboBox<String> unitCBox;
-  @FXML ComboBox<String> medNameCBox;
-  @FXML ComboBox<String> locationCBox;
-  @FXML ComboBox<String> employee;
+  @FXML AutoCompleteInput unitCBox;
+  @FXML AutoCompleteInput medNameCBox;
+  @FXML AutoCompleteInput locationCBox;
+  @FXML AutoCompleteInput employee;
 
   // Tables:
   @FXML private TableView<MedicalEquipmentSR> table;

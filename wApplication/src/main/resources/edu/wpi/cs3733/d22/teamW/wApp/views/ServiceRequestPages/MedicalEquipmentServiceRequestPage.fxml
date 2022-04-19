@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput?>
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton?>
-<?import java.lang.String?>
-<?import javafx.collections.FXCollections?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-    <VBox spacing="50.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"  stylesheets="@../../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicalEquipmentServiceRequestController">
+<VBox spacing="50.0" style="-fx-alignment: center; -fx-background-color: white;" stylesheets="@../../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicalEquipmentServiceRequestController">
         <children>
       <VBox alignment="CENTER">
          <children>
@@ -46,16 +43,7 @@
                                         <Font size="14.0" />
                                     </font>
                                 </Label>
-                            <ComboBox fx:id="locationComboBox" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-                                <items>
-                                    <FXCollections fx:factory="observableArrayList">
-                                        <String fx:value="Patient Bed" />
-                                        <String fx:value="Infusion Pump" />
-                                        <String fx:value="Recliner" />
-                                        <String fx:value="XRay Machine" />
-                                    </FXCollections>
-                                </items>
-                            </ComboBox>
+                  <AutoCompleteInput fx:id="locationComboBox" />
                </children>
             </VBox>
             <VBox alignment="CENTER">
@@ -65,16 +53,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="employeeNameComboBox" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-                     <items>
-                        <FXCollections fx:factory="observableArrayList">
-                           <String fx:value="Patient Bed" />
-                           <String fx:value="Infusion Pump" />
-                           <String fx:value="Recliner" />
-                           <String fx:value="XRay Machine" />
-                        </FXCollections>
-                     </items>
-                  </ComboBox>
+                  <AutoCompleteInput fx:id="employeeNameComboBox" />
                </children>
             </VBox>
             <VBox alignment="CENTER">
@@ -84,16 +63,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="equipmentSelection" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-                     <items>
-                        <FXCollections fx:factory="observableArrayList">
-                           <String fx:value="Patient Bed" />
-                           <String fx:value="Infusion Pump" />
-                           <String fx:value="Recliner" />
-                           <String fx:value="XRay Machine" />
-                        </FXCollections>
-                     </items>
-                  </ComboBox>
+                  <AutoCompleteInput fx:id="equipmentSelection" />
                </children>
             </VBox>
             <VBox alignment="CENTER">

@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
@@ -22,14 +23,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
 public class SanitationRequestController extends LoadableController {
-  @FXML ComboBox<String> locationComboBox;
-  @FXML ComboBox<String> employeeIDComboBox;
-  @FXML ComboBox<String> sanitationTypeBox;
+  @FXML AutoCompleteInput locationComboBox;
+  @FXML AutoCompleteInput employeeIDComboBox;
+  @FXML AutoCompleteInput sanitationTypeBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
 

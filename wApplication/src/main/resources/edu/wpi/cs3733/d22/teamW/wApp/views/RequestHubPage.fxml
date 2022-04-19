@@ -188,18 +188,15 @@
                </HBox>
             </center>
                   <bottom>
-                     <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <HBox prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: center;" BorderPane.alignment="CENTER">
                         <children>
-                           <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" prefWidth="140.0" stylesheets="@../CSS/UniversalCSS/Standard.css" text="View Request List">
+                           <ToggleButton fx:id="toggleButton" mnemonicParsing="false" onAction="#creditsToggle" prefWidth="110.0" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Hide Credits" />
+                           <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" prefWidth="150.0" stylesheets="@../CSS/UniversalCSS/Standard.css" text="View Request List">
                               <HBox.margin>
-                                 <Insets right="275.0" />
+                                 <Insets left="275.0" />
                               </HBox.margin>
                            </Button>
-                           <ToggleButton fx:id="toggleButton" mnemonicParsing="false" onAction="#creditsToggle" prefWidth="110.0" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Hide Credits" />
                         </children>
-                        <BorderPane.margin>
-                           <Insets />
-                        </BorderPane.margin>
                      </HBox>
                   </bottom>
          </BorderPane>

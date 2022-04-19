@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
@@ -26,8 +27,8 @@ public class MealDeliveryServiceRequestController extends LoadableController {
 
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
 
-  @FXML ComboBox<String> locationComboBox;
-  @FXML ComboBox<String> employeeNameComboBox;
+  @FXML AutoCompleteInput locationComboBox;
+  @FXML AutoCompleteInput employeeNameComboBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Button menuButton1;
   @FXML Button menuButton2;

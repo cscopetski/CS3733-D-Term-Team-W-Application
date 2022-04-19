@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
@@ -26,8 +27,8 @@ public class GiftDeliveryRequestController extends LoadableController {
   @FXML public VBox patientFieldsBox;
   @FXML TextField recipientLastName;
   @FXML TextField recipientFirstName;
-  @FXML ComboBox<String> locationComboBox;
-  @FXML ComboBox<String> employeeIDComboBox;
+  @FXML AutoCompleteInput locationComboBox;
+  @FXML AutoCompleteInput employeeIDComboBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
   Alert confirm = new ConfirmAlert();

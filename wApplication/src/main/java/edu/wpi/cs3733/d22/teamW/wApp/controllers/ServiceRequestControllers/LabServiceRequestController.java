@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
@@ -25,8 +26,8 @@ public class LabServiceRequestController extends LoadableController {
   @FXML public TextField patientFirstName;
   @FXML public TextField patientLastName;
   // Combo Boxes:
-  @FXML ComboBox<String> employeeIDCBox;
-  @FXML ComboBox<String> locationCBox;
+  @FXML AutoCompleteInput employeeIDCBox;
+  @FXML AutoCompleteInput locationCBox;
   @FXML CheckBox bloodBox;
   @FXML CheckBox urineBox;
   @FXML CheckBox mriBox;

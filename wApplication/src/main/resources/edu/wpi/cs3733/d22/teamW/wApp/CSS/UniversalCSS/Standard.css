@@ -141,13 +141,13 @@
 
 }
 
+
 .combo-box .list-cell {
     -fx-background: white;
     -fx-background-color: transparent;
     -fx-text-fill: -fx-text-base-color;
     -fx-padding: 3px 0px 2px 7px;
     -fx-cell-size: 2em;
-
 }
 
 .combo-box-popup .list-view {
@@ -164,12 +164,33 @@
     -fx-background-color: white;
 }
 
+.combo-box .arrow{
+    -fx-background-color: #013895;
+}
+
+.AutoCompleteInput .arrow, .combo-box .arrow-button{
+    -fx-background-color: transparent;
+    -fx-border-color: #013895;
+    -fx-border-radius: 4px;
+}
+
+.AutoCompleteInput .arrow {
+    -fx-background-color: #013895;
+}
+
+.AutoCompleteInput .text-field{
+    -fx-border-color: #013895;
+}
+
+.AutoCompleteInput .corner {
+    -fx-background-color: transparent;
+}
+
 .combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover {
     -fx-background: -fx-accent;
     -fx-background-color: -fx-selection-bar;
     -fx-text-fill: -fx-selection-bar-text;
 }
-
 .combo-box-popup .list-view .list-cell:filled:hover {
     -fx-background-color: #013895;
     -fx-text-fill: white;
@@ -181,8 +202,9 @@
     -fx-background-insets: 0px 0px -1px 0px, 0px, 1px, 2px;
     -fx-padding: 0px;
     -fx-border-radius: 4px;
-    -fx-border-color: #013895;
+    -fx-border-color: transparent;
 }
+
 
 .combo-box-base:hover {
     -fx-color: -fx-hover-base;
@@ -207,6 +229,7 @@
 .combo-box .scroll-bar .thumb {
     -fx-background-color: #013895;
 }
+
 
 .table-view {
     -fx-background-color: transparent;
@@ -442,3 +465,4 @@
     -fx-alignment: CENTER;
     -fx-text-fill: white;
 }
+

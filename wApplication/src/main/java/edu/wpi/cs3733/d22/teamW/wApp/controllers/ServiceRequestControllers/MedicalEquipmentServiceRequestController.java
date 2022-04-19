@@ -34,15 +34,7 @@ public class MedicalEquipmentServiceRequestController extends LoadableController
 
   @FXML Label successLabel;
 
-  @FXML TextField id;
-  // location here
-  // boolean emergencyLevel = false;
-  int emergency;
-
   @FXML EmergencyButton emergencyButton;
-
-  RequestFactory requestFactory = RequestFactory.getRequestFactory();
-  ArrayList<String> lastRequest;
 
   public void submitButton(ActionEvent actionEvent) throws Exception {
     if (!emptyFields()) {

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput?>
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
@@ -14,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" spacing="25.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicineDeliveryServiceRequestController">
+<VBox alignment="CENTER" spacing="25.0" style="-fx-background-color: white;" stylesheets="@../../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicineDeliveryServiceRequestController">
    <children>
       <VBox alignment="CENTER">
          <children>
@@ -49,11 +49,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="medNameCBox" prefWidth="150.0">
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </ComboBox>
+                              <AutoCompleteInput fx:id="medNameCBox" />
                            </children>
                         </VBox>
                         <VBox alignment="CENTER">
@@ -63,11 +59,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="locationCBox" prefWidth="150.0">
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </ComboBox>
+                              <AutoCompleteInput fx:id="locationCBox" />
                            </children>
                         </VBox>
                      </children>
@@ -101,11 +93,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="unitCBox" prefWidth="150.0">
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </ComboBox>
+                              <AutoCompleteInput fx:id="unitCBox" />
                            </children>
                         </VBox>
                      </children>
@@ -122,11 +110,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="employee" prefWidth="150.0">
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </ComboBox>
+                              <AutoCompleteInput fx:id="employee" />
                            </children>
                         </VBox>
                      </children>
@@ -155,7 +139,7 @@
                         <HBox alignment="CENTER" spacing="25.0">
                            <children>
                               <Button fx:id="submitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#submitButton" text="Submit" />
-                              <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#clearFields"  text="Cancel" />
+                              <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#clearFields" text="Cancel" />
                            </children>
                         </HBox>
                         <Label fx:id="successLabel" style="-fx-font-weight: bold;" styleClass="label-minor" text="Successfully submitted request." textFill="#3ccc63" visible="false">
@@ -165,7 +149,7 @@
                         </Label>
                      </children>
                   </VBox>
-                  <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList"  text="View Request List" />
+                  <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" text="View Request List" />
                </children>
             </VBox>
          </children>
