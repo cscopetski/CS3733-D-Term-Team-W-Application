@@ -1,9 +1,13 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingLabServiceRequestType;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LabServiceRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LabServiceRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -31,23 +35,29 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
     }
   }
 
+  String CSVHeaderString =
+      "labReqID,labType,nodeID,employeeID,isEmergency,reqStatus,createdTimestamp,updatedTimestamp";
+
   void createTable() throws SQLException {
 
     try {
       statement.execute(
           "CREATE TABLE LABSERVICEREQUESTS(\n"
-              + "                labReqID INT,\n"
-              + "                labType varchar(25),\n"
-              + "                nodeID varchar(25),\n"
-              + "                employeeID INT,\n"
-              + "                isEmergency INT,\n"
-              + "                reqStatus INT, \n"
-              + "                createdTimestamp timestamp, \n"
-              + "                updatedTimestamp timestamp, \n"
-              + "                constraint LabReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),\n"
-              + "                constraint LabReq_PK primary key (labReqID),\n"
-              + "                constraint LabReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
-              + "                constraint LabIsEmergency_check check (isEmergency = 0 or isEmergency = 1))");
+              + "labReqID INT,\n"
+              + "patientLast varchar(25),"
+              + "patientFirst varchar(25),"
+              + "labType varchar(25),\n"
+              + "nodeID varchar(25),\n"
+              + "employeeID INT,\n"
+              + "isEmergency INT,\n"
+              + "reqStatus INT, \n"
+              + "createdTimestamp timestamp, \n"
+              + "updatedTimestamp timestamp, \n"
+              + "constraint LabReq_Employee_FK foreign key (employeeID) references EMPLOYEES(employeeID),"
+              + "constraint LabReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),\n"
+              + "constraint LabReq_PK primary key (labReqID),\n"
+              + "constraint LabReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
+              + "constraint LabIsEmergency_check check (isEmergency = 0 or isEmergency = 1))");
     } catch (SQLException e) {
       System.out.println("Lab Service Request Table failed to be created!");
       throw (e);
@@ -62,13 +72,12 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
       ResultSet labServiceRequests = statement.executeQuery("SELECT * FROM LABSERVICEREQUESTS");
 
       // Size of num LabServiceRequest fields
-      int size = 8;
-      ArrayList<String> labServiceRequestData = new ArrayList<String>();
 
       while (labServiceRequests.next()) {
+        ArrayList<String> labServiceRequestData = new ArrayList<String>();
 
-        for (int i = 0; i < size; i++) {
-          labServiceRequestData.add(i, labServiceRequests.getString(i + 1));
+        for (int i = 0; i < labServiceRequests.getMetaData().getColumnCount(); i++) {
+          labServiceRequestData.add(labServiceRequests.getString(i + 1));
         }
 
         labServiceRequestList.add(new LabServiceRequest(labServiceRequestData));
@@ -76,6 +85,10 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
 
     } catch (SQLException e) {
       System.out.println("Query from lab service request table failed.");
+    } catch (StatusError e) {
+      e.printStackTrace();
+    } catch (NonExistingLabServiceRequestType e) {
+      e.printStackTrace();
     }
     return labServiceRequestList;
   }
@@ -87,27 +100,19 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
   }
 
   @Override
-  public void changeLabServiceRequest(
-      Integer requestID,
-      String labType,
-      String nodeID,
-      Integer employeeID,
-      Integer emergency,
-      RequestStatus status,
-      Timestamp createdTimestamp,
-      Timestamp updatedTimestamp)
-      throws SQLException {
+  public void changeLabServiceRequest(LabServiceRequest lsr) throws SQLException {
     statement.executeUpdate(
         String.format(
-            "UPDATE LABSERVICEREQUESTS SET LABTYPE='%s', NODEID='%s', EMPLOYEEID= %d, ISEMERGENCY=%d, REQSTATUS=%d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE LABREQID=%d",
-            labType,
-            nodeID,
-            employeeID,
-            emergency,
-            status.getValue(),
-            createdTimestamp.toString(),
-            updatedTimestamp.toString(),
-            requestID));
+            "UPDATE LABSERVICEREQUESTS SET PATIENTLAST='%s', PATIENTFIRST='%s', LABTYPE='%s', NODEID='%s', EMPLOYEEID= %d, ISEMERGENCY=%d, REQSTATUS=%d, UPDATEDTIMESTAMP = '%s' WHERE LABREQID=%d",
+            lsr.getPatientLast(),
+            lsr.getPatientFirst(),
+            lsr.getLabType().getString(),
+            lsr.getNodeID(),
+            lsr.getEmployeeID(),
+            lsr.getEmergency(),
+            lsr.getStatus().getValue(),
+            new Timestamp(System.currentTimeMillis()),
+            lsr.getRequestID()));
   }
 
   @Override
@@ -122,8 +127,7 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print(
-          "labReqID,labType,nodeID,employeeName,isEmergency,status,createdTimestamp,updatedTimestamp");
+      pw.print(CSVHeaderString);
 
       // print all locations
       for (Request m : getAllLabServiceRequests()) {
@@ -136,5 +140,79 @@ public class LabServiceRequestDaoImpl implements LabServiceRequestDao {
       System.out.println(String.format("Error Exporting to File %s", fileName));
       e.printStackTrace();
     }
+  }
+
+  @Override
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    ArrayList<Request> employeeRequestList = new ArrayList<>();
+    try {
+      ResultSet empLabRequests =
+          statement.executeQuery(
+              String.format("SELECT * FROM LABSERVICEREQUESTS WHERE EMPLOYEEID = %d", employeeID));
+      while (empLabRequests.next()) {
+        ArrayList<String> labServiceRequestData = new ArrayList<String>();
+
+        for (int i = 0; i < empLabRequests.getMetaData().getColumnCount(); i++) {
+          labServiceRequestData.add(empLabRequests.getString(i + 1));
+        }
+
+        employeeRequestList.add(new LabServiceRequest(labServiceRequestData));
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } catch (StatusError e) {
+      e.printStackTrace();
+    } catch (NonExistingLabServiceRequestType e) {
+      e.printStackTrace();
+    }
+    return employeeRequestList;
+  }
+
+  public void updateLabServiceRequestsAtLocation(String nodeID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format("SELECT labReqID FROM LABSERVICEREQUESTS WHERE nodeID='%s'", nodeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("labReqID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      LabServiceRequestManager.getLabServiceRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE LABSERVICEREQUESTS SET NODEID='%s' WHERE NODEID='%s'",
+            LocationManager.getLocationManager().getNoneLocation(), nodeID));
+  }
+
+  @Override
+  public void updateLabServiceRequestsWithEmployee(Integer employeeID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format(
+                "SELECT labReqID FROM LABSERVICEREQUESTS WHERE employeeID=%d", employeeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("labReqID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      LabServiceRequestManager.getLabServiceRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE LABSERVICEREQUESTS SET employeeID=%d WHERE employeeID=%d",
+            EmployeeManager.getEmployeeManager().getDeletedEmployee(), employeeID));
   }
 }

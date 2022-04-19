@@ -15,32 +15,11 @@ public interface EmployeeDao {
 
   public Employee getEmployeeType(EmployeeType employeeType);
 
-  void addEmployee(
-      Integer employeeID,
-      String firstname,
-      String lastname,
-      String type,
-      String email,
-      String phoneNumber,
-      String address,
-      String username,
-      String password,
-      String salt)
-      throws SQLException;
+  void addEmployee(Employee employee) throws SQLException;
 
   void deleteEmployee(Integer empID) throws SQLException;
 
-  void changeEmployee(
-      Integer employeeID,
-      String firstname,
-      String lastname,
-      String type,
-      String email,
-      String phoneNumber,
-      String address,
-      String username,
-      String password)
-      throws SQLException;
+  void changeEmployee(Employee employee) throws SQLException;
 
   void exportEmpCSV(String fileName);
 

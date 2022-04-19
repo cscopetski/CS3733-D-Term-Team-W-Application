@@ -8,45 +8,42 @@ import java.util.ArrayList;
 public class LocationManager {
   private LocationDao ldi;
 
+  private final String noneLocationID = "NONE";
+
   private static LocationManager locationManager = new LocationManager();
 
   public static LocationManager getLocationManager() {
     return locationManager;
   }
 
+  public ArrayList<Location> getLocationClean() throws SQLException {
+    return ldi.getAllCleanLocations();
+  }
+
   private LocationManager() {}
+
+  public String getNoneLocation() {
+    return this.noneLocationID;
+  }
 
   public void setLocationDao(LocationDao ldi) {
     this.ldi = ldi;
   }
 
-  public void changeLocation(
-      String inputID,
-      int xCoord,
-      int yCoord,
-      String floor,
-      String building,
-      String nodeType,
-      String longName,
-      String shortName)
-      throws SQLException {
-    ldi.changeLocation(inputID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
+  public void changeLocation(Location location) throws SQLException {
+    ldi.changeLocation(location);
   }
 
-  public void addLocation(
-      String inputID,
-      int xCoord,
-      int yCoord,
-      String floor,
-      String building,
-      String nodeType,
-      String longName,
-      String shortName)
-      throws SQLException {
-    ldi.addLocation(inputID, xCoord, yCoord, floor, building, nodeType, longName, shortName);
+  public void addLocation(Location location) throws SQLException {
+    ldi.addLocation(location);
   }
 
-  public void deleteLocation(String nodeID) throws SQLException {
+  public void deleteLocation(String nodeID) throws Exception {
+    MedEquipManager.getMedEquipManager().updateMedEquipAtLocation(nodeID);
+    MedRequestManager.getMedRequestManager().updateReqAtLocation(nodeID);
+    MedEquipRequestManager.getMedEquipRequestManager().updateReqAtLocation(nodeID);
+    LabServiceRequestManager.getLabServiceRequestManager().updateReqAtLocation(nodeID);
+    CleaningRequestManager.getCleaningRequestManager().updateReqAtLocation(nodeID);
     ldi.deleteLocation(nodeID);
   }
 
@@ -54,7 +51,7 @@ public class LocationManager {
     return ldi.getAllLocations();
   }
 
-  public void clearLocations() throws SQLException {
+  public void clearLocations() throws Exception {
     for (int i = 0; i < getAllLocations().size(); i++) {
       if (getAllLocations().get(i).getNodeID().equalsIgnoreCase("HOLD")) {
 

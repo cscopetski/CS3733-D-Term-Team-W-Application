@@ -12,12 +12,15 @@ public class medEquip {
   private SimpleStringProperty Status = new SimpleStringProperty();
   private SimpleStringProperty Floor = new SimpleStringProperty();
   private SimpleStringProperty LocType = new SimpleStringProperty();
+  private Location homeLoc;
 
-  public medEquip(String ID, String type, Integer X, Integer Y) {
+  public medEquip(String ID, String type, Integer X, Integer Y, Location home) {
     MedID.set(ID);
     Type.set(type);
     XCoord.set(X);
     YCoord.set(Y);
+    homeLoc = home;
+    homeLoc.addNewEq(this);
   }
 
   public medEquip(String ID, String Floor, String LocType, String Status) {
@@ -31,6 +34,30 @@ public class medEquip {
     MedID.set(ID);
     Type.set(type);
     Status.set(status.getString());
+  }
+
+  public void setMedID(String medID) {
+    this.MedID.set(medID);
+  }
+
+  public void setXCoord(int XCoord) {
+    this.XCoord.set(XCoord);
+  }
+
+  public void setYCoord(int YCoord) {
+    this.YCoord.set(YCoord);
+  }
+
+  public void setType(String type) {
+    this.Type.set(type);
+  }
+
+  public void setStatus(String status) {
+    this.Status.set(status);
+  }
+
+  public void setFloor(String floor) {
+    this.Floor.set(floor);
   }
 
   public int getXCoord() {

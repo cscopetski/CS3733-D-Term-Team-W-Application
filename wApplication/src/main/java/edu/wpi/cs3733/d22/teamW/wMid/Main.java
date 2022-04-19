@@ -16,6 +16,16 @@ public class Main {
     final String labServiceRequestFileName = "LabRequests.csv";
     final String employeesFileName = "Employees.csv";
     final String medRequestFileName = "MedRequests.csv";
+    final String flowerRequestFileName = "FlowerRequests.csv";
+    final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
+    final String sanitationRequestsFileName = "SanitationRequests.csv";
+    final String languageFileName = "Languages.csv";
+    final String languageInterpreterFilename = "LanguageInterpreter.csv";
+    final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
+    final String cleaningRequestFileName = "CleaningRequest.csv";
+    final String mealRequestFileName = "MealRequest.csv";
+    final String securityRequestFileName = "SecurityRequest.csv";
+    final String languageRequestFileName = "LanguageRequests.csv";
 
     DBController.getDBController();
 
@@ -26,31 +36,23 @@ public class Main {
             medEquipRequestFileName,
             labServiceRequestFileName,
             employeesFileName,
-            medRequestFileName);
+            medRequestFileName,
+            flowerRequestFileName,
+            computerServiceRequestFileName,
+            sanitationRequestsFileName,
+            cleaningRequestFileName,
+            languageFileName,
+            languageInterpreterFilename,
+            giftDeliveryRequestFileName,
+            mealRequestFileName,
+            securityRequestFileName,
+            languageRequestFileName);
 
     try {
       csvController.populateTables();
     } catch (Exception e) {
       e.printStackTrace();
     }
-
-    //    MedEquipRequestManager merc = MedEquipRequestManager.getMedEquipRequestManager();
-    //
-    //    MedEquipManager mem = MedEquipManager.getMedEquipManager();
-    //
-    //    MedEquipManager.getMedEquipManager().markDirty("BED012", "wSTOR0033");
-    //    MedEquipManager.getMedEquipManager().markDirty("BED013", "wSTOR0033");
-    //    MedEquipManager.getMedEquipManager().markDirty("BED014", "wSTOR0033");
-    //    MedEquipManager.getMedEquipManager().markDirty("BED015", "wSTOR0033");
-    //    MedEquipManager.getMedEquipManager().markDirty("BED016", "wSTOR0033");
-    //    // merc.complete(5);
-    //    mem.markDirty("XRY001", "wSTOR0033");
-    //    try {
-    //      CleaningRequestManager.getCleaningRequestManager().complete(26, "wSTOR0013");
-    //    } catch (Exception e) {
-    //      e.printStackTrace();
-    //    }
-
     App.launch(App.class, args);
   }
 }

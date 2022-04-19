@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.awt.*;
 import java.net.URL;
@@ -44,14 +45,15 @@ public class newLocationPageController implements Initializable {
     if (checkFull()) {
       if (result.get() == ButtonType.OK) {
         locationManager.addLocation(
-            nodeField.getText(),
-            Integer.parseInt(xField.getText()),
-            Integer.parseInt(yField.getText()),
-            floorField.getText(),
-            buildingField.getText(),
-            typeField.getText(),
-            lnameField.getText(),
-            snameField.getText());
+            new Location(
+                nodeField.getText(),
+                Integer.parseInt(xField.getText()),
+                Integer.parseInt(yField.getText()),
+                floorField.getText(),
+                buildingField.getText(),
+                typeField.getText(),
+                lnameField.getText(),
+                snameField.getText()));
       }
     }
   }

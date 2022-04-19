@@ -8,29 +8,13 @@ public interface LocationDao {
 
   ArrayList<Location> getAllLocations() throws SQLException;
 
-  void changeLocation(
-      String inputID,
-      int xCoord,
-      int yCoord,
-      String floor,
-      String building,
-      String nodeType,
-      String longName,
-      String shortName)
-      throws SQLException;
+  void changeLocation(Location location) throws SQLException;
 
-  void addLocation(
-      String inputID,
-      int xCoord,
-      int yCoord,
-      String floor,
-      String building,
-      String nodeType,
-      String longName,
-      String shortName)
-      throws SQLException;
+  void addLocation(Location location) throws SQLException;
 
   void deleteLocation(String nodeID) throws SQLException;
+
+  ArrayList<Location> getAllCleanLocations() throws SQLException;
 
   void exportLocationCSV(String fileName);
 

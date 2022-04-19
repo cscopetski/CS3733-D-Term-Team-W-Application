@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Requests;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
@@ -47,35 +48,37 @@ public class UpdateMapPageController implements Initializable {
       LabServiceRequestManager.getLabServiceRequestManager();
   private MedRequestManager medRequestManager = MedRequestManager.getMedRequestManager();
 
-  public void updateLoc(ActionEvent actionEvent) throws SQLException {
+  public void updateLoc(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
 
     Optional<ButtonType> result = confirmChoice.showAndWait();
     if (result.get() == ButtonType.OK) {
       locationManager.changeLocation(
-          nodeField.getText(),
-          Integer.parseInt(xField.getText()),
-          Integer.parseInt(yField.getText()),
-          floorField.getText(),
-          buildingField.getText(),
-          typeField.getText(),
-          lnameField.getText(),
-          snameField.getText());
+          new Location(
+              nodeField.getText(),
+              Integer.parseInt(xField.getText()),
+              Integer.parseInt(yField.getText()),
+              floorField.getText(),
+              buildingField.getText(),
+              typeField.getText(),
+              lnameField.getText(),
+              snameField.getText()));
       onLoad();
     }
 
     locationManager.changeLocation(
-        nodeField.getText(),
-        Integer.parseInt(xField.getText()),
-        Integer.parseInt(yField.getText()),
-        floorField.getText(),
-        buildingField.getText(),
-        typeField.getText(),
-        lnameField.getText(),
-        snameField.getText());
+        new Location(
+            nodeField.getText(),
+            Integer.parseInt(xField.getText()),
+            Integer.parseInt(yField.getText()),
+            floorField.getText(),
+            buildingField.getText(),
+            typeField.getText(),
+            lnameField.getText(),
+            snameField.getText()));
     onLoad();
   }
 
-  public void resetFields(ActionEvent actionEvent) throws SQLException {
+  public void resetFields(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     onLoad();
   }
 
@@ -83,7 +86,7 @@ public class UpdateMapPageController implements Initializable {
     ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
   }
 
-  private void generateRequestList() throws SQLException {
+  private void generateRequestList() throws SQLException, NonExistingMedEquip {
     reqList.clear();
     ArrayList<Request> rList = new ArrayList<>();
     rList.addAll(medRequestManager.getAllRequests());
@@ -115,14 +118,16 @@ public class UpdateMapPageController implements Initializable {
       if (eqList.get(i).getNodeID().equalsIgnoreCase(loc.getNodeID())) {
         equipList.add(
             new medEquip(
-                eqList.get(i).getMedID(), eqList.get(i).getType(), eqList.get(i).getStatus()));
+                eqList.get(i).getMedID(),
+                eqList.get(i).getType().getString(),
+                eqList.get(i).getStatus()));
       }
     }
     EqTab.getItems().clear();
     EqTab.getItems().addAll(equipList);
   }
 
-  public void onLoad() throws SQLException {
+  public void onLoad() throws SQLException, NonExistingMedEquip {
     String locName =
         (String)
             SceneManager.getInstance()
@@ -149,12 +154,12 @@ public class UpdateMapPageController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     try {
       onLoad();
-    } catch (SQLException e) {
+    } catch (SQLException | NonExistingMedEquip e) {
       e.printStackTrace();
     }
   }
 
-  public void removeLoc(ActionEvent actionEvent) throws SQLException {
+  public void removeLoc(ActionEvent actionEvent) throws Exception {
     Optional<ButtonType> result = confirmChoice.showAndWait();
     if (result.get() == ButtonType.OK) {
       locationManager.deleteLocation(loc.getNodeID());

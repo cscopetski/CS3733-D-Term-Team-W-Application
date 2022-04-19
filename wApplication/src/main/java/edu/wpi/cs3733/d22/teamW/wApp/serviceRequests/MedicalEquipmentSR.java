@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -24,7 +25,7 @@ public class MedicalEquipmentSR extends SR {
   }
 
   @Override
-  public String getFormattedInfo() throws SQLException {
+  public String getFormattedInfo() throws SQLException, NonExistingMedEquip {
     MedEquipRequest r =
         (MedEquipRequest)
             MedEquipRequestManager.getMedEquipRequestManager().getRequest(this.getRequestID());
@@ -34,7 +35,8 @@ public class MedicalEquipmentSR extends SR {
     }
     info += "Assigned Employee: " + this.getEmployeeName() + "\n";
     info += "Employee ID: " + this.getEmployeeID() + "\n";
-    info += "Requested Item: " + r.getItemType() + "\n";
+    info += "Requested Item: " + r.getItemType().getString() + "\n";
+    info += "Requested Item ID: " + r.getItemID() + "\n";
     info += "";
     return info;
   }

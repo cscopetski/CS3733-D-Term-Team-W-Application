@@ -4,18 +4,14 @@ import edu.wpi.cs3733.d22.teamW.wDB.CSVController;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
+import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
-import java.io.FileNotFoundException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.effect.*;
 import javafx.scene.layout.Pane;
 
 public class LoginController extends LoadableController {
@@ -25,14 +21,8 @@ public class LoginController extends LoadableController {
   @FXML Button loginButton;
   @FXML TextField username;
   @FXML TextField password;
-  ArrayList<String> passwordHidden;
-  ArrayList<String> passwordShown;
   @FXML Label existCase;
   @FXML Label matchCase;
-
-  EmployeeManager eM = EmployeeManager.getEmployeeManager();
-
-  ObservableList<String> servers = FXCollections.observableArrayList("Embedded", "Client");
 
   final String locationFileName = "TowerLocations.csv";
   final String medEquipFileName = "MedicalEquipment.csv";
@@ -40,6 +30,16 @@ public class LoginController extends LoadableController {
   final String labServiceRequestFileName = "LabRequests.csv";
   final String employeesFileName = "Employees.csv";
   final String medRequestFileName = "MedRequests.csv";
+  final String flowerRequestFileName = "FlowerRequests.csv";
+  final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
+  final String sanitationRequestFileName = "SanitationRequests.csv";
+  final String cleaningRequestFileName = "CleaningRequest.csv";
+  final String languagesFileName = "Languages.csv";
+  final String languageInterpFileName = "LanguageInterpreters.csv";
+  final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
+  final String mealRequestFileName = "MealRequest.csv";
+  final String securityRequestFileName = "SecurityRequest.csv";
+  final String languageRequestFileName = "LanguageRequests.csv";
 
   @Override
   public void initialize(URL location, ResourceBundle rb) {
@@ -53,7 +53,6 @@ public class LoginController extends LoadableController {
           "There are required fields empty" + " !",
           ButtonType.OK,
           ButtonType.CANCEL);
-  @FXML ComboBox<String> equipmentSelection;
 
   @Override
   protected SceneManager.Scenes GetSceneType() {
@@ -70,20 +69,19 @@ public class LoginController extends LoadableController {
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
       existCase.setVisible(false);
       matchCase.setVisible(false);
-      if (eM.passwordMatch(username.getText(), password.getText())) {
-        ((DefaultPageController)
-                SceneManager.getInstance().getController(SceneManager.Scenes.Default))
-            .setEmployee(eM.getEmployee(username.getText()));
-        ((DefaultPageController)
-                SceneManager.getInstance().getController(SceneManager.Scenes.Default))
-            .menuBar.setVisible(true);
-        ((DefaultPageController)
-                SceneManager.getInstance().getController(SceneManager.Scenes.Default))
-            .buttonPane.setDisable(false);
+      if (EmployeeManager.getEmployeeManager()
+          .passwordMatch(username.getText(), password.getText())) {
+        DefaultPageController dpc =
+            ((DefaultPageController)
+                SceneManager.getInstance().getController(SceneManager.Scenes.Default));
+        Account.getInstance()
+            .setEmployee(EmployeeManager.getEmployeeManager().getEmployee(username.getText()));
+        dpc.menuBar.setVisible(true);
+        dpc.buttonPane.setDisable(false);
         SceneManager.getInstance().transitionTo(SceneManager.Scenes.MainMenu);
         username.clear();
         password.clear();
-      } else if (!eM.usernameExists(username.getText())) {
+      } else if (!EmployeeManager.getEmployeeManager().usernameExists(username.getText())) {
         existCase.setVisible(true);
       } else {
         matchCase.setVisible(true);
@@ -109,7 +107,17 @@ public class LoginController extends LoadableController {
             medEquipRequestFileName,
             labServiceRequestFileName,
             employeesFileName,
-            medRequestFileName);
+            medRequestFileName,
+            flowerRequestFileName,
+            computerServiceRequestFileName,
+            sanitationRequestFileName,
+            cleaningRequestFileName,
+            languagesFileName,
+            languageInterpFileName,
+            giftDeliveryRequestFileName,
+            mealRequestFileName,
+            securityRequestFileName,
+            languageRequestFileName);
 
     System.out.println("SWAP CONNECTION ");
 
@@ -136,8 +144,6 @@ public class LoginController extends LoadableController {
 
     try {
       csvController.populateTables();
-    } catch (FileNotFoundException | SQLException e) {
-      e.printStackTrace();
     } catch (Exception e) {
       e.printStackTrace();
     }

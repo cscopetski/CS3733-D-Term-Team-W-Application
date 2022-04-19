@@ -1,4 +1,5 @@
 employeeID,firstname,lastname,employeetype,email,phonenumber,address,username,password,salt
+-1,N/A,Deleted,Deleted,null,null,null,null,null,salt
 1,N/A,Staff,Staff Member,staff@hospital.com,(123)4567890,Mass General,staff,staff,salt
 2,N/A,Administrator,admin,admin@hospital.com,(123)4567890,Office,admin,admin,salt
 3,Caleb,Scopetski,Doctor,N/A,(123)4567890,NeVer LeFt MaSs,Scoop,backEndGang,salt

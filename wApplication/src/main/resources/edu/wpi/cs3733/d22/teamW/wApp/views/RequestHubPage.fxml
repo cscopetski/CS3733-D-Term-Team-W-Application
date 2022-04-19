@@ -11,12 +11,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.RequestHubController">
+<AnchorPane style="-fx-alignment: center; -fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.RequestHubController">
 <children>
 <AnchorPane maxHeight="600.0" prefHeight="584.0" prefWidth="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
    <children>
       <VBox maxHeight="600.0" maxWidth="940.0" minHeight="679.0" prefHeight="60.0" prefWidth="940.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <BorderPane maxHeight="600.0" prefHeight="900.0" prefWidth="500.0" AnchorPane.topAnchor="0.0">
+         <BorderPane maxHeight="650.0" prefHeight="1000.0" prefWidth="500.0" AnchorPane.topAnchor="0.0">
             <top>
                <VBox prefHeight="74.0" prefWidth="500.0" style="-fx-alignment: center;" BorderPane.alignment="CENTER">
                   <children>
@@ -30,7 +30,7 @@
                </VBox>
             </top>
             <center>
-               <HBox maxHeight="600.0" maxWidth="750.0" prefHeight="600.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <HBox maxHeight="600.0" maxWidth="900.0" prefHeight="600.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                   <children>
                            <VBox prefHeight="200.0" prefWidth="250.0">
                               <children>
@@ -51,7 +51,10 @@
                                           <stylesheets>
                                              <URL value="@../CSS/RequestHubPage/buttonMeal.css" />
                                              <URL value="@../CSS/RequestHubPage/buttonLanguage.css" />
-                                          </stylesheets></Button>
+                                          </stylesheets>
+                                          <font>
+                                             <Font size="2.0" />
+                                          </font></Button>
                                     </center>
                                     <VBox.margin>
                                        <Insets top="20.0" />
@@ -86,7 +89,7 @@
                                        <Insets top="20.0" />
                                     </VBox.margin>
                                     <bottom>
-                                       <Label fx:id="securityCredit" text="Ethan Pollack" BorderPane.alignment="CENTER" />
+                                       <Label fx:id="securityCredit" text="Jack McEvoy" BorderPane.alignment="CENTER" />
                                     </bottom>
                                  </BorderPane>
                               </children>
@@ -121,11 +124,83 @@
                                  </BorderPane>
                         </children>
                      </VBox>
+                           <VBox prefHeight="200.0" prefWidth="250.0">
+                              <children>
+                                 <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToComputerService" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonComputer.css" text="Computer Service" BorderPane.alignment="CENTER">
+                                          <BorderPane.margin>
+                                             <Insets />
+                                          </BorderPane.margin>
+                                       </Button>
+                                    </center>
+                                    <VBox.margin>
+                                       <Insets top="20.0" />
+                                    </VBox.margin>
+                                    <bottom>
+                                       <Label fx:id="computerCredit" text="Hasan Gandor" BorderPane.alignment="CENTER" />
+                                    </bottom>
+                                 </BorderPane>
+                                 <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToSanitationService" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonSanitation.css" text="Sanitation Service" BorderPane.alignment="CENTER" />
+                                    </center>
+                                    <VBox.margin>
+                                       <Insets top="20.0" />
+                                    </VBox.margin>
+                                    <bottom>
+                                       <Label fx:id="sanitationServiceCredit" text="Edison Zhang" BorderPane.alignment="CENTER" />
+                                    </bottom>
+                                 </BorderPane>
+                              </children>
+                           </VBox>
+                           <VBox prefHeight="200.0" prefWidth="250.0">
+                              <children>
+                                 <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToFlowerDelivery" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonFlower.css" text="Flower Delivery" BorderPane.alignment="CENTER">
+                                          <BorderPane.margin>
+                                             <Insets />
+                                          </BorderPane.margin>
+                                       </Button>
+                                    </center>
+                                    <VBox.margin>
+                                       <Insets top="20.0" />
+                                    </VBox.margin>
+                                    <bottom>
+                                       <Label fx:id="flowerCredit" text="Charlie Kneissl-Williams" BorderPane.alignment="CENTER" />
+                                    </bottom>
+                                 </BorderPane>
+                                 <BorderPane prefHeight="200.0" prefWidth="200.0">
+                                    <center>
+                                       <Button alignment="BOTTOM_CENTER" mnemonicParsing="false" onAction="#switchToGiftDelivery" prefHeight="300.0" prefWidth="200.0" stylesheets="@../CSS/RequestHubPage/buttonGift.css" text="Gift Delivery " BorderPane.alignment="CENTER" />
+                                    </center>
+                                    <VBox.margin>
+                                       <Insets top="20.0" />
+                                    </VBox.margin>
+                                    <bottom>
+                                       <Label fx:id="giftDeliveryCredit" text="Caleb Scopetski" BorderPane.alignment="CENTER" />
+                                    </bottom>
+                                 </BorderPane>
+                              </children>
+                           </VBox>
                   </children>
                </HBox>
             </center>
                   <bottom>
-                     <ToggleButton fx:id="toggleButton" mnemonicParsing="false" onAction="#creditsToggle" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Hide Credits" BorderPane.alignment="CENTER" />
+                     <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                        <children>
+                           <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" prefWidth="140.0" stylesheets="@../CSS/UniversalCSS/Standard.css" text="View Request List">
+                              <HBox.margin>
+                                 <Insets right="275.0" />
+                              </HBox.margin>
+                           </Button>
+                           <ToggleButton fx:id="toggleButton" mnemonicParsing="false" onAction="#creditsToggle" prefWidth="110.0" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Hide Credits" />
+                        </children>
+                        <BorderPane.margin>
+                           <Insets />
+                        </BorderPane.margin>
+                     </HBox>
                   </bottom>
          </BorderPane>
       </VBox>

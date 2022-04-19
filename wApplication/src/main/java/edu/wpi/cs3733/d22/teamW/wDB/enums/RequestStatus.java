@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.enums;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,11 +37,21 @@ public enum RequestStatus {
     return this.string;
   }
 
-  public static RequestStatus getRequestStatus(int type) {
-    return (RequestStatus) map.get(type);
+  public static RequestStatus getRequestStatus(int type) throws StatusError {
+    RequestStatus output = (RequestStatus) map.get(type);
+    if (output == null) {
+      throw new StatusError();
+    }
+    return output;
   }
 
-  public static RequestStatus getRequestStatus(String type) {
-    return (RequestStatus) map2.get(type);
+  public static RequestStatus getRequestStatus(String type) throws StatusError {
+
+    type = type.trim();
+    RequestStatus output = (RequestStatus) map2.get(type);
+    if (output == null) {
+      throw new StatusError();
+    }
+    return output;
   }
 }

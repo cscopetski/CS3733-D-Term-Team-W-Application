@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.collections.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.control.cell.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import java.net.URL?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="page" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
+<BorderPane fx:id="page" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
     <stylesheets>
         <URL value="@../CSS/MapEditorPage/mapEditor.css" />
         <URL value="@../CSS/UniversalCSS/Standard.css" />
@@ -50,7 +64,18 @@
          <children>
             <VBox alignment="CENTER" fillWidth="false" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox alignment="TOP_CENTER" spacing="10.0">
+                  <Label text="Filter Map">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font></Label>
+                  <Pane prefHeight="130.0" prefWidth="83.0">
+                     <children>
+                        <CheckBox fx:id="LocFilter" layoutX="1.0" mnemonicParsing="false" onAction="#refresh" prefHeight="20.0" prefWidth="82.0" selected="true" style="-fx-border-color: transparent;" text="Locations" />
+                        <CheckBox fx:id="EquipFilter" layoutY="30.0" mnemonicParsing="false" onAction="#refresh" selected="true" style="-fx-border-color: transparent;" text="Equipment" />
+                        <CheckBox fx:id="ReqFilter" layoutY="60.0" mnemonicParsing="false" onAction="#refresh" prefHeight="20.0" prefWidth="84.0" selected="true" style="-fx-border-color: transparent;" text="Requests" />
+                     </children>
+                  </Pane>
+                  <VBox alignment="TOP_CENTER" prefHeight="284.0" prefWidth="108.0" spacing="10.0">
                      <children>
                           <Label text="Map Key">
                            <font>
@@ -116,6 +141,7 @@
                            </font>
                         </Label>
                           <Button fx:id="refreshButton" layoutX="247.0" layoutY="5.0" mnemonicParsing="false" onAction="#refresh" text="Refresh" AnchorPane.bottomAnchor="5.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="5.0" />
+                        <Label fx:id="dirtLab" layoutX="144.0" layoutY="11.0" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Clean | Dirty" visible="false" />
                      </children>
                   </AnchorPane>
                   <AnchorPane prefHeight="250.0">
@@ -184,19 +210,27 @@
                      <children>
                         <TableView fx:id="EqDashTab" prefHeight="185.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columns>
-                            <TableColumn prefWidth="86.66667938232422" text="ID">
-                                <cellValueFactory>
-                                    <PropertyValueFactory property="MedID" />
-                                </cellValueFactory> </TableColumn>
-                              <TableColumn prefWidth="48.0" text="Floor">                     <cellValueFactory>
-                                  <PropertyValueFactory property="Floor" />
-                              </cellValueFactory> </TableColumn>
-                              <TableColumn prefWidth="76.66671752929688" text="LocType">                     <cellValueFactory>
-                                  <PropertyValueFactory property="LocType" />
-                              </cellValueFactory> </TableColumn>
-                              <TableColumn prefWidth="86.99998474121094" text="Status">                     <cellValueFactory>
-                                  <PropertyValueFactory property="Status" />
-                              </cellValueFactory> </TableColumn>
+                              <TableColumn prefWidth="100.0" text="LocID">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="Floor" />
+                                  </cellValueFactory> </TableColumn>
+                              <TableColumn prefWidth="43.0" text="Beds">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="BedCount" />
+                                  </cellValueFactory> </TableColumn>
+                              <TableColumn prefWidth="43.0" text="XRAY">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="XrayCount" />
+                                  </cellValueFactory> </TableColumn>
+                              <TableColumn prefWidth="46.0" text="Pumps">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="PumpCount" />
+                                  </cellValueFactory> </TableColumn>
+                              <TableColumn prefWidth="50.0" text="Reclin">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="ReclinCount" />
+                                  </cellValueFactory> </TableColumn>
+
                           </columns>
                         </TableView>
                           <TableView fx:id="EqTab" prefHeight="185.0" prefWidth="301.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -211,14 +245,14 @@
                                           <PropertyValueFactory property="MedID" />
                                       </cellValueFactory>
                                   </TableColumn>
-                                  <TableColumn prefWidth="51.333404541015625" text="Y ">
-                                      <cellValueFactory>
-                                          <PropertyValueFactory property="YCoord" />
-                                      </cellValueFactory>
-                                  </TableColumn>
                                   <TableColumn prefWidth="73.99995422363281" text="X">
                                       <cellValueFactory>
                                           <PropertyValueFactory property="XCoord" />
+                                      </cellValueFactory>
+                                  </TableColumn>
+                                  <TableColumn prefWidth="51.333404541015625" text="Y ">
+                                      <cellValueFactory>
+                                          <PropertyValueFactory property="YCoord" />
                                       </cellValueFactory>
                                   </TableColumn>
                               </columns>

@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.CleaningRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -22,7 +23,7 @@ public class CleaningSR extends SR {
   }
 
   @Override
-  public String getFormattedInfo() throws SQLException {
+  public String getFormattedInfo() throws SQLException, StatusError {
     String itemID =
         CleaningRequestManager.getCleaningRequestManager()
             .getRequest(this.getRequestID())
@@ -32,10 +33,10 @@ public class CleaningSR extends SR {
     info += "Employee ID: " + this.getEmployeeID() + "\n";
     info +=
         "Equipment type: "
-            + MedEquipManager.getMedEquipManager().getMedEquip(itemID).getType()
+            + MedEquipManager.getMedEquipManager().getMedEquip(itemID).getType().getString()
             + "\n";
     info += "Equipment ID: " + itemID + "\n";
-    // info += "Location: " + MedEquipManager.getMedEquipManager().getMedEquip(itemID).getNodeID()
+    info += "Location: " + MedEquipManager.getMedEquipManager().getMedEquip(itemID).getNodeID();
     return info;
   }
 }
