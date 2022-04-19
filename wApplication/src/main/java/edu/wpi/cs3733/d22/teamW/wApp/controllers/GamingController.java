@@ -16,7 +16,7 @@ public class GamingController {
         SceneManager.getInstance()
             .openGameWindow(
                 "Snake.fxml",
-                "Wiggling Wongs",
+                "Wiggling Wong",
                 "/edu/wpi/cs3733/d22/teamW/wApp/assets/Icons/wong.png");
   }
 }

@@ -63,4 +63,9 @@ public enum RequestType {
     }
     return output;
   }
+
+  @Override
+  public String toString() {
+    return this.string;
+  }
 }

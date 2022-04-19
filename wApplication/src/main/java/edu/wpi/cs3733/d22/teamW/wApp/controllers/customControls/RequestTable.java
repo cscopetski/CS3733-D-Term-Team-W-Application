@@ -16,13 +16,14 @@ public class RequestTable extends TableView<SR> {
 
     getColumns()
         .addAll(
-            createColumn("Req. ID", "RequestID"),
+            createColumn("Request ID", "RequestID"),
             createColumn("Request Type", "RequestType"),
             createColumn("Employee Name", "EmployeeName"),
             createColumn("Status", "Status"),
             createColumn("Location", "Location"),
-            createColumn("Created", "createdTimestamp"),
-            createColumn("Last Updated", "updatedTimestamp"));
+            createColumn("Created", "CreatedTimestamp"),
+            createColumn("Last Updated", "UpdatedTimestamp"));
+    distributeColumnWidths();
   }
 
   public void setColumnWidth(String columnText, double prefWidth) {

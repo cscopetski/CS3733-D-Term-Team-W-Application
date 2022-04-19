@@ -6,7 +6,6 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
-import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
@@ -204,8 +203,6 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
       requests = RequestFacade.getRequestFacade().getAllRequests();
     } catch (SQLException e) {
       System.out.println("Failed to unearth request form database");
-      e.printStackTrace();
-    } catch (NonExistingMedEquip e) {
       e.printStackTrace();
     } catch (Exception e) {
       e.printStackTrace();
