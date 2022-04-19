@@ -1,5 +1,5 @@
 nodeID,xcoord,ycoord,floor,building,nodeType,longName,shortName
-NONE,0,0,00,NONE,NONE,NONE,NONE
+NONE,0,0,0,NONE,NONE,NONE,NONE
 FDEPT00101,417,225,01,Tower,DEPT,Center for International Medicine,CIM
 FDEPT00201,410,520,01,Tower,DEPT,Bretholtz Center for Patients and Families,Bretholtz WR
 FDEPT00301,521,331,01,Tower,DEPT,Multifaith Chapel,Chapel
@@ -195,4 +195,3 @@ wPATI0015,233,183,05,Tower,PATI,Pod B Patient rooms,PodBPatiR
 wPATI0025,233,465,05,Tower,PATI,Pod C Patient rooms,PodCPatiR
 wDIRT0015,482,217,05,Tower,DIRT,Bed and recliner parking AB,BedandRecPAB
 wDIRT0025,477,433,05,Tower,DIRT,Bed and recliner parking CD,BedandRecPCD
-

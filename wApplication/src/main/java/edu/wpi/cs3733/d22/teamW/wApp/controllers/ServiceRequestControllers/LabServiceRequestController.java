@@ -18,10 +18,11 @@ import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javax.swing.*;
 
 public class LabServiceRequestController extends LoadableController {
 
+  @FXML public TextField patientFirstName;
+  @FXML public TextField patientLastName;
   // Combo Boxes:
   @FXML ComboBox employeeIDCBox;
   @FXML ComboBox locationCBox;
@@ -31,17 +32,13 @@ public class LabServiceRequestController extends LoadableController {
   @FXML CheckBox xRayBox;
   @FXML CheckBox catBox;
 
-  @FXML TextField patientLastName;
-  @FXML TextField patientFirstName;
-
   int emergency = 0;
-  @FXML EmergencyButton emergencyB;
+  @FXML EmergencyButton emergencyButton;
 
   // Alerts:
   Alert emptyFields = new EmptyAlert();
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
-
     createRequest();
     clearFields();
   }
@@ -69,8 +66,6 @@ public class LabServiceRequestController extends LoadableController {
     boolean result =
         (!(employeeIDCBox.getSelectionModel().isEmpty())
             && !(locationCBox.getSelectionModel().isEmpty())
-            && !patientFirstName.getText().isEmpty()
-            && !patientLastName.getText().isEmpty()
             && (catBox.isSelected()
                 || mriBox.isSelected()
                 || xRayBox.isSelected()
@@ -99,10 +94,10 @@ public class LabServiceRequestController extends LoadableController {
     ArrayList<String> fields = new ArrayList<String>();
     fields.add(patientLastName.getText());
     fields.add(patientFirstName.getText());
-    fields.add("");
+    fields.add(""); // placeholder for remaining code: check if statements below
     fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
     fields.add(getEmployeeID(employeeIDCBox.getSelectionModel().getSelectedItem().toString()));
-    if (emergencyB.getValue()) {
+    if (emergencyButton.getValue()) {
       emergency = 1;
     } else {
       emergency = 0;
@@ -151,14 +146,14 @@ public class LabServiceRequestController extends LoadableController {
   private void clearFields() {
     employeeIDCBox.getSelectionModel().clearSelection();
     locationCBox.getSelectionModel().clearSelection();
-    patientFirstName.clear();
-    patientLastName.clear();
     bloodBox.setSelected(false);
     urineBox.setSelected(false);
     mriBox.setSelected(false);
     xRayBox.setSelected(false);
     catBox.setSelected(false);
-    emergencyB.setValue(false);
+    emergencyButton.setValue(false);
+    patientFirstName.clear();
+    patientLastName.clear();
   }
 
   public String locationToNodeID(String target) {

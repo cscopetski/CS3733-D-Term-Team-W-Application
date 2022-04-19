@@ -39,7 +39,7 @@ public class MedicalEquipmentServiceRequestController extends LoadableController
   // boolean emergencyLevel = false;
   int emergency;
 
-  @FXML EmergencyButton emergencyB;
+  @FXML EmergencyButton emergencyButton;
 
   RequestFactory requestFactory = RequestFactory.getRequestFactory();
   ArrayList<String> lastRequest;
@@ -73,7 +73,7 @@ public class MedicalEquipmentServiceRequestController extends LoadableController
     meFields.add(equipmentSelection.getSelectionModel().getSelectedItem());
     meFields.add(locationToNodeID(locationComboBox.getSelectionModel().getSelectedItem()));
     meFields.add(getEmployeeID(employeeNameComboBox.getSelectionModel().getSelectedItem()));
-    if (emergencyB.getValue()) {
+    if (emergencyButton.getValue()) {
       meFields.add("1");
     } else {
       meFields.add("0");
@@ -90,7 +90,7 @@ public class MedicalEquipmentServiceRequestController extends LoadableController
     equipmentSelection.getSelectionModel().clearSelection();
     locationComboBox.getSelectionModel().clearSelection();
     employeeNameComboBox.getSelectionModel().clearSelection();
-    emergencyB.setValue(false);
+    emergencyButton.setValue(false);
   }
 
   private String getEmployeeID(String name) throws SQLException {

@@ -26,14 +26,14 @@ public class SecurityRequest extends Request {
   }
 
   public SecurityRequest(Integer requestID, ArrayList<String> fields) throws StatusError {
-    this.requestID = requestID;
-    this.nodeID = fields.get(0);
+    this.requestID = requestID; // have
+    this.nodeID = fields.get(0); // have
     this.employeeID = Integer.parseInt(fields.get(1));
-    this.emergency = Integer.parseInt(fields.get(2));
-    this.threatLevel = Integer.parseInt(fields.get(3));
-    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(4)));
-    this.createdTimestamp = Timestamp.valueOf(fields.get(5));
-    this.updatedTimestamp = Timestamp.valueOf(fields.get(6));
+    this.emergency = Integer.parseInt(fields.get(2)); // have
+    this.threatLevel = Integer.parseInt(fields.get(3)); // have
+    this.status = RequestStatus.getRequestStatus(Integer.parseInt(fields.get(4))); // have
+    this.createdTimestamp = Timestamp.valueOf(fields.get(5)); // have
+    this.updatedTimestamp = Timestamp.valueOf(fields.get(6)); // have
   }
 
   @Override

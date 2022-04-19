@@ -59,6 +59,7 @@ public class MapEditorController extends LoadableController {
   @FXML private CheckBox EquipFilter;
   @FXML private CheckBox ReqFilter;
   @FXML private Label dirtLab;
+  @FXML private Alert systemAlert = new Alert(Alert.AlertType.INFORMATION);
   Image img1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F1.png");
   Image img2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F2.png");
   Image img3 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F3.png");
@@ -141,6 +142,14 @@ public class MapEditorController extends LoadableController {
     Floor L2 = new Floor("L2");
     for (int i = 0; i < locList.size(); i++) {
       for (int j = 0; j < eqList.size(); j++) {
+        if (eqList.get(j).getMedID().equalsIgnoreCase("BED005")) ;
+        {
+          try {
+            equipController.markDirty("BED005", "wDIRT0013");
+          } catch (Exception e) {
+            e.printStackTrace();
+          }
+        }
         if (eqList.get(j).getNodeID().equalsIgnoreCase(locList.get(i).getNodeID())) {
           switch (locList.get(i).getFloor()) {
             case "01":
@@ -231,6 +240,71 @@ public class MapEditorController extends LoadableController {
     FloorTab.getItems().addAll(floorList);
   }
 
+  private void checkFewerthan5cleanPumps() throws SQLException {
+    for (int i = 0; i < locEqList.size(); i++) {
+      if (locEqList.get(i).getCleanPumpCount() < 5) {
+        if (locationManager
+            .getLocation(locEqList.get(i).getFloor())
+            .getLongName()
+            .contains("clean")) {
+          systemAlert.setTitle("clean pumps");
+          systemAlert.setContentText(
+              "There has been less than 5 clean infusion pumps detected on floor: "
+                  + locationManager.getLocation(locEqList.get(i).getFloor()).getFloor()
+                  + "\nLocated at: "
+                  + locationManager.getLocation(locEqList.get(i).getFloor()).getLongName()
+                  + ".\nA service request to clean these pumps has been created. Thank you");
+          systemAlert.showAndWait();
+        }
+      }
+    }
+  }
+
+  private void checkDirtyPumps() throws SQLException {
+    for (int i = 0; i < locEqList.size(); i++) {
+      if (locEqList.get(i).getDirtyPumpCount() >= 10) {
+        if (locationManager
+            .getLocation(locEqList.get(i).getFloor())
+            .getLongName()
+            .contains("dirty")) {
+          systemAlert.setTitle("dirty pumps");
+          systemAlert.setContentText(
+              "There has been "
+                  + locEqList.get(i).getDirtyPumpCount()
+                  + " dirty infusion pumps detected on floor: "
+                  + locationManager.getLocation(locEqList.get(i).getFloor()).getFloor()
+                  + " \nLocated at: "
+                  + locationManager.getLocation(locEqList.get(i).getFloor()).getLongName()
+                  + ".\nA service request to clean these pumps has been created. Thank you");
+          systemAlert.showAndWait();
+        }
+      }
+    }
+  }
+
+  private void checkDirtyBeds() throws SQLException {
+    for (int i = 0; i < locEqList.size(); i++) {
+      if (locEqList.get(i).getDirtyBedCount() >= 6) {
+        if (locationManager
+            .getLocation(locEqList.get(i).getFloor())
+            .getNodeType()
+            .equalsIgnoreCase("DIRT")) {
+          systemAlert.setTitle("Dirty Beds alert");
+          systemAlert.setHeaderText("At least 6 dirty beds detected");
+          systemAlert.setContentText(
+              "There has been "
+                  + locEqList.get(i).getDirtyBedCount()
+                  + " dirty beds detected on floor: "
+                  + locationManager.getLocation(locEqList.get(i).getFloor()).getFloor()
+                  + " \n Located at: "
+                  + locationManager.getLocation(locEqList.get(i).getFloor()).getLongName()
+                  + ". \n A service request to move the beds to the OR park for cleaning \nhas been created. Thank you");
+          systemAlert.showAndWait();
+        }
+      }
+    }
+  }
+
   private void switchCase(String eqType, Floor floor, Integer Status) {
     switch (eqType) {
       case "Bed":
@@ -297,17 +371,12 @@ public class MapEditorController extends LoadableController {
     locEqList.remove(arr.indexOf("NONE"));
   }
 
-  private int locateList(String ID, ArrayList<String> arr) {
-    for (int i = 0; i < arr.size(); i++) {
-      if (arr.get(i).equalsIgnoreCase(ID)) ;
-      return i;
-    }
-    return -1;
-  }
-
   public void refresh() throws SQLException, NonExistingMedEquip {
     if (currFloor == "0") {
       refreshDash();
+      checkFewerthan5cleanPumps();
+      checkDirtyPumps();
+      checkDirtyBeds();
       return;
     }
     removeMarkers();
@@ -388,14 +457,13 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(imgL2);
   }
 
-  public void swapSideView(ActionEvent actionEvent) throws SQLException {
+  public void swapSideView(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
     removeMarkers();
     currFloor = "0";
-    // refresh();
-    refreshDash();
     System.out.println(Side.getText());
     dropdown.setText("Side View");
     mapList.setImage(img);
+    refresh();
   }
 
   private void generateMarkers() {
@@ -413,6 +481,7 @@ public class MapEditorController extends LoadableController {
 
       circ.setOnMouseClicked(
           (event -> {
+            System.out.println("CLICK DETECTED");
             if (event.getButton() == MouseButton.SECONDARY) {
               try {
                 testUpdate(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
@@ -433,12 +502,8 @@ public class MapEditorController extends LoadableController {
           });
       circ.setOnMouseReleased(
           event -> {
-            //            circ.relocate(
-            //                circ.getCenterX() + circ.getTranslateX(), circ.getCenterY() +
-            // circ.getTranslateY());
             circ.setCenterX(circ.getCenterX() + circ.getTranslateX());
             circ.setCenterY(circ.getCenterY() + circ.getTranslateY());
-            System.out.println(circ.getTranslateX() + " " + circ.getTranslateY());
             circ.setTranslateX(0);
             circ.setTranslateY(0);
             anchorX.set(0.0);
@@ -467,6 +532,16 @@ public class MapEditorController extends LoadableController {
             } catch (SQLException e) {
               e.printStackTrace();
             }
+            scrollGroup.getChildren().removeAll(eqDots);
+            scrollGroup.getChildren().removeAll(reqDots);
+            eqDots.clear();
+            reqDots.clear();
+            if (EquipFilter.isSelected()) {
+              generateEquipMarkers();
+            }
+            if (ReqFilter.isSelected()) {
+              generateRequestDots();
+            }
           });
       locDots.add(circ);
       scrollGroup.getChildren().add(circ);
@@ -489,7 +564,8 @@ public class MapEditorController extends LoadableController {
                   eqList.get(i).getMedID(),
                   eqList.get(i).getType().getString(),
                   currFloorLoc.get(j).getXCoord(),
-                  currFloorLoc.get(j).getYCoord()));
+                  currFloorLoc.get(j).getYCoord(),
+                  currFloorLoc.get(j)));
           break;
         }
       }
@@ -547,12 +623,10 @@ public class MapEditorController extends LoadableController {
             edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location loc =
                 snapToClosestLoc(finalCircle.getCenterX(), finalCircle.getCenterY());
             finalCircle.setCenterX(loc.getXCoord());
-            finalCircle.setCenterY(loc.getYCoord());
+            finalCircle.setCenterY(loc.getYCoord() - 8);
             medEquip eq = equipList.get(eqDots.indexOf(finalCircle));
             eq.setXCoord(loc.getXCoord());
-            eq.setYCoord(loc.getYCoord());
-            System.out.println(finalCircle.getCenterX() + " " + finalCircle.getCenterY());
-            System.out.println(eq.getXCoord() + " " + eq.getYCoord());
+            eq.setYCoord(loc.getYCoord() - 8);
             try {
               equipController.change(
                   new MedEquip(
@@ -604,6 +678,7 @@ public class MapEditorController extends LoadableController {
   }
 
   public void testUpdate(String nodeID) throws SQLException, IOException, NonExistingMedEquip {
+    System.out.println("GO!");
     SceneManager.getInstance()
         .putInformation(SceneManager.getInstance().getPrimaryStage(), "updateLoc", nodeID);
     Stage S = SceneManager.getInstance().openWindow("UpdateMapPage.fxml");
@@ -716,8 +791,10 @@ public class MapEditorController extends LoadableController {
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     try {
-      refreshDash();
+      refresh();
     } catch (SQLException e) {
+      e.printStackTrace();
+    } catch (NonExistingMedEquip e) {
       e.printStackTrace();
     }
   }

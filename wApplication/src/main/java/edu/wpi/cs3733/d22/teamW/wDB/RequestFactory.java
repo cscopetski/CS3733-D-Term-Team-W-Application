@@ -68,96 +68,86 @@ public class RequestFactory {
     }
 
     int counter = num + 1;
-    if (requestType.equals(RequestType.MedicalEquipmentRequest)) {
-      Request mER;
-      if (importingFromCSV) {
-        mER = merm.addExistingRequest(fields);
-      } else {
-        mER = merm.addNewRequest(counter, fields);
-      }
-      return mER;
-    } else if (requestType.equals(RequestType.LabServiceRequest)) {
-      Request lSR;
-      if (importingFromCSV) {
-        lSR = lsrm.addExistingRequest(fields);
-      } else {
-        lSR = lsrm.addNewRequest(counter, fields);
-      }
-      return lSR;
-    } else if (requestType.equals(RequestType.MedicineDelivery)) {
-      Request mDR;
-      if (importingFromCSV) {
-        mDR = mrm.addExistingRequest(fields);
-      } else {
-        mDR = mrm.addNewRequest(counter, fields);
-      }
-      return mDR;
-    } else if (requestType.equals(RequestType.CleaningRequest)) {
-      Request cr;
-      if (importingFromCSV) {
-        cr = crm.addExistingRequest(fields);
-      } else {
-        cr = crm.addNewRequest(counter, fields);
-      }
-      return cr;
-    } else if (requestType.equals(RequestType.FlowerRequest)) {
-      Request fr;
-      if (importingFromCSV) {
-        fr = frm.addExistingRequest(fields);
-      } else {
-        fr = frm.addNewRequest(counter, fields);
-      }
-      return fr;
-    } else if (requestType.equals(RequestType.ComputerServiceRequest)) {
-      Request csr;
-      if (importingFromCSV) {
-        csr = csrm.addExistingRequest(fields);
-      } else {
-        csr = csrm.addNewRequest(counter, fields);
-      }
-      return csr;
-    } else if (requestType.equals(RequestType.SanitationService)) {
-      Request sr;
-      if (importingFromCSV) {
-        sr = srm.addExistingRequest(fields);
-      } else {
-        sr = srm.addNewRequest(counter, fields);
-      }
-      return sr;
-    } else if (requestType.equals(RequestType.GiftDelivery)) {
-      Request gdr;
-      if (importingFromCSV) {
-        gdr = gdrm.addExistingRequest(fields);
-      } else {
-        gdr = gdrm.addNewRequest(counter, fields);
-      }
-      return gdr;
-    } else if (requestType.equals(RequestType.MealDelivery)) {
-      Request mr;
-      if (importingFromCSV) {
-        mr = mealRequestManager.addExistingRequest(fields);
-      } else {
-        mr = mealRequestManager.addNewRequest(counter, fields);
-      }
-      return mr;
-    } else if (requestType.equals(RequestType.SecurityService)) {
-      Request mr;
-      if (importingFromCSV) {
-        mr = securityRequestManager.addExistingRequest(fields);
-      } else {
-        mr = securityRequestManager.addNewRequest(counter, fields);
-      }
-      return mr;
-    } else if (requestType.equals(RequestType.LanguageRequest)) {
-      Request lr;
-      if (importingFromCSV) {
-        lr = languageRequestManager.addExistingRequest(fields);
-      } else {
-        lr = languageRequestManager.addNewRequest(counter, fields);
-      }
-      return lr;
-    } else {
-      return null;
+    Request r = null;
+    switch (requestType) {
+      case MedicalEquipmentRequest:
+        if (importingFromCSV) {
+          r = merm.addExistingRequest(fields);
+        } else {
+          r = merm.addNewRequest(counter, fields);
+        }
+        break;
+      case LabServiceRequest:
+        if (importingFromCSV) {
+          r = lsrm.addExistingRequest(fields);
+        } else {
+          r = lsrm.addNewRequest(counter, fields);
+        }
+        break;
+      case MedicineDelivery:
+        if (importingFromCSV) {
+          r = mrm.addExistingRequest(fields);
+        } else {
+          r = mrm.addNewRequest(counter, fields);
+        }
+        break;
+      case CleaningRequest:
+        if (importingFromCSV) {
+          r = crm.addExistingRequest(fields);
+        } else {
+          r = crm.addNewRequest(counter, fields);
+        }
+        break;
+      case FlowerRequest:
+        if (importingFromCSV) {
+          r = frm.addExistingRequest(fields);
+        } else {
+          r = frm.addNewRequest(counter, fields);
+        }
+        break;
+      case ComputerServiceRequest:
+        if (importingFromCSV) {
+          r = csrm.addExistingRequest(fields);
+        } else {
+          r = csrm.addNewRequest(counter, fields);
+        }
+        break;
+      case SanitationService:
+        if (importingFromCSV) {
+          r = srm.addExistingRequest(fields);
+        } else {
+          r = srm.addNewRequest(counter, fields);
+        }
+        break;
+      case GiftDelivery:
+        if (importingFromCSV) {
+          r = gdrm.addExistingRequest(fields);
+        } else {
+          r = gdrm.addNewRequest(counter, fields);
+        }
+        break;
+      case MealDelivery:
+        if (importingFromCSV) {
+          r = mealRequestManager.addExistingRequest(fields);
+        } else {
+          r = mealRequestManager.addNewRequest(counter, fields);
+        }
+        break;
+      case SecurityService:
+        if (importingFromCSV) {
+          r = securityRequestManager.addExistingRequest(fields);
+        } else {
+          r = securityRequestManager.addNewRequest(counter, fields);
+        }
+        break;
+      case LanguageRequest:
+        if (importingFromCSV) {
+          r = languageRequestManager.addExistingRequest(fields);
+        } else {
+          r = languageRequestManager.addNewRequest(counter, fields);
+        }
+        break;
     }
+    return r;
   }
 }

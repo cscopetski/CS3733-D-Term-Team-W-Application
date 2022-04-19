@@ -12,6 +12,7 @@ public class EmergencyButton extends Button {
 
     setText("Non-Emergency");
     getStylesheets().clear();
+    getStylesheets().add("edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/Standard.css");
     getStylesheets()
         .add(
             "edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/EmergencyButton/emergencyButtonFalse.css");

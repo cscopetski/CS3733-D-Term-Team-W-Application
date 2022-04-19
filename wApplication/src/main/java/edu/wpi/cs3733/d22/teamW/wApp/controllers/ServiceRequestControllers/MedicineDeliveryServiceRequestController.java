@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
@@ -34,7 +35,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   @FXML ComboBox unitCBox;
   @FXML ComboBox medNameCBox;
   @FXML ComboBox locationCBox;
-  @FXML ComboBox employeeIDCBox;
+  @FXML ComboBox employeeNameCBox;
 
   // Tables:
   @FXML private TableView<MedicalEquipmentSR> table;
@@ -42,6 +43,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
   // Alerts:
   Alert emptyFields = new EmptyAlert();
+  Alert confirm = new ConfirmAlert();
 
   // Helper Fcn stuff -> NOT WORKING RIGHT NOW:
   // private Control[] fields = new Control[] {quantityField, itemCodeField, medNameCBox,
@@ -58,7 +60,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     medNameCBox.setItems(FXCollections.observableArrayList(getListOfMedicine()));
     locationCBox.setItems(FXCollections.observableArrayList(getLocations()));
     unitCBox.setItems(FXCollections.observableArrayList(getListOfUnits()));
-    employeeIDCBox.setItems(FXCollections.observableArrayList(getEmployeeNames()));
+    employeeNameCBox.setItems(FXCollections.observableArrayList(getEmployeeNames()));
   }
 
   public void onUnload() {
@@ -75,7 +77,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     unitCBox.getSelectionModel().clearSelection();
     medNameCBox.getSelectionModel().clearSelection();
     locationCBox.getSelectionModel().clearSelection();
-    employeeIDCBox.getSelectionModel().clearSelection();
+    employeeNameCBox.getSelectionModel().clearSelection();
   }
 
   // -------------------------RETRIEVAL FROM DB METHODS------------------------------
@@ -152,7 +154,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     fields.add(quantityField.getText());
     fields.add(unitCBox.getSelectionModel().getSelectedItem().toString());
     fields.add(locationToNodeID(locationCBox.getSelectionModel().getSelectedItem().toString()));
-    fields.add(getEmployeeID(employeeIDCBox.getSelectionModel().getSelectedItem().toString()));
+    fields.add(getEmployeeID(employeeNameCBox.getSelectionModel().getSelectedItem().toString()));
     if (emergencyB.getValue()) {
       emergency = 1;
     } else {
@@ -211,6 +213,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
   public void createRequest() {
     if (fieldsFull()) {
+      confirm.showAndWait();
       populateTable();
 
       try {
@@ -222,7 +225,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
         e.printStackTrace();
       }
     } else {
-      emptyFields.show();
+      emptyFields.showAndWait();
     }
   }
 
@@ -232,7 +235,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
         !(quantityField.getText().isEmpty()
             && unitCBox.getSelectionModel().isEmpty()
             && locationCBox.getSelectionModel().isEmpty()
-            && employeeIDCBox.getSelectionModel().isEmpty());
+            && employeeNameCBox.getSelectionModel().isEmpty());
 
     return result;
   }

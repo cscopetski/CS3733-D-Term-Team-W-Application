@@ -33,7 +33,7 @@ public enum RequestType {
     }
   }
 
-  private RequestType(Integer value, String string) {
+  RequestType(Integer value, String string) {
     this.value = value;
     this.string = string;
   }

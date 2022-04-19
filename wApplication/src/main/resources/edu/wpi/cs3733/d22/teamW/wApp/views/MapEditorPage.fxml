@@ -245,14 +245,14 @@
                                           <PropertyValueFactory property="MedID" />
                                       </cellValueFactory>
                                   </TableColumn>
-                                  <TableColumn prefWidth="51.333404541015625" text="Y ">
-                                      <cellValueFactory>
-                                          <PropertyValueFactory property="YCoord" />
-                                      </cellValueFactory>
-                                  </TableColumn>
                                   <TableColumn prefWidth="73.99995422363281" text="X">
                                       <cellValueFactory>
                                           <PropertyValueFactory property="XCoord" />
+                                      </cellValueFactory>
+                                  </TableColumn>
+                                  <TableColumn prefWidth="51.333404541015625" text="Y ">
+                                      <cellValueFactory>
+                                          <PropertyValueFactory property="YCoord" />
                                       </cellValueFactory>
                                   </TableColumn>
                               </columns>

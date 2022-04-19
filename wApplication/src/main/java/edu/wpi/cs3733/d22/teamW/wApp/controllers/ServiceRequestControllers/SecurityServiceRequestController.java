@@ -12,31 +12,29 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.ThreatLevels;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
 
 public class SecurityServiceRequestController extends LoadableController {
 
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
 
-  // boolean emergencyLevel = false;
-  int emergency = 0;
-
-  @FXML EmergencyButton emergencyB;
-  @FXML ChoiceBox threatChoice;
-  @FXML ChoiceBox employeeBox;
-  @FXML AutoCompleteInput locationBox;
-
-  // ArrayList<String> threatLevels = new ArrayList<>(Arrays.asList("Wong", "Red", "Yellow",
-  // "Blue"));
+  @FXML AutoCompleteInput location;
+  @FXML AutoCompleteInput threatLevel;
+  @FXML AutoCompleteInput employee;
+  @FXML EmergencyButton emergencyButton;
 
   @Override
   protected SceneManager.Scenes GetSceneType() {
@@ -44,15 +42,24 @@ public class SecurityServiceRequestController extends LoadableController {
   }
 
   @Override
-  public void onLoad() throws SQLException {
-    threatChoice.setItems(FXCollections.observableArrayList(threatLevels.values()));
-    employeeBox.setItems(FXCollections.observableArrayList(getEmployeeNames()));
-    locationBox.loadValues(getLocations());
-  }
+  public void onLoad() throws SQLException {}
 
   @Override
   public void onUnload() {
     clearFields();
+  }
+
+  @Override
+  public void initialize(URL l, ResourceBundle rb) {
+    super.initialize(l, rb);
+
+    location.loadValues(getLocations());
+    threatLevel.setItems(
+        FXCollections.observableList(
+            Arrays.stream(ThreatLevels.values())
+                .map(ThreatLevels::toString)
+                .collect(Collectors.toList())));
+    employee.setItems(FXCollections.observableArrayList(getEmployeeNames()));
   }
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
@@ -68,18 +75,18 @@ public class SecurityServiceRequestController extends LoadableController {
 
   private void pushSecurityRequestToDB() throws SQLException {
     ArrayList<String> ssrFields = new ArrayList<String>();
-    ssrFields.add(locationToNodeID(locationBox.getSelectionModel().getSelectedItem().toString()));
-    ssrFields.add(getEmployeeID(employeeBox.getSelectionModel().getSelectedItem().toString()));
-    if (emergencyB.getValue()) {
+    ssrFields.add(locationToNodeID(location.getSelectionModel().getSelectedItem()));
+    ssrFields.add(getEmployeeID(employee.getValue())); // replace with employee id
+    if (emergencyButton.getValue()) {
       ssrFields.add("1");
     } else {
       ssrFields.add("0");
     }
+
     ssrFields.add(
-        Integer.toString(
-            threatLevels
-                .valueOf(threatChoice.getSelectionModel().getSelectedItem().toString())
-                .ordinal())); // This is gross
+        ThreatLevels.valueOf(threatLevel.getSelectionModel().getSelectedItem())
+            .getValue()
+            .toString());
     try {
       RequestFactory.getRequestFactory().getRequest(RequestType.SecurityService, ssrFields, false);
     } catch (Exception e) {
@@ -92,15 +99,15 @@ public class SecurityServiceRequestController extends LoadableController {
   }
 
   private void clearFields() {
-    threatChoice.getSelectionModel().clearSelection();
-    employeeBox.getSelectionModel().clearSelection();
-    locationBox.getSelectionModel().clearSelection();
+    threatLevel.getSelectionModel().clearSelection();
+    employee.getSelectionModel().clearSelection();
+    location.getSelectionModel().clearSelection();
   }
 
   private boolean checkEmptyFields() {
-    return threatChoice.getSelectionModel().isEmpty()
-        || locationBox.getSelectionModel().isEmpty()
-        || employeeBox.getSelectionModel().isEmpty();
+    return threatLevel.getSelectionModel().isEmpty()
+        || location.getSelectionModel().isEmpty()
+        || employee.getSelectionModel().isEmpty();
   }
 
   private ArrayList<String> getLocations() {
@@ -164,19 +171,11 @@ public class SecurityServiceRequestController extends LoadableController {
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      if (e.getEmployeeID() != -1 && e.getType().equals(EmployeeType.Sanitation)) {
+      if (e.getEmployeeID() != -1 && e.getType().equals(EmployeeType.Security)) {
         String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
         name.add(empName);
       }
     }
     return name;
-  }
-
-  private enum threatLevels {
-    Green,
-    Blue,
-    Yellow,
-    Red,
-    Wong
   }
 }
