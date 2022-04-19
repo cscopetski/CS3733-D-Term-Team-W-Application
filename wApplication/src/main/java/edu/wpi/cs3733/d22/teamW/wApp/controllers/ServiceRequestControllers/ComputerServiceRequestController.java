@@ -144,14 +144,17 @@ public class ComputerServiceRequestController extends LoadableController {
   private ArrayList<String> getLocations() {
     ArrayList<String> locations = new ArrayList<>();
     ArrayList<Location> locationsRaw = null;
+    ArrayList<Integer> removeIndexes = new ArrayList<>();
     try {
       locationsRaw = LocationManager.getLocationManager().getAllLocations();
     } catch (SQLException e) {
       System.out.println("Failed to unearth locations from database");
       e.printStackTrace();
     }
+
     for (Location l : locationsRaw) {
-      locations.add(l.getLongName());
+      if (l.getNodeType().equals("NONE")) {
+      } else locations.add(l.getLongName());
     }
     return locations;
   }

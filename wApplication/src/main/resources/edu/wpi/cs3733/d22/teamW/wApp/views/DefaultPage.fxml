@@ -87,7 +87,7 @@
                                         <Insets right="10.0" top="10.0" />
                                     </HBox.margin>
                                 </MenuButton>
-                                <Button mnemonicParsing="false" onAction="#switchToMapEditor" prefHeight="30.0" prefWidth="113.0" text="Map Editor" textFill="WHITE">
+                                <Button mnemonicParsing="false" onAction="#switchToMapEditor" prefHeight="30.0" prefWidth="113.0" text="View Map" textFill="WHITE">
                                     <HBox.margin>
                                         <Insets right="10.0" top="10.0" />
                                     </HBox.margin>

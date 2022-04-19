@@ -66,7 +66,7 @@ public class EmployeeManager {
     return ed.getEmployee(empID);
   }
 
-  public Employee getEmployeeType(EmployeeType employeeType) {
+  public Employee getEmployeeByType(EmployeeType employeeType) {
     return ed.getEmployeeType(employeeType);
   }
 
