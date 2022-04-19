@@ -47,11 +47,11 @@
                                 <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Menu" textAlignment="CENTER" textOverrun="CLIP">
                                     <items>
                                         <MenuItem mnemonicParsing="false" onAction="#switchToMainMenu" text="Main Menu" />
-                                        <MenuItem mnemonicParsing="false" onAction="#switchToProfile" text="Account" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToAbout" text="About" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToHelp" text="Help" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToSnake" text="Wong" />
-                                        <MenuItem mnemonicParsing="false" onAction="#logOut" text="Log Out" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToGaming" text="Simulations" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToMessaging" text="Messaging" />
                                     </items>
                                     <HBox.margin>
                                         <Insets right="10.0" top="10.0" />
@@ -67,10 +67,20 @@
                                         <MenuItem mnemonicParsing="false" onAction="#switchToMealDelivery" text="Meals" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToLanguageInterpreter" text="Interpreters" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToSecurity" text="Security" />
-                                        <MenuItem mnemonicParsing="false" onAction="#switchToComputerService" text="Computer Services" />
-                                        <MenuItem mnemonicParsing="false" onAction="#switchToFlowerService" text="Flower Delivery" />
-                                        <MenuItem mnemonicParsing="false" onAction="#switchToGiftService" text="Gift Delivery" />
-                                        <MenuItem mnemonicParsing="false" onAction="#switchToSanitationService" text="Sanitation Services" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToComputerService" text="Computer" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToFlowerService" text="Flowers" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToGiftService" text="Gifts" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToSanitationService" text="Sanitation" />
+                                    </items>
+                                    <HBox.margin>
+                                        <Insets right="10.0" top="10.0" />
+                                    </HBox.margin>
+                                </MenuButton>
+                                <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Account" textAlignment="CENTER" textOverrun="CLIP">
+                                    <items>
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToProfile" text="My Account" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToAdminHub" text="Admin Hub" />
+                                        <MenuItem mnemonicParsing="false" onAction="#logOut" text="Log Out" />
                                     </items>
                                     <HBox.margin>
                                         <Insets right="10.0" top="10.0" />
@@ -102,7 +112,39 @@
                         </Pane>
                     </children>
                 </AnchorPane>
+<<<<<<< HEAD
             </top>
         </BorderPane>
+=======
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-alignment: center;" VBox.vgrow="ALWAYS">
+                    <children>
+                        <fx:include fx:id="mainMenuPage" source="MainMenuPage.fxml" />
+                        <fx:include fx:id="mapEditorPage" source="MapEditorPage.fxml" />
+                        <fx:include fx:id="labServiceRequestPage" source="ServiceRequestPages/LabServiceRequestPage.fxml" />
+                        <fx:include fx:id="languageInterpreterServiceRequestPage" source="ServiceRequestPages/LanguageInterpreterServiceRequestPage.fxml" />
+                        <fx:include fx:id="mealDeliveryServiceRequestPage" source="ServiceRequestPages/MealDeliveryServiceRequestPage.fxml" />
+                        <fx:include fx:id="medicalEquipmentServiceRequestPage" source="ServiceRequestPages/MedicalEquipmentServiceRequestPage.fxml" />
+                        <fx:include fx:id="medicineDeliveryServiceRequestPage" source="ServiceRequestPages/MedicineDeliveryServiceRequestPage.fxml" />
+                        <fx:include fx:id="securityServiceRequestPage" source="ServiceRequestPages/SecurityServiceRequestPage.fxml" />
+                        <fx:include fx:id="computerServiceRequestPage" source="ServiceRequestPages/ComputerServiceRequestPage.fxml" />
+                        <fx:include fx:id="sanitationRequestPage" source="ServiceRequestPages/SanitationRequest.fxml" />
+                        <fx:include fx:id="flowerRequestPage" source="ServiceRequestPages/FlowerRequestPage.fxml" />
+                        <fx:include fx:id="giftDeliveryPage" source="ServiceRequestPages/GiftDeliveryRequest.fxml" />
+                        <fx:include fx:id="requestListPage" source="ServiceRequestPages/RequestListPage.fxml" />
+                        <fx:include fx:id="requestHubPage" source="RequestHubPage.fxml" />
+                        <fx:include fx:id="helpPage" source="HelpPage.fxml" />
+                        <fx:include fx:id="aboutPage" source="AboutPage.fxml" />
+                        <fx:include fx:id="profilePage" source="ProfilePage.fxml" />
+                        <fx:include fx:id="snakePage" source="Snake.fxml" />
+                        <fx:include fx:id="loginPage" source="LoginPage.fxml" />
+                        <fx:include fx:id="adminHubPage" source="AdminHub.fxml" />
+                        <fx:include fx:id="gamingPage" source="Gaming.fxml" />
+                        <fx:include fx:id="messagingPage" source="MessagingPage.fxml" />
+
+                    </children>
+                </AnchorPane>
+            </children>
+        </VBox>
+>>>>>>> Merged
     </children>
 </AnchorPane>

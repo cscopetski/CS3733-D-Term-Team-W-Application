@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
@@ -31,16 +32,19 @@ public class GiftDeliveryRequestController extends LoadableController {
   @FXML ComboBox employeeIDComboBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
-
+  Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
     if (!emptyFields()) {
-      pushSanitationServiceRequestToDB();
-      clearFields();
-      successLabel.setVisible(true);
-      fadeOut.playFromStart();
+      confirm.showAndWait();
+      if (confirm.getResult() == ButtonType.OK) {
+        pushSanitationServiceRequestToDB();
+        clearFields();
+        successLabel.setVisible(true);
+        fadeOut.playFromStart();
+      }
     } else {
       emptyFields.show();
     }

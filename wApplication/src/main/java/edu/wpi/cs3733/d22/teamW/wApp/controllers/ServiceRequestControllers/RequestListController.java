@@ -41,25 +41,32 @@ public class RequestListController extends LoadableController {
                 moreInfo.setText("Select a request to view details.");
               }
               SR request = rt.getSelection();
-              try {
-                moreInfo.setText(request.getFormattedInfo());
-              } catch (SQLException e) {
-                e.printStackTrace();
-                moreInfo.setText("Error loading request details.");
-              } catch (StatusError e) {
-                e.printStackTrace();
-              } catch (NonExistingMedEquip e) {
-                e.printStackTrace();
-              } catch (Exception e) {
-                e.printStackTrace();
+              if (request != null) {
+                try {
+                  moreInfo.setText(request.getFormattedInfo());
+                } catch (SQLException e) {
+                  e.printStackTrace();
+                  moreInfo.setText("Error loading request details.");
+                } catch (StatusError e) {
+                  e.printStackTrace();
+                } catch (NonExistingMedEquip e) {
+                  e.printStackTrace();
+                } catch (Exception e) {
+                  e.printStackTrace();
+                }
               }
+
               selectionButtons.setVisible(newSelection != null);
             });
 
-    equipmentSelection
-        .getSelectionModel()
-        .selectedIndexProperty()
-        .addListener((e, o, n) -> setItemsWithFilter(n.intValue()));
+    try {
+      equipmentSelection
+          .getSelectionModel()
+          .selectedIndexProperty()
+          .addListener((e, o, n) -> setItemsWithFilter(n.intValue()));
+    } catch (Exception e) {
+      System.out.println(e);
+    }
   }
 
   public void onLoad() {
@@ -67,6 +74,9 @@ public class RequestListController extends LoadableController {
     rt.setColumnWidth("Request Type", 130);
     rt.setColumnWidth("Employee Name", 140);
     rt.setColumnWidth("Status", 80);
+    rt.setColumnWidth("Location", 80);
+    rt.setColumnWidth("Created", 145);
+    rt.setColumnWidth("Last Updated", 145);
     rt.setEditable(false);
     moreInfo.setText("Select a request to view details.");
     resetItems();

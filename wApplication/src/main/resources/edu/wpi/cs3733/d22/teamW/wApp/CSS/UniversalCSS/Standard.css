@@ -23,6 +23,15 @@
     -fx-background-color: #013895;
     -fx-padding: 5px;
 }
+.scroll-pane .scroll-bar {
+    -fx-background-color: white;
+    -fx-opacity: 1;
+    -fx-padding: 2;
+}
+
+.scroll-pane .scroll-bar .thumb{
+    -fx-background-color:  #013895;
+}
 
 .check-box .box {
     -fx-background-color: white;
@@ -195,6 +204,16 @@
     -fx-background-insets: -1px, 0px, 1px, 2px;
 }
 
+.combo-box .scroll-bar {
+    -fx-background-color: white;
+    -fx-opacity: 1;
+    -fx-padding: 2;
+}
+
+.combo-box .scroll-bar .thumb {
+    -fx-background-color:  #013895;
+}
+
 .table-view {
     -fx-background-color: transparent;
 }
@@ -264,9 +283,12 @@
 }
 
 .table-row-cell:pressed {
-    -fx-background-color: #013895;
+    -fx-background-color: white;
     -fx-background-radius: 15px;
-    -fx-text-fill: white;
+    -fx-border-color: #013895;
+    -fx-border-radius: 15px;
+    -fx-border-width: 3;
+    -fx-text-fill: black;
     /*-fx-background-insets: 0px 11px 0px 0px;*/
 }
 
@@ -359,6 +381,7 @@
     -fx-border-width: 1
 }
 .toggle-button:hover {
+<<<<<<< HEAD
 -fx-font-weight: bold;
 -fx-background-color: white;
 -fx-background-radius: 15px;
@@ -367,6 +390,16 @@
 -fx-border-color: #013895;
 -fx-border-radius: 15px;
 -fx-border-width: 1px;
+=======
+    -fx-font-weight: bold;
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-fontsize: 22;
+    -fx-text-fill: #013895;
+    -fx-border-color: #013895;
+    -fx-border-radius: 15;
+    -fx-border-width: 1;
+>>>>>>> Merged
     -fx-cursor: hand;
 
 }
@@ -388,6 +421,45 @@
     -fx-font-size: 14px;
     -fx-text-fill: #013895;
     -fx-border-color: #013895;
+<<<<<<< HEAD
     -fx-border-radius: 15px;
     -fx-border-width: 3px;
+=======
+    -fx-border-radius: 15;
+    -fx-border-width: 3;
+}
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-tab-min-width:90px;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-background-color: #e6e6e6;
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #013895;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: #828282;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.tab:selected .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+>>>>>>> Merged
 }

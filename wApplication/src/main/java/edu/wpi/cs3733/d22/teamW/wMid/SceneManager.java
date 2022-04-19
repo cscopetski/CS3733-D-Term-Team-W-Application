@@ -72,7 +72,10 @@ public class SceneManager {
     SanitationService,
     FlowerRequest,
     GiftDelivery,
-    Snake
+    Snake,
+    AdminHub,
+    Messaging,
+    Gaming
   }
 
   private static class Instance {
@@ -261,5 +264,21 @@ public class SceneManager {
 
   private void closeWindowEvent(WindowEvent e) {
     information.remove(e.getSource());
+  }
+
+  public Stage openGameWindow(String fileName, String title, String icon) throws IOException {
+    Stage stage = new Stage();
+    stage.initOwner(primaryStage);
+    stage.initModality(Modality.APPLICATION_MODAL);
+    stage.setTitle(title);
+    stage.getIcons().add(new Image(getClass().getResourceAsStream(icon)));
+    Parent root =
+        FXMLLoader.load(getClass().getResource("/edu/wpi/cs3733/d22/teamW/wApp/views/" + fileName));
+    stage.setScene(new Scene(root));
+    stage.addEventFilter(WindowEvent.WINDOW_CLOSE_REQUEST, this::closeWindowEvent);
+    stage.setResizable(false);
+    stage.showAndWait();
+
+    return stage;
   }
 }
