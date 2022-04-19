@@ -474,8 +474,8 @@ public class MapEditorController extends LoadableController {
 
       circ.setOnMouseClicked(
           (event -> {
+            System.out.println("CLICK DETECTED");
             if (event.getButton() == MouseButton.SECONDARY) {
-              System.out.println("RIGHT CLICK DETECTED");
               try {
                 testUpdate(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
               } catch (SQLException | IOException | NonExistingMedEquip e) {
@@ -525,12 +525,15 @@ public class MapEditorController extends LoadableController {
             } catch (SQLException e) {
               e.printStackTrace();
             }
-            try {
-              refresh();
-            } catch (SQLException e) {
-              e.printStackTrace();
-            } catch (NonExistingMedEquip e) {
-              e.printStackTrace();
+            scrollGroup.getChildren().removeAll(eqDots);
+            scrollGroup.getChildren().removeAll(reqDots);
+            eqDots.clear();
+            reqDots.clear();
+            if (EquipFilter.isSelected()) {
+              generateEquipMarkers();
+            }
+            if (ReqFilter.isSelected()) {
+              generateRequestDots();
             }
           });
       locDots.add(circ);
