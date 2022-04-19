@@ -59,6 +59,15 @@
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                         </content>
                       </Tab>
+                        <Tab text="Automation">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ToggleButton fx:id="automation" layoutX="370.0" layoutY="269.0" minWidth="200.0" mnemonicParsing="false" onAction="#automationToggle" prefWidth="200.0" text="Activate Automation" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
                     </tabs>
                   </TabPane>
                </center>
