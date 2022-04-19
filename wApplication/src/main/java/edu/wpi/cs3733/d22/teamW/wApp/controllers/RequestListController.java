@@ -1,7 +1,7 @@
-package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
+package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.FilterControl;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.*;
@@ -24,6 +24,7 @@ public class RequestListController extends LoadableController {
   @FXML public TextArea moreInfo;
   @FXML public AutoCompleteInput equipmentSelection;
   @FXML public HBox selectionButtons;
+  @FXML public FilterControl<RequestType> filter;
 
   @Override
   protected SceneManager.Scenes GetSceneType() {
@@ -48,10 +49,6 @@ public class RequestListController extends LoadableController {
                 } catch (SQLException e) {
                   e.printStackTrace();
                   moreInfo.setText("Error loading request details.");
-                } catch (StatusError e) {
-                  e.printStackTrace();
-                } catch (NonExistingMedEquip e) {
-                  e.printStackTrace();
                 } catch (Exception e) {
                   e.printStackTrace();
                 }
@@ -60,101 +57,36 @@ public class RequestListController extends LoadableController {
               selectionButtons.setVisible(newSelection != null);
             });
 
+    filter.loadValues(RequestType.values());
+    filter.addValuesListener(c -> resetItems());
+    resetItems();
+  }
+
+  private void resetItems() {
     try {
-      equipmentSelection
-          .getSelectionModel()
-          .selectedIndexProperty()
-          .addListener((e, o, n) -> setItemsWithFilter(n.intValue()));
+      rt.setItems(
+          RequestFacade.getRequestFacade()
+              .getRequests(filter.getEnabledValues().toArray(new RequestType[] {})));
     } catch (Exception e) {
-      System.out.println(e);
+      e.printStackTrace();
     }
   }
 
   public void onLoad() {
-    rt.setColumnWidth("Req. ID", 60);
+    /*rt.setColumnWidth("Request ID", 60);
     rt.setColumnWidth("Request Type", 130);
     rt.setColumnWidth("Employee Name", 140);
     rt.setColumnWidth("Status", 80);
     rt.setColumnWidth("Location", 80);
     rt.setColumnWidth("Created", 145);
-    rt.setColumnWidth("Last Updated", 145);
-    rt.setEditable(false);
+    rt.setColumnWidth("Last Updated", 145);*/
+    rt.distributeColumnWidths();
+    rt.setEditable(true);
     moreInfo.setText("Select a request to view details.");
-    resetItems();
-  }
-
-  public void resetItems() {
-    setItemsWithFilter(equipmentSelection.getSelectionModel().getSelectedIndex());
   }
 
   @Override
   public void onUnload() {}
-
-  private void setItemsWithFilter(int index) {
-    switch (index) {
-      case -1:
-      case 0:
-        try {
-          rt.setItems(RequestFacade.getRequestFacade().getAllRequests());
-        } catch (SQLException | NonExistingMedEquip ex) {
-          ex.printStackTrace();
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-        break;
-      case 1:
-        try {
-          rt.setItems(
-              RequestFacade.getRequestFacade().getAllRequests(RequestType.LabServiceRequest));
-        } catch (SQLException ex) {
-          ex.printStackTrace();
-        } catch (NonExistingMedEquip e) {
-          e.printStackTrace();
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-        break;
-      case 2:
-        try {
-          rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.LanguageRequest));
-        } catch (SQLException | NonExistingMedEquip ex) {
-          ex.printStackTrace();
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-        break;
-      case 3:
-        try {
-          rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.MealDelivery));
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-        break;
-      case 4:
-        try {
-          rt.setItems(
-              RequestFacade.getRequestFacade().getAllRequests(RequestType.MedicalEquipmentRequest));
-        } catch (Exception ex) {
-          ex.printStackTrace();
-        }
-        break;
-      case 5:
-        try {
-          rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.SecurityService));
-        } catch (Exception ex) {
-          ex.printStackTrace();
-        }
-        break;
-      case 6:
-        try {
-          rt.setItems(RequestFacade.getRequestFacade().getAllRequests(RequestType.CleaningRequest));
-        } catch (Exception ex) {
-          ex.printStackTrace();
-        }
-        break;
-    }
-    clearSelection();
-  }
 
   public void cancel(ActionEvent actionEvent) {
     if (Account.getInstance().getEmployee().getType().getAccessLevel() == 5) {
@@ -214,6 +146,7 @@ public class RequestListController extends LoadableController {
   public void clearSelection() {
     rt.getSelectionModel().clearSelection();
     selectionButtons.setVisible(false);
+    resetItems();
   }
 
   public void start() {
@@ -247,14 +180,6 @@ public class RequestListController extends LoadableController {
     }
 
     resetItems();
-  }
-
-  // Filtering the requests by request service
-  public void filterRequest(ActionEvent actionEvent) {
-    // if ("Lab".equals(equipmentSelection.getValue())) {
-    // Only display lab
-    // rt.setItems(RequestFacade.getRequestFacade().);
-    // }
   }
 
   public void requeue(ActionEvent actionEvent) {

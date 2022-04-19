@@ -156,7 +156,8 @@ public class FlowerRequestController extends LoadableController {
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      if (e.getEmployeeID() != -1 && (e.getType().equals(EmployeeType.Staff) || e.getType().equals(EmployeeType.Nurse))) {
+      if (e.getEmployeeID() != -1
+          && (e.getType().equals(EmployeeType.Staff) || e.getType().equals(EmployeeType.Nurse))) {
         String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
         name.add(empName);
       }
