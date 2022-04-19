@@ -72,8 +72,6 @@ public class MapEditorController extends LoadableController {
   ArrayList<Circle> eqDots = new ArrayList<>();
   ArrayList<Circle> reqDots = new ArrayList<>();
   Integer size = 0;
-  Integer xOffSet = 396;
-  Integer yOffSet = 63;
   private String currFloor = "0";
   private MedEquipManager equipController = MedEquipManager.getMedEquipManager();
   private LocationManager locationManager = LocationManager.getLocationManager();
@@ -481,7 +479,6 @@ public class MapEditorController extends LoadableController {
 
       circ.setOnMouseClicked(
           (event -> {
-            System.out.println("CLICK DETECTED");
             if (event.getButton() == MouseButton.SECONDARY) {
               try {
                 testUpdate(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
@@ -619,7 +616,6 @@ public class MapEditorController extends LoadableController {
           event -> {
             finalCircle.setCenterY(finalCircle.getCenterY() + finalCircle.getTranslateY());
             finalCircle.setCenterX(finalCircle.getCenterX() + finalCircle.getTranslateX());
-            System.out.println(finalCircle.getTranslateX() + " " + finalCircle.getTranslateY());
             edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location loc =
                 snapToClosestLoc(finalCircle.getCenterX(), finalCircle.getCenterY());
             finalCircle.setCenterX(loc.getXCoord());
@@ -627,6 +623,7 @@ public class MapEditorController extends LoadableController {
             medEquip eq = equipList.get(eqDots.indexOf(finalCircle));
             eq.setXCoord(loc.getXCoord());
             eq.setYCoord(loc.getYCoord() - 8);
+            eq.setHomeLoc(loc);
             try {
               equipController.change(
                   new MedEquip(
@@ -664,7 +661,6 @@ public class MapEditorController extends LoadableController {
         bestDist = Double.valueOf(euclid);
       }
     }
-    System.out.println(bestFit);
     return currFloorLoc.get(bestFit);
   }
 
@@ -678,7 +674,6 @@ public class MapEditorController extends LoadableController {
   }
 
   public void testUpdate(String nodeID) throws SQLException, IOException, NonExistingMedEquip {
-    System.out.println("GO!");
     SceneManager.getInstance()
         .putInformation(SceneManager.getInstance().getPrimaryStage(), "updateLoc", nodeID);
     Stage S = SceneManager.getInstance().openWindow("UpdateMapPage.fxml");
