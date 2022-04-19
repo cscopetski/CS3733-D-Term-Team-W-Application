@@ -1,15 +1,12 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls;
 
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.Employee.EMPLOYEE;
-import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
-import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import java.util.Collection;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class EmployeeTable extends TableView<EMPLOYEE> {
+public class EmployeeTable extends TableView<Employee> {
 
   public EmployeeTable() {
     super();
@@ -51,9 +48,8 @@ public class EmployeeTable extends TableView<EMPLOYEE> {
   public void setItems(Collection<? extends Employee> employees) {
     getItems().clear();
     for (Employee e : employees) {
-      EMPLOYEE empl = new EMPLOYEE(e);
 
-      getItems().add(empl);
+      getItems().add(e);
     }
     getSelectionModel().clearSelection();
   }
