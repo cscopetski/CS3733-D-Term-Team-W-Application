@@ -15,9 +15,11 @@ import edu.wpi.cs3733.d22.teamW.wDB.enums.MedicineType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.Units;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -238,5 +240,9 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
             && employeeNameCBox.getSelectionModel().isEmpty());
 
     return result;
+  }
+
+  public void switchToRequestList(ActionEvent event) throws IOException {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 }

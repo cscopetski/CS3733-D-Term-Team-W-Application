@@ -209,6 +209,11 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
+                  <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="View Request List">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
             </VBox>
          </children>

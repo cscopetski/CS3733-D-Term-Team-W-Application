@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" spacing="25.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicineDeliveryServiceRequestController">
+<VBox alignment="CENTER" spacing="25.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicineDeliveryServiceRequestController">
    <children>
       <VBox alignment="CENTER">
          <children>
@@ -53,7 +53,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <ComboBox fx:id="medNameCBox" prefWidth="150.0" >
+                              <ComboBox fx:id="medNameCBox" prefWidth="150.0">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -88,7 +88,7 @@
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <TextField fx:id="quantityField" prefWidth="150.0" >
+                              <TextField fx:id="quantityField" prefWidth="150.0">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -185,6 +185,7 @@
                         </Label>
                      </children>
                   </VBox>
+                  <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="View Request List" />
                </children>
             </VBox>
             <Line endY="375.0" />

@@ -7,13 +7,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
-<VBox alignment="CENTER" spacing="50.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.SanitationRequestController">
+<VBox alignment="CENTER" spacing="50.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.SanitationRequestController">
    <children>
       <VBox alignment="CENTER">
          <children>
@@ -27,7 +26,7 @@
                   <Font size="30.0" />
                </font>
             </Text>
-            <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="fix label" textAlignment="CENTER" wrappingWidth="265.1999969482422" />
+            <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Whatever you need cleaned, wherever you need it." textAlignment="CENTER" wrappingWidth="307.0" />
          </children>
       </VBox>
       <VBox alignment="CENTER" spacing="10.0">
@@ -89,6 +88,7 @@
                   <Insets top="20.0" />
                </VBox.margin>
             </VBox>
+            <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="View Request List" />
          </children>
       </VBox>
    </children>
