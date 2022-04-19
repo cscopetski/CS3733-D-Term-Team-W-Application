@@ -1,4 +1,4 @@
-*{
+* {
     -fx-button-first-font-color: #FFFFFF;
     -fx-button-second-font-color: #013895;
 }
@@ -11,6 +11,7 @@
     -fx-text-fill: white;
     -fx-padding: 5px 10px 5px 10px;
 }
+
 .label-minor {
     -fx-font-weight: bold;
     -fx-font-size: 14px;
@@ -23,19 +24,20 @@
     -fx-background-color: #013895;
     -fx-padding: 5px;
 }
+
 .scroll-pane .scroll-bar {
     -fx-background-color: white;
     -fx-opacity: 1;
     -fx-padding: 2;
 }
 
-.scroll-pane .scroll-bar .thumb{
-    -fx-background-color:  #013895;
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #013895;
 }
 
 .check-box .box {
     -fx-background-color: white;
-    -fx-border-color:#013895;
+    -fx-border-color: #013895;
 }
 
 .check-box:selected .mark {
@@ -49,7 +51,7 @@
     -fx-background-color: #009ca8;
 }
 
-.check-box:selected{
+.check-box:selected {
     -fx-border-color: #009ca8;
 }
 
@@ -67,7 +69,7 @@
     -fx-border-color: #013895;
 }
 
-.text-field .context-menu .menu-item{
+.text-field .context-menu .menu-item {
     -fx-text-base-color: #FFFFFF;
     -fx-font-weight: bold;
     -fx-background-color: #013895;
@@ -89,8 +91,7 @@
 }
 
 
-
-.button{
+.button {
     -fx-text-base-color: #FFFFFF;
     -fx-font-weight: bold;
     -fx-background-color: #013895;
@@ -102,6 +103,7 @@
     -fx-border-width: 1px;
     -fx-padding: 5px 10px 5px 10px;
 }
+
 .button:hover {
     -fx-font-weight: bold;
     -fx-background-color: white;
@@ -115,7 +117,7 @@
 
 }
 
-.button:pressed{
+.button:pressed {
     -fx-font-weight: bold;
     -fx-background-color: white;
     -fx-background-radius: 15px;
@@ -127,7 +129,7 @@
 
 }
 
-.button:focused{
+.button:focused {
     -fx-font-weight: bold;
     -fx-background-color: white;
     -fx-background-radius: 15px;
@@ -139,8 +141,7 @@
 
 }
 
-.combo-box .list-cell
-{
+.combo-box .list-cell {
     -fx-background: white;
     -fx-background-color: transparent;
     -fx-text-fill: -fx-text-base-color;
@@ -149,37 +150,32 @@
 
 }
 
-.combo-box-popup .list-view
-{
+.combo-box-popup .list-view {
     -fx-background-color: white, white;
     -fx-background-insets: 0px, 1px;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 8, 0.0 , 0 , 0 );
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.6), 8, 0.0, 0, 0);
     -fx-border-color: #013895;
 }
 
-.combo-box-popup .list-view .list-cell
-{
+.combo-box-popup .list-view .list-cell {
     -fx-padding: 4px 0px 4px 5px;
 
     /* No alternate highlighting */
     -fx-background-color: white;
 }
 
-.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover
-{
+.combo-box-popup .list-view .list-cell:filled:selected, .combo-box-popup .list-view .list-cell:filled:selected:hover {
     -fx-background: -fx-accent;
     -fx-background-color: -fx-selection-bar;
     -fx-text-fill: -fx-selection-bar-text;
 }
 
-.combo-box-popup .list-view .list-cell:filled:hover
-{
+.combo-box-popup .list-view .list-cell:filled:hover {
     -fx-background-color: #013895;
     -fx-text-fill: white;
 }
 
-.combo-box-base
-{
+.combo-box-base {
     -fx-background-color: white, white, white, white;
     -fx-background-radius: 5px, 5px, 4px, 3px;
     -fx-background-insets: 0px 0px -1px 0px, 0px, 1px, 2px;
@@ -188,13 +184,11 @@
     -fx-border-color: #013895;
 }
 
-.combo-box-base:hover
-{
+.combo-box-base:hover {
     -fx-color: -fx-hover-base;
 }
 
-.combo-box-base:showing
-{
+.combo-box-base:showing {
     -fx-color: -fx-pressed-base;
 }
 
@@ -211,7 +205,7 @@
 }
 
 .combo-box .scroll-bar .thumb {
-    -fx-background-color:  #013895;
+    -fx-background-color: #013895;
 }
 
 .table-view {
@@ -226,14 +220,14 @@
     -fx-background-color: transparent;
 }
 
-.table-view .column-header-background{
+.table-view .column-header-background {
     -fx-background-color: #013895;
     -fx-background-radius: 7px 7px 5px 5px;
     -fx-background-insets: 0px 11px 0px 0px;
     -fx-padding: 0px 0px 5px 0px;
 }
 
-.table-view .column-header-background .label{
+.table-view .column-header-background .label {
     -fx-text-fill: white;
 }
 
@@ -241,7 +235,7 @@
     -fx-background-color: transparent;
 }
 
-.table-view .table-cell{
+.table-view .table-cell {
     -fx-border-color: transparent;
     -fx-padding: 2px 0px 2px 10px;
 }
@@ -268,12 +262,12 @@
     -fx-padding: 2px;
 }
 
-.table-view .virtual-flow .scroll-bar:vertical .thumb{
-    -fx-background-color:  #013895;
+.table-view .virtual-flow .scroll-bar:vertical .thumb {
+    -fx-background-color: #013895;
 }
 
 .table-view .virtual-flow .scroll-bar:horizontal .thumb {
-    -fx-background-color:  #013895;
+    -fx-background-color: #013895;
 }
 
 .table-row-cell:focused {
@@ -292,7 +286,7 @@
     /*-fx-background-insets: 0px 11px 0px 0px;*/
 }
 
-.menu-button{
+.menu-button {
     -fx-font-weight: bold;
     -fx-background-color: #013895;
     -fx-background-radius: 15px;
@@ -306,7 +300,7 @@
 
 
 .menu-button:hover,
-.menu-button:pressed{
+.menu-button:pressed {
     -fx-font-weight: bold;
     -fx-background-color: white;
     -fx-background-radius: 15;
@@ -322,7 +316,8 @@
     -fx-background-color: none;
     -fx-padding: 0px 0px 0px 10px;
 }
-.menu-item{
+
+.menu-item {
     -fx-background-color: white;
     -fx-background-radius: 15px;
     -fx-border-color: #013895;
@@ -354,7 +349,7 @@
 }
 
 .menu-button:hover .label,
-.menu-button:pressed .label{
+.menu-button:pressed .label {
     -fx-font-weight: bold;
     -fx-font-size: 14px;
     -fx-cursor: hand;
@@ -380,28 +375,17 @@
     -fx-border-radius: 15;
     -fx-border-width: 1
 }
+
 .toggle-button:hover {
-<<<<<<< HEAD
--fx-font-weight: bold;
--fx-background-color: white;
--fx-background-radius: 15px;
--fx-font-size: 14px;
--fx-text-fill: #013895;
--fx-border-color: #013895;
--fx-border-radius: 15px;
--fx-border-width: 1px;
-=======
     -fx-font-weight: bold;
     -fx-background-color: white;
-    -fx-background-radius: 15;
-    -fx-fontsize: 22;
+    -fx-background-radius: 15px;
+    -fx-font-size: 14px;
     -fx-text-fill: #013895;
     -fx-border-color: #013895;
-    -fx-border-radius: 15;
-    -fx-border-width: 1;
->>>>>>> Merged
+    -fx-border-radius: 15px;
+    -fx-border-width: 1px;
     -fx-cursor: hand;
-
 }
 
 .toggle-button:selected {
@@ -414,6 +398,7 @@
     -fx-border-radius: 15px;
     -fx-border-width: 3px;
 }
+
 .toggle-button:selected:focused {
     -fx-font-weight: bold;
     -fx-background-color: white;
@@ -421,33 +406,28 @@
     -fx-font-size: 14px;
     -fx-text-fill: #013895;
     -fx-border-color: #013895;
-<<<<<<< HEAD
     -fx-border-radius: 15px;
     -fx-border-width: 3px;
-=======
-    -fx-border-radius: 15;
-    -fx-border-width: 3;
 }
+
 .tab-pane .tab-header-area .tab-header-background {
     -fx-opacity: 0;
 }
 
-.tab-pane
-{
-    -fx-tab-min-width:90px;
+.tab-pane {
+    -fx-tab-min-width: 90px;
 }
 
-.tab{
-    -fx-background-insets: 0 1 0 1,0,0;
+.tab {
+    -fx-background-insets: 0 1 0 1, 0, 0;
 }
-.tab-pane .tab
-{
+
+.tab-pane .tab {
     -fx-background-color: #e6e6e6;
 
 }
 
-.tab-pane .tab:selected
-{
+.tab-pane .tab:selected {
     -fx-background-color: #013895;
 }
 
@@ -461,5 +441,4 @@
 .tab:selected .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: white;
->>>>>>> Merged
 }

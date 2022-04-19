@@ -100,32 +100,18 @@
                         </VBox>
                         <VBox alignment="CENTER">
                            <children>
-<<<<<<< HEAD
-                              <Label styleClass="label-minor" text="Item Code:">
-=======
-                              <Label text="Unit:">
->>>>>>> Merged
+                              <Label styleClass="label-minor" text="Units:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-<<<<<<< HEAD
-                              <TextField fx:id="itemCodeField" minWidth="120.0" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
-=======
                               <ComboBox fx:id="unitCBox" minWidth="120.0" prefHeight="28.0" prefWidth="126.0" stylesheets="@../../CSS/UniversalCSS/Standard.css">
->>>>>>> Merged
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
                               </ComboBox>
                            </children>
                         </VBox>
-<<<<<<< HEAD
-=======
-                        <Pane prefHeight="65.0" prefWidth="30.0" />
-                        <VBox prefHeight="59.0" prefWidth="130.0">
-                        </VBox>
->>>>>>> Merged
                      </children>
                      <opaqueInsets>
                         <Insets />
@@ -135,7 +121,7 @@
                      <children>
                         <VBox alignment="CENTER">
                            <children>
-                              <Label styleClass="label-minor" text="Time Preferance:">
+                              <Label styleClass="label-minor" text="Time Preference:">
                                  <font>
                                     <Font name="System Bold" size="14.0" />
                                  </font>

@@ -36,6 +36,9 @@
                          <fx:include fx:id="profilePage" source="ProfilePage.fxml" />
                          <fx:include fx:id="snakePage" source="Snake.fxml" />
                          <fx:include fx:id="loginPage" source="LoginPage.fxml" />
+                         <fx:include fx:id="adminHubPage" source="AdminHub.fxml" />
+                         <fx:include fx:id="messagingPage" source="MessagingPage.fxml" />
+                         <fx:include fx:id="gamingPage" source="Gaming.fxml" />
                      </children>
                  </AnchorPane>
             </center>
@@ -112,39 +115,7 @@
                         </Pane>
                     </children>
                 </AnchorPane>
-<<<<<<< HEAD
             </top>
         </BorderPane>
-=======
-                <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-alignment: center;" VBox.vgrow="ALWAYS">
-                    <children>
-                        <fx:include fx:id="mainMenuPage" source="MainMenuPage.fxml" />
-                        <fx:include fx:id="mapEditorPage" source="MapEditorPage.fxml" />
-                        <fx:include fx:id="labServiceRequestPage" source="ServiceRequestPages/LabServiceRequestPage.fxml" />
-                        <fx:include fx:id="languageInterpreterServiceRequestPage" source="ServiceRequestPages/LanguageInterpreterServiceRequestPage.fxml" />
-                        <fx:include fx:id="mealDeliveryServiceRequestPage" source="ServiceRequestPages/MealDeliveryServiceRequestPage.fxml" />
-                        <fx:include fx:id="medicalEquipmentServiceRequestPage" source="ServiceRequestPages/MedicalEquipmentServiceRequestPage.fxml" />
-                        <fx:include fx:id="medicineDeliveryServiceRequestPage" source="ServiceRequestPages/MedicineDeliveryServiceRequestPage.fxml" />
-                        <fx:include fx:id="securityServiceRequestPage" source="ServiceRequestPages/SecurityServiceRequestPage.fxml" />
-                        <fx:include fx:id="computerServiceRequestPage" source="ServiceRequestPages/ComputerServiceRequestPage.fxml" />
-                        <fx:include fx:id="sanitationRequestPage" source="ServiceRequestPages/SanitationRequest.fxml" />
-                        <fx:include fx:id="flowerRequestPage" source="ServiceRequestPages/FlowerRequestPage.fxml" />
-                        <fx:include fx:id="giftDeliveryPage" source="ServiceRequestPages/GiftDeliveryRequest.fxml" />
-                        <fx:include fx:id="requestListPage" source="ServiceRequestPages/RequestListPage.fxml" />
-                        <fx:include fx:id="requestHubPage" source="RequestHubPage.fxml" />
-                        <fx:include fx:id="helpPage" source="HelpPage.fxml" />
-                        <fx:include fx:id="aboutPage" source="AboutPage.fxml" />
-                        <fx:include fx:id="profilePage" source="ProfilePage.fxml" />
-                        <fx:include fx:id="snakePage" source="Snake.fxml" />
-                        <fx:include fx:id="loginPage" source="LoginPage.fxml" />
-                        <fx:include fx:id="adminHubPage" source="AdminHub.fxml" />
-                        <fx:include fx:id="gamingPage" source="Gaming.fxml" />
-                        <fx:include fx:id="messagingPage" source="MessagingPage.fxml" />
-
-                    </children>
-                </AnchorPane>
-            </children>
-        </VBox>
->>>>>>> Merged
     </children>
 </AnchorPane>
