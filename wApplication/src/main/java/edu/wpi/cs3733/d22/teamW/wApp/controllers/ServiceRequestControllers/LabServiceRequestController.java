@@ -12,6 +12,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.LabServiceRequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.collections.FXCollections;
@@ -24,8 +25,8 @@ public class LabServiceRequestController extends LoadableController {
   @FXML public TextField patientFirstName;
   @FXML public TextField patientLastName;
   // Combo Boxes:
-  @FXML ComboBox employeeIDCBox;
-  @FXML ComboBox locationCBox;
+  @FXML ComboBox<String> employeeIDCBox;
+  @FXML ComboBox<String> locationCBox;
   @FXML CheckBox bloodBox;
   @FXML CheckBox urineBox;
   @FXML CheckBox mriBox;
@@ -243,5 +244,9 @@ public class LabServiceRequestController extends LoadableController {
       }
     }
     return name;
+  }
+
+  public void switchToRequestList(ActionEvent event) throws IOException {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 }

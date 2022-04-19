@@ -11,6 +11,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.animation.FadeTransition;
@@ -25,8 +26,8 @@ public class GiftDeliveryRequestController extends LoadableController {
   @FXML public VBox patientFieldsBox;
   @FXML TextField recipientLastName;
   @FXML TextField recipientFirstName;
-  @FXML ComboBox locationComboBox;
-  @FXML ComboBox employeeIDComboBox;
+  @FXML ComboBox<String> locationComboBox;
+  @FXML ComboBox<String> employeeIDComboBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
   Alert confirm = new ConfirmAlert();
@@ -173,5 +174,9 @@ public class GiftDeliveryRequestController extends LoadableController {
       } else locations.add(l.getLongName());
     }
     return locations;
+  }
+
+  public void switchToRequestList(ActionEvent event) throws IOException {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 }

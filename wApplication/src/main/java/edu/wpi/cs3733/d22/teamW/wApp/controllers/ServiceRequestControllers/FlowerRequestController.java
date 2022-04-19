@@ -12,6 +12,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.Flower;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.animation.FadeTransition;
@@ -24,9 +25,9 @@ import javafx.util.Duration;
 public class FlowerRequestController extends LoadableController {
   @FXML TextField recipientLastName;
   @FXML TextField recipientFirstName;
-  @FXML ComboBox locationComboBox;
-  @FXML ComboBox employeeIDComboBox;
-  @FXML ComboBox flowerTypeBox;
+  @FXML ComboBox<String> locationComboBox;
+  @FXML ComboBox<String> employeeIDComboBox;
+  @FXML ComboBox<String> flowerTypeBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
   Alert confirm = new ConfirmAlert();
@@ -185,5 +186,9 @@ public class FlowerRequestController extends LoadableController {
       flowers.add(f.getString());
     }
     return flowers;
+  }
+
+  public void switchToRequestList(ActionEvent event) throws IOException {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 }

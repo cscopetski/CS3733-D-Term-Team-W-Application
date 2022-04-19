@@ -1,8 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.CreateNewEmployee">
-
+<AnchorPane prefHeight="400.0" prefWidth="501.0" style="-fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.CreateNewEmployee">
+   <children>
+      <Label layoutX="129.0" layoutY="46.0" text="Create a new employee">
+         <font>
+            <Font name="System Bold" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="39.0" layoutY="111.0" text="First Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="39.0" layoutY="171.0" text="Last Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="39.0" layoutY="228.0" text="Address">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="39.0" layoutY="287.0" text="Email">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="317.0" layoutY="267.0" text="Type">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#eef7ff" height="136.0" layoutX="326.0" layoutY="118.0" stroke="#151dba" strokeType="INSIDE" width="136.0" />
+      <ImageView fitHeight="136.0" fitWidth="136.0" layoutX="326.0" layoutY="117.0">
+         <image>
+            <Image url="@../assets/Icons/profilePicture.png" />
+         </image>
+      </ImageView>
+      <TextField fx:id="firstNametxt" layoutX="39.0" layoutY="131.0" />
+      <TextField fx:id="lastNametxt" layoutX="39.0" layoutY="191.0" />
+      <TextField fx:id="addresstxt" layoutX="39.0" layoutY="248.0" />
+      <TextField fx:id="emailtxt" layoutX="39.0" layoutY="307.0" />
+      <Button fx:id="addButton" layoutX="213.0" layoutY="357.0" mnemonicParsing="false" onAction="#add" text="Add" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#06c6c7" height="223.0" layoutY="112.0" stroke="TRANSPARENT" strokeType="INSIDE" width="23.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#06c6c7" height="3.0" layoutX="129.0" layoutY="79.0" stroke="TRANSPARENT" strokeType="INSIDE" width="263.0" />
+      <ComboBox fx:id="typebox" layoutX="357.0" layoutY="263.0" prefHeight="25.0" prefWidth="103.0" />
+      <Button layoutX="270.0" layoutY="357.0" mnemonicParsing="false" onAction="#cancelAdd" text="Cancel" />
+      <Label layoutX="316.0" layoutY="297.0" text="Phone">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="phonetxt" layoutX="358.0" layoutY="294.0" prefHeight="28.0" prefWidth="103.0" />
+   </children>
 </AnchorPane>

@@ -13,6 +13,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.SanitationReqType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.animation.FadeTransition;
@@ -26,9 +27,9 @@ import javafx.scene.control.Label;
 import javafx.util.Duration;
 
 public class SanitationRequestController extends LoadableController {
-  @FXML ComboBox locationComboBox;
-  @FXML ComboBox employeeIDComboBox;
-  @FXML ComboBox sanitationTypeBox;
+  @FXML ComboBox<String> locationComboBox;
+  @FXML ComboBox<String> employeeIDComboBox;
+  @FXML ComboBox<String> sanitationTypeBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
 
@@ -183,5 +184,9 @@ public class SanitationRequestController extends LoadableController {
       sanitation.add(s.getString());
     }
     return sanitation;
+  }
+
+  public void switchToRequestList(ActionEvent event) throws IOException {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 }

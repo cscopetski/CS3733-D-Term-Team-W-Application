@@ -72,7 +72,6 @@ public class SceneManager {
     SanitationService,
     FlowerRequest,
     GiftDelivery,
-    Snake,
     AdminHub,
     Messaging,
     Gaming
@@ -256,6 +255,10 @@ public class SceneManager {
     stage.showAndWait();
 
     return stage;
+  }
+
+  public void eraseBlur() {
+    getScene().getRoot().setEffect(null);
   }
 
   public Object getController(Scenes scene) {

@@ -12,6 +12,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.animation.FadeTransition;
@@ -26,8 +27,8 @@ import javafx.util.Duration;
 
 public class ComputerServiceRequestController extends LoadableController {
 
-  @FXML ComboBox locationComboBox;
-  @FXML ComboBox employee;
+  @FXML ComboBox<String> locationComboBox;
+  @FXML ComboBox<String> employee;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
   Alert confirm = new ConfirmAlert();
@@ -169,5 +170,9 @@ public class ComputerServiceRequestController extends LoadableController {
     }
 
     return String.format("%d", employeeID);
+  }
+
+  public void switchToRequestList(ActionEvent event) throws IOException {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 }

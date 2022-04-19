@@ -13,6 +13,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.Languages;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.animation.FadeTransition;
@@ -24,9 +25,9 @@ import javafx.util.Duration;
 
 public class LanguageInterpreterServiceRequestController extends LoadableController {
 
-  @FXML ComboBox locationSelection;
-  @FXML ComboBox employeeSelection;
-  @FXML ComboBox languageSelection;
+  @FXML ComboBox<String> locationSelection;
+  @FXML ComboBox<String> employeeSelection;
+  @FXML ComboBox<String> languageSelection;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
   Alert confirm = new ConfirmAlert();
@@ -209,5 +210,9 @@ public class LanguageInterpreterServiceRequestController extends LoadableControl
       languages.add(l.getString());
     }
     return languages;
+  }
+
+  public void switchToRequestList(ActionEvent event) throws IOException {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 }

@@ -62,6 +62,7 @@ public class RequestHubController {
 
   public void creditsToggle(ActionEvent event) throws IOException {
     if (toggleButton.isSelected()) {
+      toggleButton.setText("Show Credits");
       medEquipCredit.setVisible(false);
       languageCredit.setVisible(false);
       medicineCredit.setVisible(false);
@@ -73,6 +74,7 @@ public class RequestHubController {
       flowerCredit.setVisible(false);
       giftDeliveryCredit.setVisible(false);
     } else {
+      toggleButton.setText("Hide Credits");
       medEquipCredit.setVisible(true);
       languageCredit.setVisible(true);
       medicineCredit.setVisible(true);
@@ -84,5 +86,9 @@ public class RequestHubController {
       flowerCredit.setVisible(true);
       giftDeliveryCredit.setVisible(true);
     }
+  }
+
+  public void switchToRequestList(ActionEvent event) throws IOException {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 }

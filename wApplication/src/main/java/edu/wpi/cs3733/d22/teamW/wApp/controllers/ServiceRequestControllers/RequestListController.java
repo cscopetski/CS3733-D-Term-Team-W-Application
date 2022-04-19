@@ -6,6 +6,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
+import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.sql.SQLException;
@@ -156,22 +157,34 @@ public class RequestListController extends LoadableController {
   }
 
   public void cancel(ActionEvent actionEvent) {
-    try {
-      RequestFacade.getRequestFacade()
-          .cancelRequest(rt.getSelection().getRequestID(), rt.getSelection().getRequestType());
-    } catch (CannotCancel c) {
+    if (Account.getInstance().getEmployee().getType().getAccessLevel() == 5) {
+      try {
+        RequestFacade.getRequestFacade()
+            .cancelRequest(rt.getSelection().getRequestID(), rt.getSelection().getRequestType());
+      } catch (CannotCancel c) {
+        Alert alert =
+            new Alert(
+                Alert.AlertType.WARNING,
+                "Cannot Cancel A Request That Is Complete!",
+                ButtonType.OK);
+        alert.showAndWait();
+      } catch (NonExistingRequestID r) {
+        Alert alert =
+            new Alert(Alert.AlertType.WARNING, "RequestID Does Not Exist!", ButtonType.OK);
+        alert.showAndWait();
+      } catch (Exception s) {
+        Alert alert = new Alert(Alert.AlertType.WARNING, "Error", ButtonType.OK);
+        alert.showAndWait();
+      }
+      resetItems();
+    } else {
       Alert alert =
           new Alert(
-              Alert.AlertType.WARNING, "Cannot Cancel A Request That Is Complete!", ButtonType.OK);
-      alert.showAndWait();
-    } catch (NonExistingRequestID r) {
-      Alert alert = new Alert(Alert.AlertType.WARNING, "RequestID Does Not Exist!", ButtonType.OK);
-      alert.showAndWait();
-    } catch (Exception s) {
-      Alert alert = new Alert(Alert.AlertType.WARNING, "Error", ButtonType.OK);
+              Alert.AlertType.WARNING,
+              "Sorry only admin or the person create this request can cancel it!",
+              ButtonType.OK);
       alert.showAndWait();
     }
-    resetItems();
   }
 
   public void confirm(ActionEvent event) {

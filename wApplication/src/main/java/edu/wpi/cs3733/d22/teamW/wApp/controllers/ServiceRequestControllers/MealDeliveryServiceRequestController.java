@@ -12,6 +12,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MealType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.animation.FadeTransition;
@@ -25,8 +26,8 @@ public class MealDeliveryServiceRequestController extends LoadableController {
 
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
 
-  @FXML ComboBox locationComboBox;
-  @FXML ComboBox employeeNameComboBox;
+  @FXML ComboBox<String> locationComboBox;
+  @FXML ComboBox<String> employeeNameComboBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Button menuButton1;
   @FXML Button menuButton2;
@@ -230,5 +231,9 @@ public class MealDeliveryServiceRequestController extends LoadableController {
       meal.add(s.getString());
     }
     return meal;
+  }
+
+  public void switchToRequestList(ActionEvent event) throws IOException {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 }

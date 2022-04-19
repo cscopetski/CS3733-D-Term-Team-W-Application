@@ -6,6 +6,7 @@
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -14,8 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.control.TextField?>
-<VBox alignment="CENTER" fillWidth="false" spacing="50.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LabServiceRequestController">
+<VBox alignment="CENTER" fillWidth="false" spacing="50.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LabServiceRequestController">
    <children>
       <HBox>
          <children>
@@ -185,5 +185,6 @@
             </Button>
          </children>
       </VBox>
+      <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" text="View Request List" />
    </children>
 </VBox>
