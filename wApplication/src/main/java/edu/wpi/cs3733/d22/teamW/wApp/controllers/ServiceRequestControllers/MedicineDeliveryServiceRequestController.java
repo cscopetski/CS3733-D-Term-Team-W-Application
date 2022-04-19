@@ -222,7 +222,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
         e.printStackTrace();
       }
     } else {
-      emptyFields.show();
+      emptyFields.showAndWait();
     }
   }
 
