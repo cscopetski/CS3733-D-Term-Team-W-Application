@@ -25,8 +25,8 @@ public class MealDeliveryServiceRequestController extends LoadableController {
 
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
 
-  @FXML ComboBox locationComboBox;
-  @FXML ComboBox employeeNameComboBox;
+  @FXML ComboBox<String> locationComboBox;
+  @FXML ComboBox<String> employeeNameComboBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Button menuButton1;
   @FXML Button menuButton2;

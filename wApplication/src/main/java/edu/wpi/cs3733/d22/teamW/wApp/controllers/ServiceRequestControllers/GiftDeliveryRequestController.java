@@ -25,8 +25,8 @@ public class GiftDeliveryRequestController extends LoadableController {
   @FXML public VBox patientFieldsBox;
   @FXML TextField recipientLastName;
   @FXML TextField recipientFirstName;
-  @FXML ComboBox locationComboBox;
-  @FXML ComboBox employeeIDComboBox;
+  @FXML ComboBox<String> locationComboBox;
+  @FXML ComboBox<String> employeeIDComboBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
   Alert confirm = new ConfirmAlert();

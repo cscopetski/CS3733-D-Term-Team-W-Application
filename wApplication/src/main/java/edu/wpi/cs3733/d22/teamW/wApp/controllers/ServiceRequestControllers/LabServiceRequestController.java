@@ -24,8 +24,8 @@ public class LabServiceRequestController extends LoadableController {
   @FXML public TextField patientFirstName;
   @FXML public TextField patientLastName;
   // Combo Boxes:
-  @FXML ComboBox employeeIDCBox;
-  @FXML ComboBox locationCBox;
+  @FXML ComboBox<String> employeeIDCBox;
+  @FXML ComboBox<String> locationCBox;
   @FXML CheckBox bloodBox;
   @FXML CheckBox urineBox;
   @FXML CheckBox mriBox;

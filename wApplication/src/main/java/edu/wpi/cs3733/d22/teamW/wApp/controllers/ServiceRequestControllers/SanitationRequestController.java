@@ -26,9 +26,9 @@ import javafx.scene.control.Label;
 import javafx.util.Duration;
 
 public class SanitationRequestController extends LoadableController {
-  @FXML ComboBox locationComboBox;
-  @FXML ComboBox employeeIDComboBox;
-  @FXML ComboBox sanitationTypeBox;
+  @FXML ComboBox<String> locationComboBox;
+  @FXML ComboBox<String> employeeIDComboBox;
+  @FXML ComboBox<String> sanitationTypeBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
 

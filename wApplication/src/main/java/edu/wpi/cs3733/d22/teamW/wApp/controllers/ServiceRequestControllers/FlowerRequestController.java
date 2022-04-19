@@ -24,9 +24,9 @@ import javafx.util.Duration;
 public class FlowerRequestController extends LoadableController {
   @FXML TextField recipientLastName;
   @FXML TextField recipientFirstName;
-  @FXML ComboBox locationComboBox;
-  @FXML ComboBox employeeIDComboBox;
-  @FXML ComboBox flowerTypeBox;
+  @FXML ComboBox<String> locationComboBox;
+  @FXML ComboBox<String> employeeIDComboBox;
+  @FXML ComboBox<String> flowerTypeBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
   Alert confirm = new ConfirmAlert();

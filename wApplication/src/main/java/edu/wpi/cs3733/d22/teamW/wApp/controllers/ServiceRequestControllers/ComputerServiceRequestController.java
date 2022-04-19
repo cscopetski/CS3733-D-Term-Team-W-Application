@@ -26,8 +26,8 @@ import javafx.util.Duration;
 
 public class ComputerServiceRequestController extends LoadableController {
 
-  @FXML ComboBox locationComboBox;
-  @FXML ComboBox employee;
+  @FXML ComboBox<String> locationComboBox;
+  @FXML ComboBox<String> employee;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
   Alert confirm = new ConfirmAlert();

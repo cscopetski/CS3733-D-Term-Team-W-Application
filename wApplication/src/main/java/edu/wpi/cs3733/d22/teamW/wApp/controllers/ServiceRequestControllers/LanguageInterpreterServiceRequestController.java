@@ -24,9 +24,9 @@ import javafx.util.Duration;
 
 public class LanguageInterpreterServiceRequestController extends LoadableController {
 
-  @FXML ComboBox locationSelection;
-  @FXML ComboBox employeeSelection;
-  @FXML ComboBox languageSelection;
+  @FXML ComboBox<String> locationSelection;
+  @FXML ComboBox<String> employeeSelection;
+  @FXML ComboBox<String> languageSelection;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
   Alert confirm = new ConfirmAlert();

@@ -32,10 +32,10 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   @FXML TextField quantityField;
 
   // ComboBoxes:
-  @FXML ComboBox unitCBox;
-  @FXML ComboBox medNameCBox;
-  @FXML ComboBox locationCBox;
-  @FXML ComboBox employeeNameCBox;
+  @FXML ComboBox<String> unitCBox;
+  @FXML ComboBox<String> medNameCBox;
+  @FXML ComboBox<String> locationCBox;
+  @FXML ComboBox<String> employeeNameCBox;
 
   // Tables:
   @FXML private TableView<MedicalEquipmentSR> table;
