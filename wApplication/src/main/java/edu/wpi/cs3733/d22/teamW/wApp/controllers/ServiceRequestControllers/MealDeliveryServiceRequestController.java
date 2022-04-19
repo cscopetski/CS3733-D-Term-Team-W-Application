@@ -36,15 +36,25 @@ public class MealDeliveryServiceRequestController extends LoadableController {
   @FXML Label menuLabel3;
   @FXML Label successLabel;
   @FXML TextField patientFirst;
-
   @FXML TextField patientLast;
+
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
 
   private int currentSelection = 0;
 
-  public void menuSelection1() {
+  public void menuSelection0() {
     currentSelection = 0;
+    menuButton1.setStyle("-fx-background-color: transparent;");
+    menuButton2.setStyle("-fx-background-color: transparent;");
+    menuButton3.setStyle("-fx-background-color: transparent;");
+    menuLabel1.setStyle("-fx-text-fill: black");
+    menuLabel2.setStyle("-fx-text-fill: black");
+    menuLabel3.setStyle("-fx-text-fill: black");
+  }
+
+  public void menuSelection1() {
+    currentSelection = 1;
     menuButton1.setStyle("-fx-background-color: #013895;");
     menuButton2.setStyle("-fx-background-color: transparent;");
     menuButton3.setStyle("-fx-background-color: transparent;");
@@ -54,7 +64,7 @@ public class MealDeliveryServiceRequestController extends LoadableController {
   }
 
   public void menuSelection2() {
-    currentSelection = 1;
+    currentSelection = 2;
     menuButton1.setStyle("-fx-background-color: transparent");
     menuButton2.setStyle("-fx-background-color: #013895;");
     menuButton3.setStyle("-fx-background-color: transparent;");
@@ -64,7 +74,7 @@ public class MealDeliveryServiceRequestController extends LoadableController {
   }
 
   public void menuSelection3() {
-    currentSelection = 2;
+    currentSelection = 3;
     menuButton1.setStyle("-fx-background-color: transparent");
     menuButton2.setStyle("-fx-background-color: transparent;");
     menuButton3.setStyle("-fx-background-color: #013895;");
@@ -137,6 +147,9 @@ public class MealDeliveryServiceRequestController extends LoadableController {
     locationComboBox.getSelectionModel().clearSelection();
     employeeNameComboBox.getSelectionModel().clearSelection();
     emergencyButton.setValue(false);
+    menuSelection0();
+    patientFirst.clear();
+    patientLast.clear();
   }
 
   private String getEmployeeID(String name) throws SQLException {
