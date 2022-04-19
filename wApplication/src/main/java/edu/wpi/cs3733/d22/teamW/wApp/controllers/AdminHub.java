@@ -32,9 +32,6 @@ public class AdminHub {
   }
 
   public void openAddEmployee(ActionEvent actionEvent) throws IOException {
-    SceneManager.getInstance()
-        .putInformation(
-            SceneManager.getInstance().getPrimaryStage(), "Create", "Create new Employee");
     Stage S = SceneManager.getInstance().openWindow("createNewEmployee.fxml");
     SceneManager.getInstance().eraseBlur();
     setItems(); // Refresh the table
