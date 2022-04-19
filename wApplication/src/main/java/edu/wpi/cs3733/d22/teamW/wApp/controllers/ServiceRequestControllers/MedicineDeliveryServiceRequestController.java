@@ -12,6 +12,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedicineType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.Units;
@@ -95,7 +96,11 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      names.add(String.format("%s, %s", e.getLastName(), e.getFirstName()));
+      if (e.getEmployeeID() != -1 && (e.getType().equals(EmployeeType.Staff))
+              || e.getType().equals(EmployeeType.Nurse)
+              || e.getType().equals(EmployeeType.Doctor)) {
+        names.add(String.format("%s, %s", e.getLastName(), e.getFirstName()));
+      }
     }
     return names;
   }
