@@ -10,6 +10,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MealType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
@@ -200,7 +201,7 @@ public class MealDeliveryServiceRequestController extends LoadableController {
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      if (e.getEmployeeID() != -1) {
+      if (e.getEmployeeID() != -1 && e.getType().equals(EmployeeType.Staff)) {
         String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
         name.add(empName);
       }
