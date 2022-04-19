@@ -86,7 +86,8 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
     ArrayList<Employee> employeeList = new ArrayList<Employee>();
 
     try {
-      ResultSet employees = statement.executeQuery("SELECT * FROM EMPLOYEES");
+      ResultSet employees =
+          statement.executeQuery("SELECT * FROM EMPLOYEES WHERE EMPLOYEEID <> -1");
 
       while (employees.next()) {
         ArrayList<String> employeeData = new ArrayList<String>();
