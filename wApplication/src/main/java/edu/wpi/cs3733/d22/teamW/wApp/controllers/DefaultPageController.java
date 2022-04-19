@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
+import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,7 +14,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 public class DefaultPageController implements Initializable {
-
+  @FXML public Pane gamingPage;
+  @FXML public Pane messagingPage;
   @FXML public Pane mainMenuPage;
   @FXML public Pane mapEditorPage;
   @FXML public Pane labServiceRequestPage;
@@ -40,7 +42,6 @@ public class DefaultPageController implements Initializable {
   protected Employee employee;
 
   public void initialize(URL location, ResourceBundle rb) {
-
     SceneManager.getInstance().putController(SceneManager.Scenes.Default, this);
 
     SceneManager.getInstance().putPane(SceneManager.Scenes.Login, loginPage);
@@ -70,6 +71,8 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().putPane(SceneManager.Scenes.Snake, snakePage);
     SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Login);
     SceneManager.getInstance().putPane(SceneManager.Scenes.AdminHub, adminHubPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Messaging, messagingPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Gaming, gamingPage);
   }
 
   public void setEmployee(Employee em) {
@@ -137,7 +140,7 @@ public class DefaultPageController implements Initializable {
   }
 
   public void switchToAdminHub() {
-    if (employee.getType().getAccessLevel() == 5) {
+    if (Account.getInstance().getEmployee().getType().getAccessLevel() == 5) {
       SceneManager.getInstance().transitionTo(SceneManager.Scenes.AdminHub);
     } else {
       Alert warningAlert =
@@ -149,6 +152,7 @@ public class DefaultPageController implements Initializable {
   public void logOut(ActionEvent actionEvent) {
     menuBar.setVisible(false);
     buttonPane.setDisable(true);
+    Account.getInstance().setEmployee(null);
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Login);
   }
 
@@ -170,5 +174,13 @@ public class DefaultPageController implements Initializable {
 
   public void switchToSnake(ActionEvent actionEvent) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Snake);
+  }
+
+  public void switchToGaming(ActionEvent actionEvent) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Gaming);
+  }
+
+  public void switchToMessaging(ActionEvent event) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Messaging);
   }
 }
