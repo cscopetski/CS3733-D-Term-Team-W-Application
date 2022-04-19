@@ -171,7 +171,7 @@ public class SecurityServiceRequestController extends LoadableController {
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      if (e.getEmployeeID() != -1 && e.getType().equals(EmployeeType.Sanitation)) {
+      if (e.getEmployeeID() != -1 && e.getType().equals(EmployeeType.Security)) {
         String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
         name.add(empName);
       }

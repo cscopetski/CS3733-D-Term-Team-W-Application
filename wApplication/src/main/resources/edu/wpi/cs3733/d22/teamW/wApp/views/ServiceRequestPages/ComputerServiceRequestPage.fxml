@@ -44,12 +44,12 @@
             </VBox>
             <VBox alignment="CENTER" fillWidth="false">
                <children>
-                  <Label styleClass="label-minor" text="Employee ID:">
+                  <Label styleClass="label-minor" text="Employee:">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="employeeIDComboBox" prefWidth="150.0" />
+                  <ComboBox fx:id="employee" prefWidth="150.0" />
                </children>
             </VBox>
             <VBox alignment="CENTER">
