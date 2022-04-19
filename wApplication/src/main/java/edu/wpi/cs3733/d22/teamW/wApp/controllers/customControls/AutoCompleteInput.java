@@ -8,10 +8,10 @@ import javafx.scene.control.ComboBox;
 public class AutoCompleteInput extends ComboBox<String> {
   private static class Trie {
     private static class Node {
-      public char value;
+      public Character value;
       public ArrayList<Node> children = new ArrayList<>();
 
-      public Node(char value) {
+      public Node(Character value) {
         this.value = value;
       }
 
@@ -70,12 +70,12 @@ public class AutoCompleteInput extends ComboBox<String> {
     }
 
     public ArrayList<String> getList(String input) {
-
+      input = input.toLowerCase();
       Node n = head;
-      for (char c : input.toCharArray()) {
+      for (Character c : input.toCharArray()) {
         Node newN = n;
         for (Node node : n.children) {
-          if (node.value == c) {
+          if (Character.toLowerCase(node.value) == Character.toLowerCase(c)) {
             newN = node;
             break;
           }
@@ -95,7 +95,7 @@ public class AutoCompleteInput extends ComboBox<String> {
       while (true) {
         boolean found = false;
         for (Node n : h.children) {
-          if (n.value == input.charAt(i)) {
+          if (Character.toLowerCase(n.value) == Character.toLowerCase(input.charAt(i))) {
             h = n;
             found = true;
             i++;
