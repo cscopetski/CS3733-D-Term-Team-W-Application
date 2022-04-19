@@ -12,12 +12,15 @@ public class medEquip {
   private SimpleStringProperty Status = new SimpleStringProperty();
   private SimpleStringProperty Floor = new SimpleStringProperty();
   private SimpleStringProperty LocType = new SimpleStringProperty();
+  private Location homeLoc;
 
-  public medEquip(String ID, String type, Integer X, Integer Y) {
+  public medEquip(String ID, String type, Integer X, Integer Y, Location home) {
     MedID.set(ID);
     Type.set(type);
     XCoord.set(X);
     YCoord.set(Y);
+    homeLoc = home;
+    homeLoc.addNewEq(this);
   }
 
   public medEquip(String ID, String Floor, String LocType, String Status) {

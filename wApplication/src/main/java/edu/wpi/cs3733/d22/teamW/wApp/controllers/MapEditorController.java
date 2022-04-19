@@ -475,6 +475,7 @@ public class MapEditorController extends LoadableController {
       circ.setOnMouseClicked(
           (event -> {
             if (event.getButton() == MouseButton.SECONDARY) {
+              System.out.println("RIGHT CLICK DETECTED");
               try {
                 testUpdate(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
               } catch (SQLException | IOException | NonExistingMedEquip e) {
@@ -494,12 +495,8 @@ public class MapEditorController extends LoadableController {
           });
       circ.setOnMouseReleased(
           event -> {
-            //            circ.relocate(
-            //                circ.getCenterX() + circ.getTranslateX(), circ.getCenterY() +
-            // circ.getTranslateY());
             circ.setCenterX(circ.getCenterX() + circ.getTranslateX());
             circ.setCenterY(circ.getCenterY() + circ.getTranslateY());
-            System.out.println(circ.getTranslateX() + " " + circ.getTranslateY());
             circ.setTranslateX(0);
             circ.setTranslateY(0);
             anchorX.set(0.0);
@@ -557,7 +554,8 @@ public class MapEditorController extends LoadableController {
                   eqList.get(i).getMedID(),
                   eqList.get(i).getType().getString(),
                   currFloorLoc.get(j).getXCoord(),
-                  currFloorLoc.get(j).getYCoord()));
+                  currFloorLoc.get(j).getYCoord(),
+                  currFloorLoc.get(j)));
           break;
         }
       }
@@ -615,12 +613,10 @@ public class MapEditorController extends LoadableController {
             edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location loc =
                 snapToClosestLoc(finalCircle.getCenterX(), finalCircle.getCenterY());
             finalCircle.setCenterX(loc.getXCoord());
-            finalCircle.setCenterY(loc.getYCoord());
+            finalCircle.setCenterY(loc.getYCoord() - 8);
             medEquip eq = equipList.get(eqDots.indexOf(finalCircle));
             eq.setXCoord(loc.getXCoord());
-            eq.setYCoord(loc.getYCoord());
-            System.out.println(finalCircle.getCenterX() + " " + finalCircle.getCenterY());
-            System.out.println(eq.getXCoord() + " " + eq.getYCoord());
+            eq.setYCoord(loc.getYCoord() - 8);
             try {
               equipController.change(
                   new MedEquip(
@@ -672,6 +668,7 @@ public class MapEditorController extends LoadableController {
   }
 
   public void testUpdate(String nodeID) throws SQLException, IOException, NonExistingMedEquip {
+    System.out.println("GO!");
     SceneManager.getInstance()
         .putInformation(SceneManager.getInstance().getPrimaryStage(), "updateLoc", nodeID);
     Stage S = SceneManager.getInstance().openWindow("UpdateMapPage.fxml");

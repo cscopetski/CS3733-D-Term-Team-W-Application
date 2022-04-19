@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.mapEditor;
 
+import java.util.ArrayList;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 
@@ -13,6 +14,7 @@ public class Location {
   String longName;
   String shortName;
   edu.wpi.cs3733.d22.teamW.wDB.entity.Location ogLoc;
+  ArrayList<medEquip> eqListonLoc = new ArrayList<>();
 
   public Location(edu.wpi.cs3733.d22.teamW.wDB.entity.Location Loc) {
     NodeID.set(Loc.getNodeID());
@@ -30,6 +32,10 @@ public class Location {
     this.NodeID.set(nodeID);
     this.XCoord.set(xCoord);
     this.YCoord.set(yCoord);
+  }
+
+  public void addNewEq(medEquip med) {
+    eqListonLoc.add(med);
   }
 
   public String getNodeID() {
@@ -50,10 +56,16 @@ public class Location {
 
   public void setXCoord(int XCoord) {
     this.XCoord.set(XCoord);
+    for (int i = 0; i < eqListonLoc.size(); i++) {
+      eqListonLoc.get(i).setXCoord(XCoord);
+    }
   }
 
   public void setYCoord(int YCoord) {
     this.YCoord.set(YCoord);
+    for (int i = 0; i < eqListonLoc.size(); i++) {
+      eqListonLoc.get(i).setYCoord(YCoord);
+    }
   }
 
   public void setFloor(String floor) {
