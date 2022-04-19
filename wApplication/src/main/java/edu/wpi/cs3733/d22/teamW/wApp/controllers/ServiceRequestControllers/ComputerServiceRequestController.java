@@ -35,6 +35,7 @@ public class ComputerServiceRequestController extends LoadableController {
 
   public void submitButton(ActionEvent actionEvent) {
     if (!emptyFields()) {
+      confirm.showAndWait();
       if (confirm.getResult() == ButtonType.OK) {
         pushComputerServiceRequestToDB();
         clearFields();

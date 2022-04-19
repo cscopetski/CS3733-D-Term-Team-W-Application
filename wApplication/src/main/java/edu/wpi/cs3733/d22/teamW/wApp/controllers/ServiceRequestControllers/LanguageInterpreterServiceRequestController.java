@@ -39,10 +39,14 @@ public class LanguageInterpreterServiceRequestController extends LoadableControl
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
     if (!emptyFields()) {
-      pushLanguageRequestToDB();
-      clearFields();
-      successLabel.setVisible(true);
-      fadeOut.playFromStart();
+      confirm.showAndWait();
+      confirm.showAndWait();
+      if (confirm.getResult() == ButtonType.OK) {
+        pushLanguageRequestToDB();
+        clearFields();
+        successLabel.setVisible(true);
+        fadeOut.playFromStart();
+      }
     } else {
       emptyFields.show();
     }

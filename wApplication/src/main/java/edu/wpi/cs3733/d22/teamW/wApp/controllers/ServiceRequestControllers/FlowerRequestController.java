@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
@@ -17,10 +18,7 @@ import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.util.Duration;
 
 public class FlowerRequestController extends LoadableController {
@@ -31,16 +29,19 @@ public class FlowerRequestController extends LoadableController {
   @FXML ComboBox flowerTypeBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
-
+  Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
     if (!emptyFields()) {
-      pushFlowerRequestToDB();
-      clearFields();
-      successLabel.setVisible(true);
-      fadeOut.playFromStart();
+      confirm.showAndWait();
+      if (confirm.getResult() == ButtonType.OK) {
+        pushFlowerRequestToDB();
+        clearFields();
+        successLabel.setVisible(true);
+        fadeOut.playFromStart();
+      }
     } else {
       emptyFields.show();
     }

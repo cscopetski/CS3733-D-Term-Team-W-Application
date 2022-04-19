@@ -41,6 +41,7 @@ public class LabServiceRequestController extends LoadableController {
   Alert emptyFields = new EmptyAlert();
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
+
     createRequest();
     clearFields();
   }

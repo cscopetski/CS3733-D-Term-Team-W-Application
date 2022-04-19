@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
@@ -36,6 +37,18 @@ public abstract class SR {
 
   public Integer getEmployeeID() {
     return REQUEST.getEmployeeID();
+  }
+
+  public String getLocation() throws SQLException {
+    return LocationManager.getLocationManager().getLocation(REQUEST.getNodeID()).getShortName();
+  }
+
+  public String getCreatedTimestamp() {
+    return REQUEST.getCreatedTimestamp().toString();
+  }
+
+  public String getUpdatedTimestamp() {
+    return REQUEST.getUpdatedTimestamp().toString();
   }
 
   public abstract RequestType getRequestType();
