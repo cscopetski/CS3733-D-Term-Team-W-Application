@@ -37,7 +37,6 @@ public class ProfileController extends LoadableController {
 
     rt.distributeColumnWidths();
 
-
     System.out.println("Trying to load table values now, have already loaded columns");
     try {
       rt.setItems(
