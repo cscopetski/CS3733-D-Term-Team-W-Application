@@ -40,7 +40,6 @@ public class MessagingPageController extends LoadableController {
   @FXML VBox employeeCardView;
   @FXML TextField messageTextField;
   @FXML Button sendButton;
-  @FXML Button sendButtonMe;
 
   @Override
   protected SceneManager.Scenes GetSceneType() {
@@ -216,6 +215,9 @@ public class MessagingPageController extends LoadableController {
   }
 
   public void onSendButtonClick() {
+    if (messageTextField.getText().isEmpty()) {
+      return;
+    }
     EmployeeMessage sentMessage =
         new EmployeeMessage(
             EmployeeMessageManager.getEmployeeMessageManager().getNextMsgID(),
@@ -234,27 +236,7 @@ public class MessagingPageController extends LoadableController {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-  }
-
-  public void onSendMeButtonClick() {
-    EmployeeMessage sentMessage =
-        new EmployeeMessage(
-            EmployeeMessageManager.getEmployeeMessageManager().getNextMsgID(),
-            this.selectedEmployee.getEmployeeID(),
-            this.currentEmployee.getEmployeeID(),
-            messageTextField.getText(),
-            new Timestamp(System.currentTimeMillis()),
-            0);
-    try {
-      EmployeeMessageManager.getEmployeeMessageManager().addEmployeeMessage(sentMessage);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    try {
-      refreshMessages();
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+    messageTextField.clear();
   }
 
   public void resetMessagePage() throws SQLException {
@@ -311,27 +293,9 @@ public class MessagingPageController extends LoadableController {
     refreshMessages();
   }
 
-  private ArrayList<Integer> getEmployeeIDs() {
-    ArrayList<Integer> ids = new ArrayList<>();
-    ArrayList<Employee> employees = null;
-    try {
-      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
-    } catch (SQLException e) {
-      System.out.println("Failed to unearth employees from database");
-      e.printStackTrace();
-    }
-    for (Employee e : employees) {
-      if (e.getEmployeeID() != -1
-          && !e.getEmployeeID().equals(this.currentEmployee.getEmployeeID()))
-        ids.add(e.getEmployeeID());
-    }
-    return ids;
-  }
-
   public void messageTextKeyPress(KeyEvent keyEvent) {
     if (keyEvent.getCode().equals(KeyCode.ENTER)) {
       onSendButtonClick();
-      messageTextField.clear();
     }
   }
 

@@ -90,8 +90,7 @@
             <HBox alignment="CENTER" spacing="10.0" style="-fx-alignment: center;">
                <children>
                   <TextField fx:id="messageTextField" onKeyPressed="#messageTextKeyPress" />
-                  <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" text="SendThem" />
-                  <Button fx:id="sendButtonMe" mnemonicParsing="false" onAction="#onSendMeButtonClick" text="SendMe" />
+                  <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" text="Send" />
                </children>
             </HBox>
          </children>
