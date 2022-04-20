@@ -22,7 +22,6 @@ public class EmployeeMessageDaoImpl implements EmployeeMessageDao {
       statement.execute("DROP TABLE EMPLOYEEMESSAGES");
     } catch (SQLException e) {
       System.out.println("Failed to drop EMPLOYEEMESSAGES table");
-      e.printStackTrace();
     }
   }
 
