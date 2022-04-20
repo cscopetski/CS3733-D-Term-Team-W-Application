@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.SecurityRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.SecurityRequest;
@@ -33,7 +34,12 @@ public class SecuritySR extends SR {
     info += "Assigned Employee: " + this.getEmployeeName() + "\n";
     info += "Employee ID: " + this.getEmployeeID() + "\n";
     info += "Threat Level: " + securityRequest.getThreatLevel() + "\n";
-    info += "";
+    info +=
+        "Location: "
+            + LocationManager.getLocationManager()
+                .getLocation(securityRequest.getNodeID())
+                .getLongName()
+            + "\n";
     return info;
   }
 }
