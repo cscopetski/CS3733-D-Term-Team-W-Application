@@ -9,10 +9,26 @@
     -fx-border-color: #013895;
     -fx-border-radius: 10;
     -fx-border-width: 2;
+    -fx-background-radius: 10;
 }
 
 .button:pressed{
     -fx-border-color: #013895;
     -fx-border-radius: 10;
-    -fx-border-width: 4;
+    -fx-border-width: 2;
+    -fx-background-radius: 10;
+}
+
+.button:focused{
+    -fx-border-color: #013895;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-background-radius: 10;
+}
+
+.button:selected{
+    -fx-border-color: #013895;
+    -fx-border-radius: 10;
+    -fx-border-width: 2;
+    -fx-background-radius: 10;
 }
