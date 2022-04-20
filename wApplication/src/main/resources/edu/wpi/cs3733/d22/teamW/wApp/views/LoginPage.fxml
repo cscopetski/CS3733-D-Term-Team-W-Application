@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.LoginController">
+<AnchorPane style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.LoginController">
    <children>
       <AnchorPane styleClass="body" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -68,6 +68,15 @@
                                     <Insets left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
                               </PasswordField>
+                              <Pane>
+                                 <children>
+                                    <Label fx:id="illegalCharacter" layoutX="25.0" layoutY="1.0" maxWidth="263.0" prefHeight="17.0" prefWidth="238.0" text="Illegal Characters: = ' , &quot; , ¬ , \ , - , ; , [ , ] , { , } , : , , , ." textFill="RED" visible="false">
+                                       <font>
+                                          <Font name="Tahoma" size="9.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </Pane>
                               <Label fx:id="matchCase" alignment="CENTER_RIGHT" prefWidth="225.0" text="Password does not match username." textFill="RED" visible="false" />
                            </children>
                         </VBox>
