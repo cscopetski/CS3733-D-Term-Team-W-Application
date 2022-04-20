@@ -67,7 +67,7 @@ public class CleaningRequestManager {
       crd.addCleaningRequest(cr);
 
       if (Automation.Automation.getAuto()) {
-        checkStart();
+        // checkStart();
       }
     } else {
       cr = null;
