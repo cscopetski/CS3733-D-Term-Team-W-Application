@@ -286,7 +286,8 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
   }
 
   @Override
-  public CleaningRequest getCleaningRequest(String itemID) throws StatusError {
+  public CleaningRequest getCleaningRequest(String itemID, RequestStatus status)
+      throws StatusError {
     CleaningRequest cr = null;
     /*   String queury =
     String.format(
@@ -295,7 +296,7 @@ public class CleaningRequestDaoImpl implements CleaningRequestDao {
     String queury =
         String.format(
             "SELECT * FROM CLEANINGREQUESTS WHERE (ITEMID = '%s' AND REQSTATUS = %d)",
-            itemID, RequestStatus.InQueue.getValue());
+            itemID, status.getValue());
     System.out.println(queury);
     try {
       ResultSet cleanRequests = statement.executeQuery(queury);

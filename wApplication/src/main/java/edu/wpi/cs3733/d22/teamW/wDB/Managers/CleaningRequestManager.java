@@ -111,9 +111,9 @@ public class CleaningRequestManager {
   }
 
   public void markComplete(String medID, String nodeID) throws Exception {
-    CleaningRequest cr = crd.getCleaningRequest(medID);
+    CleaningRequest cr = crd.getCleaningRequest(medID, RequestStatus.InProgress);
     if (cr == null) {
-      System.out.println("TRYING TO COMPLETE A NULL CLEANING REQUEST ID");
+      System.out.println("TRYING TO mark COMPLETE A NULL CLEANING REQUEST ID");
       return;
     }
     if (cr.getStatus() == RequestStatus.InProgress
@@ -131,7 +131,7 @@ public class CleaningRequestManager {
   }
 
   public void complete(String medID, String nodeID) throws Exception {
-    CleaningRequest cr = crd.getCleaningRequest(medID);
+    CleaningRequest cr = crd.getCleaningRequest(medID, RequestStatus.InQueue);
     if (cr == null) {
       System.out.println("TRYING TO COMPLETE A NULL CLEANING REQUEST ID");
       return;
