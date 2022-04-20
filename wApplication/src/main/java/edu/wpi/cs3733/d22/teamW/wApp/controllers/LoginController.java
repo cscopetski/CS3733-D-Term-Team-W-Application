@@ -23,6 +23,7 @@ public class LoginController extends LoadableController {
   @FXML TextField password;
   @FXML Label existCase;
   @FXML Label matchCase;
+  @FXML Label illegalCharacter;
 
   final String locationFileName = "TowerLocations.csv";
   final String medEquipFileName = "MedicalEquipment.csv";
@@ -67,24 +68,31 @@ public class LoginController extends LoadableController {
 
   public void login() throws SQLException {
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
-      existCase.setVisible(false);
-      matchCase.setVisible(false);
-      if (EmployeeManager.getEmployeeManager()
-          .passwordMatch(username.getText(), password.getText())) {
-        DefaultPageController dpc =
-            ((DefaultPageController)
-                SceneManager.getInstance().getController(SceneManager.Scenes.Default));
-        Account.getInstance()
-            .setEmployee(EmployeeManager.getEmployeeManager().getEmployee(username.getText()));
-        dpc.menuBar.setVisible(true);
-        dpc.buttonPane.setDisable(false);
-        SceneManager.getInstance().transitionTo(SceneManager.Scenes.MainMenu);
-        username.clear();
-        password.clear();
-      } else if (!EmployeeManager.getEmployeeManager().usernameExists(username.getText())) {
-        existCase.setVisible(true);
+      if (TextEntryChecker.check(username.getText())
+          && TextEntryChecker.check(password.getText())) {
+        illegalCharacter.setVisible(false);
+        existCase.setVisible(false);
+        matchCase.setVisible(false);
+        if (EmployeeManager.getEmployeeManager()
+            .passwordMatch(username.getText(), password.getText())) {
+          DefaultPageController dpc =
+              ((DefaultPageController)
+                  SceneManager.getInstance().getController(SceneManager.Scenes.Default));
+          Account.getInstance()
+              .setEmployee(EmployeeManager.getEmployeeManager().getEmployee(username.getText()));
+          dpc.menuBar.setVisible(true);
+          dpc.buttonPane.setDisable(false);
+          SceneManager.getInstance().transitionTo(SceneManager.Scenes.MainMenu);
+          username.clear();
+          password.clear();
+        } else if (!EmployeeManager.getEmployeeManager().usernameExists(username.getText())) {
+          existCase.setVisible(true);
+        } else {
+          matchCase.setVisible(true);
+        }
       } else {
-        matchCase.setVisible(true);
+        matchCase.setVisible(false);
+        illegalCharacter.setVisible(true);
       }
     } else {
       emptyFields.show();
