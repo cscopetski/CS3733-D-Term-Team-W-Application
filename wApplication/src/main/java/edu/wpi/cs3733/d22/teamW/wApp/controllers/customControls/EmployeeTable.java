@@ -19,7 +19,7 @@ public class EmployeeTable extends TableView<Employee> {
             createColumn("Last Name", "LastName"),
             createColumn("Type", "Type"),
             createColumn("Email", "Email"),
-            createColumn("Phone Num", "Phone Number"),
+            createColumn("Phone Num", "PhoneNumber"),
             createColumn("Address", "Address"),
             createColumn("Username", "Username"));
   }
