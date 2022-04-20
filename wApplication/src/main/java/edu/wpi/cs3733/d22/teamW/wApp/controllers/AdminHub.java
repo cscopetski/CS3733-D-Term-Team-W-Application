@@ -23,6 +23,15 @@ public class AdminHub {
 
   public void initialize() {
     setItems();
+    if (Automation.getAuto()) {
+      automation.setText("Deactivate Automation");
+      automation.setSelected(true);
+      Automation.on();
+    } else {
+      automation.setText("Activate Automation");
+      automation.setSelected(false);
+      Automation.off();
+    }
   }
 
   private void setItems() {
