@@ -359,7 +359,7 @@ public class MessagingPageController extends LoadableController {
     if (((MessageCardHBox) mouseEvent.getSource()).isHasUrgent()) {
       ((MessageCardHBox) mouseEvent.getSource()).setStyle("-fx-background-color: #ffb2b2;");
     } else {
-      ((MessageCardHBox) mouseEvent.getSource()).setStyle("-fx-background-color: AliceBlue;");
+      ((MessageCardHBox) mouseEvent.getSource()).setStyle("-fx-background-color: #d9e0ff;");
     }
   }
 
