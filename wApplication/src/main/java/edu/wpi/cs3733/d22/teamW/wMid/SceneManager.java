@@ -103,7 +103,7 @@ public class SceneManager {
     if (pages.get(current).controller != null) {
       pages.get(current).tryOnUnload();
     }
-    System.exit(0);
+    primaryStage.close();
   }
 
   public void setPrimaryStage(Stage primaryStage) {

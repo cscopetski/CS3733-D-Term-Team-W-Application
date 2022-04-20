@@ -2,6 +2,9 @@ package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.LocationDao;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -64,6 +67,26 @@ public class LocationManager {
 
   public void exportLocationsCSV(String filename) {
     ldi.exportLocationCSV(filename);
+  }
+
+  public void exportLocationsToChosen(File file) {
+    try (PrintWriter pw = new PrintWriter(file)) {
+      // print Table headers
+      pw.print(file);
+
+      ArrayList<Location> locationsList = getAllLocations();
+
+      // print all locations
+      for (Location l : locationsList) {
+        pw.println();
+        pw.print(l.toCSVString());
+      }
+
+    } catch (FileNotFoundException | SQLException e) {
+
+      System.out.println(String.format("Error Exporting to File %s", file.getName()));
+      e.printStackTrace();
+    }
   }
 
   public Location getLocation(String NodeID) throws SQLException {

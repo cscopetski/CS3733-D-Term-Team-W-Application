@@ -1,15 +1,14 @@
 employeeID,firstName,lastName,employeeType,email,phoneNumber,address,username,password,salt
--1,N/A,Deleted,Denied,N/A,N/A,N/A,N/A,b89cc67afdc1019ece9b2b1a31a22328,58e7af1c7331b1d12057ef1972cba70f
 1,N/A,Staff,Staff,staff@hospital.com,(123)4567890,Mass General,staff,97adb5a6171ea3e2b6a73035c92e89b5,f57fef973ec5f6ad3b7e5550e2ab5974
 2,N/A,Administrator,Administrator,admin@hospital.com,(123)4567890,Office,admin,860bb9a34d1aec116efb54eee7e81341,3dc0ddd4c54c9c9a3b37a346893c87de
-3,Caleb,Scopetski,Doctor,N/A,(123)4567890,NeVer LeFt MaSs,Scoop,7c7f647ebd821e9b596ff91efdb9e2b3,293425e15e8fce656582a90e5e45864f
-4,Edison,Zhang,Sanitation Officer,N/A,(123)4567890,Jamaica,ezhang,855136eed1d20fd0b2acd4916e3efa58,4c041815a975a4b7453ad3b5b4e1bd9f
-5,Charlie,K-W,Nurse,N/A,(123)4567890,The North,charkw,750ad0b990a08d1272555925780de5a7,b0d6725d10af54045c56e303a4d754b1
-6,Hasan,G,Technician,N/A,(123)4567890,Bikini Bottom,hzgan,f4a17b813937811e18b58ad2e58415c6,6c02a6df737695ae78e94bc15670c6b6
+3,Caleb,Scopetski,Doctor,caleb@hospital.com,(123)4567890,NeVer LeFt MaSs,Scoop,7c7f647ebd821e9b596ff91efdb9e2b3,293425e15e8fce656582a90e5e45864f
+4,Edison,Zhang,Sanitation Officer,edison@hospital.edu,(123)4567890,Jamaica,ezhang,855136eed1d20fd0b2acd4916e3efa58,4c041815a975a4b7453ad3b5b4e1bd9f
+5,Charlie,K-W,Nurse,charlie@hospital.gov,(123)4567890,The North,charkw,750ad0b990a08d1272555925780de5a7,b0d6725d10af54045c56e303a4d754b1
+6,Hasan,G,Technician,hasan@hospital.net,(123)4567890,Bikini Bottom,hzgan,f4a17b813937811e18b58ad2e58415c6,6c02a6df737695ae78e94bc15670c6b6
 7,Ethan,Pollack,Staff,ethan@hospital.com,(123) 456-7890,75 Francis St Boston MA 02115,ethan31,ed7b2e08862c0d314398f1db55f6f8c0,c4866e6040c5dcb89d764619b49171d1
 8,Jason,Odell,Staff,jason@hospital.com,(123) 456-7890,75 Francis St Boston MA 02115,uginghostdragon,5ec599f58e6d6309a138d5ada8860f2c,e93a459cba079dc18fe1dba763adc211
 9,Edward,Enyedy,Staff,edward@hospital.com,(123) 456-7890,75 Francis St Boston MA 02115,Tarkus,796353eb5c4c41b7a7b2d1ba62758760,ad74c92ac3001e5282b471d8ddcc1d3e
-10,Phil,Bui,Staff,phil@hospital.com,(123) 456-7890,75 Francis St Boston MA 02115,philbui,634790dc8911fd16204e62525b94678d,bce82b319572485fb3f9ba1488db04c3
+10,Phil,Bui,Security Officer,phil@hospital.com,(123) 456-7890,75 Francis St Boston MA 02115,philbui,634790dc8911fd16204e62525b94678d,bce82b319572485fb3f9ba1488db04c3
 11,Jack,McEvoy,Staff,jack@hospital.com,(123) 456-7890,75 Francis St Boston MA 02115,LinkdAether,23626e8bfcee514c6bbf5b93134ff0ed,5fd90cb809ebb615c58c6e468c1f8bd5
 12,Leona,Nguyen,Staff,leona@hospital.com,(123) 456-7890,75 Francis St Boston MA 02115,JustLeona,8f0fa7323ba48983fe7ea39c0f04a948,75c65919e3a52f21bc2065e82fcb7e66
 13,Dylan,Olmsted,Staff,dylan@hospital.com,(123) 456-7890,75 Francis St Boston MA 02115,SAFARIOLMY,d205c701a444ca04e5de95bf0e5f4ac8,e7bdbb59b7a64f5fed657be8cdf59dd5

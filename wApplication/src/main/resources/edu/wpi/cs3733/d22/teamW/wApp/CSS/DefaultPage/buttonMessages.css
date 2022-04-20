@@ -9,7 +9,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 18pt;
     -fx-opacity: 80%;
-
+    -fx-border-color: transparent;
 }
 
 .button:hover{
@@ -21,4 +21,5 @@
     -fx-background-radius: 26;
     -fx-text-fill: black ;
     -fx-opacity: 80%;
+    -fx-border-color: transparent;
 }

@@ -1,15 +1,17 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.InValidRequestType;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.util.ArrayList;
 import javafx.scene.control.ComboBox;
 
 public class AutoCompleteInput extends ComboBox<String> {
   private static class Trie {
     private static class Node {
-      public char value;
+      public Character value;
       public ArrayList<Node> children = new ArrayList<>();
 
-      public Node(char value) {
+      public Node(Character value) {
         this.value = value;
       }
 
@@ -52,10 +54,6 @@ public class AutoCompleteInput extends ComboBox<String> {
 
     private Node head;
 
-    public Trie() {
-      head = new Node('\0');
-    }
-
     public Trie(ArrayList<String> input) {
       loadValues(input);
     }
@@ -72,12 +70,12 @@ public class AutoCompleteInput extends ComboBox<String> {
     }
 
     public ArrayList<String> getList(String input) {
-
+      input = input.toLowerCase();
       Node n = head;
-      for (char c : input.toCharArray()) {
+      for (Character c : input.toCharArray()) {
         Node newN = n;
         for (Node node : n.children) {
-          if (node.value == c) {
+          if (Character.toLowerCase(node.value) == Character.toLowerCase(c)) {
             newN = node;
             break;
           }
@@ -97,7 +95,7 @@ public class AutoCompleteInput extends ComboBox<String> {
       while (true) {
         boolean found = false;
         for (Node n : h.children) {
-          if (n.value == input.charAt(i)) {
+          if (Character.toLowerCase(n.value) == Character.toLowerCase(input.charAt(i))) {
             h = n;
             found = true;
             i++;
@@ -121,29 +119,24 @@ public class AutoCompleteInput extends ComboBox<String> {
     getEditor()
         .setOnKeyTyped(
             e -> {
-              setItems(trie.getList(getText()));
+              getItems().clear();
+              getItems().addAll(trie.getList(getText()));
               if (!trie.contains(getText())) {
                 getEditor().setStyle("-fx-text-fill: red");
               } else {
                 getEditor().setStyle("-fx-text-fill: black");
               }
             });
-    // valueProperty().addListener((observable, oldValue, newValue) ->
-    // setItems(trie.getList(newValue)));
   }
 
   public void loadValues(ArrayList<String> values) {
     trie = new Trie(values);
-    setItems(trie.getList(getValue() != null ? getValue() : ""));
-  }
-
-  private void setItems(ArrayList<String> items) {
     getItems().clear();
-    getItems().addAll(items);
+    getItems().addAll(trie.getList(getValue() != null ? getValue() : ""));
   }
 
-  private String getSelection() {
-    return getSelectionModel().getSelectedItem();
+  private RequestType getSelection() throws InValidRequestType {
+    return RequestType.getRequestType(getSelectionModel().getSelectedItem());
   }
 
   private String getText() {

@@ -8,13 +8,13 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.AdminHub">
+<AnchorPane stylesheets="@../CSS/UniversalCSS/Standard.css"  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.AdminHub">
    <children>
       <VBox alignment="CENTER" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <BorderPane>
                <center>
-                  <TabPane prefHeight="600.0" prefWidth="940.0" style="-fx-background-color: white; -fx-background-position: center;" stylesheets="@../CSS/UniversalCSS/Standard.css" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+                  <TabPane prefHeight="600.0" prefWidth="940.0" style="-fx-background-color: white; -fx-background-position: center;" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                     <tabs>
                       <Tab text="Employee Manager">
                         <content>
@@ -59,6 +59,15 @@
                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
                         </content>
                       </Tab>
+                        <Tab text="Automation">
+                           <content>
+                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <ToggleButton fx:id="automation" layoutX="370.0" layoutY="269.0" minWidth="200.0" mnemonicParsing="false" onAction="#automationToggle" prefWidth="200.0" text="Activate Automation" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </Tab>
                     </tabs>
                   </TabPane>
                </center>

@@ -73,7 +73,7 @@ public class MedEquipManager {
       medi.changeMedEquip(me);
       ArrayList<String> fields = new ArrayList<>();
       Employee employee =
-          EmployeeManager.getEmployeeManager().getEmployeeType(EmployeeType.Sanitation);
+          EmployeeManager.getEmployeeManager().getEmployeeByType(EmployeeType.Sanitation);
       fields.add(medID);
       fields.add(nodeID);
       fields.add(String.format("%d", employee.getEmployeeID()));

@@ -1,4 +1,0 @@
-ReqID,mealType,lastName,firstName,nodeID,employeeID,isEmergency,reqStatus,createdTimestamp,updatedTimestamp
-28,Burger,Bedison,Edison,FDEPT00101,1,0,0,2022-04-17 00:11:00.322,2022-04-17 00:11:00.322
-29,Ramen,Joe,Joe,FDEPT00101,1,0,0,2022-04-17 00:11:00.326,2022-04-17 00:11:00.326
-30,Burrito,Jim,Joe,FDEPT00101,1,0,0,2022-04-17 00:11:00.33,2022-04-17 00:11:00.33

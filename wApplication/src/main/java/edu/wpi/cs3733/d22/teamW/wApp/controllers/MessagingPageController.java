@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.MessageCardHBox;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
@@ -9,12 +10,8 @@ import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.TreeSet;
-import javafx.collections.FXCollections;
-import javafx.event.ActionEvent;
+import java.util.*;
+import java.util.stream.Collectors;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -36,7 +33,7 @@ public class MessagingPageController extends LoadableController {
   protected Employee currentEmployee;
   protected Employee selectedEmployee;
 
-  @FXML ComboBox employeeComboBox;
+  @FXML AutoCompleteInput employeeComboBox;
   @FXML Label messageTitleLabel;
   @FXML VBox messagesWindow;
   @FXML VBox messageWindow;
@@ -53,7 +50,11 @@ public class MessagingPageController extends LoadableController {
   @Override
   public void onLoad() throws SQLException {
     this.currentEmployee = Account.getInstance().getEmployee();
-    employeeComboBox.setItems(FXCollections.observableArrayList(getEmployeeIDs()));
+    employeeComboBox.loadValues(
+        (ArrayList<String>)
+            EmployeeManager.getEmployeeManager().getAllEmployees().stream()
+                .map(e -> e.getFirstName() + " " + e.getLastName())
+                .collect(Collectors.toList()));
     resetMessagePage();
   }
 
@@ -62,13 +63,7 @@ public class MessagingPageController extends LoadableController {
     ArrayList<EmployeeMessage> allMessages =
         EmployeeMessageManager.getEmployeeMessageManager().getAllMessages();
     Collections.sort(
-        allMessages,
-        new Comparator<EmployeeMessage>() {
-          @Override
-          public int compare(EmployeeMessage o1, EmployeeMessage o2) {
-            return -1 * o1.getSentTimestamp().compareTo(o2.getSentTimestamp());
-          }
-        });
+        allMessages, (o1, o2) -> -1 * o1.getSentTimestamp().compareTo(o2.getSentTimestamp()));
     TreeSet<Integer> uniqueID = new TreeSet<>();
     for (EmployeeMessage message : allMessages) {
       if (message.getEmpIDto().equals(this.currentEmployee.getEmployeeID())) {
@@ -134,20 +129,9 @@ public class MessagingPageController extends LoadableController {
             }
           }
         });
-    newHBOX.setOnMouseEntered(
-        new EventHandler<MouseEvent>() {
-          @Override
-          public void handle(MouseEvent event) {
-            mouseOverCard(event);
-          }
-        });
-    newHBOX.setOnMouseExited(
-        new EventHandler<MouseEvent>() {
-          @Override
-          public void handle(MouseEvent event) {
-            mouseExitCard(event);
-          }
-        });
+    newHBOX.setOnMouseEntered(this::mouseOverCard);
+    newHBOX.setOnMouseExited(this::mouseExitCard);
+
     if (hasUnread) {
       newHBOX.setStyle("-fx-background-color: #ffcccc;");
     }
@@ -175,14 +159,7 @@ public class MessagingPageController extends LoadableController {
 
   private void loadMessages(ArrayList<EmployeeMessage> currentMessages) {
     clearMessages();
-    Collections.sort(
-        currentMessages,
-        new Comparator<EmployeeMessage>() {
-          @Override
-          public int compare(EmployeeMessage o1, EmployeeMessage o2) {
-            return o1.getSentTimestamp().compareTo(o2.getSentTimestamp());
-          }
-        });
+    Collections.sort(currentMessages, Comparator.comparing(EmployeeMessage::getSentTimestamp));
     for (EmployeeMessage message : currentMessages) {
       if (message.getEmpIDto().equals(this.currentEmployee.getEmployeeID())) {
         addMessageToList(message, true);
@@ -313,13 +290,16 @@ public class MessagingPageController extends LoadableController {
     }
   }
 
-  public void employeeSelected(ActionEvent actionEvent) throws SQLException {
+  public void employeeSelected() throws SQLException {
     if (employeeComboBox.getSelectionModel().isEmpty()) return;
-    this.selectedEmployee =
-        EmployeeManager.getEmployeeManager()
-            .getEmployee(
-                Integer.parseInt(
-                    employeeComboBox.getSelectionModel().getSelectedItem().toString()));
+    for (Employee e : EmployeeManager.getEmployeeManager().getAllEmployees()) {
+      if (e.getFirstName().equals(employeeComboBox.getValue().split(" ")[0])
+          && e.getLastName().equals(employeeComboBox.getValue().split(" ")[1])) {
+        this.selectedEmployee = e;
+        break;
+      }
+    }
+
     updateMessageWindow();
     refreshEmployeeCard();
   }
