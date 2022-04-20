@@ -5,10 +5,8 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
-import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
-import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
@@ -38,10 +36,6 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   @FXML AutoCompleteInput medNameCBox;
   @FXML AutoCompleteInput locationCBox;
   @FXML AutoCompleteInput employee;
-
-  // Tables:
-  @FXML private TableView<MedicalEquipmentSR> table;
-  private ArrayList<MedicalEquipmentSR> sr = new ArrayList<>();
 
   // Alerts:
   Alert emptyFields = new EmptyAlert();
@@ -196,32 +190,9 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     return nodeID;
   }
 
-  private void populateTable() {
-    ArrayList<Request> requests = null;
-    try {
-      requests = RequestFacade.getRequestFacade().getAllRequests();
-    } catch (SQLException e) {
-      System.out.println("Failed to unearth request form database");
-      e.printStackTrace();
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    for (int i = 0; i < requests.size(); i++) {
-      Request r = requests.get(i);
-      if (MedEquipRequest.class.equals(r.getClass())) {
-        MedEquipRequest mer = (MedEquipRequest) r;
-        sr.add(new MedicalEquipmentSR(mer));
-      }
-    }
-
-    table.getItems().clear();
-    table.getItems().addAll(sr);
-  }
-
   public void createRequest() {
     if (fieldsFull()) {
       confirm.showAndWait();
-      populateTable();
 
       try {
         pushDataToDB();
