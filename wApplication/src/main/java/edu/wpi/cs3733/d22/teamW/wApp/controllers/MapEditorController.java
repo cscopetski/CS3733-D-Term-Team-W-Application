@@ -689,41 +689,8 @@ public class MapEditorController extends LoadableController {
     }
     File inputCSV = fileChooser.showOpenDialog(SceneManager.getInstance().getPrimaryStage());
     moveVals();
-    final String locationFileName = inputCSV.getName();
-    final String medEquipFileName = "MedicalEquipment.csv";
-    final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
-    final String labServiceRequestFileName = "LabRequests.csv";
-    final String employeesFileName = "Employees.csv";
-    final String medRequestFileName = "MedRequests.csv";
-    final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
-    final String flowerRequestFileName = "FlowerRequests.csv";
-    final String languagesFileName = "Languages.csv";
-    final String languageInterpFileName = "LanguageInterpreters.csv";
-    final String sanitationRequestFileName = "SanitationRequests.csv";
-    final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
-    final String cleaningRequestFileName = "CleaningRequest.csv";
-    final String mealRequestFileName = "MealRequest.csv";
-    final String securityRequestFileName = "SecurityRequest.csv";
-    final String languageRequestFileName = "LanguageRequests.csv";
 
-    CSVController csvController =
-        new CSVController(
-            locationFileName,
-            medEquipFileName,
-            medEquipRequestFileName,
-            labServiceRequestFileName,
-            employeesFileName,
-            medRequestFileName,
-            flowerRequestFileName,
-            computerServiceRequestFileName,
-            sanitationRequestFileName,
-            cleaningRequestFileName,
-            languagesFileName,
-            languageInterpFileName,
-            giftDeliveryRequestFileName,
-            mealRequestFileName,
-            securityRequestFileName,
-            languageRequestFileName);
+    CSVController csvController = new CSVController();
 
     locationManager.clearLocations();
     csvController.insertIntoLocationsTable(csvController.importCSVfromFile(inputCSV));

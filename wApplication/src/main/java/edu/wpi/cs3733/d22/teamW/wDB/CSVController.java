@@ -10,60 +10,26 @@ import java.util.*;
 
 public class CSVController {
 
-  private String locationFileName;
-  private String medEquipFileName;
-  private String medEquipRequestFileName;
-  private String labServiceRequestFileName;
-  private String employeeFileName;
-  private String medRequestFileName;
-  private String flowerRequestFileName;
-  private String computerServiceRequestFileName;
-  private String cleaningRequestFileName;
-  private String sanitationRequestFileName;
-  private String languageFileName;
-  private String languageInterpFileName;
-  private String giftDeliveryRequestFileName;
-  private String mealRequestFileName;
-  private String securityRequestFileName;
-  private String languageRequestFileName;
+  final String locationFileName = "TowerLocations.csv";
+  final String medEquipFileName = "MedicalEquipment.csv";
+  final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
+  final String labServiceRequestFileName = "LabRequests.csv";
+  final String employeeFileName = "Employees.csv";
+  final String medRequestFileName = "MedRequests.csv";
+  final String flowerRequestFileName = "FlowerRequests.csv";
+  final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
+  final String sanitationRequestFileName = "SanitationRequests.csv";
+  final String languageFileName = "Languages.csv";
+  final String languageInterpFileName = "LanguageInterpreter.csv";
+  final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
+  final String cleaningRequestFileName = "CleaningRequest.csv";
+  final String mealRequestFileName = "MealRequest.csv";
+  final String securityRequestFileName = "SecurityRequest.csv";
+  final String languageRequestFileName = "LanguageRequests.csv";
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
-  public CSVController(
-      String locationFileName,
-      String medEquipFileName,
-      String medEquipRequestFileName,
-      String labServiceRequestFileName,
-      String employeeFileName,
-      String medRequestFileName,
-      String flowerRequestFileName,
-      String computerServiceRequestFileName,
-      String sanitationRequestFileName,
-      String cleaningRequestFileName,
-      String languageFileName,
-      String languageInterpFileName,
-      String giftDeliveryRequestFileName,
-      String mealRequestFileName,
-      String securityRequestFileName,
-      String languageRequestFileName) {
-
-    this.locationFileName = locationFileName;
-    this.medEquipFileName = medEquipFileName;
-    this.medEquipRequestFileName = medEquipRequestFileName;
-    this.labServiceRequestFileName = labServiceRequestFileName;
-    this.employeeFileName = employeeFileName;
-    this.medRequestFileName = medRequestFileName;
-    this.flowerRequestFileName = flowerRequestFileName;
-    this.computerServiceRequestFileName = computerServiceRequestFileName;
-    this.sanitationRequestFileName = sanitationRequestFileName;
-    this.languageFileName = languageFileName;
-    this.languageInterpFileName = languageInterpFileName;
-    this.giftDeliveryRequestFileName = giftDeliveryRequestFileName;
-    this.cleaningRequestFileName = cleaningRequestFileName;
-    this.mealRequestFileName = mealRequestFileName;
-    this.securityRequestFileName = securityRequestFileName;
-    this.languageRequestFileName = languageRequestFileName;
-  }
+  public CSVController() {}
 
   public void populateTables() throws Exception {
     insertIntoEmpTable(importCSV(employeeFileName));

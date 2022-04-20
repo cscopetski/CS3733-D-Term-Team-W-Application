@@ -25,23 +25,6 @@ public class LoginController extends LoadableController {
   @FXML Label matchCase;
   @FXML Label illegalCharacter;
 
-  final String locationFileName = "TowerLocations.csv";
-  final String medEquipFileName = "MedicalEquipment.csv";
-  final String medEquipRequestFileName = "MedicalEquipmentRequest.csv";
-  final String labServiceRequestFileName = "LabRequests.csv";
-  final String employeesFileName = "Employees.csv";
-  final String medRequestFileName = "MedRequests.csv";
-  final String flowerRequestFileName = "FlowerRequests.csv";
-  final String computerServiceRequestFileName = "ComputerServiceRequest.csv";
-  final String sanitationRequestFileName = "SanitationRequests.csv";
-  final String cleaningRequestFileName = "CleaningRequest.csv";
-  final String languagesFileName = "Languages.csv";
-  final String languageInterpFileName = "LanguageInterpreters.csv";
-  final String giftDeliveryRequestFileName = "GiftDeliveryRequest.csv";
-  final String mealRequestFileName = "MealRequest.csv";
-  final String securityRequestFileName = "SecurityRequest.csv";
-  final String languageRequestFileName = "LanguageRequests.csv";
-
   @Override
   public void initialize(URL location, ResourceBundle rb) {
     super.initialize(location, rb);
@@ -108,24 +91,7 @@ public class LoginController extends LoadableController {
     switchServer.setText(switchServer.getText().equals("Client") ? "Embedded" : "Client");
     background.requestFocus();
 
-    CSVController csvController =
-        new CSVController(
-            locationFileName,
-            medEquipFileName,
-            medEquipRequestFileName,
-            labServiceRequestFileName,
-            employeesFileName,
-            medRequestFileName,
-            flowerRequestFileName,
-            computerServiceRequestFileName,
-            sanitationRequestFileName,
-            cleaningRequestFileName,
-            languagesFileName,
-            languageInterpFileName,
-            giftDeliveryRequestFileName,
-            mealRequestFileName,
-            securityRequestFileName,
-            languageRequestFileName);
+    CSVController csvController = new CSVController();
 
     System.out.println("SWAP CONNECTION ");
 
