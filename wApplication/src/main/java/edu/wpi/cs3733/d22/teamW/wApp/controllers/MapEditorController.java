@@ -731,7 +731,10 @@ public class MapEditorController extends LoadableController {
   }
 
   public void expCSV(ActionEvent actionEvent) {
-    locationManager.exportLocationsCSV("output.csv");
+    FileChooser fileChooser = new FileChooser();
+    fileChooser.setTitle("Export Location");
+    File file = fileChooser.showSaveDialog(SceneManager.getInstance().getPrimaryStage());
+    locationManager.exportLocationsToChosen(file);
   }
 
   public void addLocation2(javafx.scene.input.MouseEvent mouseEvent)
