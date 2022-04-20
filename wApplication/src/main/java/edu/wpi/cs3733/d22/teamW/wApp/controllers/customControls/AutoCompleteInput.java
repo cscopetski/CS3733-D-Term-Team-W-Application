@@ -37,7 +37,9 @@ public class AutoCompleteInput extends ComboBox<String> {
 
       public ArrayList<String> getList(String input) {
         ArrayList<String> result = new ArrayList<>();
-        if (!input.isEmpty() && value != input.charAt(input.length() - 1)) {
+        if (!input.isEmpty()
+            && Character.toLowerCase(value)
+                != Character.toLowerCase(input.charAt(input.length() - 1))) {
           return result;
         }
 
