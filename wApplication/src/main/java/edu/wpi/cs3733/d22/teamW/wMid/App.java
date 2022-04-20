@@ -50,30 +50,58 @@ public class App extends Application {
             new Image(
                 getClass()
                     .getResourceAsStream("/edu/wpi/cs3733/d22/teamW/wApp/assets/mgb_logo.png")));
-    primaryStage.setOnCloseRequest(
-        e -> {
-          EmployeeManager.getEmployeeManager()
-              .exportEmpCSV("edu/wpi/cs3733/d22/teamW/wDB/CSVs/Employees.csv");
-          LabServiceRequestManager.getLabServiceRequestManager()
-              .exportReqCSV("edu/wpi/cs3733/d22/teamW/wDB/CSVs/LabRequests.csv");
-          LocationManager.getLocationManager()
-              .exportLocationsCSV("edu/wpi/cs3733/d22/teamW/wDB/CSVs/TowerLocations.csv");
-          MedEquipManager.getMedEquipManager()
-              .exportMedicalEquipmentCSV("edu/wpi/cs3733/d22/teamW/wDB/CSVs/MedicalEquipment.csv");
-          try {
-            MedEquipRequestManager.getMedEquipRequestManager()
-                .exportReqCSV("edu/wpi/cs3733/d22/teamW/wDB/CSVs/MedicalEquipmentRequest.csv");
-          } catch (NonExistingMedEquip ex) {
-            ex.printStackTrace();
-          }
-          MedRequestManager.getMedRequestManager()
-              .exportReqCSV("edu/wpi/cs3733/d22/teamW/wDB/CSVs/MedRequests.csv");
-        });
+
     SceneManager.getInstance().setScene("DefaultPage.fxml");
   }
 
   @Override
   public void stop() {
+    CleaningRequestManager.getCleaningRequestManager().exportReqCSV("CSVs/CleaningRequest.csv");
+    try {
+      ComputerServiceRequestManager.getComputerServiceRequestManager()
+          .exportReqCSV("CSVs/ComputerServiceRequest.csv");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    EmployeeManager.getEmployeeManager().exportEmpCSV("CSVs/Employees.csv");
+    FlowerRequestManager.getFlowerRequestManager().exportReqCSV("CSVs/FlowerRequests.csv");
+    try {
+      GiftDeliveryRequestManager.getGiftDeliveryRequestManager()
+          .exportReqCSV("CSVs/GiftDeliveryRequest.csv");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    LabServiceRequestManager.getLabServiceRequestManager().exportReqCSV("CSVs/LabRequests.csv");
+    LanguageInterpreterManager.getLanguageInterpreterManager()
+        .exportReqCSV("CSVs/LanguageInterpreter.csv");
+    LanguageRequestManager.getLanguageRequestManager().exportReqCSV("CSVs/LanguageRequests.csv");
+    LanguageManager.getLanguageManager().exportLocationsCSV("CSVs/Languages.csv");
+    try {
+      MealRequestManager.getMealRequestManager().exportReqCSV("CSVs/MealRequest.csv");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    MedEquipManager.getMedEquipManager().exportMedicalEquipmentCSV("CSVs/MedicalEquipment.csv");
+    try {
+      MedEquipRequestManager.getMedEquipRequestManager()
+          .exportReqCSV("CSVs/MedicalEquipmentRequest.csv");
+    } catch (NonExistingMedEquip ex) {
+      ex.printStackTrace();
+    }
+    MedRequestManager.getMedRequestManager().exportReqCSV("CSVs/MedRequests.csv");
+    try {
+      SanitationRequestManager.getSanitationRequestManager()
+          .exportReqCSV("CSVs/SanitationRequests.csv");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    try {
+      SecurityRequestManager.getSecurityRequestManager().exportReqCSV("CSVs/SecurityRequest.csv");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    LocationManager.getLocationManager().exportLocationsCSV("CSVs/TowerLocations.csv");
+
     log.info("Shutting Down");
   }
 }

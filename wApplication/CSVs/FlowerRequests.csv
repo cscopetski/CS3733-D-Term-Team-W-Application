@@ -1,0 +1,3 @@
+ReqID,flowerType,lastName,firstName,nodeID,employeeID,isEmergency,reqStatus,createdTimestamp,updatedTimestamp
+23,Rose,K-W,Charlie,FDEPT00101,4,0,0,2022-04-16 18:03:48.876,2022-04-16 18:03:48.876
+24,Succulent,S,Caleb,FDEPT00101,5,0,0,2022-04-16 18:03:48.884,2022-04-16 18:03:48.884

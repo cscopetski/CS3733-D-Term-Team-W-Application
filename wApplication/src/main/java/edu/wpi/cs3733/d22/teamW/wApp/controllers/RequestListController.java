@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.FilterControl;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
@@ -22,7 +21,6 @@ import javafx.scene.layout.HBox;
 public class RequestListController extends LoadableController {
   @FXML public RequestTable rt;
   @FXML public TextArea moreInfo;
-  @FXML public AutoCompleteInput equipmentSelection;
   @FXML public HBox selectionButtons;
   @FXML public FilterControl<RequestType> filter;
 
@@ -83,6 +81,7 @@ public class RequestListController extends LoadableController {
     rt.distributeColumnWidths();
     rt.setEditable(true);
     moreInfo.setText("Select a request to view details.");
+    resetItems();
   }
 
   @Override

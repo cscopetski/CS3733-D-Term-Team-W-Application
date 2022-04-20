@@ -1,5 +1,4 @@
 employeeID,firstName,lastName,employeeType,email,phoneNumber,address,username,password,salt
--1,N/A,Deleted,Denied,N/A,N/A,N/A,N/A,b89cc67afdc1019ece9b2b1a31a22328,58e7af1c7331b1d12057ef1972cba70f
 1,N/A,Staff,Staff,staff@hospital.com,(123)4567890,Mass General,staff,97adb5a6171ea3e2b6a73035c92e89b5,f57fef973ec5f6ad3b7e5550e2ab5974
 2,N/A,Administrator,Administrator,admin@hospital.com,(123)4567890,Office,admin,860bb9a34d1aec116efb54eee7e81341,3dc0ddd4c54c9c9a3b37a346893c87de
 3,Caleb,Scopetski,Doctor,caleb@hospital.com,(123)4567890,NeVer LeFt MaSs,Scoop,7c7f647ebd821e9b596ff91efdb9e2b3,293425e15e8fce656582a90e5e45864f

@@ -1,8 +1,10 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.EmployeeMessageDao;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.EmployeeMessage;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class EmployeeMessageManager {
@@ -50,6 +52,21 @@ public class EmployeeMessageManager {
   public void addEmployeeMessage(EmployeeMessage em) throws SQLException {
     this.emd.addEmployeeMessage(em);
     count++;
+  }
+
+  public void sendAllEmployeesMessage(Integer empIDfrom, String message) throws SQLException {
+    for (Employee emp : EmployeeManager.getEmployeeManager().getAllEmployees()) {
+      if (!(emp.getEmployeeID().equals(empIDfrom) || emp.getEmployeeID() == -1)) {
+        addEmployeeMessage(
+            new EmployeeMessage(
+                getNextMsgID(),
+                empIDfrom,
+                emp.getEmployeeID(),
+                message,
+                new Timestamp(System.currentTimeMillis()),
+                0));
+      }
+    }
   }
 
   public void changeEmployeeMessage(EmployeeMessage em) throws SQLException {

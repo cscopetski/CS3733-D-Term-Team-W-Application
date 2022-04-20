@@ -1,15 +1,23 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.MenuItem;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
@@ -37,6 +45,10 @@ public class DefaultPageController implements Initializable {
   @FXML public HBox menuBar;
   @FXML public Pane buttonPane;
   @FXML public Pane adminHubPage;
+
+  @FXML MenuItem messagesNotificationLabel;
+  @FXML MenuItem requestsNotificationLabel;
+  @FXML MenuItem noNewNotificationsLabel;
 
   protected Employee employee;
 
@@ -176,5 +188,40 @@ public class DefaultPageController implements Initializable {
 
   public void switchToMessaging(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Messaging);
+  }
+
+  public void clickNotificationBar(MouseEvent actionEvent) throws SQLException {
+    noNewNotificationsLabel.setVisible(false);
+    messagesNotificationLabel.setVisible(false);
+    requestsNotificationLabel.setVisible(false);
+    int unreadMessages =
+        EmployeeMessageManager.getEmployeeMessageManager()
+            .countUnreadMessagesAs(Account.getInstance().getEmployee().getEmployeeID());
+    messagesNotificationLabel.setText(String.format("%d unread messages", unreadMessages));
+    if (unreadMessages == 1)
+      messagesNotificationLabel.setText(String.format("%d unread message", unreadMessages));
+    ArrayList<Request> requests =
+        RequestFacade.getRequestFacade()
+            .getAllEmployeeRequests(Account.getInstance().getEmployee().getEmployeeID());
+    int associatedRequests = 0;
+    for (Request r : requests) {
+      if (r.getStatus().equals(RequestStatus.InQueue)
+          || r.getStatus().equals(RequestStatus.InProgress)) {
+        associatedRequests++;
+      }
+    }
+    requestsNotificationLabel.setText(String.format("%d active requests", associatedRequests));
+    if (associatedRequests == 1)
+      requestsNotificationLabel.setText(String.format("%d active request", associatedRequests));
+    if (unreadMessages == 0 && associatedRequests == 0) {
+      noNewNotificationsLabel.setVisible(true);
+    } else {
+      if (unreadMessages > 0) {
+        messagesNotificationLabel.setVisible(true);
+      }
+      if (associatedRequests > 0) {
+        requestsNotificationLabel.setVisible(true);
+      }
+    }
   }
 }

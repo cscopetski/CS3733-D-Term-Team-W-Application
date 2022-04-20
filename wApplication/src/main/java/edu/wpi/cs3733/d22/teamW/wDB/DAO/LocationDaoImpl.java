@@ -155,7 +155,7 @@ public class LocationDaoImpl implements LocationDao {
 
   @Override
   public void exportLocationCSV(String fileName) {
-    File csvOutputFile = new File(String.valueOf(getClass().getResource("/" + fileName).getPath()));
+    File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
       pw.print(CSVHeaderString);
