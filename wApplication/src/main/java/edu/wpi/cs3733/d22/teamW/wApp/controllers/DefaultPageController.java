@@ -46,9 +46,6 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane buttonPane;
   @FXML public Pane adminHubPage;
 
-  @FXML MenuItem messagesNotificationLabel;
-  @FXML MenuItem requestsNotificationLabel;
-  @FXML MenuItem noNewNotificationsLabel;
 
   protected Employee employee;
 
@@ -188,40 +185,5 @@ public class DefaultPageController implements Initializable {
 
   public void switchToMessaging(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Messaging);
-  }
-
-  public void clickNotificationBar(MouseEvent actionEvent) throws SQLException {
-    noNewNotificationsLabel.setVisible(false);
-    messagesNotificationLabel.setVisible(false);
-    requestsNotificationLabel.setVisible(false);
-    int unreadMessages =
-        EmployeeMessageManager.getEmployeeMessageManager()
-            .countUnreadMessagesAs(Account.getInstance().getEmployee().getEmployeeID());
-    messagesNotificationLabel.setText(String.format("%d unread messages", unreadMessages));
-    if (unreadMessages == 1)
-      messagesNotificationLabel.setText(String.format("%d unread message", unreadMessages));
-    ArrayList<Request> requests =
-        RequestFacade.getRequestFacade()
-            .getAllEmployeeRequests(Account.getInstance().getEmployee().getEmployeeID());
-    int associatedRequests = 0;
-    for (Request r : requests) {
-      if (r.getStatus().equals(RequestStatus.InQueue)
-          || r.getStatus().equals(RequestStatus.InProgress)) {
-        associatedRequests++;
-      }
-    }
-    requestsNotificationLabel.setText(String.format("%d active requests", associatedRequests));
-    if (associatedRequests == 1)
-      requestsNotificationLabel.setText(String.format("%d active request", associatedRequests));
-    if (unreadMessages == 0 && associatedRequests == 0) {
-      noNewNotificationsLabel.setVisible(true);
-    } else {
-      if (unreadMessages > 0) {
-        messagesNotificationLabel.setVisible(true);
-      }
-      if (associatedRequests > 0) {
-        requestsNotificationLabel.setVisible(true);
-      }
-    }
   }
 }

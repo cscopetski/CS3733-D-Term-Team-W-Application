@@ -40,16 +40,6 @@
                     <children>
                         <HBox fx:id="menuBar" visible="false" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
                             <children>
-                                <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" onMouseClicked="#clickNotificationBar" prefHeight="30.0" prefWidth="130.0" text="Notifications" textAlignment="CENTER" textOverrun="CLIP">
-                                    <items>
-                                        <MenuItem fx:id="noNewNotificationsLabel" mnemonicParsing="false" text="No notifications" />
-                                        <MenuItem fx:id="messagesNotificationLabel" mnemonicParsing="false" onAction="#switchToMessaging" text="0 new messages" />
-                                        <MenuItem fx:id="requestsNotificationLabel" mnemonicParsing="false" onAction="#switchToProfile" text="0 active requests" />
-                                    </items>
-                                    <HBox.margin>
-                                        <Insets right="10.0" top="10.0" />
-                                    </HBox.margin>
-                                </MenuButton>
                                 <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false" prefHeight="30.0" prefWidth="113.0" text="Menu" textAlignment="CENTER" textOverrun="CLIP">
                                     <items>
                                         <MenuItem mnemonicParsing="false" onAction="#switchToMainMenu" text="Main Menu" />
