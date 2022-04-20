@@ -46,7 +46,7 @@
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                  <AutoCompleteInput fx:id="languageSelection" />
+                  <AutoCompleteInput fx:id="languageSelection" prefWidth="150.0"/>
                     </children>
                 </VBox>
                 <VBox alignment="CENTER">
@@ -56,17 +56,17 @@
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                  <AutoCompleteInput fx:id="locationSelection" />
+                  <AutoCompleteInput fx:id="locationSelection" prefWidth="150.0"/>
                     </children>
                 </VBox>
                 <VBox alignment="CENTER">
                     <children>
-                        <Label styleClass="label-minor" text="Employee:">
+                        <Label styleClass="label-minor" text="Employee:" prefWidth="150.0">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                  <AutoCompleteInput fx:id="employeeSelection" />
+                  <AutoCompleteInput fx:id="employeeSelection" prefWidth="150.0"/>
                     </children>
                 </VBox>
             <VBox alignment="CENTER">
@@ -78,7 +78,7 @@
                 <VBox alignment="CENTER">
                     <children>
                         <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
-                        <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
+                        <Label fx:id="successLabel" prefWidth="150.0" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
                             <font>
                                 <Font size="14.0" />
                             </font>

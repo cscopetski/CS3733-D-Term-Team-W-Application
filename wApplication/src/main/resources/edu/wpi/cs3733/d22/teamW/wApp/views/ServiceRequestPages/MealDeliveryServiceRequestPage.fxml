@@ -151,7 +151,7 @@
                                     <Insets top="10.0" />
                                  </padding>
                               </Label>
-                              <AutoCompleteInput fx:id="locationComboBox" />
+                              <AutoCompleteInput fx:id="locationComboBox" prefWidth="150.0"/>
                            </children>
                         </VBox>
                         <VBox alignment="CENTER">
@@ -161,7 +161,7 @@
                                     <Font size="14.0" />
                                  </font>
                               </Label>
-                              <AutoCompleteInput fx:id="employeeNameComboBox" />
+                              <AutoCompleteInput fx:id="employeeNameComboBox" prefWidth="150.0"/>
                            </children>
                         </VBox>
                         <VBox alignment="CENTER">
@@ -204,7 +204,7 @@
                         <Insets />
                      </VBox.margin>
                   </Button>
-                  <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
+                  <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false" prefWidth="150.0">
                      <font>
                         <Font size="14.0" />
                      </font>

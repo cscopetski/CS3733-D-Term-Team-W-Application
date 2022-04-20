@@ -67,27 +67,27 @@
                            <children>
                               <Label styleClass="label-minor" text="Employee:">
                                  <font>
-                                    <Font name="System Bold" size="13.0" />
+                                    <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <AutoCompleteInput fx:id="employeeIDCBox" />
+                              <AutoCompleteInput fx:id="employeeIDCBox" prefWidth="150.0"/>
                            </children>
                         </VBox>
                         <VBox alignment="CENTER">
                            <children>
                               <Label styleClass="label-minor" text="Location:">
                                  <font>
-                                    <Font name="System Bold" size="13.0" />
+                                    <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
-                              <AutoCompleteInput fx:id="locationCBox" />
+                              <AutoCompleteInput fx:id="locationCBox" prefWidth="150.0"/>
                            </children>
                         </VBox>
                         <VBox alignment="CENTER">
                            <children>
                               <Label styleClass="label-minor" text="First Name:">
                                  <font>
-                                    <Font name="System Bold" size="13.0" />
+                                    <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
                               <TextField fx:id="patientFirstName" prefWidth="150.0" />
@@ -97,7 +97,7 @@
                            <children>
                               <Label styleClass="label-minor" text="Last Name:">
                                  <font>
-                                    <Font name="System Bold" size="13.0" />
+                                    <Font name="System Bold" size="14.0" />
                                  </font>
                               </Label>
                               <TextField fx:id="patientLastName" prefWidth="150.0" />

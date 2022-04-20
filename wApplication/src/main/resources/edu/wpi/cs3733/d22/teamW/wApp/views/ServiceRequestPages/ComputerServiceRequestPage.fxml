@@ -38,7 +38,11 @@
             </Label>
             <VBox alignment="CENTER" fillWidth="false">
                <children>
-                  <Label styleClass="label-minor" text="Location:" />
+                  <Label styleClass="label-minor" text="Location:">
+                     <font>
+                        <Font size="14.0" name="System Bold"/>
+                     </font>
+                  </Label>
                   <AutoCompleteInput fx:id="locationComboBox" />
                </children>
             </VBox>
@@ -46,7 +50,7 @@
                <children>
                   <Label styleClass="label-minor" text="Employee:">
                      <font>
-                        <Font size="14.0" />
+                        <Font size="14.0" name="System Bold"/>
                      </font>
                   </Label>
                   <AutoCompleteInput fx:id="employee" />
