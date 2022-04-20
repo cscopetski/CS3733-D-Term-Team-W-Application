@@ -33,17 +33,16 @@ public class ProfileController extends LoadableController {
     email.setText(employee.getEmail());
     phoneNumber.setText(employee.getPhoneNumber());
     address.setText(employee.getAddress());
+    System.out.println("Set all employee items like name and contact info");
 
-    rt.setColumnWidth("Req. ID", 60);
-    rt.setColumnWidth("Request Type", 130);
-    rt.setColumnWidth("Employee Name", 140);
-    rt.setColumnWidth("Status", 80);
-    rt.setColumnWidth("Location", 80);
-    rt.setColumnWidth("Created", 145);
-    rt.setColumnWidth("Last Updated", 145);
+    rt.distributeColumnWidths();
+
+
+    System.out.println("Trying to load table values now, have already loaded columns");
     try {
       rt.setItems(
-          RequestFacade.getRequestFacade().getAllEmployeeRequests(employee.getEmployeeID()));
+          RequestFacade.getRequestFacade()
+              .getAllEmployeeRequests(Account.getInstance().getEmployee().getEmployeeID()));
     } catch (Exception e) {
       e.printStackTrace();
     }
