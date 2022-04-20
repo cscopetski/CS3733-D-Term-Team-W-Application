@@ -36,6 +36,11 @@ public class medEquip {
     Status.set(status.getString());
   }
 
+  public void setHomeLoc(Location loc) {
+    homeLoc.removeEq(this);
+    homeLoc = loc;
+  }
+
   public void setMedID(String medID) {
     this.MedID.set(medID);
   }

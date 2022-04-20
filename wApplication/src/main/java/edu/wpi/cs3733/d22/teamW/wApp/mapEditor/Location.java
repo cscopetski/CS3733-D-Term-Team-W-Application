@@ -68,6 +68,10 @@ public class Location {
     }
   }
 
+  public void removeEq(medEquip equip) {
+    eqListonLoc.remove(equip);
+  }
+
   public void setFloor(String floor) {
     this.floor = floor;
   }
