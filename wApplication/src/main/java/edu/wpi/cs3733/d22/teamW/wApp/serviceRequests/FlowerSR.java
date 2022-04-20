@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.FlowerRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.FlowerRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
@@ -40,7 +41,12 @@ public class FlowerSR extends SR {
             + " "
             + flowerRequest.getPatientLast()
             + "\n";
-    info += "";
+    info +=
+        "Location: "
+            + LocationManager.getLocationManager()
+                .getLocation(flowerRequest.getNodeID())
+                .getLongName()
+            + "\n";
     return info;
   }
 }
