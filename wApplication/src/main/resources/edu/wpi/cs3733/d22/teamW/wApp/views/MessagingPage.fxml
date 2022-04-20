@@ -16,7 +16,7 @@
 
 <HBox alignment="CENTER" style="-fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MessagingPageController">
    <children>
-      <VBox alignment="TOP_CENTER">
+      <VBox alignment="CENTER">
          <children>
             <VBox alignment="CENTER">
                <children>
@@ -65,7 +65,7 @@
          </children>
       </VBox>
       <Separator orientation="VERTICAL" />
-      <VBox fx:id="messageWindow" alignment="TOP_CENTER" disable="true" style="-fx-alignment: center;">
+      <VBox fx:id="messageWindow" alignment="CENTER" disable="true" style="-fx-alignment: center;">
          <children>
             <Label fx:id="messageTitleLabel" text="Select an Employee">
                <font>
