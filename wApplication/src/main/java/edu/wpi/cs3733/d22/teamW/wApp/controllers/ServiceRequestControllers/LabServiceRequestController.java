@@ -16,7 +16,6 @@ import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -52,8 +51,8 @@ public class LabServiceRequestController extends LoadableController {
 
   @Override
   public void onLoad() {
-    locationCBox.setItems(FXCollections.observableArrayList(getLocations()));
-    employeeIDCBox.setItems(FXCollections.observableArrayList(getEmployeeNames()));
+    locationCBox.loadValues(getLocations());
+    employeeIDCBox.loadValues(getEmployeeNames());
   }
 
   @Override

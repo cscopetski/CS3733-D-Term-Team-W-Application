@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
@@ -17,7 +18,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.animation.FadeTransition;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -28,10 +28,10 @@ public class MedicalEquipmentServiceRequestController extends LoadableController
 
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
-  @FXML ComboBox<String> equipmentSelection;
 
-  @FXML ComboBox<String> employeeNameComboBox;
-  @FXML ComboBox<String> locationComboBox;
+  @FXML AutoCompleteInput equipmentSelection;
+  @FXML AutoCompleteInput employeeNameComboBox;
+  @FXML AutoCompleteInput locationComboBox;
 
   @FXML Label successLabel;
 
@@ -177,9 +177,9 @@ public class MedicalEquipmentServiceRequestController extends LoadableController
 
   @Override
   public void onLoad() throws SQLException {
-    equipmentSelection.setItems(FXCollections.observableArrayList(getEquipList()));
-    locationComboBox.setItems(FXCollections.observableArrayList(getLocations()));
-    employeeNameComboBox.setItems(FXCollections.observableArrayList(getEmployeeNames()));
+    equipmentSelection.loadValues(getEquipList());
+    locationComboBox.loadValues(getLocations());
+    employeeNameComboBox.loadValues(getEmployeeNames());
   }
 
   @Override

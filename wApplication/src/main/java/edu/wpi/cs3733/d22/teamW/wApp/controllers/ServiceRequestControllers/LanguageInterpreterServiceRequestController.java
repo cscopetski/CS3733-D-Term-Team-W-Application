@@ -66,8 +66,8 @@ public class LanguageInterpreterServiceRequestController extends LoadableControl
     fadeOut.setCycleCount(1);
     fadeOut.setAutoReverse(false);
     employeeSelection.setDisable(true);
-    locationSelection.setItems(FXCollections.observableArrayList(getLocations()));
-    languageSelection.setItems(FXCollections.observableArrayList(getLanguageTypeList()));
+    locationSelection.loadValues(getLocations());
+    languageSelection.loadValues(getLanguageTypeList());
     languageSelection.setOnAction(
         (event) -> {
           if (!languageSelection.getSelectionModel().isEmpty()) {

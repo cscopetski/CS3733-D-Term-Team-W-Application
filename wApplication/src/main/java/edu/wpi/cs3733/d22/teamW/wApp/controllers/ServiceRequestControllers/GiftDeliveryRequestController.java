@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.animation.FadeTransition;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -62,8 +61,8 @@ public class GiftDeliveryRequestController extends LoadableController {
     fadeOut.setToValue(0.0);
     fadeOut.setCycleCount(1);
     fadeOut.setAutoReverse(false);
-    locationComboBox.setItems(FXCollections.observableArrayList(getLocations()));
-    employeeIDComboBox.setItems(FXCollections.observableArrayList(getEmployeeNames()));
+    locationComboBox.loadValues(getLocations());
+    employeeIDComboBox.loadValues(getEmployeeNames());
   }
 
   @Override

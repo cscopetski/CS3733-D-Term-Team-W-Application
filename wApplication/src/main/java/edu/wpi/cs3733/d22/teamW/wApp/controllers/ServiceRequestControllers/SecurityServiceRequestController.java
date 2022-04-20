@@ -21,7 +21,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -55,12 +54,12 @@ public class SecurityServiceRequestController extends LoadableController {
     super.initialize(l, rb);
 
     location.loadValues(getLocations());
-    threatLevel.setItems(
-        FXCollections.observableList(
+    threatLevel.loadValues(
+        (ArrayList<String>)
             Arrays.stream(ThreatLevels.values())
                 .map(ThreatLevels::toString)
-                .collect(Collectors.toList())));
-    employee.setItems(FXCollections.observableArrayList(getEmployeeNames()));
+                .collect(Collectors.toList()));
+    employee.loadValues(getEmployeeNames());
   }
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {

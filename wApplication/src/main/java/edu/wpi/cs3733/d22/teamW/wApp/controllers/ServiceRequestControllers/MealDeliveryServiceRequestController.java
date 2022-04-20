@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javafx.animation.FadeTransition;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -111,8 +110,8 @@ public class MealDeliveryServiceRequestController extends LoadableController {
 
   @Override
   public void onLoad() throws SQLException {
-    locationComboBox.setItems(FXCollections.observableArrayList(getLocations()));
-    employeeNameComboBox.setItems(FXCollections.observableArrayList(getEmployeeNames()));
+    locationComboBox.loadValues(getLocations());
+    employeeNameComboBox.loadValues(getEmployeeNames());
   }
 
   @Override
