@@ -16,10 +16,14 @@ public class RequestTable extends TableView<SR> {
 
     getColumns()
         .addAll(
-            createColumn("Req. ID", "RequestID"),
+            createColumn("Request ID", "RequestID"),
             createColumn("Request Type", "RequestType"),
             createColumn("Employee Name", "EmployeeName"),
-            createColumn("Status", "Status"));
+            createColumn("Status", "Status"),
+            createColumn("Location", "Location"),
+            createColumn("Created", "CreatedTimestamp"),
+            createColumn("Last Updated", "UpdatedTimestamp"));
+    distributeColumnWidths();
   }
 
   public void setColumnWidth(String columnText, double prefWidth) {
@@ -54,7 +58,7 @@ public class RequestTable extends TableView<SR> {
         case LabServiceRequest:
           sr = new LabServiceSR(r);
           break;
-        case LanguageInterpreter:
+        case LanguageRequest:
           sr = new LanguageInterpreterSR(r);
           break;
         case MealDelivery:
@@ -68,6 +72,18 @@ public class RequestTable extends TableView<SR> {
           break;
         case CleaningRequest:
           sr = new CleaningSR(r);
+          break;
+        case ComputerServiceRequest:
+          sr = new ComputerSR(r);
+          break;
+        case FlowerRequest:
+          sr = new FlowerSR(r);
+          break;
+        case GiftDelivery:
+          sr = new GiftSR(r);
+          break;
+        case SanitationService:
+          sr = new SanitationSR(r);
           break;
       }
 

@@ -34,6 +34,9 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
     }
   }
 
+  String CSVHeaderString =
+      "employeeID,firstName,lastName,employeeType,email,phoneNumber,address,username,password,salt";
+
   void createTable() throws SQLException {
     try {
       statement.execute(
@@ -64,32 +67,14 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
       ResultSet employeeRequest =
           statement.executeQuery(
               String.format(
-                  "SELECT * FROM EMPLOYEES WHERE EMPLOYEETYPE='%s'", employeeType.toString()));
+                  "SELECT * FROM EMPLOYEES WHERE EMPLOYEETYPE='%s'", employeeType.getString()));
       employeeRequest.next();
-      Integer employeeID = employeeRequest.getInt("EMPLOYEEID");
-      String firstName = employeeRequest.getString("FIRSTNAME");
-      String lastName = employeeRequest.getString("LASTNAME");
-      String employeeTypeString = employeeRequest.getString("EMPLOYEETYPE");
-      String email = employeeRequest.getString("EMAIL");
-      String phoneNumber = employeeRequest.getString("PHONENUMBER");
-      String address = employeeRequest.getString("ADDRESS");
-      String username = employeeRequest.getString("USERNAME");
-      String password = employeeRequest.getString("PASSWORD");
-      String salt = employeeRequest.getString("SALT");
 
-      ArrayList<String> employeeData = new ArrayList<>();
-      employeeData.add(String.format("%d", employeeID));
-      employeeData.add(firstName);
-      employeeData.add(lastName);
-      employeeData.add(employeeTypeString);
-      employeeData.add(email);
-      employeeData.add(phoneNumber);
-      employeeData.add(address);
-      employeeData.add(username);
-      employeeData.add(password);
-      employeeData.add(salt);
-
-      employee = new Employee(employeeData);
+      ArrayList<String> employeeFields = new ArrayList<String>();
+      for (int i = 0; i < employeeRequest.getMetaData().getColumnCount(); i++) {
+        employeeFields.add(employeeRequest.getString(i + 1));
+      }
+      employee = new Employee(employeeFields);
     } catch (SQLException e) {
       System.out.println("Query from medical equip request table failed.");
     }
@@ -101,12 +86,13 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
     ArrayList<Employee> employeeList = new ArrayList<Employee>();
 
     try {
-      ResultSet employees = statement.executeQuery("SELECT * FROM EMPLOYEES");
+      ResultSet employees =
+          statement.executeQuery("SELECT * FROM EMPLOYEES WHERE EMPLOYEEID <> -1");
 
       while (employees.next()) {
         ArrayList<String> employeeData = new ArrayList<String>();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < employees.getMetaData().getColumnCount(); i++) {
           employeeData.add(employees.getString(i + 1));
         }
 
@@ -124,57 +110,24 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
    * If the salt is the string 'NEW', the salt will be randomly generated and the password will get
    * hashed Otherwise the password and salt are just added normally
    *
-   * @param employeeID
-   * @param firstname
-   * @param lastname
-   * @param type
-   * @param email
-   * @param phoneNumber
-   * @param address
-   * @param username
-   * @param password
-   * @param salt
+   * @param emp Employee object to add
    * @throws SQLException
    */
   @Override
-  public void addEmployee(
-      Integer employeeID,
-      String firstname,
-      String lastname,
-      EmployeeType type,
-      String email,
-      String phoneNumber,
-      String address,
-      String username,
-      String password,
-      String salt)
-      throws SQLException {
-    if (salt.equals("NEW")) {
-      salt = generateSalt();
+  public void addEmployee(Employee emp) throws SQLException {
+    if (emp.getSalt().equals("NEW")) {
+      emp.setSalt(generateSalt());
       try {
-        password = generateHash(password, salt);
+        emp.setPassword(generateHash(emp.getPassword(), emp.getSalt()));
       } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
         e.printStackTrace();
       }
     }
-    Employee newEmployee =
-        new Employee(
-            employeeID,
-            firstname,
-            lastname,
-            type.getString(),
-            email,
-            phoneNumber,
-            address,
-            username,
-            password,
-            salt);
 
     statement.executeUpdate(
-        String.format("INSERT INTO EMPLOYEES VALUES (%s)", newEmployee.toValuesString()));
+        String.format("INSERT INTO EMPLOYEES VALUES (%s)", emp.toValuesString()));
 
-    System.out.println(
-        String.format("INSERT INTO EMPLOYEES VALUES (%s)", newEmployee.toValuesString()));
+    // System.out.println(String.format("INSERT INTO EMPLOYEES VALUES (%s)", emp.toValuesString()));
   }
 
   @Override
@@ -183,45 +136,26 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
   }
 
   /**
-   * Does not change the username, password, or salt
+   * Does not change the username or salt
    *
-   * @param employeeID
-   * @param firstname
-   * @param lastname
-   * @param type
-   * @param email
-   * @param phoneNumber
-   * @param address
-   * @param username
-   * @param password
+   * @param emp Employee object to change
    * @throws SQLException
    */
-  @Override
-  public void changeEmployee(
-      Integer employeeID,
-      String firstname,
-      String lastname,
-      EmployeeType type,
-      String email,
-      String phoneNumber,
-      String address,
-      String username,
-      String password)
-      throws SQLException {
+  public void changeEmployee(Employee emp) throws SQLException {
     try {
-      String newPass = generateHash(password, getSalt(employeeID));
+      String newPass = generateHash(emp.getPassword(), getSalt(emp.getEmployeeID()));
       statement.executeUpdate(
           String.format(
               "UPDATE EMPLOYEES SET FIRSTNAME = '%s', LASTNAME = '%s', EMPLOYEETYPE = '%s', EMAIL = '%s', PHONENUMBER = '%s', ADDRESS = '%s', USERNAME = '%s', PASSWORD = '%s' WHERE EMPLOYEEID = %d",
-              firstname,
-              lastname,
-              type.getString(),
-              email,
-              phoneNumber,
-              address,
-              username,
+              emp.getFirstName(),
+              emp.getLastName(),
+              emp.getType().getString(),
+              emp.getEmail(),
+              emp.getPhoneNumber(),
+              emp.getAddress(),
+              emp.getUsername(),
               newPass,
-              employeeID));
+              emp.getEmployeeID()));
     } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
       e.printStackTrace();
     }
@@ -232,8 +166,7 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print(
-          "employeeID,firstname,lastname,employeetype,email,phonenumber,address,username,password,salt");
+      pw.print(CSVHeaderString);
 
       // print all locations
       for (Employee e : getAllEmployees()) {
@@ -338,18 +271,11 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
         statement.executeQuery(
             String.format("SELECT * FROM EMPLOYEES WHERE USERNAME = '%s'", username));
     rs.next();
-    Integer empID = rs.getInt("EMPLOYEEID");
-    String firstName = rs.getString("FIRSTNAME");
-    String lastName = rs.getString("LASTNAME");
-    String employeeType = rs.getString("EMPLOYEETYPE");
-    String email = rs.getString("EMAIL");
-    String phoneNum = rs.getString("PHONENUMBER");
-    String address = rs.getString("ADDRESS");
-    String user = rs.getString("USERNAME");
-    String pass = rs.getString("PASSWORD");
-    String salt = rs.getString("SALT");
-    return new Employee(
-        empID, firstName, lastName, employeeType, email, phoneNum, address, user, pass, salt);
+    ArrayList<String> employeeFields = new ArrayList<String>();
+    for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
+      employeeFields.add(rs.getString(i + 1));
+    }
+    return new Employee(employeeFields);
   }
 
   @Override
@@ -358,17 +284,10 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
         statement.executeQuery(
             String.format("SELECT * FROM EMPLOYEES WHERE EMPLOYEEID = %d", empID));
     rs.next();
-    Integer id = rs.getInt("EMPLOYEEID");
-    String firstName = rs.getString("FIRSTNAME");
-    String lastName = rs.getString("LASTNAME");
-    String employeeType = rs.getString("EMPLOYEETYPE");
-    String email = rs.getString("EMAIL");
-    String phoneNum = rs.getString("PHONENUMBER");
-    String address = rs.getString("ADDRESS");
-    String user = rs.getString("USERNAME");
-    String pass = rs.getString("PASSWORD");
-    String salt = rs.getString("SALT");
-    return new Employee(
-        id, firstName, lastName, employeeType, email, phoneNum, address, user, pass, salt);
+    ArrayList<String> employeeFields = new ArrayList<String>();
+    for (int i = 0; i < rs.getMetaData().getColumnCount(); i++) {
+      employeeFields.add(rs.getString(i + 1));
+    }
+    return new Employee(employeeFields);
   }
 }

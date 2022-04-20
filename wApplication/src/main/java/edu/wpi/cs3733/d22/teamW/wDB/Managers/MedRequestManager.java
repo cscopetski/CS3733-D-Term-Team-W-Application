@@ -1,7 +1,10 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedRequestDao;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.InvalidUnit;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NoMedicine;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
@@ -26,17 +29,14 @@ public class MedRequestManager implements RequestManager {
     this.mrd = mrd;
   }
 
-  public Request addRequest(Integer num, ArrayList<String> fields) throws SQLException, NoMedicine {
+  @Override
+  public Request addNewRequest(Integer num, ArrayList<String> fields)
+      throws SQLException, NoMedicine, StatusError, InvalidUnit {
     MedRequest mr;
-
-    if (fields.size() == 4) {
-      fields.add("0");
-      fields.add(new Timestamp(System.currentTimeMillis()).toString());
-      fields.add(new Timestamp(System.currentTimeMillis()).toString());
-      mr = new MedRequest(num, fields);
-    } else {
-      mr = new MedRequest(fields);
-    }
+    fields.add(Integer.toString(RequestStatus.InQueue.getValue()));
+    fields.add(new Timestamp(System.currentTimeMillis()).toString());
+    fields.add(new Timestamp(System.currentTimeMillis()).toString());
+    mr = new MedRequest(num, fields);
     // TODO Special Exception
     if (RequestFactory.getRequestFactory().getReqIDList().add(mr.getRequestID())) {
       mrd.addMedRequest(mr);
@@ -46,69 +46,68 @@ public class MedRequestManager implements RequestManager {
     return mr;
   }
 
-  public boolean start(Integer requestID) throws SQLException {
-    MedRequest request =
-        (MedRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+  @Override
+  public Request addExistingRequest(ArrayList<String> fields) throws Exception {
+    MedRequest mr;
+    mr = new MedRequest(fields);
+    if (RequestFactory.getRequestFactory().getReqIDList().add(mr.getRequestID())) {
+      mrd.addMedRequest(mr);
+    } else {
+      mr = null;
+    }
+    return mr;
+  }
+
+  public void start(Integer requestID) throws SQLException {
+    MedRequest request = null;
+    try {
+      request =
+          (MedRequest)
+              RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.InProgress);
-    mrd.changeMedRequest(
-        request.getRequestID(),
-        request.getMedicine().getString(),
-        request.getNodeID(),
-        request.getEmployeeID(),
-        request.getEmergency(),
-        request.getStatus(),
-        request.getCreatedTimestamp(),
-        new Timestamp(System.currentTimeMillis()));
-    return true;
+    mrd.changeMedRequest(request);
   }
 
   public void complete(Integer requestID) throws SQLException {
-    MedRequest request =
-        (MedRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+    MedRequest request = null;
+    try {
+      request =
+          (MedRequest)
+              RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.Completed);
-    mrd.changeMedRequest(
-        request.getRequestID(),
-        request.getMedicine().getString(),
-        request.getNodeID(),
-        request.getEmployeeID(),
-        request.getEmergency(),
-        request.getStatus(),
-        request.getCreatedTimestamp(),
-        new Timestamp(System.currentTimeMillis()));
+    mrd.changeMedRequest(request);
   }
 
   public void cancel(Integer requestID) throws SQLException {
-    MedRequest request =
-        (MedRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+    MedRequest request = null;
+    try {
+      request =
+          (MedRequest)
+              RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.Cancelled);
-    mrd.changeMedRequest(
-        request.getRequestID(),
-        request.getMedicine().getString(),
-        request.getNodeID(),
-        request.getEmployeeID(),
-        request.getEmergency(),
-        request.getStatus(),
-        request.getCreatedTimestamp(),
-        new Timestamp(System.currentTimeMillis()));
+    mrd.changeMedRequest(request);
   }
 
-  public void reQueue(Integer requestID) throws SQLException {
-    MedRequest request =
-        (MedRequest)
-            RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+  public void reQueue(Integer requestID) throws SQLException, StatusError, NonExistingMedEquip {
+    MedRequest request = null;
+    try {
+      request =
+          (MedRequest)
+              RequestFacade.getRequestFacade().findRequest(requestID, RequestType.MedicineDelivery);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     request.setStatus(RequestStatus.InQueue);
-    mrd.changeMedRequest(
-        request.getRequestID(),
-        request.getMedicine().getString(),
-        request.getNodeID(),
-        request.getEmployeeID(),
-        request.getEmergency(),
-        request.getStatus(),
-        request.getCreatedTimestamp(),
-        new Timestamp(System.currentTimeMillis()));
+    mrd.changeMedRequest(request);
   }
 
   public void delete(Integer requestID) throws SQLException {
@@ -117,17 +116,8 @@ public class MedRequestManager implements RequestManager {
 
   // TODO should or should not have
 
-  public void changeMedRequest(
-      Integer id,
-      String m,
-      String n,
-      Integer en,
-      Integer ie,
-      RequestStatus rs,
-      Timestamp createdTimestamp,
-      Timestamp updatedTimestamp)
-      throws SQLException {
-    mrd.changeMedRequest(id, m, n, en, ie, rs, createdTimestamp, updatedTimestamp);
+  public void changeRequest(Request medRequest) throws SQLException {
+    mrd.changeMedRequest((MedRequest) medRequest);
   }
 
   @Override
@@ -140,7 +130,21 @@ public class MedRequestManager implements RequestManager {
     return mrd.getAllMedRequest();
   }
 
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    return mrd.getEmployeeRequests(employeeID);
+  }
+
   public void exportReqCSV(String filename) {
     mrd.exportMedReqCSV(filename);
+  }
+
+  @Override
+  public void updateReqAtLocation(String nodeID) throws Exception {
+    this.mrd.updateMedReqAtLocation(nodeID);
+  }
+
+  @Override
+  public void updateReqWithEmployee(Integer employeeID) throws Exception {
+    this.mrd.updateMedRequestsWithEmployee(employeeID);
   }
 }

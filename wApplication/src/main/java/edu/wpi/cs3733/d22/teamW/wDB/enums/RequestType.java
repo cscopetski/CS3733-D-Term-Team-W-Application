@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.enums;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.InValidRequestType;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,7 +8,7 @@ public enum RequestType {
   MedicalEquipmentRequest(0, "Medical Equipment Request"),
   LabServiceRequest(1, "Lab Service Request"),
   MedicineDelivery(2, "Medicine Delivery"),
-  LanguageInterpreter(3, "Language Interpreter"),
+  LanguageRequest(3, "Language Request"),
   SanitationService(4, "Sanitation Service"),
   LaundryService(5, "Laundry Service"),
   MealDelivery(6, "Meal Delivery"),
@@ -17,7 +18,8 @@ public enum RequestType {
   MaintenanceRequest(9, "Maintenance Request"),
   ComputerServiceRequest(10, "Computer Service Request"),
   AudioVisualRequest(11, "Audio Visual Request"),
-  CleaningRequest(12, "Cleaning Request");
+  CleaningRequest(12, "Cleaning Request"),
+  FlowerRequest(13, "Flower Request");
   private final Integer value;
   private final String string;
 
@@ -31,7 +33,7 @@ public enum RequestType {
     }
   }
 
-  private RequestType(Integer value, String string) {
+  RequestType(Integer value, String string) {
     this.value = value;
     this.string = string;
   }
@@ -44,11 +46,26 @@ public enum RequestType {
     return this.string;
   }
 
-  public static RequestType getRequestType(Integer type) {
-    return (RequestType) map.get(type);
+  public static RequestType getRequestType(Integer type) throws InValidRequestType {
+    RequestType output = (RequestType) map.get(type);
+    if (output == null) {
+      throw new InValidRequestType();
+    }
+    return output;
   }
 
-  public static RequestType getRequestType(String type) {
-    return (RequestType) map2.get(type);
+  public static RequestType getRequestType(String type) throws InValidRequestType {
+
+    type = type.trim();
+    RequestType output = (RequestType) map2.get(type);
+    if (output == null) {
+      throw new InValidRequestType();
+    }
+    return output;
+  }
+
+  @Override
+  public String toString() {
+    return this.string;
   }
 }

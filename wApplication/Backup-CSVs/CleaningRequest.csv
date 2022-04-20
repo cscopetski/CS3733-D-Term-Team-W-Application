@@ -1,0 +1,3 @@
+ReqID,itemID,nodeID,employeeID,isEmergency,reqStatus,createdTimestamp,updatedTimestamp
+27,BED001,FDEPT00101,1,0,2,2022-04-16 19:17:49.037,2022-04-16 19:17:49.037
+28,REC008,FDEPT00101,3,0,3,2022-04-16 19:17:49.037,2022-04-16 19:17:49.037

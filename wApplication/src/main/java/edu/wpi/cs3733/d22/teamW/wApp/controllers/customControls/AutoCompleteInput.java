@@ -1,15 +1,19 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.InValidRequestType;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 import javafx.scene.control.ComboBox;
 
 public class AutoCompleteInput extends ComboBox<String> {
   private static class Trie {
     private static class Node {
-      public char value;
+      public Character value;
       public ArrayList<Node> children = new ArrayList<>();
 
-      public Node(char value) {
+      public Node(Character value) {
         this.value = value;
       }
 
@@ -33,6 +37,25 @@ public class AutoCompleteInput extends ComboBox<String> {
         }
       }
 
+      public ArrayList<String> getListIgnoreCase(String input) {
+        ArrayList<String> result = new ArrayList<>();
+        if (!input.isEmpty()
+            && !value
+                .toString()
+                .equalsIgnoreCase(((Character) input.charAt(input.length() - 1)).toString())) {
+          return result;
+        }
+
+        if (children.size() == 0) {
+          result.add(input);
+        } else {
+          for (Node n : children) {
+            result.addAll(n.getList(input + n.value));
+          }
+        }
+        return result;
+      }
+
       public ArrayList<String> getList(String input) {
         ArrayList<String> result = new ArrayList<>();
         if (!input.isEmpty() && value != input.charAt(input.length() - 1)) {
@@ -52,10 +75,6 @@ public class AutoCompleteInput extends ComboBox<String> {
 
     private Node head;
 
-    public Trie() {
-      head = new Node('\0');
-    }
-
     public Trie(ArrayList<String> input) {
       loadValues(input);
     }
@@ -72,12 +91,30 @@ public class AutoCompleteInput extends ComboBox<String> {
     }
 
     public ArrayList<String> getList(String input) {
-
       Node n = head;
-      for (char c : input.toCharArray()) {
+      for (Character c : input.toCharArray()) {
         Node newN = n;
         for (Node node : n.children) {
-          if (node.value == c) {
+          if (node.value.equals(c)) {
+            newN = node;
+            break;
+          }
+        }
+        if (newN.equals(n)) {
+          return new ArrayList<>();
+        }
+        n = newN;
+      }
+
+      return n.getList(input);
+    }
+
+    public ArrayList<String> getListIgnoreCase(String input) {
+      Node n = head;
+      for (Character c : input.toCharArray()) {
+        Node newN = n;
+        for (Node node : n.children) {
+          if (node.value.toString().equalsIgnoreCase(c.toString())) {
             newN = node;
             break;
           }
@@ -97,7 +134,29 @@ public class AutoCompleteInput extends ComboBox<String> {
       while (true) {
         boolean found = false;
         for (Node n : h.children) {
-          if (n.value == input.charAt(i)) {
+          if (n.value.equals(input.charAt(i))) {
+            h = n;
+            found = true;
+            i++;
+            if (i == input.length()) {
+              return true;
+            }
+            break;
+          }
+        }
+        if (!found) {
+          return false;
+        }
+      }
+    }
+
+    public boolean containsIgnoreCase(String input) {
+      int i = 0;
+      Node h = head;
+      while (true) {
+        boolean found = false;
+        for (Node n : h.children) {
+          if (n.value.toString().equalsIgnoreCase(((Character) input.charAt(i)).toString())) {
             h = n;
             found = true;
             i++;
@@ -121,29 +180,28 @@ public class AutoCompleteInput extends ComboBox<String> {
     getEditor()
         .setOnKeyTyped(
             e -> {
-              setItems(trie.getList(getText()));
+              getItems().clear();
+              getItems().addAll(trie.getList(getText()));
               if (!trie.contains(getText())) {
                 getEditor().setStyle("-fx-text-fill: red");
               } else {
                 getEditor().setStyle("-fx-text-fill: black");
               }
             });
-    // valueProperty().addListener((observable, oldValue, newValue) ->
-    // setItems(trie.getList(newValue)));
+  }
+
+  public void loadValues(String[] values) {
+    loadValues((ArrayList<String>) Arrays.stream(values).collect(Collectors.toList()));
   }
 
   public void loadValues(ArrayList<String> values) {
     trie = new Trie(values);
-    setItems(trie.getList(getValue() != null ? getValue() : ""));
-  }
-
-  private void setItems(ArrayList<String> items) {
     getItems().clear();
-    getItems().addAll(items);
+    getItems().addAll(trie.getList(getValue() != null ? getValue() : ""));
   }
 
-  private String getSelection() {
-    return getSelectionModel().getSelectedItem();
+  private RequestType getSelection() throws InValidRequestType {
+    return RequestType.getRequestType(getSelectionModel().getSelectedItem());
   }
 
   private String getText() {

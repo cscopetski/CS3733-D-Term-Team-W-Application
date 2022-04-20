@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.enums;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,11 +35,20 @@ public enum MedEquipStatus {
     return this.string;
   }
 
-  public static MedEquipStatus getStatus(Integer type) {
-    return (MedEquipStatus) map.get(type);
+  public static MedEquipStatus getStatus(Integer type) throws StatusError {
+    MedEquipStatus output = (MedEquipStatus) map.get(type);
+    if (output == null) {
+      throw new StatusError();
+    }
+    return output;
   }
 
-  public static MedEquipStatus getStatus(String type) {
-    return (MedEquipStatus) map2.get(type);
+  public static MedEquipStatus getStatus(String type) throws StatusError {
+    type = type.trim();
+    MedEquipStatus output = (MedEquipStatus) map2.get(type);
+    if (output == null) {
+      throw new StatusError();
+    }
+    return output;
   }
 }

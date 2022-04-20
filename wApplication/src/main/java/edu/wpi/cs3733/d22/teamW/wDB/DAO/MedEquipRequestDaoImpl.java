@@ -1,9 +1,12 @@
 package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquipRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipType;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -31,6 +34,9 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     }
   }
 
+  String CSVHeaderString =
+      "medReqID,medID,equipType,nodeID,employeeID,isEmergency,reqStatus,createdTimestamp,updatedTimestamp";
+
   void createTable() throws SQLException {
     try {
       statement.execute(
@@ -44,6 +50,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
               + "reqStatus INT, "
               + "createdTimestamp timestamp, "
               + "updatedTimestamp timestamp, "
+              + "constraint MedEReq_Employee_FK foreign key (employeeID) references EMPLOYEES(employeeID),"
               + "constraint MedReq_MedEquip_FK foreign key (medID) references MEDICALEQUIPMENT(medID),"
               + "constraint MedReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),"
               + "constraint MedEquipReq_PK primary key (medReqID),"
@@ -57,19 +64,18 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
   }
 
   @Override
-  public ArrayList<Request> getAllMedEquipRequests() throws SQLException {
+  public ArrayList<Request> getAllMedEquipRequests() throws SQLException, NonExistingMedEquip {
     ArrayList<Request> medEquipRequestList = new ArrayList<>();
 
     try {
       ResultSet medEquipment = statement.executeQuery("SELECT * FROM MEDICALEQUIPMENTREQUESTS");
 
       // Size of num MedEquipRequest fields
-      int size = 9;
       ArrayList<String> medEquipData = new ArrayList<>();
 
       while (medEquipment.next()) {
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < medEquipment.getMetaData().getColumnCount(); i++) {
           medEquipData.add(i, medEquipment.getString(i + 1));
         }
 
@@ -79,6 +85,8 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     } catch (SQLException e) {
       System.out.println("Query from med equip request table failed");
       throw (e);
+    } catch (StatusError e) {
+      e.printStackTrace();
     }
     return medEquipRequestList;
   }
@@ -110,33 +118,6 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
         String.format("INSERT INTO MEDICALEQUIPMENTREQUESTS VALUES (%s)", mer.toValuesString()));
   }
 
-  @Override
-  public void changeMedEquipRequest(
-      int requestID,
-      String itemID,
-      String itemType,
-      String nodeID,
-      Integer employeeID,
-      Integer emergency,
-      RequestStatus status,
-      Timestamp createdTimestamp,
-      Timestamp updatedTimestamp)
-      throws SQLException {
-
-    statement.executeUpdate(
-        String.format(
-            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE MEDREQID = %d",
-            itemID,
-            itemType,
-            nodeID,
-            employeeID,
-            emergency,
-            status.getValue(),
-            createdTimestamp.toString(),
-            updatedTimestamp.toString(),
-            requestID));
-  }
-
   public void changeMedEquipRequest(MedEquipRequest mER) throws SQLException {
     // TODO could re-purpose this to change request factory list?
     //    int index = getIndexOf(mER.getRequestID());
@@ -155,15 +136,14 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
     statement.executeUpdate(
         String.format(
-            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d, CREATEDTIMESTAMP = '%s', UPDATEDTIMESTAMP = '%s' WHERE MEDREQID = %d",
+            "UPDATE MEDICALEQUIPMENTREQUESTS SET MEDID = '%s', EQUIPTYPE = '%s', NODEID = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d , REQSTATUS = %d, UPDATEDTIMESTAMP = '%s' WHERE MEDREQID = %d",
             mER.getItemID(),
-            mER.getItemType(),
+            mER.getItemType().getAbb(),
             mER.getNodeID(),
             mER.getEmployeeID(),
             mER.getEmergency(),
             mER.getStatusInt(),
-            mER.getCreatedTimestamp().toString(),
-            mER.getUpdatedTimestamp().toString(),
+            new Timestamp(System.currentTimeMillis()),
             mER.getRequestID()));
   }
 
@@ -175,7 +155,7 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
   }
 
   @Override
-  public MedEquipRequest getRequest(Integer reqID) throws SQLException {
+  public MedEquipRequest getRequest(Integer reqID) throws SQLException, NonExistingMedEquip {
     MedEquipRequest mr = null;
     try {
       ResultSet medEquipRequests =
@@ -184,41 +164,26 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
 
       medEquipRequests.next();
 
-      Integer medreqID = medEquipRequests.getInt("MEDREQID");
-      String medID = medEquipRequests.getString("MEDID");
-      String equipType = medEquipRequests.getString("EQUIPTYPE");
-      String nodeID = medEquipRequests.getString("NODEID");
-      Integer employeeID = medEquipRequests.getInt("EMPLOYEEID");
-      Integer isEmergency = medEquipRequests.getInt("ISEMERGENCY");
-      Integer reqStatus = medEquipRequests.getInt("REQSTATUS");
-      String createdTimeStamp = medEquipRequests.getString("CREATEDTIMESTAMP");
-      String updatedTimeStamp = medEquipRequests.getString("UPDATEDTIMESTAMP");
-      ArrayList<String> medEquipRequestData = new ArrayList<String>();
-      medEquipRequestData.add(String.format("%d", medreqID));
-      medEquipRequestData.add(medID);
-      medEquipRequestData.add(equipType);
-      medEquipRequestData.add(nodeID);
-      medEquipRequestData.add(String.format("%d", employeeID));
-      medEquipRequestData.add(String.format("%d", isEmergency));
-      medEquipRequestData.add(String.format("%d", reqStatus));
-      medEquipRequestData.add(createdTimeStamp);
-      medEquipRequestData.add(updatedTimeStamp);
-
-      mr = new MedEquipRequest(medEquipRequestData);
+      ArrayList<String> medEquipRequestFields = new ArrayList<String>();
+      for (int i = 0; i < medEquipRequests.getMetaData().getColumnCount(); i++) {
+        medEquipRequestFields.add(medEquipRequests.getString(i + 1));
+      }
+      mr = new MedEquipRequest(medEquipRequestFields);
 
     } catch (SQLException e) {
       System.out.println("Query from medical equip request table failed.");
+    } catch (StatusError e) {
+      e.printStackTrace();
     }
     return mr;
   }
 
   @Override
-  public void exportMedEquipReqCSV(String fileName) {
+  public void exportMedEquipReqCSV(String fileName) throws NonExistingMedEquip {
     File csvOutputFile = new File(fileName);
     try (PrintWriter pw = new PrintWriter(csvOutputFile)) {
       // print Table headers
-      pw.print(
-          "medReqID,medID,equipType,nodeID,employeeID,isEmergency,status,createdTimestamp,updatedTimestamp");
+      pw.print(CSVHeaderString);
 
       // print all locations
       for (Request m : getAllMedEquipRequests()) {
@@ -234,22 +199,23 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
   }
 
   @Override
-  public ArrayList<MedEquipRequest> getTypeMedEquipRequests(String itemType) throws SQLException {
+  public ArrayList<MedEquipRequest> getTypeMedEquipRequests(MedEquipType itemType)
+      throws SQLException, NonExistingMedEquip {
     ArrayList<MedEquipRequest> medEquipRequestList = new ArrayList<>();
 
     try {
       ResultSet medEquipment =
           statement.executeQuery(
               String.format(
-                  "SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EQUIPTYPE='%s'", itemType));
+                  "SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EQUIPTYPE='%s'",
+                  itemType.getAbb()));
 
       // Size of num MedEquipRequest fields
-      int size = 9;
       ArrayList<String> medEquipData = new ArrayList<>();
 
       while (medEquipment.next()) {
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < medEquipment.getMetaData().getColumnCount(); i++) {
           medEquipData.add(i, medEquipment.getString(i + 1));
         }
 
@@ -259,7 +225,107 @@ public class MedEquipRequestDaoImpl implements MedEquipRequestDao {
     } catch (SQLException e) {
       System.out.println("Query from med equip request table failed");
       throw (e);
+    } catch (StatusError e) {
+      e.printStackTrace();
     }
     return medEquipRequestList;
+  }
+
+  public void updateMedEquipRequestsAtLocation(String nodeID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format(
+                "SELECT MEDREQID FROM MEDICALEQUIPMENTREQUESTS WHERE nodeID='%s'", nodeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("MEDREQID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      MedEquipRequestManager.getMedEquipRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE MEDICALEQUIPMENTREQUESTS SET NODEID='%s' WHERE NODEID='%s'",
+            LocationManager.getLocationManager().getNoneLocation(), nodeID));
+  }
+
+  @Override
+  public void updateMedEquipRequestsWithEquipment(String medID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format("SELECT MEDREQID FROM MEDICALEQUIPMENTREQUESTS WHERE MEDID='%s'", medID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("MEDREQID");
+      reqIDs.add(reqID);
+      System.out.println(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      MedEquipRequestManager.getMedEquipRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE MEDICALEQUIPMENTREQUESTS SET medID='%s' WHERE medID='%s'",
+            MedEquipManager.getMedEquipManager().getDeletedEquipment(), medID));
+  }
+
+  @Override
+  public void updateMedEquipRequestsWithEmployee(Integer employeeID) throws Exception {
+
+    ResultSet resultSet =
+        statement.executeQuery(
+            String.format(
+                "SELECT MEDREQID FROM MEDICALEQUIPMENTREQUESTS WHERE employeeID=%d", employeeID));
+
+    ArrayList<Integer> reqIDs = new ArrayList<>();
+    while (resultSet.next()) {
+
+      Integer reqID = resultSet.getInt("MEDREQID");
+      reqIDs.add(reqID);
+    }
+
+    for (Integer reqID : reqIDs) {
+      MedEquipRequestManager.getMedEquipRequestManager().cancel(reqID);
+    }
+
+    statement.executeUpdate(
+        String.format(
+            "UPDATE MEDICALEQUIPMENTREQUESTS SET employeeID=%d WHERE employeeID=%d",
+            EmployeeManager.getEmployeeManager().getDeletedEmployee(), employeeID));
+  }
+
+  public ArrayList<Request> getEmployeeRequests(Integer employeeID) {
+    ArrayList<Request> employeeRequestList = new ArrayList<>();
+    try {
+      ResultSet medEquipRequests =
+          statement.executeQuery(
+              String.format(
+                  "SELECT * FROM MEDICALEQUIPMENTREQUESTS WHERE EMPLOYEEID = %d", employeeID));
+      while (medEquipRequests.next()) {
+        ArrayList<String> medEquipRequestData = new ArrayList<String>();
+
+        for (int i = 0; i < medEquipRequests.getMetaData().getColumnCount(); i++) {
+          medEquipRequestData.add(medEquipRequests.getString(i + 1));
+        }
+
+        employeeRequestList.add(new MedEquipRequest(medEquipRequestData));
+      }
+    } catch (SQLException | NonExistingMedEquip e) {
+      e.printStackTrace();
+    } catch (StatusError e) {
+      e.printStackTrace();
+    }
+    return employeeRequestList;
   }
 }
