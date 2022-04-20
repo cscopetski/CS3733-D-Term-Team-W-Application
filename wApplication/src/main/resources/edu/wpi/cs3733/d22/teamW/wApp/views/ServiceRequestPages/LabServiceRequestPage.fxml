@@ -17,7 +17,7 @@
 
 <VBox alignment="CENTER" fillWidth="false" spacing="50.0" style="-fx-alignment: center; -fx-background-color: white;" stylesheets="@../../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LabServiceRequestController">
    <children>
-      <HBox>
+      <HBox fillHeight="false">
          <children>
             <VBox alignment="CENTER" fillWidth="false">
                <children>
@@ -36,11 +36,11 @@
             </VBox>
          </children>
       </HBox>
-      <VBox alignment="CENTER" spacing="10.0">
+      <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
          <children>
-            <HBox alignment="TOP_CENTER">
+            <HBox alignment="TOP_CENTER" fillHeight="false">
                <children>
-                  <VBox alignment="CENTER">
+                  <VBox alignment="CENTER" fillWidth="false">
                      <children>
                         <StackPane styleClass="image">
                            <children>
@@ -56,34 +56,34 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox alignment="TOP_CENTER">
+                  <VBox alignment="TOP_CENTER" fillWidth="false">
                      <children>
                         <Label styleClass="label-major" text="PATIENT INFO" textFill="WHITE">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="CENTER" fillWidth="false">
                            <children>
                               <Label styleClass="label-minor" text="Employee:">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <AutoCompleteInput fx:id="employeeIDCBox" />
+                              <AutoCompleteInput fx:id="employeeIDCBox" prefWidth="150.0" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="CENTER" fillWidth="false">
                            <children>
                               <Label styleClass="label-minor" text="Location:">
                                  <font>
                                     <Font name="System Bold" size="13.0" />
                                  </font>
                               </Label>
-                              <AutoCompleteInput fx:id="locationCBox" />
+                              <AutoCompleteInput fx:id="locationCBox" prefWidth="150.0" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="CENTER" fillWidth="false">
                            <children>
                               <Label styleClass="label-minor" text="First Name:">
                                  <font>
@@ -93,7 +93,7 @@
                               <TextField fx:id="patientFirstName" prefWidth="150.0" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="CENTER" fillWidth="false">
                            <children>
                               <Label styleClass="label-minor" text="Last Name:">
                                  <font>
@@ -108,9 +108,9 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox alignment="TOP_CENTER" spacing="10.0">
+                  <VBox alignment="TOP_CENTER" fillWidth="false" spacing="10.0">
                      <children>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="CENTER" fillWidth="false">
                            <children>
                               <Label styleClass="label-major" text="REQUEST" textFill="WHITE">
                                  <font>
@@ -120,7 +120,7 @@
                               <Label text="Check the appropriate box(es)" textFill="#013895" />
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER_LEFT" spacing="2.0">
+                        <VBox alignment="CENTER_LEFT" fillWidth="false" spacing="2.0">
                            <children>
                               <CheckBox fx:id="bloodBox" mnemonicParsing="false" text="Blood sample" textAlignment="CENTER">
                                  <font>
@@ -149,7 +149,7 @@
                               </CheckBox>
                            </children>
                         </VBox>
-                        <VBox alignment="CENTER">
+                        <VBox alignment="CENTER" fillWidth="false">
                            <children>
                               <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
                               <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" />
@@ -160,7 +160,7 @@
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </VBox>
-                  <VBox alignment="CENTER">
+                  <VBox alignment="CENTER" fillWidth="false">
                      <children>
                         <StackPane styleClass="image">
                            <children>

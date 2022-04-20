@@ -12,9 +12,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" spacing="50.0" style="-fx-alignment: center; -fx-background-color: white;" stylesheets="@../../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LanguageInterpreterServiceRequestController">
+<VBox alignment="CENTER" fillWidth="false" spacing="50.0" style="-fx-alignment: center; -fx-background-color: white;" stylesheets="@../../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LanguageInterpreterServiceRequestController">
     <children>
-        <VBox alignment="CENTER">
+        <VBox alignment="CENTER" fillWidth="false">
             <children>
                 <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                     <image>
@@ -36,46 +36,46 @@
                 </Text>
             </children>
         </VBox>
-        <VBox alignment="CENTER" spacing="10.0">
+        <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
             <children>
                 <Label styleClass="label-major" text="INFO" />
-                <VBox alignment="CENTER">
+                <VBox alignment="CENTER" fillWidth="false">
                     <children>
                         <Label styleClass="label-minor" text="Language:">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                  <AutoCompleteInput fx:id="languageSelection" />
+                  <AutoCompleteInput fx:id="languageSelection" prefWidth="150.0" />
                     </children>
                 </VBox>
-                <VBox alignment="CENTER">
+                <VBox alignment="CENTER" fillWidth="false">
                     <children>
                         <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Location:">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                  <AutoCompleteInput fx:id="locationSelection" />
+                  <AutoCompleteInput fx:id="locationSelection" prefWidth="150.0" />
                     </children>
                 </VBox>
-                <VBox alignment="CENTER">
+                <VBox alignment="CENTER" fillWidth="false">
                     <children>
                         <Label styleClass="label-minor" text="Employee:">
                             <font>
                                 <Font name="System Bold" size="14.0" />
                             </font>
                         </Label>
-                  <AutoCompleteInput fx:id="employeeSelection" />
+                  <AutoCompleteInput fx:id="employeeSelection" prefWidth="150.0" />
                     </children>
                 </VBox>
-            <VBox alignment="CENTER">
+            <VBox alignment="CENTER" fillWidth="false">
                <children>
                   <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
                   <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" />
                </children>
             </VBox>
-                <VBox alignment="CENTER">
+                <VBox alignment="CENTER" fillWidth="false">
                     <children>
                         <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
                         <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
