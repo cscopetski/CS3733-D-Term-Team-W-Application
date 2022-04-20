@@ -33,7 +33,7 @@ public class MedRequestDaoImpl implements MedRequestDao {
   }
 
   String CSVHeaderString =
-      "requestID,medicine,quantity,unit,nodeID,bedNum,employeeID,emergency,status,createdTimestamp,updatedTimestamp";
+      "requestID,medicine,quantity,unit,nodeID,employeeID,emergency,status,createdTimestamp,updatedTimestamp";
 
   void createTable() throws SQLException {
 

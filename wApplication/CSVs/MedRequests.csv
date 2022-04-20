@@ -1,1 +1,1 @@
-requestID,medicine,quantity,unit,nodeID,bedNum,employeeID,emergency,status,createdTimestamp,updatedTimestamp
+requestID,medicine,quantity,unit,nodeID,employeeID,emergency,status,createdTimestamp,updatedTimestamp

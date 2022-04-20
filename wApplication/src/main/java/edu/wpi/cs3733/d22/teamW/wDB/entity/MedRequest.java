@@ -49,7 +49,6 @@ public class MedRequest extends Request {
       Double quantity,
       Units unit,
       String nodeID,
-      Integer bedNumber,
       Integer employeeID,
       Integer emergency,
       RequestStatus status,
@@ -97,7 +96,7 @@ public class MedRequest extends Request {
   @Override
   public String toCSVString() {
     return String.format(
-        "%d,%s,%.2f,%s,%s,%d,%d,%d,%d,%s,%s",
+        "%d,%s,%.2f,%s,%s,%d,%d,%d,%s,%s",
         requestID,
         medicineType.getString(),
         quantity,
