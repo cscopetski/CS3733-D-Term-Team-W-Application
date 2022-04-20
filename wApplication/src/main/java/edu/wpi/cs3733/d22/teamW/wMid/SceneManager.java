@@ -74,7 +74,8 @@ public class SceneManager {
     GiftDelivery,
     AdminHub,
     Messaging,
-    Gaming
+    Gaming,
+    EquipList
   }
 
   private static class Instance {

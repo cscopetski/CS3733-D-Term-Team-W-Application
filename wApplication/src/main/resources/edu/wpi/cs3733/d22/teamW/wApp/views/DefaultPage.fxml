@@ -32,6 +32,7 @@
                          <fx:include fx:id="adminHubPage" source="AdminHub.fxml" />
                          <fx:include fx:id="messagingPage" source="MessagingPage.fxml" />
                          <fx:include fx:id="gamingPage" source="Gaming.fxml" />
+                         <fx:include fx:id="equipListPage" source="EquipmentList.fxml" />
                      </children>
                  </AnchorPane>
             </center>
@@ -44,6 +45,7 @@
                                     <items>
                                         <MenuItem mnemonicParsing="false" onAction="#switchToMainMenu" text="Main Menu" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToAbout" text="About" />
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToEquipList" text = "Equipment List" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToGaming" text="Simulations" />
                                         <MenuItem mnemonicParsing="false" onAction="#switchToMessaging" text="Messaging" />
                                     </items>

@@ -1,15 +1,22 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
+import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
@@ -35,6 +42,7 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane aboutPage;
   @FXML public Pane profilePage;
   @FXML public HBox menuBar;
+  @FXML public Pane equipListPage;
   @FXML public Pane buttonPane;
   @FXML public Pane adminHubPage;
 
@@ -48,18 +56,18 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().putPane(SceneManager.Scenes.MapEditor, mapEditorPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Lab, labServiceRequestPage);
     SceneManager.getInstance()
-        .putPane(SceneManager.Scenes.LanguageInterpreter, languageInterpreterServiceRequestPage);
+            .putPane(SceneManager.Scenes.LanguageInterpreter, languageInterpreterServiceRequestPage);
     SceneManager.getInstance()
-        .putPane(SceneManager.Scenes.MealDelivery, mealDeliveryServiceRequestPage);
+            .putPane(SceneManager.Scenes.MealDelivery, mealDeliveryServiceRequestPage);
     SceneManager.getInstance()
-        .putPane(SceneManager.Scenes.MedicalEquipment, medicalEquipmentServiceRequestPage);
+            .putPane(SceneManager.Scenes.MedicalEquipment, medicalEquipmentServiceRequestPage);
     SceneManager.getInstance()
-        .putPane(SceneManager.Scenes.MedicineDelivery, medicineDeliveryServiceRequestPage);
+            .putPane(SceneManager.Scenes.MedicineDelivery, medicineDeliveryServiceRequestPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Security, securityServiceRequestPage);
     SceneManager.getInstance()
-        .putPane(SceneManager.Scenes.ComputerService, computerServiceRequestPage);
+            .putPane(SceneManager.Scenes.ComputerService, computerServiceRequestPage);
     SceneManager.getInstance()
-        .putPane(SceneManager.Scenes.SanitationService, sanitationRequestPage);
+            .putPane(SceneManager.Scenes.SanitationService, sanitationRequestPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.FlowerRequest, flowerRequestPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.GiftDelivery, giftDeliveryPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.RequestList, requestListPage);
@@ -71,6 +79,7 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().putPane(SceneManager.Scenes.AdminHub, adminHubPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Messaging, messagingPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Gaming, gamingPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.EquipList, equipListPage);
   }
 
   public void setEmployee(Employee em) {
@@ -142,7 +151,7 @@ public class DefaultPageController implements Initializable {
       SceneManager.getInstance().transitionTo(SceneManager.Scenes.AdminHub);
     } else {
       Alert warningAlert =
-          new Alert(Alert.AlertType.WARNING, "Sorry you cannot access to this site", ButtonType.OK);
+              new Alert(Alert.AlertType.WARNING, "Sorry you cannot access to this site", ButtonType.OK);
       warningAlert.showAndWait();
     }
   }
@@ -176,5 +185,10 @@ public class DefaultPageController implements Initializable {
 
   public void switchToMessaging(ActionEvent event) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.Messaging);
+  }
+
+
+  public void switchToEquipList(ActionEvent actionEvent) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.EquipList);
   }
 }

@@ -23,6 +23,12 @@ public class medEquip {
     homeLoc.addNewEq(this);
   }
 
+  public medEquip(String ID, MedEquipStatus status, String Loc) {
+    this.MedID.set(ID);
+    this.Floor.set(Loc);
+    this.Status.set(status.getString());
+  }
+
   public medEquip(String ID, String Floor, String LocType, String Status) {
     this.MedID.set(ID);
     this.Floor.set(Floor);
