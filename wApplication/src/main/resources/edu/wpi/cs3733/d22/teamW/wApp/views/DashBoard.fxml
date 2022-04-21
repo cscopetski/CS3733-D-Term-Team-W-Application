@@ -1,29 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Group?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="1246.0" prefWidth="1354.0" style="-fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DashBoardController">
+<BorderPane style="-fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DashBoardController">
    <center>
-      <VBox alignment="CENTER" fillWidth="false" spacing="50.0" style="-fx-alignment: center; -fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css">
+      <HBox>
          <children>
-            <PieChart prefHeight="528.0" prefWidth="660.0" style="-fx-border-color: #013895; -fx-border-width: 3; -fx-border-radius: 25;" />
-         </children></VBox>
+            <VBox alignment="CENTER" fillWidth="false" spacing="50.0" style="-fx-alignment: center; -fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css">
+               <children>
+                  <HBox alignment="CENTER">
+                     <children>
+                        <PieChart prefHeight="398.0" prefWidth="425.0" style="-fx-border-color: #013895; -fx-border-width: 3; -fx-border-radius: 25;" />
+                        <PieChart prefHeight="398.0" prefWidth="425.0" style="-fx-border-color: #013895; -fx-border-width: 3; -fx-border-radius: 25;" />
+                     </children>
+                  </HBox>
+                  <HBox>
+                     <children>
+                        <PieChart prefHeight="428.0" prefWidth="425.0" style="-fx-border-color: #013895; -fx-border-width: 3; -fx-border-radius: 25;" />
+                        <PieChart prefHeight="398.0" prefWidth="425.0" style="-fx-border-color: #013895; -fx-border-width: 3; -fx-border-radius: 25;" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
    </center>
    <top>
       <VBox alignment="CENTER" BorderPane.alignment="CENTER">
          <children>
             <Group>
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#189da6" height="127.0" stroke="TRANSPARENT" strokeType="INSIDE" width="850.0" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="126.0" prefWidth="850.0" text="Map DashBoard" textFill="WHITE">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#189da6" height="102.0" stroke="TRANSPARENT" strokeType="INSIDE" width="850.0" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="842.0" text="Map DashBoard" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="67.0" />
                      </font>
@@ -68,6 +88,14 @@
                   <Rectangle fx:id="floor4Click1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="59.0" layoutX="120.0" layoutY="111.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: transparent;" width="382.0" />
                </children>
             </Group>
+            <StackedBarChart>
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </StackedBarChart>
          </children>
       </VBox>
    </left>
