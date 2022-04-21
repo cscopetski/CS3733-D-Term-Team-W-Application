@@ -739,13 +739,13 @@ public class Game {
     String filePath = new File("").getAbsolutePath();
 
     try {
-      File file = new File(filePath.concat("\\high_score.txt"));
+      File file = new File(filePath.concat("\\pacman_high_score.txt"));
 
       if (file.exists()) {
         Scanner scan = new Scanner(file);
         s = scan.nextLine();
       } else {
-        // create a the high_score.txt file and insert a 0
+        // create a the pacman_high_score.txt file and insert a 0
         setHighScore("0");
       }
     } catch (Exception e) {
@@ -757,7 +757,7 @@ public class Game {
 
   private void setHighScore(String newScore) {
     try {
-      FileWriter writer = new FileWriter("high_score.txt");
+      FileWriter writer = new FileWriter("pacman_high_score.txt");
       writer.write(newScore);
       writer.close();
 
