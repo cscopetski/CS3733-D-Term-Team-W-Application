@@ -75,7 +75,8 @@ public class SceneManager {
     AdminHub,
     Messaging,
     Gaming,
-    EquipList
+    EquipList,
+    Dashboard
   }
 
   private static class Instance {

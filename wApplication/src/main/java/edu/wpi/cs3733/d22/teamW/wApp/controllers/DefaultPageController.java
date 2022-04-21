@@ -38,7 +38,7 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane equipListPage;
   @FXML public Pane buttonPane;
   @FXML public Pane adminHubPage;
-
+  @FXML public Pane dashBoardPage;
   protected Employee employee;
 
   public void initialize(URL location, ResourceBundle rb) {
@@ -73,6 +73,7 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().putPane(SceneManager.Scenes.Messaging, messagingPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.Gaming, gamingPage);
     SceneManager.getInstance().putPane(SceneManager.Scenes.EquipList, equipListPage);
+    SceneManager.getInstance().putPane(SceneManager.Scenes.Dashboard, dashBoardPage);
   }
 
   public void setEmployee(Employee em) {
@@ -182,5 +183,9 @@ public class DefaultPageController implements Initializable {
 
   public void switchToEquipList(ActionEvent actionEvent) {
     SceneManager.getInstance().transitionTo(SceneManager.Scenes.EquipList);
+  }
+
+  public void switchToDashBoard(ActionEvent actionEvent) {
+    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Dashboard);
   }
 }
