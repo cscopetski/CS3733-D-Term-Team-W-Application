@@ -47,8 +47,11 @@ public class SnakeController {
   @FXML private AnchorPane anchorPane;
   @FXML private AnchorPane gameBorder;
   @FXML private Label score;
+
+  @FXML private Label highScore;
   @FXML private Label loss;
   private int counter = 0;
+  private int hSCounter;
   private boolean canChangeDirection;
 
   @FXML
@@ -60,6 +63,7 @@ public class SnakeController {
     loss.setVisible(false);
     counter = 0;
     score.setText("Score: " + counter);
+    highScore.setText("High Score:" + highScore);
 
     for (Rectangle snake : snakeBody) {
       anchorPane.getChildren().remove(snake);
@@ -219,6 +223,7 @@ public class SnakeController {
   }
 
   public void onLoad() {
+    hSCounter = = Integer.parseInt(getHighScore());
     image.setVisible(false);
     gameBorder.setLayoutX(center + xOffset);
     gameBorder.setLayoutY(center);
@@ -239,9 +244,42 @@ public class SnakeController {
                   eatFood();
                   gameTicks++;
                   if (checkIfGameIsOver(snakeHead)) {
+                    if (counter > hSCounter) setHighScore(Integer.toString(score));
                     timeline.stop();
                   }
                 }));
+  }
+
+  private String getHighScore() {
+    String s = "0";
+    String filePath = new File("").getAbsolutePath();
+
+    try {
+      File file = new File(filePath.concat("\\snake_high_score.txt"));
+
+      if (file.exists()) {
+        Scanner scan = new Scanner(file);
+        s = scan.nextLine();
+      } else {
+        // create a the pacman_high_score.txt file and insert a 0
+        setHighScore("0");
+      }
+    } catch (Exception e) {
+      System.out.println("Failed to retrieve the high score");
+    }
+
+    return s;
+  }
+
+  private void setHighScore(String newScore) {
+    try {
+      FileWriter writer = new FileWriter("snake_high_score.txt");
+      writer.write(newScore);
+      writer.close();
+
+    } catch (Exception e) {
+      System.out.println("Failed to set the new high score");
+    }
   }
 
   public void onUnload() {

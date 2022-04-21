@@ -5,5 +5,12 @@
     <content url="file://$MODULE_DIR$" />
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:17" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:17" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:win:17" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-fxml:win:17" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:17" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:win:17" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-media:win:17" level="project" />
   </component>
 </module>
