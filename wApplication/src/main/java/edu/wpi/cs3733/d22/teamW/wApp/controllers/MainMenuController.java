@@ -1,9 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
-import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
-import java.sql.SQLException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -35,15 +32,15 @@ public class MainMenuController extends LoadableController {
   public void onLoad() {
     System.out.println("load");
     newMessagesCircle.setVisible(false);
-    try {
-      if (EmployeeMessageManager.getEmployeeMessageManager()
-              .countUnreadMessagesAs(Account.getInstance().getEmployee().getEmployeeID())
-          > 0) {
-        newMessagesCircle.setVisible(true);
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
+    //    try {
+    //      if (EmployeeMessageManager.getEmployeeMessageManager()
+    //              .countUnreadMessagesAs(Account.getInstance().getEmployee().getEmployeeID())
+    //          > 0) {
+    //        newMessagesCircle.setVisible(true);
+    //      }
+    //    } catch (SQLException e) {
+    //      e.printStackTrace();
+    //    }
   }
 
   @Override

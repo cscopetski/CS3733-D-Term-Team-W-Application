@@ -64,22 +64,22 @@ public class MessagingPageController extends LoadableController {
     Collections.sort(
         allMessages, (o1, o2) -> -1 * o1.getSentTimestamp().compareTo(o2.getSentTimestamp()));
     TreeSet<Integer> uniqueID = new TreeSet<>();
-    for (EmployeeMessage message : allMessages) {
-      if (message.getEmpIDto().equals(this.currentEmployee.getEmployeeID())) {
-        if (uniqueID.add(message.getEmpIDfrom())) {
-          if (message.getIsRead() == 0) {
-            addEmployeeCard(message.getEmpIDfrom(), true);
-          } else {
-            addEmployeeCard(message.getEmpIDfrom(), false);
-          }
-        }
-      }
-      if (message.getEmpIDfrom().equals(this.currentEmployee.getEmployeeID())) {
-        if (uniqueID.add(message.getEmpIDto())) {
-          addEmployeeCard(message.getEmpIDto(), false);
-        }
-      }
-    }
+    //    for (EmployeeMessage message : allMessages) {
+    //      if (message.getEmpIDto().equals(this.currentEmployee.getEmployeeID())) {
+    //        if (uniqueID.add(message.getEmpIDfrom())) {
+    //          if (message.getIsRead() == 0) {
+    //            addEmployeeCard(message.getEmpIDfrom(), true);
+    //          } else {
+    //            addEmployeeCard(message.getEmpIDfrom(), false);
+    //          }
+    //        }
+    //      }
+    //      if (message.getEmpIDfrom().equals(this.currentEmployee.getEmployeeID())) {
+    //        if (uniqueID.add(message.getEmpIDto())) {
+    //          addEmployeeCard(message.getEmpIDto(), false);
+    //        }
+    //      }
+    //    }
   }
 
   public void clearEmployeeCards() {
@@ -99,16 +99,16 @@ public class MessagingPageController extends LoadableController {
     placeHolderImage.setFitHeight(80);
     Label employeeNameLabel =
         new Label(String.format("%s %s", emp.getFirstName(), emp.getLastName()));
-    if (hasUnread) {
-      employeeNameLabel =
-          new Label(
-              String.format(
-                  "(%d) %s %s",
-                  EmployeeMessageManager.getEmployeeMessageManager()
-                      .countUnreadMessagesAsFrom(this.currentEmployee.getEmployeeID(), empID),
-                  emp.getFirstName(),
-                  emp.getLastName()));
-    }
+    //    if (hasUnread) {
+    //      employeeNameLabel =
+    //          new Label(
+    //              String.format(
+    //                  "(%d) %s %s",
+    //                  EmployeeMessageManager.getEmployeeMessageManager()
+    //                      .countUnreadMessagesAsFrom(this.currentEmployee.getEmployeeID(), empID),
+    //                  emp.getFirstName(),
+    //                  emp.getLastName()));
+    //    }
     MessageCardHBox newHBOX =
         new MessageCardHBox(
             placeHolderImage, new Separator(Orientation.VERTICAL), employeeNameLabel);
@@ -157,15 +157,16 @@ public class MessagingPageController extends LoadableController {
   }
 
   private void loadMessages(ArrayList<EmployeeMessage> currentMessages) {
-    clearMessages();
-    Collections.sort(currentMessages, Comparator.comparing(EmployeeMessage::getSentTimestamp));
-    for (EmployeeMessage message : currentMessages) {
-      if (message.getEmpIDto().equals(this.currentEmployee.getEmployeeID())) {
-        addMessageToList(message, true);
-      } else {
-        addMessageToList(message, false);
-      }
-    }
+    //    clearMessages();
+    //    Collections.sort(currentMessages,
+    // Comparator.comparing(EmployeeMessage::getSentTimestamp));
+    //    for (EmployeeMessage message : currentMessages) {
+    //      if (message.getEmpIDto().equals(this.currentEmployee.getEmployeeID())) {
+    //        addMessageToList(message, true);
+    //      } else {
+    //        addMessageToList(message, false);
+    //      }
+    //    }
   }
 
   public void addMessageToList(EmployeeMessage message, boolean fromOther) {
@@ -251,25 +252,25 @@ public class MessagingPageController extends LoadableController {
   }
 
   public void refreshMessages() throws SQLException {
-    refreshEmployeeCard();
-    ArrayList<EmployeeMessage> messagesFromThemToMe =
-        EmployeeMessageManager.getEmployeeMessageManager()
-            .getMessagesFromTo(
-                this.selectedEmployee.getEmployeeID(), this.currentEmployee.getEmployeeID());
-    ArrayList<EmployeeMessage> messagesFromMeToThem =
-        EmployeeMessageManager.getEmployeeMessageManager()
-            .getMessagesFromTo(
-                this.currentEmployee.getEmployeeID(), this.selectedEmployee.getEmployeeID());
-    markMessagesRead(messagesFromThemToMe);
-    messagesFromThemToMe.addAll(messagesFromMeToThem);
-    loadMessages(messagesFromThemToMe);
+    //    refreshEmployeeCard();
+    //    ArrayList<EmployeeMessage> messagesFromThemToMe =
+    //        EmployeeMessageManager.getEmployeeMessageManager()
+    //            .getMessagesFromTo(
+    //                this.selectedEmployee.getEmployeeID(), this.currentEmployee.getEmployeeID());
+    //    ArrayList<EmployeeMessage> messagesFromMeToThem =
+    //        EmployeeMessageManager.getEmployeeMessageManager()
+    //            .getMessagesFromTo(
+    //                this.currentEmployee.getEmployeeID(), this.selectedEmployee.getEmployeeID());
+    //    markMessagesRead(messagesFromThemToMe);
+    //    messagesFromThemToMe.addAll(messagesFromMeToThem);
+    //    loadMessages(messagesFromThemToMe);
   }
 
   public void markMessagesRead(ArrayList<EmployeeMessage> messages) throws SQLException {
-    for (EmployeeMessage message : messages) {
-      message.setIsRead(1);
-      EmployeeMessageManager.getEmployeeMessageManager().changeEmployeeMessage(message);
-    }
+    //    for (EmployeeMessage message : messages) {
+    //      message.setIsRead(1);
+    //      EmployeeMessageManager.getEmployeeMessageManager().changeEmployeeMessage(message);
+    //    }
   }
 
   public void employeeSelected() throws SQLException {

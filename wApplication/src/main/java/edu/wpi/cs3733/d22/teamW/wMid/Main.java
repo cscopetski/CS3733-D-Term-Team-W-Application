@@ -2,7 +2,6 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 
 public class Main {
@@ -20,8 +19,6 @@ public class Main {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    EmployeeMessageManager.getEmployeeMessageManager()
-        .sendAllEmployeesMessage(2, "Welcome to the Wumbo Whowies application!");
     App.launch(App.class, args);
   }
 }
