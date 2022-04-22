@@ -8,6 +8,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
+import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.awt.*;
 import java.io.File;
@@ -481,65 +482,75 @@ public class MapEditorController extends LoadableController {
           (event -> {
             if (event.getButton() == MouseButton.SECONDARY) {
               try {
-                testUpdate(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
+                if (Account.getInstance().getEmployee().getType().getAccessLevel() == 5) {
+                  testUpdate(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
+                } else {
+                  locView(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
+                }
               } catch (SQLException | IOException | NonExistingMedEquip e) {
                 e.printStackTrace();
               }
             }
           }));
-      circ.setOnMousePressed(
-          event -> {
-            anchorX.set(event.getSceneX());
-            anchorY.set(event.getSceneY());
-          });
-      circ.setOnMouseDragged(
-          event -> {
-            circ.setTranslateX(event.getSceneX() - anchorX.get());
-            circ.setTranslateY(event.getSceneY() - anchorY.get());
-          });
-      circ.setOnMouseReleased(
-          event -> {
-            circ.setCenterX(circ.getCenterX() + circ.getTranslateX());
-            circ.setCenterY(circ.getCenterY() + circ.getTranslateY());
-            circ.setTranslateX(0);
-            circ.setTranslateY(0);
-            anchorX.set(0.0);
-            anchorY.set(0.0);
-            Location val = null;
-            try {
-              val =
-                  locationManager.getLocation(
-                      currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
-            } catch (SQLException e) {
-              e.printStackTrace();
-            }
-            currFloorLoc.get(locDots.indexOf(event.getSource())).setXCoord((int) circ.getCenterX());
-            currFloorLoc.get(locDots.indexOf(event.getSource())).setYCoord((int) circ.getCenterY());
-            try {
-              locationManager.changeLocation(
-                  new Location(
-                      val.getNodeID(),
-                      (int) (circ.getCenterX()),
-                      (int) (circ.getCenterY()),
-                      val.getFloor(),
-                      val.getBuilding(),
-                      val.getNodeType(),
-                      val.getLongName(),
-                      val.getShortName()));
-            } catch (SQLException e) {
-              e.printStackTrace();
-            }
-            scrollGroup.getChildren().removeAll(eqDots);
-            scrollGroup.getChildren().removeAll(reqDots);
-            eqDots.clear();
-            reqDots.clear();
-            if (EquipFilter.isSelected()) {
-              generateEquipMarkers();
-            }
-            if (ReqFilter.isSelected()) {
-              generateRequestDots();
-            }
-          });
+      if (Account.getInstance().getEmployee().getType().getAccessLevel() == 5) {
+        circ.setOnMousePressed(
+            event -> {
+              anchorX.set(event.getSceneX());
+              anchorY.set(event.getSceneY());
+            });
+        circ.setOnMouseDragged(
+            event -> {
+              circ.setTranslateX(event.getSceneX() - anchorX.get());
+              circ.setTranslateY(event.getSceneY() - anchorY.get());
+            });
+        circ.setOnMouseReleased(
+            event -> {
+              circ.setCenterX(circ.getCenterX() + circ.getTranslateX());
+              circ.setCenterY(circ.getCenterY() + circ.getTranslateY());
+              circ.setTranslateX(0);
+              circ.setTranslateY(0);
+              anchorX.set(0.0);
+              anchorY.set(0.0);
+              Location val = null;
+              try {
+                val =
+                    locationManager.getLocation(
+                        currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
+              } catch (SQLException e) {
+                e.printStackTrace();
+              }
+              currFloorLoc
+                  .get(locDots.indexOf(event.getSource()))
+                  .setXCoord((int) circ.getCenterX());
+              currFloorLoc
+                  .get(locDots.indexOf(event.getSource()))
+                  .setYCoord((int) circ.getCenterY());
+              try {
+                locationManager.changeLocation(
+                    new Location(
+                        val.getNodeID(),
+                        (int) (circ.getCenterX()),
+                        (int) (circ.getCenterY()),
+                        val.getFloor(),
+                        val.getBuilding(),
+                        val.getNodeType(),
+                        val.getLongName(),
+                        val.getShortName()));
+              } catch (SQLException e) {
+                e.printStackTrace();
+              }
+              scrollGroup.getChildren().removeAll(eqDots);
+              scrollGroup.getChildren().removeAll(reqDots);
+              eqDots.clear();
+              reqDots.clear();
+              if (EquipFilter.isSelected()) {
+                generateEquipMarkers();
+              }
+              if (ReqFilter.isSelected()) {
+                generateRequestDots();
+              }
+            });
+      }
       locDots.add(circ);
       scrollGroup.getChildren().add(circ);
     }
@@ -600,49 +611,51 @@ public class MapEditorController extends LoadableController {
       }
       circle.setCenterX((equipList.get(i).getXCoord()));
       circle.setCenterY((equipList.get(i).getYCoord()) - 8);
-      circle.setOnMousePressed(
-          event -> {
-            anchorX.set(event.getSceneX());
-            anchorY.set(event.getSceneY());
-          });
-      Circle finalCircle1 = circle;
-      circle.setOnMouseDragged(
-          event -> {
-            finalCircle1.setTranslateX(event.getSceneX() - anchorX.get());
-            finalCircle1.setTranslateY(event.getSceneY() - anchorY.get());
-          });
-      Circle finalCircle = circle;
-      circle.setOnMouseReleased(
-          event -> {
-            finalCircle.setCenterY(finalCircle.getCenterY() + finalCircle.getTranslateY());
-            finalCircle.setCenterX(finalCircle.getCenterX() + finalCircle.getTranslateX());
-            edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location loc =
-                snapToClosestLoc(finalCircle.getCenterX(), finalCircle.getCenterY());
-            finalCircle.setCenterX(loc.getXCoord());
-            finalCircle.setCenterY(loc.getYCoord() - 8);
-            medEquip eq = equipList.get(eqDots.indexOf(finalCircle));
-            eq.setXCoord(loc.getXCoord());
-            eq.setYCoord(loc.getYCoord() - 8);
-            eq.setHomeLoc(loc);
-            try {
-              equipController.change(
-                  new MedEquip(
-                      eq.getMedID(),
-                      eq.getType(),
-                      loc.getNodeID(),
-                      equipController.getMedEquip(eq.getMedID()).getStatus().getValue()));
-            } catch (SQLException e) {
-              e.printStackTrace();
-            } catch (NonExistingMedEquip e) {
-              e.printStackTrace();
-            } catch (StatusError e) {
-              e.printStackTrace();
-            }
-            finalCircle.setTranslateX(0);
-            finalCircle.setTranslateY(0);
-            anchorX.set(0.0);
-            anchorY.set(0.0);
-          });
+      if (Account.getInstance().getEmployee().getType().getAccessLevel() == 5) {
+        circle.setOnMousePressed(
+            event -> {
+              anchorX.set(event.getSceneX());
+              anchorY.set(event.getSceneY());
+            });
+        Circle finalCircle1 = circle;
+        circle.setOnMouseDragged(
+            event -> {
+              finalCircle1.setTranslateX(event.getSceneX() - anchorX.get());
+              finalCircle1.setTranslateY(event.getSceneY() - anchorY.get());
+            });
+        Circle finalCircle = circle;
+        circle.setOnMouseReleased(
+            event -> {
+              finalCircle.setCenterY(finalCircle.getCenterY() + finalCircle.getTranslateY());
+              finalCircle.setCenterX(finalCircle.getCenterX() + finalCircle.getTranslateX());
+              edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location loc =
+                  snapToClosestLoc(finalCircle.getCenterX(), finalCircle.getCenterY());
+              finalCircle.setCenterX(loc.getXCoord());
+              finalCircle.setCenterY(loc.getYCoord() - 8);
+              medEquip eq = equipList.get(eqDots.indexOf(finalCircle));
+              eq.setXCoord(loc.getXCoord());
+              eq.setYCoord(loc.getYCoord() - 8);
+              eq.setHomeLoc(loc);
+              try {
+                equipController.change(
+                    new MedEquip(
+                        eq.getMedID(),
+                        eq.getType(),
+                        loc.getNodeID(),
+                        equipController.getMedEquip(eq.getMedID()).getStatus().getValue()));
+              } catch (SQLException e) {
+                e.printStackTrace();
+              } catch (NonExistingMedEquip e) {
+                e.printStackTrace();
+              } catch (StatusError e) {
+                e.printStackTrace();
+              }
+              finalCircle.setTranslateX(0);
+              finalCircle.setTranslateY(0);
+              anchorX.set(0.0);
+              anchorY.set(0.0);
+            });
+      }
       eqDots.add(circle);
       scrollGroup.getChildren().add(circle);
     }
@@ -671,6 +684,13 @@ public class MapEditorController extends LoadableController {
     locDots.clear();
     eqDots.clear();
     reqDots.clear();
+  }
+
+  public void locView(String nodeID) throws SQLException, IOException, NonExistingMedEquip {
+    SceneManager.getInstance()
+        .putInformation(SceneManager.getInstance().getPrimaryStage(), "updateLoc", nodeID);
+    Stage S = SceneManager.getInstance().openWindow("locationInfoPage.fxml");
+    refresh();
   }
 
   public void testUpdate(String nodeID) throws SQLException, IOException, NonExistingMedEquip {
