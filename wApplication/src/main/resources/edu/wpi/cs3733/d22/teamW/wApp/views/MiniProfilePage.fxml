@@ -12,9 +12,9 @@
 <?import javafx.scene.text.Font?>
 
 
-<AnchorPane prefHeight="200.0" prefWidth="300.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MiniProfileController">
+<AnchorPane prefHeight="200.0" prefWidth="500.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MiniProfileController">
    <children>
-      <HBox prefHeight="150.0" prefWidth="500.0" style="-fx-alignment: center; -fx-background-color: white;">
+      <HBox prefHeight="150.0" prefWidth="600.0" style="-fx-alignment: center; -fx-background-color: white;">
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <center>
@@ -50,7 +50,7 @@
                   <Insets right="10.0" />
                </HBox.margin>
             </BorderPane>
-            <VBox prefHeight="200.0" prefWidth="300.0">
+            <VBox prefHeight="200.0" prefWidth="400.0">
                <children>
                   <Pane maxHeight="30.0" maxWidth="60.0" minHeight="30.0" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #013895; -fx-background-radius: 2;">
                      <children>
@@ -68,7 +68,7 @@
                         <Insets bottom="10.0" />
                      </VBox.margin>
                   </Pane>
-                  <HBox prefHeight="300.0" prefWidth="400.0">
+                  <HBox prefHeight="300.0" prefWidth="500.0">
                      <children>
                         <VBox prefHeight="200.0" prefWidth="150.0">
                            <children>
@@ -94,7 +94,7 @@
                               </Label>
                            </children>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="150.0">
+                        <VBox prefHeight="200.0" prefWidth="200.0">
                            <children>
                               <Label alignment="TOP_LEFT" prefHeight="10.0" prefWidth="300.0" text="Email:">
                                  <font>
