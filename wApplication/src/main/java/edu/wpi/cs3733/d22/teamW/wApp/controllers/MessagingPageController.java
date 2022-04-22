@@ -136,7 +136,9 @@ public class MessagingPageController extends LoadableController {
                       .putInformation(
                           SceneManager.getInstance().getPrimaryStage(), "employee", emp);
                   Stage S =
-                      SceneManager.getInstance().openWindow("MiniProfilePage.fxml", "Profile");
+                      SceneManager.getInstance()
+                          .openWindow(
+                              "MiniProfilePage.fxml", emp.getFirstName() + " " + emp.getLastName());
                 } catch (IOException e) {
                   throw new RuntimeException(e);
                 }
