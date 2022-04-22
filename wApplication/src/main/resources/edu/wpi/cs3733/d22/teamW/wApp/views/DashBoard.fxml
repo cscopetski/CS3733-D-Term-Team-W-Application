@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Group?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.chart.PieChart?>
-<?import javafx.scene.chart.StackedBarChart?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
@@ -14,38 +14,32 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane style="-fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DashBoardController">
+<BorderPane prefHeight="611.0" prefWidth="1228.0" style="-fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DashBoardController">
    <center>
       <HBox>
          <children>
-            <VBox alignment="CENTER" fillWidth="false" spacing="50.0" style="-fx-alignment: center; -fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css">
+            <VBox alignment="CENTER" fillWidth="false" prefHeight="807.0" prefWidth="76.0" spacing="50.0" style="-fx-alignment: center; -fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css">
                <children>
                   <HBox alignment="CENTER">
                      <children>
-                        <PieChart prefHeight="398.0" prefWidth="425.0" style="-fx-border-color: #013895; -fx-border-width: 3; -fx-border-radius: 25;" />
-                        <PieChart prefHeight="398.0" prefWidth="425.0" style="-fx-border-color: #013895; -fx-border-width: 3; -fx-border-radius: 25;" />
+                        <PieChart prefHeight="113.0" prefWidth="200.0" style="-fx-border-color: #013895; -fx-border-width: 3; -fx-border-radius: 25;" />
                      </children>
                   </HBox>
-                  <HBox>
-                     <children>
-                        <PieChart prefHeight="428.0" prefWidth="425.0" style="-fx-border-color: #013895; -fx-border-width: 3; -fx-border-radius: 25;" />
-                        <PieChart prefHeight="398.0" prefWidth="425.0" style="-fx-border-color: #013895; -fx-border-width: 3; -fx-border-radius: 25;" />
-                     </children>
-                  </HBox>
+                  <HBox prefHeight="217.0" prefWidth="200.0" />
                </children>
             </VBox>
          </children>
       </HBox>
    </center>
    <top>
-      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" style="-fx-background-color: #FFFAFA;" BorderPane.alignment="CENTER">
          <children>
             <Group>
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#189da6" height="102.0" stroke="TRANSPARENT" strokeType="INSIDE" width="850.0" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="34.0" prefWidth="842.0" text="Map DashBoard" textFill="WHITE">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#189da6" height="71.0" stroke="TRANSPARENT" strokeType="INSIDE" width="610.0" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="70.0" prefWidth="657.0" text="Map DashBoard" textFill="WHITE">
                      <font>
-                        <Font name="System Bold" size="67.0" />
+                        <Font name="System Bold" size="48.0" />
                      </font>
                   </Label>
                </children>
@@ -59,14 +53,14 @@
       </VBox>
    </top>
    <left>
-      <VBox BorderPane.alignment="CENTER">
+      <VBox prefHeight="807.0" prefWidth="425.0" BorderPane.alignment="CENTER">
          <children>
             <Group>
                <children>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#98e5db" height="66.0" stroke="TRANSPARENT" strokeType="INSIDE" width="509.0" />
-                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="67.0" layoutY="10.0" prefHeight="47.0" prefWidth="416.0" text="Sideview Map" textFill="#214462">
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#98e5db" height="43.0" stroke="TRANSPARENT" strokeType="INSIDE" width="472.0" />
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="32.0" prefHeight="26.0" prefWidth="416.0" text="Sideview Map" textFill="#214462">
                      <font>
-                        <Font name="System Bold" size="32.0" />
+                        <Font name="System Bold" size="24.0" />
                      </font>
                   </Label>
                </children>
@@ -78,25 +72,91 @@
             </Label>
             <Group>
                <children>
-                  <ImageView fitHeight="400.0" fitWidth="504.0">
+                  <ImageView fitHeight="232.0" fitWidth="286.0">
                      <image>
                         <Image url="@../assets/Maps/SideViewCropped.png" />
                      </image>
                   </ImageView>
-                  <Rectangle fx:id="floor5Click" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="188.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: transparent;" width="272.0" />
-                  <Rectangle fx:id="floor4Click" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="59.0" layoutX="190.0" layoutY="51.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: transparent;" width="271.0" />
-                  <Rectangle fx:id="floor4Click1" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="59.0" layoutX="120.0" layoutY="111.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: transparent;" width="382.0" />
+                  <Rectangle fx:id="floor5Click" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="29.0" layoutX="105.0" layoutY="1.0" onMouseClicked="#clickFloor5" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: transparent;" width="158.0" />
+                  <Rectangle fx:id="floor4Click" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="36.0" layoutX="107.0" layoutY="28.0" onMouseClicked="#clickFloor4" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: transparent;" width="154.0" />
+                  <Rectangle fx:id="floor3Click" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="35.0" layoutX="67.0" layoutY="64.0" onMouseClicked="#clickFloor3" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: transparent;" width="220.0" />
+                  <Rectangle fx:id="floor2Click" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="34.0" layoutX="67.0" layoutY="99.0" onMouseClicked="#clickFloor2" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: transparent;" width="219.0" />
+                  <Rectangle fx:id="floor1Click" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="35.0" layoutX="67.0" layoutY="132.0" onMouseClicked="#clickFloor1" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: transparent;" width="218.0" />
+                  <Rectangle fx:id="LL1Click" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="35.0" layoutX="68.0" layoutY="164.0" onMouseClicked="#clickLL1" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: transparent;" width="217.0" />
+                  <Rectangle fx:id="LL2Click" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="34.0" layoutX="66.0" layoutY="197.0" onMouseClicked="#clickLL2" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: transparent;" width="219.0" />
                </children>
             </Group>
-            <StackedBarChart>
-              <xAxis>
-                <CategoryAxis side="BOTTOM" />
-              </xAxis>
-              <yAxis>
-                <NumberAxis side="LEFT" />
-              </yAxis>
-            </StackedBarChart>
+            <Group>
+               <children>
+                  <VBox prefWidth="514.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#98e5db" height="43.0" stroke="TRANSPARENT" strokeType="INSIDE" width="504.0" />
+                        <Group>
+                           <children>
+                              <HBox>
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0065c3" height="31.0" stroke="TRANSPARENT" strokeType="INSIDE" width="27.0" />
+                                    <Label text="Total Bed        ">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <ProgressBar prefHeight="31.0" prefWidth="253.0" progress="0.0" />
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="31.333343505859375">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0065c3" height="31.0" stroke="TRANSPARENT" strokeType="INSIDE" width="27.0" />
+                                    <Label text="Total XRay      ">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <ProgressBar prefHeight="31.0" prefWidth="253.0" progress="0.0" />
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="62.666656494140625">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0065c3" height="31.0" stroke="TRANSPARENT" strokeType="INSIDE" width="27.0" />
+                                    <Label text="Total Pump     ">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <ProgressBar prefHeight="31.0" prefWidth="253.0" progress="0.0" />
+                                 </children>
+                              </HBox>
+                              <HBox layoutY="93.99996948242188">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#0065c3" height="31.0" stroke="TRANSPARENT" strokeType="INSIDE" width="27.0" />
+                                    <Label text="Total Recliner  ">
+                                       <font>
+                                          <Font size="22.0" />
+                                       </font>
+                                    </Label>
+                                    <ProgressBar prefHeight="31.0" prefWidth="253.0" progress="0.0" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </Group>
+                     </children>
+                  </VBox>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="78.0" layoutY="-5.0" prefHeight="47.0" prefWidth="416.0" text="Total Equipments Summary" textFill="#214462">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Group>
          </children>
       </VBox>
    </left>
+   <right>
+      <TableView prefHeight="385.0" prefWidth="357.0" BorderPane.alignment="CENTER">
+        <columns>
+          <TableColumn prefWidth="137.9999796152115" text="C1" />
+          <TableColumn prefWidth="355.9999694824219" text="C2" />
+        </columns>
+      </TableView>
+   </right>
 </BorderPane>
