@@ -8,6 +8,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.EmployeeMessage;
 import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.*;
@@ -23,9 +24,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MessagingPageController extends LoadableController {
@@ -125,6 +128,19 @@ public class MessagingPageController extends LoadableController {
               clickEmployeeCard(event);
             } catch (SQLException e) {
               e.printStackTrace();
+            }
+            if (event.getButton().equals(MouseButton.PRIMARY)) {
+              if (event.getClickCount() == 2) {
+                try {
+                  SceneManager.getInstance()
+                      .putInformation(
+                          SceneManager.getInstance().getPrimaryStage(), "employee", emp);
+                  Stage S =
+                      SceneManager.getInstance().openWindow("MiniProfilePage.fxml", "Profile");
+                } catch (IOException e) {
+                  throw new RuntimeException(e);
+                }
+              }
             }
           }
         });
