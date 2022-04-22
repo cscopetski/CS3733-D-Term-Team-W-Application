@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Floor;
+import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.PathFinder;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Requests;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
@@ -17,10 +18,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
@@ -60,6 +63,15 @@ public class MapEditorController extends LoadableController {
   @FXML private CheckBox ReqFilter;
   @FXML private Label dirtLab;
   @FXML private Alert systemAlert = new Alert(Alert.AlertType.INFORMATION);
+
+  // ----Ed's Path Stuff:-----------
+  @FXML private ComboBox startLoc;
+  @FXML private ComboBox endLoc;
+  @FXML private Button createPath;
+
+  PathFinder pathFinder = new PathFinder();
+  // -------------------------------
+
   Image img1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F1.png");
   Image img2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F2.png");
   Image img3 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F3.png");
@@ -762,6 +774,10 @@ public class MapEditorController extends LoadableController {
     } catch (NonExistingMedEquip e) {
       e.printStackTrace();
     }
+
+    // Ed's Path stuff:
+    startLoc.setItems(FXCollections.observableArrayList(getLocations()));
+    endLoc.setItems(FXCollections.observableArrayList(getLocations()));
   }
 
   @Override
@@ -818,5 +834,27 @@ public class MapEditorController extends LoadableController {
       reqDots.add(circ);
       scrollGroup.getChildren().add(circ);
     }
+  }
+
+  // --------------------------Ed's plausible functional Path Methods--------------------------
+  public void printPath() {
+    Location start = (Location) startLoc.getSelectionModel().getSelectedItem();
+    Location end = (Location) endLoc.getSelectionModel().getSelectedItem();
+
+    System.out.println(pathFinder.findPath(start, end).toString());
+  }
+
+  private ArrayList<Location> getLocations() {
+    // ArrayList<String> locations = new ArrayList<>();
+    ArrayList<Location> locationsRaw = null;
+    try {
+      locationsRaw = LocationManager.getLocationManager().getAllLocations();
+    } catch (SQLException e) {
+      System.out.println("Failed to unearth locations from database");
+    }
+    // for (Location l : locationsRaw) {
+    //  locations.add(l.getLongName());
+    // }
+    return locationsRaw;
   }
 }
