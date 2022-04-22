@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
@@ -10,8 +9,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 public class DefaultPageController implements Initializable {
   @FXML public Pane gamingPage;
@@ -39,7 +41,7 @@ public class DefaultPageController implements Initializable {
   @FXML public Pane buttonPane;
   @FXML public Pane adminHubPage;
   @FXML public Pane dashBoardPage;
-  protected Employee employee;
+  @FXML public AnchorPane content;
 
   public void initialize(URL location, ResourceBundle rb) {
     SceneManager.getInstance().putController(SceneManager.Scenes.Default, this);
@@ -76,12 +78,9 @@ public class DefaultPageController implements Initializable {
     SceneManager.getInstance().putPane(SceneManager.Scenes.Dashboard, dashBoardPage);
   }
 
-  public void setEmployee(Employee em) {
-    this.employee = em;
-  }
-
-  public Employee getEmployee() {
-    return this.employee;
+  public void createBackground() {
+    Circle c = new Circle(200, 200, 100, Color.web("#009ca8"));
+    content.getChildren().add(0, c);
   }
 
   public void switchToMedicineDelivery(ActionEvent event) {

@@ -65,6 +65,9 @@ public class LoginController extends LoadableController {
               .setEmployee(EmployeeManager.getEmployeeManager().getEmployee(username.getText()));
           dpc.menuBar.setVisible(true);
           dpc.buttonPane.setDisable(false);
+          ((DefaultPageController)
+                  SceneManager.getInstance().getController(SceneManager.Scenes.Default))
+              .createBackground();
           SceneManager.getInstance().transitionTo(SceneManager.Scenes.MainMenu);
           username.clear();
           password.clear();
