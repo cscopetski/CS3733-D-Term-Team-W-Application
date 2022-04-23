@@ -8,8 +8,6 @@ import java.io.FileWriter;
 import java.util.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,7 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -39,7 +36,9 @@ public class Game {
   private final int speed = 10; // both, pacman and the ghosts move with the same speed
   private final int wallSize = 20;
   private final Stage window;
-  private final Pane pane;
+  private final AnchorPane gamePane;
+  private final AnchorPane uiPane;
+  private final AnchorPane pane;
   private final Label scoreLabel;
   private final ArrayList<Rectangle> wallList = new ArrayList<>();
   private final ArrayList<Circle> pelletList = new ArrayList<>();
@@ -72,10 +71,8 @@ public class Game {
                             "/edu/wpi/cs3733/d22/teamW/wApp/assets/Icons/wong.png"))));
     window.setResizable(false);
 
-    pane = new Pane();
+    pane = new AnchorPane();
     pane.setStyle("-fx-background-color : white");
-
-    initialize();
 
     scoreLabel = new Label();
     scoreLabel.setPrefWidth(130);
@@ -88,6 +85,22 @@ public class Game {
     h_box.getChildren().addAll(scoreLabel, highLabel);
 
     VBox vbox = new VBox(h_box, pane);
+
+    gamePane = new AnchorPane();
+    uiPane = new AnchorPane();
+    pane.getChildren().addAll(gamePane, uiPane);
+
+    AnchorPane.setTopAnchor(gamePane, 0.0);
+    AnchorPane.setRightAnchor(gamePane, 0.0);
+    AnchorPane.setBottomAnchor(gamePane, 0.0);
+    AnchorPane.setLeftAnchor(gamePane, 0.0);
+
+    AnchorPane.setTopAnchor(uiPane, 0.0);
+    AnchorPane.setRightAnchor(uiPane, 0.0);
+    AnchorPane.setBottomAnchor(uiPane, 0.0);
+    AnchorPane.setLeftAnchor(uiPane, 0.0);
+
+    initialize();
 
     Scene scene = new Scene(vbox, mapWidth, mapHeight + 20);
     scene.setOnKeyPressed(
@@ -130,30 +143,30 @@ public class Game {
     pacman.setFill(Color.TRANSPARENT);
     pacman.setCenterX(pacmanX);
     pacman.setCenterY(pacmanY);
-    pane.getChildren().add(pacman);
+    gamePane.getChildren().add(pacman);
 
     image = new ImageView(new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/mgb_logo.png"));
     image.setFitWidth(16);
     image.setFitHeight(16);
     image.setX(pacmanX - 8);
     image.setY(pacmanY - 8);
-    pane.getChildren().add(image);
+    gamePane.getChildren().add(image);
 
     // the width & height of the ghosts are equal to pacman's diameter
     int ghostSize = size * 2;
-    redGhost = new Ghost(pane, 120, 110, ghostSize, ghostSize); // create the red ghost
+    redGhost = new Ghost(gamePane, 120, 110, ghostSize, ghostSize); // create the red ghost
     redGhost.setColor(Color.RED);
     setTimerForTransparency(redGhost, 5);
 
-    pinkGhost = new Ghost(pane, 120, 150, ghostSize, ghostSize); // create the pink ghost
+    pinkGhost = new Ghost(gamePane, 120, 150, ghostSize, ghostSize); // create the pink ghost
     pinkGhost.setColor(Color.RED);
     setTimerForTransparency(pinkGhost, 15);
 
-    orangeGhost = new Ghost(pane, 100, 120, ghostSize, ghostSize); // create the orange ghost
+    orangeGhost = new Ghost(gamePane, 100, 120, ghostSize, ghostSize); // create the orange ghost
     orangeGhost.setColor(Color.RED);
     setTimerForTransparency(orangeGhost, 30);
 
-    cyanGhost = new Ghost(pane, 80, 100, ghostSize, ghostSize); // create the cyan ghost
+    cyanGhost = new Ghost(gamePane, 80, 100, ghostSize, ghostSize); // create the cyan ghost
     cyanGhost.setColor(Color.RED);
     setTimerForTransparency(cyanGhost, 40);
 
@@ -668,7 +681,7 @@ public class Game {
   private void ateFood(double x, double y) {
     for (int n = 0; n < pelletList.size(); n++) {
       if (pelletList.get(n).getCenterX() == x && pelletList.get(n).getCenterY() == y) {
-        pane.getChildren().remove(pelletList.get(n));
+        gamePane.getChildren().remove(pelletList.get(n));
         pelletList.remove(n);
         score += 10; // increment the player's score by 10
         return;
@@ -681,8 +694,8 @@ public class Game {
     for (int n = 0; n < bonusList.size(); n++) {
       if (bonusList.get(n).getCirc().getCenterX() == x
           && bonusList.get(n).getCirc().getCenterY() == y) {
-        pane.getChildren().remove(bonusList.get(n).getImg());
-        pane.getChildren().remove(bonusList.get(n).getCirc());
+        gamePane.getChildren().remove(bonusList.get(n).getImg());
+        gamePane.getChildren().remove(bonusList.get(n).getCirc());
         bonusList.remove(n);
         score += 20; // increment the player's score by 20
         bonusEaten = true;
@@ -733,7 +746,8 @@ public class Game {
   }
 
   private void endGame() {
-    //TODO MARKING MY LOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+    // TODO MARKING MY
+    // LOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
     /*
 
     if (pelletList.isEmpty() && bonusList.isEmpty()){
@@ -742,51 +756,37 @@ public class Game {
       new Game(new Stage());
 
     }
-    
+
      */
 
     if (score > highScore) setHighScore(Integer.toString(score));
     timeline.stop();
     // window.close();
 
-    AnchorPane end = new AnchorPane();
     HBox h = new HBox();
     h.setStyle("-fx-background-color: transparent;");
     h.setStyle("-fx-text-fill: white");
     // Create Controls
     Button playAgain = new Button("Play Again");
-    playAgain.setPrefWidth(75.0);
     Button closeGame = new Button("Close Game");
-    playAgain.setPrefWidth(75.0);
 
-    // Setting positions of buttons
-    AnchorPane.setTopAnchor(playAgain, 150.0);
-    AnchorPane.setRightAnchor(playAgain, 200.0);
+    h.getChildren().addAll(playAgain, closeGame);
+    uiPane.getStylesheets().add("edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/Standard.css");
 
-    AnchorPane.setBottomAnchor(closeGame, 150.0);
-    AnchorPane.setLeftAnchor(closeGame, 200.0);
+    uiPane.getChildren().add(h);
+    AnchorPane.setTopAnchor(h, 0.0);
+    AnchorPane.setRightAnchor(h, 0.0);
+    AnchorPane.setBottomAnchor(h, 0.0);
+    AnchorPane.setLeftAnchor(h, 0.0);
 
-    end.getChildren().addAll(playAgain, closeGame);
-    h.getChildren().addAll(end);
-    end.getStylesheets().add("edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/Standard.css");
-
-    pane.getChildren().add(end);
+    uiPane.toFront();
 
     playAgain.setOnAction(
-        new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent event) {
-            window.close();
-            new Game(new Stage());
-          }
+        e -> {
+          window.close();
+          new Game(window);
         });
-    closeGame.setOnAction(
-        new EventHandler<ActionEvent>() {
-          @Override
-          public void handle(ActionEvent event) {
-            window.close();
-          }
-        });
+    closeGame.setOnAction(e -> window.close());
   }
 
   private String getHighScore() {
@@ -835,7 +835,7 @@ public class Game {
           pellet.setCenterX(x);
           pellet.setCenterY(y);
           pellet.setFill(Color.rgb(0, 139, 176, 1.0));
-          pane.getChildren().add(pellet);
+          gamePane.getChildren().add(pellet);
           pelletList.add(pellet);
         }
       }
@@ -849,8 +849,8 @@ public class Game {
     img.setX(x - 16);
     img.setY(y - 16);
     PowerPellet pp = new PowerPellet(img, new Circle(x, y, 0));
-    pane.getChildren().add(pp.getImg());
-    pane.getChildren().add(pp.getCirc());
+    gamePane.getChildren().add(pp.getImg());
+    gamePane.getChildren().add(pp.getCirc());
     bonusList.add(pp);
   }
 
@@ -917,7 +917,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
 
       x += wallSize;
       numOfWalls++;
@@ -932,7 +932,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
 
       y += wallSize;
       numOfWalls++;
@@ -947,7 +947,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
 
       y += wallSize;
       numOfWalls++;
@@ -962,7 +962,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
 
       x += wallSize;
       numOfWalls++;
@@ -975,7 +975,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -986,7 +986,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -997,7 +997,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1008,7 +1008,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1019,7 +1019,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1030,7 +1030,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1041,7 +1041,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1052,7 +1052,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1063,7 +1063,7 @@ public class Game {
         wall.setFill(wallColor);
         wall.setStrokeWidth(2.0);
         wallList.add(wall);
-        pane.getChildren().add(wall);
+        gamePane.getChildren().add(wall);
         numOfWalls++;
       }
     }
@@ -1075,7 +1075,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1086,7 +1086,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1097,7 +1097,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1108,7 +1108,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1119,7 +1119,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1130,7 +1130,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1141,7 +1141,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1152,7 +1152,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1163,7 +1163,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1174,7 +1174,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1185,7 +1185,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1196,7 +1196,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1207,7 +1207,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1218,7 +1218,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1229,7 +1229,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1240,7 +1240,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1250,7 +1250,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1261,7 +1261,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1272,7 +1272,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1283,7 +1283,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1294,7 +1294,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1305,7 +1305,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1316,7 +1316,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1327,7 +1327,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
 
@@ -1338,7 +1338,7 @@ public class Game {
       wall.setFill(wallColor);
       wall.setStrokeWidth(2.0);
       wallList.add(wall);
-      pane.getChildren().add(wall);
+      gamePane.getChildren().add(wall);
       numOfWalls++;
     }
   }
