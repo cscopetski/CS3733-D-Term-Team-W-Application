@@ -1,7 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -23,8 +23,7 @@ public class MiniProfileController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     employee =
         (Employee)
-            SceneManager.getInstance()
-                .getInformation(SceneManager.getInstance().getPrimaryStage(), "employee");
+            WindowManager.getInstance().getData("employee");
     name.setText(employee.getFirstName() + " " + employee.getLastName());
     id.setText(employee.getEmployeeID().toString());
     type.setText(employee.getType().getString());

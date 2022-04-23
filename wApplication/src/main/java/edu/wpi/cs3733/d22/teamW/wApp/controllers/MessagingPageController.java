@@ -1,12 +1,15 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.MessageCardHBox;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.EmployeeMessage;
+
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -134,17 +137,11 @@ public class MessagingPageController implements Initializable {
             }
             if (event.getButton().equals(MouseButton.PRIMARY)) {
               if (event.getClickCount() == 2) {
-                try {
-                  SceneManager.getInstance()
-                      .putInformation(
-                          SceneManager.getInstance().getPrimaryStage(), "employee", emp);
-                  Stage S =
-                      SceneManager.getInstance()
-                          .openWindow(
-                              "MiniProfilePage.fxml", emp.getFirstName() + " " + emp.getLastName());
-                } catch (IOException e) {
-                  throw new RuntimeException(e);
-                }
+                WindowManager.getInstance()
+                    .storeData(
+                        "employee", emp);
+                WindowManager.getInstance().openWindow(
+                            "MiniProfilePage.fxml", emp.getFirstName() + " " + emp.getLastName());
               }
             }
           }
