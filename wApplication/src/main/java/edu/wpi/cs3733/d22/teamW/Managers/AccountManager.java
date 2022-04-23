@@ -1,17 +1,17 @@
-package edu.wpi.cs3733.d22.teamW.wMid;
+package edu.wpi.cs3733.d22.teamW.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 
-public class Account {
+public class AccountManager {
   private Employee employee;
 
   private static class Instance {
-    public static final Account instance = new Account();
+    public static final AccountManager instance = new AccountManager();
   }
 
-  private Account() {}
+  private AccountManager() {}
 
-  public static Account getInstance() {
+  public static AccountManager getInstance() {
     return Instance.instance;
   }
 

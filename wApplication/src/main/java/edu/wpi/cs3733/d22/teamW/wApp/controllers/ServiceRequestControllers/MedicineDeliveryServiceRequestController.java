@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
@@ -13,15 +13,17 @@ import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.MedicineType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.Units;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
-public class MedicineDeliveryServiceRequestController extends LoadableController {
+public class MedicineDeliveryServiceRequestController implements Initializable {
   // Buttons:
   @FXML Button submitButton;
   @FXML Button cancelButton;
@@ -48,8 +50,9 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
 
   // -----------------------------METHOD CODE STARTS HERE-----------------------------
 
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.MedicineDelivery;
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    onLoad();
   }
 
   public void onLoad() {
@@ -57,10 +60,6 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     locationCBox.loadValues(getLocations());
     unitCBox.loadValues(getListOfUnits());
     employee.loadValues(getEmployeeNames());
-  }
-
-  public void onUnload() {
-    clearFields();
   }
 
   public void submitButton() {
@@ -219,6 +218,6 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   }
 
   public void switchToRequestList(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
+    PageManager.getInstance().loadPage(PageManager.Pages.RequestList);
   }
 }

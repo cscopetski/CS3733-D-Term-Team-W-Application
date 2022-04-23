@@ -1,15 +1,17 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
-import edu.wpi.cs3733.d22.teamW.wMid.Account;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.net.URL;
+import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 
-public class ProfileController extends LoadableController {
+public class ProfileController implements Initializable {
   public RequestTable rt;
   @FXML ImageView profile;
   @FXML Label name;
@@ -20,13 +22,12 @@ public class ProfileController extends LoadableController {
   @FXML Label address;
 
   @Override
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.Profile;
+  public void initialize(URL location, ResourceBundle resources) {
+    onLoad();
   }
 
-  @Override
   public void onLoad() {
-    Employee employee = Account.getInstance().getEmployee();
+    Employee employee = AccountManager.getInstance().getEmployee();
     name.setText(employee.getFirstName() + " " + employee.getLastName());
     id.setText(employee.getEmployeeID().toString());
     type.setText(employee.getType().getString());
@@ -41,15 +42,12 @@ public class ProfileController extends LoadableController {
     try {
       rt.setItems(
           RequestFacade.getRequestFacade()
-              .getAllEmployeeRequests(Account.getInstance().getEmployee().getEmployeeID()));
+              .getAllEmployeeRequests(AccountManager.getInstance().getEmployee().getEmployeeID()));
     } catch (Exception e) {
       e.printStackTrace();
     }
     rt.setEditable(false);
   }
-
-  @Override
-  public void onUnload() {}
 
   /*
   @Override

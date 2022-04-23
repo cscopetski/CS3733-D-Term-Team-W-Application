@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
@@ -12,18 +12,20 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-public class GiftDeliveryRequestController extends LoadableController {
+public class GiftDeliveryRequestController implements Initializable {
   @FXML public VBox patientFieldsBox;
   @FXML TextField recipientLastName;
   @FXML TextField recipientFirstName;
@@ -50,11 +52,14 @@ public class GiftDeliveryRequestController extends LoadableController {
   }
 
   @Override
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.GiftDelivery;
+  public void initialize(URL location, ResourceBundle resources) {
+    try {
+      onLoad();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
-  @Override
   public void onLoad() throws SQLException {
     fadeOut.setNode(successLabel);
     fadeOut.setFromValue(1.0);
@@ -63,11 +68,6 @@ public class GiftDeliveryRequestController extends LoadableController {
     fadeOut.setAutoReverse(false);
     locationComboBox.loadValues(getLocations());
     employeeIDComboBox.loadValues(getEmployeeNames());
-  }
-
-  @Override
-  public void onUnload() {
-    clearFields();
   }
 
   private boolean emptyFields() {
@@ -179,6 +179,6 @@ public class GiftDeliveryRequestController extends LoadableController {
   }
 
   public void switchToRequestList(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
+    PageManager.getInstance().loadPage(PageManager.Pages.RequestList);
   }
 }

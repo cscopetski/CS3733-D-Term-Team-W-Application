@@ -1,8 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import java.io.IOException;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
@@ -20,47 +19,51 @@ public class RequestHubController {
   @FXML Label giftDeliveryCredit;
   @FXML ToggleButton toggleButton;
 
-  public void switchToMedicineDelivery(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicineDelivery);
+  public void switchToMedicineDelivery() {
+    PageManager.getInstance().loadPage(PageManager.Pages.MedicineDeliverySR);
   }
 
-  public void switchToLab(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Lab);
+  public void switchToLab() {
+    PageManager.getInstance().loadPage(PageManager.Pages.LabSR);
   }
 
-  public void switchToMedicalEquipmentDelivery(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicalEquipment);
+  public void switchToMedicalEquipmentDelivery() {
+    PageManager.getInstance().loadPage(PageManager.Pages.MedicalEquipmentSR);
   }
 
-  public void switchToMealDelivery(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MealDelivery);
+  public void switchToMealDelivery() {
+    PageManager.getInstance().loadPage(PageManager.Pages.MealDeliverySR);
   }
 
-  public void switchToLanguageInterpreter(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.LanguageInterpreter);
+  public void switchToLanguageInterpreter() {
+    PageManager.getInstance().loadPage(PageManager.Pages.LanguageInterpreterSR);
   }
 
-  public void switchToSecurity(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Security);
+  public void switchToSecurity() {
+    PageManager.getInstance().loadPage(PageManager.Pages.SecuritySR);
   }
 
-  public void switchToComputerService(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.ComputerService);
+  public void switchToComputerService() {
+    PageManager.getInstance().loadPage(PageManager.Pages.ComputerSR);
   }
 
-  public void switchToSanitationService(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.SanitationService);
+  public void switchToSanitationService() {
+    PageManager.getInstance().loadPage(PageManager.Pages.SanitationSR);
   }
 
-  public void switchToFlowerDelivery(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.FlowerRequest);
+  public void switchToFlowerDelivery() {
+    PageManager.getInstance().loadPage(PageManager.Pages.FlowerSR);
   }
 
-  public void switchToGiftDelivery(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.GiftDelivery);
+  public void switchToGiftDelivery() {
+    PageManager.getInstance().loadPage(PageManager.Pages.GiftDeliverySR);
   }
 
-  public void creditsToggle(ActionEvent event) throws IOException {
+  public void switchToRequestList() {
+    PageManager.getInstance().loadPage(PageManager.Pages.RequestList);
+  }
+
+  public void creditsToggle() throws IOException {
     if (toggleButton.isSelected()) {
       toggleButton.setText("Show Credits");
       medEquipCredit.setVisible(false);
@@ -86,9 +89,5 @@ public class RequestHubController {
       flowerCredit.setVisible(true);
       giftDeliveryCredit.setVisible(true);
     }
-  }
-
-  public void switchToRequestList(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
   }
 }

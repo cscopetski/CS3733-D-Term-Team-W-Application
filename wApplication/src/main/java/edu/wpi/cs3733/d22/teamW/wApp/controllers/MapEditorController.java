@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Floor;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Requests;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
@@ -8,7 +9,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -17,8 +17,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicReference;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
@@ -32,9 +32,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 
-public class MapEditorController extends LoadableController {
+public class MapEditorController implements Initializable {
 
   @FXML public ScrollPane scrollPane;
   @FXML public Slider scaleSlider;
@@ -99,7 +98,6 @@ public class MapEditorController extends LoadableController {
 
   @Override
   public void initialize(URL location, ResourceBundle rb) {
-    super.initialize(location, rb);
     ToggleGroup tg = new ToggleGroup();
     panButton.setToggleGroup(tg);
     modifyButton.setToggleGroup(tg);
@@ -114,10 +112,11 @@ public class MapEditorController extends LoadableController {
               } else if (n.equals(modifyButton)) {
                 interactionState = InteractionStates.Modify;
               }
-              if (o.equals(panButton)) {
+              if (o != null && o.equals(panButton)) {
                 scrollPane.setPannable(false);
               }
             });
+    onLoad();
   }
 
   public void refreshDash() throws SQLException {
@@ -410,7 +409,7 @@ public class MapEditorController extends LoadableController {
     dirtLab.setVisible(false);
   }
 
-  public void swapFloor1(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
+  public void swapFloor1() throws SQLException, NonExistingMedEquip {
     removeMarkers();
     currFloor = "01";
     refresh();
@@ -419,7 +418,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(img1);
   }
 
-  public void swapFloor2(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
+  public void swapFloor2() throws SQLException, NonExistingMedEquip {
     removeMarkers();
     currFloor = "02";
     refresh();
@@ -428,7 +427,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(img2);
   }
 
-  public void swapFloor3(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
+  public void swapFloor3() throws SQLException, NonExistingMedEquip {
     removeMarkers();
     currFloor = "03";
     refresh();
@@ -437,7 +436,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(img3);
   }
 
-  public void swapFloorL1(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
+  public void swapFloorL1() throws SQLException, NonExistingMedEquip {
     currFloor = "L1";
     removeMarkers();
     refresh();
@@ -446,7 +445,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(imgL1);
   }
 
-  public void swapFloorL2(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
+  public void swapFloorL2() throws SQLException, NonExistingMedEquip {
     currFloor = "L2";
     removeMarkers();
     refresh();
@@ -455,7 +454,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(imgL2);
   }
 
-  public void swapSideView(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
+  public void swapSideView() throws SQLException, NonExistingMedEquip {
     removeMarkers();
     currFloor = "0";
     System.out.println(Side.getText());
@@ -674,20 +673,19 @@ public class MapEditorController extends LoadableController {
   }
 
   public void testUpdate(String nodeID) throws SQLException, IOException, NonExistingMedEquip {
-    SceneManager.getInstance()
-        .putInformation(SceneManager.getInstance().getPrimaryStage(), "updateLoc", nodeID);
-    Stage S = SceneManager.getInstance().openWindow("UpdateMapPage.fxml");
+    WindowManager.getInstance().storeData("updateLoc", nodeID);
+    WindowManager.getInstance().openWindow("UpdateMapPage.fxml");
     refresh();
   }
 
-  public void resetCSV(ActionEvent actionEvent) throws Exception {
+  public void resetCSV() throws Exception {
     if (loaded) {
 
     } else {
       locationManager.addLocation(new Location("HOLD", -1, -1, "HOLD", null, null, null, null));
       loaded = true;
     }
-    File inputCSV = fileChooser.showOpenDialog(SceneManager.getInstance().getPrimaryStage());
+    File inputCSV = fileChooser.showOpenDialog(WindowManager.getInstance().getPrimaryStage());
     moveVals();
 
     CSVController csvController = new CSVController();
@@ -697,29 +695,29 @@ public class MapEditorController extends LoadableController {
     refresh();
   }
 
-  public void expCSV(ActionEvent actionEvent) {
+  public void expCSV() {
     FileChooser fileChooser = new FileChooser();
     fileChooser.setTitle("Export Location");
-    File file = fileChooser.showSaveDialog(SceneManager.getInstance().getPrimaryStage());
+    File file = fileChooser.showSaveDialog(WindowManager.getInstance().getPrimaryStage());
     locationManager.exportLocationsToChosen(file);
   }
 
   public void addLocation2(javafx.scene.input.MouseEvent mouseEvent)
-      throws IOException, SQLException, NonExistingMedEquip {
+      throws SQLException, NonExistingMedEquip {
     if (interactionState == InteractionStates.Modify) {
       Point p = new Point();
       p.x = (int) mouseEvent.getX();
       p.y = (int) mouseEvent.getY();
-      SceneManager.getInstance()
-          .putInformation(SceneManager.getInstance().getPrimaryStage(), "addLoc", p);
-      SceneManager.getInstance()
-          .putInformation(SceneManager.getInstance().getPrimaryStage(), "floor", currFloor);
-      Stage S = SceneManager.getInstance().openWindow("popUpViews/newLocationPage.fxml");
+
+      WindowManager.getInstance().storeData("addLoc", p);
+      WindowManager.getInstance().storeData("floor", currFloor);
+      WindowManager.getInstance().openWindow("popUpViews/newLocationPage.fxml");
+
       refresh();
     }
   }
 
-  public void swapFloor4(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
+  public void swapFloor4() throws SQLException, NonExistingMedEquip {
     currFloor = "04";
     removeMarkers();
     refresh();
@@ -727,7 +725,7 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(img4);
   }
 
-  public void swapFloor5(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
+  public void swapFloor5() throws SQLException, NonExistingMedEquip {
     currFloor = "05";
     removeMarkers();
     refresh();
@@ -735,12 +733,6 @@ public class MapEditorController extends LoadableController {
     mapList.setImage(img5);
   }
 
-  @Override
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.MapEditor;
-  }
-
-  @Override
   public void onLoad() {
     scaleSlider.setMin(0.9);
     scaleSlider.setMax(3.0);
@@ -763,9 +755,6 @@ public class MapEditorController extends LoadableController {
       e.printStackTrace();
     }
   }
-
-  @Override
-  public void onUnload() {}
 
   private void moveVals() throws SQLException, NonExistingMedEquip {
     ArrayList<MedEquip> eqList = equipController.getAllMedEquip();

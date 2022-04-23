@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" alignment="CENTER" spacing="25.0" style="-fx-alignment: center;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.AboutController">
+<VBox alignment="CENTER" spacing="25.0" style="-fx-alignment: center;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.AboutController">
    <children>
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ABOUT US">
          <font>
