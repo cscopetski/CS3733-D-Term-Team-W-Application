@@ -32,4 +32,8 @@ public class MenuBarManager {
     menuBar.setDisable(false);
     menuBar.setEffect(null);
   }
+
+  public void setMenuBarVisible(boolean bool){
+    menuBar.setVisible(bool);
+  }
 }

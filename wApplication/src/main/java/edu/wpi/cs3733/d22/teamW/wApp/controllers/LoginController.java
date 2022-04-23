@@ -31,6 +31,7 @@ public class LoginController implements Initializable {
     BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.HospitalImage);
     BackgroundManager.getInstance().blur();
     MenuBarManager.getInstance().DisableMenuBar();
+    MenuBarManager.getInstance().setMenuBarVisible(false);
     switchServer.setText("Embedded");
   }
 
@@ -55,6 +56,8 @@ public class LoginController implements Initializable {
           MenuBarManager.getInstance().EnableMenuBar();
           BackgroundManager.getInstance().unBlur();
           PageManager.getInstance().loadPage(PageManager.Pages.MainMenu);
+          //TODO WORKING AT THIS LOCATION
+          MenuBarManager.getInstance().setMenuBarVisible(true);
           username.clear();
           password.clear();
         } else if (!EmployeeManager.getEmployeeManager().usernameExists(username.getText())) {
