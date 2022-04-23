@@ -46,7 +46,7 @@ dependencies {
     )
 
     implementation name:
-        'LanguageInterpAPI'
+        'LanguageInterpAPI_3.0'
 }
 
 
