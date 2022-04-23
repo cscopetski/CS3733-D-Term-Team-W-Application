@@ -733,6 +733,18 @@ public class Game {
   }
 
   private void endGame() {
+    //TODO MARKING MY LOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+    /*
+
+    if (pelletList.isEmpty() && bonusList.isEmpty()){
+      int currentScore = score;
+      window.close();
+      new Game(new Stage());
+
+    }
+    
+     */
+
     if (score > highScore) setHighScore(Integer.toString(score));
     timeline.stop();
     // window.close();
