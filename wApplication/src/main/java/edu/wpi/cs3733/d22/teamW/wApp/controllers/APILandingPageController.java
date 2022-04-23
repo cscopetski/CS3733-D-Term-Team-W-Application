@@ -2,6 +2,8 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import java.io.IOException;
+
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -17,18 +19,18 @@ public class APILandingPageController {
     @FXML ToggleButton toggleButton;
 
     public void launchInternalTransportAPI() {
-        PageManager.getInstance().loadPage(PageManager.Pages.MedicineDeliverySR);
+        WindowManager.getInstance().openWindow("popUpViews/APIPopUp.fxml");
+
     }
 
     public void launchExternalTransportAPI() {
-        PageManager.getInstance().loadPage(PageManager.Pages.LabSR);
+        WindowManager.getInstance().openWindow("popUpViews/EmergencyPopUp.fxml");
+
     }
 
     public void launchLanguageInterpreterAPI() {
-        PageManager.getInstance().loadPage(PageManager.Pages.MedicalEquipmentSR);
+        WindowManager.getInstance().openWindow("popUpViews/APIPopUp.fxml");
     }
-
-
 
     public void switchToRequestList() {
         PageManager.getInstance().loadPage(PageManager.Pages.RequestList);
