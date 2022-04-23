@@ -1,7 +1,20 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.Snake;
 
+<<<<<<< Updated upstream
 import java.util.ArrayList;
 import java.util.List;
+=======
+import java.io.File;
+import java.io.FileWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.HighScoreManager;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.HighScore;
+import edu.wpi.cs3733.d22.teamW.wMid.Account;
+>>>>>>> Stashed changes
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -223,7 +236,11 @@ public class SnakeController {
   }
 
   public void onLoad() {
+<<<<<<< Updated upstream
     hSCounter = = Integer.parseInt(getHighScore());
+=======
+    hSCounter = HighScoreManager.getHighScoreManager().getHighScore(Account.getInstance().getEmployee().getEmployeeID()).getScoreWiggling();
+>>>>>>> Stashed changes
     image.setVisible(false);
     gameBorder.setLayoutX(center + xOffset);
     gameBorder.setLayoutY(center);
@@ -244,42 +261,27 @@ public class SnakeController {
                   eatFood();
                   gameTicks++;
                   if (checkIfGameIsOver(snakeHead)) {
+<<<<<<< Updated upstream
                     if (counter > hSCounter) setHighScore(Integer.toString(score));
+=======
+                    if (counter > hSCounter) {
+                      hSCounter = counter;
+                      try {
+                        HighScoreManager.getHighScoreManager().changeHighScore(
+                                HighScoreManager.getHighScoreManager().getHighScore(
+                                        Account.getInstance().getEmployee().getEmployeeID()),
+                                counter,
+                                HighScoreManager.getHighScoreManager().getHighScore(
+                                        Account.getInstance().getEmployee().getEmployeeID()).getScoreThreat()
+                                );
+                      } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                      }
+                    }
+>>>>>>> Stashed changes
                     timeline.stop();
                   }
                 }));
-  }
-
-  private String getHighScore() {
-    String s = "0";
-    String filePath = new File("").getAbsolutePath();
-
-    try {
-      File file = new File(filePath.concat("\\snake_high_score.txt"));
-
-      if (file.exists()) {
-        Scanner scan = new Scanner(file);
-        s = scan.nextLine();
-      } else {
-        // create a the pacman_high_score.txt file and insert a 0
-        setHighScore("0");
-      }
-    } catch (Exception e) {
-      System.out.println("Failed to retrieve the high score");
-    }
-
-    return s;
-  }
-
-  private void setHighScore(String newScore) {
-    try {
-      FileWriter writer = new FileWriter("snake_high_score.txt");
-      writer.write(newScore);
-      writer.close();
-
-    } catch (Exception e) {
-      System.out.println("Failed to set the new high score");
-    }
   }
 
   public void onUnload() {

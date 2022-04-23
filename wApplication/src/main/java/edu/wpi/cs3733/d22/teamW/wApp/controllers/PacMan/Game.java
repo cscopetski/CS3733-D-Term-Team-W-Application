@@ -5,7 +5,11 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.PacMan; // DEPS
 
 import java.io.File;
 import java.io.FileWriter;
+import java.sql.SQLException;
 import java.util.*;
+
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.HighScoreManager;
+import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -57,7 +61,7 @@ public class Game {
   public Game(Stage primaryStage) {
     window = primaryStage;
     window.initModality(Modality.APPLICATION_MODAL);
-    window.setTitle("Wild Wild Wongs");
+    window.setTitle("Threat Level Wong");
     primaryStage
         .getIcons()
         .add(
@@ -153,7 +157,7 @@ public class Game {
     cyanGhost.setColor(Color.RED);
     setTimerForTransparency(cyanGhost, 40);
 
-    highScore = Integer.parseInt(getHighScore());
+    highScore = HighScoreManager.getHighScoreManager().getHighScore(Account.getInstance().getEmployee().getEmployeeID()).getScoreThreat();
   }
 
   private void play() {
@@ -729,42 +733,22 @@ public class Game {
   }
 
   private void endGame() {
-    if (score > highScore) setHighScore(Integer.toString(score));
+    if (score > highScore)
+      try {
+        HighScoreManager.getHighScoreManager().changeHighScore(
+                HighScoreManager.getHighScoreManager().getHighScore(
+                        Account.getInstance().getEmployee().getEmployeeID()),
+                HighScoreManager.getHighScoreManager().getHighScore(
+                        Account.getInstance().getEmployee().getEmployeeID()).getScoreWiggling(),
+                score
+        );
+      } catch (SQLException ex) {
+        throw new RuntimeException(ex);
+      }
     timeline.stop();
     window.close();
   }
 
-  private String getHighScore() {
-    String s = "0";
-    String filePath = new File("").getAbsolutePath();
-
-    try {
-      File file = new File(filePath.concat("\\pacman_high_score.txt"));
-
-      if (file.exists()) {
-        Scanner scan = new Scanner(file);
-        s = scan.nextLine();
-      } else {
-        // create a the pacman_high_score.txt file and insert a 0
-        setHighScore("0");
-      }
-    } catch (Exception e) {
-      System.out.println("Failed to retrieve the high score");
-    }
-
-    return s;
-  }
-
-  private void setHighScore(String newScore) {
-    try {
-      FileWriter writer = new FileWriter("pacman_high_score.txt");
-      writer.write(newScore);
-      writer.close();
-
-    } catch (Exception e) {
-      System.out.println("Failed to set the new high score");
-    }
-  }
 
   // method to create pellets, store them in an ArrayList and put them on the pane
   private void drawPellets() {
