@@ -1,20 +1,10 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.Snake;
 
-<<<<<<< Updated upstream
-import java.util.ArrayList;
-import java.util.List;
-=======
-import java.io.File;
-import java.io.FileWriter;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.HighScoreManager;
+import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
-
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.HighScoreManager;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.HighScore;
-import edu.wpi.cs3733.d22.teamW.wMid.Account;
->>>>>>> Stashed changes
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -76,7 +66,7 @@ public class SnakeController {
     loss.setVisible(false);
     counter = 0;
     score.setText("Score: " + counter);
-    highScore.setText("High Score:" + highScore);
+    highScore.setText("High Score:" + hSCounter);
 
     for (Rectangle snake : snakeBody) {
       anchorPane.getChildren().remove(snake);
@@ -236,11 +226,11 @@ public class SnakeController {
   }
 
   public void onLoad() {
-<<<<<<< Updated upstream
-    hSCounter = = Integer.parseInt(getHighScore());
-=======
-    hSCounter = HighScoreManager.getHighScoreManager().getHighScore(Account.getInstance().getEmployee().getEmployeeID()).getScoreWiggling();
->>>>>>> Stashed changes
+
+    hSCounter =
+        HighScoreManager.getHighScoreManager()
+            .getHighScore(Account.getInstance().getEmployee().getEmployeeID())
+            .getScoreWiggling();
     image.setVisible(false);
     gameBorder.setLayoutX(center + xOffset);
     gameBorder.setLayoutY(center);
@@ -261,24 +251,23 @@ public class SnakeController {
                   eatFood();
                   gameTicks++;
                   if (checkIfGameIsOver(snakeHead)) {
-<<<<<<< Updated upstream
-                    if (counter > hSCounter) setHighScore(Integer.toString(score));
-=======
                     if (counter > hSCounter) {
                       hSCounter = counter;
                       try {
-                        HighScoreManager.getHighScoreManager().changeHighScore(
-                                HighScoreManager.getHighScoreManager().getHighScore(
+                        HighScoreManager.getHighScoreManager()
+                            .changeHighScore(
+                                HighScoreManager.getHighScoreManager()
+                                    .getHighScore(
                                         Account.getInstance().getEmployee().getEmployeeID()),
                                 counter,
-                                HighScoreManager.getHighScoreManager().getHighScore(
-                                        Account.getInstance().getEmployee().getEmployeeID()).getScoreThreat()
-                                );
+                                HighScoreManager.getHighScoreManager()
+                                    .getHighScore(
+                                        Account.getInstance().getEmployee().getEmployeeID())
+                                    .getScoreThreat());
                       } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                       }
                     }
->>>>>>> Stashed changes
                     timeline.stop();
                   }
                 }));

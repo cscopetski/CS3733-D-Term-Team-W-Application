@@ -3,13 +3,10 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.PacMan; // DEPS
 // SOURCES Ghost.java
 // FILES styles.css
 
-import java.io.File;
-import java.io.FileWriter;
-import java.sql.SQLException;
-import java.util.*;
-
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.HighScoreManager;
 import edu.wpi.cs3733.d22.teamW.wMid.Account;
+import java.sql.SQLException;
+import java.util.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -157,7 +154,10 @@ public class Game {
     cyanGhost.setColor(Color.RED);
     setTimerForTransparency(cyanGhost, 40);
 
-    highScore = HighScoreManager.getHighScoreManager().getHighScore(Account.getInstance().getEmployee().getEmployeeID()).getScoreThreat();
+    highScore =
+        HighScoreManager.getHighScoreManager()
+            .getHighScore(Account.getInstance().getEmployee().getEmployeeID())
+            .getScoreThreat();
   }
 
   private void play() {
@@ -735,20 +735,20 @@ public class Game {
   private void endGame() {
     if (score > highScore)
       try {
-        HighScoreManager.getHighScoreManager().changeHighScore(
-                HighScoreManager.getHighScoreManager().getHighScore(
-                        Account.getInstance().getEmployee().getEmployeeID()),
-                HighScoreManager.getHighScoreManager().getHighScore(
-                        Account.getInstance().getEmployee().getEmployeeID()).getScoreWiggling(),
-                score
-        );
+        HighScoreManager.getHighScoreManager()
+            .changeHighScore(
+                HighScoreManager.getHighScoreManager()
+                    .getHighScore(Account.getInstance().getEmployee().getEmployeeID()),
+                HighScoreManager.getHighScoreManager()
+                    .getHighScore(Account.getInstance().getEmployee().getEmployeeID())
+                    .getScoreWiggling(),
+                score);
       } catch (SQLException ex) {
         throw new RuntimeException(ex);
       }
     timeline.stop();
     window.close();
   }
-
 
   // method to create pellets, store them in an ArrayList and put them on the pane
   private void drawPellets() {

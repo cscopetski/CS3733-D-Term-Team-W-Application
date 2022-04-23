@@ -1,9 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -38,6 +37,8 @@ public class HighScore extends Entity {
   }
 
   public String getName() throws SQLException {
-    return EmployeeManager.getEmployeeManager().getEmployee(this.employeeID).getFirstName() + " " + EmployeeManager.getEmployeeManager().getEmployee(this.employeeID).getLastName();
+    return EmployeeManager.getEmployeeManager().getEmployee(this.employeeID).getFirstName()
+        + " "
+        + EmployeeManager.getEmployeeManager().getEmployee(this.employeeID).getLastName();
   }
 }

@@ -2,7 +2,6 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.HighScoreManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.HighScore;

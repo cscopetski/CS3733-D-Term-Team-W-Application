@@ -32,9 +32,7 @@ public class HighScoreManager {
     hd.changeHighScore(hs, wiggling, threat);
   }
 
-  public HighScore getHighScore(int empID){
+  public HighScore getHighScore(int empID) {
     return hd.getHighScore(empID);
   }
-
-
 }

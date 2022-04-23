@@ -20,5 +20,5 @@ public interface HighScoreDao {
 
   ArrayList<HighScore> getHighestScoreThreat() throws SQLException;
 
-    HighScore getHighScore(int empID);
+  HighScore getHighScore(int empID);
 }

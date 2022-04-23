@@ -65,7 +65,7 @@ public class HighScoreDaoImpl implements HighScoreDao {
   public void deleteHighScore(HighScore hs) throws SQLException {
     statement.executeUpdate(
         String.format(
-            "DELETE FROM HIGHSCORE WHERE EMPLOYEEID=%d AND SCORE = '%d'",
+            "DELETE FROM HIGHSCORE WHERE EMPLOYEEID=%d AND SCOREWIGGLING = %d AND SCORETHREAT = %d ",
             hs.getEmployeeID(), hs.getScoreWiggling(), hs.getScoreThreat()));
   }
 
@@ -143,20 +143,21 @@ public class HighScoreDaoImpl implements HighScoreDao {
   }
 
   @Override
-  public HighScore getHighScore(int empID){
+  public HighScore getHighScore(int empID) {
     HighScore hs = null;
     try {
-      ResultSet highScores = statement.executeQuery(String.format("SELECT * FROM HIGHSCORE WHERE EMPLOYEEID = %d", empID));
+      ResultSet highScores =
+          statement.executeQuery(
+              String.format("SELECT * FROM HIGHSCORE WHERE EMPLOYEEID = %d", empID));
       // Size of num HIGHSCORE fields
       ArrayList<String> highScoreData = new ArrayList<String>();
 
       highScores.next();
 
-        for (int i = 0; i < highScores.getMetaData().getColumnCount(); i++) {
-          highScoreData.add(i, highScores.getString(i + 1));
-        }
-        hs = new HighScore(highScoreData);
-
+      for (int i = 0; i < highScores.getMetaData().getColumnCount(); i++) {
+        highScoreData.add(i, highScores.getString(i + 1));
+      }
+      hs = new HighScore(highScoreData);
 
     } catch (SQLException e) {
       System.out.println("Query from high score table failed.");
