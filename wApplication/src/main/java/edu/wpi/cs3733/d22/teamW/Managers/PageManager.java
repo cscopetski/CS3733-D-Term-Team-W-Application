@@ -48,7 +48,8 @@ public class PageManager {
     ComputerSR("ServiceRequestPages/ComputerServiceRequestPage.fxml", "Computer Service Request"),
     SanitationSR("ServiceRequestPages/SanitationRequest.fxml", "Sanitation Service Request"),
     FlowerSR("ServiceRequestPages/FlowerRequestPage.fxml", "Flower Delivery Service Request"),
-    GiftDeliverySR("ServiceRequestPages/GiftDeliveryRequest.fxml", "Gift Delivery Service Request");
+    GiftDeliverySR("ServiceRequestPages/GiftDeliveryRequest.fxml", "Gift Delivery Service Request"),
+    APILandingPage("APILandingPage.fxml", "API Landing Page");
 
     final String path;
     final String name;
