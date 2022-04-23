@@ -93,6 +93,9 @@ public class DefaultPageController implements Initializable {
     PageManager.getInstance().loadPage(PageManager.Pages.MainMenu);
   }
 
+  public void switchToAPILandingPage(){ PageManager.getInstance().loadPage(PageManager.Pages.APILandingPage);
+  }
+
   public void switchToAdminHub() {
     if (AccountManager.getInstance().getEmployee().getType().getAccessLevel() == 5) {
       PageManager.getInstance().loadPage(PageManager.Pages.AdminHub);

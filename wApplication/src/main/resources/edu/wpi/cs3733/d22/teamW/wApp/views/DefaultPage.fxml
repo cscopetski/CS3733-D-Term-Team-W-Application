@@ -69,6 +69,7 @@
                                         <MenuItem mnemonicParsing="false" onAction="#switchToGiftService" text="Gifts"/>
                                         <MenuItem mnemonicParsing="false" onAction="#switchToSanitationService"
                                                   text="Sanitation"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToAPILandingPage" text="API Requests"/>
                                     </items>
                                     <HBox.margin>
                                         <Insets right="10.0" top="10.0"/>

@@ -56,7 +56,6 @@ public class LoginController implements Initializable {
           MenuBarManager.getInstance().EnableMenuBar();
           BackgroundManager.getInstance().unBlur();
           PageManager.getInstance().loadPage(PageManager.Pages.MainMenu);
-          //TODO WORKING AT THIS LOCATION
           MenuBarManager.getInstance().setMenuBarVisible(true);
           username.clear();
           password.clear();
