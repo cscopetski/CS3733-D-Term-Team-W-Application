@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
@@ -23,6 +24,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.effect.GaussianBlur;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class APIPopUpController implements Initializable {
@@ -37,8 +40,12 @@ public class APIPopUpController implements Initializable {
         if (!emptyFields()) {
             confirm.showAndWait();
             if (confirm.getResult() == ButtonType.OK) {
+                WindowManager.getInstance().storeData("isEmergency", emergencyButton.getValue());
+                WindowManager.getInstance().storeData("locationID",locationToNodeID(locationComboBox.getSelectionModel().getSelectedItem().toString()));
                 clearFields();
                 fadeOut.playFromStart();
+                Stage stage = ((Stage)WindowManager.getInstance().getData("stage"));
+                stage.close();
             }
         } else {
             emptyFields.show();
@@ -92,8 +99,6 @@ public class APIPopUpController implements Initializable {
         }
         return nodeID;
     }
-
-
 
     private ArrayList<String> getLocations() {
         ArrayList<String> locations = new ArrayList<>();

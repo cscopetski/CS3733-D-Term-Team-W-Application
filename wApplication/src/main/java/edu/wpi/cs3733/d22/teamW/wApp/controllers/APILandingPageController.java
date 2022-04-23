@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
+
+import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -14,6 +16,7 @@ import edu.wpi.teamW.dB.LanguageRequest;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import edu.wpi.teamW.API.*;
+import javafx.scene.control.Label;
 
 public class APILandingPageController {
 
@@ -35,39 +38,37 @@ public class APILandingPageController {
     }
 
     public void launchLanguageInterpreterAPI() {
-        Integer isEmergency = 0;
-        Alert a = new Alert(Alert.AlertType.CONFIRMATION, "Is this request an emergency?");
-        a.getButtonTypes().clear();
-        a.getButtonTypes().add(ButtonType.YES);
-        a.getButtonTypes().add(ButtonType.NO);
-        a.showAndWait();
+        boolean isEmergency = false;
 
-        if (a.getResult() == ButtonType.YES) {
-            isEmergency = 1;
-        }
+        WindowManager.getInstance().openWindow("popUpViews/APIPopUp.fxml");
+        String locationID = (String)WindowManager.getInstance().getData("locationID");
+        isEmergency = (boolean)WindowManager.getInstance().getData("isEmergency");
         try {
-            API.run(0,0,500,500,"","FDEPT00101","");
+            API.run(0,0,500,500,"",locationID,"");
 
         } catch (ServiceException e) {
             e.printStackTrace();
         }
 
-        System.out.println("YO");
+        WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(null);
+
         for(LanguageRequest lr : API.getAllRequests()){
-            System.out.println(lr.toString());
             ArrayList<String> fields = new ArrayList<>();
             fields.add(lr.getLanguage());
             fields.add(lr.getNodeID());
             fields.add(lr.getEmployee().getEmployeeID().toString());
-            fields.add(isEmergency.toString());
+            if(isEmergency){
+                fields.add("1");
+            }else{
+                fields.add("0");
+            }
             try {
                 RequestFactory.getRequestFactory().getRequest(RequestType.LanguageRequest,fields,false);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("End");
-        WindowManager.getInstance().openWindow("popUpViews/APIPopUp.fxml");
+
     }
 
     public void switchToRequestList() {

@@ -83,6 +83,7 @@ public class WindowManager {
     stage.getIcons().add(new Image(getClass().getResourceAsStream(iconPath)));
     stage.setOnCloseRequest(e -> primaryStage.getScene().getRoot().setEffect(null));
     primaryStage.getScene().getRoot().setEffect(new GaussianBlur(7.5));
+    WindowManager.getInstance().storeData("stage",stage);
     stage.showAndWait();
   }
 }
