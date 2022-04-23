@@ -10,6 +10,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.teamW.API;
 import edu.wpi.teamW.ServiceException;
 import edu.wpi.teamW.dB.LanguageRequest;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import edu.wpi.teamW.API.*;
@@ -24,11 +25,13 @@ public class APILandingPageController {
     @FXML ToggleButton toggleButton;
 
     public void launchInternalTransportAPI() {
-        PageManager.getInstance().loadPage(PageManager.Pages.MedicineDeliverySR);
+        WindowManager.getInstance().openWindow("popUpViews/APIPopUp.fxml");
+
     }
 
     public void launchExternalTransportAPI() {
-        PageManager.getInstance().loadPage(PageManager.Pages.LabSR);
+        WindowManager.getInstance().openWindow("popUpViews/EmergencyPopUp.fxml");
+
     }
 
     public void launchLanguageInterpreterAPI() {
@@ -64,9 +67,8 @@ public class APILandingPageController {
             }
         }
         System.out.println("End");
+        WindowManager.getInstance().openWindow("popUpViews/APIPopUp.fxml");
     }
-
-
 
     public void switchToRequestList() {
         PageManager.getInstance().loadPage(PageManager.Pages.RequestList);
