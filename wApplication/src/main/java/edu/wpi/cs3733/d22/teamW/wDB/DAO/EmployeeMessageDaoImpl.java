@@ -45,8 +45,9 @@ public class EmployeeMessageDaoImpl implements EmployeeMessageDao {
               + "                messageContent varchar(1000),\n"
               + "                sentTimestamp timestamp,\n"
               + "                constraint EmpMessage_EmployeeFrom_FK foreign key (empIDfrom) references EMPLOYEES(employeeID),\n"
-              + "                constraint EmpMessage_ChatTo_FK foreign key (chatIDto) references CHATS(chatID),\n"
+              + "                constraint EmpMessage_ChatTo_FK foreign key (chatIDto, empIDfrom) references CHATS(chatID, employeeID),\n"
               + "                constraint EmpMessage_PK primary key (messageID))");
+      System.out.println("Created EMPLOYEEMESSAGES table.");
     } catch (SQLException e) {
       System.out.println("Failed to create EMPLOYEEMESSAGES table.");
       e.printStackTrace();
