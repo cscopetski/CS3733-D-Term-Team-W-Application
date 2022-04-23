@@ -21,9 +21,8 @@ public class MainMenuController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     newMessagesCircle.setVisible(false);
     try {
-      if (EmployeeMessageManager.getEmployeeMessageManager()
-              .countUnreadMessagesAs(AccountManager.getInstance().getEmployee().getEmployeeID())
-          > 0) {
+      if (EmployeeMessageManager.getEmployeeMessageManager().countUnreadMessagesAs(
+              AccountManager.getInstance().getEmployee().getEmployeeID()) > 0) {
         newMessagesCircle.setVisible(true);
       }
     } catch (SQLException e) {

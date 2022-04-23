@@ -15,8 +15,11 @@ public class AccountManager {
     return Instance.instance;
   }
 
-  public void setEmployee(Employee e) {
+  public void initialize(Employee e) {
     this.employee = e;
+  }
+  public void reset() {
+    initialize(null);
   }
 
   public Employee getEmployee() {

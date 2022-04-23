@@ -51,7 +51,7 @@ public class LoginController implements Initializable {
         if (EmployeeManager.getEmployeeManager()
             .passwordMatch(username.getText(), password.getText())) {
           AccountManager.getInstance()
-              .setEmployee(EmployeeManager.getEmployeeManager().getEmployee(username.getText()));
+              .initialize(EmployeeManager.getEmployeeManager().getEmployee(username.getText()));
           MenuBarManager.getInstance().EnableMenuBar();
           BackgroundManager.getInstance().unBlur();
           PageManager.getInstance().loadPage(PageManager.Pages.MainMenu);

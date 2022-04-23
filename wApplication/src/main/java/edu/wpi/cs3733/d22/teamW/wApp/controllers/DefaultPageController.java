@@ -105,7 +105,7 @@ public class DefaultPageController implements Initializable {
 
   public void logOut() {
     buttonPane.setDisable(true);
-    AccountManager.getInstance().setEmployee(null);
+    AccountManager.getInstance().reset();
     PageManager.getInstance().loadPage(PageManager.Pages.Login);
   }
 
