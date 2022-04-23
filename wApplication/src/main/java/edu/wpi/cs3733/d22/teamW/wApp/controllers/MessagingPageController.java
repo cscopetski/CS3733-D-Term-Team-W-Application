@@ -24,9 +24,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MessagingPageController implements Initializable {
@@ -129,6 +131,21 @@ public class MessagingPageController implements Initializable {
               clickEmployeeCard(event);
             } catch (SQLException e) {
               e.printStackTrace();
+            }
+            if (event.getButton().equals(MouseButton.PRIMARY)) {
+              if (event.getClickCount() == 2) {
+                try {
+                  SceneManager.getInstance()
+                      .putInformation(
+                          SceneManager.getInstance().getPrimaryStage(), "employee", emp);
+                  Stage S =
+                      SceneManager.getInstance()
+                          .openWindow(
+                              "MiniProfilePage.fxml", emp.getFirstName() + " " + emp.getLastName());
+                } catch (IOException e) {
+                  throw new RuntimeException(e);
+                }
+              }
             }
           }
         });
