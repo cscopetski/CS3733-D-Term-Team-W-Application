@@ -8,11 +8,15 @@ import java.io.FileWriter;
 import java.util.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -731,7 +735,46 @@ public class Game {
   private void endGame() {
     if (score > highScore) setHighScore(Integer.toString(score));
     timeline.stop();
-    window.close();
+    // window.close();
+
+    AnchorPane end = new AnchorPane();
+    HBox h = new HBox();
+    h.setStyle("-fx-background-color: transparent;");
+    h.setStyle("-fx-text-fill: white");
+    // Create Controls
+    Button playAgain = new Button("Play Again");
+    playAgain.setPrefWidth(75.0);
+    Button closeGame = new Button("Close Game");
+    playAgain.setPrefWidth(75.0);
+
+    // Setting positions of buttons
+    AnchorPane.setTopAnchor(playAgain, 150.0);
+    AnchorPane.setRightAnchor(playAgain, 200.0);
+
+    AnchorPane.setBottomAnchor(closeGame, 150.0);
+    AnchorPane.setLeftAnchor(closeGame, 200.0);
+
+    end.getChildren().addAll(playAgain, closeGame);
+    h.getChildren().addAll(end);
+    end.getStylesheets().add("edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/Standard.css");
+
+    pane.getChildren().add(end);
+
+    playAgain.setOnAction(
+        new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent event) {
+            window.close();
+            new Game(new Stage());
+          }
+        });
+    closeGame.setOnAction(
+        new EventHandler<ActionEvent>() {
+          @Override
+          public void handle(ActionEvent event) {
+            window.close();
+          }
+        });
   }
 
   private String getHighScore() {
