@@ -67,7 +67,7 @@ public class DashBoardController {
           totalEquip[3]++;
           if(eqList.get(j).getStatus().getString().equals("Clean")){
             cleanTotalEquip[3] ++;
-            cleanRec[Character.getNumericValue(eqList.get(j).getNodeID().charAt((eqList.get(j).getNodeID().length() -1)))] ++;
+            cleanRec[Character.getNumericValue(eqList.get(j).getNodeID().charAt((eqList.get(j).getNodeID().length() -1))) - 1] ++;
           }
           break;
         case "Infusion Pump":
@@ -75,7 +75,7 @@ public class DashBoardController {
           totalEquip[2]++;
           if(eqList.get(j).getStatus().getString().equals("Clean")){
             cleanTotalEquip[2] ++;
-            cleanPump[Character.getNumericValue(eqList.get(j).getNodeID().charAt((eqList.get(j).getNodeID().length() -1)))] ++;
+            cleanPump[Character.getNumericValue(eqList.get(j).getNodeID().charAt((eqList.get(j).getNodeID().length() -1))) -1 ] ++;
           }
           break;
         case "X-Ray":
@@ -83,7 +83,7 @@ public class DashBoardController {
           totalEquip[1]++;
           if(eqList.get(j).getStatus().getString().equals("Clean")){
             cleanTotalEquip[1] ++;
-            cleanXRay[Character.getNumericValue(eqList.get(j).getNodeID().charAt((eqList.get(j).getNodeID().length() -1)))] ++;
+            cleanXRay[Character.getNumericValue(eqList.get(j).getNodeID().charAt((eqList.get(j).getNodeID().length() -1))) -1 ] ++;
           }
           break;
         case "Bed":
@@ -91,7 +91,7 @@ public class DashBoardController {
           totalEquip[0]++;
           if(eqList.get(j).getStatus().getString().equals("Clean")){
             cleanTotalEquip[0] ++;
-            cleanBed[Character.getNumericValue(eqList.get(j).getNodeID().charAt((eqList.get(j).getNodeID().length() -1)))] ++;
+            cleanBed[Character.getNumericValue(eqList.get(j).getNodeID().charAt((eqList.get(j).getNodeID().length() -1))) -1 ] ++;
           }
           break;
         default:
@@ -108,8 +108,14 @@ public class DashBoardController {
 
   }
   public void displaySummary(int floor){
-   // bedFloorClean.setText(String.valueOf(cleanBed[floor-1]));
-   // bedFloorDirty.setText(String.valueOf(equipAtFloor.get(floor-1).get(0).size() - cleanBed[floor-1]));
+    bedFloorClean.setText(String.valueOf(cleanBed[floor-1]));
+    bedFloorDirty.setText(String.valueOf(equipAtFloor.get(floor-1).get(0).size() - cleanBed[floor-1]));
+    xrayFloorClean.setText(String.valueOf(cleanXRay[floor-1]));
+    xrayFloorDirty.setText(String.valueOf(equipAtFloor.get(floor-1).get(1).size() - cleanXRay[floor-1]));
+    pumpFloorClean.setText(String.valueOf(cleanPump[floor-1]));
+    pumpFloorDirty.setText(String.valueOf(equipAtFloor.get(floor-1).get(2).size() - cleanPump[floor-1]));
+    recFloorClean.setText(String.valueOf(cleanRec[floor-1]));
+    recFloorDirty.setText(String.valueOf(equipAtFloor.get(floor-1).get(3).size() - cleanRec[floor-1]));
 
   }
   public void summaryEquipmentEachFloor(){
