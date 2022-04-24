@@ -18,40 +18,117 @@
    <center>
       <HBox>
          <children>
-            <VBox alignment="CENTER" fillWidth="false" prefHeight="513.0" prefWidth="273.0" spacing="50.0" style="-fx-alignment: center;" stylesheets="@../CSS/UniversalCSS/Standard.css">
+            <VBox alignment="TOP_CENTER" fillWidth="false" spacing="50.0" style="-fx-alignment: center;" stylesheets="@../CSS/UniversalCSS/Standard.css">
                <children>
-                  <Group>
+                  <VBox alignment="CENTER" prefHeight="94.0" prefWidth="320.0" style="-fx-border-color: #013895; -fx-border-width: 2;">
                      <children>
-                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#013895" height="139.0" stroke="#013895" strokeLineCap="ROUND" strokeType="INSIDE" strokeWidth="2.0" style="-fx-fill: transparent;" width="280.0" />
-                        <Label layoutX="15.0" layoutY="5.0" text="Floor summary" textFill="#013895">
+                        <Label text="Floor summary" textFill="#013895">
                            <font>
                               <Font name="System Bold" size="18.0" />
                            </font>
                         </Label>
-                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutY="28.0">
-                           <image>
-                              <Image url="@../assets/Icons/PacMan/Center-01.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="66.0" layoutY="28.0">
-                           <image>
-                              <Image url="@../assets/Icons/PacMan/Center-03.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="80.0" fitWidth="80.0" layoutX="132.0" layoutY="28.0">
-                           <image>
-                              <Image url="@../assets/Icons/PacMan/Center-04.png" />
-                           </image>
-                        </ImageView>
-                        <ImageView fitHeight="81.0" fitWidth="80.0" layoutX="200.0" layoutY="28.0">
-                           <image>
-                              <Image url="@../assets/Icons/PacMan/Center-05.png" />
-                           </image>
-                        </ImageView>
+                        <HBox alignment="CENTER" prefHeight="19.0" prefWidth="239.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#013895" height="19.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Label prefHeight="17.0" prefWidth="42.0" text="Clean" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dd2c29" height="19.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Label text="Dirty" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <VBox prefHeight="90.0" prefWidth="80.0">
+                                 <children>
+                                    <ImageView fitHeight="80.0" fitWidth="80.0">
+                                       <image>
+                                          <Image url="@../assets/Icons/PacMan/Center-01.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="bedFloorClean" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="82.0" textAlignment="CENTER" textFill="#013895">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="bedFloorDirty" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="85.0" textAlignment="CENTER" textFill="#dd2c29">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <ImageView fitHeight="80.0" fitWidth="80.0">
+                                       <image>
+                                          <Image url="@../assets/Icons/PacMan/Center-03.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="82.0" textAlignment="CENTER" textFill="#013895" fx:id="xrayFloorClean">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="85.0" textAlignment="CENTER" textFill="#dd2c29" fx:id="xrayFloorDirty">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <ImageView fitHeight="80.0" fitWidth="80.0">
+                                       <image>
+                                          <Image url="@../assets/Icons/PacMan/Center-04.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="pumpFloorClean" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="82.0" textAlignment="CENTER" textFill="#013895">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="pumpFloorDirty" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="85.0" textAlignment="CENTER" textFill="#dd2c29">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <ImageView fitHeight="81.0" fitWidth="80.0">
+                                       <image>
+                                          <Image url="@../assets/Icons/PacMan/Center-05.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="recFloorClean" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="82.0" textAlignment="CENTER" textFill="#013895">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="recFloorDirty" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="85.0" textAlignment="CENTER" textFill="#dd2c29">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
                      </children>
-                  </Group>
-                  <HBox alignment="CENTER" />
-                  <HBox prefHeight="217.0" prefWidth="200.0" />
+                  </VBox>
+                  <TableView prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+                  <TableView prefHeight="437.0" prefWidth="404.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
                </children>
             </VBox>
          </children>
