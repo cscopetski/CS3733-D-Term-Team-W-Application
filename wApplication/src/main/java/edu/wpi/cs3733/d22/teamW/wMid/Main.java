@@ -23,17 +23,6 @@ public class Main {
       e.printStackTrace();
     }
 
-    Integer nextChatID = ChatManager.getChatManager().getNextChatID();
-    ArrayList<Chat> testGroupChat = new ArrayList<Chat>();
-    testGroupChat.add(new Chat(nextChatID, 1));
-    testGroupChat.add(new Chat(nextChatID, 2));
-    testGroupChat.add(new Chat(nextChatID, 5));
-    testGroupChat.add(new Chat(nextChatID, 6));
-    testGroupChat.add(new Chat(nextChatID, 7));
-    testGroupChat.add(new Chat(nextChatID, 8));
-    testGroupChat.add(new Chat(nextChatID, 9));
-    ChatManager.getChatManager().addChat(testGroupChat);
-
     App.launch(App.class, args);
   }
 }
