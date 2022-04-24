@@ -8,6 +8,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.effect.GaussianBlur;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.sql.SQLException;
@@ -22,20 +24,27 @@ public class EquipmentInfoPageController implements Initializable {
     @FXML private Label eqType;
     public void markClean(ActionEvent actionEvent) throws Exception {
         medEquipManager.markClean(medEquip.getMedID(), medEquip.getNodeID());
+        eqStatus.setText(medEquip.getStatus().getString());
         exit(actionEvent);
     }
 
     public void markInUse(ActionEvent actionEvent) throws Exception {
         medEquipManager.markInUse(medEquip.getMedID(),medEquip.getNodeID());
+        eqStatus.setText(medEquip.getStatus().getString());
         exit(actionEvent);
     }
 
     public void markDirty(ActionEvent actionEvent) throws Exception {
         medEquipManager.markDirty(medEquip.getMedID(),medEquip.getNodeID());
+        eqStatus.setText(medEquip.getStatus().getString());
         exit(actionEvent);
     }
 
     public void exit(ActionEvent actionEvent) {
+        Stage stage = (Stage) WindowManager.getInstance().getData("Stage");
+        stage.close();
+        WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(new GaussianBlur(0));
+
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.effect.GaussianBlur;
 import javafx.stage.Stage;
 
 public class UpdateMapPageController implements Initializable {
@@ -83,7 +84,9 @@ public class UpdateMapPageController implements Initializable {
   }
 
   public void cancelUpdate(ActionEvent actionEvent) {
-    ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
+    Stage stage = (Stage) WindowManager.getInstance().getData("Stage");
+    stage.close();
+    WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(new GaussianBlur(0));
   }
 
   private void generateRequestList() throws SQLException, NonExistingMedEquip {
