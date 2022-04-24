@@ -4,7 +4,6 @@ import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.PacMan.Game;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HighScoreTable;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.HighScoreManager;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
