@@ -172,21 +172,6 @@ public class LabServiceRequestController implements Initializable {
     return nodeID;
   }
 
-  private ArrayList<Integer> getEmployeeIDs() {
-    ArrayList<Integer> ids = new ArrayList<>();
-    ArrayList<Employee> employees = null;
-    try {
-      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
-    } catch (SQLException e) {
-      System.out.println("Failed to unearth employees from database");
-      e.printStackTrace();
-    }
-    for (Employee e : employees) {
-      if (e.getEmployeeID() != -1) ids.add(e.getEmployeeID());
-    }
-    return ids;
-  }
-
   private String getEmployeeID(String name) throws SQLException {
     name = name.trim();
     Integer employeeID = null;
@@ -225,20 +210,18 @@ public class LabServiceRequestController implements Initializable {
   private ArrayList<String> getEmployeeNames() {
     ArrayList<String> name = new ArrayList<>();
     ArrayList<Employee> employees = null;
+    ArrayList<EmployeeType> types = new ArrayList<>();
+    types.add(EmployeeType.Nurse);
+    types.add(EmployeeType.Doctor);
     try {
-      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
+      employees = EmployeeManager.getEmployeeManager().getEmployeeListByType(types);
     } catch (SQLException e) {
       System.out.println("Failed to unearth employees from database");
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      if (e.getEmployeeID() != -1
-              && ((e.getType().equals(EmployeeType.Doctor))
-                  || (e.getType().equals(EmployeeType.Nurse)))
-          || e.getType().equals(EmployeeType.Staff)) {
-        String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
-        name.add(empName);
-      }
+      String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
+      name.add(empName);
     }
     return name;
   }

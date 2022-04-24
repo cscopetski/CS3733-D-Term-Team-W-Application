@@ -144,17 +144,17 @@ public class SanitationRequestController implements Initializable {
   private ArrayList<String> getEmployeeNames() {
     ArrayList<String> name = new ArrayList<>();
     ArrayList<Employee> employees = null;
+    ArrayList<EmployeeType> types = new ArrayList<>();
+    types.add(EmployeeType.Sanitation);
     try {
-      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
+      employees = EmployeeManager.getEmployeeManager().getEmployeeListByType(types);
     } catch (SQLException e) {
       System.out.println("Failed to unearth employees from database");
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      if (e.getEmployeeID() != -1 && e.getType().equals(EmployeeType.Sanitation)) {
-        String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
-        name.add(empName);
-      }
+      String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
+      name.add(empName);
     }
     return name;
   }

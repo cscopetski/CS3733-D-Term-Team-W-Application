@@ -106,6 +106,41 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
     return employeeList;
   }
 
+
+  @Override
+  public ArrayList<Employee> getEmployeeListByType(ArrayList<EmployeeType> employeeTypes) throws SQLException {
+    ArrayList<Employee> employeeList = new ArrayList<Employee>();
+
+    String query = "SELECT * FROM EMPLOYEES WHERE ";
+
+    for(int a = 0; a < employeeTypes.size(); a++){
+      if(a < employeeTypes.size()-1){
+        query += String.format("EMPLOYEETYPE = '%s' OR ", employeeTypes.get(a).getString());
+      }
+      else query += String.format("EMPLOYEETYPE = '%s'", employeeTypes.get(a).getString());
+    }
+    try {
+      ResultSet employees =
+              statement.executeQuery(query);
+
+      while (employees.next()) {
+        ArrayList<String> employeeData = new ArrayList<String>();
+
+        for (int i = 0; i < employees.getMetaData().getColumnCount(); i++) {
+          employeeData.add(employees.getString(i + 1));
+        }
+
+        employeeList.add(new Employee(employeeData));
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from locations table failed");
+      throw (e);
+    }
+    return employeeList;
+  }
+
+
   /**
    * If the salt is the string 'NEW', the salt will be randomly generated and the password will get
    * hashed Otherwise the password and salt are just added normally
