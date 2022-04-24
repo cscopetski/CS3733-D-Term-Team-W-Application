@@ -5,6 +5,7 @@ package edu.wpi.cs3733.d22.teamW.Managers;
 import java.io.IOException;
 import java.util.HashMap;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.GaussianBlur;
