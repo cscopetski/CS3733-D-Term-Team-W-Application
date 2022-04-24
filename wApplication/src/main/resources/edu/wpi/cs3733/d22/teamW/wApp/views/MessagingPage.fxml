@@ -9,7 +9,6 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -32,7 +31,7 @@
                   </VBox>
                   <VBox alignment="CENTER">
                      <children>
-                        <Label styleClass="label-minor" text="Create Groupchat" />
+                        <Label styleClass="label-minor" text="Create Group Chat" />
                         <Button mnemonicParsing="false" onAction="#createGroupchatClicked" text="Create" />
                      </children>
                   </VBox>
@@ -187,7 +186,7 @@
       <Separator orientation="VERTICAL" />
       <VBox fx:id="messageWindow" alignment="CENTER" disable="true" style="-fx-alignment: center;">
          <children>
-            <Label fx:id="messageTitleLabel" text="Select a Chat">
+            <Label fx:id="messageTitleLabel" alignment="CENTER" prefWidth="400.0" text="Select a Chat">
                <font>
                   <Font size="24.0" />
                </font>

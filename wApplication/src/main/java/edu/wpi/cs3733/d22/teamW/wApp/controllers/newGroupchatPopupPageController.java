@@ -36,11 +36,13 @@ public class newGroupchatPopupPageController implements Initializable {
   @FXML VBox selectedEmployeesVBOX;
   @FXML Label notificationLabel;
 
+  private static boolean submittedGroupChat = false;
   private static TreeSet<Integer> selectedEmployeeIDs = new TreeSet<>();
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    submittedGroupChat = false;
     selectedEmployeeIDs.clear();
     selectedEmployeesVBOX.getChildren().clear();
     notificationLabel.setVisible(false);
@@ -95,6 +97,7 @@ public class newGroupchatPopupPageController implements Initializable {
     Label employeeNameLabel =
         new Label(chosenEmployee.getFirstName() + " " + chosenEmployee.getLastName());
     employeeNameLabel.setFont(new Font(16));
+    employeeNameLabel.setPrefWidth(200);
     employeeNameLabel.setWrapText(true);
     employeeNameLabel.setAlignment(Pos.CENTER_LEFT);
     labelContainer.getChildren().add(employeeNameLabel);
@@ -149,6 +152,7 @@ public class newGroupchatPopupPageController implements Initializable {
   }
 
   public static TreeSet<Integer> getSelectedEmployeeIDs() {
+    if(!submittedGroupChat) selectedEmployeeIDs.clear();
     return selectedEmployeeIDs;
   }
 
@@ -164,12 +168,15 @@ public class newGroupchatPopupPageController implements Initializable {
       notificationLabel.setText("At least 2 other employees are required to create a group chat.");
       fadeOut.playFromStart();
     } else {
+      submittedGroupChat = true;
       ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
     }
   }
 
   public void cancelButtonClicked(ActionEvent actionEvent) {
+    submittedGroupChat = false;
     selectedEmployeeIDs.clear();
     ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
   }
+
 }
