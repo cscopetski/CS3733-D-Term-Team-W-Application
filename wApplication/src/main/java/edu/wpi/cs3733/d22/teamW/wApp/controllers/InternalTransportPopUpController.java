@@ -20,9 +20,7 @@ import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class InternalTransportPopUpController implements Initializable {
@@ -39,9 +37,9 @@ public class InternalTransportPopUpController implements Initializable {
         if (!emptyFields()) {
             confirm.showAndWait();
             if (confirm.getResult() == ButtonType.OK) {
+                pushFlowerRequestToDB();
                 clearFields();
                 fadeOut.playFromStart();
-                ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
             }
         } else {
             emptyFields.show();
@@ -58,7 +56,7 @@ public class InternalTransportPopUpController implements Initializable {
     }
 
     public void onLoad() throws SQLException {
-        //fadeOut.setNode(successLabel);
+        fadeOut.setNode(successLabel);
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);
         fadeOut.setCycleCount(1);
@@ -74,6 +72,28 @@ public class InternalTransportPopUpController implements Initializable {
                 || DestinationComboBox.getSelectionModel().isEmpty();
     }
 
+    /*
+    private void pushFlowerRequestToDB() throws SQLException {
+        ArrayList<String> srFields = new ArrayList<String>();
+        srFields.add(flowerTypeBox.getSelectionModel().getSelectedItem().toString());
+        srFields.add(recipientLastName.getText());
+        srFields.add(recipientFirstName.getText());
+        srFields.add(
+                locationToNodeID(locationComboBox.getSelectionModel().getSelectedItem().toString()));
+        srFields.add(
+                getEmployeeID(employeeComboBox.getSelectionModel().getSelectedItem().toString()));
+        if (emergencyButton.getValue()) {
+            srFields.add("1");
+        } else {
+            srFields.add("0");
+        }
+        try {
+            RequestFactory.getRequestFactory().getRequest(RequestType.FlowerRequest, srFields, false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+     */
 
     private void clearFields() {
         OriginComboBox.getSelectionModel().clearSelection();

@@ -34,7 +34,7 @@ public class APILandingPageController {
     public void launchInternalTransportAPI() {
 
 
-        WindowManager.getInstance().openWindow("popUpViews/InternalTransportInfo.fxml");
+        WindowManager.getInstance().openWindow("popUpViews/APIPopUp.fxml");
         String locationID = (String)WindowManager.getInstance().getData("locationID");
         isEmergency = (boolean)WindowManager.getInstance().getData("isEmergency");
         edu.wpi.cs3733.D22.teamB.api.API api = new edu.wpi.cs3733.D22.teamB.api.API();
