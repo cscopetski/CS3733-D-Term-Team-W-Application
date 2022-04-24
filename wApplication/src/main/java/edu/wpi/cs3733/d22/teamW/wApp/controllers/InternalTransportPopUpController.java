@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
@@ -21,6 +22,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class InternalTransportPopUpController implements Initializable {
@@ -37,9 +39,15 @@ public class InternalTransportPopUpController implements Initializable {
         if (!emptyFields()) {
             confirm.showAndWait();
             if (confirm.getResult() == ButtonType.OK) {
-                pushFlowerRequestToDB();
+                //pushFlowerRequestToDB();
+                WindowManager.getInstance().storeData("isEmergency", emergencyButton.getValue());
+                WindowManager.getInstance().storeData("origin", locationToNodeID(OriginComboBox.getSelectionModel().getSelectedItem().toString()));
+                WindowManager.getInstance().storeData("destination", locationToNodeID(OriginComboBox.getSelectionModel().getSelectedItem().toString()));
+                WindowManager.getInstance().storeData("employee", getEmployeeID(employeeComboBox.getSelectionModel().getSelectedItem().toString()));
                 clearFields();
                 fadeOut.playFromStart();
+                Stage stage = ((Stage)WindowManager.getInstance().getData("stage"));
+                stage.close();
             }
         } else {
             emptyFields.show();
@@ -56,7 +64,6 @@ public class InternalTransportPopUpController implements Initializable {
     }
 
     public void onLoad() throws SQLException {
-        fadeOut.setNode(successLabel);
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);
         fadeOut.setCycleCount(1);
@@ -72,28 +79,6 @@ public class InternalTransportPopUpController implements Initializable {
                 || DestinationComboBox.getSelectionModel().isEmpty();
     }
 
-    /*
-    private void pushFlowerRequestToDB() throws SQLException {
-        ArrayList<String> srFields = new ArrayList<String>();
-        srFields.add(flowerTypeBox.getSelectionModel().getSelectedItem().toString());
-        srFields.add(recipientLastName.getText());
-        srFields.add(recipientFirstName.getText());
-        srFields.add(
-                locationToNodeID(locationComboBox.getSelectionModel().getSelectedItem().toString()));
-        srFields.add(
-                getEmployeeID(employeeComboBox.getSelectionModel().getSelectedItem().toString()));
-        if (emergencyButton.getValue()) {
-            srFields.add("1");
-        } else {
-            srFields.add("0");
-        }
-        try {
-            RequestFactory.getRequestFactory().getRequest(RequestType.FlowerRequest, srFields, false);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-     */
 
     private void clearFields() {
         OriginComboBox.getSelectionModel().clearSelection();
@@ -116,7 +101,6 @@ public class InternalTransportPopUpController implements Initializable {
                 employeeID = e.getEmployeeID();
             }
         }
-
         return String.format("%d", employeeID);
     }
 
