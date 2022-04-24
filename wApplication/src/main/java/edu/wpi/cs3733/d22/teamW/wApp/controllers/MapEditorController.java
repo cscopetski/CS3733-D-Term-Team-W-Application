@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Floor;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Requests;
@@ -9,10 +10,8 @@ import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
-import edu.wpi.cs3733.d22.teamW.wMid.Account;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 
-import jva.awt.*;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -35,6 +34,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class MapEditorController implements Initializable {
 
@@ -483,7 +483,7 @@ public class MapEditorController implements Initializable {
           (event -> {
             if (event.getButton() == MouseButton.SECONDARY) {
               try {
-                if (Account.getInstance().getEmployee().getType().getAccessLevel() == 5) {
+                if (AccountManager.getInstance().getEmployee().getType().getAccessLevel() == 5) {
                   testUpdate(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
                 } else {
                   locView(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID());
@@ -493,7 +493,7 @@ public class MapEditorController implements Initializable {
               }
             }
           }));
-      if (Account.getInstance().getEmployee().getType().getAccessLevel() == 5) {
+      if (AccountManager.getInstance().getEmployee().getType().getAccessLevel() == 5) {
         circ.setOnMousePressed(
             event -> {
               anchorX.set(event.getSceneX());
@@ -615,7 +615,7 @@ public class MapEditorController implements Initializable {
       }
       circle.setCenterX((equipList.get(i).getXCoord()));
       circle.setCenterY((equipList.get(i).getYCoord()) - 8);
-      if (Account.getInstance().getEmployee().getType().getAccessLevel() == 5) {
+      if (AccountManager.getInstance().getEmployee().getType().getAccessLevel() == 5) {
         circle.setOnMousePressed(
             event -> {
               anchorX.set(event.getSceneX());
@@ -695,9 +695,9 @@ public class MapEditorController implements Initializable {
   }
 
   public void locView(String nodeID) throws SQLException, IOException, NonExistingMedEquip {
-    SceneManager.getInstance()
-        .putInformation(SceneManager.getInstance().getPrimaryStage(), "updateLoc", nodeID);
-    Stage S = SceneManager.getInstance().openWindow("locationInfoPage.fxml");
+    WindowManager.getInstance()
+        .storeData( "updateLoc", nodeID);
+    WindowManager.getInstance().openWindow("locationInfoPage.fxml");
     refresh();
   }
 

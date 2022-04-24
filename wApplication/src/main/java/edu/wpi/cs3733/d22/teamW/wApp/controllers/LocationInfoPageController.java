@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Requests;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
@@ -7,7 +8,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -95,8 +95,8 @@ public class LocationInfoPageController implements Initializable {
   public void onLoad() throws SQLException, NonExistingMedEquip {
     String locName =
         (String)
-            SceneManager.getInstance()
-                .getInformation(SceneManager.getInstance().getPrimaryStage(), "updateLoc");
+            WindowManager.getInstance()
+                .getData( "updateLoc");
     for (int i = 0; i < locationManager.getAllLocations().size(); i++) {
       if (locationManager.getAllLocations().get(i).getNodeID().equalsIgnoreCase(locName)) {
         loc = locationManager.getAllLocations().get(i);
