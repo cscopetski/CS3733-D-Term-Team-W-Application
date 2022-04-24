@@ -33,6 +33,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 public class MessagingPageController extends LoadableController {
@@ -213,7 +214,7 @@ public class MessagingPageController extends LoadableController {
         imageHolderVBOX_1.getChildren().add(placeHolderImage);
         imageHolderVBOX_1.getChildren().add(placeHolderImage2);
         imageHolderVBOX_2.getChildren().add(placeHolderImage3);
-        Label additionalLabel = new Label(String.format("+%d", otherEmployeesInChat.size() - 4));
+        Label additionalLabel = new Label(String.format("+%d", otherEmployeesInChat.size() - 3));
         additionalLabel.setFont(new Font(19));
         imageHolderVBOX_2.getChildren().add(additionalLabel);
         chatCard.getChildren().add(imageHolderVBOX_1);
@@ -481,7 +482,29 @@ public class MessagingPageController extends LoadableController {
     }
   }
 
-  public void createGroupchatClicked(ActionEvent actionEvent) throws IOException {
+  public void createGroupchatClicked(ActionEvent actionEvent) throws IOException, SQLException {
     Stage S = SceneManager.getInstance().openWindow("popUpViews/newGroupchatPopupPage.fxml");
+    S.getScene()
+        .getWindow()
+        .setOnCloseRequest(
+            new EventHandler<WindowEvent>() {
+              @Override
+              public void handle(WindowEvent event) {
+                System.out.println("CLOSED WINDOW WITH X BUTTON");
+                newGroupchatPopupPageController.clearSelectedEmployeeIDs();
+              }
+            });
+    TreeSet<Integer> groupChatEmployees = newGroupchatPopupPageController.getSelectedEmployeeIDs();
+    if (groupChatEmployees.size() >= 2) {
+      groupChatEmployees.add(this.currentEmployee.getEmployeeID());
+      ArrayList<Chat> newGroupChat = new ArrayList<>();
+      Integer newGroupChatID = ChatManager.getChatManager().getNextChatID();
+      for (Integer empID : groupChatEmployees) {
+        newGroupChat.add(new Chat(newGroupChatID, empID));
+      }
+      ChatManager.getChatManager().addChat(newGroupChat);
+      setCurrentChat(newGroupChatID);
+      refreshChatCards();
+    }
   }
 }
