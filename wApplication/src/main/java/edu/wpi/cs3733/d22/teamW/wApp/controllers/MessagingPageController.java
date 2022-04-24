@@ -12,6 +12,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.EmployeeMessage;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.UnreadMessage;
 import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.*;
@@ -31,6 +32,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class MessagingPageController extends LoadableController {
@@ -479,5 +481,7 @@ public class MessagingPageController extends LoadableController {
     }
   }
 
-  public void createGroupchatClicked(ActionEvent actionEvent) {}
+  public void createGroupchatClicked(ActionEvent actionEvent) throws IOException {
+    Stage S = SceneManager.getInstance().openWindow("popUpViews/newGroupchatPopupPage.fxml");
+  }
 }
