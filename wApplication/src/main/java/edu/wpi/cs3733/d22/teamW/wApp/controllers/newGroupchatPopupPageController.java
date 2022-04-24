@@ -1,10 +1,10 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.ButtonEmpID;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
-import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -73,7 +73,7 @@ public class newGroupchatPopupPageController implements Initializable {
     if (chosenEmployee == null
         || chosenEmployee
             .getEmployeeID()
-            .equals(Account.getInstance().getEmployee().getEmployeeID())) return;
+            .equals(AccountManager.getInstance().getEmployee().getEmployeeID())) return;
 
     addNewSelectionCard(chosenEmployee);
   }
