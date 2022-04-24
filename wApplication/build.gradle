@@ -17,7 +17,7 @@ repositories {
 }
 
 javafx {
-    version = "17"
+    version = "18"
     modules = [ 'javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.media']
 }
 
@@ -61,47 +61,6 @@ def codeCoverageExcludes = [
         'edu.wpi.cs3733.d22.teamW.Main',
 ]
 
-jacoco {
-    toolVersion = "0.8.4"
-}
-
-jacocoTestCoverageVerification {
-    violationRules {
-        rule {
-            element = 'CLASS'
-            limit {
-                counter = 'CLASS'
-                value = 'COVEREDRATIO'
-                minimum = 1.0
-            }
-            excludes = codeCoverageExcludes
-        }
-
-        rule {
-            element = 'CLASS'
-            limit {
-                counter = 'LINE'
-                value = 'COVEREDRATIO'
-                minimum = 0.25
-            }
-            excludes = codeCoverageExcludes
-        }
-
-        rule {
-            element = 'CLASS'
-            limit {
-                counter = 'BRANCH'
-                value = 'COVEREDRATIO'
-                minimum = 0.25
-            }
-            excludes = codeCoverageExcludes
-        }
-    }
-}
-
-check.dependsOn jacocoTestCoverageVerification
-jacocoTestCoverageVerification.dependsOn jacocoTestReport
-compileJava.dependsOn 'spotlessApply'
 
 spotless {
     java {

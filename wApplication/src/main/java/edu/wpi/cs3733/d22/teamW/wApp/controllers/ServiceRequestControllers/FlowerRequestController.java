@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
@@ -13,17 +13,19 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.Flower;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.Duration;
 
-public class FlowerRequestController extends LoadableController {
+public class FlowerRequestController implements Initializable {
   @FXML TextField recipientLastName;
   @FXML TextField recipientFirstName;
   @FXML AutoCompleteInput locationComboBox;
@@ -50,11 +52,14 @@ public class FlowerRequestController extends LoadableController {
   }
 
   @Override
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.FlowerRequest;
+  public void initialize(URL location, ResourceBundle resources) {
+    try {
+      onLoad();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
-  @Override
   public void onLoad() throws SQLException {
     fadeOut.setNode(successLabel);
     fadeOut.setFromValue(1.0);
@@ -64,11 +69,6 @@ public class FlowerRequestController extends LoadableController {
     locationComboBox.loadValues(getLocations());
     employeeIDComboBox.loadValues(getEmployeeNames());
     flowerTypeBox.loadValues(getFlowerTypeList());
-  }
-
-  @Override
-  public void onUnload() {
-    clearFields();
   }
 
   private boolean emptyFields() {
@@ -191,6 +191,6 @@ public class FlowerRequestController extends LoadableController {
   }
 
   public void switchToRequestList(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
+    PageManager.getInstance().loadPage(PageManager.Pages.RequestList);
   }
 }

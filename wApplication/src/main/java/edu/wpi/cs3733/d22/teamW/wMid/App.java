@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wMid;
 
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import java.io.IOException;
@@ -37,7 +38,7 @@ public class App extends Application {
 
   @Override
   public void start(Stage primaryStage) throws IOException {
-    SceneManager.getInstance().setPrimaryStage(primaryStage);
+    WindowManager.getInstance().initialize(primaryStage);
     // primaryStage.setFullScreen(true);
 
     primaryStage.setMaximized(true);
@@ -51,7 +52,7 @@ public class App extends Application {
                 getClass()
                     .getResourceAsStream("/edu/wpi/cs3733/d22/teamW/wApp/assets/mgb_logo.png")));
 
-    SceneManager.getInstance().setScene("DefaultPage.fxml");
+    WindowManager.getInstance().setScene("DefaultPage.fxml");
   }
 
   @Override
