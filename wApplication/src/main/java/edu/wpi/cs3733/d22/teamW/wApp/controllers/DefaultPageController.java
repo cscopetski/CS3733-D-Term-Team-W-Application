@@ -1,147 +1,101 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
-import edu.wpi.cs3733.d22.teamW.wMid.Account;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
+import edu.wpi.cs3733.d22.teamW.Managers.BackgroundManager;
+import edu.wpi.cs3733.d22.teamW.Managers.MenuBarManager;
+import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 public class DefaultPageController implements Initializable {
-  @FXML public Pane gamingPage;
-  @FXML public Pane messagingPage;
-  @FXML public Pane mainMenuPage;
-  @FXML public Pane mapEditorPage;
-  @FXML public Pane labServiceRequestPage;
-  @FXML public Pane languageInterpreterServiceRequestPage;
-  @FXML public Pane mealDeliveryServiceRequestPage;
-  @FXML public Pane medicalEquipmentServiceRequestPage;
-  @FXML public Pane medicineDeliveryServiceRequestPage;
-  @FXML public Pane securityServiceRequestPage;
-  @FXML public Pane computerServiceRequestPage;
-  @FXML public Pane sanitationRequestPage;
-  @FXML public Pane flowerRequestPage;
-  @FXML public Pane giftDeliveryPage;
-  @FXML public Pane requestListPage;
-  @FXML public Pane requestHubPage;
-  @FXML public Pane loginPage;
-  @FXML public Pane helpPage;
-  @FXML public Pane aboutPage;
-  @FXML public Pane profilePage;
   @FXML public HBox menuBar;
-  @FXML public Pane equipListPage;
   @FXML public Pane buttonPane;
-  @FXML public Pane adminHubPage;
-
-  protected Employee employee;
+  @FXML public AnchorPane content;
+  @FXML public AnchorPane background;
+  @FXML public AnchorPane pages;
 
   public void initialize(URL location, ResourceBundle rb) {
-    SceneManager.getInstance().putController(SceneManager.Scenes.Default, this);
+    BackgroundManager.getInstance().initialize(background);
+    PageManager.getInstance().initialize(pages);
+    MenuBarManager.getInstance().initialize(menuBar);
 
-    SceneManager.getInstance().putPane(SceneManager.Scenes.Login, loginPage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.MainMenu, mainMenuPage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.MapEditor, mapEditorPage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.Lab, labServiceRequestPage);
-    SceneManager.getInstance()
-        .putPane(SceneManager.Scenes.LanguageInterpreter, languageInterpreterServiceRequestPage);
-    SceneManager.getInstance()
-        .putPane(SceneManager.Scenes.MealDelivery, mealDeliveryServiceRequestPage);
-    SceneManager.getInstance()
-        .putPane(SceneManager.Scenes.MedicalEquipment, medicalEquipmentServiceRequestPage);
-    SceneManager.getInstance()
-        .putPane(SceneManager.Scenes.MedicineDelivery, medicineDeliveryServiceRequestPage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.Security, securityServiceRequestPage);
-    SceneManager.getInstance()
-        .putPane(SceneManager.Scenes.ComputerService, computerServiceRequestPage);
-    SceneManager.getInstance()
-        .putPane(SceneManager.Scenes.SanitationService, sanitationRequestPage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.FlowerRequest, flowerRequestPage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.GiftDelivery, giftDeliveryPage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.RequestList, requestListPage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.RequestHub, requestHubPage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.Help, helpPage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.About, aboutPage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.Profile, profilePage);
-    SceneManager.getInstance().setPaneVisible(SceneManager.Scenes.Login);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.AdminHub, adminHubPage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.Messaging, messagingPage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.Gaming, gamingPage);
-    SceneManager.getInstance().putPane(SceneManager.Scenes.EquipList, equipListPage);
+    PageManager.getInstance().loadPage(PageManager.Pages.Login);
   }
 
-  public void setEmployee(Employee em) {
-    this.employee = em;
+  public void createBackground() {
+    Circle c = new Circle(200, 200, 100, Color.web("#009ca8"));
+    content.getChildren().add(0, c);
   }
 
-  public Employee getEmployee() {
-    return this.employee;
+  public void switchToMedicineDelivery() {
+    PageManager.getInstance().loadPage(PageManager.Pages.MedicineDeliverySR);
   }
 
-  public void switchToMedicineDelivery(ActionEvent event) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicineDelivery);
+  public void switchToLab() {
+    PageManager.getInstance().loadPage(PageManager.Pages.LabSR);
   }
 
-  public void switchToLab(ActionEvent event) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Lab);
+  public void switchToMedicalEquipmentDelivery() {
+    PageManager.getInstance().loadPage(PageManager.Pages.MedicalEquipmentSR);
   }
 
-  public void switchToMedicalEquipmentDelivery(ActionEvent event) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MedicalEquipment);
+  public void switchToMealDelivery() {
+    PageManager.getInstance().loadPage(PageManager.Pages.MealDeliverySR);
   }
 
-  public void switchToMealDelivery(ActionEvent event) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MealDelivery);
+  public void switchToLanguageInterpreter() {
+    PageManager.getInstance().loadPage(PageManager.Pages.LanguageInterpreterSR);
   }
 
-  public void switchToLanguageInterpreter(ActionEvent event) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.LanguageInterpreter);
+  public void switchToSecurity() {
+    PageManager.getInstance().loadPage(PageManager.Pages.SecuritySR);
   }
 
-  public void switchToSecurity(ActionEvent event) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Security);
+  public void switchToComputerService() {
+    PageManager.getInstance().loadPage(PageManager.Pages.ComputerSR);
   }
 
-  public void switchToComputerService(ActionEvent event) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.ComputerService);
+  public void switchToFlowerService() {
+    PageManager.getInstance().loadPage(PageManager.Pages.FlowerSR);
   }
 
-  public void switchToFlowerService(ActionEvent event) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.FlowerRequest);
+  public void switchToGiftService() {
+    PageManager.getInstance().loadPage(PageManager.Pages.GiftDeliverySR);
   }
 
-  public void switchToGiftService(ActionEvent event) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.GiftDelivery);
+  public void switchToSanitationService() {
+    PageManager.getInstance().loadPage(PageManager.Pages.SanitationSR);
   }
 
-  public void switchToSanitationService(ActionEvent event) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.SanitationService);
+  public void switchToMapEditor() {
+    PageManager.getInstance().loadPage(PageManager.Pages.MapEditor);
   }
 
-  public void switchToMapEditor(ActionEvent event) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MapEditor);
+  public void switchToRequestList() {
+    PageManager.getInstance().loadPage(PageManager.Pages.RequestList);
   }
 
-  public void switchToRequestList(ActionEvent event) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
-  }
-
-  public void switchToRequestHub(ActionEvent event) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestHub);
+  public void switchToRequestHub() {
+    PageManager.getInstance().loadPage(PageManager.Pages.RequestHub);
   }
 
   public void switchToMainMenu() {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.MainMenu);
+    PageManager.getInstance().loadPage(PageManager.Pages.MainMenu);
   }
 
   public void switchToAdminHub() {
-    if (Account.getInstance().getEmployee().getType().getAccessLevel() == 5) {
-      SceneManager.getInstance().transitionTo(SceneManager.Scenes.AdminHub);
+    if (AccountManager.getInstance().getEmployee().getType().getAccessLevel() == 5) {
+      PageManager.getInstance().loadPage(PageManager.Pages.AdminHub);
     } else {
       Alert warningAlert =
           new Alert(Alert.AlertType.WARNING, "Sorry you cannot access to this site", ButtonType.OK);
@@ -149,38 +103,37 @@ public class DefaultPageController implements Initializable {
     }
   }
 
-  public void logOut(ActionEvent actionEvent) {
-    menuBar.setVisible(false);
+  public void logOut() {
     buttonPane.setDisable(true);
-    Account.getInstance().setEmployee(null);
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Login);
+    AccountManager.getInstance().reset();
+    PageManager.getInstance().loadPage(PageManager.Pages.Login);
   }
 
   public void exitProgram() {
-    SceneManager.getInstance().exitApplication();
+    WindowManager.getInstance().getPrimaryStage().close();
   }
 
-  public void switchToProfile(ActionEvent actionEvent) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Profile);
+  public void switchToProfile() {
+    PageManager.getInstance().loadPage(PageManager.Pages.Profile);
   }
 
-  public void switchToAbout(ActionEvent actionEvent) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.About);
+  public void switchToAbout() {
+    PageManager.getInstance().loadPage(PageManager.Pages.About);
   }
 
-  public void switchToHelp(ActionEvent actionEvent) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Help);
+  public void switchToGaming() {
+    PageManager.getInstance().loadPage(PageManager.Pages.Gaming);
   }
 
-  public void switchToGaming(ActionEvent actionEvent) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Gaming);
+  public void switchToMessaging() {
+    PageManager.getInstance().loadPage(PageManager.Pages.Messaging);
   }
 
-  public void switchToMessaging(ActionEvent event) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.Messaging);
+  public void switchToEquipList() {
+    PageManager.getInstance().loadPage(PageManager.Pages.EquipList);
   }
 
-  public void switchToEquipList(ActionEvent actionEvent) {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.EquipList);
+  public void switchToDashBoard() {
+    PageManager.getInstance().loadPage(PageManager.Pages.Dashboard);
   }
 }

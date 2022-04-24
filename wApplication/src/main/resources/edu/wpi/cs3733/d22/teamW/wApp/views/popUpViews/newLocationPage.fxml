@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.newLocationPageController">
+<AnchorPane style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.newLocationPageController">
     <children>
         <TextField fx:id="nodeField" layoutX="135.0" layoutY="96.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
         <TextField layoutX="135.0" layoutY="138.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" fx:id="xField" />

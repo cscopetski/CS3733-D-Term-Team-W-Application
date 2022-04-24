@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
@@ -13,18 +13,20 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.Languages;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.util.Duration;
 
-public class LanguageInterpreterServiceRequestController extends LoadableController {
+public class LanguageInterpreterServiceRequestController implements Initializable {
 
   @FXML AutoCompleteInput locationSelection;
   @FXML AutoCompleteInput employeeSelection;
@@ -54,11 +56,14 @@ public class LanguageInterpreterServiceRequestController extends LoadableControl
   }
 
   @Override
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.LanguageInterpreter;
+  public void initialize(URL location, ResourceBundle resources) {
+    try {
+      onLoad();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
-  @Override
   public void onLoad() throws SQLException {
     fadeOut.setNode(successLabel);
     fadeOut.setFromValue(1.0);
@@ -82,11 +87,6 @@ public class LanguageInterpreterServiceRequestController extends LoadableControl
             }
           }
         });
-  }
-
-  @Override
-  public void onUnload() {
-    clearFields();
   }
 
   private boolean emptyFields() {
@@ -136,12 +136,7 @@ public class LanguageInterpreterServiceRequestController extends LoadableControl
     Integer commaIndex = name.indexOf(',');
     employeeLastName = name.substring(0, commaIndex);
     employeeFirstName = name.substring(commaIndex + 2);
-
-    for (Employee e : EmployeeManager.getEmployeeManager().getAllEmployees()) {
-      if (e.getLastName().equals(employeeLastName) && e.getFirstName().equals(employeeFirstName)) {
-        employeeID = e.getEmployeeID();
-      }
-    }
+    employeeID = EmployeeManager.getEmployeeManager().getEmployeeFromName(employeeLastName,employeeFirstName).getEmployeeID();
 
     return String.format("%d", employeeID);
   }
@@ -213,7 +208,7 @@ public class LanguageInterpreterServiceRequestController extends LoadableControl
     return languages;
   }
 
-  public void switchToRequestList(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
+  public void switchToRequestList() throws IOException {
+    PageManager.getInstance().loadPage(PageManager.Pages.RequestList);
   }
 }

@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.ChatCardHBox;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.ChatManager;
@@ -10,9 +12,9 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Chat;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.EmployeeMessage;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.UnreadMessage;
-import edu.wpi.cs3733.d22.teamW.wMid.Account;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
+import java.net.URL;
+
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.*;
@@ -20,6 +22,7 @@ import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Orientation;
@@ -28,15 +31,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
-public class MessagingPageController extends LoadableController {
+public class MessagingPageController implements Initializable {
 
   protected Employee currentEmployee;
   protected Integer currentChatID;
@@ -50,13 +52,16 @@ public class MessagingPageController extends LoadableController {
   @FXML Button sendButton;
 
   @Override
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.Messaging;
+  public void initialize(URL location, ResourceBundle resources) {
+    try {
+      onLoad();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
-  @Override
   public void onLoad() throws SQLException {
-    this.currentEmployee = Account.getInstance().getEmployee();
+    this.currentEmployee = AccountManager.getInstance().getEmployee();
     employeeComboBox.loadValues(
         (ArrayList<String>)
             EmployeeManager.getEmployeeManager().getAllEmployees().stream()
@@ -64,9 +69,6 @@ public class MessagingPageController extends LoadableController {
                 .collect(Collectors.toList()));
     resetMessagePage();
   }
-
-  @Override
-  public void onUnload() {}
 
   public void resetMessagePage() throws SQLException {
     clearMessages();
@@ -264,6 +266,19 @@ public class MessagingPageController extends LoadableController {
     // Add card to list + seperator
     chatCardView.getChildren().add(chatCard);
     chatCardView.getChildren().add(new Separator());
+  }
+
+  //TODO: Reimplement Phil's function
+  public void displayMiniProfile(MouseEvent event, Employee emp) {
+    if (event.getButton().equals(MouseButton.PRIMARY)) {
+      if (event.getClickCount() == 2) {
+        WindowManager.getInstance()
+                .storeData(
+                        "employee", emp);
+        WindowManager.getInstance().openWindow(
+                "MiniProfilePage.fxml", emp.getFirstName() + " " + emp.getLastName());
+      }
+    }
   }
 
   private void setCurrentChat(Integer chatID) throws SQLException {
@@ -483,17 +498,8 @@ public class MessagingPageController extends LoadableController {
   }
 
   public void createGroupchatClicked(ActionEvent actionEvent) throws IOException, SQLException {
-    Stage S = SceneManager.getInstance().openWindow("popUpViews/newGroupchatPopupPage.fxml");
-    S.getScene()
-        .getWindow()
-        .setOnCloseRequest(
-            new EventHandler<WindowEvent>() {
-              @Override
-              public void handle(WindowEvent event) {
-                System.out.println("CLOSED WINDOW WITH X BUTTON");
-                newGroupchatPopupPageController.clearSelectedEmployeeIDs();
-              }
-            });
+    WindowManager.getInstance().openWindow("popUpViews/newGroupchatPopupPage.fxml");
+    WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(null);
     TreeSet<Integer> groupChatEmployees = newGroupchatPopupPageController.getSelectedEmployeeIDs();
     if (groupChatEmployees.size() >= 2) {
       groupChatEmployees.add(this.currentEmployee.getEmployeeID());

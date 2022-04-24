@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<VBox alignment="CENTER" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" spacing="50.0" style="-fx-alignment: center;" stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.GamingController">
+<VBox alignment="CENTER" spacing="50.0" style="-fx-alignment: center;" stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.GamingController">
    <children>
       <VBox alignment="CENTER">
          <children>

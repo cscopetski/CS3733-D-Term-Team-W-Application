@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane prefHeight="602.0" prefWidth="1050.0" style="-fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DashBoardController">
+   <center>
+      <HBox>
+         <children>
+            <VBox alignment="TOP_CENTER" fillWidth="false" spacing="50.0" style="-fx-alignment: center;" stylesheets="@../CSS/UniversalCSS/Standard.css">
+               <children>
+                  <VBox alignment="CENTER" prefHeight="94.0" prefWidth="320.0" style="-fx-border-color: #013895; -fx-border-width: 2;">
+                     <children>
+                        <Label text="Floor summary" textFill="#013895">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Label>
+                        <HBox alignment="CENTER" prefHeight="19.0" prefWidth="239.0">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#013895" height="19.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Label prefHeight="17.0" prefWidth="42.0" text="Clean" />
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dd2c29" height="19.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
+                              <Label text="Dirty" />
+                           </children>
+                        </HBox>
+                        <HBox>
+                           <children>
+                              <VBox prefHeight="90.0" prefWidth="80.0">
+                                 <children>
+                                    <ImageView fitHeight="80.0" fitWidth="80.0">
+                                       <image>
+                                          <Image url="@../assets/Icons/PacMan/Center-01.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="bedFloorClean" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="82.0" textAlignment="CENTER" textFill="#013895">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="bedFloorDirty" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="85.0" textAlignment="CENTER" textFill="#dd2c29">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <ImageView fitHeight="80.0" fitWidth="80.0">
+                                       <image>
+                                          <Image url="@../assets/Icons/PacMan/Center-03.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="82.0" textAlignment="CENTER" textFill="#013895" fx:id="xrayFloorClean">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="85.0" textAlignment="CENTER" textFill="#dd2c29" fx:id="xrayFloorDirty">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <ImageView fitHeight="80.0" fitWidth="80.0">
+                                       <image>
+                                          <Image url="@../assets/Icons/PacMan/Center-04.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="pumpFloorClean" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="82.0" textAlignment="CENTER" textFill="#013895">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="pumpFloorDirty" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="85.0" textAlignment="CENTER" textFill="#dd2c29">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <ImageView fitHeight="81.0" fitWidth="80.0">
+                                       <image>
+                                          <Image url="@../assets/Icons/PacMan/Center-05.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="recFloorClean" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="82.0" textAlignment="CENTER" textFill="#013895">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                    <Label fx:id="recFloorDirty" alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="85.0" textAlignment="CENTER" textFill="#dd2c29">
+                                       <font>
+                                          <Font name="System Bold" size="15.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+                  <TableView prefHeight="200.0" prefWidth="200.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+                  <TableView prefHeight="437.0" prefWidth="404.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+   </center>
+   <top>
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Group>
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#189da6" height="54.0" stroke="TRANSPARENT" strokeType="INSIDE" width="469.0" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="54.0" prefWidth="475.0" text="Map DashBoard" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Group>
+            <Label alignment="CENTER" prefHeight="35.0" prefWidth="292.0" text="Quick dashboard on the equipments" textFill="#013895">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </top>
+   <left>
+      <VBox prefHeight="513.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+         <children>
+            <Group>
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#98e5db" height="35.0" stroke="TRANSPARENT" strokeType="INSIDE" width="387.0" />
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="73.0" prefHeight="28.0" prefWidth="198.0" text="Sideview Map" textFill="#214462">
+                     <font>
+                        <Font name="System Bold" size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Group>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="387.0" text="Click on the map floor to see the details" textAlignment="CENTER" textFill="#013895">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <HBox prefHeight="245.0" prefWidth="450.0">
+               <children>
+                  <Group>
+                     <children>
+                        <ImageView fitHeight="232.0" fitWidth="286.0">
+                           <image>
+                              <Image url="@../assets/Maps/SideViewCropped.png" />
+                           </image>
+                        </ImageView>
+                        <Button layoutX="108.0" layoutY="-2.0" mnemonicParsing="false" onAction="#F5Click" prefHeight="32.0" prefWidth="153.0" style="-fx-border-radius: 0;" stylesheets="@../CSS/Dashboard/mapButton.css" text="Floor 5" />
+                        <Button layoutX="108.0" layoutY="29.0" mnemonicParsing="false" onAction="#F4Click" prefHeight="37.0" prefWidth="153.0" style="-fx-border-radius: 0;" stylesheets="@../CSS/Dashboard/mapButton.css" text="Floor 4" />
+                        <Button layoutX="67.0" layoutY="64.0" mnemonicParsing="false" onAction="#F3Click" prefHeight="35.0" prefWidth="218.0" style="-fx-border-radius: 0;" stylesheets="@../CSS/Dashboard/mapButton.css" text="Floor 3" />
+                        <Button layoutX="67.0" layoutY="98.0" mnemonicParsing="false" onAction="#F2Click" prefHeight="35.0" prefWidth="218.0" style="-fx-border-radius: 0;" stylesheets="@../CSS/Dashboard/mapButton.css" text="Floor 2" />
+                        <Button layoutX="67.0" layoutY="133.0" mnemonicParsing="false" onAction="#F1Click" prefHeight="35.0" prefWidth="218.0" style="-fx-border-radius: 0;" stylesheets="@../CSS/Dashboard/mapButton.css" text="Floor 1" />
+                        <Button layoutX="67.0" layoutY="166.0" mnemonicParsing="false" onAction="#LL1Click" prefHeight="35.0" prefWidth="218.0" style="-fx-border-radius: 0;" stylesheets="@../CSS/Dashboard/mapButton.css" text="Low level 1" />
+                        <Button layoutX="67.0" layoutY="199.0" mnemonicParsing="false" onAction="#LL2Click" prefHeight="35.0" prefWidth="218.0" style="-fx-border-radius: 0;" stylesheets="@../CSS/Dashboard/mapButton.css" text="Low level 2" />
+                     </children>
+                  </Group>
+               </children>
+            </HBox>
+            <Group>
+               <children>
+                  <VBox prefHeight="92.0" prefWidth="387.0">
+                     <children>
+                        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#98e5db" height="31.0" stroke="TRANSPARENT" strokeType="INSIDE" width="387.0" />
+                        <Group>
+                           <children>
+                              <HBox alignment="CENTER" layoutX="239.0" layoutY="27.0" prefHeight="61.0" prefWidth="386.0">
+                                 <children>
+                                    <Group>
+                                       <children>
+                                          <ProgressIndicator fx:id="piBed" layoutY="20.0" prefHeight="67.0" prefWidth="45.0" progress="0.0" />
+                                          <Label text="Bed">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Group>
+                                    <Group>
+                                       <children>
+                                          <ProgressIndicator fx:id="piXray" layoutX="24.0" layoutY="-4.0" prefHeight="40.0" prefWidth="74.0" progress="0.0" />
+                                          <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="-25.0" prefHeight="21.0" prefWidth="69.0" text="XRay">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Group>
+                                    <Group>
+                                       <children>
+                                          <ProgressIndicator fx:id="piPump" layoutX="11.0" layoutY="1.0" progress="0.0" />
+                                          <Label alignment="CENTER" layoutX="-6.0" layoutY="-20.0" prefHeight="21.0" prefWidth="58.0" text="Pumps">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Group>
+                                    <Group>
+                                       <children>
+                                          <ProgressIndicator fx:id="piRec" layoutX="23.0" layoutY="2.0" progress="0.0" />
+                                          <Label alignment="CENTER" layoutX="-1.0" layoutY="-19.0" prefHeight="21.0" prefWidth="75.0" text="Recliner">
+                                             <font>
+                                                <Font name="System Bold" size="15.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                    </Group>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </Group>
+                     </children>
+                  </VBox>
+                  <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" layoutX="46.0" layoutY="-1.0" prefHeight="30.0" prefWidth="303.0" text="Total Clean Equipments Summary" textFill="#214462">
+                     <font>
+                        <Font name="System Bold" size="19.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Group>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="388.0" text="The percentage stands for the clean equipment of all total equipments on all floors">
+               <font>
+                  <Font name="System Italic" size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </left>
+   <right>
+      <VBox prefHeight="513.0" prefWidth="343.0" BorderPane.alignment="CENTER">
+         <children>
+            <Group>
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-18.0" layoutY="30.0" prefHeight="27.0" prefWidth="358.0" text="This table will be updated based on the floor you click on" textAlignment="CENTER" textFill="#013895">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Label>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#98e5db" height="31.0" stroke="TRANSPARENT" strokeType="INSIDE" width="342.0" />
+                  <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="11.0" layoutY="2.0" prefHeight="27.0" prefWidth="321.0" text="Equipment details">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Group>
+            <TableView prefHeight="387.0" prefWidth="356.0">
+              <columns>
+                <TableColumn prefWidth="137.9999796152115" text="C1" />
+                <TableColumn prefWidth="355.9999694824219" text="C2" />
+              </columns>
+            </TableView>
+         </children>
+      </VBox>
+   </right>
+</BorderPane>

@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
@@ -12,20 +12,22 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
 
-public class ComputerServiceRequestController extends LoadableController {
+public class ComputerServiceRequestController implements Initializable {
 
   @FXML AutoCompleteInput locationComboBox;
   @FXML AutoCompleteInput employee;
@@ -55,12 +57,11 @@ public class ComputerServiceRequestController extends LoadableController {
   }
 
   @Override
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.ComputerService;
+  public void initialize(URL location, ResourceBundle resources) {
+    onLoad();
   }
 
-  @Override
-  public void onLoad() throws SQLException {
+  public void onLoad() {
     fadeOut.setNode(successLabel);
     fadeOut.setFromValue(1.0);
     fadeOut.setToValue(0.0);
@@ -68,11 +69,6 @@ public class ComputerServiceRequestController extends LoadableController {
     fadeOut.setAutoReverse(false);
     locationComboBox.setItems(FXCollections.observableArrayList(getLocations()));
     employee.setItems(FXCollections.observableArrayList(getEmployeeNames()));
-  }
-
-  @Override
-  public void onUnload() {
-    clearFields();
   }
 
   private boolean emptyFields() {
@@ -106,19 +102,18 @@ public class ComputerServiceRequestController extends LoadableController {
   private ArrayList<String> getEmployeeNames() {
     ArrayList<String> name = new ArrayList<>();
     ArrayList<Employee> employees = null;
+    ArrayList<EmployeeType> types = new ArrayList<>();
+    types.add(EmployeeType.Technician);
+    types.add(EmployeeType.Staff);
     try {
-      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
+      employees = EmployeeManager.getEmployeeManager().getEmployeeListByType(types);
     } catch (SQLException e) {
       System.out.println("Failed to unearth employees from database");
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      if (e.getEmployeeID() != -1
-          && (e.getType().equals(EmployeeType.Technician)
-              || e.getType().equals(EmployeeType.Staff))) {
         String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
         name.add(empName);
-      }
     }
     return name;
   }
@@ -167,17 +162,12 @@ public class ComputerServiceRequestController extends LoadableController {
     Integer commaIndex = name.indexOf(',');
     employeeLastName = name.substring(0, commaIndex);
     employeeFirstName = name.substring(commaIndex + 2);
-
-    for (Employee e : EmployeeManager.getEmployeeManager().getAllEmployees()) {
-      if (e.getLastName().equals(employeeLastName) && e.getFirstName().equals(employeeFirstName)) {
-        employeeID = e.getEmployeeID();
-      }
-    }
+    employeeID = EmployeeManager.getEmployeeManager().getEmployeeFromName(employeeLastName,employeeFirstName).getEmployeeID();
 
     return String.format("%d", employeeID);
   }
 
   public void switchToRequestList(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
+    PageManager.getInstance().loadPage(PageManager.Pages.RequestList);
   }
 }

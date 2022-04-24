@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.LoadableController;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
@@ -13,7 +13,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.ThreatLevels;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -23,10 +22,11 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 
-public class SecurityServiceRequestController extends LoadableController {
+public class SecurityServiceRequestController implements Initializable {
 
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
@@ -37,22 +37,7 @@ public class SecurityServiceRequestController extends LoadableController {
   @FXML EmergencyButton emergencyButton;
 
   @Override
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.Security;
-  }
-
-  @Override
-  public void onLoad() throws SQLException {}
-
-  @Override
-  public void onUnload() {
-    clearFields();
-  }
-
-  @Override
   public void initialize(URL l, ResourceBundle rb) {
-    super.initialize(l, rb);
-
     location.loadValues(getLocations());
     threatLevel.loadValues(
         (ArrayList<String>)
@@ -136,12 +121,7 @@ public class SecurityServiceRequestController extends LoadableController {
     Integer commaIndex = name.indexOf(',');
     employeeLastName = name.substring(0, commaIndex);
     employeeFirstName = name.substring(commaIndex + 2);
-
-    for (Employee e : EmployeeManager.getEmployeeManager().getAllEmployees()) {
-      if (e.getLastName().equals(employeeLastName) && e.getFirstName().equals(employeeFirstName)) {
-        employeeID = e.getEmployeeID();
-      }
-    }
+    employeeID = EmployeeManager.getEmployeeManager().getEmployeeFromName(employeeLastName,employeeFirstName).getEmployeeID();
 
     return String.format("%d", employeeID);
   }
@@ -167,22 +147,22 @@ public class SecurityServiceRequestController extends LoadableController {
   private ArrayList<String> getEmployeeNames() {
     ArrayList<String> name = new ArrayList<>();
     ArrayList<Employee> employees = null;
+    ArrayList<EmployeeType> types = new ArrayList<>();
+    types.add(EmployeeType.Security);
     try {
-      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
+      employees = EmployeeManager.getEmployeeManager().getEmployeeListByType(types);
     } catch (SQLException e) {
       System.out.println("Failed to unearth employees from database");
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      if (e.getEmployeeID() != -1 && e.getType().equals(EmployeeType.Security)) {
-        String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
-        name.add(empName);
-      }
+      String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
+      name.add(empName);
     }
     return name;
   }
 
   public void switchToRequestList(ActionEvent event) throws IOException {
-    SceneManager.getInstance().transitionTo(SceneManager.Scenes.RequestList);
+    PageManager.getInstance().loadPage(PageManager.Pages.RequestList);
   }
 }
