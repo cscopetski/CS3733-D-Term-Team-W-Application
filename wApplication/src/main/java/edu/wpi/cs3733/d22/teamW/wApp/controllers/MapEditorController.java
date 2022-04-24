@@ -551,6 +551,9 @@ public class MapEditorController extends LoadableController {
               }
             });
       }
+      Tooltip T = new Tooltip();
+      T.setText(currFloorLoc.get(i).getNodeID());
+      Tooltip.install(circ, T);
       locDots.add(circ);
       scrollGroup.getChildren().add(circ);
     }
@@ -656,6 +659,10 @@ public class MapEditorController extends LoadableController {
               anchorY.set(0.0);
             });
       }
+      Tooltip T = new Tooltip();
+      T.setText(equipList.get(i).getMedID());
+      Tooltip.install(circle, T);
+      locDots.add(circle);
       eqDots.add(circle);
       scrollGroup.getChildren().add(circle);
     }
