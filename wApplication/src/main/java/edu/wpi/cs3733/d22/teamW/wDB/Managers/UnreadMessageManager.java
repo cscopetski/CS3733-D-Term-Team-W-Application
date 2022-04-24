@@ -39,6 +39,6 @@ public class UnreadMessageManager {
   }
 
   public void deleteUnreadMessage(Integer msgID, Integer empID) throws SQLException {
-    this.deleteUnreadMessage(msgID, empID);
+    this.umd.deleteUnreadMessage(msgID, empID);
   }
 }

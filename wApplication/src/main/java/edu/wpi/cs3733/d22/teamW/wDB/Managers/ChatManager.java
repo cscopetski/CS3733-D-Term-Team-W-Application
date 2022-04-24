@@ -6,6 +6,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ChatManager {
+  // TODO: Fix this (wont work on server cause its local)
+  private static Integer count = 1;
+
   private ChatDao cd;
 
   private ChatManager() {}
@@ -32,8 +35,15 @@ public class ChatManager {
     return this.cd.getAllEmployeesInChat(chatID);
   }
 
-  public void addChat(Chat chat) throws SQLException {
+  private void addChat(Chat chat) throws SQLException {
     this.cd.addChat(chat);
+  }
+
+  public void addChat(ArrayList<Chat> chats) throws SQLException {
+    for (Chat chat : chats) {
+      addChat(chat);
+    }
+    count++;
   }
 
   public void deleteChat(Integer chatID) throws SQLException {
@@ -42,5 +52,9 @@ public class ChatManager {
 
   public void deleteEmployeeFromChat(Integer chatID, Integer empID) throws SQLException {
     this.cd.deleteEmployeeFromChat(chatID, empID);
+  }
+
+  public Integer getNextChatID() {
+    return count;
   }
 }

@@ -16,6 +16,8 @@ public interface EmployeeMessageDao {
 
   ArrayList<EmployeeMessage> getAllMessagesFromEmployee(Integer empIDfrom) throws SQLException;
 
+  EmployeeMessage getMostRecentMessageInChat(Integer chatID) throws SQLException;
+
   EmployeeMessage getEmployeeMessage(Integer messageID) throws SQLException;
 
   void addEmployeeMessage(EmployeeMessage em) throws SQLException;

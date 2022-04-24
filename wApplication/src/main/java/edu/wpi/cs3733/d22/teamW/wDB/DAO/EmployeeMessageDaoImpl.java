@@ -78,6 +78,23 @@ public class EmployeeMessageDaoImpl implements EmployeeMessageDao {
   }
 
   @Override
+  public EmployeeMessage getMostRecentMessageInChat(Integer chatID) throws SQLException {
+    ResultSet messageDatabase =
+        statement.executeQuery(
+            String.format(
+                "SELECT MESSAGEID, EMPIDFROM, CHATIDTO, MESSAGECONTENT, SENTTIMESTAMP\n"
+                    + "FROM EMPLOYEEMESSAGES\n"
+                    + "WHERE SENTTIMESTAMP=(SELECT MAX(SENTTIMESTAMP) FROM EMPLOYEEMESSAGES WHERE CHATIDTO=%d)",
+                chatID));
+    ArrayList<EmployeeMessage> recent = extractMessagesFromResultSet(messageDatabase);
+    if (recent.isEmpty()) {
+      return null;
+    } else {
+      return recent.get(0);
+    }
+  }
+
+  @Override
   public EmployeeMessage getEmployeeMessage(Integer messageID) throws SQLException {
     ResultSet messageDatabase =
         statement.executeQuery(

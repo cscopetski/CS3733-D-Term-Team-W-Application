@@ -1,23 +1,27 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.MessageCardHBox;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.ChatCardHBox;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.ChatManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.UnreadMessageManager;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Chat;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.EmployeeMessage;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.UnreadMessage;
 import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Orientation;
-import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -26,18 +30,19 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class MessagingPageController extends LoadableController {
 
   protected Employee currentEmployee;
-  protected Employee selectedEmployee;
+  protected Integer currentChatID;
 
   @FXML AutoCompleteInput employeeComboBox;
   @FXML Label messageTitleLabel;
   @FXML VBox messagesWindow;
   @FXML VBox messageWindow;
-  @FXML VBox employeeCardView;
+  @FXML VBox chatCardView;
   @FXML TextField messageTextField;
   @FXML Button sendButton;
 
@@ -57,37 +62,84 @@ public class MessagingPageController extends LoadableController {
     resetMessagePage();
   }
 
-  public void refreshEmployeeCard() throws SQLException {
-    clearEmployeeCards();
-    ArrayList<EmployeeMessage> allMessages =
-        EmployeeMessageManager.getEmployeeMessageManager().getAllMessages();
+  @Override
+  public void onUnload() {}
+
+  public void resetMessagePage() throws SQLException {
+    clearMessages();
+    refreshChatCards();
+    messageTitleLabel.setText("Select a Chat");
+    messageTextField.clear();
+    if (!this.employeeComboBox.getSelectionModel().isEmpty()) {
+      this.employeeComboBox.getSelectionModel().clearSelection();
+    }
+    messageWindow.setDisable(true);
+  }
+
+  public void refreshChatCards() throws SQLException {
+    clearChatCards();
+    ArrayList<Chat> currentChats =
+        ChatManager.getChatManager().getAllChatsEmployeeIsIn(this.currentEmployee.getEmployeeID());
+    // get most recent message in each chat
+    // sort chats by their recent message
+    //        for(int i=0; i<currentChats.size(); i++) {
+    //            Chat chat = currentChats.get(i);
+    //
+    // if(EmployeeMessageManager.getEmployeeMessageManager().getMostRecentMessageInChat(chat.getChatID()) == null) {
+    //                currentChats.remove(i);
+    //                i--;
+    //            }
+    //        }
     Collections.sort(
-        allMessages, (o1, o2) -> -1 * o1.getSentTimestamp().compareTo(o2.getSentTimestamp()));
-    TreeSet<Integer> uniqueID = new TreeSet<>();
-    //    for (EmployeeMessage message : allMessages) {
-    //      if (message.getEmpIDto().equals(this.currentEmployee.getEmployeeID())) {
-    //        if (uniqueID.add(message.getEmpIDfrom())) {
-    //          if (message.getIsRead() == 0) {
-    //            addEmployeeCard(message.getEmpIDfrom(), true);
-    //          } else {
-    //            addEmployeeCard(message.getEmpIDfrom(), false);
-    //          }
-    //        }
-    //      }
-    //      if (message.getEmpIDfrom().equals(this.currentEmployee.getEmployeeID())) {
-    //        if (uniqueID.add(message.getEmpIDto())) {
-    //          addEmployeeCard(message.getEmpIDto(), false);
-    //        }
-    //      }
-    //    }
+        currentChats,
+        new Comparator<Chat>() {
+          @Override
+          public int compare(Chat o1, Chat o2) {
+            EmployeeMessage o1Recent = null;
+            EmployeeMessage o2Recent = null;
+            try {
+              o1Recent =
+                  EmployeeMessageManager.getEmployeeMessageManager()
+                      .getMostRecentMessageInChat(o1.getChatID());
+              o2Recent =
+                  EmployeeMessageManager.getEmployeeMessageManager()
+                      .getMostRecentMessageInChat(o2.getChatID());
+            } catch (SQLException e) {
+            }
+            if (o1Recent == null) return 1;
+            if (o2Recent == null) return -1;
+            return -o1Recent.getSentTimestamp().compareTo(o2Recent.getSentTimestamp());
+          }
+        });
+
+    for (Chat chat : currentChats) {
+      int unreadInChat =
+          UnreadMessageManager.getUnreadMessageManager()
+              .getAllUnreadMessagesFromChatAndEmployee(
+                  chat.getChatID(), this.currentEmployee.getEmployeeID())
+              .size();
+      // If the card is a DM between two people and has no messages, do not display it
+      if (!(ChatManager.getChatManager().getAllEmployeesInChat(chat.getChatID()).size() == 2
+          && EmployeeMessageManager.getEmployeeMessageManager()
+                  .getAllMessagesToChat(chat.getChatID())
+                  .size()
+              == 0)) {
+        addChatCard(chat.getChatID(), unreadInChat);
+      }
+    }
   }
 
-  public void clearEmployeeCards() {
-    employeeCardView.getChildren().clear();
+  public void clearChatCards() {
+    chatCardView.getChildren().clear();
   }
 
-  public void addEmployeeCard(Integer empID, boolean hasUnread) throws SQLException {
-    Employee emp = EmployeeManager.getEmployeeManager().getEmployee(empID);
+  private ImageView generatePlaceHolderImage(boolean small) {
+    double imageWidth = 80;
+    double imageHeight = 80;
+    if (small) {
+      imageWidth = 40;
+      imageHeight = 40;
+    }
     ImageView placeHolderImage = new ImageView();
     placeHolderImage.setImage(
         new Image(
@@ -95,81 +147,144 @@ public class MessagingPageController extends LoadableController {
                 .getClassLoader()
                 .getResource("edu/wpi/cs3733/d22/teamW/wApp/assets/Icons/profilePicture.png")
                 .toString()));
-    placeHolderImage.setFitWidth(80);
-    placeHolderImage.setFitHeight(80);
-    Label employeeNameLabel =
-        new Label(String.format("%s %s", emp.getFirstName(), emp.getLastName()));
-    //    if (hasUnread) {
-    //      employeeNameLabel =
-    //          new Label(
-    //              String.format(
-    //                  "(%d) %s %s",
-    //                  EmployeeMessageManager.getEmployeeMessageManager()
-    //                      .countUnreadMessagesAsFrom(this.currentEmployee.getEmployeeID(), empID),
-    //                  emp.getFirstName(),
-    //                  emp.getLastName()));
-    //    }
-    MessageCardHBox newHBOX =
-        new MessageCardHBox(
-            placeHolderImage, new Separator(Orientation.VERTICAL), employeeNameLabel);
-    newHBOX.setEmpID(emp.getEmployeeID());
-    newHBOX.setHasUrgent(hasUnread);
-    newHBOX.setPrefHeight(100);
-    newHBOX.setMinHeight(-1.0 / 0.0);
-    newHBOX.setMinWidth(-1.0 / 0.0);
-    newHBOX.setOnMouseClicked(
+    placeHolderImage.setFitWidth(imageWidth);
+    placeHolderImage.setFitHeight(imageHeight);
+    return placeHolderImage;
+  }
+
+  public void addChatCard(Integer chatID, int numUnread) throws SQLException {
+    boolean hasUnread = numUnread > 0;
+    // Initialize card and other data
+    // Card consists of:
+    //  VBOX(s)
+    //    ImageView(s)
+    //  Seperator
+    //  Label
+    ChatCardHBox chatCard = new ChatCardHBox();
+    chatCard.setPrefWidth(332);
+    chatCard.setPrefHeight(80);
+    chatCard.setUnread(hasUnread);
+    chatCard.setChatID(chatID);
+
+    ArrayList<Employee> otherEmployeesInChat = getOtherEmployeesInChat(chatID);
+
+    // Set image
+    boolean smallImages = false;
+    if (otherEmployeesInChat.size() > 1) {
+      smallImages = true;
+    }
+    ImageView placeHolderImage = generatePlaceHolderImage(smallImages);
+    ImageView placeHolderImage2 = generatePlaceHolderImage(smallImages);
+    ImageView placeHolderImage3 = generatePlaceHolderImage(smallImages);
+    ImageView placeHolderImage4 = generatePlaceHolderImage(smallImages);
+
+    // Add images
+    VBox imageHolderVBOX_1 = new VBox();
+    VBox imageHolderVBOX_2 = new VBox();
+    switch (otherEmployeesInChat.size()) {
+      case 1:
+        imageHolderVBOX_1.getChildren().add(placeHolderImage);
+        chatCard.getChildren().add(imageHolderVBOX_1);
+        break;
+      case 2:
+        imageHolderVBOX_1.setPrefWidth(80);
+        imageHolderVBOX_1.getChildren().add(placeHolderImage);
+        imageHolderVBOX_1.getChildren().add(placeHolderImage2);
+        chatCard.getChildren().add(imageHolderVBOX_1);
+        break;
+      case 3:
+        imageHolderVBOX_1.getChildren().add(placeHolderImage);
+        imageHolderVBOX_1.getChildren().add(placeHolderImage2);
+        imageHolderVBOX_2.getChildren().add(placeHolderImage3);
+        chatCard.getChildren().add(imageHolderVBOX_1);
+        chatCard.getChildren().add(imageHolderVBOX_2);
+        break;
+      case 4:
+        imageHolderVBOX_1.getChildren().add(placeHolderImage);
+        imageHolderVBOX_1.getChildren().add(placeHolderImage2);
+        imageHolderVBOX_2.getChildren().add(placeHolderImage3);
+        imageHolderVBOX_2.getChildren().add(placeHolderImage4);
+        chatCard.getChildren().add(imageHolderVBOX_1);
+        chatCard.getChildren().add(imageHolderVBOX_2);
+        break;
+      default:
+        imageHolderVBOX_1.getChildren().add(placeHolderImage);
+        imageHolderVBOX_1.getChildren().add(placeHolderImage2);
+        imageHolderVBOX_2.getChildren().add(placeHolderImage3);
+        Label additionalLabel = new Label(String.format("+%d", otherEmployeesInChat.size() - 4));
+        additionalLabel.setFont(new Font(19));
+        imageHolderVBOX_2.getChildren().add(additionalLabel);
+        chatCard.getChildren().add(imageHolderVBOX_1);
+        chatCard.getChildren().add(imageHolderVBOX_2);
+        break;
+    }
+    // Add seperator
+    chatCard.getChildren().add(new Separator(Orientation.VERTICAL));
+
+    // Add title label
+    Label chatNameLabel = new Label(getChatTitleFromID(chatID));
+    if (hasUnread) {
+      chatNameLabel.setText(String.format("(%d) %s", numUnread, chatNameLabel.getText()));
+    }
+    chatCard.getChildren().add(chatNameLabel);
+
+    // Add background color and mouse events
+    if (hasUnread) {
+      chatCard.setStyle("-fx-background-color: #ffcccc;");
+    }
+    chatCard.setOnMouseClicked(
         new EventHandler<MouseEvent>() {
           @Override
           public void handle(MouseEvent event) {
             try {
-              clickEmployeeCard(event);
+              clickChatCard(event);
             } catch (SQLException e) {
               e.printStackTrace();
             }
           }
         });
-    newHBOX.setOnMouseEntered(this::mouseOverCard);
-    newHBOX.setOnMouseExited(this::mouseExitCard);
+    chatCard.setOnMouseEntered(
+        new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent event) {
+            mouseOverCard(event);
+          }
+        });
+    chatCard.setOnMouseExited(
+        new EventHandler<MouseEvent>() {
+          @Override
+          public void handle(MouseEvent event) {
+            mouseExitCard(event);
+          }
+        });
 
-    if (hasUnread) {
-      newHBOX.setStyle("-fx-background-color: #ffcccc;");
-    }
-    newHBOX.setAlignment(Pos.CENTER_LEFT);
-    VBox cardVBox = new VBox(newHBOX, new Separator());
-    employeeCardView.getChildren().add(cardVBox);
+    // Add card to list + seperator
+    chatCardView.getChildren().add(chatCard);
+    chatCardView.getChildren().add(new Separator());
   }
 
-  public void clickEmployeeCard(MouseEvent event) throws SQLException {
-    Integer selectedID = ((MessageCardHBox) event.getSource()).getEmpID();
-    this.selectedEmployee = EmployeeManager.getEmployeeManager().getEmployee(selectedID);
-    if (!this.employeeComboBox.getSelectionModel().isEmpty()) {
-      this.employeeComboBox.getSelectionModel().clearSelection();
-    }
-    updateMessageWindow();
-    refreshEmployeeCard();
+  private void setCurrentChat(Integer chatID) throws SQLException {
+    this.currentChatID = chatID;
+    clearMessages();
+    if (messageWindow.isDisabled()) messageWindow.setDisable(false);
+    messageTitleLabel.setText(getChatTitleFromID(chatID));
+    loadMessages(EmployeeMessageManager.getEmployeeMessageManager().getAllMessagesToChat(chatID));
   }
-
-  @Override
-  public void onUnload() {}
 
   private void clearMessages() {
     messagesWindow.getChildren().clear();
   }
 
   private void loadMessages(ArrayList<EmployeeMessage> currentMessages) {
-    //    clearMessages();
-    //    Collections.sort(currentMessages,
-    // Comparator.comparing(EmployeeMessage::getSentTimestamp));
-    //    for (EmployeeMessage message : currentMessages) {
-    //      if (message.getEmpIDto().equals(this.currentEmployee.getEmployeeID())) {
-    //        addMessageToList(message, true);
-    //      } else {
-    //        addMessageToList(message, false);
-    //      }
-    //    }
+    Collections.sort(currentMessages, Comparator.comparing(EmployeeMessage::getSentTimestamp));
+    for (EmployeeMessage message : currentMessages) {
+      addMessageToList(message);
+    }
+    markMessagesRead(currentMessages);
   }
 
-  public void addMessageToList(EmployeeMessage message, boolean fromOther) {
+  public void addMessageToList(EmployeeMessage message) {
+    boolean fromOther = !message.getEmpIDfrom().equals(this.currentEmployee.getEmployeeID());
     Tooltip timestampTooltip = new Tooltip(message.getSentTimestamp().toString());
     timestampTooltip.setShowDelay(Duration.ZERO);
     timestampTooltip.setHideDelay(Duration.ZERO);
@@ -215,83 +330,123 @@ public class MessagingPageController extends LoadableController {
     }
   }
 
+  private ArrayList<Employee> getOtherEmployeesInChat(Integer chatID) throws SQLException {
+    return EmployeeManager.getEmployeeManager()
+        .getOtherEmployeesInChat(chatID, this.currentEmployee.getEmployeeID());
+  }
+
+  private String getChatTitleFromID(Integer chatID) throws SQLException {
+    ArrayList<Employee> otherEmployeesInChat = getOtherEmployeesInChat(chatID);
+    return getChatTitleFromEmployees(otherEmployeesInChat);
+  }
+
+  private String getChatTitleFromEmployees(ArrayList<Employee> otherEmployeesInChat)
+      throws SQLException {
+    String chatTitle = "";
+    if (otherEmployeesInChat.size() == 1) {
+      chatTitle =
+          (otherEmployeesInChat.get(0).getFirstName()
+              + " "
+              + otherEmployeesInChat.get(0).getLastName());
+    } else {
+      for (int i = 0; i < otherEmployeesInChat.size(); i++) {
+        Employee employee = otherEmployeesInChat.get(i);
+        if (i == 0) {
+          chatTitle = (employee.getFirstName());
+        } else {
+          chatTitle = (chatTitle + ", " + employee.getFirstName());
+        }
+      }
+    }
+    return chatTitle;
+  }
+
   public void onSendButtonClick() {
     if (messageTextField.getText().isEmpty()) {
       return;
     }
+    Integer newMessageID = EmployeeMessageManager.getEmployeeMessageManager().getNextMsgID();
     EmployeeMessage sentMessage =
         new EmployeeMessage(
-            EmployeeMessageManager.getEmployeeMessageManager().getNextMsgID(),
+            newMessageID,
             this.currentEmployee.getEmployeeID(),
-            this.selectedEmployee.getEmployeeID(),
+            this.currentChatID,
             messageTextField.getText(),
-            new Timestamp(System.currentTimeMillis()),
-            0);
+            new Timestamp(System.currentTimeMillis()));
     try {
       EmployeeMessageManager.getEmployeeMessageManager().addEmployeeMessage(sentMessage);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    try {
+      for (Chat chat : ChatManager.getChatManager().getAllEmployeesInChat(this.currentChatID)) {
+        if (!chat.getEmpID().equals(this.currentEmployee.getEmployeeID())) {
+          UnreadMessageManager.getUnreadMessageManager()
+              .addUnreadMessage(new UnreadMessage(newMessageID, chat.getEmpID()));
+        }
+      }
       refreshMessages();
+      refreshChatCards();
     } catch (SQLException e) {
       e.printStackTrace();
     }
     messageTextField.clear();
-  }
-
-  public void resetMessagePage() throws SQLException {
-    clearMessages();
-    refreshEmployeeCard();
-    messageTitleLabel.setText("Select an Employee");
-    messageTextField.clear();
-    if (!this.employeeComboBox.getSelectionModel().isEmpty()) {
-      this.employeeComboBox.getSelectionModel().clearSelection();
-    }
-    messageWindow.setDisable(true);
   }
 
   public void refreshMessages() throws SQLException {
-    //    refreshEmployeeCard();
-    //    ArrayList<EmployeeMessage> messagesFromThemToMe =
-    //        EmployeeMessageManager.getEmployeeMessageManager()
-    //            .getMessagesFromTo(
-    //                this.selectedEmployee.getEmployeeID(), this.currentEmployee.getEmployeeID());
-    //    ArrayList<EmployeeMessage> messagesFromMeToThem =
-    //        EmployeeMessageManager.getEmployeeMessageManager()
-    //            .getMessagesFromTo(
-    //                this.currentEmployee.getEmployeeID(), this.selectedEmployee.getEmployeeID());
-    //    markMessagesRead(messagesFromThemToMe);
-    //    messagesFromThemToMe.addAll(messagesFromMeToThem);
-    //    loadMessages(messagesFromThemToMe);
+    clearMessages();
+    loadMessages(
+        EmployeeMessageManager.getEmployeeMessageManager()
+            .getAllMessagesToChat(this.currentChatID));
   }
 
-  public void markMessagesRead(ArrayList<EmployeeMessage> messages) throws SQLException {
-    //    for (EmployeeMessage message : messages) {
-    //      message.setIsRead(1);
-    //      EmployeeMessageManager.getEmployeeMessageManager().changeEmployeeMessage(message);
-    //    }
+  public void markMessagesRead(ArrayList<EmployeeMessage> messages) {
+    for (EmployeeMessage message : messages) {
+      try {
+        UnreadMessageManager.getUnreadMessageManager()
+            .deleteUnreadMessage(message.getMessageID(), this.currentEmployee.getEmployeeID());
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
   }
 
   public void employeeSelected() throws SQLException {
+    // CREATE A DM BETWEEN TWO EMPLOYEES IF IT DOES NOT EXIST
+    // Find the chosen employee
+    Employee chosenEmployee = null;
     if (employeeComboBox.getSelectionModel().isEmpty()) return;
     for (Employee e : EmployeeManager.getEmployeeManager().getAllEmployees()) {
       if (e.getFirstName().equals(employeeComboBox.getValue().split(" ")[0])
           && e.getLastName().equals(employeeComboBox.getValue().split(" ")[1])) {
-        this.selectedEmployee = e;
+        chosenEmployee = e;
+        if (chosenEmployee.getEmployeeID().equals(this.currentEmployee.getEmployeeID())) return;
         break;
       }
     }
+    if (chosenEmployee == null) return;
+    // Check if chat between only these two exists
+    for (Chat chat :
+        ChatManager.getChatManager()
+            .getAllChatsEmployeeIsIn(this.currentEmployee.getEmployeeID())) {
+      ArrayList<Chat> currentChatCheck =
+          ChatManager.getChatManager().getAllEmployeesInChat(chat.getChatID());
+      if (currentChatCheck.size() == 2) {
+        if (currentChatCheck.get(0).getEmpID().equals(chosenEmployee.getEmployeeID())) {
+          setCurrentChat(currentChatCheck.get(0).getChatID());
+          return;
+        }
+        if (currentChatCheck.get(1).getEmpID().equals(chosenEmployee.getEmployeeID())) {
+          setCurrentChat(currentChatCheck.get(1).getChatID());
+          return;
+        }
+      }
+    }
+    // Make the new DM
+    Integer newChatID = ChatManager.getChatManager().getNextChatID();
+    ArrayList<Chat> newChat = new ArrayList<>();
+    newChat.add(new Chat(newChatID, this.currentEmployee.getEmployeeID()));
+    newChat.add(new Chat(newChatID, chosenEmployee.getEmployeeID()));
+    ChatManager.getChatManager().addChat(newChat);
 
-    updateMessageWindow();
-    refreshEmployeeCard();
-  }
-
-  public void updateMessageWindow() throws SQLException {
-    messageWindow.setDisable(false);
-    messageTitleLabel.setText(
-        this.selectedEmployee.getFirstName() + " " + this.selectedEmployee.getLastName());
-    refreshMessages();
+    refreshChatCards();
+    setCurrentChat(newChatID);
   }
 
   public void messageTextKeyPress(KeyEvent keyEvent) {
@@ -300,19 +455,29 @@ public class MessagingPageController extends LoadableController {
     }
   }
 
+  public void clickChatCard(MouseEvent event) throws SQLException {
+    setCurrentChat(((ChatCardHBox) event.getSource()).getChatID());
+    refreshChatCards();
+    if (!this.employeeComboBox.getSelectionModel().isEmpty()) {
+      this.employeeComboBox.getSelectionModel().clearSelection();
+    }
+  }
+
   public void mouseOverCard(MouseEvent mouseEvent) {
-    if (((MessageCardHBox) mouseEvent.getSource()).isHasUrgent()) {
-      ((MessageCardHBox) mouseEvent.getSource()).setStyle("-fx-background-color: #ffb2b2;");
+    if (((ChatCardHBox) mouseEvent.getSource()).isUnread()) {
+      ((ChatCardHBox) mouseEvent.getSource()).setStyle("-fx-background-color: #ffb2b2;");
     } else {
-      ((MessageCardHBox) mouseEvent.getSource()).setStyle("-fx-background-color: #d9e0ff;");
+      ((ChatCardHBox) mouseEvent.getSource()).setStyle("-fx-background-color: #d9e0ff;");
     }
   }
 
   public void mouseExitCard(MouseEvent mouseEvent) {
-    if (((MessageCardHBox) mouseEvent.getSource()).isHasUrgent()) {
-      ((MessageCardHBox) mouseEvent.getSource()).setStyle("-fx-background-color: #ffcccc;");
+    if (((ChatCardHBox) mouseEvent.getSource()).isUnread()) {
+      ((ChatCardHBox) mouseEvent.getSource()).setStyle("-fx-background-color: #ffcccc;");
     } else {
-      ((MessageCardHBox) mouseEvent.getSource()).setStyle("");
+      ((ChatCardHBox) mouseEvent.getSource()).setStyle("");
     }
   }
+
+  public void createGroupchatClicked(ActionEvent actionEvent) {}
 }

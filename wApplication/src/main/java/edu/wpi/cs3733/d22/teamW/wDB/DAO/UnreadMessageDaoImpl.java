@@ -30,15 +30,16 @@ public class UnreadMessageDaoImpl implements UnreadMessageDao {
     try {
       statement.execute(
           "CREATE TABLE UNREADMESSAGES("
-              + "msgID INT,"
+              + "messageID INT,"
               + "employeeID INT,"
-              + "constraint UnreadMessage_MsgID_FK foreign key (msgID) references EMPLOYEEMESSAGES(msgID),"
+              + "constraint UnreadMessage_MsgID_FK foreign key (messageID) references EMPLOYEEMESSAGES(messageID),"
               + "constraint UnreadMessage_EmpID_FK foreign key (employeeID) references EMPLOYEES(employeeID),"
-              + "constraint UnreadMessage_msgIDempID_PK primary key (msgID, employeeID)"
+              + "constraint UnreadMessage_msgIDempID_PK primary key (messageID, employeeID)"
               + ")");
       System.out.println("Created table UNREADMESSAGES");
     } catch (SQLException e) {
       System.out.println("Failed to create table UNREADMESSAGES");
+      // e.printStackTrace();
     }
   }
 
@@ -94,6 +95,7 @@ public class UnreadMessageDaoImpl implements UnreadMessageDao {
   @Override
   public void deleteUnreadMessage(Integer msgID, Integer empID) throws SQLException {
     statement.execute(
-        String.format("DELETE FROM UNREADMESSAGES WHERE MSGID=%d AND EMPLOYEEID=%d", msgID, empID));
+        String.format(
+            "DELETE FROM UNREADMESSAGES WHERE MESSAGEID=%d AND EMPLOYEEID=%d", msgID, empID));
   }
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class EmployeeMessageManager {
   private EmployeeMessageDao emd;
 
+  // TODO: Fix this (wont work on server cause its local)
   private static Integer count = 1;
 
   private static EmployeeMessageManager employeeMessageManager = new EmployeeMessageManager();
@@ -37,6 +38,10 @@ public class EmployeeMessageManager {
 
   public EmployeeMessage getEmployeeMessage(Integer messageID) throws SQLException {
     return this.emd.getEmployeeMessage(messageID);
+  }
+
+  public EmployeeMessage getMostRecentMessageInChat(Integer chatID) throws SQLException {
+    return this.emd.getMostRecentMessageInChat(chatID);
   }
 
   public void addEmployeeMessage(EmployeeMessage em) throws SQLException {

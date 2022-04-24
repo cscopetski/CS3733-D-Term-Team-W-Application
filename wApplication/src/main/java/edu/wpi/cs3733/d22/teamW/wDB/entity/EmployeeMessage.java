@@ -19,8 +19,7 @@ public class EmployeeMessage extends Entity {
       Integer empIDfrom,
       Integer chatIDto,
       String messageContent,
-      Timestamp sentTimestamp,
-      Integer isRead) {
+      Timestamp sentTimestamp) {
     this.messageID = messageID;
     this.empIDfrom = empIDfrom;
     this.chatIDto = chatIDto;

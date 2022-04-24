@@ -195,7 +195,7 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
     rs.next();
     return rs.getInt("COUNT");
   }
-
+  // admin'--;
   public boolean passwordMatch(String username, String password) throws SQLException {
     try {
       Integer empID = getIDFromUsername(username);

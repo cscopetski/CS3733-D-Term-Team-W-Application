@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.EmployeeDao;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Chat;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import java.sql.SQLException;
@@ -68,6 +69,18 @@ public class EmployeeManager {
 
   public Employee getEmployeeByType(EmployeeType employeeType) {
     return ed.getEmployeeType(employeeType);
+  }
+
+  public ArrayList<Employee> getOtherEmployeesInChat(Integer chatID, Integer currentEmpID)
+      throws SQLException {
+    ArrayList<Chat> allEmployeesInChat = ChatManager.getChatManager().getAllEmployeesInChat(chatID);
+    ArrayList<Employee> otherEmployeesInChat = new ArrayList<>();
+    for (Chat chat : allEmployeesInChat) {
+      if (!chat.getEmpID().equals(currentEmpID)) {
+        otherEmployeesInChat.add(EmployeeManager.getEmployeeManager().getEmployee(chat.getEmpID()));
+      }
+    }
+    return otherEmployeesInChat;
   }
 
   public void exportEmpCSV(String filename) {
