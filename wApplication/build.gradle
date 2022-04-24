@@ -46,7 +46,13 @@ dependencies {
     )
 
     implementation name:
-        'LanguageInterpAPI_3.0'
+        'LanguageInterpAPI'
+
+    implementation name:
+            'ExternalTransportAPI'
+
+    implementation name:
+            'TeamBAPI'
 }
 
 
