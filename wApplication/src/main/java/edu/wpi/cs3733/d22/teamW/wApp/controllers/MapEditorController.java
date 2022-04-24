@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Floor;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.PathFinder;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Requests;
@@ -65,11 +66,12 @@ public class MapEditorController extends LoadableController {
   @FXML private Alert systemAlert = new Alert(Alert.AlertType.INFORMATION);
 
   // ----Ed's Path Stuff:-----------
-  @FXML private ComboBox startLoc;
-  @FXML private ComboBox endLoc;
-  @FXML private Button createPath;
+  @FXML AutoCompleteInput startLoc;
+  @FXML ComboBox endLoc;
+  @FXML Button createPath;
 
   PathFinder pathFinder = new PathFinder();
+
   // -------------------------------
 
   Image img1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F1.png");
@@ -776,7 +778,8 @@ public class MapEditorController extends LoadableController {
     }
 
     // Ed's Path stuff:
-    startLoc.setItems(FXCollections.observableArrayList(getLocations()));
+    startLoc.loadValues(getLocations());
+    // startLoc.setItems(FXCollections.observableArrayList(getLocations()));
     endLoc.setItems(FXCollections.observableArrayList(getLocations()));
   }
 
@@ -837,24 +840,26 @@ public class MapEditorController extends LoadableController {
   }
 
   // --------------------------Ed's plausible functional Path Methods--------------------------
-  public void printPath() {
-    Location start = (Location) startLoc.getSelectionModel().getSelectedItem();
-    Location end = (Location) endLoc.getSelectionModel().getSelectedItem();
 
-    System.out.println(pathFinder.findPath(start, end).toString());
+  public void printPath() {
+    // Location start = startLoc.getSelectionModel().getSelectedItem();
+    // Location end = (Location) endLoc.getSelectionModel().getSelectedItem();
+    // System.out.println(pathFinder.findPath(start, end).toString());
   }
 
-  private ArrayList<Location> getLocations() {
-    // ArrayList<String> locations = new ArrayList<>();
+  private ArrayList<String> getLocations() {
+    ArrayList<String> locations = new ArrayList<>();
     ArrayList<Location> locationsRaw = null;
     try {
       locationsRaw = LocationManager.getLocationManager().getAllLocations();
     } catch (SQLException e) {
       System.out.println("Failed to unearth locations from database");
+      e.printStackTrace();
     }
-    // for (Location l : locationsRaw) {
-    //  locations.add(l.getLongName());
-    // }
-    return locationsRaw;
+
+    for (Location l : locationsRaw) {
+      locations.add(l.getLongName());
+    }
+    return locations;
   }
 }

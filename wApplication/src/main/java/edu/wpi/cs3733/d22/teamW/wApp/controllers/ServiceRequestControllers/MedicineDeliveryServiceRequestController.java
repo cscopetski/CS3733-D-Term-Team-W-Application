@@ -118,7 +118,6 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
   private ArrayList<String> getLocations() {
     ArrayList<String> locations = new ArrayList<>();
     ArrayList<Location> locationsRaw = null;
-    ArrayList<Integer> removeIndexes = new ArrayList<>();
     try {
       locationsRaw = LocationManager.getLocationManager().getAllLocations();
     } catch (SQLException e) {
@@ -127,8 +126,7 @@ public class MedicineDeliveryServiceRequestController extends LoadableController
     }
 
     for (Location l : locationsRaw) {
-      if (l.getNodeType().equals("NONE")) {
-      } else locations.add(l.getLongName());
+      locations.add(l.getLongName());
     }
     return locations;
   }

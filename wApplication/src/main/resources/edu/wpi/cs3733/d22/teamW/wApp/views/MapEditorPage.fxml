@@ -26,6 +26,7 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput?>
 <BorderPane fx:id="page" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
     <stylesheets>
         <URL value="@../CSS/MapEditorPage/mapEditor.css" />
@@ -121,7 +122,7 @@
                         <Button fx:id="exportButton" mnemonicParsing="false" onAction="#expCSV" text="Export to CSV" />
                      </children>
                   </VBox>
-                  <ComboBox fx:id="startLoc" prefWidth="150.0" promptText="Start" />
+                  <AutoCompleteInput fx:id="startLoc" prefWidth="150.0" promptText="Start" />
                   <ComboBox fx:id="endLoc" prefWidth="150.0" promptText="End" />
                   <Button fx:id="createPath" mnemonicParsing="false" onAction="#printPath" text="Find Path" />
                </children>
