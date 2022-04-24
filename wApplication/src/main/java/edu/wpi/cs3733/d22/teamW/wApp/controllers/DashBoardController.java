@@ -33,15 +33,15 @@ public class DashBoardController {
   ArrayList<ArrayList<MedEquip>> equipByType = new ArrayList<>(); // 0 - Bed, 1 - XRay, 2 - Pump, 3 - Recliner
   ArrayList<ArrayList<ArrayList<MedEquip>>> equipAtFloor = new ArrayList<>(); // Floor > EquipType > MedEquip
   double[] cleanTotalEquip= {0,0,0,0}; // 0 - Bed, 1 - XRay, 2 - Pump, 3 - Recliner
-  double[] cleanBed = {0,0,0,0,0}; // 0- F1, 1 - F2, 2 - F3, 3 - F4, 4 - F5
-  double[] cleanXRay = {0,0,0,0,0}; // 0- F1, 1 - F2, 2 - F3, 3 - F4, 4 - F5
-  double[] cleanPump = {0,0,0,0,0}; // 0- F1, 1 - F2, 2 - F3, 3 - F4, 4 - F5
-  double[] cleanRec = {0,0,0,0,0}; // 0- F1, 1 - F2, 2 - F3, 3 - F4, 4 - F5
+  double[] cleanBed = {0,0,0,0,0,0,0}; // 0- F1, 1 - F2, 2 - F3, 3 - F4, 4 - F5, 5 - LL1, 6 - LL2
+  double[] cleanXRay = {0,0,0,0,0,0,0}; // 0- F1, 1 - F2, 2 - F3, 3 - F4, 4 - F5, 5 - LL1, 6 - LL2
+  double[] cleanPump = {0,0,0,0,0,0,0}; // 0- F1, 1 - F2, 2 - F3, 3 - F4, 4 - F5, 5 - LL1, 6 - LL2
+  double[] cleanRec = {0,0,0,0,0,0,0}; // 0- F1, 1 - F2, 2 - F3, 3 - F4, 4 - F5, 5 - LL1, 6 - LL2
   private MedEquipManager equipController = MedEquipManager.getMedEquipManager();
 
   public void  initialize() throws SQLException {
-    calculateProgressTotal();
     sortByType();
+    calculateProgressTotal();
 
 
   }
@@ -124,6 +124,8 @@ public class DashBoardController {
     ArrayList<ArrayList<MedEquip>> f3 = new ArrayList<>();
     ArrayList<ArrayList<MedEquip>> f4 = new ArrayList<>();
     ArrayList<ArrayList<MedEquip>> f5 = new ArrayList<>();
+    ArrayList<ArrayList<MedEquip>> ll1 = new ArrayList<>();
+    ArrayList<ArrayList<MedEquip>> ll2 = new ArrayList<>();
 
     ArrayList<MedEquip> bed1 = new ArrayList<>();
     ArrayList<MedEquip> xray1 = new ArrayList<>();
@@ -170,6 +172,24 @@ public class DashBoardController {
     f5.add(p5);
     f5.add(r5);
 
+    ArrayList<MedEquip> bedll1 = new ArrayList<>();
+    ArrayList<MedEquip> xrayll1 = new ArrayList<>();
+    ArrayList<MedEquip> pll1 = new ArrayList<>();
+    ArrayList<MedEquip> rll1 = new ArrayList<>();
+    ll1.add(bedll1);
+    ll1.add(xrayll1);
+    ll1.add(pll1);
+    ll1.add(rll1);
+
+    ArrayList<MedEquip> bedll2 = new ArrayList<>();
+    ArrayList<MedEquip> xrayll2 = new ArrayList<>();
+    ArrayList<MedEquip> pll2 = new ArrayList<>();
+    ArrayList<MedEquip> rll2 = new ArrayList<>();
+    ll2.add(bedll2);
+    ll2.add(xrayll2);
+    ll2.add(pll2);
+    ll2.add(rll2);
+
     for (int i = 0; i < equipByType.size(); i++) {
       for (int j = 0; j < equipByType.get(i).size(); j++) {
         MedEquip currentEquip = equipByType.get(i).get(j);
@@ -190,6 +210,12 @@ public class DashBoardController {
           case 5:
             f5.get(i).add(currentEquip);
             break;
+          case 6:
+            ll1.get(i).add(currentEquip);
+            break;
+          case 7:
+            ll2.get(i).add(currentEquip);
+            break;
           default:
             break;
         }
@@ -200,7 +226,8 @@ public class DashBoardController {
     equipAtFloor.add(f3);
     equipAtFloor.add(f4);
     equipAtFloor.add(f5);
-
+    equipAtFloor.add(ll1);
+    equipAtFloor.add(ll2);
   }
   @FXML
    void F5Click(ActionEvent actionEvent) {
@@ -224,8 +251,10 @@ public class DashBoardController {
   }
 
   public void LL1Click(ActionEvent actionEvent) {
+    displaySummary(6);
   }
 
   public void LL2Click(ActionEvent actionEvent) {
+    displaySummary(7);
   }
 }
