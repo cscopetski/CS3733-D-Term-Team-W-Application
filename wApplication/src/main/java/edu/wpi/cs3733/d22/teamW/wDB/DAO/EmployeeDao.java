@@ -14,6 +14,8 @@ public interface EmployeeDao {
 
   Employee getEmployee(Integer empID) throws SQLException;
 
+  Employee getEmployeeFromName(String lastName, String firstName) throws SQLException;
+
   public Employee getEmployeeType(EmployeeType employeeType);
 
   void addEmployee(Employee employee) throws SQLException;

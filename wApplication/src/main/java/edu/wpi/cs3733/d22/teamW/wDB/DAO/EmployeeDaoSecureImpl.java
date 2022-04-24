@@ -82,6 +82,27 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
   }
 
   @Override
+  public Employee getEmployeeFromName(String lastName, String firstName) throws SQLException{
+    Employee employee = null;
+    try {
+      ResultSet employeeRequest =
+              statement.executeQuery(
+                      String.format(
+                              "SELECT * FROM EMPLOYEES WHERE FIRSTNAME = '%s' AND LASTNAME = '%s'", firstName, lastName));
+      employeeRequest.next();
+
+      ArrayList<String> employeeFields = new ArrayList<String>();
+      for (int i = 0; i < employeeRequest.getMetaData().getColumnCount(); i++) {
+        employeeFields.add(employeeRequest.getString(i + 1));
+      }
+      employee = new Employee(employeeFields);
+    } catch (SQLException e) {
+      System.out.println("Query from employee table failed.");
+    }
+    return employee;
+  }
+
+  @Override
   public ArrayList<Employee> getAllEmployees() throws SQLException {
     ArrayList<Employee> employeeList = new ArrayList<Employee>();
 

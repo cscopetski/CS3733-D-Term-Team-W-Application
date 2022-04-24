@@ -66,6 +66,10 @@ public class EmployeeManager {
     return ed.getEmployee(empID);
   }
 
+  public Employee getEmployeeFromName(String lastName, String firstName) throws  SQLException{
+    return ed.getEmployeeFromName(lastName, firstName);
+  }
+
   public ArrayList<Employee> getEmployeeListByType(ArrayList<EmployeeType> employeeTypes) throws SQLException{
     return ed.getEmployeeListByType(employeeTypes);
   }
