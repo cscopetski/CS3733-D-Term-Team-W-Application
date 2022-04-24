@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.PacMan.Game;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HighScoreTable;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.HighScoreManager;
@@ -20,12 +21,9 @@ public class GamingController implements Initializable {
   }
 
   public void playSnake(ActionEvent actionEvent) throws IOException {
-    Stage S =
-        SceneManager.getInstance()
-            .openGameWindow(
-                "Snake.fxml",
-                "Wiggling Wong",
-                "/edu/wpi/cs3733/d22/teamW/wApp/assets/Icons/wong.png");
+    WindowManager.getInstance()
+        .openWindow(
+            "Snake.fxml", "Wiggling Wong", "/edu/wpi/cs3733/d22/teamW/wApp/assets/Icons/wong.png");
   }
 
   @Override

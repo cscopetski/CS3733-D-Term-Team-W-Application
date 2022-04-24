@@ -8,10 +8,13 @@ import java.util.ArrayList;
 public interface EmployeeDao {
 
   ArrayList<Employee> getAllEmployees() throws SQLException;
+  public ArrayList<Employee> getEmployeeListByType(ArrayList<EmployeeType> employeeTypes) throws SQLException;
 
   Employee getEmployee(String username) throws SQLException;
 
   Employee getEmployee(Integer empID) throws SQLException;
+
+  Employee getEmployeeFromName(String lastName, String firstName) throws SQLException;
 
   public Employee getEmployeeType(EmployeeType employeeType);
 

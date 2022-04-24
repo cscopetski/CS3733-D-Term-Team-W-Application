@@ -1,23 +1,24 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
+import edu.wpi.cs3733.d22.teamW.Managers.BackgroundManager;
+import edu.wpi.cs3733.d22.teamW.Managers.MenuBarManager;
+import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.wDB.CSVController;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
-import edu.wpi.cs3733.d22.teamW.wMid.Account;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
 
-public class LoginController extends LoadableController {
+public class LoginController implements Initializable {
 
   @FXML public Button switchServer;
-  @FXML Pane background;
   @FXML Button loginButton;
   @FXML TextField username;
   @FXML TextField password;
@@ -27,7 +28,9 @@ public class LoginController extends LoadableController {
 
   @Override
   public void initialize(URL location, ResourceBundle rb) {
-    super.initialize(location, rb);
+    BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.HospitalImage);
+    BackgroundManager.getInstance().blur();
+    MenuBarManager.getInstance().DisableMenuBar();
     switchServer.setText("Embedded");
   }
 
@@ -38,17 +41,6 @@ public class LoginController extends LoadableController {
           ButtonType.OK,
           ButtonType.CANCEL);
 
-  @Override
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.Login;
-  }
-
-  @Override
-  public void onLoad() {}
-
-  @Override
-  public void onUnload() {}
-
   public void login() throws SQLException {
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
       if (TextEntryChecker.check(username.getText())
@@ -58,14 +50,11 @@ public class LoginController extends LoadableController {
         matchCase.setVisible(false);
         if (EmployeeManager.getEmployeeManager()
             .passwordMatch(username.getText(), password.getText())) {
-          DefaultPageController dpc =
-              ((DefaultPageController)
-                  SceneManager.getInstance().getController(SceneManager.Scenes.Default));
-          Account.getInstance()
-              .setEmployee(EmployeeManager.getEmployeeManager().getEmployee(username.getText()));
-          dpc.menuBar.setVisible(true);
-          dpc.buttonPane.setDisable(false);
-          SceneManager.getInstance().transitionTo(SceneManager.Scenes.MainMenu);
+          AccountManager.getInstance()
+              .initialize(EmployeeManager.getEmployeeManager().getEmployee(username.getText()));
+          MenuBarManager.getInstance().EnableMenuBar();
+          BackgroundManager.getInstance().unBlur();
+          PageManager.getInstance().loadPage(PageManager.Pages.MainMenu);
           username.clear();
           password.clear();
         } else if (!EmployeeManager.getEmployeeManager().usernameExists(username.getText())) {
@@ -89,7 +78,7 @@ public class LoginController extends LoadableController {
   @FXML
   private void updateSwitchingServer() throws SQLException {
     switchServer.setText(switchServer.getText().equals("Client") ? "Embedded" : "Client");
-    background.requestFocus();
+    BackgroundManager.getInstance().getContent().requestFocus();
 
     CSVController csvController = new CSVController();
 

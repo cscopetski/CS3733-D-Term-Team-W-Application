@@ -1,38 +1,31 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.FilterControl;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
-import edu.wpi.cs3733.d22.teamW.wMid.Account;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.HBox;
 
-public class RequestListController extends LoadableController {
+public class RequestListController implements Initializable {
   @FXML public RequestTable rt;
   @FXML public TextArea moreInfo;
   @FXML public HBox selectionButtons;
   @FXML public FilterControl<RequestType> filter;
 
   @Override
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.RequestList;
-  }
-
-  @Override
   public void initialize(URL location, ResourceBundle rb) {
-    super.initialize(location, rb);
-
     rt.getSelectionModel()
         .selectedItemProperty()
         .addListener(
@@ -57,7 +50,7 @@ public class RequestListController extends LoadableController {
 
     filter.loadValues(RequestType.values());
     filter.addValuesListener(c -> resetItems());
-    resetItems();
+    onLoad();
   }
 
   private void resetItems() {
@@ -84,11 +77,8 @@ public class RequestListController extends LoadableController {
     resetItems();
   }
 
-  @Override
-  public void onUnload() {}
-
   public void cancel(ActionEvent actionEvent) {
-    if (Account.getInstance().getEmployee().getType().getAccessLevel() == 5) {
+    if (AccountManager.getInstance().getEmployee().getType().getAccessLevel() == 5) {
       try {
         RequestFacade.getRequestFacade()
             .cancelRequest(rt.getSelection().getRequestID(), rt.getSelection().getRequestType());

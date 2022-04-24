@@ -1,8 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
 import java.awt.*;
 import java.net.URL;
 import java.sql.SQLException;
@@ -81,15 +81,9 @@ public class newLocationPageController implements Initializable {
   }
 
   private void onLoad() {
-    p =
-        (Point)
-            SceneManager.getInstance()
-                .getInformation(SceneManager.getInstance().getPrimaryStage(), "addLoc");
+    p = (Point) WindowManager.getInstance().getData("addLoc");
     xField.setText(p.x + "");
     yField.setText(p.y + "");
-    floorField.setText(
-        (String)
-            SceneManager.getInstance()
-                .getInformation(SceneManager.getInstance().getPrimaryStage(), "floor"));
+    floorField.setText((String) WindowManager.getInstance().getData("floor"));
   }
 }

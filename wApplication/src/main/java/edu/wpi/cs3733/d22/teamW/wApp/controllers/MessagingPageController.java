@@ -1,19 +1,23 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.MessageCardHBox;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.EmployeeMessage;
-import edu.wpi.cs3733.d22.teamW.wMid.Account;
-import edu.wpi.cs3733.d22.teamW.wMid.SceneManager;
+
+import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.NodeOrientation;
 import javafx.geometry.Orientation;
@@ -23,12 +27,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Paint;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class MessagingPageController extends LoadableController {
+public class MessagingPageController implements Initializable {
 
   protected Employee currentEmployee;
   protected Employee selectedEmployee;
@@ -42,13 +48,16 @@ public class MessagingPageController extends LoadableController {
   @FXML Button sendButton;
 
   @Override
-  protected SceneManager.Scenes GetSceneType() {
-    return SceneManager.Scenes.Messaging;
+  public void initialize(URL location, ResourceBundle resources) {
+    try {
+      onLoad();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
-  @Override
   public void onLoad() throws SQLException {
-    this.currentEmployee = Account.getInstance().getEmployee();
+    this.currentEmployee = AccountManager.getInstance().getEmployee();
     employeeComboBox.loadValues(
         (ArrayList<String>)
             EmployeeManager.getEmployeeManager().getAllEmployees().stream()
@@ -126,6 +135,15 @@ public class MessagingPageController extends LoadableController {
             } catch (SQLException e) {
               e.printStackTrace();
             }
+            if (event.getButton().equals(MouseButton.PRIMARY)) {
+              if (event.getClickCount() == 2) {
+                WindowManager.getInstance()
+                    .storeData(
+                        "employee", emp);
+                WindowManager.getInstance().openWindow(
+                            "MiniProfilePage.fxml", emp.getFirstName() + " " + emp.getLastName());
+              }
+            }
           }
         });
     newHBOX.setOnMouseEntered(this::mouseOverCard);
@@ -148,9 +166,6 @@ public class MessagingPageController extends LoadableController {
     updateMessageWindow();
     refreshEmployeeCard();
   }
-
-  @Override
-  public void onUnload() {}
 
   private void clearMessages() {
     messagesWindow.getChildren().clear();
