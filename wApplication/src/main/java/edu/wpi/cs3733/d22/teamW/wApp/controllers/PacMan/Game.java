@@ -3,10 +3,12 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.PacMan; // DEPS
 // SOURCES Ghost.java
 // FILES styles.css
 
+import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.HighScoreManager;
-import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import java.sql.SQLException;
 import java.util.*;
+
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.geometry.Insets;
@@ -28,6 +30,7 @@ import javafx.util.Duration;
 // java --module-path "%PATH_TO_FX%" --add-modules javafx.controls Game
 
 public class Game {
+  private final Employee employee = AccountManager.getInstance().getEmployee();
 
   private final Color strokeColor = Color.rgb(152, 229, 219);
   private final Color wallColor = Color.rgb(1, 56, 149);
@@ -156,7 +159,7 @@ public class Game {
 
     highScore =
         HighScoreManager.getHighScoreManager()
-            .getHighScore(Account.getInstance().getEmployee().getEmployeeID())
+            .getHighScore(employee.getEmployeeID())
             .getScoreThreat();
   }
 
@@ -738,9 +741,9 @@ public class Game {
         HighScoreManager.getHighScoreManager()
             .changeHighScore(
                 HighScoreManager.getHighScoreManager()
-                    .getHighScore(Account.getInstance().getEmployee().getEmployeeID()),
+                    .getHighScore(employee.getEmployeeID()),
                 HighScoreManager.getHighScoreManager()
-                    .getHighScore(Account.getInstance().getEmployee().getEmployeeID())
+                    .getHighScore(employee.getEmployeeID())
                     .getScoreWiggling(),
                 score);
       } catch (SQLException ex) {

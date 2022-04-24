@@ -1,13 +1,15 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.Snake;
 
+import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.HighScoreManager;
-import edu.wpi.cs3733.d22.teamW.wMid.Account;
 import java.sql.SQLException;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -24,6 +26,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class SnakeController {
+  private final Employee employee = AccountManager.getInstance().getEmployee();
 
   public final double borderSize = 500;
   public static final double center = 200;
@@ -232,7 +235,7 @@ public class SnakeController {
 
     hSCounter =
         HighScoreManager.getHighScoreManager()
-            .getHighScore(Account.getInstance().getEmployee().getEmployeeID())
+            .getHighScore(employee.getEmployeeID())
             .getScoreWiggling();
     image.setVisible(false);
     gameBorder.setLayoutX(center + xOffset);
@@ -261,11 +264,11 @@ public class SnakeController {
                             .changeHighScore(
                                 HighScoreManager.getHighScoreManager()
                                     .getHighScore(
-                                        Account.getInstance().getEmployee().getEmployeeID()),
+                                        employee.getEmployeeID()),
                                 counter,
                                 HighScoreManager.getHighScoreManager()
                                     .getHighScore(
-                                        Account.getInstance().getEmployee().getEmployeeID())
+                                        employee.getEmployeeID())
                                     .getScoreThreat());
                       } catch (SQLException ex) {
                         throw new RuntimeException(ex);
