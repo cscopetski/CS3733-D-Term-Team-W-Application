@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.EmployeeDao;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Chat;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import java.sql.SQLException;
@@ -35,6 +36,10 @@ public class EmployeeManager {
     return ed.passwordMatch(username, password);
   }
 
+  public Employee login(String username, String password) throws SQLException{
+    return ed.login(username,password);
+  }
+
   /** Adds an employee to the database. */
   public void addEmployee(Employee employee) throws SQLException {
     ed.addEmployee(employee);
@@ -66,8 +71,28 @@ public class EmployeeManager {
     return ed.getEmployee(empID);
   }
 
+  public Employee getEmployeeFromName(String lastName, String firstName) throws  SQLException{
+    return ed.getEmployeeFromName(lastName, firstName);
+  }
+
+  public ArrayList<Employee> getEmployeeListByType(ArrayList<EmployeeType> employeeTypes) throws SQLException{
+    return ed.getEmployeeListByType(employeeTypes);
+  }
+
   public Employee getEmployeeByType(EmployeeType employeeType) {
     return ed.getEmployeeType(employeeType);
+  }
+
+  public ArrayList<Employee> getOtherEmployeesInChat(Integer chatID, Integer currentEmpID)
+      throws SQLException {
+    ArrayList<Chat> allEmployeesInChat = ChatManager.getChatManager().getAllEmployeesInChat(chatID);
+    ArrayList<Employee> otherEmployeesInChat = new ArrayList<>();
+    for (Chat chat : allEmployeesInChat) {
+      if (!chat.getEmpID().equals(currentEmpID)) {
+        otherEmployeesInChat.add(EmployeeManager.getEmployeeManager().getEmployee(chat.getEmpID()));
+      }
+    }
+    return otherEmployeesInChat;
   }
 
   public void exportEmpCSV(String filename) {
