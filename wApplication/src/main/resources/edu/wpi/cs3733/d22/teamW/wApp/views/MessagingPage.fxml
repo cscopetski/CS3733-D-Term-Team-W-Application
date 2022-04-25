@@ -2,6 +2,7 @@
 
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -60,15 +61,18 @@
                                  </children>
                               </VBox>
                               <Separator orientation="VERTICAL" />
-                              <Label style="-fx-background-color: lightgray;" text="Edison Zhang" textFill="#007bff" wrapText="true">
+                              <Label alignment="TOP_LEFT" text="Edison Zhang" wrapText="true">
                                  <font>
-                                    <Font size="18.0" />
+                                    <Font size="14.0" />
                                  </font>
                                  <HBox.margin>
-                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                    <Insets />
                                  </HBox.margin>
                               </Label>
                            </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </HBox>
                         <Separator prefWidth="200.0" />
                         <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" style="-fx-background-color: #ffcccc;">
@@ -97,6 +101,9 @@
                                  </HBox.margin>
                               </Label>
                            </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </HBox>
                         <Separator prefWidth="200.0" />
                         <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" style="-fx-background-color: #ffcccc;">
@@ -134,6 +141,9 @@
                                  </HBox.margin>
                               </Label>
                            </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </HBox>
                         <Separator prefWidth="200.0" />
                         <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" prefHeight="80.0" prefWidth="332.0" style="-fx-background-color: #ffcccc;">
@@ -176,6 +186,9 @@
                                  </HBox.margin>
                               </Label>
                            </children>
+                           <cursor>
+                              <Cursor fx:constant="HAND" />
+                           </cursor>
                         </HBox>
                      </children>
                   </VBox>
@@ -190,6 +203,15 @@
                <font>
                   <Font size="24.0" />
                </font>
+            </Label>
+            <Separator />
+            <Label fx:id="viewMembersLabel" alignment="CENTER_RIGHT" onMouseClicked="#viewMembersLabelClicked" onMouseEntered="#viewMembersLabelMouseEnter" onMouseExited="#viewMembersLabelMouseExit" prefWidth="400.0" style="-fx-text-fill: #248bf5;" text="View members in chat" textFill="#248bf5" underline="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Label>
             <Separator />
             <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" vbarPolicy="ALWAYS">

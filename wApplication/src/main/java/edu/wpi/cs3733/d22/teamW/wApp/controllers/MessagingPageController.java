@@ -29,6 +29,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.*;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -52,6 +53,8 @@ public class MessagingPageController implements Initializable {
     AutoCompleteInput employeeComboBox;
     @FXML
     Label messageTitleLabel;
+    @FXML
+    Label viewMembersLabel;
     @FXML
     VBox messagesWindow;
     @FXML
@@ -91,6 +94,7 @@ public class MessagingPageController implements Initializable {
             this.employeeComboBox.getSelectionModel().clearSelection();
         }
         messageWindow.setDisable(true);
+        viewMembersLabel.setVisible(false);
     }
 
     public void refreshChatCards() throws SQLException {
@@ -182,6 +186,8 @@ public class MessagingPageController implements Initializable {
         chatCard.setPrefHeight(80);
         chatCard.setUnread(hasUnread);
         chatCard.setChatID(chatID);
+        chatCard.setCursor(Cursor.HAND);
+        chatCard.setAlignment(Pos.CENTER_LEFT);
 
         ArrayList<Employee> otherEmployeesInChat = getOtherEmployeesInChat(chatID);
 
@@ -298,7 +304,13 @@ public class MessagingPageController implements Initializable {
         clearMessages();
         if (messageWindow.isDisabled()) messageWindow.setDisable(false);
         messageTitleLabel.setText(getChatTitleFromID(chatID));
+        if(ChatManager.getChatManager().getAllEmployeesInChat(chatID).size() > 2) {
+            viewMembersLabel.setVisible(true);
+        } else {
+            viewMembersLabel.setVisible(false);
+        }
         loadMessages(EmployeeMessageManager.getEmployeeMessageManager().getAllMessagesToChat(chatID));
+
     }
 
     private void clearMessages() {
@@ -562,5 +574,17 @@ public class MessagingPageController implements Initializable {
             setCurrentChat(newGroupChatID);
             refreshChatCards();
         }
+    }
+
+    public void viewMembersLabelClicked(MouseEvent mouseEvent) {
+        //Show members in current chat
+    }
+
+    public void viewMembersLabelMouseEnter(MouseEvent mouseEvent) {
+        ((Label) mouseEvent.getSource()).setStyle("-fx-text-fill: #1267bc");
+    }
+
+    public void viewMembersLabelMouseExit(MouseEvent mouseEvent) {
+        ((Label) mouseEvent.getSource()).setStyle("-fx-text-fill: #248bf5");
     }
 }
