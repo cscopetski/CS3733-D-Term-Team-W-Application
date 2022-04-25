@@ -28,9 +28,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.NodeOrientation;
-import javafx.geometry.Orientation;
+import javafx.geometry.*;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -352,7 +350,7 @@ public class MessagingPageController implements Initializable {
         formattedMessageSection.setFillWidth(true);
         formattedMessageSection.setMinHeight(-1.0 / 0.0);
         formattedMessageSection.setPadding(new Insets(0, 0, 10, 0));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
         String timeString = firstMsgTime.toLocalDateTime().toLocalTime().format(formatter);
         if(fromOther) {
             formattedMessageSection.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
@@ -386,13 +384,13 @@ public class MessagingPageController implements Initializable {
             messageLabel.setStyle(
                     "-fx-background-color: #e5e5ea;"
                             + "-fx-label-padding: 5;"
-                            + "-fx-background-radius: 50;");
+                            + "-fx-background-radius: 15;");
             messageLabel.setTextFill(Paint.valueOf("#000000"));
         } else {
             messageLabel.setStyle(
                     "-fx-background-color: #248bf5;"
                             + "-fx-label-padding: 5;"
-                            + "-fx-background-radius: 50;");
+                            + "-fx-background-radius: 15;");
             messageLabel.setTextFill(Paint.valueOf("#ffffff"));
             messageLabel.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
 

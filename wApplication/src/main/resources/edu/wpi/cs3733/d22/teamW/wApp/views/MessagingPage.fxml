@@ -205,7 +205,7 @@
                               </Label>
                               <VBox>
                                  <children>
-                                    <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #248bf5; -fx-background-radius: 50; -fx-label-padding: 5;" text="hello" textFill="WHITE" wrapText="true">
+                                    <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #248bf5; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" textFill="WHITE" wrapText="true">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -213,7 +213,7 @@
                                           <Insets bottom="2.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #248bf5; -fx-background-radius: 50; -fx-label-padding: 5;" text="hello" textFill="WHITE" wrapText="true">
+                                    <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #248bf5; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" textFill="WHITE" wrapText="true">
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -244,7 +244,7 @@
                                     </ImageView>
                                     <VBox>
                                        <children>
-                                          <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 50; -fx-label-padding: 5;" text="hello" wrapText="true">
+                                          <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" wrapText="true">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
@@ -252,7 +252,7 @@
                                                 <Insets bottom="2.0" />
                                              </VBox.margin>
                                           </Label>
-                                          <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 50; -fx-label-padding: 5;" text="hello" wrapText="true">
+                                          <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" wrapText="true">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
@@ -260,7 +260,7 @@
                                                 <Insets bottom="2.0" />
                                              </VBox.margin>
                                           </Label>
-                                          <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 50; -fx-label-padding: 5;" text="hello" wrapText="true">
+                                          <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" wrapText="true">
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
