@@ -48,7 +48,8 @@ public class PageManager {
     ComputerSR("ServiceRequestPages/ComputerServiceRequestPage.fxml", "Computer Service Request"),
     SanitationSR("ServiceRequestPages/SanitationRequest.fxml", "Sanitation Service Request"),
     FlowerSR("ServiceRequestPages/FlowerRequestPage.fxml", "Flower Delivery Service Request"),
-    GiftDeliverySR("ServiceRequestPages/GiftDeliveryRequest.fxml", "Gift Delivery Service Request");
+    GiftDeliverySR("ServiceRequestPages/GiftDeliveryRequest.fxml", "Gift Delivery Service Request"),
+    Help("HelpPage.fxml", "Help Page");
 
     final String path;
     final String name;
@@ -98,6 +99,7 @@ public class PageManager {
 
   private AnchorPane parent;
   private Pages current;
+  private Pages previous;
   private ArrayList<PageChangeFunction> pageChangeListeners = new ArrayList<>();
 
   public void initialize(AnchorPane pane) {
@@ -106,6 +108,8 @@ public class PageManager {
   }
 
   public void loadPage(Pages page) {
+    previous = current;
+
     callAllPageChangeListeners(current, page);
 
     Pane prev = null;
@@ -140,6 +144,10 @@ public class PageManager {
 
   public Pages getCurrent() {
     return current;
+  }
+
+  public Pages getPrevious() {
+    return previous;
   }
 
   private void show(Node p) {

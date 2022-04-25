@@ -39,6 +39,8 @@
                                                   text="Simulations"/>
                                         <MenuItem mnemonicParsing="false" onAction="#switchToMessaging"
                                                   text="Messaging"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToHelp"
+                                                  text="Help"/>
                                     </items>
                                     <HBox.margin>
                                         <Insets right="10.0" top="10.0"/>
