@@ -473,3 +473,7 @@
     -fx-text-fill: white;
 }
 
+.table-column {
+    -fx-alignment: CENTER;
+}
+

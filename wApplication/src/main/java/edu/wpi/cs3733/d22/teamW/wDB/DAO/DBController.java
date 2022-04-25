@@ -54,6 +54,7 @@ public class DBController {
 
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
+      HighScoreDao highScoreDao = new HighScoreDaoImpl(statement);
       UnreadMessageDao unreadMessageDao = new UnreadMessageDaoImpl(statement);
       EmployeeMessageDao employeeMessageDao = new EmployeeMessageDaoImpl(statement);
       ChatDao chatDao = new ChatDaoImpl(statement);
@@ -75,6 +76,7 @@ public class DBController {
       LanguageDao languageDao = new LanguageDaoImpl(statement);
 
       // Assign Daos to Managers
+      HighScoreManager.getHighScoreManager().setHighScoreDao(highScoreDao);
       EmployeeManager.getEmployeeManager().setEmployeeDao(employeeDao);
       LocationManager.getLocationManager().setLocationDao(locationDao);
       MedEquipManager.getMedEquipManager().setMedEquipDao(medEquipDao);
@@ -120,6 +122,7 @@ public class DBController {
       ((MealRequestDaoImpl) mealRequestDao).createTable();
       ((SecurityRequestDaoImpl) securityRequestDao).createTable();
       ((LanguageRequestDaoImpl) languageRequestDao).createTable();
+      ((HighScoreDaoImpl) highScoreDao).createTable();
 
     } catch (SQLException e) {
       System.out.println("Table Creation Failed");
