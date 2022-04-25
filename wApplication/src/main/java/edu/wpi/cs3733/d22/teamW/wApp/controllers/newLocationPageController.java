@@ -16,7 +16,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.GaussianBlur;
 import javafx.stage.Stage;
 
 public class newLocationPageController implements Initializable {
@@ -73,9 +72,7 @@ public class newLocationPageController implements Initializable {
   }
 
   public void cancelUpdate(ActionEvent actionEvent) {
-    Stage stage = (Stage) WindowManager.getInstance().getData("Stage");
-    stage.close();
-    WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(new GaussianBlur(0));
+    ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
   }
 
   @Override

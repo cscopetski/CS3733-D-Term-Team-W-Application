@@ -1,15 +1,10 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.Snake;
 
-import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.HighScoreManager;
-import java.sql.SQLException;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -26,7 +21,6 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public class SnakeController {
-  private final Employee employee = AccountManager.getInstance().getEmployee();
 
   public final double borderSize = 500;
   public static final double center = 200;
@@ -60,7 +54,7 @@ public class SnakeController {
   @FXML private Label highScore;
   @FXML private Label loss;
   private int counter = 0;
-  private int hSCounter;
+  private int hSCounter = 0;
   private boolean canChangeDirection;
 
   @FXML
@@ -232,11 +226,7 @@ public class SnakeController {
   }
 
   public void onLoad() {
-
-    hSCounter =
-        HighScoreManager.getHighScoreManager()
-            .getHighScore(employee.getEmployeeID())
-            .getScoreWiggling();
+    hSCounter = Integer.parseInt(getHighScore());
     image.setVisible(false);
     gameBorder.setLayoutX(center + xOffset);
     gameBorder.setLayoutY(center);
@@ -259,20 +249,7 @@ public class SnakeController {
                   if (checkIfGameIsOver(snakeHead)) {
                     if (counter > hSCounter) {
                       hSCounter = counter;
-                      try {
-                        HighScoreManager.getHighScoreManager()
-                            .changeHighScore(
-                                HighScoreManager.getHighScoreManager()
-                                    .getHighScore(
-                                        employee.getEmployeeID()),
-                                counter,
-                                HighScoreManager.getHighScoreManager()
-                                    .getHighScore(
-                                        employee.getEmployeeID())
-                                    .getScoreThreat());
-                      } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                      }
+                      setHighScore(Integer.toString(hSCounter));
                     }
                     timeline.stop();
                   }

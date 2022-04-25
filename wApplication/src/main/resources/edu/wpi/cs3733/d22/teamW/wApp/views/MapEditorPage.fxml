@@ -36,13 +36,13 @@
               <MenuButton fx:id="dropdown" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" styleClass="margin-10" text="Change Floor">
                   <items>
                       <MenuItem fx:id="Side" mnemonicParsing="false" onAction="#swapSideView" text="Side View" />
-                      <MenuItem fx:id="FL1" mnemonicParsing="false" onAction="#swapFloorL1" text="Lower Floor 1" />
-                      <MenuItem fx:id="FL2" mnemonicParsing="false" onAction="#swapFloorL2" text="Lower Floor 2" />
                       <MenuItem fx:id="F1" mnemonicParsing="false" onAction="#swapFloor1" text="Floor 1" />
                       <MenuItem fx:id="F2" mnemonicParsing="false" onAction="#swapFloor2" text="Floor 2" />
                       <MenuItem fx:id="F3" mnemonicParsing="false" onAction="#swapFloor3" text="Floor 3" />
                       <MenuItem fx:id="F4" mnemonicParsing="fase" onAction="#swapFloor4" text="Floor 4" />
                       <MenuItem fx:id="F5" mnemonicParsing="false" onAction="#swapFloor5" text="Floor 5" />
+                      <MenuItem fx:id="FL1" mnemonicParsing="false" onAction="#swapFloorL1" text="Lower Floor 1" />
+                      <MenuItem fx:id="FL2" mnemonicParsing="false" onAction="#swapFloorL2" text="Lower Floor 2" />
                   </items>
               </MenuButton>
                <ScrollPane fx:id="scrollPane">
