@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wMid;
 
+import edu.wpi.cs3733.d22.teamW.Managers.BackgroundManager;
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
@@ -41,7 +42,6 @@ public class App extends Application {
     WindowManager.getInstance().initialize(primaryStage);
     // primaryStage.setFullScreen(true);
 
-
     primaryStage.setMaximized(true);
     primaryStage.setResizable(true);
     primaryStage.toFront();
@@ -55,8 +55,6 @@ public class App extends Application {
 
 
     WindowManager.getInstance().setScene("DefaultPage.fxml");
-
-
   }
 
   @Override
