@@ -1,9 +1,9 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.UnreadMessageManager;
 import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
 import edu.wpi.cs3733.d22.teamW.Managers.BackgroundManager;
 import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -21,9 +21,10 @@ public class MainMenuController implements Initializable {
   public void initialize(URL location, ResourceBundle resources) {
     newMessagesCircle.setVisible(false);
     try {
-      if (EmployeeMessageManager.getEmployeeMessageManager().countUnreadMessagesAs(
-              AccountManager.getInstance().getEmployee().getEmployeeID()) > 0) {
-        newMessagesCircle.setVisible(true);
+      if(AccountManager.getInstance().getEmployee() != null) {
+        if (UnreadMessageManager.getUnreadMessageManager().getAllUnreadMessagesForEmployee(AccountManager.getInstance().getEmployee().getEmployeeID()).size() > 0) {
+          newMessagesCircle.setVisible(true);
+        }
       }
     } catch (SQLException e) {
       e.printStackTrace();

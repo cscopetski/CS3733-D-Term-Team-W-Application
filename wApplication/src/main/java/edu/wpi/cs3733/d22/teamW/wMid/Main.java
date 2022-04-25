@@ -32,8 +32,8 @@ public class Main {
             e.printStackTrace();
         }
 
-        EmployeeMessageManager.getEmployeeMessageManager()
-                .sendAllEmployeesMessage(2, "Welcome to the Wumbo Whowies application!");
+//        EmployeeMessageManager.getEmployeeMessageManager()
+//                .sendAllEmployeesMessage(2, "Welcome to the Wumbo Whowies application!");
 
         edu.wpi.cs3733.D22.teamB.api.DatabaseController dbController = new edu.wpi.cs3733.D22.teamB.api.DatabaseController();
 
