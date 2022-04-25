@@ -58,7 +58,7 @@ FSTAI00301,747,639,01,Tower,STAI,Lobby Escalator,Lobby Escalator
 WELEV00L01,610,330,01,Tower,ELEV,Elevator L Floor 1,Elevator L1
 WELEV00M01,610,680,01,Tower,ELEV,Elevator M Floor 1,Elevator M1
 wSTOR0011,309,329,01,Tower,STOR,West Plaza,West Plaza
-HBATH00102,567,734,02,Tower,BATH,Bathroom 1 Tower Floor 2,Bathroom 0102
+HBATH00102,405,408,02,Tower,BATH,Bathroom 1 Tower Floor 2,Bathroom 0102
 HDEPT00102,855,730,02,Tower,DEPT,Endoscopy,Endoscopy
 HHALL00102,675,325,02,Tower,HALL,Hallway Connector 1 Floor 2,Hallway H00102
 HHALL00202,755,300,02,Tower,HALL,Hallway Connector 2 Floor 2,Hallway H00202
@@ -67,13 +67,13 @@ HHALL00402,675,425,02,Tower,HALL,Hallway Connector 4 Floor 2,Hallway H00402
 HHALL00502,625,425,02,Tower,HALL,Hallway Connector 5 Floor 2,Hallway H00502
 HHALL00602,575,480,02,Tower,HALL,Hallway Connector 6 Floor 2,Hallway H00602
 HHALL00702,540,565,02,Tower,HALL,Hallway Connector 7 Floor 2,Hallway H00702
-HHALL00802,871,566,02,Tower,HALL,Hallway Connector 8 Floor 2,Hallway H00802
+HHALL00802,540,630,02,Tower,HALL,Hallway Connector 8 Floor 2,Hallway H00802
 HHALL00902,540,680,02,Tower,HALL,Hallway Connector 9 Floor 2,Hallway H00902
 HHALL01002,855,680,02,Tower,HALL,Hallway Connector 10 Floor 2,Hallway H01002
 HRETL00102,735,260,02,Tower,RETL,Garden Cafe,Garden Cafe
 HRETL00202,415,425,02,Tower,RETL,Vending Machine Floor 2?,Vending Machine
 HRETL00302,625,480,02,Tower,RETL,Gift Shop Tower Floor 2,Gift Shop
-HSTAI00102,169,235,02,Tower,STAI,Stairwell 1 Floor 2,Stairwell 0102
+HSTAI00102,860,280,02,Tower,STAI,Stairwell 1 Floor 2,Stairwell 0102
 HSTAI00202,495,565,02,Tower,STAI,Stairwell 2 Tower Floor 2,Stairwell 0202
 HSTAI00302,590,630,02,Tower,STAI,Escalator 1 Floor 2,Escalator 1 Floor 2
 WELEV00L02,605,325,02,Tower,ELEV,Elevator L Floor 2,Elevator L2
