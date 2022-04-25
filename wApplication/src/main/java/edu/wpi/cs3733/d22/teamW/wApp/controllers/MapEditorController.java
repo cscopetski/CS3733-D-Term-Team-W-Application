@@ -671,7 +671,19 @@ public class MapEditorController implements Initializable {
   private void generateRequestDots() {
     size = reqList.size();
     for (int i = 0; i < size; i++) {
-      Circle circ = new Circle(3, Color.BLACK);
+      Circle circ = new Circle(3, Color.TRANSPARENT);
+      if(reqList.get(i).getEmergency() == 1){
+        Image INPIcon = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_servicerequest1.png");
+        ImagePattern INPPattern = new ImagePattern(INPIcon);
+        circ= new Circle(10, Color.DARKRED);
+        circ.setFill(INPPattern);
+      }
+      else {
+        Image INPIcon = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_servicerequest0.png");
+        ImagePattern INPPattern = new ImagePattern(INPIcon);
+        circ= new Circle(10, Color.GREEN);
+        circ.setFill(INPPattern);
+      }
       circ.setCenterX((reqList.get(i).getXcoord()));
       circ.setCenterY((reqList.get(i).getYcoord()) - 8);
       reqDots.add(circ);
