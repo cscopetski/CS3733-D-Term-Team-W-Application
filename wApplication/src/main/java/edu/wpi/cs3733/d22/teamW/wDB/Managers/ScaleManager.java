@@ -26,7 +26,8 @@ public class ScaleManager {
     }
 
     //------------------------Class Impl.-------------------------
-    private final ArrayList<Class> defaultTrueTypes  = new ArrayList<>();
+    private final ArrayList<Class> defaultTrueTypes = new ArrayList<>();
+
     private void constructor() {
         defaultTrueTypes.add(Button.class);
         defaultTrueTypes.add(ComboBox.class);
@@ -41,42 +42,51 @@ public class ScaleManager {
 
     private void scaleChildrenX(Pane parent, double scale) {
         for (Node child : parent.getChildren()) {
-            if (scaleHelper(scale, child)) continue;
-            child.setScaleX(child.getScaleX() * scale);
+            if (isPane(child)) {
+                scaleChildrenX((Pane) child, scale);
+            }
+            else if (shouldScale(child)) {
+                child.setScaleX(child.getScaleX() * scale);
+            }
         }
     }
 
     //------------------------LENGTH CHANGE------------------------
-    public void setTrueY(Pane parent, double o, double n){
+    public void setTrueY(Pane parent, double o, double n) {
         scaleChildrenY(parent, o == 0 ? 1 : n / o);
     }
 
     private void scaleChildrenY(Pane parent, double scale) {
         for (Node child : parent.getChildren()) {
-            if (scaleHelper(scale, child)) continue;
-            child.setScaleY(child.getScaleY() * scale);
+            if (isPane(child)) {
+                scaleChildrenY((Pane) child, scale);
+            }
+            else if (shouldScale(child)) {
+                child.setScaleY(child.getScaleY() * scale);
+            }
         }
     }
 
     //----------------------HELPER FUNCTIONS-----------------------
-    private boolean scaleHelper(double scale, Node child) {
-        if (child.getClass().getSuperclass().equals(Pane.class)) {
-            scaleChildrenX((Pane) child, scale);
-            return true;
-        }
-        Object scalable = child.getProperties().get("isScalable");
+
+    private boolean isPane(Node node) {
+        return node.getClass().getSuperclass().equals(Pane.class);
+    }
+
+    private boolean shouldScale(Node node) {
+        Object scalable = node.getProperties().get("isScalable");
         boolean shouldCheckDefault = true;
         if (scalable != null) {
             if (scalable.equals("false")) {
-                return true;
+                return false;
             }
             if (scalable.equals("true")) {
                 shouldCheckDefault = false;
             }
         }
-        if (shouldCheckDefault && !defaultTrueTypes.contains(child.getClass())) {
-            return true;
+        if (shouldCheckDefault && !defaultTrueTypes.contains(node.getClass())) {
+            return false;
         }
-        return false;
+        return true;
     }
 }
