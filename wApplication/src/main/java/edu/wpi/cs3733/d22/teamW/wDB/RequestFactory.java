@@ -25,6 +25,7 @@ public class RequestFactory {
       SecurityRequestManager.getSecurityRequestManager();
   private LanguageRequestManager languageRequestManager =
       LanguageRequestManager.getLanguageRequestManager();
+  private InternalPatientTransportationRequestManager internalPatientTransportationRequestManager = InternalPatientTransportationRequestManager.getInternalPatientTransportationRequestManager();
 
   private TreeSet<Integer> reqIDList = new TreeSet<>();
 
@@ -147,6 +148,12 @@ public class RequestFactory {
           r = languageRequestManager.addNewRequest(counter, fields);
         }
         break;
+      case InternalPatientTransportationRequest:
+        if(importingFromCSV){
+          r = internalPatientTransportationRequestManager.addExistingRequest(fields);
+        }else{
+          r = internalPatientTransportationRequestManager.addNewRequest(counter, fields);
+        }
     }
     return r;
   }

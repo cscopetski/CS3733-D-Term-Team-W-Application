@@ -43,7 +43,6 @@ public class InternalPatientTransportationRequestDaoImpl implements InternalPati
         try {
             statement.execute("CREATE TABLE INTERNALPATIENTTRANSPORTATIONREQUESTS(\n"
                     + "ReqID INT,"
-                    + "patient varchar(25),"
                     + "nodeID varchar(25),"
                     + "nodeIDTo varchar(25),"
                     + "employeeID INT,"

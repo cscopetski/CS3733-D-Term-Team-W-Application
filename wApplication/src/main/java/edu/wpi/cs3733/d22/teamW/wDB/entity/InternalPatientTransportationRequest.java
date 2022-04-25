@@ -39,26 +39,26 @@ public class InternalPatientTransportationRequest extends Request{
 
     @Override
     public String toCSVString() {
-        return String.format("%d,%s,%s,%d,%d,%s,%s,%s",
+        return String.format("%d,%s,%s,%d,%d,%d,%s,%s",
                 requestID,
                 nodeID,
                 nodeIDTo,
                 employeeID,
                 emergency,
-                status.getString(),
+                status.getValue(),
                 createdTimestamp,
                 updatedTimestamp);
     }
 
     @Override
     public String toValuesString() {
-        return String.format("%d, '%s', '%s', %d, %d, '%s', '%s', '%s'",
+        return String.format("%d, '%s', '%s', %d, %d, %d, '%s', '%s'",
                 requestID,
                 nodeID,
                 nodeIDTo,
                 employeeID,
                 emergency,
-                status.getString(),
+                status.getValue(),
                 createdTimestamp,
                 updatedTimestamp);
     }

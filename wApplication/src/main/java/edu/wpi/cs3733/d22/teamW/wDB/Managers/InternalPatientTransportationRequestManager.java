@@ -20,7 +20,9 @@ public class InternalPatientTransportationRequestManager implements RequestManag
     public static InternalPatientTransportationRequestManager getInternalPatientTransportationRequestManager() {
         return internalPatientTransportationRequestManager;
     }
-
+    public void setIptrd(InternalPatientTransportationRequestDao iptrd){
+        this.iptrd = iptrd;
+    }
     @Override
     public void start(Integer requestID) throws Exception {
         InternalPatientTransportationRequest iptr = iptrd.getIPTRequest(requestID);

@@ -35,11 +35,6 @@ public class APILandingPageController {
     boolean isEmergency = false;
 
     public void launchInternalTransportAPI() throws Exception {
-
-
-//        WindowManager.getInstance().openWindow("popUpViews/InternalTransportInfo.fxml");
-//        String locationID = (String)WindowManager.getInstance().getData("origin");
-//        isEmergency = (boolean)WindowManager.getInstance().getData("isEmergency");
         edu.wpi.cs3733.D22.teamB.api.API api = new edu.wpi.cs3733.D22.teamB.api.API();
         try {
             api.run(0,0,500,500,"",null,null);
@@ -62,10 +57,9 @@ public class APILandingPageController {
             fields.add(String.format("%d",(request.getPriority()/3)));
             if(EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().isComfirm()){
                 edu.wpi.cs3733.d22.teamW.wDB.entity.Request request1 = RequestFactory.getRequestFactory().getRequest(RequestType.InternalPatientTransportationRequest, fields, false);
-                //System.out.println(request1.toCSVString());
+
             }
         }
-        System.out.println("Start");
         WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(null);
     }
 
