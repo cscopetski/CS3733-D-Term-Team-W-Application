@@ -1,5 +1,4 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
-
 import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Floor;
@@ -10,7 +9,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
-
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
