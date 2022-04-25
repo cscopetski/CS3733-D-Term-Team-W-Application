@@ -28,16 +28,28 @@ public class LoginController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle rb) {
+    PageManager.getInstance().attachOnLoad(PageManager.Pages.Login, this::onLoad);
+    PageManager.getInstance().attachOnUnload(PageManager.Pages.Login, this::onUnload);
+  }
+
+  private void onLoad() {
     BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.HospitalImage);
     BackgroundManager.getInstance().blur();
     MenuBarManager.getInstance().DisableMenuBar();
+    //PageManager.getInstance().clearAllHistory();
     switchServer.setText("Embedded");
+  }
+
+  private void onUnload() {
+    BackgroundManager.getInstance().unBlur();
+    MenuBarManager.getInstance().EnableMenuBar();
+    PageManager.getInstance().clearAllHistory();
   }
 
   Alert emptyFields =
       new Alert(
           Alert.AlertType.ERROR,
-          "There are required fields empty" + " !",
+          "There are required fields empty !",
           ButtonType.OK,
           ButtonType.CANCEL);
 
@@ -52,8 +64,6 @@ public class LoginController implements Initializable {
             .passwordMatch(username.getText(), password.getText())) {
           AccountManager.getInstance()
               .initialize(EmployeeManager.getEmployeeManager().getEmployee(username.getText()));
-          MenuBarManager.getInstance().EnableMenuBar();
-          BackgroundManager.getInstance().unBlur();
           PageManager.getInstance().loadPage(PageManager.Pages.MainMenu);
           username.clear();
           password.clear();

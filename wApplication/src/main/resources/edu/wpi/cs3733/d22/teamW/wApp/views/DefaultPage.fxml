@@ -5,6 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HistoryControl?>
 <AnchorPane style="-fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css"
             xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DefaultPageController">
@@ -26,6 +27,7 @@
                     <children>
                         <HBox fx:id="menuBar" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
                             <children>
+                                <HistoryControl prefHeight="30.0"/>
                                 <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false"
                                             prefHeight="30.0" prefWidth="113.0" text="Menu" textAlignment="CENTER"
                                             textOverrun="CLIP">
