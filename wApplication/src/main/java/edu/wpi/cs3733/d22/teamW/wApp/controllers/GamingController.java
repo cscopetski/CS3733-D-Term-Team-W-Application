@@ -34,11 +34,16 @@ public class GamingController implements Initializable {
     hs.setStyle("-fx-alignment: CENTER;");
 
     System.out.println("Trying to load table values now, have already loaded columns");
+    refresh(null);
+    hs.setEditable(false);
+  }
+
+
+  public void refresh(ActionEvent actionEvent) {
     try {
       hs.setItems(HighScoreManager.getHighScoreManager().getAllHighScores());
     } catch (Exception e) {
       e.printStackTrace();
     }
-    hs.setEditable(false);
   }
 }

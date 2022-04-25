@@ -28,8 +28,6 @@ public class Main {
     } catch (Exception e) {
       e.printStackTrace();
     }
-    EmployeeMessageManager.getEmployeeMessageManager()
-        .sendAllEmployeesMessage(2, "Welcome to the Wumbo Whowies application!");
 
     for (int i = 1; i <= 14; i++) {
       HighScoreManager.getHighScoreManager().addHighScore(new HighScore(i, 0, 0));
