@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" fillWidth="false" spacing="50.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.EmployeeChoiceIPT">
+    <children>
+        <VBox alignment="CENTER">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Missing Employee" textAlignment="CENTER" wrappingWidth="370.800048828125">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Text>
+                <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Select the Employee for the Following Request" textAlignment="CENTER" wrappingWidth="333.5999803543091" />
+            </children>
+            <VBox.margin>
+                <Insets bottom="-30.0" />
+            </VBox.margin>
+        </VBox>
+        <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
+            <children>
+            <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
+               <children>
+                  <HBox prefHeight="107.0" prefWidth="330.0">
+                     <children>
+                        <VBox prefHeight="118.0" prefWidth="118.0">
+                           <children>
+                              <Label styleClass="label-minor" text="Request ID:">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label styleClass="label-minor" text="Origin:">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label styleClass="label-minor" text="Destination:">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label styleClass="label-minor" text="Priority:">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </VBox>
+                        <VBox prefHeight="120.0" prefWidth="214.0">
+                           <children>
+                              <Label fx:id="RequestID" styleClass="label-minor">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="Origin" styleClass="label-minor">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="Destination" styleClass="label-minor">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <Label fx:id="Priority" styleClass="label-minor">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Priority 3+ is marked as Emergency" textAlignment="CENTER" wrappingWidth="205.59998035430908" />
+                <VBox alignment="CENTER" fillWidth="false" prefHeight="78.0" prefWidth="337.0">
+                    <children>
+                  <Label styleClass="label-minor" text="Employee:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                  </Label>
+                  <AutoCompleteInput fx:id="employeeComboBox" prefWidth="150.0">
+                     <VBox.margin>
+                        <Insets bottom="30.0" />
+                     </VBox.margin>
+                  </AutoCompleteInput>
+                  <HBox alignment="CENTER" prefHeight="32.0" prefWidth="305.0">
+                     <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                              <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#submitButton" text="Submit" textAlignment="CENTER" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="100.0">
+                           <children>
+                                  <Button mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>

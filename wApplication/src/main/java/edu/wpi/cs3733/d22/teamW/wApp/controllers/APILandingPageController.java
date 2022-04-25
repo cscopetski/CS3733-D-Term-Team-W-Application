@@ -1,10 +1,13 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.D22.teamB.api.DatabaseController;
+import edu.wpi.cs3733.D22.teamB.api.Request;
 import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -31,17 +34,36 @@ public class APILandingPageController {
 
     boolean isEmergency = false;
 
-    public void launchInternalTransportAPI() {
+    public void launchInternalTransportAPI() throws Exception {
 
 
-        WindowManager.getInstance().openWindow("popUpViews/InternalTransportInfo.fxml");
-        String locationID = (String)WindowManager.getInstance().getData("origin");
-        isEmergency = (boolean)WindowManager.getInstance().getData("isEmergency");
+//        WindowManager.getInstance().openWindow("popUpViews/InternalTransportInfo.fxml");
+//        String locationID = (String)WindowManager.getInstance().getData("origin");
+//        isEmergency = (boolean)WindowManager.getInstance().getData("isEmergency");
         edu.wpi.cs3733.D22.teamB.api.API api = new edu.wpi.cs3733.D22.teamB.api.API();
         try {
-            api.run(0,0,500,500,"",locationID,"");
+            api.run(0,0,500,500,"",null,null);
         } catch (edu.wpi.cs3733.D22.teamB.api.ServiceException | IOException e) {
             e.printStackTrace();
+        }
+        DatabaseController databaseController = new DatabaseController();
+        LinkedList<Request> APIRequest = databaseController.listRequests();
+
+        for(Request request : APIRequest){
+            ArrayList<String> fields = new ArrayList<>();
+
+            if(request.getEmployee() == null){
+                EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().set(request.getRequestID(),request.getStartLocation().getLongName(), request.getFinishLocation().getLongName(), String.valueOf(request.getPriority()));
+                WindowManager.getInstance().openWindow("popUpViews/EmployeeChoiceIPT.fxml");
+            }
+            fields.add(request.getStartLocation().getNodeID());
+            fields.add(request.getFinishLocation().getNodeID());
+            fields.add(EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().getEmployeeID());
+            fields.add(String.format("%d",(request.getPriority()/3)));
+            if(EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().isComfirm()){
+                edu.wpi.cs3733.d22.teamW.wDB.entity.Request request1 = RequestFactory.getRequestFactory().getRequest(RequestType.InternalPatientTransportationRequest, fields, false);
+                //System.out.println(request1.toCSVString());
+            }
         }
         System.out.println("Start");
         WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(null);

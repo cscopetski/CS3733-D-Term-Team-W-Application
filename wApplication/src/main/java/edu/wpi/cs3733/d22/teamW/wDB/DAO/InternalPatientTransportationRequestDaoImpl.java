@@ -37,7 +37,7 @@ public class InternalPatientTransportationRequestDaoImpl implements InternalPati
         }
     }
 
-    String CSVHeaderString = "ReqID,patient,nodeID,nodeIDTo,employeeID,emergency,status,createdTimestamp,updatedTimestamp";
+    String CSVHeaderString = "ReqID,nodeID,nodeIDTo,employeeID,emergency,status,createdTimestamp,updatedTimestamp";
 
     public void createTable() throws SQLException{
         try {
@@ -72,8 +72,7 @@ public class InternalPatientTransportationRequestDaoImpl implements InternalPati
     @Override
     public void changeIPTRequest(InternalPatientTransportationRequest iptr) throws SQLException {
         statement.executeUpdate(
-                String.format("UPDATE INTERNALPATIENTTRANSPORTATIONREQUESTS SET PATIENT = '%s', NODEID = 's', NODEIDTO = 's', EMPLOYEEID = %d, ISEMERGENCY = %d, REQSTATUS = %d, UPDATEDTIMESTAMP = '%s' WHERE REQID = %d",
-                        iptr.getPatient(),
+                String.format("UPDATE INTERNALPATIENTTRANSPORTATIONREQUESTS SET NODEID = 's', NODEIDTO = 's', EMPLOYEEID = %d, ISEMERGENCY = %d, REQSTATUS = %d, UPDATEDTIMESTAMP = '%s' WHERE REQID = %d",
                         iptr.getNodeID(),
                         iptr.getNodeIDTo(),
                         iptr.getEmployeeID(),
