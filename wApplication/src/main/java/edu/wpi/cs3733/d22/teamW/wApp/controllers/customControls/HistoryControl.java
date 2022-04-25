@@ -20,7 +20,7 @@ public class HistoryControl extends HBox {
 
     public HistoryControl() {
         setAlignment(Pos.CENTER);
-        setFillHeight(true);
+        setFillHeight(false);
         setSpacing(10);
 
         history = new ComboBox<>();
