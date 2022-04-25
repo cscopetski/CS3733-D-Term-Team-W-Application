@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
+import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.FilterControl;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
@@ -51,6 +52,7 @@ public class RequestListController implements Initializable {
     filter.loadValues(RequestType.values());
     filter.addValuesListener(c -> resetItems());
     onLoad();
+    PageManager.getInstance().attachOnLoad(PageManager.Pages.RequestList, this::onLoad);
   }
 
   private void resetItems() {

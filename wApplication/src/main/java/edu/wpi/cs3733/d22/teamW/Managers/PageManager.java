@@ -261,7 +261,6 @@ public class PageManager {
                     }).play();
             System.out.println(Pages.getPageType(prevF) + ": hidden started");
             o.setDisable(true);
-            o.toBack();
         }
         TransitionManager.createTransition(TransitionManager.Transitions.FadeIn, n).play();
 
@@ -282,7 +281,6 @@ public class PageManager {
     private void hide(Node n) {
         n.setVisible(false);
         n.setDisable(true);
-        n.toBack();
         if (Pages.getPageType(n).equals(Pages.Login)) {
             clearForwardHistory();
         }
@@ -291,7 +289,6 @@ public class PageManager {
         n.setVisible(true);
         n.setDisable(false);
         n.requestFocus();
-        n.toFront();
     }
 
     private void clearBackHistory() {

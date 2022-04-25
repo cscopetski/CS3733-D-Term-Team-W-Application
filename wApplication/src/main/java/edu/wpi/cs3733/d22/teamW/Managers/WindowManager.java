@@ -46,8 +46,13 @@ public class WindowManager {
       return;
     }
     Scene scene = new Scene(root);
+
     primaryStage.setScene(scene);
     primaryStage.show();
+
+    //final Parent rootF = root;
+    //scene.widthProperty().addListener((e, o, n) -> rootF.setScaleX(rootF.getScaleX() * (o.doubleValue() == 0 ? 1 : n.doubleValue() / o.doubleValue())));
+    //scene.heightProperty().addListener((e, o, n) -> rootF.setScaleY(rootF.getScaleY() * (o.doubleValue() == 0 ? 1 : n.doubleValue() / o.doubleValue())));
   }
 
   public void storeData(String name, Object data) {

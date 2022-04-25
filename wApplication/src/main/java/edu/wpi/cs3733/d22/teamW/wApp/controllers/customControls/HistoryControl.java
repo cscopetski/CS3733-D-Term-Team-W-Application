@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls;
 
 import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -41,11 +42,13 @@ public class HistoryControl extends HBox {
         forward = new Button("->");
         back.setOnAction((e) -> {
             PageManager.getInstance().goBack();
-            resetHistory();
+            resetSelection();
+            resetButtons();
         });
         forward.setOnAction((e) -> {
             PageManager.getInstance().goForward();
-            resetHistory();
+            resetSelection();
+            resetButtons();
         });
 
         PageManager.getInstance().attachHistoryChangeListener(this::resetHistory);
@@ -57,20 +60,33 @@ public class HistoryControl extends HBox {
     }
 
     private void resetHistory() {
-        ignoreSelection = true;
-        var temp = FXCollections.observableList(PageManager.getInstance().getHistory());
+        ObservableList<String> temp = FXCollections.observableList(PageManager.getInstance().getHistory());
         FXCollections.reverse(temp);
-        history.setItems(temp);
-        history.autosize();
-        if (PageManager.getInstance().getActiveIndex() != -1) {
-            history.getSelectionModel().clearAndSelect(temp.size() - 1 - PageManager.getInstance().getActiveIndex());
-        }
+
+        setItems(temp);
+        resetSelection();
         resetButtons();
+    }
+
+    private void setItems(ObservableList<String> items) {
+        ignoreSelection = true;
+        history.setItems(items);
         ignoreSelection = false;
+        history.autosize();
+    }
+
+    private void resetSelection() {
+        ignoreSelection = true;
+        if (PageManager.getInstance().getActiveIndex() != -1) {
+            history.getSelectionModel().clearAndSelect(history.getItems().size() - 1 - PageManager.getInstance().getActiveIndex());
+        }
+        ignoreSelection = false;
+        history.autosize();
     }
 
     private void resetButtons() {
         back.setDisable(!PageManager.getInstance().canGoBack());
         forward.setDisable(!PageManager.getInstance().canGoForward());
+        history.autosize();
     }
 }

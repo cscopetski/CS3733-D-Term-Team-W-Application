@@ -41,7 +41,8 @@ public class App extends Application {
     WindowManager.getInstance().initialize(primaryStage);
     // primaryStage.setFullScreen(true);
 
-    primaryStage.setMaximized(true);
+
+    //primaryStage.setMaximized(true);
     primaryStage.setResizable(true);
     primaryStage.toFront();
     primaryStage.setTitle("Mass General Brigham Service Requests");
@@ -52,7 +53,10 @@ public class App extends Application {
                 getClass()
                     .getResourceAsStream("/edu/wpi/cs3733/d22/teamW/wApp/assets/mgb_logo.png")));
 
+
     WindowManager.getInstance().setScene("DefaultPage.fxml");
+
+
   }
 
   @Override
