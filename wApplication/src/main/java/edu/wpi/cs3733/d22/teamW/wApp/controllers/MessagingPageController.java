@@ -48,6 +48,7 @@ public class MessagingPageController implements Initializable {
 
     protected Employee currentEmployee;
     protected Integer currentChatID;
+    protected boolean displayingMessages = true;
 
     @FXML
     AutoCompleteInput employeeComboBox;
@@ -286,16 +287,82 @@ public class MessagingPageController implements Initializable {
         chatCardView.getChildren().add(new Separator());
     }
 
+    public void addEmployeeCardToMessageWindow(Integer empID) {
+        Employee selectedEmployee = null;
+        try {
+            selectedEmployee = EmployeeManager.getEmployeeManager().getEmployee(empID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(selectedEmployee == null) return;
+        // Initialize card and other data
+        // Card consists of:
+        //  VBOX(s)
+        //    ImageView(s)
+        //  Seperator
+        //  Label
+        ChatCardHBox employeeCard = new ChatCardHBox();
+        employeeCard.setUnread(false);
+        employeeCard.setChatID(empID);
+        employeeCard.setCursor(Cursor.HAND);
+        employeeCard.setAlignment(Pos.CENTER_LEFT);
+
+
+        // Set image
+        boolean smallImages = false;
+        ImageView placeHolderImage = generatePlaceHolderImage(smallImages);
+
+        // Add images
+        employeeCard.getChildren().add(placeHolderImage);
+        // Add seperator
+        employeeCard.getChildren().add(new Separator(Orientation.VERTICAL));
+
+        // Add name label
+        Label employeeNameLabel = new Label(selectedEmployee.getFirstName() + " " + selectedEmployee.getLastName());
+        employeeCard.getChildren().add(employeeNameLabel);
+
+        // Add background color and mouse events
+        employeeCard.setOnMouseClicked(
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        try {
+                            displayMiniProfile(event, EmployeeManager.getEmployeeManager().getEmployee(employeeCard.getChatID()));
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        employeeCard.setOnMouseEntered(
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        mouseOverCard(event);
+                    }
+                });
+        employeeCard.setOnMouseExited(
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        mouseExitCard(event);
+                    }
+                });
+
+        // Add card to list + seperator
+        messagesWindow.getChildren().add(employeeCard);
+        messagesWindow.getChildren().add(new Separator());
+    }
+
     //TODO: Reimplement Phil's function
     public void displayMiniProfile(MouseEvent event, Employee emp) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
-            if (event.getClickCount() == 2) {
+            //if (event.getClickCount() == 2) {
                 WindowManager.getInstance()
                         .storeData(
                                 "employee", emp);
                 WindowManager.getInstance().openWindow(
                         "MiniProfilePage.fxml", emp.getFirstName() + " " + emp.getLastName());
-            }
+            //}
         }
     }
 
@@ -304,7 +371,7 @@ public class MessagingPageController implements Initializable {
         clearMessages();
         if (messageWindow.isDisabled()) messageWindow.setDisable(false);
         messageTitleLabel.setText(getChatTitleFromID(chatID));
-        if(ChatManager.getChatManager().getAllEmployeesInChat(chatID).size() > 2) {
+        if(ChatManager.getChatManager().getAllEmployeesInChat(chatID).size() > 1) {
             viewMembersLabel.setVisible(true);
         } else {
             viewMembersLabel.setVisible(false);
@@ -576,8 +643,19 @@ public class MessagingPageController implements Initializable {
         }
     }
 
-    public void viewMembersLabelClicked(MouseEvent mouseEvent) {
-        //Show members in current chat
+    public void viewMembersLabelClicked(MouseEvent mouseEvent) throws SQLException {
+        if(displayingMessages) {
+            clearMessages();
+            for(Chat chat : ChatManager.getChatManager().getAllEmployeesInChat(currentChatID)) {
+                addEmployeeCardToMessageWindow(chat.getEmpID());
+            }
+            displayingMessages = false;
+            ((Label)mouseEvent.getSource()).setText("Hide members in chat");
+        } else {
+            refreshMessages();
+            displayingMessages = true;
+            ((Label)mouseEvent.getSource()).setText("View members in chat");
+        }
     }
 
     public void viewMembersLabelMouseEnter(MouseEvent mouseEvent) {
