@@ -18,7 +18,7 @@
         <tabs>
           <Tab text="Edit Settings">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600" prefWidth="800">
                      <children>
                         <Pane layoutX="151.0" layoutY="90.0" prefHeight="202.0" prefWidth="528.0">
                            <children>
@@ -88,7 +88,7 @@
                   </AnchorPane>
               </content>
             </Tab>
-          <Tab text="Resquest">
+          <Tab text="Request">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>

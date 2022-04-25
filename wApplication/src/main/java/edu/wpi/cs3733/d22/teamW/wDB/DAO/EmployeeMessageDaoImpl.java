@@ -26,6 +26,14 @@ public class EmployeeMessageDaoImpl implements EmployeeMessageDao {
     }
   }
 
+  //   EmployeeMessage
+  //   msgID, empIDfrom, chatIDto, messageContent, sentTimestamp
+  //
+  //   Chat
+  //   chatID, empID
+  //
+  //   UnreadMessage
+  //   msgID, empID
   @Override
   public void createTable() {
     try {
@@ -33,14 +41,13 @@ public class EmployeeMessageDaoImpl implements EmployeeMessageDao {
           "CREATE TABLE EMPLOYEEMESSAGES(\n"
               + "                messageID INT,\n"
               + "                empIDfrom INT,\n"
-              + "                empIDto INT,\n"
+              + "                chatIDto INT,\n"
               + "                messageContent varchar(1000),\n"
               + "                sentTimestamp timestamp,\n"
-              + "                isRead INT,\n"
               + "                constraint EmpMessage_EmployeeFrom_FK foreign key (empIDfrom) references EMPLOYEES(employeeID),\n"
-              + "                constraint EmpMessage_EmployeeTo_FK foreign key (empIDto) references EMPLOYEES(employeeID),\n"
-              + "                constraint EmpMessage_PK primary key (messageID),\n"
-              + "                constraint EmpMessage_IsRead_check check (isRead = 0 or isRead = 1))");
+              + "                constraint EmpMessage_ChatTo_FK foreign key (chatIDto, empIDfrom) references CHATS(chatID, employeeID),\n"
+              + "                constraint EmpMessage_PK primary key (messageID))");
+      System.out.println("Created EMPLOYEEMESSAGES table.");
     } catch (SQLException e) {
       System.out.println("Failed to create EMPLOYEEMESSAGES table.");
       e.printStackTrace();
@@ -54,44 +61,37 @@ public class EmployeeMessageDaoImpl implements EmployeeMessageDao {
   }
 
   @Override
-  public ArrayList<EmployeeMessage> getAllUnreadMessages(Integer empIDto) throws SQLException {
+  public ArrayList<EmployeeMessage> getAllMessagesToChat(Integer chatIDto) throws SQLException {
     ResultSet messageDatabase =
         statement.executeQuery(
-            String.format(
-                "SELECT * FROM EMPLOYEEMESSAGES WHERE EMPIDTO=%d AND ISREAD=%d", empIDto, 0));
+            String.format("SELECT * FROM EMPLOYEEMESSAGES WHERE CHATIDTO=%d", chatIDto));
     return extractMessagesFromResultSet(messageDatabase);
   }
 
   @Override
-  public ArrayList<EmployeeMessage> getMessagesFromTo(Integer empIDfrom, Integer empIDto)
+  public ArrayList<EmployeeMessage> getAllMessagesFromEmployee(Integer empIDfrom)
       throws SQLException {
     ResultSet messageDatabase =
         statement.executeQuery(
-            String.format(
-                "SELECT * FROM EMPLOYEEMESSAGES WHERE EMPIDFROM=%d AND EMPIDTO=%d",
-                empIDfrom, empIDto));
+            String.format("SELECT * FROM EMPLOYEEMESSAGES WHERE EMPIDFROM=%d", empIDfrom));
     return extractMessagesFromResultSet(messageDatabase);
   }
 
   @Override
-  public Integer countUnreadMessagesAs(Integer empIDto) throws SQLException {
+  public EmployeeMessage getMostRecentMessageInChat(Integer chatID) throws SQLException {
     ResultSet messageDatabase =
         statement.executeQuery(
             String.format(
-                "SELECT COUNT(*) FROM EMPLOYEEMESSAGES WHERE EMPIDTO=%d AND ISREAD=0", empIDto));
-    messageDatabase.next();
-    return messageDatabase.getInt(1);
-  }
-
-  @Override
-  public Integer countUnreadMessagesAsFrom(Integer empIDto, Integer empIDfrom) throws SQLException {
-    ResultSet messageDatabase =
-        statement.executeQuery(
-            String.format(
-                "SELECT COUNT(*) FROM EMPLOYEEMESSAGES WHERE EMPIDTO=%d AND EMPIDFROM=%d AND ISREAD=0",
-                empIDto, empIDfrom));
-    messageDatabase.next();
-    return messageDatabase.getInt(1);
+                "SELECT MESSAGEID, EMPIDFROM, CHATIDTO, MESSAGECONTENT, SENTTIMESTAMP\n"
+                    + "FROM EMPLOYEEMESSAGES\n"
+                    + "WHERE SENTTIMESTAMP=(SELECT MAX(SENTTIMESTAMP) FROM EMPLOYEEMESSAGES WHERE CHATIDTO=%d)",
+                chatID));
+    ArrayList<EmployeeMessage> recent = extractMessagesFromResultSet(messageDatabase);
+    if (recent.isEmpty()) {
+      return null;
+    } else {
+      return recent.get(0);
+    }
   }
 
   @Override
@@ -122,13 +122,12 @@ public class EmployeeMessageDaoImpl implements EmployeeMessageDao {
     PreparedStatement preparedStatement =
         statement
             .getConnection()
-            .prepareStatement("INSERT INTO EMPLOYEEMESSAGES VALUES(?,?,?,?,?,?)");
+            .prepareStatement("INSERT INTO EMPLOYEEMESSAGES VALUES(?,?,?,?,?)");
     preparedStatement.setInt(1, em.getMessageID());
     preparedStatement.setInt(2, em.getEmpIDfrom());
-    preparedStatement.setInt(3, em.getEmpIDto());
+    preparedStatement.setInt(3, em.getChatIDto());
     preparedStatement.setString(4, em.getMessageContent());
     preparedStatement.setTimestamp(5, em.getSentTimestamp());
-    preparedStatement.setInt(6, em.getIsRead());
     preparedStatement.executeUpdate();
   }
 
@@ -138,13 +137,12 @@ public class EmployeeMessageDaoImpl implements EmployeeMessageDao {
         statement
             .getConnection()
             .prepareStatement(
-                "UPDATE EMPLOYEEMESSAGES SET EMPIDFROM=?, EMPIDTO=?, MESSAGECONTENT=?, SENTTIMESTAMP=?, ISREAD=? WHERE MESSAGEID=?");
+                "UPDATE EMPLOYEEMESSAGES SET EMPIDFROM=?, CHATIDTO=?, MESSAGECONTENT=?, SENTTIMESTAMP=? WHERE MESSAGEID=?");
     preparedStatement.setInt(1, em.getEmpIDfrom());
-    preparedStatement.setInt(2, em.getEmpIDto());
+    preparedStatement.setInt(2, em.getChatIDto());
     preparedStatement.setString(3, em.getMessageContent());
     preparedStatement.setTimestamp(4, em.getSentTimestamp());
-    preparedStatement.setInt(5, em.getIsRead());
-    preparedStatement.setInt(6, em.getMessageID());
+    preparedStatement.setInt(5, em.getMessageID());
     preparedStatement.executeUpdate();
   }
 

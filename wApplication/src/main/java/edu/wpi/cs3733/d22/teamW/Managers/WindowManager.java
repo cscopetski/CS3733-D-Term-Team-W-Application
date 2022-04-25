@@ -5,6 +5,7 @@ package edu.wpi.cs3733.d22.teamW.Managers;
 import java.io.IOException;
 import java.util.HashMap;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.GaussianBlur;
@@ -46,8 +47,13 @@ public class WindowManager {
       return;
     }
     Scene scene = new Scene(root);
+
     primaryStage.setScene(scene);
     primaryStage.show();
+
+    //final Parent rootF = root;
+    //scene.widthProperty().addListener((e, o, n) -> rootF.setScaleX(rootF.getScaleX() * (o.doubleValue() == 0 ? 1 : n.doubleValue() / o.doubleValue())));
+    //scene.heightProperty().addListener((e, o, n) -> rootF.setScaleY(rootF.getScaleY() * (o.doubleValue() == 0 ? 1 : n.doubleValue() / o.doubleValue())));
   }
 
   public void storeData(String name, Object data) {
@@ -82,6 +88,7 @@ public class WindowManager {
     stage.setTitle(title);
     stage.getIcons().add(new Image(getClass().getResourceAsStream(iconPath)));
     stage.setOnCloseRequest(e -> primaryStage.getScene().getRoot().setEffect(null));
+    storeData("Stage",stage);
     primaryStage.getScene().getRoot().setEffect(new GaussianBlur(7.5));
     stage.showAndWait();
   }

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.LocationInfoPageController">
+    <children>
+        <TabPane  style="-fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <tabs>
+                <Tab text="Edit Settings">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="600" prefWidth="800">
+                            <children>
+                                <Pane layoutX="151.0" layoutY="90.0" prefHeight="202.0" prefWidth="528.0">
+                                    <children>
+                                        <Label fx:id="nodeField" layoutX="4.0" layoutY="-1.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+                                        <Label layoutX="4.0" layoutY="40.0" stylesheets="@../CSS/UniversalCSS/Standard.css" fx:id="xField" />
+                                        <Label fx:id="yField" layoutX="4.0" layoutY="83.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+                                        <Label fx:id="floorField" layoutX="4.0" layoutY="118.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+                                        <Label fx:id="typeField" layoutX="336.0" layoutY="42.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+                                        <Label fx:id="lnameField" layoutX="336.0" layoutY="84.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+                                        <Label fx:id="snameField" layoutX="336.0" layoutY="118.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+                                        <Label fx:id="buildingField" layoutX="336.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+                                        <Label layoutX="-55.0" layoutY="4.0" text="NodeID:" />
+                                        <Label layoutX="-56.0" layoutY="46.0" text="X Coord:" />
+                                        <Label layoutX="-56.0" layoutY="88.0" text="Y Coord:" />
+                                        <Label layoutX="-48.0" layoutY="122.0" text="Floor:" />
+                                        <Label layoutX="285.0" layoutY="5.0" text="Building:" />
+                                        <Label layoutX="280.0" layoutY="46.0" />
+                                        <Label layoutX="261.0" layoutY="89.0" text="Long Name:" />
+                                        <Label layoutX="260.0" layoutY="123.0" text="Short Name:" />
+                                        <Label layoutX="294.0" layoutY="47.0" text="Type:" />
+                                    </children>
+                                </Pane>
+                                <Button fx:id="cancelButton" layoutX="436.0" layoutY="292.0" mnemonicParsing="false" onAction="#cancelUpdate" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Exit" />
+                                <Label layoutX="313.0" layoutY="14.0" text="Settings">
+                                    <font>
+                                        <Font name="System Bold" size="26.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="230.0" layoutY="50.0" text="Edit on the information if you want to change anything" textFill="#b9b9b9" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="MedicalEquip">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TableView fx:id="EqTab" layoutX="165.0" layoutY="83.0" prefHeight="238.0" prefWidth="418.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
+                                    <columns>
+                                        <TableColumn prefWidth="123.0" text="Type">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="Type" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="123.0" text="medID">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="MedID" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="123.0" text="Status">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="Status" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                    </columns>
+                                </TableView>
+                                <Label layoutX="274.0" layoutY="14.0" text="Medical Equipments">
+                                    <font>
+                                        <Font name="System Bold" size="24.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="246.0" layoutY="48.0" text="All your medical equipments info at this location" textFill="#949292" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab text="Request">
+                    <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                            <children>
+                                <TableView fx:id="ReqTab" layoutX="159.0" layoutY="88.0" prefHeight="237.0" prefWidth="428.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
+                                    <columns>
+                                        <TableColumn prefWidth="104.0" text="RequestID">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="RequestID" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="86.0" text="Emerg">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="Emergency" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="91.0" text="Status">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="Status" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                        <TableColumn prefWidth="132.0" text="EmployeeID">
+                                            <cellValueFactory>
+                                                <PropertyValueFactory property="EmployeeID" />
+                                            </cellValueFactory>
+                                        </TableColumn>
+                                    </columns>
+                                </TableView>
+                                <Label layoutX="313.0" layoutY="14.0" text="Request ">
+                                    <font>
+                                        <Font name="System Bold" size="24.0" />
+                                    </font>
+                                </Label>
+                                <Label layoutX="228.0" layoutY="49.0" text="All your information about the requests at this location" textFill="#8d8989" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>
