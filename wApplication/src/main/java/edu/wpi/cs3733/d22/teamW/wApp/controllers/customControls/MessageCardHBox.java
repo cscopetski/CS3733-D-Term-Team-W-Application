@@ -7,12 +7,12 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ChatCardHBox extends HBox {
-  private boolean unread;
-  private Integer chatID;
+public class MessageCardHBox extends HBox {
+  private boolean hasUrgent;
+  private Integer empID;
 
   /** Creates an {@code HBox} layout with {@code spacing = 0}. */
-  public ChatCardHBox() {
+  public MessageCardHBox() {
     super();
   }
 
@@ -21,7 +21,7 @@ public class ChatCardHBox extends HBox {
    *
    * @param spacing the amount of horizontal space between each child
    */
-  public ChatCardHBox(double spacing) {
+  public MessageCardHBox(double spacing) {
     super(spacing);
   }
 
@@ -31,7 +31,7 @@ public class ChatCardHBox extends HBox {
    * @param children the initial set of children for this pane
    * @since JavaFX 8.0
    */
-  public ChatCardHBox(Node... children) {
+  public MessageCardHBox(Node... children) {
     super(children);
   }
 
@@ -42,7 +42,7 @@ public class ChatCardHBox extends HBox {
    * @param children the initial set of children for this pane
    * @since JavaFX 8.0
    */
-  public ChatCardHBox(double spacing, Node... children) {
+  public MessageCardHBox(double spacing, Node... children) {
     super(spacing, children);
   }
 }

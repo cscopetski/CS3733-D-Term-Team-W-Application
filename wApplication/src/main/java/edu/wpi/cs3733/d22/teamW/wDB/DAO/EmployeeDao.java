@@ -18,8 +18,6 @@ public interface EmployeeDao {
 
   public Employee getEmployeeType(EmployeeType employeeType);
 
-  public Employee login(String username, String password) throws SQLException;
-
   void addEmployee(Employee employee) throws SQLException;
 
   void deleteEmployee(Integer empID) throws SQLException;
