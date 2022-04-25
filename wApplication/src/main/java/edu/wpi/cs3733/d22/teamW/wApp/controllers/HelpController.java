@@ -21,7 +21,7 @@ public class HelpController implements Initializable {
     }
 
     private void onLoad() {
-        switch (PageManager.getInstance().getPrevious()){
+        switch (PageManager.getInstance().getHistoryPages().get(PageManager.getInstance().getHistoryPages().size() - 1)) {
             case LabSR:
                 DescText.setText("This is placeholder Lab Request text. Please replace this.");
                 Pic.setImage(new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/burgerFoodItem.png"));
@@ -111,6 +111,6 @@ public class HelpController implements Initializable {
 
     @FXML
     void prevPage(){
-        PageManager.getInstance().loadPage(PageManager.getInstance().getPrevious());
+        PageManager.getInstance().goBack();
     }
 }

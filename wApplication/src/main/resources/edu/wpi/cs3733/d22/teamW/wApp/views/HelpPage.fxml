@@ -26,10 +26,12 @@
             </BorderPane>
          </children>
       </VBox>
+      <!--
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
             <Button fx:id="ReturnButton" onAction="#prevPage" mnemonicParsing="false" text="Return to Previous Page" />
          </children>
       </VBox>
+      -->
    </children>
 </VBox>
