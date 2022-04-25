@@ -43,7 +43,7 @@ public class APILandingPageController {
         } catch (edu.wpi.cs3733.D22.teamB.api.ServiceException | IOException e) {
             e.printStackTrace();
         }
-
+        System.out.println("Start");
         WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(null);
     }
 
