@@ -25,6 +25,7 @@ public class RequestFactory {
       SecurityRequestManager.getSecurityRequestManager();
   private LanguageRequestManager languageRequestManager =
       LanguageRequestManager.getLanguageRequestManager();
+  private ExternalTransportManager erm = ExternalTransportManager.getRequestManager();
 
   private TreeSet<Integer> reqIDList = new TreeSet<>();
 
@@ -145,6 +146,13 @@ public class RequestFactory {
           r = languageRequestManager.addExistingRequest(fields);
         } else {
           r = languageRequestManager.addNewRequest(counter, fields);
+        }
+        break;
+      case ExternalTransportRequest:
+        if(importingFromCSV) {
+          r = erm.addExistingRequest(fields);
+        }else{
+          r = erm.addNewRequest(counter,fields);
         }
         break;
     }

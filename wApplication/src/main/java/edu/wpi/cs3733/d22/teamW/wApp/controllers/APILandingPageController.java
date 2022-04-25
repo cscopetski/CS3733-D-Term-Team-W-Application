@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.D22.teamZ.api.entity.ExternalTransportRequest;
 import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 
 import java.awt.*;
@@ -9,6 +10,7 @@ import java.util.ArrayList;
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.TransportType;
 import edu.wpi.teamW.API;
 import edu.wpi.teamW.ServiceException;
 import edu.wpi.teamW.dB.LanguageRequest;
@@ -55,11 +57,34 @@ public class APILandingPageController {
         edu.wpi.cs3733.D22.teamZ.api.API api = new edu.wpi.cs3733.D22.teamZ.api.API();
         try {
             api.run(0,0,500,500,"",locationID,"");
+
         } catch (edu.wpi.cs3733.D22.teamZ.api.exception.ServiceException e) {
             e.printStackTrace();
         }
-
+        System.out.println("Start");
         WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(null);
+        for(ExternalTransportRequest e : api.getAllExternalTransportRequests()){
+            System.out.println("Middle");
+            ArrayList<String> fields = new ArrayList<>();
+            fields.add(locationID);
+            fields.add(e.getPatientID());
+            fields.add(e.getTransportDestination());
+            fields.add(e.getDepartureDate().toString());
+            fields.add(TransportType.toTransportType(e.getTransportMethod()).getString());
+            fields.add(e.getHandlerID());
+            if(isEmergency){
+                fields.add("1");
+            }else{
+                fields.add("0");
+            }
+            try {
+                RequestFactory.getRequestFactory().getRequest(RequestType.ExternalTransportRequest,fields,false);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+            api.deleteExternalTransportRequest(e.getRequestID());
+        }
+        System.out.println("End");
     }
 
     public void launchLanguageInterpreterAPI() {

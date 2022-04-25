@@ -54,6 +54,7 @@ public class DBController {
 
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
+      ExternalTransportRequestDao externalTransportRequestDao = new ExternalTransportRequestDaoImpl(statement);
       EmployeeMessageDao employeeMessageDao = new EmployeeMessageDaoImpl(statement);
       LanguageRequestDao languageRequestDao = new LanguageRequestDaoImpl(statement);
       SecurityRequestDao securityRequestDao = new SecurityRequestDaoImpl(statement);
@@ -95,6 +96,7 @@ public class DBController {
       MealRequestManager.getMealRequestManager().setMealRequestDao(mealRequestDao);
       SecurityRequestManager.getSecurityRequestManager().setSecurityRequestDao(securityRequestDao);
       LanguageRequestManager.getLanguageRequestManager().setLanguageRequestDao(languageRequestDao);
+      ExternalTransportManager.getRequestManager().setExternalTransportManagerDao(externalTransportRequestDao);
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ((EmployeeDaoSecureImpl) employeeDao).createTable();
@@ -114,6 +116,7 @@ public class DBController {
       ((MealRequestDaoImpl) mealRequestDao).createTable();
       ((SecurityRequestDaoImpl) securityRequestDao).createTable();
       ((LanguageRequestDaoImpl) languageRequestDao).createTable();
+      ((ExternalTransportRequestDaoImpl) externalTransportRequestDao).createTable();
 
     } catch (SQLException e) {
       System.out.println("Table Creation Failed");
@@ -195,107 +198,6 @@ public class DBController {
 
     System.out.println("Apache Derby connection established!");
   }
-
-  /**
-   * Creates the table of Locations in the database (First attempts to drop the table in case of
-   * reruns)
-   *
-   * @throws SQLException if Location Table fails to be created
-   */
-  /*public void createTables() throws SQLException {
-
-  if (statement == null) {
-    System.out.println("Connection not established, cannot create table");
-    throw (new SQLException());
-  } else {
-    try {
-      statement.execute("DROP TABLE LABSERVICEREQUESTS");
-      statement.execute("DROP TABLE MEDREQUESTS");
-      statement.execute("DROP TABLE MEDICALEQUIPMENTREQUESTS");
-      statement.execute("DROP TABLE MEDICALEQUIPMENT");
-      statement.execute("DROP TABLE LOCATIONS");
-      statement.execute("DROP TABLE EMPLOYEES");
-    } catch (SQLException e) {
-
-    }
-
-    try {
-      /*
-      statement.execute(
-          "CREATE TABLE LOCATIONS("
-              + "nodeID varchar(25),"
-              + "xcoord INT, "
-              + "ycoord  INT, "
-              + "floor varchar(25), "
-              + "building varchar(25), "
-              + "nodeType varchar(25), "
-              + "longName varchar(255), "
-              + "shortName varchar(255),"
-              + "constraint Locations_PK primary key (nodeID))");
-
-       */
-  /*
-  statement.execute(
-      "CREATE TABLE MEDICALEQUIPMENT("
-          + "medID varchar(25), "
-          + "type varchar(25), "
-          + "nodeID varchar(25),"
-          + "status INT,"
-          + "constraint MedEquip_PK primary key (medID),"
-          + "constraint Location_FK foreign key (nodeID) references LOCATIONS(nodeID),"
-          + "constraint Status_check check (status = 0 or status = 1 or status = 2))");
-
-   */
-  /*
-  statement.execute(
-      "CREATE TABLE MEDICALEQUIPMENTREQUESTS("
-          + "medReqID INT, "
-          + "medID varchar(25),"
-          + "equipType varchar(25),"
-          + "nodeID varchar(25),"
-          + "employeeName varchar(50),"
-          + "isEmergency INT,"
-          + "reqStatus INT, "
-          + "constraint MedReq_MedEquip_FK foreign key (medID) references MEDICALEQUIPMENT(medID),"
-          + "constraint MedReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID),"
-          + "constraint MedEquipReq_PK primary key (medReqID),"
-          + "constraint MedEReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),"
-          + "constraint IsEmergency_check check (isEmergency = 0 or isEmergency = 1))");
-          */
-  /*statement.execute(
-     "CREATE TABLE LABSERVICEREQUESTS(\n"
-         + "                labReqID INT,\n"
-         + "                labType varchar(25),\n"
-         + "                nodeID varchar(25),\n"
-         + "                employeeName varchar(50),\n"
-         + "                isEmergency INT,\n"
-         + "                reqStatus INT, \n"
-         + "                constraint LabReq_Location_FK foreign key (nodeID) references LOCATIONS(nodeID) on delete cascade,\n"
-         + "                constraint LabReq_PK primary key (labReqID),\n"
-         + "                constraint LabReq_Status_check check (reqStatus = 0 or reqStatus = 1 or reqStatus = 2 or reqStatus = 3),\n"
-         + "                constraint LabIsEmergency_check check (isEmergency = 0 or isEmergency = 1))");
-
-  */
-  /*
-        statement.execute(
-            "CREATE TABLE EMPLOYEES(\n"
-                + "employeeID INT, \n "
-                + "firstname varchar(25), \n "
-                + "lastname varchar(25), \n "
-                + "employeetype varchar(25), \n "
-                + "username varchar(25), \n "
-                + "password varchar(25), \n "
-                + "constraint Employees_PK primary key (employeeID),"
-                + "constraint username_uq unique(username))");
-
-
-      } catch (SQLException e) {
-        System.out.println("Table Creation Failed. Check output console.");
-        e.printStackTrace();
-        throw (e);
-      }
-    }
-  }*/
 
   /**
    * closes the connection to the embedded database
