@@ -136,7 +136,7 @@ public class ExternalTransportRequestDaoImpl implements ExternalTransportRequest
                 for (int i = 0; i < allComputerServiceRequests.getMetaData().getColumnCount(); i++) {
                     csrData.add(allComputerServiceRequests.getString(i + 1));
                 }
-                csrList.add(new ComputerServiceRequest(csrData));
+                csrList.add(new ExternalTransportRequest(csrData));
             }
         } catch (SQLException e) {
             System.out.println("Query from request transport request table failed.");
@@ -144,6 +144,8 @@ public class ExternalTransportRequestDaoImpl implements ExternalTransportRequest
         } catch (StatusError e) {
             System.out.println("Query from request transport request table failed.");
             e.printStackTrace();
+        } catch (NoTransport noTransport) {
+            noTransport.printStackTrace();
         }
         return csrList;
     }

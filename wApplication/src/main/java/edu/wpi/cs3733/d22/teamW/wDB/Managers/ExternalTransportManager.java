@@ -46,7 +46,7 @@ public class ExternalTransportManager implements RequestManager{
     @Override
     public void cancel(Integer requestID) throws Exception {
         ExternalTransportRequest csr = (ExternalTransportRequest) erd.getExTransportRequest(requestID);
-        if (csr.getStatus() == RequestStatus.Completed) {
+        if (csr.getStatus() != RequestStatus.Completed && csr.getStatus() != RequestStatus.Cancelled) {
             csr.setStatus(RequestStatus.Cancelled);
             erd.changeExTransportRequest(csr);
         }

@@ -24,6 +24,7 @@ public enum TransportType {
 
     static {
         for (TransportType type : TransportType.values()) {
+            System.out.println(type.string);
             map.put(type.string, type);
         }
     }
@@ -34,7 +35,7 @@ public enum TransportType {
 
     public static TransportType getTransportType(String transportType) throws NoTransport {
         TransportType type = null;
-        type = (TransportType) map.get(type);
+        type = (TransportType) map.get(transportType);
         if (type == null) {
             throw new NoTransport();
         }

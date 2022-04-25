@@ -85,6 +85,8 @@ public class RequestTable extends TableView<SR> {
         case SanitationService:
           sr = new SanitationSR(r);
           break;
+        case ExternalTransportRequest:
+          sr = new ExternalTransporationSR(r);
       }
 
       getItems().add(sr);

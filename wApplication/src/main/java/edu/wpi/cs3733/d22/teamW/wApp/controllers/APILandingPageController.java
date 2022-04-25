@@ -19,7 +19,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import edu.wpi.teamW.API.*;
 import javafx.scene.control.Label;
-import edu.wpi.cs3733.D22.teamB.api.API.*;
 import edu.wpi.cs3733.D22.teamZ.api.API.*;
 
 public class APILandingPageController {
@@ -34,7 +33,7 @@ public class APILandingPageController {
     boolean isEmergency = false;
 
     public void launchInternalTransportAPI() {
-
+/*
 
         WindowManager.getInstance().openWindow("popUpViews/APIPopUp.fxml");
         String locationID = (String)WindowManager.getInstance().getData("locationID");
@@ -47,6 +46,7 @@ public class APILandingPageController {
         }
 
         WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(null);
+        */
     }
 
     public void launchExternalTransportAPI() {
@@ -64,7 +64,6 @@ public class APILandingPageController {
         System.out.println("Start");
         WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(null);
         for(ExternalTransportRequest e : api.getAllExternalTransportRequests()){
-            System.out.println("Middle");
             ArrayList<String> fields = new ArrayList<>();
             fields.add(locationID);
             fields.add(e.getPatientID());

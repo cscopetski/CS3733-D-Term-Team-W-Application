@@ -37,7 +37,7 @@ public class InternalTransportPopUpController implements Initializable {
         if (!emptyFields()) {
             confirm.showAndWait();
             if (confirm.getResult() == ButtonType.OK) {
-                pushFlowerRequestToDB();
+                //pushFlowerRequestToDB();
                 clearFields();
                 fadeOut.playFromStart();
             }
@@ -56,7 +56,7 @@ public class InternalTransportPopUpController implements Initializable {
     }
 
     public void onLoad() throws SQLException {
-        fadeOut.setNode(successLabel);
+        //fadeOut.setNode(successLabel);
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);
         fadeOut.setCycleCount(1);

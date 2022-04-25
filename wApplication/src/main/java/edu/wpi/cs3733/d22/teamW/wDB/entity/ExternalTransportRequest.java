@@ -45,6 +45,7 @@ public class ExternalTransportRequest extends Request{
         this.patientID = fields.get(2);
         this.destinationLocation = fields.get(3);
         this.departureDate = (Date.valueOf(fields.get(4)).toLocalDate());
+        System.out.println(fields.get(5));
         this.transportType = TransportType.getTransportType(fields.get(5));
         this.employeeID = Integer.parseInt(fields.get(6));
         this.emergency = Integer.parseInt(fields.get(7));
