@@ -47,6 +47,8 @@ public class EmployeeManager {
     MedEquipRequestManager.getMedEquipRequestManager().updateReqWithEmployee(employeeID);
     MedRequestManager.getMedRequestManager().updateReqWithEmployee(employeeID);
     SanitationRequestManager.getSanitationRequestManager().updateReqWithEmployee(employeeID);
+    ExternalTransportManager.getRequestManager().updateReqWithEmployee(employeeID);
+    InternalPatientTransportationRequestManager.getInternalPatientTransportationRequestManager().updateReqWithEmployee(employeeID);
     ed.deleteEmployee(employeeID);
   }
 
