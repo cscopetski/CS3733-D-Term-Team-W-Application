@@ -54,7 +54,10 @@ public class DBController {
 
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
+      HighScoreDao highScoreDao = new HighScoreDaoImpl(statement);
+      UnreadMessageDao unreadMessageDao = new UnreadMessageDaoImpl(statement);
       EmployeeMessageDao employeeMessageDao = new EmployeeMessageDaoImpl(statement);
+      ChatDao chatDao = new ChatDaoImpl(statement);
       LanguageRequestDao languageRequestDao = new LanguageRequestDaoImpl(statement);
       SecurityRequestDao securityRequestDao = new SecurityRequestDaoImpl(statement);
       MealRequestDao mealRequestDao = new MealRequestDaoImpl(statement);
@@ -73,6 +76,7 @@ public class DBController {
       LanguageDao languageDao = new LanguageDaoImpl(statement);
 
       // Assign Daos to Managers
+      HighScoreManager.getHighScoreManager().setHighScoreDao(highScoreDao);
       EmployeeManager.getEmployeeManager().setEmployeeDao(employeeDao);
       LocationManager.getLocationManager().setLocationDao(locationDao);
       MedEquipManager.getMedEquipManager().setMedEquipDao(medEquipDao);
@@ -95,6 +99,8 @@ public class DBController {
       MealRequestManager.getMealRequestManager().setMealRequestDao(mealRequestDao);
       SecurityRequestManager.getSecurityRequestManager().setSecurityRequestDao(securityRequestDao);
       LanguageRequestManager.getLanguageRequestManager().setLanguageRequestDao(languageRequestDao);
+      ChatManager.getChatManager().setChatDao(chatDao);
+      UnreadMessageManager.getUnreadMessageManager().setUnreadMessageDao(unreadMessageDao);
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ((EmployeeDaoSecureImpl) employeeDao).createTable();
@@ -110,10 +116,13 @@ public class DBController {
       ((ComputerServiceRequestDaoImpl) csrDao).createTable();
       ((SanitationRequestDaoImpl) sanitationRequestDao).createTable();
       ((GiftDeliveryRequestDaoImpl) giftDeliveryRequestDao).createTable();
+      chatDao.createTable();
       employeeMessageDao.createTable();
+      unreadMessageDao.createTable();
       ((MealRequestDaoImpl) mealRequestDao).createTable();
       ((SecurityRequestDaoImpl) securityRequestDao).createTable();
       ((LanguageRequestDaoImpl) languageRequestDao).createTable();
+      ((HighScoreDaoImpl) highScoreDao).createTable();
 
     } catch (SQLException e) {
       System.out.println("Table Creation Failed");
