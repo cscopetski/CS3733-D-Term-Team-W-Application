@@ -1,36 +1,36 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
-import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.Flower;
-import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
-import java.io.IOException;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class InternalTransportPopUpController implements Initializable {
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.ResourceBundle;
 
-    @FXML AutoCompleteInput OriginComboBox;
-    @FXML AutoCompleteInput DestinationComboBox;
+public class EmployeeChoiceIPT implements Initializable {
+
+    @FXML
+    Label RequestID;
+    @FXML Label Origin;
+    @FXML Label Destination;
+    @FXML Label Priority;
     @FXML AutoCompleteInput employeeComboBox;
-    @FXML EmergencyButton emergencyButton;
     Alert confirm = new ConfirmAlert();
     Alert emptyFields = new EmptyAlert();
     private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
@@ -39,13 +39,24 @@ public class InternalTransportPopUpController implements Initializable {
         if (!emptyFields()) {
             confirm.showAndWait();
             if (confirm.getResult() == ButtonType.OK) {
-                //pushFlowerRequestToDB();
+                EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().setEmployeeID(String.valueOf(getEmployeeID(employeeComboBox.getValue())));
+                EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().setComfirm(true);
+                clearFields();
+                fadeOut.playFromStart();
+                Stage stage = ((Stage)WindowManager.getInstance().getData("stage"));
+                stage.close();
+            }
+        } else {
+            emptyFields.show();
+        }
+    }
 
-                WindowManager.getInstance().storeData("isEmergency", emergencyButton.getValue());
-                WindowManager.getInstance().storeData("origin", locationToNodeID(OriginComboBox.getSelectionModel().getSelectedItem().toString()));
-                WindowManager.getInstance().storeData("destination", locationToNodeID(OriginComboBox.getSelectionModel().getSelectedItem().toString()));
-                WindowManager.getInstance().storeData("employee", getEmployeeID(employeeComboBox.getSelectionModel().getSelectedItem().toString()));
-
+    public void cancelButton(ActionEvent actionEvent) throws SQLException {
+        if (!emptyFields()) {
+            confirm.showAndWait();
+            if (confirm.getResult() == ButtonType.OK) {
+                EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().setEmployeeID(String.valueOf(getEmployeeID(employeeComboBox.getValue())));
+                EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().setComfirm(false);
                 clearFields();
                 fadeOut.playFromStart();
                 Stage stage = ((Stage)WindowManager.getInstance().getData("stage"));
@@ -66,29 +77,25 @@ public class InternalTransportPopUpController implements Initializable {
     }
 
     public void onLoad() throws SQLException {
-        //fadeOut.setNode(successLabel);
-
         fadeOut.setFromValue(1.0);
         fadeOut.setToValue(0.0);
         fadeOut.setCycleCount(1);
         fadeOut.setAutoReverse(false);
-        OriginComboBox.loadValues(getLocations());
-        DestinationComboBox.loadValues(getLocations());
+        EmployeeChoiceIPTSingleton info = EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton();
+        RequestID.setText(info.getRequestID());
+        Origin.setText(info.getOrigin());
+        Destination.setText(info.getDestination());
+        Priority.setText(info.getPriority());
         employeeComboBox.loadValues(getEmployeeNames());
     }
 
     private boolean emptyFields() {
-        return employeeComboBox.getSelectionModel().isEmpty()
-                || OriginComboBox.getSelectionModel().isEmpty()
-                || DestinationComboBox.getSelectionModel().isEmpty();
+        return employeeComboBox.getSelectionModel().isEmpty();
     }
 
 
     private void clearFields() {
-        OriginComboBox.getSelectionModel().clearSelection();
         employeeComboBox.getSelectionModel().clearSelection();
-        DestinationComboBox.getSelectionModel().clearSelection();
-        emergencyButton.setValue(false);
     }
 
     private String getEmployeeID(String name) throws SQLException {
@@ -106,24 +113,6 @@ public class InternalTransportPopUpController implements Initializable {
             }
         }
         return String.format("%d", employeeID);
-    }
-
-    private String locationToNodeID(String target) {
-        String nodeID = "FAIL";
-
-        ArrayList<Location> locationsRaw = null;
-        try {
-            locationsRaw = LocationManager.getLocationManager().getAllLocations();
-        } catch (SQLException e) {
-            System.out.println("Failed to unearth locations from database");
-            e.printStackTrace();
-        }
-        for (Location l : locationsRaw) {
-            if (l.getLongName().equals(target)) {
-                nodeID = l.getNodeID();
-            }
-        }
-        return nodeID;
     }
 
     private ArrayList<String> getEmployeeNames() {
@@ -145,22 +134,4 @@ public class InternalTransportPopUpController implements Initializable {
         return name;
     }
 
-    private ArrayList<String> getLocations() {
-        ArrayList<String> locations = new ArrayList<>();
-        ArrayList<Location> locationsRaw = null;
-        ArrayList<Integer> removeIndexes = new ArrayList<>();
-        try {
-            locationsRaw = LocationManager.getLocationManager().getAllLocations();
-        } catch (SQLException e) {
-            System.out.println("Failed to unearth locations from database");
-            e.printStackTrace();
-        }
-
-        for (Location l : locationsRaw) {
-            if (l.getNodeType().equals("NONE")) {
-            } else locations.add(l.getLongName());
-        }
-        return locations;
-    }
-    
 }

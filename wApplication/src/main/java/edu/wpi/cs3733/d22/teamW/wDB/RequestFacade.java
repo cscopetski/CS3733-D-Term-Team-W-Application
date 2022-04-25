@@ -32,6 +32,7 @@ public class RequestFacade {
       LanguageRequestManager.getLanguageRequestManager();
   private ExternalTransportManager externalTransportManager =
           ExternalTransportManager.getRequestManager();
+  private InternalPatientTransportationRequestManager internalPatientTransportationRequestManager = InternalPatientTransportationRequestManager.getInternalPatientTransportationRequestManager();
 
 
   private static RequestFacade requestFacade = new RequestFacade();
@@ -94,6 +95,9 @@ public class RequestFacade {
       case ExternalTransportRequest:
         requests.addAll(externalTransportManager.getAllRequests());
         break;
+      case InternalPatientTransportationRequest:
+        requests.addAll(internalPatientTransportationRequestManager.getAllRequests());
+        break;
       default:
         // requests.addAll(getRequestsByType());
         break;
@@ -117,6 +121,7 @@ public class RequestFacade {
     requests.addAll(securityRequestManager.getAllRequests());
     requests.addAll(languageRequestManager.getAllRequests());
     requests.addAll(externalTransportManager.getAllRequests());
+    requests.addAll(internalPatientTransportationRequestManager.getAllRequests());
     Collections.sort(requests);
     return requests;
   }
@@ -159,6 +164,9 @@ public class RequestFacade {
         break;
       case ExternalTransportRequest:
         request = externalTransportManager.getRequest(requestID);
+        break;
+      case InternalPatientTransportationRequest:
+        request = internalPatientTransportationRequestManager.getRequest(requestID);
         break;
       default:
         request = null;
@@ -213,6 +221,9 @@ public class RequestFacade {
         case ExternalTransportRequest:
           externalTransportManager.complete(requestID);
           break;
+        case InternalPatientTransportationRequest:
+          internalPatientTransportationRequestManager.complete(requestID);
+          break;
       }
     }
   }
@@ -258,6 +269,9 @@ public class RequestFacade {
           break;
         case ExternalTransportRequest:
           externalTransportManager.cancel(requestID);
+          break;
+        case InternalPatientTransportationRequest:
+          internalPatientTransportationRequestManager.cancel(requestID);
           break;
       }
     }
@@ -308,6 +322,9 @@ public class RequestFacade {
         case ExternalTransportRequest:
           externalTransportManager.start(requestID);
           break;
+        case InternalPatientTransportationRequest:
+          internalPatientTransportationRequestManager.start(requestID);
+          break;
       }
     }
   }
@@ -354,6 +371,9 @@ public class RequestFacade {
         case ExternalTransportRequest:
           externalTransportManager.reQueue(requestID);
           break;
+        case InternalPatientTransportationRequest:
+          internalPatientTransportationRequestManager.reQueue(requestID);
+          break;
       }
     }
   }
@@ -373,6 +393,7 @@ public class RequestFacade {
     employeeRequests.addAll(securityRequestManager.getEmployeeRequests(employeeID));
     employeeRequests.addAll(languageRequestManager.getEmployeeRequests(employeeID));
     employeeRequests.addAll(externalTransportManager.getEmployeeRequests(employeeID));
+    employeeRequests.addAll(internalPatientTransportationRequestManager.getEmployeeRequests(employeeID));
     Collections.sort(employeeRequests);
 
     return employeeRequests;

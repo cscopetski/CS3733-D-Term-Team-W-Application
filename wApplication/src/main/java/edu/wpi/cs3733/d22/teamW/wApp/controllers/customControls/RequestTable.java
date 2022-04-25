@@ -87,6 +87,10 @@ public class RequestTable extends TableView<SR> {
           break;
         case ExternalTransportRequest:
           sr = new ExternalTransporationSR(r);
+          break;
+        case InternalPatientTransportationRequest:
+          sr = new InternalTransportSR(r);
+          break;
       }
 
       getItems().add(sr);

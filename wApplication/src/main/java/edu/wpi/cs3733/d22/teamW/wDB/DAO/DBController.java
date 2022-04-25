@@ -55,6 +55,7 @@ public class DBController {
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ExternalTransportRequestDao externalTransportRequestDao = new ExternalTransportRequestDaoImpl(statement);
+      InternalPatientTransportationRequestDao internalPatientTransportationRequestDao = new InternalPatientTransportationRequestDaoImpl(statement);
       EmployeeMessageDao employeeMessageDao = new EmployeeMessageDaoImpl(statement);
       LanguageRequestDao languageRequestDao = new LanguageRequestDaoImpl(statement);
       SecurityRequestDao securityRequestDao = new SecurityRequestDaoImpl(statement);
@@ -97,6 +98,7 @@ public class DBController {
       SecurityRequestManager.getSecurityRequestManager().setSecurityRequestDao(securityRequestDao);
       LanguageRequestManager.getLanguageRequestManager().setLanguageRequestDao(languageRequestDao);
       ExternalTransportManager.getRequestManager().setExternalTransportManagerDao(externalTransportRequestDao);
+      InternalPatientTransportationRequestManager.getInternalPatientTransportationRequestManager().setIptrd(internalPatientTransportationRequestDao);
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ((EmployeeDaoSecureImpl) employeeDao).createTable();
@@ -117,6 +119,7 @@ public class DBController {
       ((SecurityRequestDaoImpl) securityRequestDao).createTable();
       ((LanguageRequestDaoImpl) languageRequestDao).createTable();
       ((ExternalTransportRequestDaoImpl) externalTransportRequestDao).createTable();
+      ((InternalPatientTransportationRequestDaoImpl)internalPatientTransportationRequestDao).createTable();
 
     } catch (SQLException e) {
       System.out.println("Table Creation Failed");
