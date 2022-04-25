@@ -36,6 +36,10 @@ public class EmployeeManager {
     return ed.passwordMatch(username, password);
   }
 
+  public Employee login(String username, String password) throws SQLException{
+    return ed.login(username,password);
+  }
+
   /** Adds an employee to the database. */
   public void addEmployee(Employee employee) throws SQLException {
     ed.addEmployee(employee);

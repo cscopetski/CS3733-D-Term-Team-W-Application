@@ -7,6 +7,7 @@ import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.wDB.CSVController;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import java.net.URL;
 import java.sql.SQLException;
@@ -44,6 +45,42 @@ public class LoginController implements Initializable {
   public void login() throws SQLException {
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
       if (TextEntryChecker.check(username.getText())
+              && TextEntryChecker.check(password.getText())) {
+        illegalCharacter.setVisible(false);
+        existCase.setVisible(false);
+        matchCase.setVisible(false);
+        Employee employee = EmployeeManager.getEmployeeManager().login(username.getText(), password.getText());
+        if (employee != null) {
+
+
+          AccountManager.getInstance()
+                  .initialize(employee);
+          MenuBarManager.getInstance().EnableMenuBar();
+          BackgroundManager.getInstance().unBlur();
+          PageManager.getInstance().loadPage(PageManager.Pages.MainMenu);
+          username.clear();
+          password.clear();
+        }
+
+
+
+        else if (!EmployeeManager.getEmployeeManager().usernameExists(username.getText())) {
+          existCase.setVisible(true);
+        } else {
+          matchCase.setVisible(true);
+        }
+      } else {
+        matchCase.setVisible(false);
+        illegalCharacter.setVisible(true);
+      }
+    } else {
+      emptyFields.show();
+    }
+  }
+
+  /*public void login() throws SQLException {
+    if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
+      if (TextEntryChecker.check(username.getText())
           && TextEntryChecker.check(password.getText())) {
         illegalCharacter.setVisible(false);
         existCase.setVisible(false);
@@ -69,7 +106,7 @@ public class LoginController implements Initializable {
     } else {
       emptyFields.show();
     }
-  }
+  }*/
 
   public void onEnter(ActionEvent actionEvent) throws SQLException {
     login();

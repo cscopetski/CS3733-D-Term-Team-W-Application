@@ -252,6 +252,36 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
     return rs.getInt("COUNT");
   }
   // admin'--;
+
+
+  public Employee login(String username, String password) throws SQLException {
+    try {
+      Integer empID = getIDFromUsername(username);
+      if (empID == null) return null;
+      password = generateHash(password, getSalt(empID));
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    } catch (InvalidKeySpecException e) {
+      e.printStackTrace();
+    }
+    ResultSet rs =
+            statement.executeQuery(
+                    String.format(
+                            "SELECT * FROM EMPLOYEES WHERE USERNAME = '%s' AND PASSWORD = '%s'",
+                            username, password));
+    ArrayList<String> fields = new ArrayList<>();
+    while(rs.next()) {
+      for (int a = 0; a < rs.getMetaData().getColumnCount(); a++) {
+        fields.add(rs.getString(a + 1));
+      }
+    }
+    if(fields.size() == 0){
+      return null;
+    }
+    Employee employee = new Employee(fields);
+    return employee;
+  }
+
   public boolean passwordMatch(String username, String password) throws SQLException {
     try {
       Integer empID = getIDFromUsername(username);
