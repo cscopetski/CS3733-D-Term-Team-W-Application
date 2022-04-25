@@ -1,15 +1,14 @@
 package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.EmployeeMessageDao;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.EmployeeMessage;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class EmployeeMessageManager {
   private EmployeeMessageDao emd;
 
+  // TODO: Fix this (wont work on server cause its local)
   private static Integer count = 1;
 
   private static EmployeeMessageManager employeeMessageManager = new EmployeeMessageManager();
@@ -28,45 +27,26 @@ public class EmployeeMessageManager {
     return this.emd.getAllMessages();
   }
 
-  public ArrayList<EmployeeMessage> getAllUnreadMessages(Integer empIDto) throws SQLException {
-    return this.emd.getAllUnreadMessages(empIDto);
+  public ArrayList<EmployeeMessage> getAllMessagesToChat(Integer chatIDto) throws SQLException {
+    return this.emd.getAllMessagesToChat(chatIDto);
   }
 
-  public ArrayList<EmployeeMessage> getMessagesFromTo(Integer empIDfrom, Integer empIDto)
+  public ArrayList<EmployeeMessage> getAllMessagesFromEmployee(Integer empIDfrom)
       throws SQLException {
-    return this.emd.getMessagesFromTo(empIDfrom, empIDto);
+    return this.emd.getAllMessagesFromEmployee(empIDfrom);
   }
 
   public EmployeeMessage getEmployeeMessage(Integer messageID) throws SQLException {
     return this.emd.getEmployeeMessage(messageID);
   }
 
-  public Integer countUnreadMessagesAs(Integer empIDto) throws SQLException {
-    return this.emd.countUnreadMessagesAs(empIDto);
-  }
-
-  public Integer countUnreadMessagesAsFrom(Integer empIDto, Integer empIDfrom) throws SQLException {
-    return this.emd.countUnreadMessagesAsFrom(empIDto, empIDfrom);
+  public EmployeeMessage getMostRecentMessageInChat(Integer chatID) throws SQLException {
+    return this.emd.getMostRecentMessageInChat(chatID);
   }
 
   public void addEmployeeMessage(EmployeeMessage em) throws SQLException {
     this.emd.addEmployeeMessage(em);
     count++;
-  }
-
-  public void sendAllEmployeesMessage(Integer empIDfrom, String message) throws SQLException {
-    for (Employee emp : EmployeeManager.getEmployeeManager().getAllEmployees()) {
-      if (!(emp.getEmployeeID().equals(empIDfrom) || emp.getEmployeeID() == -1)) {
-        addEmployeeMessage(
-            new EmployeeMessage(
-                getNextMsgID(),
-                empIDfrom,
-                emp.getEmployeeID(),
-                message,
-                new Timestamp(System.currentTimeMillis()),
-                0));
-      }
-    }
   }
 
   public void changeEmployeeMessage(EmployeeMessage em) throws SQLException {

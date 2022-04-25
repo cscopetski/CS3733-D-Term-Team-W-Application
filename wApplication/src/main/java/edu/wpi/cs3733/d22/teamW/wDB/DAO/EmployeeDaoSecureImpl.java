@@ -82,6 +82,27 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
   }
 
   @Override
+  public Employee getEmployeeFromName(String lastName, String firstName) throws SQLException{
+    Employee employee = null;
+    try {
+      ResultSet employeeRequest =
+              statement.executeQuery(
+                      String.format(
+                              "SELECT * FROM EMPLOYEES WHERE FIRSTNAME = '%s' AND LASTNAME = '%s'", firstName, lastName));
+      employeeRequest.next();
+
+      ArrayList<String> employeeFields = new ArrayList<String>();
+      for (int i = 0; i < employeeRequest.getMetaData().getColumnCount(); i++) {
+        employeeFields.add(employeeRequest.getString(i + 1));
+      }
+      employee = new Employee(employeeFields);
+    } catch (SQLException e) {
+      System.out.println("Query from employee table failed.");
+    }
+    return employee;
+  }
+
+  @Override
   public ArrayList<Employee> getAllEmployees() throws SQLException {
     ArrayList<Employee> employeeList = new ArrayList<Employee>();
 
@@ -105,6 +126,41 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
     }
     return employeeList;
   }
+
+
+  @Override
+  public ArrayList<Employee> getEmployeeListByType(ArrayList<EmployeeType> employeeTypes) throws SQLException {
+    ArrayList<Employee> employeeList = new ArrayList<Employee>();
+
+    String query = "SELECT * FROM EMPLOYEES WHERE ";
+
+    for(int a = 0; a < employeeTypes.size(); a++){
+      if(a < employeeTypes.size()-1){
+        query += String.format("EMPLOYEETYPE = '%s' OR ", employeeTypes.get(a).getString());
+      }
+      else query += String.format("EMPLOYEETYPE = '%s'", employeeTypes.get(a).getString());
+    }
+    try {
+      ResultSet employees =
+              statement.executeQuery(query);
+
+      while (employees.next()) {
+        ArrayList<String> employeeData = new ArrayList<String>();
+
+        for (int i = 0; i < employees.getMetaData().getColumnCount(); i++) {
+          employeeData.add(employees.getString(i + 1));
+        }
+
+        employeeList.add(new Employee(employeeData));
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from locations table failed");
+      throw (e);
+    }
+    return employeeList;
+  }
+
 
   /**
    * If the salt is the string 'NEW', the salt will be randomly generated and the password will get
@@ -194,6 +250,36 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
             String.format("SELECT COUNT(*) AS COUNT FROM EMPLOYEES WHERE EMPLOYEEID = %d", i));
     rs.next();
     return rs.getInt("COUNT");
+  }
+  // admin'--;
+
+
+  public Employee login(String username, String password) throws SQLException {
+    try {
+      Integer empID = getIDFromUsername(username);
+      if (empID == null) return null;
+      password = generateHash(password, getSalt(empID));
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+    } catch (InvalidKeySpecException e) {
+      e.printStackTrace();
+    }
+    ResultSet rs =
+            statement.executeQuery(
+                    String.format(
+                            "SELECT * FROM EMPLOYEES WHERE USERNAME = '%s' AND PASSWORD = '%s'",
+                            username, password));
+    ArrayList<String> fields = new ArrayList<>();
+    while(rs.next()) {
+      for (int a = 0; a < rs.getMetaData().getColumnCount(); a++) {
+        fields.add(rs.getString(a + 1));
+      }
+    }
+    if(fields.size() == 0){
+      return null;
+    }
+    Employee employee = new Employee(fields);
+    return employee;
   }
 
   public boolean passwordMatch(String username, String password) throws SQLException {

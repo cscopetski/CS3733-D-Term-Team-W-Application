@@ -12,29 +12,11 @@ public interface EmployeeMessageDao {
 
   ArrayList<EmployeeMessage> getAllMessages() throws SQLException;
 
-  ArrayList<EmployeeMessage> getAllUnreadMessages(Integer empIDto) throws SQLException;
+  ArrayList<EmployeeMessage> getAllMessagesToChat(Integer chatIDto) throws SQLException;
 
-  ArrayList<EmployeeMessage> getMessagesFromTo(Integer empIDfrom, Integer empIDto)
-      throws SQLException;
+  ArrayList<EmployeeMessage> getAllMessagesFromEmployee(Integer empIDfrom) throws SQLException;
 
-  /**
-   * Counts the total unread messages sent to empIDto
-   *
-   * @param empIDto
-   * @return
-   * @throws SQLException
-   */
-  Integer countUnreadMessagesAs(Integer empIDto) throws SQLException;
-
-  /**
-   * Counts only the unread messages sent to empIDto from empIDfrom
-   *
-   * @param empIDto
-   * @param empIDfrom
-   * @return
-   * @throws SQLException
-   */
-  Integer countUnreadMessagesAsFrom(Integer empIDto, Integer empIDfrom) throws SQLException;
+  EmployeeMessage getMostRecentMessageInChat(Integer chatID) throws SQLException;
 
   EmployeeMessage getEmployeeMessage(Integer messageID) throws SQLException;
 

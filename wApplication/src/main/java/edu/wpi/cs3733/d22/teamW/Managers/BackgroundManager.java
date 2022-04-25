@@ -25,7 +25,17 @@ public class BackgroundManager {
   }
 
   public void setContent(Pane pane) {
-    parent.getChildren().remove(pane);
+    if (parent.getChildren().size() > 0 && parent.getChildren().get(parent.getChildren().size() - 1).equals(pane)) {
+      System.out.println("No Background Changed");
+      return;
+    }
+
+    Object bn = pane.getProperties().get("BackgroundName");
+    if (bn == null) {
+      bn = "No Name Set";
+    }
+    System.out.println("Background Set: " + bn);
+
     AnchorPane.setTopAnchor(pane, 0.0);
     AnchorPane.setBottomAnchor(pane, 0.0);
     AnchorPane.setLeftAnchor(pane, 0.0);
@@ -35,15 +45,17 @@ public class BackgroundManager {
       final Pane prevF = (Pane) parent.getChildren().get(parent.getChildren().size() - 1);
       Transition tOut =
           TransitionManager.createTransition(
-              TransitionManager.Transitions.FadeOut,
-              prevF,
-              () -> parent.getChildren().remove(prevF));
+                  TransitionManager.Transitions.FadeOut,
+                  prevF,
+                  () -> parent.getChildren().remove(prevF));
       tOut.play();
     }
     Transition tIn = TransitionManager.createTransition(TransitionManager.Transitions.FadeIn, pane);
     tIn.play();
 
-    parent.getChildren().add(pane);
+    if (!parent.getChildren().contains(pane)){
+      parent.getChildren().add(pane);
+    }
   }
 
   public Pane getContent() {
@@ -74,8 +86,10 @@ public class BackgroundManager {
       HospitalImage.getStylesheets()
           .add("/edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/paneHospital.css");
       HospitalImage.getStyleClass().add("image");
+      HospitalImage.getProperties().put("BackgroundName", "Hospital Image");
       White = new Pane();
       White.setStyle("-fx-background-color: white");
+      White.getProperties().put("BackgroundName", "White");
     }
   }
 }
