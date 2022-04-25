@@ -28,7 +28,12 @@ public class LoginController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle rb) {
-    BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.HospitalImage);
+    PageManager.getInstance().attachOnLoad(PageManager.Pages.Login, this::onLoad);
+    PageManager.getInstance().attachOnUnload(PageManager.Pages.Login, this::onUnload);
+  }
+
+  private void onLoad() {
+    BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.HospitalImage.getContent());
     BackgroundManager.getInstance().blur();
     MenuBarManager.getInstance().DisableMenuBar();
     switchServer.setText("Embedded");
