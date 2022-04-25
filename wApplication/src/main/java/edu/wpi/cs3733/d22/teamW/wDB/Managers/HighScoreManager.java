@@ -35,4 +35,8 @@ public class HighScoreManager {
   public HighScore getHighScore(int empID) {
     return hd.getHighScore(empID);
   }
+
+  public void updateHighScoreWithEmployee(Integer employeeID) throws Exception {
+    hd.deleteAllHighScore(employeeID);
+  }
 }

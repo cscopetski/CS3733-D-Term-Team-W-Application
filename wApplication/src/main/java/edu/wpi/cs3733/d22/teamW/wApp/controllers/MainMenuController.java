@@ -30,7 +30,7 @@ public class MainMenuController implements Initializable {
     newMessagesCircle.setVisible(false);
     try {
       if(AccountManager.getInstance().getEmployee() != null) {
-        if (UnreadMessageManager.getUnreadMessageManager().getAllUnreadMessagesForEmployee(AccountManager.getInstance().getEmployee().getEmployeeID()).size() > 0) {
+          if (UnreadMessageManager.getUnreadMessageManager().getAllUnreadMessagesForEmployee(AccountManager.getInstance().getEmployee().getEmployeeID()).size() > 0) {
           newMessagesCircle.setVisible(true);
         }
       }

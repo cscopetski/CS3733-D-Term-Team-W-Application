@@ -14,10 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" stylesheets="@../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0"
-      AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.AdminHub">
+<VBox alignment="CENTER" stylesheets="@../CSS/UniversalCSS/Standard.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.AdminHub">
     <children>
         <TabPane style="-fx-background-color: white; -fx-background-position: center;" tabClosingPolicy="UNAVAILABLE">
             <tabs>
@@ -29,15 +26,15 @@
                                     <children>
                                         <ImageView fitHeight="90.0" fitWidth="90.0">
                                             <image>
-                                                <Image url="@../assets/Icons/adminIcon.png"/>
+                                                <Image url="@../assets/Icons/adminIcon.png" />
                                             </image>
                                         </ImageView>
                                         <Label text="ADMIN HUB" textFill="#013895">
                                             <font>
-                                                <Font name="System Bold" size="19.0"/>
+                                                <Font name="System Bold" size="19.0" />
                                             </font>
                                         </Label>
-                                        <Label text="Top secret page for admins only" textFill="#8f8d8d"/>
+                                        <Label text="Top secret page for admins only" textFill="#8f8d8d" />
                                     </children>
                                 </VBox>
                                 <HBox alignment="CENTER">
@@ -48,25 +45,25 @@
                                                     <children>
                                                         <Label styleClass="label-minor" text="Search Employee:">
                                                             <font>
-                                                                <Font size="13.0"/>
+                                                                <Font size="13.0" />
                                                             </font>
                                                         </Label>
-                                                        <TextField prefHeight="28.0" prefWidth="211.0"/>
+                                                        <TextField prefHeight="28.0" prefWidth="211.0" />
                                                     </children>
                                                 </VBox>
-                                                <Button fx:id="addEmployee" mnemonicParsing="false"
-                                                        onAction="#openAddEmployee" text="Add employee"/>
+                                                <Button fx:id="addEmployee" mnemonicParsing="false" onAction="#openAddEmployee" text="Add Employee" />
+                                    <Button mnemonicParsing="false" onAction="#openChangeEmployee" text="Change Employee" />
+                                    <Button mnemonicParsing="false" onAction="#deleteEmployee" text="Delete Employee" />
                                             </children>
                                         </VBox>
                                         <VBox alignment="CENTER">
                                             <children>
-                                                <Label styleClass="label-major" text="Employee Information Table"
-                                                       textFill="WHITE">
+                                                <Label styleClass="label-major" text="Employee Information Table" textFill="WHITE">
                                                     <font>
-                                                        <Font name="System Bold" size="21.0"/>
+                                                        <Font name="System Bold" size="21.0" />
                                                     </font>
                                                 </Label>
-                                                <EmployeeTable fx:id="employeeTable"/>
+                                                <EmployeeTable fx:id="employeeTable" />
                                             </children>
                                         </VBox>
                                     </children>
@@ -77,15 +74,14 @@
                 </Tab>
                 <Tab text="Map Editor">
                     <content>
-                        <fx:include fx:id="mapEditorPage" source="MapEditorPage.fxml"/>
+                        <fx:include fx:id="mapEditorPage" source="MapEditorPage.fxml" />
                     </content>
                 </Tab>
                 <Tab text="Automation">
                     <content>
                         <VBox alignment="CENTER">
                             <children>
-                                <ToggleButton fx:id="automation" mnemonicParsing="false" onAction="#automationToggle"
-                                              text="Activate Automation"/>
+                                <ToggleButton fx:id="automation" mnemonicParsing="false" onAction="#automationToggle" text="Activate Automation" />
                             </children>
                         </VBox>
                     </content>
