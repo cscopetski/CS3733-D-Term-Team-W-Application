@@ -5,6 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HistoryControl?>
 <AnchorPane style="-fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css"
             xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DefaultPageController">
@@ -24,8 +25,9 @@
             <top>
                 <AnchorPane minWidth="750.0" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox fx:id="menuBar" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
+                        <HBox fx:id="menuBar" spacing="10" AnchorPane.rightAnchor="6.0" AnchorPane.topAnchor="6.0">
                             <children>
+                                <HistoryControl alignment="CENTER" prefHeight="30.0"/>
                                 <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false"
                                             prefHeight="30.0" prefWidth="113.0" text="Menu" textAlignment="CENTER"
                                             textOverrun="CLIP">
@@ -42,9 +44,6 @@
                                         <MenuItem mnemonicParsing="false" onAction="#switchToHelp"
                                                   text="Help"/>
                                     </items>
-                                    <HBox.margin>
-                                        <Insets right="10.0" top="10.0"/>
-                                    </HBox.margin>
                                 </MenuButton>
                                 <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false"
                                             prefHeight="30.0" prefWidth="113.0" text="Requests" textAlignment="CENTER"
@@ -72,9 +71,6 @@
                                         <MenuItem mnemonicParsing="false" onAction="#switchToSanitationService"
                                                   text="Sanitation"/>
                                     </items>
-                                    <HBox.margin>
-                                        <Insets right="10.0" top="10.0"/>
-                                    </HBox.margin>
                                 </MenuButton>
                                 <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false"
                                             prefHeight="30.0" prefWidth="113.0" text="Account" textAlignment="CENTER"
@@ -86,9 +82,6 @@
                                                   text="Admin Hub"/>
                                         <MenuItem mnemonicParsing="false" onAction="#logOut" text="Log Out"/>
                                     </items>
-                                    <HBox.margin>
-                                        <Insets right="10.0" top="10.0"/>
-                                    </HBox.margin>
                                 </MenuButton>
                                 <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false"
                                             prefHeight="30.0" prefWidth="113.0" text="Map" textAlignment="CENTER"
@@ -99,19 +92,13 @@
                                         <MenuItem mnemonicParsing="false" onAction="#switchToDashBoard"
                                                   text="Map dashboard"/>
                                     </items>
-                                    <HBox.margin>
-                                        <Insets right="10.0" top="10.0"/>
-                                    </HBox.margin>
                                 </MenuButton>
                                 <Button mnemonicParsing="false" onAction="#exitProgram" prefHeight="30.0"
                                         prefWidth="113.0" text="Exit" textFill="WHITE">
-                                    <HBox.margin>
-                                        <Insets right="10.0" top="10.0"/>
-                                    </HBox.margin>
                                 </Button>
                             </children>
                             <padding>
-                                <Insets bottom="10.0"/>
+                                <Insets top="10.0" bottom="10.0"/>
                             </padding>
                         </HBox>
                         <Pane fx:id="buttonPane" disable="true" onMouseClicked="#switchToMainMenu" prefHeight="65.0"
