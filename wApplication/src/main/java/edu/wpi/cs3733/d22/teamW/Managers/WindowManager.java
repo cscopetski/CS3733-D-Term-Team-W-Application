@@ -52,8 +52,8 @@ public class WindowManager {
 
         final Scene scene = new Scene(root);
         root.getScene().widthProperty().addListener((e, o, n) -> {
-            ScaleManager.getInstance().setTrueX((Pane) scene.getRoot(), o.doubleValue(), n.doubleValue());
             ScaleManager.getInstance().setTrueY((Pane) scene.getRoot(), o.doubleValue(), n.doubleValue());
+            ScaleManager.getInstance().setTrueX((Pane) scene.getRoot(), o.doubleValue(), n.doubleValue());
         });
 
         primaryStage.setScene(scene);

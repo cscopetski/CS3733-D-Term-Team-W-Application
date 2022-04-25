@@ -52,8 +52,8 @@ public class App extends Application {
                 getClass()
                     .getResourceAsStream("/edu/wpi/cs3733/d22/teamW/wApp/assets/mgb_logo.png")));
 
-    //WindowManager.getInstance().setScene("DefaultPage.fxml");
-    WindowManager.getInstance().setScene("ResizeTest.fxml");
+    WindowManager.getInstance().setScene("DefaultPage.fxml");
+    //WindowManager.getInstance().setScene("ResizeTest.fxml");
   }
 
   @Override

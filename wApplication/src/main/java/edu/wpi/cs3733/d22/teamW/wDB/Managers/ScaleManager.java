@@ -3,10 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -21,7 +18,7 @@ public class ScaleManager {
     }
 
     private ScaleManager() {
-        constructor();
+        populateDefTypes();
     }
 
 
@@ -32,7 +29,7 @@ public class ScaleManager {
     //------------------------Class Impl.-------------------------
     private final ArrayList<Class> defaultTrueTypes = new ArrayList<>();
 
-    private void constructor() {
+    private void populateDefTypes() {
         defaultTrueTypes.add(Button.class);
         defaultTrueTypes.add(ComboBox.class);
         defaultTrueTypes.add(EmergencyButton.class);
@@ -41,6 +38,7 @@ public class ScaleManager {
         defaultTrueTypes.add(Label.class);
         defaultTrueTypes.add(Text.class);
         defaultTrueTypes.add(ImageView.class);
+        defaultTrueTypes.add(MenuButton.class);
     }
 
     //------------------------WIDTH CHANGE------------------------
@@ -54,14 +52,15 @@ public class ScaleManager {
                 scaleChildrenX((Pane) child, scale);
             }
             else if (shouldScale(child)) {
-                child.setScaleX(child.getScaleX() * scale);
-
+                if (!checkCollision(parent, child)){
+                    child.setScaleX(child.getScaleX() * scale);
+                }
                 //Maximum and Minimum bounding:
                 if (child.getScaleX() <= 1) {
                     child.setScaleX(1);
                 }
-                if (child.getScaleX() >= 2) {
-                    child.setScaleX(2);
+                if (child.getScaleX() >= 1.5) {
+                    child.setScaleX(1.5);
                 }
             }
         }
@@ -76,16 +75,17 @@ public class ScaleManager {
         for (Node child : parent.getChildren()) {
             if (isPane(child)) {
                 scaleChildrenY((Pane) child, scale);
-            }
+        }
             else if (shouldScale(child)) {
-                child.setScaleY(child.getScaleY() * scale);
-
+                if (!checkCollision(parent, child)) {
+                    child.setScaleY(child.getScaleY() * scale);
+                }
                 //Maximum and Minimum bounding:
                 if (child.getScaleY() <= 1) {
                     child.setScaleY(1);
                 }
-                if (child.getScaleY() >= 2) {
-                    child.setScaleY(2);
+                if (child.getScaleY() >= 1.5) {
+                    child.setScaleY(1.5);
                 }
             }
         }
@@ -112,5 +112,16 @@ public class ScaleManager {
             return false;
         }
         return true;
+    }
+
+    private boolean checkCollision(Pane parent, Node target){
+        for (Node child : parent.getChildren()) {
+            if (child != target){
+                if (target.getBoundsInLocal().intersects(child.getBoundsInParent())) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

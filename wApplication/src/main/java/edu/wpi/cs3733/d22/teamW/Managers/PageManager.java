@@ -141,8 +141,8 @@ public class PageManager {
     p.toFront();
 
     p.widthProperty().addListener((e, o, n) -> {
-      ScaleManager.getInstance().setTrueX(p, o.doubleValue(), n.doubleValue());
       ScaleManager.getInstance().setTrueY(p, o.doubleValue(), n.doubleValue());
+      ScaleManager.getInstance().setTrueX(p, o.doubleValue(), n.doubleValue());
     });
   }
 
