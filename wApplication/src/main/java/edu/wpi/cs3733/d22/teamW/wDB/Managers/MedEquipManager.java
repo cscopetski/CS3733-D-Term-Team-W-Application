@@ -55,14 +55,10 @@ public class MedEquipManager {
 
   public void markCleanThroughRequest(String medID, String nodeID) throws Exception {
     MedEquip medEquip = medi.getMedEquip(medID);
-    if (medEquip.getStatus().equals(MedEquipStatus.Dirty)) {
       medEquip.setNodeID(nodeID);
       medEquip.setStatus(MedEquipStatus.Clean);
       medi.changeMedEquip(medEquip);
       // CleaningRequestManager.getCleaningRequestManager().markComplete(medID, nodeID);
-    } else if (medEquip.getStatus().equals(MedEquipStatus.InUse)) {
-      throw new MarkingInUseEquipmentAsClean();
-    }
   }
 
   public void markInUse(String medID, String nodeID) throws Exception {
