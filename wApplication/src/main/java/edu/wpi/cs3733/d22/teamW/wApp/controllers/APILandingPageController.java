@@ -33,20 +33,19 @@ public class APILandingPageController {
     boolean isEmergency = false;
 
     public void launchInternalTransportAPI() {
-/*
 
         WindowManager.getInstance().openWindow("popUpViews/APIPopUp.fxml");
         String locationID = (String)WindowManager.getInstance().getData("locationID");
         isEmergency = (boolean)WindowManager.getInstance().getData("isEmergency");
         edu.wpi.cs3733.D22.teamB.api.API api = new edu.wpi.cs3733.D22.teamB.api.API();
         try {
-            api.run(0,0,500,500,"",locationID,"");
+            api.run(0,0,500,500,"edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/Standard.css",locationID,"");
         } catch (edu.wpi.cs3733.D22.teamB.api.ServiceException | IOException e) {
             e.printStackTrace();
         }
 
         WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(null);
-        */
+
     }
 
     public void launchExternalTransportAPI() {
@@ -56,7 +55,7 @@ public class APILandingPageController {
         isEmergency = (boolean)WindowManager.getInstance().getData("isEmergency");
         edu.wpi.cs3733.D22.teamZ.api.API api = new edu.wpi.cs3733.D22.teamZ.api.API();
         try {
-            api.run(0,0,500,500,"",locationID,"");
+            api.run(0,0,500,500,"edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/Standard.css","",locationID);
 
         } catch (edu.wpi.cs3733.D22.teamZ.api.exception.ServiceException e) {
             e.printStackTrace();
