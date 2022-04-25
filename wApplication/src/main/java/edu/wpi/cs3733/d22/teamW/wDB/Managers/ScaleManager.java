@@ -5,7 +5,11 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
@@ -33,6 +37,10 @@ public class ScaleManager {
         defaultTrueTypes.add(ComboBox.class);
         defaultTrueTypes.add(EmergencyButton.class);
         defaultTrueTypes.add(AutoCompleteInput.class);
+        defaultTrueTypes.add(TextField.class);
+        defaultTrueTypes.add(Label.class);
+        defaultTrueTypes.add(Text.class);
+        defaultTrueTypes.add(ImageView.class);
     }
 
     //------------------------WIDTH CHANGE------------------------
@@ -47,6 +55,14 @@ public class ScaleManager {
             }
             else if (shouldScale(child)) {
                 child.setScaleX(child.getScaleX() * scale);
+
+                //Maximum and Minimum bounding:
+                if (child.getScaleX() <= 1) {
+                    child.setScaleX(1);
+                }
+                if (child.getScaleX() >= 2) {
+                    child.setScaleX(2);
+                }
             }
         }
     }
@@ -63,6 +79,14 @@ public class ScaleManager {
             }
             else if (shouldScale(child)) {
                 child.setScaleY(child.getScaleY() * scale);
+
+                //Maximum and Minimum bounding:
+                if (child.getScaleY() <= 1) {
+                    child.setScaleY(1);
+                }
+                if (child.getScaleY() >= 2) {
+                    child.setScaleY(2);
+                }
             }
         }
     }
