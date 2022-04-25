@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput?>
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox alignment="CENTER" fillWidth="false" spacing="50.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.InternalTransportPopUpController">
+    <children>
+        <VBox alignment="CENTER">
+            <children>
+                <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="More Information" textAlignment="CENTER" wrappingWidth="370.800048828125">
+                    <font>
+                        <Font size="30.0" />
+                    </font>
+                </Text>
+                <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Select from the Following Options" textAlignment="CENTER" wrappingWidth="333.5999803543091" />
+            </children>
+            <VBox.margin>
+                <Insets bottom="-30.0" />
+            </VBox.margin>
+        </VBox>
+        <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
+            <children>
+                <Label alignment="CENTER" contentDisplay="CENTER" styleClass="label-major" text="INFO" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Label>
+                <VBox alignment="CENTER" fillWidth="false" prefHeight="78.0" prefWidth="337.0">
+                    <children>
+                        <HBox alignment="CENTER" spacing="25.0">
+                            <children>
+                                <VBox alignment="CENTER" fillWidth="false">
+                                    <children>
+                                        <Label styleClass="label-minor" text="Origin:">
+                                            <font>
+                                                <Font size="14.0" />
+                                            </font>
+                                            <padding>
+                                                <Insets top="10.0" />
+                                            </padding>
+                                        </Label>
+                                        <AutoCompleteInput fx:id="OriginComboBox" prefWidth="150.0">
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" />
+                                 </VBox.margin></AutoCompleteInput>
+                              <Label layoutX="45.0" layoutY="10.0" styleClass="label-minor" text="Destination:">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <AutoCompleteInput fx:id="DestinationComboBox" layoutX="10.0" layoutY="40.0" prefWidth="150.0" />
+                                    </children>
+                                </VBox>
+                                <VBox alignment="CENTER" fillWidth="false">
+                                    <children>
+                              <Label styleClass="label-minor" text="Employee:">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                                 <padding>
+                                    <Insets top="10.0" />
+                                 </padding>
+                              </Label>
+                              <AutoCompleteInput fx:id="employeeComboBox" prefWidth="150.0">
+                                 <VBox.margin>
+                                    <Insets bottom="30.0" />
+                                 </VBox.margin>
+                              </AutoCompleteInput>
+                                        <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
+                                        <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" />
+                                    </children>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+                <Button mnemonicParsing="false" onAction="#submitButton" text="Submit">
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </Button>
+            </children>
+        </VBox>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>
