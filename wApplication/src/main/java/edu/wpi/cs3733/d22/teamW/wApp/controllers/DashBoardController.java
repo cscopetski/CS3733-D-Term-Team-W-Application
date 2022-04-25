@@ -23,6 +23,7 @@ public class DashBoardController {
 
   public void  initialize() throws SQLException {
     calculateProgressTotal();
+    piBed.getStyleClass().add("button");
   }
 
   public void calculateProgressTotal() throws SQLException {

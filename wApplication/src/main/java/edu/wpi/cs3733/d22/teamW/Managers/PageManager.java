@@ -2,10 +2,11 @@ package edu.wpi.cs3733.d22.teamW.Managers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.ScaleManager;
 import javafx.animation.Transition;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.Control;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
@@ -98,6 +99,7 @@ public class PageManager {
 
   private AnchorPane parent;
   private Pages current;
+  private Pane currentPane;
   private ArrayList<PageChangeFunction> pageChangeListeners = new ArrayList<>();
 
   public void initialize(AnchorPane pane) {
@@ -135,11 +137,20 @@ public class PageManager {
     parent.getChildren().add(p);
     p.requestFocus();
     current = page;
+    currentPane = p;
     p.toFront();
+
+    p.widthProperty().addListener((e, o, n) -> {
+      ScaleManager.getInstance().setTrueX(p, o.doubleValue(), n.doubleValue());
+      ScaleManager.getInstance().setTrueY(p, o.doubleValue(), n.doubleValue());
+    });
   }
 
   public Pages getCurrent() {
     return current;
+  }
+  public Pane getCurrentPane() {
+    return currentPane;
   }
 
   private void show(Node p) {
