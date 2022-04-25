@@ -5,6 +5,7 @@ package edu.wpi.cs3733.d22.teamW.Managers;
 import java.io.IOException;
 import java.util.HashMap;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.GaussianBlur;
@@ -87,6 +88,7 @@ public class WindowManager {
     stage.setTitle(title);
     stage.getIcons().add(new Image(getClass().getResourceAsStream(iconPath)));
     stage.setOnCloseRequest(e -> primaryStage.getScene().getRoot().setEffect(null));
+    storeData("Stage",stage);
     primaryStage.getScene().getRoot().setEffect(new GaussianBlur(7.5));
     stage.showAndWait();
   }

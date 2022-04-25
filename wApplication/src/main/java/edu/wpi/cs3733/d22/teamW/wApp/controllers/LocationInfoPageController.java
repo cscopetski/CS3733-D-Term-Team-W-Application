@@ -11,28 +11,28 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.effect.GaussianBlur;
 import javafx.stage.Stage;
 
-public class UpdateMapPageController implements Initializable {
+public class LocationInfoPageController implements Initializable {
   public Button cancelButton;
   public Button resetButton;
   public Button updateButton;
   private String nodeID = "";
-  @FXML private TextField nodeField;
-  @FXML private TextField xField;
-  @FXML private TextField yField;
-  @FXML private TextField floorField;
-  @FXML private TextField typeField;
-  @FXML private TextField lnameField;
-  @FXML private TextField snameField;
-  @FXML private TextField buildingField;
+  @FXML private Label nodeField;
+  @FXML private Label xField;
+  @FXML private Label yField;
+  @FXML private Label floorField;
+  @FXML private Label typeField;
+  @FXML private Label lnameField;
+  @FXML private Label snameField;
+  @FXML private Label buildingField;
   @FXML private TableView<medEquip> EqTab;
   @FXML private TableView<Requests> ReqTab;
   @FXML private TableView<medEquip> EqDashTab;
@@ -47,40 +47,6 @@ public class UpdateMapPageController implements Initializable {
   private LabServiceRequestManager labServiceRequestManager =
       LabServiceRequestManager.getLabServiceRequestManager();
   private MedRequestManager medRequestManager = MedRequestManager.getMedRequestManager();
-
-  public void updateLoc(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
-
-    Optional<ButtonType> result = confirmChoice.showAndWait();
-    if (result.get() == ButtonType.OK) {
-      locationManager.changeLocation(
-          new Location(
-              nodeField.getText(),
-              Integer.parseInt(xField.getText()),
-              Integer.parseInt(yField.getText()),
-              floorField.getText(),
-              buildingField.getText(),
-              typeField.getText(),
-              lnameField.getText(),
-              snameField.getText()));
-      onLoad();
-    }
-
-    locationManager.changeLocation(
-        new Location(
-            nodeField.getText(),
-            Integer.parseInt(xField.getText()),
-            Integer.parseInt(yField.getText()),
-            floorField.getText(),
-            buildingField.getText(),
-            typeField.getText(),
-            lnameField.getText(),
-            snameField.getText()));
-    onLoad();
-  }
-
-  public void resetFields(ActionEvent actionEvent) throws SQLException, NonExistingMedEquip {
-    onLoad();
-  }
 
   public void cancelUpdate(ActionEvent actionEvent) {
     Stage stage = (Stage) WindowManager.getInstance().getData("Stage");
@@ -130,7 +96,10 @@ public class UpdateMapPageController implements Initializable {
   }
 
   public void onLoad() throws SQLException, NonExistingMedEquip {
-    String locName = (String) WindowManager.getInstance().getData("updateLoc");
+    String locName =
+        (String)
+            WindowManager.getInstance()
+                .getData( "updateLoc");
     for (int i = 0; i < locationManager.getAllLocations().size(); i++) {
       if (locationManager.getAllLocations().get(i).getNodeID().equalsIgnoreCase(locName)) {
         loc = locationManager.getAllLocations().get(i);
@@ -155,14 +124,6 @@ public class UpdateMapPageController implements Initializable {
       onLoad();
     } catch (SQLException | NonExistingMedEquip e) {
       e.printStackTrace();
-    }
-  }
-
-  public void removeLoc(ActionEvent actionEvent) throws Exception {
-    Optional<ButtonType> result = confirmChoice.showAndWait();
-    if (result.get() == ButtonType.OK) {
-      locationManager.deleteLocation(loc.getNodeID());
-      cancelUpdate(actionEvent);
     }
   }
 }
