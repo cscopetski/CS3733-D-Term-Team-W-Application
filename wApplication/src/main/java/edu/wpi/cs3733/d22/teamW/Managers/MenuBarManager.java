@@ -33,6 +33,16 @@ public class MenuBarManager {
     menuBar.setEffect(null);
   }
 
+  public void Hide() {
+    menuBar.setVisible(false);
+    menuBar.setDisable(true);
+  }
+  public void Show() {
+    menuBar.setVisible(true);
+    menuBar.setDisable(false);
+  }
+
+
   public void setMenuBarVisible(boolean bool){
     menuBar.setVisible(bool);
   }
