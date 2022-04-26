@@ -72,7 +72,7 @@ public class InternalPatientTransportationRequestDaoImpl implements InternalPati
     @Override
     public void changeIPTRequest(InternalPatientTransportationRequest iptr) throws SQLException {
         statement.executeUpdate(
-                String.format("UPDATE INTERNALPATIENTTRANSPORTATIONREQUESTS SET NODEID = 's', NODEIDTO = 's', EMPLOYEEID = %d, ISEMERGENCY = %d, REQSTATUS = %d, UPDATEDTIMESTAMP = '%s' WHERE REQID = %d",
+                String.format("UPDATE INTERNALPATIENTTRANSPORTATIONREQUESTS SET NODEID = '%s', NODEIDTO = '%s', EMPLOYEEID = %d, ISEMERGENCY = %d, REQSTATUS = %d, UPDATEDTIMESTAMP = '%s' WHERE REQID = %d",
                         iptr.getNodeID(),
                         iptr.getNodeIDTo(),
                         iptr.getEmployeeID(),
