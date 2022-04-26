@@ -59,6 +59,7 @@ public class App extends Application {
 
   @Override
   public void stop() {
+    UserImageManager.getUserImageManager().exportUserImageCSV("CSVs/UserImages.csv");
     CleaningRequestManager.getCleaningRequestManager().exportReqCSV("CSVs/CleaningRequest.csv");
     try {
       ComputerServiceRequestManager.getComputerServiceRequestManager()

@@ -26,6 +26,7 @@ public class CSVController {
   final String mealRequestFileName = "MealRequest.csv";
   final String securityRequestFileName = "SecurityRequest.csv";
   final String languageRequestFileName = "LanguageRequests.csv";
+  final String userImageFileName = "UserImages.csv";
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
@@ -49,6 +50,7 @@ public class CSVController {
     insertMealRequestTable(importCSV(mealRequestFileName));
     insertSecurityRequestTable(importCSV(securityRequestFileName));
     insertLanguageRequestTable(importCSV(languageRequestFileName));
+    insertUserImageTable(importCSV(userImageFileName));
   }
 
   public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
@@ -341,6 +343,14 @@ public class CSVController {
       fields.addAll(Arrays.asList(s));
       SecurityRequest gdr =
           (SecurityRequest) requestFactory.getRequest(RequestType.SecurityService, fields, true);
+    }
+  }
+
+  private void insertUserImageTable(ArrayList<String[]> tokens) throws SQLException {
+    for(String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+      UserImageManager.getUserImageManager().addUserImage(new UserImage(fields));
     }
   }
 }

@@ -6,6 +6,8 @@ import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
@@ -47,6 +49,12 @@ public class ProfileController implements Initializable {
       e.printStackTrace();
     }
     rt.setEditable(false);
+  }
+
+  public void uploadProfilePictureAction(ActionEvent actionEvent) {
+  }
+
+  public void deleteProfilePictureAction(ActionEvent actionEvent) {
   }
 
   /*

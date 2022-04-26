@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.DAO;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.UserImage;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import java.sql.*;
 
@@ -58,6 +59,7 @@ public class DBController {
       ExternalTransportRequestDao externalTransportRequestDao = new ExternalTransportRequestDaoImpl(statement);
       InternalPatientTransportationRequestDao internalPatientTransportationRequestDao = new InternalPatientTransportationRequestDaoImpl(statement);
       HighScoreDao highScoreDao = new HighScoreDaoImpl(statement);
+      UserImageDao userImageDao = new UserImageDaoImpl(statement);
       UnreadMessageDao unreadMessageDao = new UnreadMessageDaoImpl(statement);
       EmployeeMessageDao employeeMessageDao = new EmployeeMessageDaoImpl(statement);
       ChatDao chatDao = new ChatDaoImpl(statement);
@@ -106,6 +108,7 @@ public class DBController {
       InternalPatientTransportationRequestManager.getInternalPatientTransportationRequestManager().setIptrd(internalPatientTransportationRequestDao);
       ChatManager.getChatManager().setChatDao(chatDao);
       UnreadMessageManager.getUnreadMessageManager().setUnreadMessageDao(unreadMessageDao);
+      UserImageManager.getUserImageManager().setUserImageManagerDao(userImageDao);
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ((EmployeeDaoSecureImpl) employeeDao).createTable();
@@ -124,6 +127,7 @@ public class DBController {
       chatDao.createTable();
       employeeMessageDao.createTable();
       unreadMessageDao.createTable();
+      userImageDao.createTable();
       ((MealRequestDaoImpl) mealRequestDao).createTable();
       ((SecurityRequestDaoImpl) securityRequestDao).createTable();
       ((LanguageRequestDaoImpl) languageRequestDao).createTable();

@@ -5,15 +5,13 @@ import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.ChatCardHBox;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmployeeImageView;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.ChatManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.UnreadMessageManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Chat;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.EmployeeMessage;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.UnreadMessage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -177,6 +175,39 @@ public class MessagingPageController implements Initializable {
         return placeHolderImage;
     }
 
+    private EmployeeImageView generateEmployeeImage(boolean small, Integer empID) {
+        Employee selectedEmployee = null;
+        try {
+            selectedEmployee = EmployeeManager.getEmployeeManager().getEmployee(empID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(selectedEmployee == null) {
+            return generatePlaceHolderImage(small);
+        }
+        File employeeImageFile;
+        try {
+            employeeImageFile = new File(UserImageManager.getUserImageManager().getUserImagePath(selectedEmployee.getUsername()));
+        } catch (SQLException e) {
+            return generatePlaceHolderImage(small);
+        }
+        if(!employeeImageFile.exists()) return generatePlaceHolderImage(small);
+        double imageWidth = 80;
+        double imageHeight = 80;
+        if (small) {
+            imageWidth = 40;
+            imageHeight = 40;
+        }
+        EmployeeImageView employeeImageView = new EmployeeImageView();
+        employeeImageView.setEmpID(empID);
+        employeeImageView.setImage(
+                new Image(
+                        employeeImageFile.toURI().toString()));
+        employeeImageView.setFitWidth(imageWidth);
+        employeeImageView.setFitHeight(imageHeight);
+        return employeeImageView;
+    }
+
     public void addChatCard(Integer chatID, int numUnread) throws SQLException {
         boolean hasUnread = numUnread > 0;
         // Initialize card and other data
@@ -204,22 +235,30 @@ public class MessagingPageController implements Initializable {
         ImageView placeHolderImage2 = generatePlaceHolderImage(smallImages);
         ImageView placeHolderImage3 = generatePlaceHolderImage(smallImages);
         ImageView placeHolderImage4 = generatePlaceHolderImage(smallImages);
-
         // Add images
         VBox imageHolderVBOX_1 = new VBox();
         VBox imageHolderVBOX_2 = new VBox();
         switch (otherEmployeesInChat.size()) {
             case 1:
+                placeHolderImage = generateEmployeeImage(smallImages, otherEmployeesInChat.get(0).getEmployeeID());
+
                 imageHolderVBOX_1.getChildren().add(placeHolderImage);
                 chatCard.getChildren().add(imageHolderVBOX_1);
                 break;
             case 2:
+                placeHolderImage = generateEmployeeImage(smallImages, otherEmployeesInChat.get(0).getEmployeeID());
+                placeHolderImage2 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(1).getEmployeeID());
+
                 imageHolderVBOX_1.setPrefWidth(80);
                 imageHolderVBOX_1.getChildren().add(placeHolderImage);
                 imageHolderVBOX_1.getChildren().add(placeHolderImage2);
                 chatCard.getChildren().add(imageHolderVBOX_1);
                 break;
             case 3:
+                placeHolderImage = generateEmployeeImage(smallImages, otherEmployeesInChat.get(0).getEmployeeID());
+                placeHolderImage2 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(1).getEmployeeID());
+                placeHolderImage3 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(2).getEmployeeID());
+
                 imageHolderVBOX_1.getChildren().add(placeHolderImage);
                 imageHolderVBOX_1.getChildren().add(placeHolderImage2);
                 imageHolderVBOX_2.getChildren().add(placeHolderImage3);
@@ -227,6 +266,11 @@ public class MessagingPageController implements Initializable {
                 chatCard.getChildren().add(imageHolderVBOX_2);
                 break;
             case 4:
+                placeHolderImage = generateEmployeeImage(smallImages, otherEmployeesInChat.get(0).getEmployeeID());
+                placeHolderImage2 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(1).getEmployeeID());
+                placeHolderImage3 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(2).getEmployeeID());
+                placeHolderImage4 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(3).getEmployeeID());
+
                 imageHolderVBOX_1.getChildren().add(placeHolderImage);
                 imageHolderVBOX_1.getChildren().add(placeHolderImage2);
                 imageHolderVBOX_2.getChildren().add(placeHolderImage3);
@@ -235,6 +279,10 @@ public class MessagingPageController implements Initializable {
                 chatCard.getChildren().add(imageHolderVBOX_2);
                 break;
             default:
+                placeHolderImage = generateEmployeeImage(smallImages, otherEmployeesInChat.get(0).getEmployeeID());
+                placeHolderImage2 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(1).getEmployeeID());
+                placeHolderImage3 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(2).getEmployeeID());
+
                 imageHolderVBOX_1.getChildren().add(placeHolderImage);
                 imageHolderVBOX_1.getChildren().add(placeHolderImage2);
                 imageHolderVBOX_2.getChildren().add(placeHolderImage3);
@@ -313,7 +361,7 @@ public class MessagingPageController implements Initializable {
 
         // Set image
         boolean smallImages = false;
-        ImageView placeHolderImage = generatePlaceHolderImage(smallImages);
+        ImageView placeHolderImage = generateEmployeeImage(smallImages, empID);
 
         // Add images
         employeeCard.getChildren().add(placeHolderImage);
@@ -446,7 +494,7 @@ public class MessagingPageController implements Initializable {
         }
         if(fromOther) {
             HBox containingImageBox = new HBox();
-            EmployeeImageView employeeImage = generatePlaceHolderImage(true);
+            EmployeeImageView employeeImage = generateEmployeeImage(true, sectionEmployee.getEmployeeID());
             employeeImage.setEmpID(sectionEmployee.getEmployeeID());
             employeeImage.setCursor(Cursor.HAND);
             employeeImage.setOnMouseClicked(
