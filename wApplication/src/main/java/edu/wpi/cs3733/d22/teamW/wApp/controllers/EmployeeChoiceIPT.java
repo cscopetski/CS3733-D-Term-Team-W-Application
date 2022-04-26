@@ -2,11 +2,8 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -40,7 +37,7 @@ public class EmployeeChoiceIPT implements Initializable {
             confirm.showAndWait();
             if (confirm.getResult() == ButtonType.OK) {
                 EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().setEmployeeID(String.valueOf(getEmployeeID(employeeComboBox.getValue())));
-                EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().setComfirm(true);
+                EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().setConfirm(true);
                 clearFields();
                 fadeOut.playFromStart();
                 Stage stage = ((Stage)WindowManager.getInstance().getData("stage"));
@@ -54,7 +51,7 @@ public class EmployeeChoiceIPT implements Initializable {
     public void cancelButton(ActionEvent actionEvent) throws SQLException {
             confirm.showAndWait();
             if (confirm.getResult() == ButtonType.OK) {
-                EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().setComfirm(false);
+                EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().setConfirm(false);
                 clearFields();
                 fadeOut.playFromStart();
                 Stage stage = ((Stage)WindowManager.getInstance().getData("stage"));

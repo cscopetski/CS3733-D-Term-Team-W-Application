@@ -12,7 +12,7 @@ public class EmployeeChoiceIPTSingleton {
     private String destination;
     private String priority;
     private String employeeID;
-    private boolean comfirm;
+    private boolean confirm;
     private static EmployeeChoiceIPTSingleton employeeChoiceIPTSingleton = new EmployeeChoiceIPTSingleton();
 
     private EmployeeChoiceIPTSingleton(){}

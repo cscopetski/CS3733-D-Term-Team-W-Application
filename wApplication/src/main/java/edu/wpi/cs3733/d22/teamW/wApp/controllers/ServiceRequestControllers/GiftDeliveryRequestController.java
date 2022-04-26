@@ -41,7 +41,7 @@ public class GiftDeliveryRequestController implements Initializable {
     if (!emptyFields()) {
       confirm.showAndWait();
       if (confirm.getResult() == ButtonType.OK) {
-        pushSanitationServiceRequestToDB();
+        pushGiftDeliveryRequestToDB();
         clearFields();
         successLabel.setVisible(true);
         fadeOut.playFromStart();
@@ -77,7 +77,7 @@ public class GiftDeliveryRequestController implements Initializable {
         || recipientLastName.getText().isEmpty();
   }
 
-  private void pushSanitationServiceRequestToDB() throws SQLException {
+  private void pushGiftDeliveryRequestToDB() throws SQLException {
     ArrayList<String> srFields = new ArrayList<String>();
     srFields.add(recipientFirstName.getText());
     srFields.add(recipientLastName.getText());

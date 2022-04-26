@@ -5,7 +5,6 @@ import edu.wpi.cs3733.D22.teamB.api.DatabaseController;
 import edu.wpi.cs3733.D22.teamB.api.Request;
 import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 
-import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -21,7 +20,6 @@ import edu.wpi.teamW.dB.LanguageRequest;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import edu.wpi.teamW.API.*;
 import javafx.scene.control.Label;
 import edu.wpi.cs3733.D22.teamZ.api.API.*;
 
@@ -58,7 +56,7 @@ public class APILandingPageController {
                     LocationManager.getLocationManager().getLocation(request.getFinishLocation().getLongName(), request.getFinishLocation().getFloor()).getNodeID());
             fields.add(EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().getEmployeeID());
             fields.add(String.format("%d",(request.getPriority()/3)));
-            if(EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().isComfirm()){
+            if(EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().isConfirm()){
                 edu.wpi.cs3733.d22.teamW.wDB.entity.Request request1 = RequestFactory.getRequestFactory().getRequest(RequestType.InternalPatientTransportationRequest, fields, false);
             }
         }
