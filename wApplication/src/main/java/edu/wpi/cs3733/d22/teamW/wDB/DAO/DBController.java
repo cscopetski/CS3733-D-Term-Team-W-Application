@@ -55,11 +55,15 @@ public class DBController {
 
       // Create Daos (tables are dropped automatically when daos are created)
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
+<<<<<<< HEAD
       ExternalTransportRequestDao externalTransportRequestDao = new ExternalTransportRequestDaoImpl(statement);
       InternalPatientTransportationRequestDao internalPatientTransportationRequestDao = new InternalPatientTransportationRequestDaoImpl(statement);
       HighScoreDao highScoreDao = new HighScoreDaoImpl(statement);
+=======
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
       UnreadMessageDao unreadMessageDao = new UnreadMessageDaoImpl(statement);
       EmployeeMessageDao employeeMessageDao = new EmployeeMessageDaoImpl(statement);
+      ChatDao chatDao = new ChatDaoImpl(statement);
       LanguageRequestDao languageRequestDao = new LanguageRequestDaoImpl(statement);
       SecurityRequestDao securityRequestDao = new SecurityRequestDaoImpl(statement);
       MealRequestDao mealRequestDao = new MealRequestDaoImpl(statement);
@@ -101,8 +105,13 @@ public class DBController {
       MealRequestManager.getMealRequestManager().setMealRequestDao(mealRequestDao);
       SecurityRequestManager.getSecurityRequestManager().setSecurityRequestDao(securityRequestDao);
       LanguageRequestManager.getLanguageRequestManager().setLanguageRequestDao(languageRequestDao);
+<<<<<<< HEAD
       ExternalTransportManager.getRequestManager().setExternalTransportManagerDao(externalTransportRequestDao);
       InternalPatientTransportationRequestManager.getInternalPatientTransportationRequestManager().setIptrd(internalPatientTransportationRequestDao);
+=======
+      ChatManager.getChatManager().setChatDao(chatDao);
+      UnreadMessageManager.getUnreadMessageManager().setUnreadMessageDao(unreadMessageDao);
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
 
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ((EmployeeDaoSecureImpl) employeeDao).createTable();
@@ -118,7 +127,9 @@ public class DBController {
       ((ComputerServiceRequestDaoImpl) csrDao).createTable();
       ((SanitationRequestDaoImpl) sanitationRequestDao).createTable();
       ((GiftDeliveryRequestDaoImpl) giftDeliveryRequestDao).createTable();
+      chatDao.createTable();
       employeeMessageDao.createTable();
+      unreadMessageDao.createTable();
       ((MealRequestDaoImpl) mealRequestDao).createTable();
       ((SecurityRequestDaoImpl) securityRequestDao).createTable();
       ((LanguageRequestDaoImpl) languageRequestDao).createTable();

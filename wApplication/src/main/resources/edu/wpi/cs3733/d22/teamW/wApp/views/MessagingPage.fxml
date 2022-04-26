@@ -61,6 +61,7 @@
                                  </children>
                               </VBox>
                               <Separator orientation="VERTICAL" />
+<<<<<<< HEAD
                               <Label alignment="TOP_LEFT" text="Edison Zhang" wrapText="true">
                                  <font>
                                     <Font size="14.0" />
@@ -73,6 +74,17 @@
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+=======
+                              <Label style="-fx-background-color: lightgray;" text="Edison Zhang" textFill="#007bff" wrapText="true">
+                                 <font>
+                                    <Font size="18.0" />
+                                 </font>
+                                 <HBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </HBox.margin>
+                              </Label>
+                           </children>
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
                         </HBox>
                         <Separator prefWidth="200.0" />
                         <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" style="-fx-background-color: #ffcccc;">
@@ -141,9 +153,12 @@
                                  </HBox.margin>
                               </Label>
                            </children>
+<<<<<<< HEAD
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+=======
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
                         </HBox>
                         <Separator prefWidth="200.0" />
                         <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" prefHeight="80.0" prefWidth="332.0" style="-fx-background-color: #ffcccc;">
@@ -186,9 +201,12 @@
                                  </HBox.margin>
                               </Label>
                            </children>
+<<<<<<< HEAD
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
+=======
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
                         </HBox>
                      </children>
                   </VBox>
@@ -234,7 +252,11 @@
                               </Label>
                               <VBox>
                                  <children>
+<<<<<<< HEAD
                                     <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #248bf5; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" textFill="WHITE" wrapText="true">
+=======
+                                    <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #248bf5; -fx-background-radius: 50; -fx-label-padding: 5;" text="hello" textFill="WHITE" wrapText="true">
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -242,7 +264,11 @@
                                           <Insets bottom="2.0" />
                                        </VBox.margin>
                                     </Label>
+<<<<<<< HEAD
                                     <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #248bf5; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" textFill="WHITE" wrapText="true">
+=======
+                                    <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #248bf5; -fx-background-radius: 50; -fx-label-padding: 5;" text="hello" textFill="WHITE" wrapText="true">
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
                                        <font>
                                           <Font size="15.0" />
                                        </font>
@@ -273,7 +299,11 @@
                                     </ImageView>
                                     <VBox>
                                        <children>
+<<<<<<< HEAD
                                           <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" wrapText="true">
+=======
+                                          <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 50; -fx-label-padding: 5;" text="hello" wrapText="true">
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
@@ -281,7 +311,11 @@
                                                 <Insets bottom="2.0" />
                                              </VBox.margin>
                                           </Label>
+<<<<<<< HEAD
                                           <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" wrapText="true">
+=======
+                                          <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 50; -fx-label-padding: 5;" text="hello" wrapText="true">
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
                                              <font>
                                                 <Font size="15.0" />
                                              </font>
@@ -289,7 +323,11 @@
                                                 <Insets bottom="2.0" />
                                              </VBox.margin>
                                           </Label>
+<<<<<<< HEAD
                                           <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" wrapText="true">
+=======
+                                          <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 50; -fx-label-padding: 5;" text="hello" wrapText="true">
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
                                              <font>
                                                 <Font size="15.0" />
                                              </font>

@@ -4,7 +4,10 @@ import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.ChatCardHBox;
+<<<<<<< HEAD
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmployeeImageView;
+=======
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.ChatManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
@@ -29,8 +32,14 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+<<<<<<< HEAD
 import javafx.geometry.*;
 import javafx.scene.Cursor;
+=======
+import javafx.geometry.Insets;
+import javafx.geometry.NodeOrientation;
+import javafx.geometry.Orientation;
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -49,23 +58,32 @@ public class MessagingPageController implements Initializable {
 
     protected Employee currentEmployee;
     protected Integer currentChatID;
+<<<<<<< HEAD
     protected boolean displayingMessages = true;
+=======
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
 
     @FXML
     AutoCompleteInput employeeComboBox;
     @FXML
     Label messageTitleLabel;
     @FXML
+<<<<<<< HEAD
     Label viewMembersLabel;
     @FXML
+=======
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
     VBox messagesWindow;
     @FXML
     VBox messageWindow;
     @FXML
     VBox chatCardView;
     @FXML
+<<<<<<< HEAD
     HBox messagingControlsHBox;
     @FXML
+=======
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
     TextField messageTextField;
     @FXML
     Button sendButton;
@@ -98,7 +116,10 @@ public class MessagingPageController implements Initializable {
             this.employeeComboBox.getSelectionModel().clearSelection();
         }
         messageWindow.setDisable(true);
+<<<<<<< HEAD
         viewMembersLabel.setVisible(false);
+=======
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
     }
 
     public void refreshChatCards() throws SQLException {
@@ -158,14 +179,22 @@ public class MessagingPageController implements Initializable {
         chatCardView.getChildren().clear();
     }
 
+<<<<<<< HEAD
     private EmployeeImageView generatePlaceHolderImage(boolean small) {
+=======
+    private ImageView generatePlaceHolderImage(boolean small) {
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
         double imageWidth = 80;
         double imageHeight = 80;
         if (small) {
             imageWidth = 40;
             imageHeight = 40;
         }
+<<<<<<< HEAD
         EmployeeImageView placeHolderImage = new EmployeeImageView();
+=======
+        ImageView placeHolderImage = new ImageView();
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
         placeHolderImage.setImage(
                 new Image(
                         MessagingPageController.class
@@ -190,8 +219,11 @@ public class MessagingPageController implements Initializable {
         chatCard.setPrefHeight(80);
         chatCard.setUnread(hasUnread);
         chatCard.setChatID(chatID);
+<<<<<<< HEAD
         chatCard.setCursor(Cursor.HAND);
         chatCard.setAlignment(Pos.CENTER_LEFT);
+=======
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
 
         ArrayList<Employee> otherEmployeesInChat = getOtherEmployeesInChat(chatID);
 
@@ -290,6 +322,7 @@ public class MessagingPageController implements Initializable {
         chatCardView.getChildren().add(new Separator());
     }
 
+<<<<<<< HEAD
     public void addEmployeeCardToMessageWindow(Integer empID) {
         Employee selectedEmployee = null;
         try {
@@ -363,11 +396,18 @@ public class MessagingPageController implements Initializable {
     public void displayMiniProfile(MouseEvent event, Employee emp) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
             //if (event.getClickCount() == 2) {
+=======
+    //TODO: Reimplement Phil's function
+    public void displayMiniProfile(MouseEvent event, Employee emp) {
+        if (event.getButton().equals(MouseButton.PRIMARY)) {
+            if (event.getClickCount() == 2) {
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
                 WindowManager.getInstance()
                         .storeData(
                                 "employee", emp);
                 WindowManager.getInstance().openWindow(
                         "MiniProfilePage.fxml", emp.getFirstName() + " " + emp.getLastName());
+<<<<<<< HEAD
             //}
         }
     }
@@ -493,6 +533,113 @@ public class MessagingPageController implements Initializable {
             messageLabel.setTextFill(Paint.valueOf("#ffffff"));
             messageLabel.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
 
+=======
+            }
+        }
+    }
+
+    private void setCurrentChat(Integer chatID) throws SQLException {
+        this.currentChatID = chatID;
+        clearMessages();
+        if (messageWindow.isDisabled()) messageWindow.setDisable(false);
+        messageTitleLabel.setText(getChatTitleFromID(chatID));
+        loadMessages(EmployeeMessageManager.getEmployeeMessageManager().getAllMessagesToChat(chatID));
+    }
+
+    private void clearMessages() {
+        messagesWindow.getChildren().clear();
+    }
+
+    private void loadMessages(ArrayList<EmployeeMessage> currentMessages) {
+        Collections.sort(currentMessages, Comparator.comparing(EmployeeMessage::getSentTimestamp));
+        loadMessagesIntoList(currentMessages);
+        markMessagesRead(currentMessages);
+    }
+
+    private void loadMessagesIntoList(ArrayList<EmployeeMessage> messages) {
+        VBox currentMessageSection = new VBox();
+        Integer currentSectionEmpID = null;
+        Timestamp firstTimestamp = null;
+        for(EmployeeMessage message : messages) {
+            if(currentSectionEmpID == null) {
+                currentSectionEmpID = message.getEmpIDfrom();
+                firstTimestamp = message.getSentTimestamp();
+            }
+
+            if(currentSectionEmpID.equals(message.getEmpIDfrom())) {
+                currentMessageSection.getChildren().add(getMessageLabel(message));
+            } else {
+                messagesWindow.getChildren().add(formattedMessageSection(currentMessageSection, currentSectionEmpID, firstTimestamp));
+
+                currentMessageSection = new VBox();
+                currentSectionEmpID = message.getEmpIDfrom();
+                firstTimestamp = message.getSentTimestamp();
+                currentMessageSection.getChildren().add(getMessageLabel(message));
+            }
+        }
+        if(currentSectionEmpID != null) {
+            messagesWindow.getChildren().add(formattedMessageSection(currentMessageSection, currentSectionEmpID, firstTimestamp));
+        }
+    }
+
+    private VBox formattedMessageSection(VBox currentMessageSection, Integer empID, Timestamp firstMsgTime) {
+        boolean fromOther = !empID.equals(this.currentEmployee.getEmployeeID());
+        Employee sectionEmployee = null;
+        try {
+            sectionEmployee = EmployeeManager.getEmployeeManager().getEmployee(empID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(sectionEmployee == null) return null;
+        VBox formattedMessageSection = new VBox();
+        formattedMessageSection.setFillWidth(true);
+        formattedMessageSection.setMinHeight(-1.0 / 0.0);
+        formattedMessageSection.setPadding(new Insets(0, 0, 10, 0));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm a");
+        String timeString = firstMsgTime.toLocalDateTime().toLocalTime().format(formatter);
+        if(fromOther) {
+            formattedMessageSection.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+            formattedMessageSection.getChildren().add(new Label(String.format("%s %s - %s", sectionEmployee.getFirstName(), sectionEmployee.getLastName(), timeString)));
+        } else {
+            formattedMessageSection.setNodeOrientation(NodeOrientation.RIGHT_TO_LEFT);
+            formattedMessageSection.getChildren().add(new Label(String.format("%s", timeString)));
+        }
+        if(fromOther) {
+            HBox containingImageBox = new HBox();
+            containingImageBox.getChildren().add(generatePlaceHolderImage(true));
+            containingImageBox.getChildren().add(currentMessageSection);
+            formattedMessageSection.getChildren().add(containingImageBox);
+        } else {
+            formattedMessageSection.getChildren().add(currentMessageSection);
+        }
+        return formattedMessageSection;
+    }
+
+    private Label getMessageLabel(EmployeeMessage message) {
+        boolean fromOther = !message.getEmpIDfrom().equals(this.currentEmployee.getEmployeeID());
+        Tooltip timestampTooltip = new Tooltip(message.getSentTimestamp().toString());
+        timestampTooltip.setShowDelay(Duration.ZERO);
+        timestampTooltip.setHideDelay(Duration.ZERO);
+        Label messageLabel = new Label(message.getMessageContent());
+        messageLabel.setTooltip(timestampTooltip);
+        messageLabel.setMinHeight(-1.0 / 0.0);
+        messageLabel.setMaxHeight(-1.0 / 0.0);
+        messageLabel.setWrapText(true);
+        if(fromOther) {
+            messageLabel.setStyle(
+                    "-fx-background-color: #e5e5ea;"
+                            + "-fx-label-padding: 5;"
+                            + "-fx-background-radius: 50;");
+            messageLabel.setTextFill(Paint.valueOf("#000000"));
+        } else {
+            messageLabel.setStyle(
+                    "-fx-background-color: #248bf5;"
+                            + "-fx-label-padding: 5;"
+                            + "-fx-background-radius: 50;");
+            messageLabel.setTextFill(Paint.valueOf("#ffffff"));
+            messageLabel.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
+
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
         }
         return messageLabel;
     }
@@ -661,6 +808,7 @@ public class MessagingPageController implements Initializable {
             setCurrentChat(newGroupChatID);
             refreshChatCards();
         }
+<<<<<<< HEAD
     }
 
     private void setViewChatMembers(boolean viewMembers) {
@@ -694,5 +842,7 @@ public class MessagingPageController implements Initializable {
 
     public void viewMembersLabelMouseExit(MouseEvent mouseEvent) {
         ((Label) mouseEvent.getSource()).setStyle("-fx-text-fill: #248bf5");
+=======
+>>>>>>> parent of 5504cb2e (Revert "Merge branch 'main' into InternalAPI")
     }
 }
