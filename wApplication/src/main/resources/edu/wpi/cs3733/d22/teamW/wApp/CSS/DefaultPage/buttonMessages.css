@@ -1,13 +1,13 @@
 .button{
-    -fx-background-image: url(../../assets/MessagingIconWhite.png);
+    -fx-background-image: url(../../assets/MessagingIconBlue.png);
     -fx-background-color: transparent;
     -fx-background-size: contain;
     -fx-background-repeat: no-repeat ;
     -fx-background-position: center ;
-    -fx-background-radius: 26;
-    -fx-text-fill: white ;
+    -fx-background-radius: 26px;
     -fx-font-weight: bold;
-    -fx-font-size: 18pt;
+    -fx-font-size: 26px;
+    -fx-text-fill: #013895 ;
     -fx-opacity: 80%;
     -fx-border-color: transparent;
 }
@@ -18,8 +18,9 @@
     -fx-background-size: contain;
     -fx-background-repeat: no-repeat ;
     -fx-background-position: center ;
-    -fx-background-radius: 26;
+    -fx-background-radius: 26px;
     -fx-text-fill: black ;
+    -fx-font-size: 26px;
     -fx-opacity: 80%;
     -fx-border-color: transparent;
 }
