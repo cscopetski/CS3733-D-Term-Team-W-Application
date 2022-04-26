@@ -17,7 +17,7 @@
 
 <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.AdminHub">
     <children>
-        <TabPane style="-fx-background-color: white; -fx-background-position: center;" tabClosingPolicy="UNAVAILABLE">
+        <TabPane style="-fx-background-position: center;" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab text="Employee Manager">
                     <content>
