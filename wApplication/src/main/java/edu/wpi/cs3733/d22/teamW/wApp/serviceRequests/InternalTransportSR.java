@@ -40,6 +40,7 @@ public class InternalTransportSR extends SR{
         }
         info += "Assigned Employee: " + this.getEmployeeName() + "\n";
         info += "Employee ID: " + this.getEmployeeID() + "\n";
+        info+= "Origin: " + this.getNodeID() + "\n";
         info += "Destination: " + internalPatientTransportationRequest.getNodeIDTo();
         info += "";
         return info;

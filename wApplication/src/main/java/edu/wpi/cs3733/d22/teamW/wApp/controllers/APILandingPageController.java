@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.TransportType;
@@ -44,23 +45,24 @@ public class APILandingPageController {
         }
         DatabaseController databaseController = new DatabaseController();
         LinkedList<Request> APIRequest = databaseController.listRequests();
-
         for(Request request : APIRequest){
             ArrayList<String> fields = new ArrayList<>();
-
             if(request.getEmployee() == null){
                 EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().set(request.getRequestID(),request.getStartLocation().getLongName(), request.getFinishLocation().getLongName(), String.valueOf(request.getPriority()));
                 WindowManager.getInstance().openWindow("popUpViews/EmployeeChoiceIPT.fxml");
             }
-            fields.add(request.getStartLocation().getNodeID());
-            fields.add(request.getFinishLocation().getNodeID());
+            LocationManager.getLocationManager().getLocation(request.getStartLocation().getLongName(), request.getStartLocation().getFloor()).getNodeID();
+            fields.add(
+                    LocationManager.getLocationManager().getLocation(request.getStartLocation().getLongName(), request.getStartLocation().getFloor()).getNodeID());
+            fields.add(
+                    LocationManager.getLocationManager().getLocation(request.getFinishLocation().getLongName(), request.getFinishLocation().getFloor()).getNodeID());
             fields.add(EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().getEmployeeID());
             fields.add(String.format("%d",(request.getPriority()/3)));
             if(EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().isComfirm()){
                 edu.wpi.cs3733.d22.teamW.wDB.entity.Request request1 = RequestFactory.getRequestFactory().getRequest(RequestType.InternalPatientTransportationRequest, fields, false);
-
             }
         }
+        databaseController.reset();
         WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(null);
 
     }

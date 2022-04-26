@@ -52,19 +52,14 @@ public class EmployeeChoiceIPT implements Initializable {
     }
 
     public void cancelButton(ActionEvent actionEvent) throws SQLException {
-        if (!emptyFields()) {
             confirm.showAndWait();
             if (confirm.getResult() == ButtonType.OK) {
-                EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().setEmployeeID(String.valueOf(getEmployeeID(employeeComboBox.getValue())));
                 EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().setComfirm(false);
                 clearFields();
                 fadeOut.playFromStart();
                 Stage stage = ((Stage)WindowManager.getInstance().getData("stage"));
                 stage.close();
             }
-        } else {
-            emptyFields.show();
-        }
     }
 
     @Override

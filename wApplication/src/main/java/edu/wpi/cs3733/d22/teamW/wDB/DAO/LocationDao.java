@@ -19,4 +19,6 @@ public interface LocationDao {
   void exportLocationCSV(String fileName);
 
   Location getLocation(String nodeID) throws SQLException;
+
+  Location getLocation(String longName, String floor) throws SQLException;
 }
