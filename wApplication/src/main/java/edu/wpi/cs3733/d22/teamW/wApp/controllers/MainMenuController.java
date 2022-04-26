@@ -25,7 +25,7 @@ public class MainMenuController implements Initializable {
   }
 
   private void onLoad() {
-    BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.HospitalImage);
+    BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.HospitalImage.getContent());
 
     newMessagesCircle.setVisible(false);
     try {
@@ -40,7 +40,7 @@ public class MainMenuController implements Initializable {
   }
 
   private void onUnload() {
-    BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.White);
+    BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.Shapes.getContent());
   }
 
   public void switchToRequestHub() {
