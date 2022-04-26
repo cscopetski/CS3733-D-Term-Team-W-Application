@@ -23,7 +23,7 @@
                        text="Use the filter to sort requests. Select request to cancel it." textFill="#013895"/>
             </children>
         </VBox>
-        <HBox alignment="CENTER">
+        <HBox alignment="CENTER" fillHeight="true">
             <children>
                 <VBox alignment="CENTER">
                     <children>
@@ -33,7 +33,7 @@
                                 <Insets/>
                             </VBox.margin>
                         </Label>
-                        <RequestTable fx:id="rt" prefWidth="600.0">
+                        <RequestTable fx:id="rt" minWidth="600.0" maxWidth="1000.0" minHeight="200" prefHeight="800">
                             <VBox.margin>
                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
                             </VBox.margin>

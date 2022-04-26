@@ -4,7 +4,10 @@ import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import java.util.Collection;
+
+import javafx.css.PseudoClass;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
@@ -13,6 +16,18 @@ public class RequestTable extends TableView<SR> {
   public RequestTable() {
     super();
     getStylesheets().add("edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/Standard.css");
+
+
+
+    setRowFactory((TableView<SR> tv) -> new TableRow<>() {
+      @Override
+      protected void updateItem(SR sr, boolean empty) {
+        super.updateItem(sr, empty);
+        if (sr != null && sr.getEmergency() == 1) {
+          getStyleClass().add("emergency-row");
+        }
+      }
+    });
 
     getColumns()
         .addAll(
@@ -86,7 +101,6 @@ public class RequestTable extends TableView<SR> {
           sr = new SanitationSR(r);
           break;
       }
-
       getItems().add(sr);
     }
     getSelectionModel().clearSelection();

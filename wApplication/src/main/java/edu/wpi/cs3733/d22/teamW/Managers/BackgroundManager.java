@@ -110,6 +110,7 @@ public class BackgroundManager {
                     .add("/edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/backgroundCSS.css");
             content.getStyleClass().add("image");
             content.getProperties().put("BackgroundName", "Shapes");
+            content.setEffect(new GaussianBlur(7.5));
         }
       }
       return content;
