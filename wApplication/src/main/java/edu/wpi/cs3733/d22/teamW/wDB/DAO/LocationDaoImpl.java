@@ -206,4 +206,18 @@ public class LocationDaoImpl implements LocationDao {
     loc = new Location(locationFields);
     return loc;
   }
+
+  public Location getLocation(String longName, String floor) throws SQLException {
+    Location loc = null;
+    ResultSet set =
+            statement.executeQuery(
+                    String.format("SELECT * FROM LOCATIONS WHERE LONGNAME = '%s'AND FLOOR = '%s'", longName, floor));
+    set.next(); // bypasses column headers
+    ArrayList<String> locationFields = new ArrayList<String>();
+    for (int i = 0; i < set.getMetaData().getColumnCount(); i++) {
+      locationFields.add(set.getString(i + 1));
+    }
+    loc = new Location(locationFields);
+    return loc;
+  }
 }

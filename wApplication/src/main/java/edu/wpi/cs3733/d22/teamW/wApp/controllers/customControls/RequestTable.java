@@ -100,13 +100,40 @@ public class RequestTable extends TableView<SR> {
         case SanitationService:
           sr = new SanitationSR(r);
           break;
+        case ExternalTransportRequest:
+          sr = new ExternalTransporationSR(r);
+          break;
+        case InternalPatientTransportationRequest:
+          sr = new InternalTransportSR(r);
+          break;
       }
       getItems().add(sr);
     }
+    markEmergencies();
     getSelectionModel().clearSelection();
   }
 
   public SR getSelection() {
     return getSelectionModel().getSelectedItem();
   }
+
+  public void markEmergencies(){
+    for (Object r : this.getItems()) {
+      this.setRowFactory(tv -> new TableRow<>() {
+        @Override
+        public void updateItem(SR sr, boolean empty) {
+          super.updateItem(sr, empty);
+          if (sr == null) {
+            setStyle("");
+          } else if (sr.getEmergency() == 1) {
+            setStyle("-fx-text-background-color: RED");
+          } else {
+            setStyle("");
+          }
+        }
+      });
+    }
+  }
+
+
 }

@@ -15,306 +15,306 @@
 <?import javafx.scene.text.Font?>
 
 <HBox alignment="CENTER" stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MessagingPageController">
-   <children>
-      <VBox alignment="CENTER">
-         <children>
-            <HBox>
-               <children>
-                  <VBox alignment="CENTER">
-                     <children>
-                        <Label styleClass="label-minor" text="Find An Employee:" />
-                        <AutoCompleteInput fx:id="employeeComboBox" onAction="#employeeSelected" prefWidth="200.0" styleClass="scroll-bar">
-                           <VBox.margin>
-                              <Insets bottom="10.0" />
-                           </VBox.margin>
-                        </AutoCompleteInput>
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER">
-                     <children>
-                        <Label styleClass="label-minor" text="Create Group Chat" />
-                        <Button mnemonicParsing="false" onAction="#createGroupchatClicked" text="Create" />
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-            <Separator />
-            <Label text="Recent Messages">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Separator />
-            <ScrollPane fitToWidth="true" style="-fx-background-color: white;">
-              <content>
-                  <VBox fx:id="chatCardView" prefWidth="200.0">
-                     <children>
-                        <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" style="-fx-background-color: #ffcccc;">
-                           <children>
-                              <VBox>
-                                 <children>
-                                    <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/Icons/profilePicture.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </VBox>
-                              <Separator orientation="VERTICAL" />
-                              <Label alignment="TOP_LEFT" text="Edison Zhang" wrapText="true">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </HBox>
-                        <Separator prefWidth="200.0" />
-                        <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" style="-fx-background-color: #ffcccc;">
-                           <children>
-                              <VBox prefWidth="80.0">
-                                 <children>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/Icons/profilePicture.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/Icons/profilePicture.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </VBox>
-                              <Separator orientation="VERTICAL" />
-                              <Label style="-fx-background-color: lightgray;" text="Edison Zhang" textFill="#007bff">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </HBox>
-                        <Separator prefWidth="200.0" />
-                        <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" style="-fx-background-color: #ffcccc;">
-                           <children>
-                              <VBox>
-                                 <children>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/Icons/profilePicture.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/Icons/profilePicture.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </VBox>
-                              <VBox>
-                                 <children>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/Icons/profilePicture.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </VBox>
-                              <Separator orientation="VERTICAL" />
-                              <Label style="-fx-background-color: lightgray;" text="Edison Zhang" textFill="#007bff">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </HBox>
-                        <Separator prefWidth="200.0" />
-                        <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" prefHeight="80.0" prefWidth="332.0" style="-fx-background-color: #ffcccc;">
-                           <children>
-                              <VBox>
-                                 <children>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/Icons/profilePicture.png" />
-                                       </image>
-                                    </ImageView>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/Icons/profilePicture.png" />
-                                       </image>
-                                    </ImageView>
-                                 </children>
-                              </VBox>
-                              <VBox>
-                                 <children>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/Icons/profilePicture.png" />
-                                       </image>
-                                    </ImageView>
-                                    <Label text="+5">
-                                       <font>
-                                          <Font size="19.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </VBox>
-                              <Separator orientation="VERTICAL" />
-                              <Label style="-fx-background-color: lightgray;" text="Edison Zhang, Edison Zhang" textFill="#007bff">
-                                 <font>
-                                    <Font size="18.0" />
-                                 </font>
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-                                 </HBox.margin>
-                              </Label>
-                           </children>
-                           <cursor>
-                              <Cursor fx:constant="HAND" />
-                           </cursor>
-                        </HBox>
-                     </children>
-                  </VBox>
-              </content>
-            </ScrollPane>
-         </children>
-      </VBox>
-      <Separator orientation="VERTICAL" />
-      <VBox fx:id="messageWindow" alignment="CENTER" style="-fx-alignment: center;">
-         <children>
-            <Label fx:id="messageTitleLabel" alignment="CENTER" prefWidth="400.0" text="Select a Chat">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
-            <Separator />
-            <HBox alignment="CENTER_RIGHT">
-               <children>
-                  <Label fx:id="viewMembersLabel" alignment="CENTER_RIGHT" onMouseClicked="#viewMembersLabelClicked" onMouseEntered="#viewMembersLabelMouseEnter" onMouseExited="#viewMembersLabelMouseExit" style="-fx-text-fill: #248bf5;" text="View members in chat" textFill="#248bf5" underline="true">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Label>
-               </children>
-               <padding>
-                  <Insets left="10.0" right="10.0" />
-               </padding>
-            </HBox>
-            <Separator />
-            <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" vbarPolicy="ALWAYS">
-              <content>
-                  <VBox fx:id="messagesWindow" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: white;">
-                     <children>
-                        <VBox minHeight="-Infinity" nodeOrientation="RIGHT_TO_LEFT">
-                           <children>
-                              <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" text="10:22 PM" wrapText="true">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <VBox>
-                                 <children>
-                                    <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #248bf5; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" textFill="WHITE" wrapText="true">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets bottom="2.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                    <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #248bf5; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" textFill="WHITE" wrapText="true">
-                                       <font>
-                                          <Font size="15.0" />
-                                       </font>
-                                       <VBox.margin>
-                                          <Insets bottom="2.0" />
-                                       </VBox.margin>
-                                    </Label>
-                                 </children>
-                              </VBox>
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
+    <children>
+        <VBox alignment="CENTER">
+            <children>
+                <HBox>
+                    <children>
+                        <VBox alignment="CENTER">
+                            <children>
+                                <Label styleClass="label-minor" text="Find An Employee:" />
+                                <AutoCompleteInput fx:id="employeeComboBox" onAction="#employeeSelected" prefWidth="200.0" styleClass="scroll-bar">
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" />
+                                    </VBox.margin>
+                                </AutoCompleteInput>
+                            </children>
                         </VBox>
-                        <VBox minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT">
-                           <children>
-                              <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" text="10:22 PM - Edison Zhang" wrapText="true">
-                                 <font>
-                                    <Font size="15.0" />
-                                 </font>
-                              </Label>
-                              <HBox>
-                                 <children>
-                                    <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../assets/Icons/profilePicture.png" />
-                                       </image>
-                                    </ImageView>
-                                    <VBox>
-                                       <children>
-                                          <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" wrapText="true">
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets bottom="2.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                          <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" wrapText="true">
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                             <VBox.margin>
-                                                <Insets bottom="2.0" />
-                                             </VBox.margin>
-                                          </Label>
-                                          <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" wrapText="true">
-                                             <font>
-                                                <Font size="15.0" />
-                                             </font>
-                                          </Label>
-                                       </children>
-                                    </VBox>
-                                 </children>
-                              </HBox>
-                           </children>
-                           <padding>
-                              <Insets bottom="10.0" />
-                           </padding>
+                        <VBox alignment="CENTER">
+                            <children>
+                                <Label styleClass="label-minor" text="Create Group Chat" />
+                                <Button mnemonicParsing="false" onAction="#createGroupchatClicked" text="Create" />
+                            </children>
                         </VBox>
-                     </children>
-                  </VBox>
-              </content>
-            </ScrollPane>
-            <Separator />
-            <HBox fx:id="messagingControlsHBox" alignment="CENTER" spacing="10.0" style="-fx-alignment: center;">
-               <children>
-                  <TextField fx:id="messageTextField" onKeyPressed="#messageTextKeyPress" />
-                  <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" text="Send" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </children>
+                    </children>
+                </HBox>
+                <Separator />
+                <Label text="Recent Messages">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Label>
+                <Separator />
+                <ScrollPane fitToWidth="true" style="-fx-background-color: white;">
+                    <content>
+                        <VBox fx:id="chatCardView" prefWidth="200.0">
+                            <children>
+                                <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" style="-fx-background-color: #ffcccc;">
+                                    <children>
+                                        <VBox>
+                                            <children>
+                                                <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../assets/Icons/profilePicture.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </VBox>
+                                        <Separator orientation="VERTICAL" />
+                                        <Label alignment="TOP_LEFT" text="Edison Zhang" wrapText="true">
+                                            <font>
+                                                <Font size="14.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets />
+                                            </HBox.margin>
+                                        </Label>
+                                    </children>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </HBox>
+                                <Separator prefWidth="200.0" />
+                                <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" style="-fx-background-color: #ffcccc;">
+                                    <children>
+                                        <VBox prefWidth="80.0">
+                                            <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../assets/Icons/profilePicture.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../assets/Icons/profilePicture.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </VBox>
+                                        <Separator orientation="VERTICAL" />
+                                        <Label style="-fx-background-color: lightgray;" text="Edison Zhang" textFill="#007bff">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                    </children>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </HBox>
+                                <Separator prefWidth="200.0" />
+                                <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" style="-fx-background-color: #ffcccc;">
+                                    <children>
+                                        <VBox>
+                                            <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../assets/Icons/profilePicture.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../assets/Icons/profilePicture.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </VBox>
+                                        <VBox>
+                                            <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../assets/Icons/profilePicture.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </VBox>
+                                        <Separator orientation="VERTICAL" />
+                                        <Label style="-fx-background-color: lightgray;" text="Edison Zhang" textFill="#007bff">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                    </children>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </HBox>
+                                <Separator prefWidth="200.0" />
+                                <HBox id="4" alignment="CENTER_LEFT" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#mouseOverCard" onMouseExited="#mouseExitCard" prefHeight="80.0" prefWidth="332.0" style="-fx-background-color: #ffcccc;">
+                                    <children>
+                                        <VBox>
+                                            <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../assets/Icons/profilePicture.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../assets/Icons/profilePicture.png" />
+                                                    </image>
+                                                </ImageView>
+                                            </children>
+                                        </VBox>
+                                        <VBox>
+                                            <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../assets/Icons/profilePicture.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <Label text="+5">
+                                                    <font>
+                                                        <Font size="19.0" />
+                                                    </font>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                        <Separator orientation="VERTICAL" />
+                                        <Label style="-fx-background-color: lightgray;" text="Edison Zhang, Edison Zhang" textFill="#007bff">
+                                            <font>
+                                                <Font size="18.0" />
+                                            </font>
+                                            <HBox.margin>
+                                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                            </HBox.margin>
+                                        </Label>
+                                    </children>
+                                    <cursor>
+                                        <Cursor fx:constant="HAND" />
+                                    </cursor>
+                                </HBox>
+                            </children>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+            </children>
+        </VBox>
+        <Separator orientation="VERTICAL" />
+        <VBox fx:id="messageWindow" alignment="CENTER" style="-fx-alignment: center;">
+            <children>
+                <Label fx:id="messageTitleLabel" alignment="CENTER" prefWidth="400.0" text="Select a Chat">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <Separator />
+                <HBox alignment="CENTER_RIGHT">
+                    <children>
+                        <Label fx:id="viewMembersLabel" alignment="CENTER_RIGHT" onMouseClicked="#viewMembersLabelClicked" onMouseEntered="#viewMembersLabelMouseEnter" onMouseExited="#viewMembersLabelMouseExit" style="-fx-text-fill: #248bf5;" text="View members in chat" textFill="#248bf5" underline="true">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Label>
+                    </children>
+                    <padding>
+                        <Insets left="10.0" right="10.0" />
+                    </padding>
+                </HBox>
+                <Separator />
+                <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" vbarPolicy="ALWAYS">
+                    <content>
+                        <VBox fx:id="messagesWindow" nodeOrientation="LEFT_TO_RIGHT" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: white;">
+                            <children>
+                                <VBox minHeight="-Infinity" nodeOrientation="RIGHT_TO_LEFT">
+                                    <children>
+                                        <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" text="10:22 PM" wrapText="true">
+                                            <font>
+                                                <Font size="15.0" />
+                                            </font>
+                                        </Label>
+                                        <VBox>
+                                            <children>
+                                                <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #248bf5; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" textFill="WHITE" wrapText="true">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets bottom="2.0" />
+                                                    </VBox.margin>
+                                                </Label>
+                                                <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #248bf5; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" textFill="WHITE" wrapText="true">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                    <VBox.margin>
+                                                        <Insets bottom="2.0" />
+                                                    </VBox.margin>
+                                                </Label>
+                                            </children>
+                                        </VBox>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="10.0" />
+                                    </padding>
+                                </VBox>
+                                <VBox minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT">
+                                    <children>
+                                        <Label maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" text="10:22 PM - Edison Zhang" wrapText="true">
+                                            <font>
+                                                <Font size="15.0" />
+                                            </font>
+                                        </Label>
+                                        <HBox>
+                                            <children>
+                                                <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                                                    <image>
+                                                        <Image url="@../assets/Icons/profilePicture.png" />
+                                                    </image>
+                                                </ImageView>
+                                                <VBox>
+                                                    <children>
+                                                        <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" wrapText="true">
+                                                            <font>
+                                                                <Font size="15.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets bottom="2.0" />
+                                                            </VBox.margin>
+                                                        </Label>
+                                                        <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" wrapText="true">
+                                                            <font>
+                                                                <Font size="15.0" />
+                                                            </font>
+                                                            <VBox.margin>
+                                                                <Insets bottom="2.0" />
+                                                            </VBox.margin>
+                                                        </Label>
+                                                        <Label alignment="TOP_LEFT" maxHeight="-Infinity" minHeight="-Infinity" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-color: #e5e5ea; -fx-background-radius: 15; -fx-label-padding: 5;" text="hello" wrapText="true">
+                                                            <font>
+                                                                <Font size="15.0" />
+                                                            </font>
+                                                        </Label>
+                                                    </children>
+                                                </VBox>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="10.0" />
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </VBox>
+                    </content>
+                </ScrollPane>
+                <Separator />
+                <HBox fx:id="messagingControlsHBox" alignment="CENTER" spacing="10.0" style="-fx-alignment: center;">
+                    <children>
+                        <TextField fx:id="messageTextField" onKeyPressed="#messageTextKeyPress" />
+                        <Button fx:id="sendButton" mnemonicParsing="false" onAction="#onSendButtonClick" text="Send" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </children>
 </HBox>

@@ -37,9 +37,9 @@ public enum Languages {
     return this.string;
   }
 
-  public static MealType getMealType(String mealType) throws NoMeal {
-    MealType type = null;
-    type = (MealType) map.get(mealType);
+  public static Languages getLanguage(String langauge) throws NoMeal {
+    Languages type = null;
+    type = (Languages) map.get(langauge);
     if (type == null) {
       throw new NoMeal();
     }

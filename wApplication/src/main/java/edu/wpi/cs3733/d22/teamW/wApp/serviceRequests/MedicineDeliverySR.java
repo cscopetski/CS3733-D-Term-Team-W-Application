@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -32,8 +33,11 @@ public class MedicineDeliverySR extends SR {
     }
     info += "Assigned Employee: " + this.getEmployeeName() + "\n";
     info += "Employee ID: " + this.getEmployeeID() + "\n";
+    info +=
+            "Location: "
+                    + LocationManager.getLocationManager().getLocation(r.getNodeID()).getLongName()
+                    + "\n";
     info += "Medicine requested: " + r.getMedicineType().getString() + "\n";
-    //    info += "Quantity requested: " + r.getQuantity() + "\n";
     return info;
   }
 }

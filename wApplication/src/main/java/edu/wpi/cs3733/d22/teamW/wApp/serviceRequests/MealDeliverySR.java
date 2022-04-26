@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MealRequestManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MealRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
@@ -28,6 +29,10 @@ public class MealDeliverySR extends SR {
     String info = "";
     info += "Assigned Employee: " + this.getEmployeeName() + "\n";
     info += "Employee ID: " + this.getEmployeeID() + "\n";
+    info +=
+            "Location: "
+                    + LocationManager.getLocationManager().getLocation(mealRequest.getNodeID()).getLongName()
+                    + "\n";
     info += "Meal: " + mealRequest.getMealType().getString() + "\n";
     info +=
         "Patient Name: "
@@ -35,7 +40,6 @@ public class MealDeliverySR extends SR {
             + " "
             + mealRequest.getPatientLast()
             + "\n";
-    info += "";
     return info;
   }
 }

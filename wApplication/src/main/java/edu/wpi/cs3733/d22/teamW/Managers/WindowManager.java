@@ -90,6 +90,8 @@ public class WindowManager {
     stage.setOnCloseRequest(e -> primaryStage.getScene().getRoot().setEffect(null));
     storeData("Stage",stage);
     primaryStage.getScene().getRoot().setEffect(new GaussianBlur(7.5));
+    WindowManager.getInstance().storeData("stage",stage);
     stage.showAndWait();
   }
 }
+

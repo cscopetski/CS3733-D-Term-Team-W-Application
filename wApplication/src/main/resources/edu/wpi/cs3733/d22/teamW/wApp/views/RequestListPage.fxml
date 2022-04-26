@@ -2,78 +2,80 @@
 
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.FilterControl?>
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="50.0" style="-fx-alignment: center;"
-      stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.RequestListController">
+<VBox alignment="CENTER" spacing="50.0" style="-fx-alignment: center;" stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.RequestListController">
     <children>
         <VBox alignment="CENTER">
             <children>
                 <Label style="-fx-alignment: center;" text="Request List">
                     <font>
-                        <Font name="System Bold" size="30.0"/>
+                        <Font name="System Bold" size="30.0" />
                     </font>
                 </Label>
-                <Label style="-fx-alignment: center;"
-                       text="Use the filter to sort requests. Select request to cancel it." textFill="#013895"/>
+                <Label style="-fx-alignment: center;" text="Use the filter to sort requests. Select request to cancel it." textFill="#013895" />
             </children>
         </VBox>
         <HBox alignment="CENTER" fillHeight="true">
             <children>
                 <VBox alignment="CENTER">
                     <children>
-                        <Label style="-fx-alignment: center;" text="Click on the headers to change order of the items."
-                               textFill="#013895">
+                        <Label style="-fx-alignment: center;" text="Click on the headers to change order of the items." textFill="#013895">
                             <VBox.margin>
-                                <Insets/>
+                                <Insets />
                             </VBox.margin>
                         </Label>
                         <RequestTable fx:id="rt" minWidth="600.0" maxWidth="1000.0" minHeight="200" prefHeight="800">
                             <VBox.margin>
-                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                                <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                             </VBox.margin>
                         </RequestTable>
                     </children>
                     <HBox.margin>
-                        <Insets right="20.0"/>
+                        <Insets right="20.0" />
                     </HBox.margin>
                 </VBox>
                 <VBox alignment="CENTER" spacing="10.0">
                     <children>
                         <Label styleClass="label-major" text="FILTER" textFill="WHITE">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </Label>
-                        <FilterControl fx:id="filter" prefHeight="224.0" prefWidth="300"
-                                       style="-fx-background-color: white; -fx-border-color: #013895"/>
+                        <CheckBox fx:id="emergencyFilter" mnemonicParsing="false" text="Only show emergency requests" textAlignment="CENTER">
+                            <font>
+                                <Font name="Gill Sans MT" size="16.0" />
+                            </font>
+                        </CheckBox>
+                        <FilterControl fx:id="filter" prefHeight="224.0" prefWidth="300" style="-fx-background-color: white; -fx-border-color: #013895" />
                         <Label styleClass="label-major" text="MORE INFO" textFill="WHITE">
                             <font>
-                                <Font size="14.0"/>
+                                <Font size="14.0" />
                             </font>
                         </Label>
-                        <TextArea fx:id="moreInfo" prefColumnCount="20" scaleZ="0.0"
-                                  style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;"/>
+                        <TextArea fx:id="moreInfo" prefColumnCount="20" scaleZ="0.0" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" />
                     </children>
                     <HBox.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                     </HBox.margin>
                 </VBox>
             </children>
         </HBox>
         <HBox fx:id="selectionButtons" alignment="CENTER" spacing="10" visible="false">
-            <Button mnemonicParsing="false" onAction="#start" text="Start"/>
-            <Button mnemonicParsing="false" onAction="#confirm" text="Complete"/>
-            <Button mnemonicParsing="false" onAction="#cancel" text="Cancel"/>
-            <Button mnemonicParsing="false" onAction="#requeue" text="Requeue"/>
-            <Button mnemonicParsing="false" onAction="#clearSelection" text="Clear Selection"/>
+            <Button mnemonicParsing="false" onAction="#start" text="Start" />
+            <Button mnemonicParsing="false" onAction="#confirm" text="Complete" />
+            <Button mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#requeue" text="Requeue" />
+            <Button mnemonicParsing="false" onAction="#clearSelection" text="Clear Selection" />
             <VBox.margin>
-                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0"/>
+                <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
             </VBox.margin>
         </HBox>
     </children>

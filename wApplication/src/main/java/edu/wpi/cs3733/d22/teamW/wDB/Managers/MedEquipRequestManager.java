@@ -133,7 +133,7 @@ public class MedEquipRequestManager implements RequestManager {
     if (!request.getStatus().equals(RequestStatus.Completed)) {
       if (request.getStatus() == RequestStatus.InProgress) {
         MedEquip item = MedEquipManager.getMedEquipManager().getMedEquip(request.getItemID());
-        MedEquipManager.getMedEquipManager().markClean(item.getMedID(), item.getNodeID());
+        MedEquipManager.getMedEquipManager().markCleanThroughRequest(item.getMedID(), item.getNodeID());
         if (Automation.Automation.getAuto()) {
           startNext(request.getItemType());
         }

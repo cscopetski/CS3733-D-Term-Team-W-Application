@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.GiftDeliveryRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.GiftDeliveryRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
@@ -34,12 +35,15 @@ public class GiftSR extends SR {
     info += "Assigned Employee: " + this.getEmployeeName() + "\n";
     info += "Employee ID: " + this.getEmployeeID() + "\n";
     info +=
+            "Location: "
+                    + LocationManager.getLocationManager().getLocation(giftDeliveryRequest.getNodeID()).getLongName()
+                    + "\n";
+    info +=
         "Recipient Name: "
             + giftDeliveryRequest.getRecipientFirstName()
             + " "
             + giftDeliveryRequest.getRecipientLastName()
             + "\n";
-    info += "";
     return info;
   }
 }

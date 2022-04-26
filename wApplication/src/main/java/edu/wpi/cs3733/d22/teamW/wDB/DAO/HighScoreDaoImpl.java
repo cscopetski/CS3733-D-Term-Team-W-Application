@@ -164,4 +164,12 @@ public class HighScoreDaoImpl implements HighScoreDao {
     }
     return hs;
   }
+
+  @Override
+  public void deleteAllHighScore(Integer id) throws SQLException {
+    statement.executeUpdate(
+            String.format(
+                    "DELETE FROM HIGHSCORE WHERE EMPLOYEEID=%d",
+                    id));
+  }
 }

@@ -1,6 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.serviceRequests;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LanguageRequestManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.LanguageRequest;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
@@ -33,8 +34,11 @@ public class LanguageInterpreterSR extends SR {
     }
     info += "Assigned Employee: " + this.getEmployeeName() + "\n";
     info += "Employee ID: " + this.getEmployeeID() + "\n";
+    info +=
+            "Location: "
+                    + LocationManager.getLocationManager().getLocation(languageRequest.getNodeID()).getLongName()
+                    + "\n";
     info += "Language: " + languageRequest.getLanguage() + "\n";
-    info += "";
     return info;
   }
 }
