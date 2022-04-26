@@ -117,12 +117,8 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <TableView prefHeight="200.0" prefWidth="200.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                    </columns>
-                  </TableView>
+                  <Label text="Bed at corridor waiting for you to pick up" />
+                  <VBox prefHeight="200.0" prefWidth="100.0" />
                   <TableView prefHeight="437.0" prefWidth="404.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="C1" />
