@@ -46,7 +46,6 @@ public class ExternalTransporationSR extends SR{
                         + externalTransportRequest.getPatientID() + "\n";
         info += "Departure Date: "
                 + externalTransportRequest.getDepartureDate().toString();
-        info += "";
         return info;
     }
 }

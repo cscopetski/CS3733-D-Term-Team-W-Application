@@ -33,13 +33,12 @@ public class LabServiceSR extends SR {
     }
     info += "Assigned Employee: " + this.getEmployeeName() + "\n";
     info += "Employee ID: " + this.getEmployeeID() + "\n";
+    info +=
+            "Location: "
+                    + LocationManager.getLocationManager().getLocation(r.getNodeID()).getLongName()
+                    + "\n";
     info += "Service requested: " + r.getLabType().getString() + "\n";
     info += "Patient Name: " + r.getPatientFirst() + " " + r.getPatientLast() + "\n";
-    info +=
-        "Location: "
-            + LocationManager.getLocationManager().getLocation(r.getNodeID()).getLongName()
-            + "\n";
-
     return info;
   }
 }
