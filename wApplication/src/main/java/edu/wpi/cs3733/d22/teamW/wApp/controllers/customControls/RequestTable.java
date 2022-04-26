@@ -17,14 +17,13 @@ public class RequestTable extends TableView<SR> {
     super();
     getStylesheets().add("edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/Standard.css");
 
-
-
     setRowFactory((TableView<SR> tv) -> new TableRow<>() {
       @Override
       protected void updateItem(SR sr, boolean empty) {
         super.updateItem(sr, empty);
         if (sr != null && sr.getEmergency() == 1) {
           getStyleClass().add("emergency-row");
+          //setStyle("-fx-text-background-color: RED");
         }
       }
     });
@@ -109,31 +108,12 @@ public class RequestTable extends TableView<SR> {
       }
       getItems().add(sr);
     }
-    markEmergencies();
+    //markEmergencies();
     getSelectionModel().clearSelection();
   }
 
   public SR getSelection() {
     return getSelectionModel().getSelectedItem();
   }
-
-  public void markEmergencies(){
-    for (Object r : this.getItems()) {
-      this.setRowFactory(tv -> new TableRow<>() {
-        @Override
-        public void updateItem(SR sr, boolean empty) {
-          super.updateItem(sr, empty);
-          if (sr == null) {
-            setStyle("");
-          } else if (sr.getEmergency() == 1) {
-            setStyle("-fx-text-background-color: RED");
-          } else {
-            setStyle("");
-          }
-        }
-      });
-    }
-  }
-
 
 }
