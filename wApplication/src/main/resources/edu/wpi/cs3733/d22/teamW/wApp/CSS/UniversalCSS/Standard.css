@@ -263,12 +263,6 @@
     -fx-padding: 2px 0px 2px 10px;
 }
 
-.table-row-cell:hover {
-    -fx-background-color: #013895;
-    -fx-text-background-color: white;
-    -fx-background-radius: 5px;
-    /*-fx-background-insets: 0px 11px 0px 0px;*/
-}
 
 .table-view .virtual-flow .scroll-bar:vertical,
 .table-view .virtual-flow .scroll-bar:vertical .track,
@@ -292,23 +286,38 @@
 .table-view .virtual-flow .scroll-bar:horizontal .thumb {
     -fx-background-color: #013895;
 }
-
+.table-row-cell{
+    -fx-background-insets: 1px;
+    -fx-border-insets: 1px;
+    -fx-background-radius: 5px;
+}
+.table-row-cell:hover {
+    -fx-background-color: #013895;
+    -fx-text-background-color: white;
+    -fx-background-radius: 5px;
+}
 .table-row-cell:focused {
     -fx-background-color: #013895;
     -fx-background-radius: 15px;
-    /*-fx-background-insets: 0px 11px 0px 0px;*/
 }
-
 .table-row-cell:pressed {
     -fx-background-color: white;
     -fx-background-radius: 15px;
     -fx-border-color: #013895;
     -fx-border-radius: 15px;
-    -fx-border-width: 3;
+    -fx-border-width: 3px;
     -fx-text-fill: black;
-    /*-fx-background-insets: 0px 11px 0px 0px;*/
 }
 
+.emergency-row {
+    -fx-border-color: red;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+}
+.emergency-row:focused {
+    -fx-border-radius: 15px;
+    -fx-border-width: 2px;
+}
 .menu-button {
     -fx-font-weight: bold;
     -fx-background-color: #013895;
@@ -471,5 +480,9 @@
 .tab:selected .tab-label {
     -fx-alignment: CENTER;
     -fx-text-fill: white;
+}
+
+.table-column {
+    -fx-alignment: CENTER;
 }
 

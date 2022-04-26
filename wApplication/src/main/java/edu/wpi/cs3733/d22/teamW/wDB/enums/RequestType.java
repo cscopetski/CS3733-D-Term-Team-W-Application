@@ -1,6 +1,8 @@
 package edu.wpi.cs3733.d22.teamW.wDB.enums;
 
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.InValidRequestType;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.InternalPatientTransportationRequest;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,7 +21,10 @@ public enum RequestType {
   ComputerServiceRequest(10, "Computer Service Request"),
   AudioVisualRequest(11, "Audio Visual Request"),
   CleaningRequest(12, "Cleaning Request"),
-  FlowerRequest(13, "Flower Request");
+  FlowerRequest(13, "Flower Request"),
+  ExternalTransportRequest(14,"External Transport Request"),
+  InternalPatientTransportationRequest(15, "Internal Patient Transportation Request");
+
   private final Integer value;
   private final String string;
 

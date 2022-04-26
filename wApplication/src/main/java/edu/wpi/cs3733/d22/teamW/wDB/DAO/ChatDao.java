@@ -20,4 +20,6 @@ public interface ChatDao {
   void deleteChat(Integer chatID) throws SQLException;
 
   void deleteEmployeeFromChat(Integer chatID, Integer empID) throws SQLException;
+
+  Integer getMaxID() throws SQLException;
 }

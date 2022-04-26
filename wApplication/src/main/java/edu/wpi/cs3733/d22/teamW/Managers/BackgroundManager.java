@@ -1,9 +1,14 @@
 package edu.wpi.cs3733.d22.teamW.Managers;
 
 import javafx.animation.Transition;
+import javafx.geometry.Point2D;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.*;
+
+import java.util.Random;
 
 public class BackgroundManager {
 
@@ -77,19 +82,38 @@ public class BackgroundManager {
     parent.setEffect(null);
   }
 
-  public static class DefaultBackgrounds {
-    public static Pane HospitalImage;
-    public static Pane White;
+  public enum DefaultBackgrounds {
+    HospitalImage,
+    White,
+    Shapes;
 
-    static {
-      HospitalImage = new Pane();
-      HospitalImage.getStylesheets()
-          .add("/edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/paneHospital.css");
-      HospitalImage.getStyleClass().add("image");
-      HospitalImage.getProperties().put("BackgroundName", "Hospital Image");
-      White = new Pane();
-      White.setStyle("-fx-background-color: white");
-      White.getProperties().put("BackgroundName", "White");
+    public Pane content = null;
+
+    public Pane getContent() {
+      if (content == null) {
+        switch (this) {
+          case HospitalImage:
+            content = new Pane();
+            content.getStylesheets()
+                    .add("/edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/paneHospital.css");
+            content.getStyleClass().add("image");
+            content.getProperties().put("BackgroundName", "Hospital Image");
+            break;
+          case White:
+            content = new Pane();
+            content.setStyle("-fx-background-color: white");
+            content.getProperties().put("BackgroundName", "White");
+            break;
+          case Shapes:
+            content = new Pane();
+            content.getStylesheets()
+                    .add("/edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/backgroundCSS.css");
+            content.getStyleClass().add("image");
+            content.getProperties().put("BackgroundName", "Shapes");
+            content.setEffect(new GaussianBlur(7.5));
+        }
+      }
+      return content;
     }
   }
 }

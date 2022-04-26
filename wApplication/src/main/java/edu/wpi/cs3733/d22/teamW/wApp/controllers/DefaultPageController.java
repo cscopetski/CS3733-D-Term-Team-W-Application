@@ -31,12 +31,6 @@ public class DefaultPageController implements Initializable {
 
     PageManager.getInstance().loadPage(PageManager.Pages.Login);
   }
-
-  public void createBackground() {
-    Circle c = new Circle(200, 200, 100, Color.web("#009ca8"));
-    content.getChildren().add(0, c);
-  }
-
   public void switchToMedicineDelivery() {
     PageManager.getInstance().loadPage(PageManager.Pages.MedicineDeliverySR);
   }
@@ -91,6 +85,9 @@ public class DefaultPageController implements Initializable {
 
   public void switchToMainMenu() {
     PageManager.getInstance().loadPage(PageManager.Pages.MainMenu);
+  }
+
+  public void switchToAPILandingPage(){ PageManager.getInstance().loadPage(PageManager.Pages.APILandingPage);
   }
 
   public void switchToAdminHub() {

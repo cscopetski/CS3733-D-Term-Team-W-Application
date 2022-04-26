@@ -1,15 +1,24 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.Snake;
 
+import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.HighScoreManager;
+
+import java.net.URL;
+import java.sql.SQLException;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.Scanner;
+
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -20,7 +29,8 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-public class SnakeController {
+public class SnakeController implements Initializable {
+  private final Employee employee = AccountManager.getInstance().getEmployee();
 
   public final double borderSize = 500;
   public static final double center = 200;
@@ -54,7 +64,7 @@ public class SnakeController {
   @FXML private Label highScore;
   @FXML private Label loss;
   private int counter = 0;
-  private int hSCounter = 0;
+  private int hSCounter;
   private boolean canChangeDirection;
 
   @FXML
@@ -226,7 +236,11 @@ public class SnakeController {
   }
 
   public void onLoad() {
-    hSCounter = Integer.parseInt(getHighScore());
+
+    hSCounter =
+        HighScoreManager.getHighScoreManager()
+            .getHighScore(employee.getEmployeeID())
+            .getScoreWiggling();
     image.setVisible(false);
     gameBorder.setLayoutX(center + xOffset);
     gameBorder.setLayoutY(center);
@@ -249,48 +263,34 @@ public class SnakeController {
                   if (checkIfGameIsOver(snakeHead)) {
                     if (counter > hSCounter) {
                       hSCounter = counter;
-                      setHighScore(Integer.toString(hSCounter));
+                      try {
+                        HighScoreManager.getHighScoreManager()
+                            .changeHighScore(
+                                HighScoreManager.getHighScoreManager()
+                                    .getHighScore(
+                                        employee.getEmployeeID()),
+                                counter,
+                                HighScoreManager.getHighScoreManager()
+                                    .getHighScore(
+                                        employee.getEmployeeID())
+                                    .getScoreThreat());
+                      } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                      }
                     }
                     timeline.stop();
                   }
                 }));
   }
 
-  private String getHighScore() {
-    String s = "0";
-    String filePath = new File("").getAbsolutePath();
-
-    try {
-      File file = new File(filePath.concat("\\snake_high_score.txt"));
-
-      if (file.exists()) {
-        Scanner scan = new Scanner(file);
-        s = scan.nextLine();
-      } else {
-        // create a the pacman_high_score.txt file and insert a 0
-        setHighScore("0");
-      }
-    } catch (Exception e) {
-      System.out.println("Failed to retrieve the high score");
-    }
-
-    return s;
-  }
-
-  private void setHighScore(String newScore) {
-    try {
-      FileWriter writer = new FileWriter("snake_high_score.txt");
-      writer.write(newScore);
-      writer.close();
-
-    } catch (Exception e) {
-      System.out.println("Failed to set the new high score");
-    }
-  }
-
   public void onUnload() {
     image.setVisible(false);
     timeline = null;
     food = null;
+  }
+
+  @Override
+  public void initialize(URL location, ResourceBundle resources) {
+    highScore.setText("High Score: " + hSCounter);
   }
 }

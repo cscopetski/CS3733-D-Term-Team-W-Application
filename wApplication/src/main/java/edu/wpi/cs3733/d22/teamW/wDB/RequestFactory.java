@@ -25,8 +25,8 @@ public class RequestFactory {
       SecurityRequestManager.getSecurityRequestManager();
   private LanguageRequestManager languageRequestManager =
       LanguageRequestManager.getLanguageRequestManager();
-
-  private TreeSet<Integer> reqIDList = new TreeSet<>();
+  private ExternalTransportManager erm = ExternalTransportManager.getRequestManager();
+  private InternalPatientTransportationRequestManager internalPatientTransportationRequestManager = InternalPatientTransportationRequestManager.getInternalPatientTransportationRequestManager();
 
   private static RequestFactory requestFactory = new RequestFactory();
 
@@ -35,6 +35,8 @@ public class RequestFactory {
   }
 
   private RequestFactory() {}
+
+  private TreeSet<Integer> reqIDList = new TreeSet<>();
 
   public void resetTreeSet() {
     this.reqIDList = new TreeSet<>();
@@ -147,6 +149,19 @@ public class RequestFactory {
           r = languageRequestManager.addNewRequest(counter, fields);
         }
         break;
+      case ExternalTransportRequest:
+        if(importingFromCSV) {
+          r = erm.addExistingRequest(fields);
+        }else{
+          r = erm.addNewRequest(counter,fields);
+        }
+        break;
+      case InternalPatientTransportationRequest:
+        if(importingFromCSV){
+          r = internalPatientTransportationRequestManager.addExistingRequest(fields);
+        }else{
+          r = internalPatientTransportationRequestManager.addNewRequest(counter, fields);
+        }
     }
     return r;
   }
