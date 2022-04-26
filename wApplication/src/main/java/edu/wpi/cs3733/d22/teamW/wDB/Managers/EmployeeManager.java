@@ -36,7 +36,7 @@ public class EmployeeManager {
   }
 
   public Integer getNewEmpID(){
-    return empIDList.last();
+    return empIDList.last() + 1;
   }
 
   public Integer getDeletedEmployee() {
