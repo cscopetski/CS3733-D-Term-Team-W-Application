@@ -50,6 +50,11 @@
                                 <Font size="14.0"/>
                             </font>
                         </Label>
+                        <CheckBox fx:id="emergencyFilter" mnemonicParsing="false" text="Only show emergency requests" textAlignment="CENTER">
+                            <font>
+                                <Font name="Gill Sans MT" size="16.0" />
+                            </font>
+                        </CheckBox>
                         <FilterControl fx:id="filter" prefHeight="224.0" prefWidth="300"
                                        style="-fx-background-color: white; -fx-border-color: #013895"/>
                         <Label styleClass="label-major" text="MORE INFO" textFill="WHITE">
