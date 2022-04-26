@@ -28,8 +28,6 @@ public class RequestFactory {
   private ExternalTransportManager erm = ExternalTransportManager.getRequestManager();
   private InternalPatientTransportationRequestManager internalPatientTransportationRequestManager = InternalPatientTransportationRequestManager.getInternalPatientTransportationRequestManager();
 
-  private TreeSet<Integer> reqIDList = new TreeSet<>();
-
   private static RequestFactory requestFactory = new RequestFactory();
 
   public static RequestFactory getRequestFactory() {
@@ -37,6 +35,8 @@ public class RequestFactory {
   }
 
   private RequestFactory() {}
+
+  private TreeSet<Integer> reqIDList = new TreeSet<>();
 
   public void resetTreeSet() {
     this.reqIDList = new TreeSet<>();

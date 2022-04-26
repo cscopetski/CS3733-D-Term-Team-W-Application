@@ -277,6 +277,8 @@ public class CSVController {
         System.out.println("Connection failed. Check output console.");
         s.printStackTrace();
         throw (s);
+      } catch (Exception exception) {
+        exception.printStackTrace();
       }
     }
   }

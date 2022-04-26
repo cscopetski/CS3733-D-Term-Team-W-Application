@@ -33,7 +33,7 @@ public class CreateNewEmployee {
     typebox.setItems(FXCollections.observableArrayList(eTypes));
   }
 
-  public void add(ActionEvent actionEvent) throws SQLException {
+  public void add(ActionEvent actionEvent) throws Exception {
     Random rand = new Random();
     int newID = rand.nextInt(100);
     if (checkEmpty()) {

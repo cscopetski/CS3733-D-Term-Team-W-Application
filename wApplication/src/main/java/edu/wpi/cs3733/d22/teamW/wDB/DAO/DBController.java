@@ -41,6 +41,7 @@ public class DBController {
 
   public void startConnection() throws SQLException, ClassNotFoundException {
     RequestFactory.getRequestFactory().resetTreeSet();
+    EmployeeManager.getEmployeeManager().resetEmpIDSet();
     String connectionStringEmbedded = String.format("jdbc:derby:%s;create=true", this.dbName);
     String connectionStringServer =
         String.format("jdbc:derby://localhost:1527/%s;create=true", this.dbName);

@@ -5,6 +5,8 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class EmployeeManager {
   private EmployeeDao ed;
@@ -18,6 +20,22 @@ public class EmployeeManager {
   }
 
   private EmployeeManager() {}
+
+  private TreeSet<Integer> empIDList= new TreeSet<>();
+
+  public void resetEmpIDSet() {
+    this.empIDList = new TreeSet<>();
+  }
+
+  // fields is every field except for request id and itemID
+
+  public Set<Integer> getEmpIDList() {
+    return empIDList;
+  }
+
+  public Integer getNewEmpID(){
+    return empIDList.last();
+  }
 
   public Integer getDeletedEmployee() {
     return this.deletedEmployee;
@@ -36,11 +54,18 @@ public class EmployeeManager {
   }
 
   /** Adds an employee to the database. */
-  public void addEmployee(Employee employee) throws SQLException {
-    ed.addEmployee(employee);
+  public void addEmployee(Employee employee) throws Exception {
+    if(empIDList.add(employee.getEmployeeID())){
+      ed.addEmployee(employee);
+    }else{
+      throw new Exception("Employee ID already exists in database");
+    }
+
   }
 
   public void deleteEmployee(Integer employeeID) throws Exception {
+
+    empIDList.remove(employeeID);
 
     CleaningRequestManager.getCleaningRequestManager().updateReqWithEmployee(employeeID);
     LabServiceRequestManager.getLabServiceRequestManager().updateReqWithEmployee(employeeID);
