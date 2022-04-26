@@ -4,57 +4,67 @@ import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Random;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.effect.GaussianBlur;
 import javafx.stage.Stage;
 
-public class CreateNewEmployee {
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Random;
+
+public class EditEmployee {
   @FXML public TextField firstNametxt;
   public TextField lastNametxt;
   public TextField addresstxt;
   public TextField emailtxt;
-  public Button addButton;
+  public Button editButton;
   public ComboBox typebox;
   public TextField phonetxt;
   EmployeeManager em = EmployeeManager.getEmployeeManager();
+  Employee employee = null;
 
   public void initialize() {
     ArrayList<EmployeeType> eTypes = new ArrayList<>();
-    for (EmployeeType e : EmployeeType.values()) {
-      eTypes.add(e);
+    int counter = 0;
+    employee = (Employee) WindowManager.getInstance().getData("employee");
+    for (int i = 0; i < EmployeeType.values().length; i++) {
+      eTypes.add(EmployeeType.values()[i]);
+      if (EmployeeType.values()[i] == employee.getType()){
+        counter = i;
+      }
     }
     typebox.setItems(FXCollections.observableArrayList(eTypes));
+
+
+    firstNametxt.setText(employee.getFirstName());
+    lastNametxt.setText(employee.getLastName());
+    addresstxt.setText(employee.getAddress());
+    emailtxt.setText(employee.getEmail());
+    typebox.setValue(employee.getType());
+    phonetxt.setText(employee.getPhoneNumber());
   }
 
-  public void add(ActionEvent actionEvent) throws SQLException {
-      Random rand = new Random();
-      int newID = rand.nextInt(100);
+  public void edit(ActionEvent actionEvent) throws SQLException {
     if (checkEmpty()) {
       Alert warningAlert =
-          new Alert(Alert.AlertType.WARNING, "Please fill in all the fields", ButtonType.OK);
+              new Alert(Alert.AlertType.WARNING, "Please fill in all the fields", ButtonType.OK);
       warningAlert.showAndWait();
     } else {
-      Employee employee =
-          new Employee(
-              newID,
-              firstNametxt.getText(),
-              lastNametxt.getText(),
-              typebox.getSelectionModel().getSelectedItem().toString(),
-              emailtxt.getText(),
-              phonetxt.getText(),
-              addresstxt.getText(),
-              genUsername(),
-              firstNametxt.getText());
-      em.addEmployee(employee);
+      Employee newEmployee =
+              new Employee(
+                      employee.getEmployeeID(),
+                      firstNametxt.getText(),
+                      lastNametxt.getText(),
+                      typebox.getSelectionModel().getSelectedItem().toString(),
+                      emailtxt.getText(),
+                      phonetxt.getText(),
+                      addresstxt.getText(),
+                      employee.getUsername(),
+                      employee.getPassword());
+      em.changeEmployee(newEmployee);
       ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
       WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(null);
       WindowManager.getInstance().storeData("success", true);
@@ -75,11 +85,6 @@ public class CreateNewEmployee {
   public void cancelAdd(ActionEvent actionEvent) {
     ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
     WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(null);
-
   }
 
-  private String genUsername() {
-    Random rand = new Random();
-    return firstNametxt.getText() + rand.nextInt(100);
-  }
 }
