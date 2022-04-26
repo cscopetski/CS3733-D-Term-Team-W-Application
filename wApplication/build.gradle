@@ -52,7 +52,7 @@ dependencies {
             'ExternalTransportAPI'
 
     implementation name:
-            'TeamBAPI'
+            'teamBAPI'
 }
 
 
