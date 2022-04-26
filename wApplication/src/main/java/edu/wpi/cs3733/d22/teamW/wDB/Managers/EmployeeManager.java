@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.EmployeeDao;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.LanguageInterpreter;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -74,6 +75,14 @@ public class EmployeeManager {
     SanitationRequestManager.getSanitationRequestManager().updateReqWithEmployee(employeeID);
     ExternalTransportManager.getRequestManager().updateReqWithEmployee(employeeID);
     InternalPatientTransportationRequestManager.getInternalPatientTransportationRequestManager().updateReqWithEmployee(employeeID);
+    ComputerServiceRequestManager.getComputerServiceRequestManager().updateReqWithEmployee(employeeID);
+    GiftDeliveryRequestManager.getGiftDeliveryRequestManager().updateReqWithEmployee(employeeID);
+    FlowerRequestManager.getFlowerRequestManager().updateReqWithEmployee(employeeID);
+    SecurityRequestManager.getSecurityRequestManager().updateReqWithEmployee(employeeID);
+    MealRequestManager.getMealRequestManager().updateReqWithEmployee(employeeID);
+    LanguageRequestManager.getLanguageRequestManager().updateReqWithEmployee(employeeID);
+    LanguageInterpreterManager.getLanguageInterpreterManager().updateLanguageRequestWithEmployee(employeeID);
+    HighScoreManager.getHighScoreManager().updateHighScoreWithEmployee(employeeID);
     ed.deleteEmployee(employeeID);
   }
 

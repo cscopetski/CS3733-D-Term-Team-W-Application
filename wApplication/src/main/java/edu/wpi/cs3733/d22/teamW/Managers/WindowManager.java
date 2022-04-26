@@ -94,3 +94,4 @@ public class WindowManager {
     stage.showAndWait();
   }
 }
+
