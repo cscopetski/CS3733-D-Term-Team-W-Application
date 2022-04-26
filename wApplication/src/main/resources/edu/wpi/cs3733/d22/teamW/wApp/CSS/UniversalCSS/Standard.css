@@ -486,3 +486,13 @@
     -fx-alignment: CENTER;
 }
 
+.page-parent {
+    -fx-background-color: white;
+    -fx-opacity: 0.40;
+    -fx-background-radius: 50px;
+    -fx-padding: 50px;
+    -fx-border-radius: 50px;
+    -fx-border-width: 5px;
+    -fx-border-color: #013895;
+    -fx-effect: dropshadow(gaussian, transparent, 7.5, 0.5, 0, 0);
+}
