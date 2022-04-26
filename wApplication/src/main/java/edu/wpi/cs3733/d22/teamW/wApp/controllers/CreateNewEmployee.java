@@ -35,9 +35,7 @@ public class CreateNewEmployee {
     typebox.setItems(FXCollections.observableArrayList(eTypes));
   }
 
-  public void add(ActionEvent actionEvent) throws SQLException {
-      Random rand = new Random();
-      int newID = rand.nextInt(100);
+  public void add(ActionEvent actionEvent) throws Exception {
     if (checkEmpty()) {
       Alert warningAlert =
           new Alert(Alert.AlertType.WARNING, "Please fill in all the fields", ButtonType.OK);
@@ -45,7 +43,7 @@ public class CreateNewEmployee {
     } else {
       Employee employee =
           new Employee(
-              newID,
+              EmployeeManager.getEmployeeManager().getNewEmpID()  ,
               firstNametxt.getText(),
               lastNametxt.getText(),
               typebox.getSelectionModel().getSelectedItem().toString(),
