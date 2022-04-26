@@ -7,6 +7,6 @@ import java.sql.SQLException;
 
 public class AboutController {
 
-    public AboutController() throws NonExistingMedEquip, SQLException {
+    public AboutController() {
     }
 }

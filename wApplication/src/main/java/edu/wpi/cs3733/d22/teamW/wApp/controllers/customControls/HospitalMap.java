@@ -4,6 +4,8 @@ import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -17,6 +19,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class HospitalMap extends VBox {
+    public interface LocationSelectionMade {
+        void selectionMade(Location l);
+    }
+
     Integer size = 0;
     @FXML public ScrollPane scrollPane;
     @FXML public Slider scaleSlider;
@@ -34,7 +40,6 @@ public class HospitalMap extends VBox {
     @FXML private MenuItem FL1;
     @FXML private MenuItem FL2;
     @FXML private MenuButton dropdown;
-    private LocationManager locationManager = LocationManager.getLocationManager();
     Image img1 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F1.png");
     Image img2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F2.png");
     Image img3 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F3.png");
@@ -43,12 +48,16 @@ public class HospitalMap extends VBox {
     Image img4 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F4.png");
     Image img5 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F5.png");
     public HospitalMap() throws NonExistingMedEquip, SQLException {
+        setAlignment(Pos.CENTER);
+        setSpacing(10);
+        setMargin(this, new Insets(10));
+
         scaleSlider = new Slider();
         scrollPane = new ScrollPane();
         dropdown = new MenuButton();
         mapList = new ImageView();
         scrollGroup = new Group();
-        scaleSlider.setMin(0.9);
+        scaleSlider.setMin(0.5);
         scaleSlider.setMax(3.0);
         scaleSlider.setValue(1.0);
         scrollGroup.scaleXProperty().bind(scaleSlider.valueProperty());
@@ -133,6 +142,12 @@ public class HospitalMap extends VBox {
         //getChildren().add(scrollGroup);
         swapFloor1();
     }
+
+    private ArrayList<LocationSelectionMade> lsmListeners = new ArrayList<>();
+    public void attachOnSelectionMade(LocationSelectionMade lsm) {
+        lsmListeners.add(lsm);
+    }
+
     public void swapFloor1() throws SQLException {
         removeMarkers();
         currFloor = "01";
@@ -140,7 +155,6 @@ public class HospitalMap extends VBox {
         dropdown.setText("Floor 1");
         mapList.setImage(img1);
     }
-
     public void swapFloor2() throws SQLException {
         removeMarkers();
         currFloor = "02";
@@ -148,7 +162,6 @@ public class HospitalMap extends VBox {
         dropdown.setText("Floor 2");
         mapList.setImage(img2);
     }
-
     public void swapFloor3() throws SQLException {
         removeMarkers();
         currFloor = "03";
@@ -163,7 +176,6 @@ public class HospitalMap extends VBox {
         dropdown.setText("Floor 4");
         mapList.setImage(img4);
     }
-
     public void swapFloor5() throws SQLException {
         currFloor = "05";
         removeMarkers();
@@ -171,8 +183,6 @@ public class HospitalMap extends VBox {
         dropdown.setText("Floor 5");
         mapList.setImage(img5);
     }
-
-
     public void swapFloorL1() throws SQLException {
         currFloor = "L1";
         removeMarkers();
@@ -181,7 +191,6 @@ public class HospitalMap extends VBox {
         dropdown.setText("Lower Floor 1");
         mapList.setImage(imgL1);
     }
-
     public void swapFloorL2() throws SQLException {
         currFloor = "L2";
         removeMarkers();
@@ -199,7 +208,7 @@ public class HospitalMap extends VBox {
         currFloorLoc.clear();
         currFloorNodeID.clear();
         ArrayList<edu.wpi.cs3733.d22.teamW.wDB.entity.Location> locList =
-                locationManager.getAllLocations();
+                LocationManager.getLocationManager().getAllLocations();
         for (int i = 0; i < locList.size(); i++) {
             if (locList.get(i).getFloor().equalsIgnoreCase(currFloor)) {
                 currFloorLoc.add(new edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location(locList.get(i)));
@@ -219,11 +228,8 @@ public class HospitalMap extends VBox {
             circ.setCenterX((currFloorLoc.get(i).getXCoord()));
             circ.setCenterY((currFloorLoc.get(i).getYCoord()));
             circ.setOnMouseClicked((event -> {
-                try {
-                    System.out.println(locationManager.getLocation(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID()).getShortName());
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                Location l = currFloorLoc.get(locDots.indexOf(event.getSource()));
+                lsmListeners.forEach(lsm -> lsm.selectionMade(l));
             }));
             Tooltip T = new Tooltip();
             T.setText(currFloorLoc.get(i).getNodeID());
