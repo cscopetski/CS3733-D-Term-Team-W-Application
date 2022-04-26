@@ -528,7 +528,7 @@ public class MessagingPageController implements Initializable {
         return chatTitle;
     }
 
-    public void onSendButtonClick() {
+    public void onSendButtonClick() throws SQLException {
         if (messageTextField.getText().isEmpty()) {
             return;
         }
@@ -616,7 +616,7 @@ public class MessagingPageController implements Initializable {
         setCurrentChat(newChatID);
     }
 
-    public void messageTextKeyPress(KeyEvent keyEvent) {
+    public void messageTextKeyPress(KeyEvent keyEvent) throws SQLException {
         if (keyEvent.getCode().equals(KeyCode.ENTER)) {
             onSendButtonClick();
         }

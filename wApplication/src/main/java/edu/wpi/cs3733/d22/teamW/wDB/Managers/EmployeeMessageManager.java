@@ -8,9 +8,6 @@ import java.util.ArrayList;
 public class EmployeeMessageManager {
   private EmployeeMessageDao emd;
 
-  // TODO: Fix this (wont work on server cause its local)
-  private static Integer count = 1;
-
   private static EmployeeMessageManager employeeMessageManager = new EmployeeMessageManager();
 
   public static EmployeeMessageManager getEmployeeMessageManager() {
@@ -46,7 +43,6 @@ public class EmployeeMessageManager {
 
   public void addEmployeeMessage(EmployeeMessage em) throws SQLException {
     this.emd.addEmployeeMessage(em);
-    count++;
   }
 
   public void changeEmployeeMessage(EmployeeMessage em) throws SQLException {
@@ -57,7 +53,7 @@ public class EmployeeMessageManager {
     this.emd.deleteEmployeeMessage(messageID);
   }
 
-  public Integer getNextMsgID() {
-    return count;
+  public Integer getNextMsgID() throws SQLException {
+    return this.emd.getMaxID() + 1;
   }
 }
