@@ -51,25 +51,28 @@ public class Main {
             dbController.delete(employee);
         }
 
-        for(Location location : LocationManager.getLocationManager().getAllLocations()) {
-        edu.wpi.cs3733.D22.teamB.api.Location loc = new edu.wpi.cs3733.D22.teamB.api.Location(location.getNodeID(),location.getxCoord(), location.getyCoord(), location.getFloor(), location.getBuilding(), location.getNodeType(), location.getLongName(), location.getShortName());
-        int result = dbController.add(loc);
-        if(result == -1){
-            System.out.println("Failed");
-        }
+        for (Location location : LocationManager.getLocationManager().getAllLocations()) {
+            edu.wpi.cs3733.D22.teamB.api.Location loc = new edu.wpi.cs3733.D22.teamB.api.Location(location.getNodeID(), location.getxCoord(), location.getyCoord(), location.getFloor(), location.getBuilding(), location.getNodeType(), location.getLongName(), location.getShortName());
+            int result = dbController.add(loc);
+            if (result == -1) {
+                System.out.println("Failed");
+            }
         }
 
-        for(Employee employee : EmployeeManager.getEmployeeManager().getAllEmployees()){
-          edu.wpi.cs3733.D22.teamB.api.IPTEmployee itpemployee= new edu.wpi.cs3733.D22.teamB.api.IPTEmployee(employee.getEmployeeID().toString(),employee.getLastName(),employee.getFirstName(), employee.getType().getString(), employee.getType().getString());
-          dbController.add(itpemployee);
+        for (Employee employee : EmployeeManager.getEmployeeManager().getAllEmployees()) {
+            edu.wpi.cs3733.D22.teamB.api.IPTEmployee itpemployee = new edu.wpi.cs3733.D22.teamB.api.IPTEmployee(employee.getEmployeeID().toString(), employee.getLastName(), employee.getFirstName(), employee.getType().getString(), employee.getType().getString());
+            dbController.add(itpemployee);
         }
+
+        for (int i = 1; i <= 14; i++) {
+            try {
+                HighScoreManager.getHighScoreManager().addHighScore(new HighScore(i, 0, 0));
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+
         App.launch(App.class, args);
-    }
 
-    for (int i = 1; i <= 14; i++) {
-      HighScoreManager.getHighScoreManager().addHighScore(new HighScore(i, 0, 0));
     }
-
-    App.launch(App.class, args);
-  }
 }
