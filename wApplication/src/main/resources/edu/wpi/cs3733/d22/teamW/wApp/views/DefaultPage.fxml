@@ -89,7 +89,7 @@
                                         <MenuItem mnemonicParsing="false" onAction="#switchToMapEditor"
                                                   text="View Map"/>
                                         <MenuItem mnemonicParsing="false" onAction="#switchToDashBoard"
-                                                  text="Map dashboard"/>
+                                                  text="Map Dashboard"/>
                                     </items>
                                 </MenuButton>
                                 <Button mnemonicParsing="false" onAction="#exitProgram" prefHeight="30.0"

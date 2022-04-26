@@ -114,7 +114,6 @@ public class RequestTable extends TableView<SR> {
             setStyle("");
           } else if (sr.getEmergency() == 1) {
             setStyle("-fx-text-background-color: RED");
-            System.out.println(sr.toString());
           } else {
             setStyle("");
           }
