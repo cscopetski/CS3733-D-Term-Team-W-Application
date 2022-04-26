@@ -47,6 +47,12 @@ public class HospitalMap extends VBox {
         scrollPane = new ScrollPane();
         dropdown = new MenuButton();
         mapList = new ImageView();
+        scrollGroup = new Group();
+        scaleSlider.setMin(0.9);
+        scaleSlider.setMax(3.0);
+        scaleSlider.setValue(1.0);
+        scrollGroup.scaleXProperty().bind(scaleSlider.valueProperty());
+        scrollGroup.scaleYProperty().bind(scaleSlider.valueProperty());
         F1 = new MenuItem();
         F2 = new MenuItem();
         F3 = new MenuItem();
@@ -54,7 +60,21 @@ public class HospitalMap extends VBox {
         F5 = new MenuItem();
         FL1 = new MenuItem();
         FL2 = new MenuItem();
-        scrollPane.setContent(mapList);
+        F1.setText("Floor 1");
+        F2.setText("Floor 2");
+        F3.setText("Floor 3");
+        F4.setText("Floor 4");
+        F5.setText("Floor 5");
+        FL1.setText("Lower Floor 1");
+        FL2.setText("Lower Floor 2");
+        mapList.setFitHeight(1000);
+        mapList.setFitWidth(1000);
+        scrollPane.setPrefSize(700,700);
+        scrollPane.setPannable(true);
+        scrollPane.setFitToHeight(false);
+        scrollPane.setFitToWidth(false);
+        scrollGroup.getChildren().add(mapList);
+        scrollPane.setContent(scrollGroup);
         dropdown.getItems().add(FL1);
         dropdown.getItems().add(FL2);
         dropdown.getItems().add(F1);
@@ -106,7 +126,12 @@ public class HospitalMap extends VBox {
                 ex.printStackTrace();
             }
         });
-
+        getChildren().add(dropdown);
+        getChildren().add(scrollPane);
+        getChildren().add(scaleSlider);
+        setMaxSize(700,700);
+        //getChildren().add(scrollGroup);
+        swapFloor1();
     }
     public void swapFloor1() throws SQLException {
         removeMarkers();
@@ -194,7 +219,11 @@ public class HospitalMap extends VBox {
             circ.setCenterX((currFloorLoc.get(i).getXCoord()));
             circ.setCenterY((currFloorLoc.get(i).getYCoord()));
             circ.setOnMouseClicked((event -> {
-                currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID();
+                try {
+                    System.out.println(locationManager.getLocation(currFloorLoc.get(locDots.indexOf(event.getSource())).getNodeID()).getShortName());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }));
             Tooltip T = new Tooltip();
             T.setText(currFloorLoc.get(i).getNodeID());

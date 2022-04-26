@@ -732,7 +732,7 @@ public class MapEditorController implements Initializable {
   }
   public void addLocation2(javafx.scene.input.MouseEvent mouseEvent)
           throws SQLException, NonExistingMedEquip {
-    if (interactionState == InteractionStates.Modify) {
+    if (interactionState == InteractionStates.Modify && AccountManager.getInstance().getEmployee().getType().getAccessLevel() == 5) {
       Point p = new Point();
       p.x = (int) mouseEvent.getX();
       p.y = (int) mouseEvent.getY();
