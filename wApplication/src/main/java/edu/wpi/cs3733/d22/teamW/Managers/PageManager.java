@@ -104,6 +104,10 @@ public class PageManager {
             if (isPersistent) {
                 persistentControl = p;
             }
+
+            p.widthProperty().addListener((e, o, n) -> ScaleManager.getInstance().setTrueX(p, o.doubleValue(), n.doubleValue()));
+            p.heightProperty().addListener((e, o, n) -> ScaleManager.getInstance().setTrueY(p, o.doubleValue(), n.doubleValue()));
+
             return p;
         }
 

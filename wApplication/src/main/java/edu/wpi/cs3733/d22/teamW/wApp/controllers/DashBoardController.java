@@ -1,18 +1,14 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
-import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Rectangle;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public class DashBoardController {
   @FXML
