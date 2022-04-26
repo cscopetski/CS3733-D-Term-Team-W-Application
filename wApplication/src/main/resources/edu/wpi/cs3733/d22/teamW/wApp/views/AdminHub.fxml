@@ -70,7 +70,7 @@
                                           <Insets bottom="20.0" />
                                        </VBox.margin>
                                     </Button>
-                                    <Label fx:id="successLabel" style="-fx-font-weight: bold;" styleClass="label-minor" text="Action Successful" textFill="#3ccc63">
+                                    <Label fx:id="successLabel" style="-fx-font-weight: bold; -fx-text-fill: #3ccc63;" styleClass="label-minor" text="Action Successful!" textFill="#3ccc63">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
