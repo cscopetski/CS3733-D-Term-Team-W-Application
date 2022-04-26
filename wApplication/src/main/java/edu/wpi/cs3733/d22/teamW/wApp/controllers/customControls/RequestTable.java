@@ -17,17 +17,6 @@ public class RequestTable extends TableView<SR> {
     super();
     getStylesheets().add("edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/Standard.css");
 
-    setRowFactory((TableView<SR> tv) -> new TableRow<>() {
-      @Override
-      protected void updateItem(SR sr, boolean empty) {
-        super.updateItem(sr, empty);
-        if (sr != null && sr.getEmergency() == 1) {
-          getStyleClass().add("emergency-row");
-          //setStyle("-fx-text-background-color: RED");
-        }
-      }
-    });
-
     getColumns()
         .addAll(
             createColumn("Request ID", "RequestID"),
@@ -106,10 +95,23 @@ public class RequestTable extends TableView<SR> {
           sr = new InternalTransportSR(r);
           break;
       }
+
       getItems().add(sr);
+
     }
-    //markEmergencies();
     getSelectionModel().clearSelection();
+
+    setRowFactory((TableView<SR> tv) -> new TableRow<>() {
+      @Override
+      protected void updateItem(SR sr, boolean empty) {
+        super.updateItem(sr, empty);
+        if (!empty && sr != null && sr.getEmergency() == 1) {
+          getStyleClass().add("emergency-row");
+        }else{
+          getStyleClass().remove("emergency-row");
+        }
+      }
+    });
   }
 
   public SR getSelection() {
