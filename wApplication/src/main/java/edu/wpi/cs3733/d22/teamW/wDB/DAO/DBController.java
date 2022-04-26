@@ -57,6 +57,8 @@ public class DBController {
       // *ORDER MATTERS BECAUSE OF FOREIGN KEYS*
       ExternalTransportRequestDao externalTransportRequestDao = new ExternalTransportRequestDaoImpl(statement);
       InternalPatientTransportationRequestDao internalPatientTransportationRequestDao = new InternalPatientTransportationRequestDaoImpl(statement);
+      HighScoreDao highScoreDao = new HighScoreDaoImpl(statement);
+      UnreadMessageDao unreadMessageDao = new UnreadMessageDaoImpl(statement);
       EmployeeMessageDao employeeMessageDao = new EmployeeMessageDaoImpl(statement);
       LanguageRequestDao languageRequestDao = new LanguageRequestDaoImpl(statement);
       SecurityRequestDao securityRequestDao = new SecurityRequestDaoImpl(statement);
@@ -76,6 +78,7 @@ public class DBController {
       LanguageDao languageDao = new LanguageDaoImpl(statement);
 
       // Assign Daos to Managers
+      HighScoreManager.getHighScoreManager().setHighScoreDao(highScoreDao);
       EmployeeManager.getEmployeeManager().setEmployeeDao(employeeDao);
       LocationManager.getLocationManager().setLocationDao(locationDao);
       MedEquipManager.getMedEquipManager().setMedEquipDao(medEquipDao);
@@ -121,6 +124,7 @@ public class DBController {
       ((LanguageRequestDaoImpl) languageRequestDao).createTable();
       ((ExternalTransportRequestDaoImpl) externalTransportRequestDao).createTable();
       ((InternalPatientTransportationRequestDaoImpl)internalPatientTransportationRequestDao).createTable();
+      ((HighScoreDaoImpl) highScoreDao).createTable();
 
     } catch (SQLException e) {
       System.out.println("Table Creation Failed");

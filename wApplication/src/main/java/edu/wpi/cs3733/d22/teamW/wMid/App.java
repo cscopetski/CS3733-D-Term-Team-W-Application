@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wMid;
 
+import edu.wpi.cs3733.d22.teamW.Managers.BackgroundManager;
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
@@ -51,6 +52,7 @@ public class App extends Application {
             new Image(
                 getClass()
                     .getResourceAsStream("/edu/wpi/cs3733/d22/teamW/wApp/assets/mgb_logo.png")));
+
 
     WindowManager.getInstance().setScene("DefaultPage.fxml");
   }

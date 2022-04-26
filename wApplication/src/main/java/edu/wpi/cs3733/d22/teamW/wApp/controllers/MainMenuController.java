@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Circle;
+import org.apache.derby.iapi.store.raw.Page;
 
 public class MainMenuController implements Initializable {
 
@@ -19,6 +20,13 @@ public class MainMenuController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
+    PageManager.getInstance().attachOnLoad(PageManager.Pages.MainMenu, this::onLoad);
+    PageManager.getInstance().attachOnUnload(PageManager.Pages.MainMenu, this::onUnload);
+  }
+
+  private void onLoad() {
+    BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.HospitalImage.getContent());
+
     newMessagesCircle.setVisible(false);
     try {
       if (EmployeeMessageManager.getEmployeeMessageManager().countUnreadMessagesAs(
@@ -28,16 +36,10 @@ public class MainMenuController implements Initializable {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+  }
 
-    BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.HospitalImage);
-    PageManager.getInstance()
-        .attachPageChangeListener(
-            (o, n) -> {
-              if (o == PageManager.Pages.MainMenu) {
-                BackgroundManager.getInstance()
-                    .setContent(BackgroundManager.DefaultBackgrounds.White);
-              }
-            });
+  private void onUnload() {
+    BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.Shapes.getContent());
   }
 
   public void switchToRequestHub() {

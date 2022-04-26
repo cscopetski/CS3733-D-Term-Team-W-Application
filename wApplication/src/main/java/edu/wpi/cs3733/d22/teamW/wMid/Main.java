@@ -9,6 +9,9 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.HighScoreManager;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.HighScore;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 
@@ -62,4 +65,11 @@ public class Main {
         }
         App.launch(App.class, args);
     }
+
+    for (int i = 1; i <= 14; i++) {
+      HighScoreManager.getHighScoreManager().addHighScore(new HighScore(i, 0, 0));
+    }
+
+    App.launch(App.class, args);
+  }
 }

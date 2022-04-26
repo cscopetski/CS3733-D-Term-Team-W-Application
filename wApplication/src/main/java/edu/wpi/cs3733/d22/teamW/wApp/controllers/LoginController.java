@@ -7,6 +7,7 @@ import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.wDB.CSVController;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import java.net.URL;
 import java.sql.SQLException;
@@ -28,21 +29,68 @@ public class LoginController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle rb) {
-    BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.HospitalImage);
+    PageManager.getInstance().attachOnLoad(PageManager.Pages.Login, this::onLoad);
+    PageManager.getInstance().attachOnUnload(PageManager.Pages.Login, this::onUnload);
+  }
+
+  private void onLoad() {
+    BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.HospitalImage.getContent());
     BackgroundManager.getInstance().blur();
     MenuBarManager.getInstance().DisableMenuBar();
-    MenuBarManager.getInstance().setMenuBarVisible(false);
+    //PageManager.getInstance().clearAllHistory();
     switchServer.setText("Embedded");
+  }
+
+  private void onUnload() {
+    BackgroundManager.getInstance().unBlur();
+    MenuBarManager.getInstance().EnableMenuBar();
+    PageManager.getInstance().clearAllHistory();
   }
 
   Alert emptyFields =
       new Alert(
           Alert.AlertType.ERROR,
-          "There are required fields empty" + " !",
+          "There are required fields empty !",
           ButtonType.OK,
           ButtonType.CANCEL);
 
   public void login() throws SQLException {
+    if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
+      if (TextEntryChecker.check(username.getText())
+              && TextEntryChecker.check(password.getText())) {
+        illegalCharacter.setVisible(false);
+        existCase.setVisible(false);
+        matchCase.setVisible(false);
+        Employee employee = EmployeeManager.getEmployeeManager().login(username.getText(), password.getText());
+        if (employee != null) {
+
+
+          AccountManager.getInstance()
+                  .initialize(employee);
+          MenuBarManager.getInstance().EnableMenuBar();
+          BackgroundManager.getInstance().unBlur();
+          PageManager.getInstance().loadPage(PageManager.Pages.MainMenu);
+          username.clear();
+          password.clear();
+        }
+
+
+
+        else if (!EmployeeManager.getEmployeeManager().usernameExists(username.getText())) {
+          existCase.setVisible(true);
+        } else {
+          matchCase.setVisible(true);
+        }
+      } else {
+        matchCase.setVisible(false);
+        illegalCharacter.setVisible(true);
+      }
+    } else {
+      emptyFields.show();
+    }
+  }
+
+  /*public void login() throws SQLException {
     if (!username.getText().isEmpty() && !password.getText().isEmpty()) {
       if (TextEntryChecker.check(username.getText())
           && TextEntryChecker.check(password.getText())) {
@@ -53,10 +101,7 @@ public class LoginController implements Initializable {
             .passwordMatch(username.getText(), password.getText())) {
           AccountManager.getInstance()
               .initialize(EmployeeManager.getEmployeeManager().getEmployee(username.getText()));
-          MenuBarManager.getInstance().EnableMenuBar();
-          BackgroundManager.getInstance().unBlur();
           PageManager.getInstance().loadPage(PageManager.Pages.MainMenu);
-          MenuBarManager.getInstance().setMenuBarVisible(true);
           username.clear();
           password.clear();
         } else if (!EmployeeManager.getEmployeeManager().usernameExists(username.getText())) {
@@ -71,7 +116,7 @@ public class LoginController implements Initializable {
     } else {
       emptyFields.show();
     }
-  }
+  }*/
 
   public void onEnter(ActionEvent actionEvent) throws SQLException {
     login();
