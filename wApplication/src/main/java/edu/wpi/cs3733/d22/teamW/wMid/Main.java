@@ -61,13 +61,13 @@ public class Main {
 //            dbController.add(itpemployee);
 //        }
 //
-//        for (int i = 1; i <= 14; i++) {
-//            try {
-//                HighScoreManager.getHighScoreManager().addHighScore(new HighScore(i, 0, 0));
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        for (int i = 1; i <= EmployeeManager.getEmployeeManager().getAllEmployees().size(); i++) {
+           try {
+                HighScoreManager.getHighScoreManager().addHighScore(new HighScore(i, 0, 0));
+           } catch (SQLException e) {
+                e.printStackTrace();
+           }
+       }
 
         App.launch(App.class, args);
     }

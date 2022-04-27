@@ -2,7 +2,9 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.HighScoreManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.HighScore;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -43,9 +45,10 @@ public class CreateNewEmployee {
           new Alert(Alert.AlertType.WARNING, "Please fill in all the fields", ButtonType.OK);
       warningAlert.showAndWait();
     } else {
+      int newID = EmployeeManager.getEmployeeManager().getNewEmpID();
       Employee employee =
           new Employee(
-              EmployeeManager.getEmployeeManager().getNewEmpID()  ,
+              newID,
               firstNametxt.getText(),
               lastNametxt.getText(),
               typebox.getSelectionModel().getSelectedItem().toString(),
@@ -55,6 +58,7 @@ public class CreateNewEmployee {
               genUsername(),
               firstNametxt.getText());
       em.addEmployee(employee);
+      HighScoreManager.getHighScoreManager().addHighScore(new HighScore(newID, 0 ,0));
       ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
       WindowManager.getInstance().getPrimaryStage().getScene().getRoot().setEffect(null);
       WindowManager.getInstance().storeData("success", true);
