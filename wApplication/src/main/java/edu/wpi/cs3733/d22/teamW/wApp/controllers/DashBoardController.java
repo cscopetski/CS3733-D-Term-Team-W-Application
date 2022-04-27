@@ -3,6 +3,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.AlertInfoWrapper;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
 import javafx.collections.FXCollections;
@@ -48,8 +49,9 @@ public class DashBoardController {
   double[] cleanRec = {0,0,0,0,0,0,0}; // 0- F1, 1 - F2, 2 - F3, 3 - F4, 4 - F5, 5 - LL1, 6 - LL2
   private MedEquipManager equipController = MedEquipManager.getMedEquipManager();
   private LocationManager locationManager = LocationManager.getLocationManager();
-
-  public void  initialize() throws SQLException {
+  ArrayList<AlertInfoWrapper> alertEquipList;
+  public void  initialize() throws Exception {
+    alertEquipList = MedEquipManager.getMedEquipManager().check();
     sortByType();
     calculateProgressTotal();
     updateAlert();
@@ -69,6 +71,7 @@ public class DashBoardController {
     AlertPump.setVisible(false);
     AlertRec.setVisible(false);
 
+    if(alertEquipList)
 
   }
 

@@ -20,5 +20,8 @@ public class AlertInfoWrapper {
         this.location = location;
         this.alertType = alertType;
     }
+    public ArrayList<String> getListEquip(){
+        return listOfEquipments;
+    }
 
 }
