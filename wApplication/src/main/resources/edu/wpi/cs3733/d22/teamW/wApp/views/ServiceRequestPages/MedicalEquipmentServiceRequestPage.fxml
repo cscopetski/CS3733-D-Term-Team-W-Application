@@ -3,90 +3,107 @@
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput?>
 <?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox fillWidth="false" spacing="50.0" style="-fx-alignment: center;" stylesheets="@../../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicalEquipmentServiceRequestController">
-        <children>
-      <VBox alignment="CENTER" fillWidth="false">
-         <children>
-                  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                      <image>
-                          <Image url="@../../assets/Icons/Icons-04.png" />
-                      </image>
-                  </ImageView>
-                  <Label text="Medical Equipment" textAlignment="CENTER">
-                      <font>
-                          <Font name="System Bold" size="30.0" />
-                      </font>
-                  </Label>
-                  <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Select equipment from the dropdown menu." textAlignment="CENTER" wrappingWidth="265.1999969482422" />
-         </children>
-      </VBox>
-      <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
-         <children>
-            <Label styleClass="label-major" text="INFO" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <VBox alignment="CENTER" fillWidth="false">
-               <children>
+<HBox style="-fx-alignment: center;" stylesheets="@../../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MedicalEquipmentServiceRequestController">
+    <children>
+        <VBox alignment="CENTER">
+            <children>
+                <Pane>
+                    <children>
+                        <PieChart fx:id="requestChart" stylesheets="@../../CSS/MapEditorPage/mapEditor.css" />
+                    </children>
+                </Pane>
+            </children>
+        </VBox>
+        <VBox fillWidth="false" spacing="50.0" style="-fx-alignment: center;">
+            <children>
+                <HBox prefHeight="100.0" prefWidth="200.0" />
+                <VBox alignment="CENTER" fillWidth="false">
+                    <children>
+                        <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@../../assets/Icons/Icons-04.png" />
+                            </image>
+                        </ImageView>
+                        <Label text="Medical Equipment" textAlignment="CENTER">
+                            <font>
+                                <Font name="System Bold" size="30.0" />
+                            </font>
+                        </Label>
+                        <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Select equipment from the dropdown menu." textAlignment="CENTER" wrappingWidth="265.1999969482422" />
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
+                    <children>
+                        <Label styleClass="label-major" text="INFO" textFill="WHITE">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <VBox alignment="CENTER" fillWidth="false">
+                            <children>
                                 <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Location:" textFill="WHITE">
                                     <font>
                                         <Font size="14.0" />
                                     </font>
                                 </Label>
-                  <AutoCompleteInput fx:id="locationComboBox" prefWidth="150.0" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" fillWidth="false">
-               <children>
-                  <Label styleClass="label-minor" text="Employee Name:" textFill="WHITE">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <AutoCompleteInput fx:id="employeeNameComboBox" prefWidth="150.0" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" fillWidth="false">
-               <children>
-                  <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Equipment:" textFill="WHITE">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <AutoCompleteInput fx:id="equipmentSelection" prefWidth="150.0" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" fillWidth="false">
-               <children>
-                  <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
-                  <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" fillWidth="false">
-               <children>
-                              <Button mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
-                  <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-               <VBox.margin>
-                  <Insets top="25.0" />
-               </VBox.margin>
-            </VBox>
+                                <AutoCompleteInput fx:id="locationComboBox" prefWidth="150.0" />
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" fillWidth="false">
+                            <children>
+                                <Label styleClass="label-minor" text="Employee Name:" textFill="WHITE">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <AutoCompleteInput fx:id="employeeNameComboBox" prefWidth="150.0" />
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" fillWidth="false">
+                            <children>
+                                <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Equipment:" textFill="WHITE">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <AutoCompleteInput fx:id="equipmentSelection" prefWidth="150.0" />
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" fillWidth="false">
+                            <children>
+                                <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
+                                <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" />
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" fillWidth="false">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
+                                <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <VBox.margin>
+                                <Insets top="25.0" />
+                            </VBox.margin>
+                        </VBox>
                         <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="View Request List" />
-         </children>
-      </VBox>
-        </children>
-    </VBox>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+        <VBox />
+    </children>
+</HBox>

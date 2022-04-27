@@ -27,6 +27,8 @@ public class CSVController {
   final String securityRequestFileName = "SecurityRequest.csv";
   final String languageRequestFileName = "LanguageRequests.csv";
   final String userImageFileName = "UserImages.csv";
+  final String internalPatientTransportationRequestFileName = "InternalPatientTransportationRequests.csv";
+  final String externalTransporationRequestFileName = "ExternalTransportationRequests.csv";
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
@@ -51,6 +53,8 @@ public class CSVController {
     insertSecurityRequestTable(importCSV(securityRequestFileName));
     insertLanguageRequestTable(importCSV(languageRequestFileName));
     insertUserImageTable(importCSV(userImageFileName));
+    insertInternalPatientTransportationRequestTable(importCSV(internalPatientTransportationRequestFileName));
+    insertExternatlTransportationRequestTable(importCSV(externalTransporationRequestFileName));
   }
 
   public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
@@ -347,10 +351,30 @@ public class CSVController {
   }
 
   private void insertUserImageTable(ArrayList<String[]> tokens) throws SQLException {
-    for(String[] s : tokens) {
+    for (String[] s : tokens) {
       ArrayList<String> fields = new ArrayList<>();
       fields.addAll(Arrays.asList(s));
       UserImageManager.getUserImageManager().addUserImage(new UserImage(fields));
+    }
+  }
+
+  private void insertInternalPatientTransportationRequestTable(ArrayList<String[]> tokens) throws Exception {
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+      InternalPatientTransportationRequest gdr =
+              (InternalPatientTransportationRequest) requestFactory.getRequest(RequestType.InternalPatientTransportationRequest, fields, true);
+    }
+  }
+
+  private void insertExternatlTransportationRequestTable(ArrayList<String[]> tokens) throws Exception {
+
+    for (String[] s : tokens) {
+      ArrayList<String> fields = new ArrayList<>();
+      fields.addAll(Arrays.asList(s));
+      ExternalTransportRequest gdr =
+              (ExternalTransportRequest) requestFactory.getRequest(RequestType.ExternalTransportRequest, fields, true);
     }
   }
 }
