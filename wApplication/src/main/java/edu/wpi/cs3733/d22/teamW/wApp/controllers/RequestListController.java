@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
 import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.FilterControl;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
@@ -127,12 +128,19 @@ public class RequestListController implements Initializable {
   }
 
   public void confirm(ActionEvent event) {
+
     try {
+      String nodeID = rt.getSelection().getNodeID();
+      if(rt.getSelection().getRequestType().equals(RequestType.CleaningRequest)){
+        WindowManager.getInstance().openWindow("popUpViews/LocationChoice.fxml");
+        nodeID = (String) WindowManager.getInstance().getData("LocationChoice");
+        System.out.println(nodeID);
+      }
       RequestFacade.getRequestFacade()
           .completeRequest(
               rt.getSelection().getRequestID(),
               rt.getSelection().getRequestType(),
-              rt.getSelection().getNodeID());
+              nodeID);
     } catch (CannotComplete c) {
       Alert alert =
           new Alert(
