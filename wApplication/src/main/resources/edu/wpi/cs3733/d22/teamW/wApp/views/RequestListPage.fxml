@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER" spacing="50.0" style="-fx-alignment: center;" stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.RequestListController">
+<VBox alignment="CENTER" fillWidth="false" spacing="50.0" style="-fx-alignment: center;" stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.RequestListController">
     <children>
-        <VBox alignment="CENTER">
+        <VBox alignment="CENTER" fillWidth="false">
             <children>
                 <Label style="-fx-alignment: center;" text="Request List">
                     <font>
@@ -23,7 +23,7 @@
                 <Label style="-fx-alignment: center;" text="Use the filter to sort requests. Select request to cancel it." textFill="#013895" />
             </children>
         </VBox>
-        <HBox alignment="CENTER" fillHeight="true">
+        <HBox alignment="CENTER">
             <children>
                 <VBox alignment="CENTER">
                     <children>
@@ -32,7 +32,7 @@
                                 <Insets />
                             </VBox.margin>
                         </Label>
-                        <RequestTable fx:id="rt" minWidth="600.0" maxWidth="1000.0" minHeight="200" prefHeight="800">
+                        <RequestTable fx:id="rt" minHeight="300.0" prefHeight="400.0" prefWidth="600.0">
                             <VBox.margin>
                                 <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
                             </VBox.margin>
@@ -42,19 +42,19 @@
                         <Insets right="20.0" />
                     </HBox.margin>
                 </VBox>
-                <VBox alignment="CENTER" spacing="10.0">
+                <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
                     <children>
                         <Label styleClass="label-major" text="FILTER" textFill="WHITE">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <CheckBox fx:id="emergencyFilter" mnemonicParsing="false" text="Only show emergency requests" textAlignment="CENTER">
+                        <CheckBox fx:id="emergencyFilter" mnemonicParsing="false" text="Only Show Emergency Requests" textAlignment="CENTER">
                             <font>
                                 <Font name="Gill Sans MT" size="16.0" />
                             </font>
                         </CheckBox>
-                        <FilterControl fx:id="filter" prefHeight="224.0" prefWidth="300" style="-fx-background-color: white; -fx-border-color: #013895" />
+                        <FilterControl fx:id="filter" minHeight="150.0" minWidth="150.0" style="-fx-background-color: white; -fx-border-color: #013895" />
                         <Label styleClass="label-major" text="MORE INFO" textFill="WHITE">
                             <font>
                                 <Font size="14.0" />
@@ -63,12 +63,12 @@
                         <TextArea fx:id="moreInfo" prefColumnCount="20" scaleZ="0.0" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" />
                     </children>
                     <HBox.margin>
-                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                        <Insets />
                     </HBox.margin>
                 </VBox>
             </children>
         </HBox>
-        <HBox fx:id="selectionButtons" alignment="CENTER" spacing="10" visible="false">
+        <HBox fx:id="selectionButtons" alignment="CENTER" fillHeight="false" spacing="10" visible="false">
             <Button mnemonicParsing="false" onAction="#start" text="Start" />
             <Button mnemonicParsing="false" onAction="#confirm" text="Complete" />
             <Button mnemonicParsing="false" onAction="#cancel" text="Cancel" />

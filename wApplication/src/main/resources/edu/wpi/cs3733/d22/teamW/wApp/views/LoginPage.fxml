@@ -7,100 +7,85 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane style="-fx-alignment: center;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.LoginController">
-   <children>
-      <AnchorPane styleClass="body" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+<BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.LoginController">
+   <center>
+      <VBox alignment="CENTER" maxHeight="300.0" maxWidth="300.0" prefHeight="300.0" prefWidth="300.0" styleClass="pane" stylesheets="@../CSS/LoginPage/paneLogin.css">
          <children>
-            <BorderPane layoutX="215.0" layoutY="100.0" prefHeight="300.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <center>
-                  <Pane maxHeight="300.0" maxWidth="300.0" minHeight="300.0" minWidth="300.0" prefHeight="300.0" prefWidth="300.0" styleClass="pane" stylesheets="@../CSS/LoginPage/paneLogin.css" BorderPane.alignment="CENTER">
-                     <BorderPane.margin>
-                        <Insets bottom="100.0" left="200.0" right="200.0" top="100.0" />
-                     </BorderPane.margin>
-                     <children>
-                        <Button fx:id="loginButton" layoutX="200.0" layoutY="250.0" mnemonicParsing="false" onAction="#login" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Login" />
-                        <VBox alignment="CENTER" prefHeight="240.0" prefWidth="300.0">
-                           <children>
-                              <Label alignment="CENTER" maxWidth="225.0" prefWidth="225.0" text="Welcome">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label maxWidth="225.0" prefWidth="225.0" text="Username">
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="username" maxWidth="250.0" onAction="#onEnter" prefWidth="250.0" styleClass="text-field" stylesheets="@../CSS/UniversalCSS/Standard.css">
-                                 <VBox.margin>
-                                    <Insets left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </TextField>
-                              <Label fx:id="existCase" alignment="CENTER_RIGHT" prefWidth="225.0" text="Username does not exist." textFill="RED" visible="false">
-                                 <VBox.margin>
-                                    <Insets bottom="10.0" />
-                                 </VBox.margin>
-                              </Label>
-                              <Label maxWidth="225.0" prefWidth="225.0" text="Password">
-                                 <font>
-                                    <Font name="System Bold" size="16.0" />
-                                 </font>
-                              </Label>
-                              <PasswordField fx:id="password" maxWidth="250.0" onAction="#onEnter" prefWidth="250.0" styleClass="text-field" stylesheets="@../CSS/UniversalCSS/Standard.css">
-                                 <VBox.margin>
-                                    <Insets left="10.0" right="10.0" top="10.0" />
-                                 </VBox.margin>
-                              </PasswordField>
-                              <Pane>
-                                 <children>
-                                    <Label fx:id="illegalCharacter" layoutX="25.0" layoutY="1.0" maxWidth="263.0" prefHeight="17.0" prefWidth="238.0" text="Illegal Characters: = ' , &quot; , ¬ , \ , - , ; , [ , ] , { , } , : , , , ." textFill="RED" visible="false">
-                                       <font>
-                                          <Font name="Tahoma" size="9.0" />
-                                       </font>
-                                    </Label>
-                                 </children>
-                              </Pane>
-                              <Label fx:id="matchCase" alignment="CENTER_RIGHT" prefWidth="225.0" text="Password does not match username." textFill="RED" visible="false" />
-                           </children>
-                        </VBox>
-                     </children>
-                  </Pane>
-               </center>
-               <bottom>
-                  <HBox prefHeight="42.0" prefWidth="634.0" BorderPane.alignment="BOTTOM_LEFT">
-                     <Label layoutX="28.0" layoutY="6.0" style="-fx-padding: 2px 0 0 10px" text="Server: " textFill="WHITE">
-                        <font>
-                           <Font name="System Bold" size="15.0" />
-                        </font>
-                     </Label>
-                     <Button fx:id="switchServer" layoutX="28.0" layoutY="30.0" onAction="#updateSwitchingServer" prefHeight="25.0" prefWidth="97.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
-                  </HBox>
-               </bottom>
-               <top>
-                  <ImageView fitHeight="238.0" fitWidth="635.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
-                     <image>
-                        <Image url="@../assets/HospitalLogo.png" />
-                     </image>
-                     <BorderPane.margin>
-                        <Insets />
-                     </BorderPane.margin>
-                  </ImageView>
-               </top>
-            </BorderPane>
+            <Label alignment="CENTER" maxWidth="225.0" prefWidth="225.0" text="Welcome">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label maxWidth="225.0" prefWidth="225.0" text="Username:">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="username" maxWidth="250.0" onAction="#onEnter" prefWidth="250.0" styleClass="text-field" stylesheets="@../CSS/UniversalCSS/Standard.css">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </TextField>
+            <Label fx:id="existCase" alignment="CENTER_RIGHT" prefWidth="225.0" text="Username does not exist." textFill="RED" visible="false">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+            </Label>
+            <Label maxWidth="225.0" prefWidth="225.0" text="Password:">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <PasswordField fx:id="password" maxWidth="250.0" onAction="#onEnter" prefWidth="250.0" styleClass="text-field" stylesheets="@../CSS/UniversalCSS/Standard.css">
+               <VBox.margin>
+                  <Insets left="10.0" right="10.0" top="10.0" />
+               </VBox.margin>
+            </PasswordField>
+            <Pane>
+               <children>
+                  <Label fx:id="illegalCharacter" layoutX="25.0" layoutY="1.0" maxWidth="263.0" prefHeight="17.0" prefWidth="238.0" text="Illegal Characters: = ' , &quot; , ¬ , \ , - , ; , [ , ] , { , } , : , , , ." textFill="RED" visible="false">
+                     <font>
+                        <Font name="Tahoma" size="9.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Label fx:id="matchCase" alignment="CENTER_RIGHT" prefWidth="225.0" text="Password does not match username." textFill="RED" visible="false" />
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#login" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Login" />
          </children>
-      </AnchorPane>
-   </children>
-</AnchorPane>
+      </VBox>
+   </center>
+   <bottom>
+      <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="5.0" BorderPane.alignment="BOTTOM_LEFT">
+         <Label layoutX="28.0" layoutY="6.0" style="-fx-padding: 2px 0 0 10px" text="Server: " textFill="WHITE">
+            <font>
+               <Font name="System Bold" size="15.0" />
+            </font>
+         </Label>
+         <Button fx:id="switchServer" layoutX="28.0" layoutY="30.0" onAction="#updateSwitchingServer" prefHeight="25.0" prefWidth="97.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+      </HBox>
+   </bottom>
+   <top>
+      <ImageView fitHeight="238.0" fitWidth="635.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+         <image>
+            <Image url="@../assets/HospitalLogo.png" />
+         </image>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </ImageView>
+   </top>
+</BorderPane>
