@@ -264,6 +264,12 @@ public class EmployeeDaoSecureImpl implements EmployeeDao {
     } catch (InvalidKeySpecException e) {
       e.printStackTrace();
     }
+    ResultSet getPassword = statement.executeQuery(String.format("SELECT * FROM EMPLOYEES WHERE USERNAME = '%s'", username));
+    getPassword.next();
+    String systemPassword = getPassword.getString("PASSWORD");
+    if(!systemPassword.equals(password)){
+      return null;
+    }
     ResultSet rs =
             statement.executeQuery(
                     String.format(
