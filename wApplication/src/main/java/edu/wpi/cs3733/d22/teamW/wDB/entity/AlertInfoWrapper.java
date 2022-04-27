@@ -11,11 +11,11 @@ import java.util.ArrayList;
 @Setter
 public class AlertInfoWrapper {
 
-    ArrayList<String> listOfEquipments;
+    ArrayList<MedEquip> listOfEquipments;
     String location;
     EquipAlertType alertType;
 
-    public AlertInfoWrapper(ArrayList<String> listOfEquipments, String location, EquipAlertType alertType){
+    public AlertInfoWrapper(ArrayList<MedEquip> listOfEquipments, String location, EquipAlertType alertType){
         this.listOfEquipments = listOfEquipments;
         this.location = location;
         this.alertType = alertType;

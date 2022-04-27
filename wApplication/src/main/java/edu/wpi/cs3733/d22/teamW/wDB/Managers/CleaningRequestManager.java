@@ -215,17 +215,17 @@ public class CleaningRequestManager {
           }
         }
         if (counter >= 6) {
-          ArrayList<String> listOfEquipment = new ArrayList<>();
+          ArrayList<MedEquip> listOfEquipment = new ArrayList<>();
           for (CleaningRequest cleaningRequest : cleaningRequests1) {
-            listOfEquipment.add(cleaningRequest.getItemID());
+            listOfEquipment.add(MedEquipManager.getMedEquipManager().getMedEquip(cleaningRequest.getItemID()));
           }
           AlertInfoWrapper alertInfoWrapper1 = new AlertInfoWrapper(listOfEquipment, location, EquipAlertType.SixDirtyBeds);
           listOfAlerts.add(alertInfoWrapper1);
         }
         if (counter2 >= 10) {
-          ArrayList<String> listOfEquipment2 = new ArrayList<>();
+          ArrayList<MedEquip> listOfEquipment2 = new ArrayList<>();
           for (CleaningRequest cleaningRequest : cleaningRequests2) {
-            listOfEquipment2.add(cleaningRequest.getItemID());
+            listOfEquipment2.add(MedEquipManager.getMedEquipManager().getMedEquip(cleaningRequest.getItemID()));
           }
           AlertInfoWrapper alertInfoWrapper2 = new AlertInfoWrapper(listOfEquipment2, location, EquipAlertType.MoreTenDirtyInP);
           listOfAlerts.add(alertInfoWrapper2);
@@ -237,11 +237,11 @@ public class CleaningRequestManager {
                     .getAllMedEquip(MedEquipType.InfusionPump, MedEquipStatus.Clean);
     ArrayList<Location> locations = LocationManager.getLocationManager().getLocationClean();
     for (Location location : locations) {
-      ArrayList<String> listOfEquipment3 = new ArrayList<>();
+      ArrayList<MedEquip> listOfEquipment3 = new ArrayList<>();
       Integer counter = 0;
       for (MedEquip med : medEquipArrayList) {
         if (med.getNodeID().equals(location.getNodeID())) {
-          listOfEquipment3.add(med.getMedID());
+          listOfEquipment3.add(med);
           counter++;
         }
       }
