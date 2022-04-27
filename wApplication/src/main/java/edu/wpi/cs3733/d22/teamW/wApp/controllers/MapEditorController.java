@@ -74,7 +74,7 @@ public class MapEditorController implements Initializable {
   ArrayList<Circle> eqDots = new ArrayList<>();
   ArrayList<Circle> reqDots = new ArrayList<>();
   Integer size = 0;
-  private String currFloor = "0";
+  private String currFloor = "01";
   // Database controllers
   private MedEquipManager equipController = MedEquipManager.getMedEquipManager();
   private LocationManager locationManager = LocationManager.getLocationManager();

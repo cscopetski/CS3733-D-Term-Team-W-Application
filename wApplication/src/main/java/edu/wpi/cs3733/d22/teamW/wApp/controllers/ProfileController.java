@@ -56,7 +56,10 @@ public class ProfileController implements Initializable {
         id.setText(employee.getEmployeeID().toString());
         type.setText(employee.getType().getString());
         email.setText(employee.getEmail());
-        phoneNumber.setText(employee.getPhoneNumber());
+        phoneNumber.setText(
+                employee.getPhoneNumber().substring(0,5) + '-'
+        + employee.getPhoneNumber().substring(5,8) + '-'
+        + employee.getPhoneNumber().substring(8));
         address.setText(employee.getAddress());
         System.out.println("Set all employee items like name and contact info");
 
