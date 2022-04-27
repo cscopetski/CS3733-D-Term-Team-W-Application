@@ -3,10 +3,13 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
@@ -28,6 +31,7 @@ public class DashBoardController {
   public Label pumpFloorDirty;
   public Label recFloorClean;
   public Label recFloorDirty;
+  public TableView<medEquip> detailsTable;
   double[] totalEquip = {0,0,0,0}; // 0 - Bed, 1 - XRay, 2 - Pump, 3 - Recliner
   ArrayList<MedEquip> totalEquipAL = new ArrayList<>();
   ArrayList<ArrayList<MedEquip>> equipByType = new ArrayList<>(); // 0 - Bed, 1 - XRay, 2 - Pump, 3 - Recliner
@@ -42,7 +46,7 @@ public class DashBoardController {
   public void  initialize() throws SQLException {
     sortByType();
     calculateProgressTotal();
-
+    detailsTable.getItems().add(new medEquip("Test","Test","Test","Test"));
 
   }
   public void calculateProgressTotal() throws SQLException {
@@ -53,6 +57,30 @@ public class DashBoardController {
     piRec.setProgress(cleanTotalEquip[3]/totalEquip[3]);
 
   }
+  public void updateTableDetails(int floor){
+    ArrayList<medEquip> insertEqList = convertObservableMedEquipValueForTable(floor);
+    detailsTable.getItems().clear();
+    detailsTable.getItems().addAll(insertEqList);
+  }
+
+  public ArrayList<medEquip> convertObservableMedEquipValueForTable(int floor){
+    int i = floor - 1;
+    ArrayList<medEquip> returnList = new ArrayList<>();
+      for(int j = 0; j < equipAtFloor.get(i).size(); j ++){
+        for(int k = 0; k < equipAtFloor.get(i).get(j).size(); k++){
+          returnList.add(
+                  new medEquip(
+                          equipAtFloor.get(i).get(j).get(k).getMedID(),
+                          "03",
+                          equipAtFloor.get(i).get(j).get(k).getNodeID(),
+                          equipAtFloor.get(i).get(j).get(k).getStatus().getString()));
+        }
+      }
+
+    return returnList;
+  }
+
+
   public void sortByType() throws SQLException {
     ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
     ArrayList<MedEquip> beds = new ArrayList<>();
@@ -232,22 +260,27 @@ public class DashBoardController {
   @FXML
    void F5Click(ActionEvent actionEvent) {
     displaySummary(5);
+    updateTableDetails(5);
   }
   @FXML
    void F4Click(ActionEvent actionEvent) {
     displaySummary(4);
+    updateTableDetails(4);
   }
   @FXML
    void F3Click(ActionEvent actionEvent) {
     displaySummary(3);
+    updateTableDetails(3);
   }
   @FXML
    void F2Click(ActionEvent actionEvent) {
     displaySummary(2);
+    updateTableDetails(2);
   }
   @FXML
    void F1Click(ActionEvent actionEvent) {
     displaySummary(1);
+    updateTableDetails(1);
   }
 
   public void LL1Click(ActionEvent actionEvent) {

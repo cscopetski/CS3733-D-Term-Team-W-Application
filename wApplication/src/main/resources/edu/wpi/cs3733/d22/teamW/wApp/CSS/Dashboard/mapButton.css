@@ -15,9 +15,9 @@
 
 .button:hover {
     -fx-font-weight: bold;
-    -fx-background-color: white;
+    -fx-background-color: #013895;
     -fx-font-size: 14px;
-    -fx-text-fill: #013895;
+    -fx-text-fill: white;
     -fx-cursor: hand;
 
 }

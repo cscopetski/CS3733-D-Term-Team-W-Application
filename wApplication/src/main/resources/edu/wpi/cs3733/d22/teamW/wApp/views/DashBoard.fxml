@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="602.0" prefWidth="1050.0" style="-fx-background-color: white;" stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DashBoardController">
+<BorderPane style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DashBoardController">
    <center>
       <HBox>
          <children>
@@ -118,7 +118,6 @@
                      </children>
                   </VBox>
                   <Label text="Bed at corridor waiting for you to pick up" />
-                  <VBox prefHeight="200.0" prefWidth="100.0" />
                   <TableView prefHeight="437.0" prefWidth="404.0">
                     <columns>
                       <TableColumn prefWidth="75.0" text="C1" />
@@ -277,7 +276,7 @@
                   </Label>
                </children>
             </Group>
-            <TableView prefHeight="387.0" prefWidth="356.0">
+            <TableView fx:id="detailsTable" prefHeight="387.0" prefWidth="356.0">
               <columns>
                 <TableColumn prefWidth="137.9999796152115" text="C1" />
                 <TableColumn prefWidth="355.9999694824219" text="C2" />
