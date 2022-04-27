@@ -37,9 +37,8 @@ public class DashBoardController {
   public TableView<medEquip> detailsTable;
   public ScrollPane alertPane;
   public Button AlertBed;
-  public Button AlertXRay;
   public Button AlertPump;
-  public Button AlertRec;
+  public Button AlertPumpStorage;
   double[] totalEquip = {0,0,0,0}; // 0 - Bed, 1 - XRay, 2 - Pump, 3 - Recliner
   ArrayList<MedEquip> totalEquipAL = new ArrayList<>();
   ArrayList<ArrayList<MedEquip>> equipByType = new ArrayList<>(); // 0 - Bed, 1 - XRay, 2 - Pump, 3 - Recliner
@@ -69,23 +68,22 @@ public class DashBoardController {
 
   public void updateAlert() throws SQLException {
     AlertBed.setVisible(false);
-    AlertXRay.setVisible(false);
     AlertPump.setVisible(false);
-    AlertRec.setVisible(false);
+    AlertPumpStorage.setVisible(false);
 
     for(AlertInfoWrapper i:alertEquipList){
       switch (i.equipAlert()){
         case SixDirtyBeds:
           AlertBed.setVisible(true);
-          AlertBed.setText("Too many dirty beds right now");
+          AlertBed.setText("Too many dirty beds at " + i.getLongName() + " floor " + i.getFloorNum());
           break;
         case FewerFiveInP:
           AlertPump.setVisible(true);
-          AlertPump.setText("Too few clean pump right now");
+          AlertPump.setText("Too few clean pump at " + i.getLongName()+ " floor " + i.getFloorNum());
           break;
         case MoreTenDirtyInP:
-          AlertRec.setVisible(true);
-          AlertRec.setText("Too many dirty pump right now");
+          AlertPumpStorage.setVisible(true);
+          AlertPumpStorage.setText("Too many dirty pump at " + i.getLongName() + " floor " + i.getFloorNum()) ;
           break;
         default:
           break;
