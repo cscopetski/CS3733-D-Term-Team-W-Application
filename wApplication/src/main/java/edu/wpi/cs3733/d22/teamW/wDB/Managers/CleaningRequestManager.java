@@ -113,8 +113,11 @@ public class CleaningRequestManager {
   public void markComplete(String medID, String nodeID) throws Exception {
     CleaningRequest cr = crd.getCleaningRequest(medID, RequestStatus.InProgress);
     if (cr == null) {
-      System.out.println("TRYING TO mark COMPLETE A NULL CLEANING REQUEST ID");
-      return;
+      cr = crd.getCleaningRequest(medID, RequestStatus.InQueue);
+      if(cr == null) {
+        System.out.println("TRYING TO mark COMPLETE A NULL CLEANING REQUEST ID");
+        return;
+      }
     }
     if (cr.getStatus() == RequestStatus.InProgress
         || cr.getStatus().equals(RequestStatus.InQueue)) {
