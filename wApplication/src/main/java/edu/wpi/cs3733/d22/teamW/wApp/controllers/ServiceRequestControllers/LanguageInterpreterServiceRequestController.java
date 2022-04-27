@@ -56,7 +56,6 @@ public class LanguageInterpreterServiceRequestController implements Initializabl
   public void submitButton(ActionEvent actionEvent) throws SQLException {
     if (!emptyFields()) {
       confirm.showAndWait();
-      confirm.showAndWait();
       if (confirm.getResult() == ButtonType.OK) {
         pushLanguageRequestToDB();
         clearFields();
