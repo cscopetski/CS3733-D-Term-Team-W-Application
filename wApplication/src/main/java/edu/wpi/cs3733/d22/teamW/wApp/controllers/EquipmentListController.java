@@ -54,36 +54,39 @@ public class EquipmentListController implements Initializable {
   }
 
   public void markClean() throws Exception {
+    String nodeID = null;
     if(!location.getSelectionModel().isEmpty()){
-      MedEquipManager.getMedEquipManager().markClean(selected.getMedID(), locationToNodeID(location.getSelectionModel().getSelectedItem().toString()));
-      onLoad();
+      nodeID = locationToNodeID(location.getSelectionModel().getSelectedItem().toString());
+
     }else{
-      Alert alert =
-              new Alert(Alert.AlertType.WARNING, "Selection Location to move equipment!", ButtonType.OK);
-      alert.showAndWait();
+      nodeID = selected.getFloor();
     }
+    MedEquipManager.getMedEquipManager().markClean(selected.getMedID(), nodeID);
+    onLoad();
   }
 
   public void markInUse() throws Exception {
-    if(!location.getSelectionModel().isEmpty()) {
-    MedEquipManager.getMedEquipManager().markInUse(selected.getMedID(), locationToNodeID(location.getSelectionModel().getSelectedItem().toString()));
-    onLoad();
+    String nodeID = null;
+    if(!location.getSelectionModel().isEmpty()){
+      nodeID = locationToNodeID(location.getSelectionModel().getSelectedItem().toString());
+
     }else{
-      Alert alert =
-              new Alert(Alert.AlertType.WARNING, "Selection Location to move equipment!", ButtonType.OK);
-      alert.showAndWait();
+      nodeID = selected.getFloor();
     }
+    MedEquipManager.getMedEquipManager().markInUse(selected.getMedID(), nodeID);
+    onLoad();
   }
 
   public void markDirty() throws Exception {
-    if(!location.getSelectionModel().isEmpty()) {
-    MedEquipManager.getMedEquipManager().markDirty(selected.getMedID(), locationToNodeID(location.getSelectionModel().getSelectedItem().toString()));
-    onLoad();
+    String nodeID = null;
+    if(!location.getSelectionModel().isEmpty()){
+      nodeID = locationToNodeID(location.getSelectionModel().getSelectedItem().toString());
+
     }else{
-      Alert alert =
-              new Alert(Alert.AlertType.WARNING, "Selection Location to move equipment!", ButtonType.OK);
-      alert.showAndWait();
+      nodeID = selected.getFloor();
     }
+    MedEquipManager.getMedEquipManager().markDirty(selected.getMedID(), nodeID);
+    onLoad();
   }
 
   public void moveTo() throws Exception{

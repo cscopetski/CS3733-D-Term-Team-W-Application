@@ -36,7 +36,6 @@ public class GiftDeliveryRequestController implements Initializable {
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
   @FXML
-  //Pane map;
   HospitalMap map = HospitalMap.getInstance();
   @FXML
   VBox BOX;

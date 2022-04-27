@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="339.0" prefWidth="679.0" spacing="25" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.EquipmentListController">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="488.0" prefWidth="789.0" spacing="25" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.EquipmentListController">
     <children>
+      <Label text="Equipment List" textFill="#013895">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Label>
       <HBox prefHeight="253.0" prefWidth="653.0">
          <children>
-            <VBox prefHeight="382.0" prefWidth="472.0">
+            <VBox prefHeight="382.0" prefWidth="463.0">
                <children>
-                    <TableView fx:id="eqTab" onMouseClicked="#setSelected" prefHeight="214.0" prefWidth="191.0">
+                    <TableView fx:id="eqTab" onMouseClicked="#setSelected" prefHeight="257.0" prefWidth="463.0">
                         <columns>
                             <TableColumn prefWidth="150" text="MedID">
                                 <cellValueFactory>
@@ -49,11 +53,19 @@
             </VBox>
             <VBox alignment="TOP_CENTER" prefHeight="253.0" prefWidth="164.0">
                <children>
-                  <AutoCompleteInput fx:id="location" prefWidth="150.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
+                  <VBox alignment="CENTER">
                      <VBox.margin>
                         <Insets top="100.0" />
                      </VBox.margin>
-                  </AutoCompleteInput>
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="110.0" text="Location to move">
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <AutoCompleteInput fx:id="location" prefWidth="150.0" stylesheets="@../CSS/UniversalCSS/Standard.css" />
+                     </children>
+                  </VBox>
                   <Button fx:id="moveButton" mnemonicParsing="false" onAction="#moveTo" prefHeight="25.0" prefWidth="108.0" text="Move To" textAlignment="CENTER">
                      <VBox.margin>
                         <Insets top="20.0" />

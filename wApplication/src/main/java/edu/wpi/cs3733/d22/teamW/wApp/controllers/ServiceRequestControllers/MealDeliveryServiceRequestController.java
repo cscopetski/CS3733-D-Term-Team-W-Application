@@ -45,7 +45,6 @@ public class MealDeliveryServiceRequestController implements Initializable {
   @FXML TextField patientFirst;
   @FXML TextField patientLast;
   @FXML
-  //Pane map;
   HospitalMap map = HospitalMap.getInstance();
   @FXML
   VBox BOX;

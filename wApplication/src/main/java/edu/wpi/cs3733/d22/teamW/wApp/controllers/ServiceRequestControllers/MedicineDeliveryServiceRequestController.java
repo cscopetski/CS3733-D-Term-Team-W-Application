@@ -51,7 +51,6 @@ public class MedicineDeliveryServiceRequestController implements Initializable {
   // Alerts:
   Alert emptyFields = new EmptyAlert();
   Alert confirm = new ConfirmAlert();
-
   public MedicineDeliveryServiceRequestController() throws NonExistingMedEquip, SQLException {
   }
 

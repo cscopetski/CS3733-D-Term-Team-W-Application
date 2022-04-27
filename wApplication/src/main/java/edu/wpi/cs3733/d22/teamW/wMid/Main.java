@@ -6,9 +6,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
-import edu.wpi.cs3733.d22.teamW.wDB.entity.HighScore;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
@@ -60,13 +58,13 @@ public class Main {
 //            dbController.add(itpemployee);
 //        }
 //
-//        for (int i = 1; i <= 14; i++) {
-//            try {
-//                HighScoreManager.getHighScoreManager().addHighScore(new HighScore(i, 0, 0));
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
+        for (int i = 1; i <= EmployeeManager.getEmployeeManager().getAllEmployees().size(); i++) {
+           try {
+                HighScoreManager.getHighScoreManager().addHighScore(new HighScore(i, 0, 0));
+           } catch (SQLException e) {
+                e.printStackTrace();
+           }
+       }
 
         App.launch(App.class, args);
     }
