@@ -104,7 +104,7 @@ public class UserImageDaoImpl implements UserImageDao {
                 throw new InvalidTypeException("Saved image must be a png.");
             }
             //Save image
-            String savedFilePath = String.format("UserImages/%s.png", userImage.getEmployeeUsername());
+            String savedFilePath = String.format("wApplication/UserImages/%s.png", userImage.getEmployeeUsername());
             File savedFile = new File(savedFilePath);
             Files.copy(userImageFile.toPath(), savedFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             if(savedFile.exists()) {

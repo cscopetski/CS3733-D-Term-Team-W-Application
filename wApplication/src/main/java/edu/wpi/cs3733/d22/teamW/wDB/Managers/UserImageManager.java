@@ -32,6 +32,13 @@ public class UserImageManager {
         return this.uid.getUserImagePath(employeeUsername);
     }
 
+    /**
+     *
+     * @param userImage
+     * @throws SQLException Duplicate username entry
+     * @throws InvalidTypeException File is not a .png
+     * @throws IOException Error in copying/loading given file
+     */
     public void addNewUserImage(UserImage userImage) throws SQLException, IOException, InvalidTypeException {
         this.uid.addNewUserImage(userImage);
     }

@@ -164,12 +164,7 @@ public class MessagingPageController implements Initializable {
             imageHeight = 40;
         }
         EmployeeImageView placeHolderImage = new EmployeeImageView();
-        placeHolderImage.setImage(
-                new Image(
-                        MessagingPageController.class
-                                .getClassLoader()
-                                .getResource("edu/wpi/cs3733/d22/teamW/wApp/assets/Icons/profilePicture.png")
-                                .toString()));
+        placeHolderImage.setImage(EmployeeImageGenerator.generatePlaceHolderImage());
         placeHolderImage.setFitWidth(imageWidth);
         placeHolderImage.setFitHeight(imageHeight);
         return placeHolderImage;
@@ -185,13 +180,6 @@ public class MessagingPageController implements Initializable {
         if(selectedEmployee == null) {
             return generatePlaceHolderImage(small);
         }
-        File employeeImageFile;
-        try {
-            employeeImageFile = new File(UserImageManager.getUserImageManager().getUserImagePath(selectedEmployee.getUsername()));
-        } catch (SQLException e) {
-            return generatePlaceHolderImage(small);
-        }
-        if(!employeeImageFile.exists()) return generatePlaceHolderImage(small);
         double imageWidth = 80;
         double imageHeight = 80;
         if (small) {
@@ -200,9 +188,7 @@ public class MessagingPageController implements Initializable {
         }
         EmployeeImageView employeeImageView = new EmployeeImageView();
         employeeImageView.setEmpID(empID);
-        employeeImageView.setImage(
-                new Image(
-                        employeeImageFile.toURI().toString()));
+        employeeImageView.setImage(EmployeeImageGenerator.generateEmployeeImage(selectedEmployee.getEmployeeID()));
         employeeImageView.setFitWidth(imageWidth);
         employeeImageView.setFitHeight(imageHeight);
         return employeeImageView;
