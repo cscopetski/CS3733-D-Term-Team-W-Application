@@ -31,10 +31,8 @@
                         <Font name="System Bold" size="19.0" />
                      </font>
                   </Label>
-                  <Label prefHeight="25.0" prefWidth="306.0" text="This zone is to alert if there are dirty equipments overload" textFill="#013895" />
-                  <Button fx:id="AlertBed" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="500.0" stylesheets="@../CSS/Dashboard/alertButton.css" />
-                  <Button fx:id="AlertPump" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="525.0" stylesheets="@../CSS/Dashboard/alertButton.css" />
-                  <Button fx:id="AlertPumpStorage" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="32.0" prefWidth="520.0" stylesheets="@../CSS/Dashboard/alertButton.css" />
+                  <Label alignment="TOP_LEFT" prefHeight="40.0" prefWidth="306.0" text="This zone is to alert if there are dirty equipments overload" textFill="#013895" />
+                  <VBox fx:id="alertZone" alignment="CENTER" stylesheets="@../CSS/Dashboard/alertButton.css" />
                   <VBox alignment="CENTER" prefHeight="173.0" prefWidth="315.0" style="-fx-border-color: #013895; -fx-border-width: 2;">
                      <children>
                         <Label text="Floor summary" textFill="#013895">

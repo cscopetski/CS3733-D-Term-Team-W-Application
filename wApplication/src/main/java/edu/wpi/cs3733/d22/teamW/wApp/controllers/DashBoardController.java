@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
@@ -12,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
 import java.sql.SQLException;
@@ -39,6 +41,7 @@ public class DashBoardController {
   public Button AlertBed;
   public Button AlertPump;
   public Button AlertPumpStorage;
+  public VBox alertZone;
   double[] totalEquip = {0,0,0,0}; // 0 - Bed, 1 - XRay, 2 - Pump, 3 - Recliner
   ArrayList<MedEquip> totalEquipAL = new ArrayList<>();
   ArrayList<ArrayList<MedEquip>> equipByType = new ArrayList<>(); // 0 - Bed, 1 - XRay, 2 - Pump, 3 - Recliner
@@ -56,6 +59,7 @@ public class DashBoardController {
     sortByType();
     calculateProgressTotal();
     updateAlert();
+    PageManager.getInstance().attachOnUnload(PageManager.Pages.Dashboard, this::unLoad);
   }
   public void calculateProgressTotal() throws SQLException {
 
@@ -65,25 +69,28 @@ public class DashBoardController {
     piRec.setProgress(cleanTotalEquip[3]/totalEquip[3]);
 
   }
+  public void unLoad(){
+    alertZone.getChildren().removeAll();
+  }
 
   public void updateAlert() throws SQLException {
-    AlertBed.setVisible(false);
-    AlertPump.setVisible(false);
-    AlertPumpStorage.setVisible(false);
 
     for(AlertInfoWrapper i:alertEquipList){
       switch (i.equipAlert()){
         case SixDirtyBeds:
-          AlertBed.setVisible(true);
-          AlertBed.setText("Too many dirty beds at " + i.getLongName() + " floor " + i.getFloorNum());
+          Button newAlertBed = new Button();
+          newAlertBed.setText("Too many dirty beds at " + i.getLongName() + " floor " + i.getFloorNum());
+          alertZone.getChildren().add(newAlertBed);
           break;
         case FewerFiveInP:
-          AlertPump.setVisible(true);
-          AlertPump.setText("Too few clean pump at " + i.getLongName()+ " floor " + i.getFloorNum());
+          Button newAlertPump = new Button();
+          newAlertPump.setText("Too few clean pump at Storage" + i.getLongName()+ " floor " + i.getFloorNum());
+          alertZone.getChildren().add(newAlertPump);
           break;
         case MoreTenDirtyInP:
-          AlertPumpStorage.setVisible(true);
-          AlertPumpStorage.setText("Too many dirty pump at " + i.getLongName() + " floor " + i.getFloorNum()) ;
+          Button newAlertPump2 = new Button();
+          newAlertPump2.setText("Too many dirty pump at " + i.getLongName() + " floor " + i.getFloorNum()) ;
+          alertZone.getChildren().add(newAlertPump2);
           break;
         default:
           break;
@@ -91,7 +98,6 @@ public class DashBoardController {
     }
 
   }
-
   public void updateTableDetails(int floor){
     ArrayList<medEquip> insertEqList = convertObservableMedEquipValueForTable(floor);
     detailsTable.getItems().clear();
