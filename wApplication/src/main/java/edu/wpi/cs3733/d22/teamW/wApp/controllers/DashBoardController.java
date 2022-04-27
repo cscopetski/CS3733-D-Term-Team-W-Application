@@ -1,12 +1,15 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.MedEquipManager;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.MedEquip;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
@@ -28,6 +31,12 @@ public class DashBoardController {
   public Label pumpFloorDirty;
   public Label recFloorClean;
   public Label recFloorDirty;
+  public TableView<medEquip> detailsTable;
+  public ScrollPane alertPane;
+  public Button AlertBed;
+  public Button AlertXRay;
+  public Button AlertPump;
+  public Button AlertRec;
   double[] totalEquip = {0,0,0,0}; // 0 - Bed, 1 - XRay, 2 - Pump, 3 - Recliner
   ArrayList<MedEquip> totalEquipAL = new ArrayList<>();
   ArrayList<ArrayList<MedEquip>> equipByType = new ArrayList<>(); // 0 - Bed, 1 - XRay, 2 - Pump, 3 - Recliner
@@ -38,12 +47,12 @@ public class DashBoardController {
   double[] cleanPump = {0,0,0,0,0,0,0}; // 0- F1, 1 - F2, 2 - F3, 3 - F4, 4 - F5, 5 - LL1, 6 - LL2
   double[] cleanRec = {0,0,0,0,0,0,0}; // 0- F1, 1 - F2, 2 - F3, 3 - F4, 4 - F5, 5 - LL1, 6 - LL2
   private MedEquipManager equipController = MedEquipManager.getMedEquipManager();
+  private LocationManager locationManager = LocationManager.getLocationManager();
 
   public void  initialize() throws SQLException {
     sortByType();
     calculateProgressTotal();
-
-
+    updateAlert();
   }
   public void calculateProgressTotal() throws SQLException {
 
@@ -53,6 +62,113 @@ public class DashBoardController {
     piRec.setProgress(cleanTotalEquip[3]/totalEquip[3]);
 
   }
+
+  public void updateAlert() throws SQLException {
+//    AlertBed.setVisible(false);
+//    AlertXRay.setVisible(false);
+//    AlertPump.setVisible(false);
+//    AlertRec.setVisible(false);
+//
+//
+//    String bedLoc = null, XRayLoc, PumpLoc,RecLoc;
+//    Boolean bedDirty = true;
+//    Boolean XRayDirty = false;
+//    Boolean PumpDirty = false;
+//    Boolean RecDirty = false;
+//
+//    ArrayList<edu.wpi.cs3733.d22.teamW.wDB.entity.Location> locList = locationManager.getAllLocations();
+//    ArrayList<locationMedEquip> equipByLoc = new ArrayList<>();
+//
+//    for(Location loc:locList){
+//      equipByLoc.add(new locationMedEquip(loc.getNodeID()));
+//    }
+//
+//    for(int i = 0; i < equipAtFloor.size(); i++){
+//      for(int j  = 0; j < equipAtFloor.get(i).size(); j++){
+//       for(int k = 0; k < equipAtFloor.get(i).get(j).size(); k++){
+//         for(int l = 0; l < equipByLoc.size(); l ++){
+//           if(equipAtFloor.get(i).get(j).get(k).getNodeID().equals(equipByLoc.get(l).toString())){
+//             if(equipAtFloor.get(i).get(j).get(k).getStatus().equals("Dirty")){
+//               equipByLoc.get(l).addEquipList(equipAtFloor.get(i).get(j).get(k));
+//
+//             }
+//           }
+//         }
+//       }
+//      }
+//    }
+//    for(locationMedEquip e : equipByLoc){
+//      int bedD = 0;
+//      int xrayD = 0;
+//      int pumpD = 0;
+//      int recD = 0;
+//      for(int i =0; i < e.getEquipList().size(); i++){
+//        switch (e.getEquipList().get(i).getType()){
+//          case Bed:
+//            bedD++;
+//            break;
+//          case XRay:
+//            xrayD++;
+//            break;
+//          case InfusionPump:
+//            pumpD++;
+//            break;
+//          case Recliners:
+//            recD++;
+//            break;
+//          default:
+//            break;
+//        }
+//      }
+//      if(bedD >= 6){
+//        bedDirty = true;
+//        bedLoc = e.getNodeID();
+//      }
+//    }
+//
+//
+//    String bedDirtyString = "There are too many dirty beds now at" + bedLoc;
+//    AlertBed.setText(bedDirtyString);
+//    if(bedDirty){
+//      AlertBed.setVisible(true);
+//    }
+//    if(XRayDirty){
+//      AlertXRay.setVisible(true);
+//
+//    }
+//    if (PumpDirty){
+//      AlertPump.setVisible(true);
+//    }
+//    if(RecDirty){
+//      AlertRec.setVisible(true);
+//    }
+
+
+  }
+
+  public void updateTableDetails(int floor){
+    ArrayList<medEquip> insertEqList = convertObservableMedEquipValueForTable(floor);
+    detailsTable.getItems().clear();
+    detailsTable.getItems().addAll(insertEqList);
+  }
+
+  public ArrayList<medEquip> convertObservableMedEquipValueForTable(int floor){
+    int i = floor - 1;
+    ArrayList<medEquip> returnList = new ArrayList<>();
+      for(int j = 0; j < equipAtFloor.get(i).size(); j ++){
+        for(int k = 0; k < equipAtFloor.get(i).get(j).size(); k++){
+          returnList.add(
+                  new medEquip(
+                          equipAtFloor.get(i).get(j).get(k).getMedID(),
+                          equipAtFloor.get(i).get(j).get(k).getNodeID(),
+                          equipAtFloor.get(i).get(j).get(k).getStatus()));
+        }
+      }
+
+    return returnList;
+  }
+
+
   public void sortByType() throws SQLException {
     ArrayList<MedEquip> eqList = equipController.getAllMedEquip();
     ArrayList<MedEquip> beds = new ArrayList<>();
@@ -232,22 +348,27 @@ public class DashBoardController {
   @FXML
    void F5Click(ActionEvent actionEvent) {
     displaySummary(5);
+    updateTableDetails(5);
   }
   @FXML
    void F4Click(ActionEvent actionEvent) {
     displaySummary(4);
+    updateTableDetails(4);
   }
   @FXML
    void F3Click(ActionEvent actionEvent) {
     displaySummary(3);
+    updateTableDetails(3);
   }
   @FXML
    void F2Click(ActionEvent actionEvent) {
     displaySummary(2);
+    updateTableDetails(2);
   }
   @FXML
    void F1Click(ActionEvent actionEvent) {
     displaySummary(1);
+    updateTableDetails(1);
   }
 
   public void LL1Click(ActionEvent actionEvent) {
