@@ -19,7 +19,7 @@ public class AlertInfoWrapper {
 
     public AlertInfoWrapper(ArrayList<MedEquip> listOfEquipments, String location, EquipAlertType alertType) throws SQLException {
         this.listOfEquipments = listOfEquipments;
-        this.location = LocationManager.getLocationManager().getLocation(location).getLongName();
+        this.location = location;
         this.alertType = alertType;
     }
     public ArrayList<MedEquip> getListEquip(){
@@ -27,6 +27,22 @@ public class AlertInfoWrapper {
     }
     public EquipAlertType equipAlert(){
         return alertType;
+    }
+    public String getLongName(){
+        try {
+            return LocationManager.getLocationManager().getLocation(location).getLongName();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public String getFloorNum(){
+        try {
+            return LocationManager.getLocationManager().getLocation(location).getFloor();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }
