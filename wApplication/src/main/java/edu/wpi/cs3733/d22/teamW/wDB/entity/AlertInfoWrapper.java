@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wDB.entity;
 
+import edu.wpi.cs3733.d22.teamW.wDB.enums.EquipAlertType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,14 +11,20 @@ import java.util.ArrayList;
 @Setter
 public class AlertInfoWrapper {
 
-    ArrayList<String> listOfEquipments;
+    ArrayList<MedEquip> listOfEquipments;
     String location;
-    Exception exception;
+    EquipAlertType alertType;
 
-    public AlertInfoWrapper(ArrayList<String> listOfEquipments, String location, Exception exception){
+    public AlertInfoWrapper(ArrayList<MedEquip> listOfEquipments, String location, EquipAlertType alertType){
         this.listOfEquipments = listOfEquipments;
         this.location = location;
-        this.exception = exception;
+        this.alertType = alertType;
+    }
+    public ArrayList<MedEquip> getListEquip(){
+        return listOfEquipments;
+    }
+    public EquipAlertType equipAlert(){
+        return alertType;
     }
 
 }
