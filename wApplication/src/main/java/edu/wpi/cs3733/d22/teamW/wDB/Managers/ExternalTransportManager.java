@@ -95,7 +95,6 @@ public class ExternalTransportManager implements RequestManager{
     @Override
     public Request addExistingRequest(ArrayList<String> fields) throws Exception {
         ExternalTransportRequest er = new ExternalTransportRequest(fields);
-
         if (RequestFactory.getRequestFactory().getReqIDList().add(er.getRequestID())) {
             erd.addExTransportRequest(er);
         } else {
