@@ -78,6 +78,15 @@ public class FlowerRequestController implements Initializable {
             e.printStackTrace();
         }
         map.attachOnSelectionMade(l -> locationComboBox.getSelectionModel().select(l.getLongName()));
+        PageManager.getInstance().attachOnLoad(PageManager.Pages.FlowerSR, this::loadMap);
+    }
+
+    public void loadMap(){
+        try {
+            map.refresh();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void onLoad() throws SQLException, NonExistingMedEquip {

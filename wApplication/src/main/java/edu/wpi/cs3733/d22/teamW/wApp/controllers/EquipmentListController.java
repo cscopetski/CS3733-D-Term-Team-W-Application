@@ -25,10 +25,14 @@ public class EquipmentListController implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    onLoad();
+    try {
+      onLoad();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
   }
 
-  public void onLoad() {
+  public void onLoad() throws SQLException {
     ArrayList<medEquip> eqList = new ArrayList<>();
     ArrayList<MedEquip> equips;
     try {
@@ -39,10 +43,11 @@ public class EquipmentListController implements Initializable {
     }
     for (int i = 0; i < equips.size(); i++) {
     if(!(equips.get(i).getMedID().equals("NONE") || equips.get(i).getMedID().equals("DELETED"))){
-      eqList.add(
-          new medEquip(
-              equips.get(i).getMedID(), equips.get(i).getStatus(), equips.get(i).getNodeID()));}
-
+      Location location = LocationManager.getLocationManager().getLocation(equips.get(i).getNodeID());
+      medEquip equip= new medEquip(
+              equips.get(i).getMedID(), equips.get(i).getStatus(), location.getLongName());
+      equip.setFloorNum(location.getFloor());
+      eqList.add(equip);}
     }
     location.loadValues(getLocations());
     eqTab.getItems().clear();
@@ -59,7 +64,7 @@ public class EquipmentListController implements Initializable {
       nodeID = locationToNodeID(location.getSelectionModel().getSelectedItem().toString());
 
     }else{
-      nodeID = selected.getFloor();
+      nodeID = LocationManager.getLocationManager().getLocation(selected.getFloor(), selected.getFloorNum()).getNodeID();
     }
     MedEquipManager.getMedEquipManager().markClean(selected.getMedID(), nodeID);
     onLoad();
@@ -71,7 +76,7 @@ public class EquipmentListController implements Initializable {
       nodeID = locationToNodeID(location.getSelectionModel().getSelectedItem().toString());
 
     }else{
-      nodeID = selected.getFloor();
+      nodeID = LocationManager.getLocationManager().getLocation(selected.getFloor(), selected.getFloorNum()).getNodeID();
     }
     MedEquipManager.getMedEquipManager().markInUse(selected.getMedID(), nodeID);
     onLoad();
@@ -81,9 +86,8 @@ public class EquipmentListController implements Initializable {
     String nodeID = null;
     if(!location.getSelectionModel().isEmpty()){
       nodeID = locationToNodeID(location.getSelectionModel().getSelectedItem().toString());
-
     }else{
-      nodeID = selected.getFloor();
+      nodeID = LocationManager.getLocationManager().getLocation(selected.getFloor(), selected.getFloorNum()).getNodeID();
     }
     MedEquipManager.getMedEquipManager().markDirty(selected.getMedID(), nodeID);
     onLoad();
