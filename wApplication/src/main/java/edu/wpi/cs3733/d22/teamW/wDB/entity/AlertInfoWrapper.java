@@ -13,12 +13,12 @@ public class AlertInfoWrapper {
 
     ArrayList<String> listOfEquipments;
     String location;
-    EquipAlertType exception;
+    EquipAlertType alertType;
 
-    public AlertInfoWrapper(ArrayList<String> listOfEquipments, String location, EquipAlertType exception){
+    public AlertInfoWrapper(ArrayList<String> listOfEquipments, String location, EquipAlertType alertType){
         this.listOfEquipments = listOfEquipments;
         this.location = location;
-        this.exception = exception;
+        this.alertType = alertType;
     }
 
 }
