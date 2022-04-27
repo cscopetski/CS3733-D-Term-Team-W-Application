@@ -184,6 +184,76 @@ public class CleaningRequestManager {
     }
   }
 
+
+
+
+  public ArrayList<AlertInfoWrapper> checkForAlert() throws Exception {
+    ArrayList<String> cleaningLocations = crd.getCleaningLocation();
+    ArrayList<AlertInfoWrapper> listOfAlerts = new ArrayList<>();
+    for (String location : cleaningLocations) {
+      ArrayList<Integer> requests = crd.CleaningRequestAtLocation(location);
+      ArrayList<Integer> ids = new ArrayList<>();
+      ArrayList<Integer> ids2 = new ArrayList<>();
+      ArrayList<CleaningRequest> cleaningRequests1 = new ArrayList<>();
+      ArrayList<CleaningRequest> cleaningRequests2 = new ArrayList<>();
+      if (requests.size() >= 6) {
+        Integer counter = 0;
+        Integer counter2 = 0;
+        for (Integer c : requests) {
+          CleaningRequest cr =
+                  (CleaningRequest)
+                          RequestFacade.getRequestFacade().findRequest(c, RequestType.CleaningRequest);
+          MedEquip me = MedEquipManager.getMedEquipManager().getMedEquip(cr.getItemID());
+          if (me.getType().equals(MedEquipType.Bed)) {
+            ids.add(c);
+            cleaningRequests1.add(cr);
+            counter++;
+          } else if (me.getType().equals(MedEquipType.InfusionPump)) {
+            ids2.add(c);
+            cleaningRequests2.add(cr);
+            counter2++;
+          }
+        }
+        if (counter >= 6) {
+          ArrayList<String> listOfEquipment = new ArrayList<>();
+          for (CleaningRequest cleaningRequest : cleaningRequests1) {
+            listOfEquipment.add(cleaningRequest.getItemID());
+          }
+          AlertInfoWrapper alertInfoWrapper1 = new AlertInfoWrapper(listOfEquipment, location, new SixDirtyBeds());
+          listOfAlerts.add(alertInfoWrapper1);
+        }
+        if (counter2 >= 10) {
+          ArrayList<String> listOfEquipment2 = new ArrayList<>();
+          for (CleaningRequest cleaningRequest : cleaningRequests2) {
+            listOfEquipment2.add(cleaningRequest.getItemID());
+          }
+          AlertInfoWrapper alertInfoWrapper2 = new AlertInfoWrapper(listOfEquipment2, location, new TenDirtyInfusionPumps());
+          listOfAlerts.add(alertInfoWrapper2);
+        }
+      }
+    }
+    ArrayList<MedEquip> medEquipArrayList =
+            MedEquipManager.getMedEquipManager()
+                    .getAllMedEquip(MedEquipType.InfusionPump, MedEquipStatus.Clean);
+    ArrayList<Location> locations = LocationManager.getLocationManager().getLocationClean();
+    for (Location location : locations) {
+      ArrayList<String> listOfEquipment3 = new ArrayList<>();
+      Integer counter = 0;
+      for (MedEquip med : medEquipArrayList) {
+        if (med.getNodeID().equals(location.getNodeID())) {
+          listOfEquipment3.add(med.getMedID());
+          counter++;
+        }
+      }
+      if (counter < 5) {
+        AlertInfoWrapper alertInfoWrapper3 = new AlertInfoWrapper(listOfEquipment3, location.getNodeID(), new FewerThanFiveCleanINP());
+        listOfAlerts.add(alertInfoWrapper3);
+      }
+    }
+    return listOfAlerts;
+  }
+
+
   public void checkStart() throws Exception {
     ArrayList<String> cleaningLocations = crd.getCleaningLocation();
     for (String location : cleaningLocations) {
