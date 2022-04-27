@@ -4,10 +4,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -16,11 +19,31 @@
 
 <BorderPane style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.DashBoardController">
    <center>
-      <HBox>
+      <HBox alignment="CENTER">
          <children>
             <VBox alignment="TOP_CENTER" fillWidth="false" spacing="50.0" style="-fx-alignment: center;" stylesheets="@../CSS/UniversalCSS/Standard.css">
                <children>
-                  <VBox alignment="CENTER" prefHeight="94.0" prefWidth="320.0" style="-fx-border-color: #013895; -fx-border-width: 2;">
+                  <VBox alignment="CENTER" prefHeight="250.0" prefWidth="322.0">
+                     <children>
+                        <ImageView fitHeight="89.0" fitWidth="89.0">
+                           <image>
+                              <Image url="@../assets/alert-11.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="103.0" text="Alert zone" textAlignment="CENTER" textFill="#902d2d">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Label>
+                        <Label prefHeight="55.0" prefWidth="306.0" text="This zone is to alert if there are dirty equipments overload" textFill="#013895" />
+                        <ScrollPane fx:id="alertPane" prefHeight="200.0" prefWidth="200.0">
+                          <content>
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0" />
+                          </content>
+                        </ScrollPane>
+                     </children>
+                  </VBox>
+                  <VBox alignment="CENTER" prefHeight="173.0" prefWidth="315.0" style="-fx-border-color: #013895; -fx-border-width: 2;">
                      <children>
                         <Label text="Floor summary" textFill="#013895">
                            <font>
@@ -117,13 +140,7 @@
                         </HBox>
                      </children>
                   </VBox>
-                  <Label text="Bed at corridor waiting for you to pick up" />
-                  <TableView prefHeight="437.0" prefWidth="404.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                    </columns>
-                  </TableView>
+                  <Label />
                </children>
             </VBox>
          </children>
@@ -151,7 +168,7 @@
       </VBox>
    </top>
    <left>
-      <VBox prefHeight="513.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="513.0" prefWidth="400.0" BorderPane.alignment="CENTER">
          <children>
             <Group>
                <children>
@@ -259,16 +276,16 @@
       </VBox>
    </left>
    <right>
-      <VBox prefHeight="513.0" prefWidth="343.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="513.0" prefWidth="343.0" BorderPane.alignment="CENTER">
          <children>
             <Group>
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-18.0" layoutY="30.0" prefHeight="27.0" prefWidth="358.0" text="This table will be updated based on the floor you click on" textAlignment="CENTER" textFill="#013895">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="14.0" layoutY="30.0" prefHeight="27.0" prefWidth="322.0" text="This table will be updated based on the floor you click on" textAlignment="CENTER" textFill="#013895">
                      <font>
                         <Font size="11.0" />
                      </font>
                   </Label>
-                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#98e5db" height="31.0" stroke="TRANSPARENT" strokeType="INSIDE" width="342.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#98e5db" height="31.0" layoutX="24.0" stroke="TRANSPARENT" strokeType="INSIDE" width="319.0" />
                   <Label alignment="CENTER" contentDisplay="RIGHT" layoutX="11.0" layoutY="2.0" prefHeight="27.0" prefWidth="321.0" text="Equipment details">
                      <font>
                         <Font name="System Bold" size="18.0" />
@@ -277,10 +294,11 @@
                </children>
             </Group>
             <TableView fx:id="detailsTable" prefHeight="387.0" prefWidth="356.0">
-              <columns>
-                <TableColumn prefWidth="137.9999796152115" text="C1" />
-                <TableColumn prefWidth="355.9999694824219" text="C2" />
-              </columns>
+               <columns>
+                  <TableColumn prefWidth="164.0" text="Location"> <cellValueFactory><PropertyValueFactory property="Type" /></cellValueFactory> </TableColumn>
+                  <TableColumn prefWidth="79.0" text="Status"> <cellValueFactory><PropertyValueFactory property="Status" /></cellValueFactory> </TableColumn>
+                  <TableColumn prefWidth="104.0" text="medID"> <cellValueFactory><PropertyValueFactory property="medID" /></cellValueFactory> </TableColumn>
+               </columns>
             </TableView>
          </children>
       </VBox>

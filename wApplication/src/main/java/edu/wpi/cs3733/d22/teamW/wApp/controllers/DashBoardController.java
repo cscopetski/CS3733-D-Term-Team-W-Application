@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
@@ -32,6 +33,7 @@ public class DashBoardController {
   public Label recFloorClean;
   public Label recFloorDirty;
   public TableView<medEquip> detailsTable;
+  public ScrollPane alertPane;
   double[] totalEquip = {0,0,0,0}; // 0 - Bed, 1 - XRay, 2 - Pump, 3 - Recliner
   ArrayList<MedEquip> totalEquipAL = new ArrayList<>();
   ArrayList<ArrayList<MedEquip>> equipByType = new ArrayList<>(); // 0 - Bed, 1 - XRay, 2 - Pump, 3 - Recliner
@@ -46,7 +48,6 @@ public class DashBoardController {
   public void  initialize() throws SQLException {
     sortByType();
     calculateProgressTotal();
-    detailsTable.getItems().add(new medEquip("Test","Test","Test","Test"));
 
   }
   public void calculateProgressTotal() throws SQLException {
@@ -71,9 +72,8 @@ public class DashBoardController {
           returnList.add(
                   new medEquip(
                           equipAtFloor.get(i).get(j).get(k).getMedID(),
-                          "03",
                           equipAtFloor.get(i).get(j).get(k).getNodeID(),
-                          equipAtFloor.get(i).get(j).get(k).getStatus().getString()));
+                          equipAtFloor.get(i).get(j).get(k).getStatus()));
         }
       }
 
