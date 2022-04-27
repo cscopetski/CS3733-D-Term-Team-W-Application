@@ -35,7 +35,7 @@
          <children>
               <MenuButton fx:id="dropdown" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" styleClass="margin-10" text="Change Floor">
                   <items>
-                      <MenuItem fx:id="Side" mnemonicParsing="false" onAction="#swapSideView" text="Side View" />
+<!--                      <MenuItem fx:id="Side" mnemonicParsing="false" onAction="#swapSideView" text="Side View" />-->
                       <MenuItem fx:id="FL1" mnemonicParsing="false" onAction="#swapFloorL1" text="Lower Floor 1" />
                       <MenuItem fx:id="FL2" mnemonicParsing="false" onAction="#swapFloorL2" text="Lower Floor 2" />
                       <MenuItem fx:id="F1" mnemonicParsing="false" onAction="#swapFloor1" text="Floor 1" />
@@ -50,7 +50,7 @@
                        <Group>
                            <Group fx:id="scrollGroup">
                                <ImageView fx:id="mapList" fitHeight="1000.0" fitWidth="1000.0" layoutX="-81.0" onMouseClicked="#addLocation2" preserveRatio="true">
-                                   <Image url="@../assets/Maps/SideView.png" />
+                                   <Image url="@../assets/Maps/F1.png" />
                                </ImageView>
                            </Group>
                        </Group>
