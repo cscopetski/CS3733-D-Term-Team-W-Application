@@ -199,9 +199,9 @@ public class PageManager {
 
         switchBetween(getPreviousPane(), getCurrentPane());
 
-        callAllHistoryPageChangeListeners();
-
         checkMaxPages();
+
+        callAllHistoryPageChangeListeners();
     }
 
     private void checkMaxPages() {
