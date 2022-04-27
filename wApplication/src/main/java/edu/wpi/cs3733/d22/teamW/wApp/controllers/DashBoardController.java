@@ -64,84 +64,10 @@ public class DashBoardController {
   }
 
   public void updateAlert() throws SQLException {
-//    AlertBed.setVisible(false);
-//    AlertXRay.setVisible(false);
-//    AlertPump.setVisible(false);
-//    AlertRec.setVisible(false);
-//
-//
-//    String bedLoc = null, XRayLoc, PumpLoc,RecLoc;
-//    Boolean bedDirty = true;
-//    Boolean XRayDirty = false;
-//    Boolean PumpDirty = false;
-//    Boolean RecDirty = false;
-//
-//    ArrayList<edu.wpi.cs3733.d22.teamW.wDB.entity.Location> locList = locationManager.getAllLocations();
-//    ArrayList<locationMedEquip> equipByLoc = new ArrayList<>();
-//
-//    for(Location loc:locList){
-//      equipByLoc.add(new locationMedEquip(loc.getNodeID()));
-//    }
-//
-//    for(int i = 0; i < equipAtFloor.size(); i++){
-//      for(int j  = 0; j < equipAtFloor.get(i).size(); j++){
-//       for(int k = 0; k < equipAtFloor.get(i).get(j).size(); k++){
-//         for(int l = 0; l < equipByLoc.size(); l ++){
-//           if(equipAtFloor.get(i).get(j).get(k).getNodeID().equals(equipByLoc.get(l).toString())){
-//             if(equipAtFloor.get(i).get(j).get(k).getStatus().equals("Dirty")){
-//               equipByLoc.get(l).addEquipList(equipAtFloor.get(i).get(j).get(k));
-//
-//             }
-//           }
-//         }
-//       }
-//      }
-//    }
-//    for(locationMedEquip e : equipByLoc){
-//      int bedD = 0;
-//      int xrayD = 0;
-//      int pumpD = 0;
-//      int recD = 0;
-//      for(int i =0; i < e.getEquipList().size(); i++){
-//        switch (e.getEquipList().get(i).getType()){
-//          case Bed:
-//            bedD++;
-//            break;
-//          case XRay:
-//            xrayD++;
-//            break;
-//          case InfusionPump:
-//            pumpD++;
-//            break;
-//          case Recliners:
-//            recD++;
-//            break;
-//          default:
-//            break;
-//        }
-//      }
-//      if(bedD >= 6){
-//        bedDirty = true;
-//        bedLoc = e.getNodeID();
-//      }
-//    }
-//
-//
-//    String bedDirtyString = "There are too many dirty beds now at" + bedLoc;
-//    AlertBed.setText(bedDirtyString);
-//    if(bedDirty){
-//      AlertBed.setVisible(true);
-//    }
-//    if(XRayDirty){
-//      AlertXRay.setVisible(true);
-//
-//    }
-//    if (PumpDirty){
-//      AlertPump.setVisible(true);
-//    }
-//    if(RecDirty){
-//      AlertRec.setVisible(true);
-//    }
+    AlertBed.setVisible(false);
+    AlertXRay.setVisible(false);
+    AlertPump.setVisible(false);
+    AlertRec.setVisible(false);
 
 
   }
