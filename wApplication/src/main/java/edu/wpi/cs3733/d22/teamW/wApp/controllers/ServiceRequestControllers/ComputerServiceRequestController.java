@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -29,13 +30,19 @@ import javafx.util.Duration;
 
 public class ComputerServiceRequestController implements Initializable {
 
+  //Fields:
   @FXML AutoCompleteInput locationComboBox;
   @FXML AutoCompleteInput employee;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
-  Alert confirm = new ConfirmAlert();
+  @FXML
+  //Pane map;
+  HospitalMap map;
 
+  //Alerts:
+  Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
+
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
@@ -59,6 +66,7 @@ public class ComputerServiceRequestController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     onLoad();
+    map.attachOnSelectionMade(l -> locationComboBox.getSelectionModel().select(l.getLongName()));
   }
 
   public void onLoad() {

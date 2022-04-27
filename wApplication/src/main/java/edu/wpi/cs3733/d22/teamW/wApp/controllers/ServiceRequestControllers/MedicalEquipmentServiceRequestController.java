@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
@@ -34,10 +35,11 @@ public class MedicalEquipmentServiceRequestController implements Initializable {
   @FXML AutoCompleteInput equipmentSelection;
   @FXML AutoCompleteInput employeeNameComboBox;
   @FXML AutoCompleteInput locationComboBox;
-
   @FXML Label successLabel;
-
   @FXML EmergencyButton emergencyButton;
+  @FXML
+  //Pane map;
+  HospitalMap map;
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
@@ -46,6 +48,7 @@ public class MedicalEquipmentServiceRequestController implements Initializable {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    map.attachOnSelectionMade(l -> locationComboBox.getSelectionModel().select(l.getLongName()));
   }
 
   public void onLoad() throws SQLException {
