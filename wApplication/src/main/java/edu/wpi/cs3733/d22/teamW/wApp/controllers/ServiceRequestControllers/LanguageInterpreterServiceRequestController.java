@@ -35,9 +35,7 @@ public class LanguageInterpreterServiceRequestController implements Initializabl
   @FXML AutoCompleteInput languageSelection;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
-  @FXML
-  //Pane map;
-  HospitalMap map;
+  @FXML HospitalMap map;
 
   //Alerts:
   Alert confirm = new ConfirmAlert();

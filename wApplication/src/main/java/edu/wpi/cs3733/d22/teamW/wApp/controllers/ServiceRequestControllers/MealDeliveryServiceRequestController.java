@@ -42,9 +42,7 @@ public class MealDeliveryServiceRequestController implements Initializable {
   @FXML Label successLabel;
   @FXML TextField patientFirst;
   @FXML TextField patientLast;
-  @FXML
-  //Pane map;
-  HospitalMap map;
+  @FXML HospitalMap map;
 
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();

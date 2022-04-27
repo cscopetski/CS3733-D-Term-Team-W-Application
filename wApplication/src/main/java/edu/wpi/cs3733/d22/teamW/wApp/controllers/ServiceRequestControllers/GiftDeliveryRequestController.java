@@ -34,9 +34,7 @@ public class GiftDeliveryRequestController implements Initializable {
   @FXML AutoCompleteInput employeeIDComboBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
-  @FXML
-  //Pane map;
-  HospitalMap map;
+  @FXML HospitalMap map;
 
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();

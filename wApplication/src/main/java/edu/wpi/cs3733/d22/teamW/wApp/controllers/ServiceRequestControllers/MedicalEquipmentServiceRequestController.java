@@ -6,6 +6,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 //import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.InValidRequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
@@ -27,7 +28,6 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,7 +36,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class MedicalEquipmentServiceRequestController implements Initializable {
@@ -53,14 +52,11 @@ public class MedicalEquipmentServiceRequestController implements Initializable {
     @FXML
     AutoCompleteInput locationComboBox;
     @FXML
-    Label chartLabel;
-    @FXML
     Label successLabel;
     @FXML
     EmergencyButton emergencyButton;
     @FXML
-    Pane map;
-    //HospitalMap map;
+    HospitalMap map;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -77,7 +73,7 @@ public class MedicalEquipmentServiceRequestController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        //map.attachOnSelectionMade(l -> locationComboBox.getSelectionModel().select(l.getLongName()));
+        map.attachOnSelectionMade(l -> locationComboBox.getSelectionModel().select(l.getLongName()));
     }
 
     public void loadPieChart() throws NonExistingMedEquip, SQLException {

@@ -47,11 +47,6 @@ public class MedicineDeliveryServiceRequestController implements Initializable {
   Alert emptyFields = new EmptyAlert();
   Alert confirm = new ConfirmAlert();
 
-  // Helper Fcn stuff -> NOT WORKING RIGHT NOW:
-  // private Control[] fields = new Control[] {quantityField, itemCodeField, medNameCBox,
-  // locationCBox, requesterCBox};
-  // private ServiceRequestHelper helper = new ServiceRequestHelper(fields);
-
   // -----------------------------METHOD CODE STARTS HERE-----------------------------
 
   @Override
