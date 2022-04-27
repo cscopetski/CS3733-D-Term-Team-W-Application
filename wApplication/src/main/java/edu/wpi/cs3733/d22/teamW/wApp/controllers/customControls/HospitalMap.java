@@ -47,7 +47,16 @@ public class HospitalMap extends VBox {
     Image imgL2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/LL2.png");
     Image img4 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F4.png");
     Image img5 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F5.png");
-    public HospitalMap() throws NonExistingMedEquip, SQLException {
+    private static HospitalMap instance = null;
+    public static HospitalMap getInstance() throws NonExistingMedEquip, SQLException {
+        if(instance == null){
+            return instance = new HospitalMap();
+        }
+        else{
+            return instance;
+        }
+    }
+    private HospitalMap() throws NonExistingMedEquip, SQLException {
         setAlignment(Pos.CENTER);
         setSpacing(10);
         setMargin(this, new Insets(10));
