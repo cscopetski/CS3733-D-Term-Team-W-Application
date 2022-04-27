@@ -20,8 +20,11 @@ public class AlertInfoWrapper {
         this.location = location;
         this.alertType = alertType;
     }
-    public ArrayList<String> getListEquip(){
+    public ArrayList<MedEquip> getListEquip(){
         return listOfEquipments;
+    }
+    public EquipAlertType equipAlert(){
+        return alertType;
     }
 
 }

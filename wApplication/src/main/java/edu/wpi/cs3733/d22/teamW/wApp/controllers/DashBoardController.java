@@ -18,6 +18,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static edu.wpi.cs3733.d22.teamW.wDB.enums.EquipAlertType.SixDirtyBeds;
+
 public class DashBoardController {
   @FXML
   public ProgressIndicator piBed;
@@ -71,7 +73,24 @@ public class DashBoardController {
     AlertPump.setVisible(false);
     AlertRec.setVisible(false);
 
-    if(alertEquipList)
+    for(AlertInfoWrapper i:alertEquipList){
+      switch (i.equipAlert()){
+        case SixDirtyBeds:
+          AlertBed.setVisible(true);
+          AlertBed.setText("Too many dirty beds right now");
+          break;
+        case FewerFiveInP:
+          AlertPump.setVisible(true);
+          AlertPump.setText("Too few clean pump right now");
+          break;
+        case MoreTenDirtyInP:
+          AlertRec.setVisible(true);
+          AlertRec.setText("Too many dirty pump right now");
+          break;
+        default:
+          break;
+      }
+    }
 
   }
 
