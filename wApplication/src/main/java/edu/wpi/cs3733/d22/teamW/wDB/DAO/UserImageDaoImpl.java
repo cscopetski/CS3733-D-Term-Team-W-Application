@@ -132,6 +132,9 @@ public class UserImageDaoImpl implements UserImageDao {
 
     @Override
     public void deleteUserImage(String employeeUsername) throws SQLException {
+        String savedFilePath = String.format("wApplication/UserImages/%s.png", employeeUsername);
+        File savedFile = new File(savedFilePath);
+        savedFile.delete();
         statement.executeUpdate(String.format("DELETE FROM USERIMAGES WHERE EMPLOYEEUSERNAME='%s'", employeeUsername));
     }
 

@@ -20,6 +20,8 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.UserImage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -73,8 +75,10 @@ public class ProfileController implements Initializable {
 
     public void uploadProfilePictureAction(ActionEvent actionEvent) {
         FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("PNG files (*.png)", "*.png");
+
         fileChooser.setTitle("Select Profile Picture");
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png"));
+        fileChooser.getExtensionFilters().add(extFilter);
         File selectedFile = fileChooser.showOpenDialog(WindowManager.getInstance().getPrimaryStage());
         if (selectedFile != null) {
             //Delete old photo
@@ -87,6 +91,7 @@ public class ProfileController implements Initializable {
             try {
                 UserImageManager.getUserImageManager().addNewUserImage(new UserImage(AccountManager.getInstance().getEmployee().getUsername(), selectedFile.toPath().toString()));
                 System.out.println("Successfully set picture");
+                onLoad();
             } catch (SQLException e) {
                 System.out.println("Duplicate username entry.");
             } catch (IOException e) {
@@ -101,11 +106,16 @@ public class ProfileController implements Initializable {
     }
 
     public void deleteProfilePictureAction(ActionEvent actionEvent) {
-        try {
-            UserImageManager.getUserImageManager().deleteUserImage(AccountManager.getInstance().getEmployee().getUsername());
-        } catch (SQLException e) {
-            System.out.println("No profile picture found to delete.");
+        Alert confirmAlert = new ConfirmAlert();
+        confirmAlert.showAndWait();
+        if (confirmAlert.getResult() == ButtonType.OK) {
+            try {
+                UserImageManager.getUserImageManager().deleteUserImage(AccountManager.getInstance().getEmployee().getUsername());
+            } catch (SQLException e) {
+                System.out.println("No profile picture found to delete.");
+            }
         }
+        onLoad();
     }
 
   /*
