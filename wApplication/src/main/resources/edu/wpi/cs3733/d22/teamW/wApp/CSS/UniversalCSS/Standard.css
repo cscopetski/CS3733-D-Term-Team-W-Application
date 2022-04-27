@@ -496,3 +496,26 @@
     -fx-border-color: #189DA6; /* #189DA6;*/
     -fx-effect: dropshadow(gaussian, #d4f2f2, 7.5, 0.5, 0, 0);/*009ca8*/
 }
+
+.history-combo-box .arrow,
+.history-combo-box .arrow-button {
+    -fx-border-color: transparent;
+}
+.history-combo-box  {
+    -fx-border-color: #013895;
+    -fx-border-width: 2px;
+}
+
+.back-arrow {
+    -fx-background-image: url(../../assets/back-arrow-white.png);
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 15px 25px;
+}
+.back-arrow:hover,
+.back-arrow:selected{
+    -fx-background-image: url(../../assets/back-arrow-blue.png);
+}
+.flip-image {
+    -fx-scale-x: -1;
+}
