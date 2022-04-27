@@ -2,6 +2,7 @@ package edu.wpi.cs3733.d22.teamW.wMid;
 
 //import edu.wpi.cs3733.D22.teamB.api.DatabaseController;
 //import edu.wpi.cs3733.D22.teamB.api.IPTEmployee;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.DBController;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
@@ -25,13 +26,11 @@ public class Main {
         DBController.getDBController();
 
         CSVController csvController = new CSVController();
-
         try {
             csvController.populateTables();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 //        EmployeeMessageManager.getEmployeeMessageManager()
 //                .sendAllEmployeesMessage(2, "Welcome to the Wumbo Whowies application!");
 

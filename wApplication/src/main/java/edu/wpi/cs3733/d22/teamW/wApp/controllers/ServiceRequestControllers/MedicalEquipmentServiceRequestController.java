@@ -6,6 +6,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 //import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.InValidRequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
@@ -37,6 +38,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 public class MedicalEquipmentServiceRequestController implements Initializable {
@@ -59,8 +61,13 @@ public class MedicalEquipmentServiceRequestController implements Initializable {
     @FXML
     EmergencyButton emergencyButton;
     @FXML
-    Pane map;
-    //HospitalMap map;
+    //Pane map;
+    HospitalMap map = HospitalMap.getInstance();
+    @FXML
+    VBox BOX;
+
+    public MedicalEquipmentServiceRequestController() throws NonExistingMedEquip, SQLException {
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -128,6 +135,7 @@ public class MedicalEquipmentServiceRequestController implements Initializable {
         equipmentSelection.loadValues(getEquipList());
         locationComboBox.loadValues(getLocations());
         employeeNameComboBox.loadValues(getEmployeeNames());
+        BOX.getChildren().add(map);
     }
 
     public void submitButton(ActionEvent actionEvent) throws Exception {

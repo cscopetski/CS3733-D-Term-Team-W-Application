@@ -7,6 +7,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInpu
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LanguageInterpreterManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
@@ -25,6 +26,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 public class LanguageInterpreterServiceRequestController implements Initializable {
@@ -37,7 +39,9 @@ public class LanguageInterpreterServiceRequestController implements Initializabl
   @FXML Label successLabel;
   @FXML
   //Pane map;
-  HospitalMap map;
+  HospitalMap map = HospitalMap.getInstance();
+  @FXML
+  VBox BOX;
 
   //Alerts:
   Alert confirm = new ConfirmAlert();
@@ -46,6 +50,9 @@ public class LanguageInterpreterServiceRequestController implements Initializabl
       LanguageInterpreterManager.getLanguageInterpreterManager();
 
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
+
+  public LanguageInterpreterServiceRequestController() throws NonExistingMedEquip, SQLException {
+  }
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
     if (!emptyFields()) {
@@ -73,6 +80,7 @@ public class LanguageInterpreterServiceRequestController implements Initializabl
   }
 
   public void onLoad() throws SQLException {
+    BOX.getChildren().add(map);
     fadeOut.setNode(successLabel);
     fadeOut.setFromValue(1.0);
     fadeOut.setToValue(0.0);

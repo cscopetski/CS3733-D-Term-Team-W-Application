@@ -42,6 +42,8 @@ public class FlowerRequestController implements Initializable {
     //Pane map;
     HospitalMap map = HospitalMap.getInstance();
     @FXML
+    VBox BOX;
+    @FXML
     AutoCompleteInput employeeIDComboBox;
     @FXML
     AutoCompleteInput flowerTypeBox;
@@ -49,8 +51,6 @@ public class FlowerRequestController implements Initializable {
     EmergencyButton emergencyButton;
     @FXML
     Label successLabel;
-    @FXML
-    VBox BOX;
     Alert confirm = new ConfirmAlert();
     Alert emptyFields = new EmptyAlert();
     private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));

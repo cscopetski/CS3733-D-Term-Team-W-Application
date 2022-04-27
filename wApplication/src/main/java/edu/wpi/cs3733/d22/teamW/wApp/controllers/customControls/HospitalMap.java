@@ -226,7 +226,7 @@ public class HospitalMap extends VBox {
         }
         generateMarkers();
     }
-    private void generateMarkers() {
+    private void generateMarkers() throws SQLException {
         size = currFloorLoc.size();
         for (int i = 0; i < size; i++) {
             Circle circ = new Circle(12, Color.RED);
@@ -241,7 +241,7 @@ public class HospitalMap extends VBox {
                 lsmListeners.forEach(lsm -> lsm.selectionMade(l));
             }));
             Tooltip T = new Tooltip();
-            T.setText(currFloorLoc.get(i).getNodeID());
+            T.setText( LocationManager.getLocationManager().getLocation(currFloorLoc.get(i).getNodeID()).getShortName());
             T.setShowDelay(Duration.ZERO);
             T.setHideDelay(Duration.ZERO);
             Tooltip.install(circ, T);

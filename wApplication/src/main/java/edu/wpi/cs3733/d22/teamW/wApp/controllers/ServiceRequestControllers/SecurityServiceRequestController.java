@@ -6,6 +6,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -26,6 +27,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.layout.VBox;
 
 public class SecurityServiceRequestController implements Initializable {
 
@@ -34,11 +36,18 @@ public class SecurityServiceRequestController implements Initializable {
   @FXML AutoCompleteInput threatLevel;
   @FXML AutoCompleteInput employee;
   @FXML EmergencyButton emergencyButton;
-  @FXML HospitalMap map;
+  @FXML
+  //Pane map;
+  HospitalMap map = HospitalMap.getInstance();
+  @FXML
+  VBox BOX;
 
   // Alerts:
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
+
+  public SecurityServiceRequestController() throws NonExistingMedEquip, SQLException {
+  }
 
   @Override
   public void initialize(URL location, ResourceBundle rb) {
@@ -49,7 +58,7 @@ public class SecurityServiceRequestController implements Initializable {
                 .map(ThreatLevels::toString)
                 .collect(Collectors.toList()));
     employee.loadValues(getEmployeeNames());
-
+    BOX.getChildren().add(map);
     map.attachOnSelectionMade(l -> locationSelection.getSelectionModel().select(l.getLongName()));
   }
 

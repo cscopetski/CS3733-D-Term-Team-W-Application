@@ -6,6 +6,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -36,11 +37,16 @@ public class GiftDeliveryRequestController implements Initializable {
   @FXML Label successLabel;
   @FXML
   //Pane map;
-  HospitalMap map;
+  HospitalMap map = HospitalMap.getInstance();
+  @FXML
+  VBox BOX;
 
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
+
+  public GiftDeliveryRequestController() throws NonExistingMedEquip, SQLException {
+  }
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
     if (!emptyFields()) {
@@ -74,6 +80,7 @@ public class GiftDeliveryRequestController implements Initializable {
     fadeOut.setAutoReverse(false);
     locationComboBox.loadValues(getLocations());
     employeeIDComboBox.loadValues(getEmployeeNames());
+    BOX.getChildren().add(map);
   }
 
   private boolean emptyFields() {

@@ -6,6 +6,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -23,6 +24,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 
 public class MedicineDeliveryServiceRequestController implements Initializable {
   // Buttons:
@@ -40,12 +42,18 @@ public class MedicineDeliveryServiceRequestController implements Initializable {
   @FXML AutoCompleteInput locationCBox;
   @FXML AutoCompleteInput employee;
 
-  // Map:
-  @FXML HospitalMap map;
+  @FXML
+  //Pane map;
+  HospitalMap map = HospitalMap.getInstance();
+  @FXML
+  VBox BOX;
 
   // Alerts:
   Alert emptyFields = new EmptyAlert();
   Alert confirm = new ConfirmAlert();
+
+  public MedicineDeliveryServiceRequestController() throws NonExistingMedEquip, SQLException {
+  }
 
   // Helper Fcn stuff -> NOT WORKING RIGHT NOW:
   // private Control[] fields = new Control[] {quantityField, itemCodeField, medNameCBox,
@@ -65,6 +73,7 @@ public class MedicineDeliveryServiceRequestController implements Initializable {
     locationCBox.loadValues(getLocations());
     unitCBox.loadValues(getListOfUnits());
     employee.loadValues(getEmployeeNames());
+    BOX.getChildren().add(map);
   }
 
   public void submitButton() {
