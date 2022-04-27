@@ -19,20 +19,24 @@
    <center>
       <HBox alignment="CENTER">
          <children>
-            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="513.0" prefWidth="496.0" spacing="1.0" style="-fx-alignment: center;" stylesheets="@../CSS/UniversalCSS/Standard.css">
+            <VBox alignment="TOP_CENTER" fillWidth="false" prefHeight="513.0" prefWidth="496.0" spacing="20.0" style="-fx-alignment: center;" stylesheets="@../CSS/UniversalCSS/Standard.css">
                <children>
-                  <ImageView fitHeight="89.0" fitWidth="89.0">
-                     <image>
-                        <Image url="@../assets/alert-11.png" />
-                     </image>
-                  </ImageView>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="103.0" text="Alert zone" textAlignment="CENTER" textFill="#902d2d">
-                     <font>
-                        <Font name="System Bold" size="19.0" />
-                     </font>
-                  </Label>
-                  <Label alignment="TOP_LEFT" prefHeight="40.0" prefWidth="306.0" text="This zone is to alert if there are dirty equipments overload" textFill="#013895" />
-                  <VBox fx:id="alertZone" alignment="CENTER" stylesheets="@../CSS/Dashboard/alertButton.css" />
+                  <VBox alignment="CENTER">
+                     <children>
+                        <ImageView fitHeight="89.0" fitWidth="89.0">
+                           <image>
+                              <Image url="@../assets/alert-11.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="17.0" prefWidth="103.0" text="Alert zone" textAlignment="CENTER" textFill="#902d2d">
+                           <font>
+                              <Font name="System Bold" size="19.0" />
+                           </font>
+                        </Label>
+                        <Label alignment="TOP_LEFT" prefHeight="40.0" prefWidth="306.0" text="This zone is to alert if there are dirty equipments overload" textFill="#013895" />
+                     </children>
+                  </VBox>
+                  <VBox fx:id="alertZone" alignment="CENTER" spacing="5.0" stylesheets="@../CSS/Dashboard/alertButton.css" />
                   <VBox alignment="CENTER" prefHeight="173.0" prefWidth="315.0" style="-fx-border-color: #013895; -fx-border-width: 2;">
                      <children>
                         <Label text="Floor summary" textFill="#013895">
