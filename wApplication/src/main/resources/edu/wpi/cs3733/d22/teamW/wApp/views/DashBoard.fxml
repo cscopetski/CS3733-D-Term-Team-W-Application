@@ -149,7 +149,7 @@
             <Group>
                <children>
                   <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#189da6" height="54.0" stroke="TRANSPARENT" strokeType="INSIDE" width="469.0" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="54.0" prefWidth="475.0" text="Map DashBoard" textFill="WHITE">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="54.0" prefWidth="475.0" text="Map Dashboard" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="36.0" />
                      </font>
