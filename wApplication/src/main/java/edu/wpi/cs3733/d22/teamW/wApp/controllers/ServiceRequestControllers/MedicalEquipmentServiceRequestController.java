@@ -20,9 +20,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.util.Duration;
 
@@ -31,7 +34,8 @@ public class MedicalEquipmentServiceRequestController implements Initializable {
 
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
-
+  @FXML
+  PieChart requestChart;
   @FXML AutoCompleteInput equipmentSelection;
   @FXML AutoCompleteInput employeeNameComboBox;
   @FXML AutoCompleteInput locationComboBox;
@@ -49,6 +53,15 @@ public class MedicalEquipmentServiceRequestController implements Initializable {
       e.printStackTrace();
     }
     map.attachOnSelectionMade(l -> locationComboBox.getSelectionModel().select(l.getLongName()));
+
+    ObservableList<PieChart.Data> pieChartData =
+            FXCollections.observableArrayList(
+                    new PieChart.Data("Grapefruit", 13),
+                    new PieChart.Data("Oranges", 25),
+                    new PieChart.Data("Plums", 10),
+                    new PieChart.Data("Pears", 22),
+                    new PieChart.Data("Apples", 30));
+    requestChart.setData(pieChartData);
   }
 
   public void onLoad() throws SQLException {
