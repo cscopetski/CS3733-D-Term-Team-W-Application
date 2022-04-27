@@ -23,6 +23,7 @@
       <RowConstraints vgrow="SOMETIMES" />
       <RowConstraints vgrow="SOMETIMES" />
       <RowConstraints vgrow="SOMETIMES" />
+      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
       <VBox alignment="CENTER" spacing="25.0" style="-fx-alignment: center;" GridPane.columnIndex="2">
@@ -32,7 +33,7 @@
                   <Font name="System Bold" size="28.0" />
                </font>
             </Text>
-            <Label alignment="CENTER" prefHeight="1000.0" prefWidth="500.0" text="This application was made by WPI students in Professor Wong's WPI CS3733 Software Engineering Course and in collaboration with Brigham &amp; Women’s Hospital in Boston, Massachusetts. Team W (The Wumbo Whowies) is comprised of the following: the lead software engineer Ethan Pollack, assistant lead software engineers Edison Zhang and Jason Odell, full time back-end engineers Caleb Scopetski and Hasan Gandor, full time front-end engineers Philip Bui and Jack McEvoy, Project Manager and back end engineer Charlie Kneissl-Williams, Scrum Master and front-end engineer Edward Enyedy, Product Owner and front-end engineer Leona (Nhi) Nguyen, and Documentation Analyst and front-end engineer Dylan Olmsted. We would like to thank Professor Wong for his guiding us through the software development process, our team coach Matthew Spofford for helping us, and the hospital representative Andrew for providing feedback and advice about how we can make our application most beneficial to the hospital. 'The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes.'" textAlignment="CENTER" wrapText="true" />
+            <Label alignment="CENTER" prefHeight="237.0" prefWidth="500.0" text="This application was made by WPI students in Professor Wong's WPI CS3733 Software Engineering Course and in collaboration with Brigham &amp; Women’s Hospital in Boston, Massachusetts. Team W (The Wumbo Whowies) is comprised of the following: the lead software engineer Ethan Pollack, assistant lead software engineers Edison Zhang and Jason Odell, full time back-end engineers Caleb Scopetski and Hasan Gandor, full time front-end engineers Philip Bui and Jack McEvoy, Project Manager and back end engineer Charlie Kneissl-Williams, Scrum Master and front-end engineer Edward Enyedy, Product Owner and front-end engineer Leona (Nhi) Nguyen, and Documentation Analyst and front-end engineer Dylan Olmsted. We would like to thank Professor Wong for his guiding us through the software development process, our team coach Matthew Spofford for helping us, and the hospital representative Andrew for providing feedback and advice about how we can make our application most beneficial to the hospital." textAlignment="CENTER" wrapText="true" />
          </children>
          <GridPane.margin>
             <Insets bottom="50.0" left="50.0" right="50.0" />
@@ -125,5 +126,10 @@
             <Image url="@../assets/Whowies/Wumbo.png" />
          </image>
       </ImageView>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="'The Brigham &amp; Women’s Hospital maps and data used in this application are copyrighted and provided for the sole use of educational purposes.'" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" GridPane.valignment="CENTER">
+         <GridPane.margin>
+            <Insets top="20.0" />
+         </GridPane.margin>
+      </Text>
    </children>
 </GridPane>
