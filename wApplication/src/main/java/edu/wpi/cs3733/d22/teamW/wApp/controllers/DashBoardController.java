@@ -7,10 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
@@ -34,6 +31,10 @@ public class DashBoardController {
   public Label recFloorDirty;
   public TableView<medEquip> detailsTable;
   public ScrollPane alertPane;
+  public Button AlertBed;
+  public Button AlertXRay;
+  public Button AlertPump;
+  public Button AlertRec;
   double[] totalEquip = {0,0,0,0}; // 0 - Bed, 1 - XRay, 2 - Pump, 3 - Recliner
   ArrayList<MedEquip> totalEquipAL = new ArrayList<>();
   ArrayList<ArrayList<MedEquip>> equipByType = new ArrayList<>(); // 0 - Bed, 1 - XRay, 2 - Pump, 3 - Recliner
@@ -48,7 +49,7 @@ public class DashBoardController {
   public void  initialize() throws SQLException {
     sortByType();
     calculateProgressTotal();
-
+    updateAlert();
   }
   public void calculateProgressTotal() throws SQLException {
 
@@ -56,6 +57,14 @@ public class DashBoardController {
     piXray.setProgress(cleanTotalEquip[1]/totalEquip[1]);
     piPump.setProgress(cleanTotalEquip[2]/totalEquip[2]);
     piRec.setProgress(cleanTotalEquip[3]/totalEquip[3]);
+
+  }
+  public void updateAlert(){
+    AlertBed.setText("Testing here");
+    //AlertBed.setVisible(false);
+    AlertXRay.setVisible(false);
+    AlertPump.setVisible(false);
+    AlertRec.setVisible(false);
 
   }
   public void updateTableDetails(int floor){
