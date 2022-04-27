@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -41,6 +42,9 @@ public class MealDeliveryServiceRequestController implements Initializable {
   @FXML Label successLabel;
   @FXML TextField patientFirst;
   @FXML TextField patientLast;
+  @FXML
+  //Pane map;
+  HospitalMap map;
 
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
@@ -112,6 +116,7 @@ public class MealDeliveryServiceRequestController implements Initializable {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    map.attachOnSelectionMade(l -> locationComboBox.getSelectionModel().select(l.getLongName()));
   }
 
   public void onLoad() throws SQLException {

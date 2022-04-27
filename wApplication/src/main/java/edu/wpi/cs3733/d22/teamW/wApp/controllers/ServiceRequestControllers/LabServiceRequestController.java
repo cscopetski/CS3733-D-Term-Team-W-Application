@@ -4,6 +4,7 @@ import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -34,6 +35,9 @@ public class LabServiceRequestController implements Initializable {
   @FXML CheckBox mriBox;
   @FXML CheckBox xRayBox;
   @FXML CheckBox catBox;
+  @FXML
+  //Pane map;
+  HospitalMap map;
 
   int emergency = 0;
   @FXML EmergencyButton emergencyButton;
@@ -49,6 +53,7 @@ public class LabServiceRequestController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     onLoad();
+    map.attachOnSelectionMade(l -> locationCBox.getSelectionModel().select(l.getLongName()));
   }
 
   public void onLoad() {

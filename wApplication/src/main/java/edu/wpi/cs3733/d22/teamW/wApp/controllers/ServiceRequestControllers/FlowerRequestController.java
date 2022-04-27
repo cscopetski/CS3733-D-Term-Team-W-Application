@@ -5,7 +5,6 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
-//import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
@@ -27,6 +26,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class FlowerRequestController implements Initializable {
@@ -37,6 +37,7 @@ public class FlowerRequestController implements Initializable {
     @FXML
     AutoCompleteInput locationComboBox;
     @FXML
+    //Pane map;
     HospitalMap map;
     @FXML
     AutoCompleteInput employeeIDComboBox;

@@ -9,12 +9,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap?>
+<?import javafx.scene.shape.Line?>
 <VBox alignment="CENTER" fillWidth="false" spacing="50.0" style="-fx-alignment: center;" stylesheets="@../../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.LabServiceRequestController">
    <children>
       <HBox fillHeight="false">
@@ -36,155 +38,180 @@
             </VBox>
          </children>
       </HBox>
-      <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
+      <HBox alignment="CENTER">
          <children>
-            <HBox alignment="TOP_CENTER" fillHeight="false">
+            <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
                <children>
-                  <VBox alignment="CENTER" fillWidth="false">
-                     <children>
-                        <StackPane styleClass="image">
-                           <children>
-                              <ImageView fitHeight="133.0" fitWidth="200.0">
-                                 <image>
-                                    <Image url="@../../assets/labTest.jpg" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </StackPane>
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" fillWidth="false">
-                     <children>
-                        <Label styleClass="label-major" text="PATIENT INFO" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="18.0" />
-                           </font>
-                        </Label>
-                        <VBox alignment="CENTER" fillWidth="false">
-                           <children>
-                              <Label styleClass="label-minor" text="Employee:">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <AutoCompleteInput fx:id="employeeIDCBox" prefWidth="150.0" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" fillWidth="false">
-                           <children>
-                              <Label styleClass="label-minor" text="Location:">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <AutoCompleteInput fx:id="locationCBox" prefWidth="150.0" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" fillWidth="false">
-                           <children>
-                              <Label styleClass="label-minor" text="First Name:">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="patientFirstName" prefWidth="150.0" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER" fillWidth="false">
-                           <children>
-                              <Label styleClass="label-minor" text="Last Name:">
-                                 <font>
-                                    <Font name="System Bold" size="13.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="patientLastName" prefWidth="150.0" />
-                           </children>
-                        </VBox>
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" fillWidth="false" spacing="10.0">
+                  <HBox alignment="TOP_CENTER" fillHeight="false">
                      <children>
                         <VBox alignment="CENTER" fillWidth="false">
                            <children>
-                              <Label styleClass="label-major" text="REQUEST" textFill="WHITE">
+                              <StackPane styleClass="image">
+                                 <children>
+                                    <ImageView fitHeight="133.0" fitWidth="200.0">
+                                       <image>
+                                          <Image url="@../../assets/labTest.jpg" />
+                                       </image>
+                                    </ImageView>
+                                 </children>
+                              </StackPane>
+                              <VBox alignment="CENTER" fillWidth="false">
+                                 <children>
+                                    <StackPane styleClass="image">
+                                       <children>
+                                          <ImageView fitHeight="120.0" fitWidth="200.0" styleClass="image">
+                                             <image>
+                                                <Image url="@../../assets/labTest2.jpg" />
+                                             </image>
+                                          </ImageView>
+                                       </children>
+                                    </StackPane>
+                                 </children>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </VBox>
+                           </children>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
+                        </VBox>
+                        <VBox alignment="TOP_CENTER" fillWidth="false">
+                           <children>
+                              <Label styleClass="label-major" text="PATIENT INFO" textFill="WHITE">
                                  <font>
                                     <Font name="System Bold" size="18.0" />
                                  </font>
                               </Label>
-                              <Label text="Check the appropriate box(es)" textFill="#013895" />
+                              <VBox alignment="CENTER" fillWidth="false">
+                                 <children>
+                                    <Label styleClass="label-minor" text="Employee:">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <AutoCompleteInput fx:id="employeeIDCBox" prefWidth="150.0" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" fillWidth="false">
+                                 <children>
+                                    <Label styleClass="label-minor" text="Location:">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <AutoCompleteInput fx:id="locationCBox" prefWidth="150.0" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" fillWidth="false">
+                                 <children>
+                                    <Label styleClass="label-minor" text="First Name:">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="patientFirstName" prefWidth="150.0" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" fillWidth="false">
+                                 <children>
+                                    <Label styleClass="label-minor" text="Last Name:">
+                                       <font>
+                                          <Font name="System Bold" size="13.0" />
+                                       </font>
+                                    </Label>
+                                    <TextField fx:id="patientLastName" prefWidth="150.0" />
+                                 </children>
+                              </VBox>
                            </children>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
                         </VBox>
-                        <VBox alignment="CENTER_LEFT" fillWidth="false" spacing="2.0">
+                        <VBox alignment="TOP_CENTER" fillWidth="false" spacing="10.0">
                            <children>
-                              <CheckBox fx:id="bloodBox" mnemonicParsing="false" text="Blood sample" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="Gill Sans MT" size="16.0" />
-                                 </font>
-                              </CheckBox>
-                              <CheckBox fx:id="urineBox" mnemonicParsing="false" text="Urine samples" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="Gill Sans MT" size="16.0" />
-                                 </font>
-                              </CheckBox>
-                              <CheckBox mnemonicParsing="false" text="X-Rays" textAlignment="CENTER" fx:id="xRayBox">
-                                 <font>
-                                    <Font name="Gill Sans MT" size="16.0" />
-                                 </font>
-                              </CheckBox>
-                              <CheckBox fx:id="catBox" mnemonicParsing="false" text="CAT scans" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="Gill Sans MT" size="16.0" />
-                                 </font>
-                              </CheckBox>
-                              <CheckBox fx:id="mriBox" mnemonicParsing="false" text="MRIs" textAlignment="CENTER">
-                                 <font>
-                                    <Font name="Gill Sans MT" size="16.0" />
-                                 </font>
-                              </CheckBox>
+                              <VBox alignment="CENTER" fillWidth="false">
+                                 <children>
+                                    <Label styleClass="label-major" text="REQUEST" textFill="WHITE">
+                                       <font>
+                                          <Font name="System Bold" size="18.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Check the appropriate box(es)" textFill="#013895" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER_LEFT" fillWidth="false" spacing="2.0">
+                                 <children>
+                                    <CheckBox fx:id="bloodBox" mnemonicParsing="false" text="Blood sample" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Gill Sans MT" size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="urineBox" mnemonicParsing="false" text="Urine samples" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Gill Sans MT" size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox mnemonicParsing="false" text="X-Rays" textAlignment="CENTER" fx:id="xRayBox">
+                                       <font>
+                                          <Font name="Gill Sans MT" size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="catBox" mnemonicParsing="false" text="CAT scans" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Gill Sans MT" size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                    <CheckBox fx:id="mriBox" mnemonicParsing="false" text="MRIs" textAlignment="CENTER">
+                                       <font>
+                                          <Font name="Gill Sans MT" size="16.0" />
+                                       </font>
+                                    </CheckBox>
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" fillWidth="false">
+                                 <children>
+                                    <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
+                                    <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" />
+                                 </children>
+                              </VBox>
                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER" fillWidth="false">
-                           <children>
-                              <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
-                              <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" />
-                           </children>
+                           <HBox.margin>
+                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                           </HBox.margin>
                         </VBox>
                      </children>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </VBox>
-                  <VBox alignment="CENTER" fillWidth="false">
-                     <children>
-                        <StackPane styleClass="image">
-                           <children>
-                              <ImageView fitHeight="120.0" fitWidth="200.0" styleClass="image">
-                                 <image>
-                                    <Image url="@../../assets/labTest2.jpg" />
-                                 </image>
-                              </ImageView>
-                           </children>
-                        </StackPane>
-                     </children>
-                     <HBox.margin>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </HBox.margin>
-                  </VBox>
+                  </HBox>
+                  <Button mnemonicParsing="false" onAction="#submitButton" prefHeight="33.0" prefWidth="71.0" text="Submit">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Button>
+                  <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" text="View Request List">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="10.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
-            </HBox>
-            <Button mnemonicParsing="false" onAction="#submitButton" prefHeight="33.0" prefWidth="71.0" text="Submit">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Button>
+            </VBox>
+            <Line endY="250.0" startY="-300.0" />
+            <VBox alignment="TOP_CENTER" >
+               <children>
+                  <Label styleClass="label-major" text="MAP INTERACTION" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <HospitalMap fx:id="map" minHeight="400" minWidth="400" />
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </VBox>
          </children>
-      </VBox>
-      <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" text="View Request List" />
+      </HBox>
    </children>
 </VBox>

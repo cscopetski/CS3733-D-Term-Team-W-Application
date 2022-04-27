@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -28,23 +29,28 @@ import javafx.scene.control.ButtonType;
 
 public class SecurityServiceRequestController implements Initializable {
 
-  Alert confirm = new ConfirmAlert();
-  Alert emptyFields = new EmptyAlert();
-
-  @FXML AutoCompleteInput location;
+  // Fields:
+  @FXML AutoCompleteInput locationSelection;
   @FXML AutoCompleteInput threatLevel;
   @FXML AutoCompleteInput employee;
   @FXML EmergencyButton emergencyButton;
+  @FXML HospitalMap map;
+
+  // Alerts:
+  Alert confirm = new ConfirmAlert();
+  Alert emptyFields = new EmptyAlert();
 
   @Override
-  public void initialize(URL l, ResourceBundle rb) {
-    location.loadValues(getLocations());
+  public void initialize(URL location, ResourceBundle rb) {
+    locationSelection.loadValues(getLocations());
     threatLevel.loadValues(
         (ArrayList<String>)
             Arrays.stream(ThreatLevels.values())
                 .map(ThreatLevels::toString)
                 .collect(Collectors.toList()));
     employee.loadValues(getEmployeeNames());
+
+    map.attachOnSelectionMade(l -> locationSelection.getSelectionModel().select(l.getLongName()));
   }
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
@@ -60,7 +66,7 @@ public class SecurityServiceRequestController implements Initializable {
 
   private void pushSecurityRequestToDB() throws SQLException {
     ArrayList<String> ssrFields = new ArrayList<String>();
-    ssrFields.add(locationToNodeID(location.getSelectionModel().getSelectedItem()));
+    ssrFields.add(locationToNodeID(locationSelection.getSelectionModel().getSelectedItem()));
     ssrFields.add(getEmployeeID(employee.getValue())); // replace with employee id
     if (emergencyButton.getValue()) {
       ssrFields.add("1");
@@ -86,12 +92,12 @@ public class SecurityServiceRequestController implements Initializable {
   private void clearFields() {
     threatLevel.getSelectionModel().clearSelection();
     employee.getSelectionModel().clearSelection();
-    location.getSelectionModel().clearSelection();
+    locationSelection.getSelectionModel().clearSelection();
   }
 
   private boolean checkEmptyFields() {
     return threatLevel.getSelectionModel().isEmpty()
-        || location.getSelectionModel().isEmpty()
+        || locationSelection.getSelectionModel().isEmpty()
         || employee.getSelectionModel().isEmpty();
   }
 

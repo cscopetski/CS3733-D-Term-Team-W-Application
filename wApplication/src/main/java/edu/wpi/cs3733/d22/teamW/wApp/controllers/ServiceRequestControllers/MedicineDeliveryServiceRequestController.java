@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -39,6 +40,9 @@ public class MedicineDeliveryServiceRequestController implements Initializable {
   @FXML AutoCompleteInput locationCBox;
   @FXML AutoCompleteInput employee;
 
+  // Map:
+  @FXML HospitalMap map;
+
   // Alerts:
   Alert emptyFields = new EmptyAlert();
   Alert confirm = new ConfirmAlert();
@@ -53,6 +57,7 @@ public class MedicineDeliveryServiceRequestController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     onLoad();
+    map.attachOnSelectionMade(l -> locationCBox.getSelectionModel().select(l.getLongName()));
   }
 
   public void onLoad() {

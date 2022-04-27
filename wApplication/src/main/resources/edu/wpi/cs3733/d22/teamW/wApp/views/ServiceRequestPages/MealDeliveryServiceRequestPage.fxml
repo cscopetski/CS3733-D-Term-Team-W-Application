@@ -8,12 +8,14 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap?>
+<?import javafx.scene.shape.Line?>
 <VBox spacing="50.0" style="-fx-alignment: center;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.MealDeliveryServiceRequestController">
    <children>
       <VBox alignment="CENTER">
@@ -31,9 +33,9 @@
             <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Hungry? We've got the meals you need!" textAlignment="CENTER" wrappingWidth="220.0" />
          </children>
       </VBox>
-      <VBox spacing="10.0">
+      <HBox alignment="CENTER">
          <children>
-            <HBox style="-fx-alignment: center;">
+            <VBox alignment="TOP_CENTER" spacing="10.0">
                <children>
                   <VBox alignment="TOP_CENTER">
                      <children>
@@ -141,49 +143,67 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <VBox alignment="CENTER">
+                        <HBox alignment="CENTER">
                            <children>
-                              <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Location:">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
+                              <VBox>
+                                 <children>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Patient First Name:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <TextField fx:id="patientFirst" onAction="#onEnter" prefWidth="150.0" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Patient Last Name:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                             <padding>
+                                                <Insets top="3.0" />
+                                             </padding>
+                                          </Label>
+                                          <TextField fx:id="patientLast" onAction="#onEnter" prefWidth="150.0" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
+                                       </children>
+                                    </VBox>
+                                 </children>
                                  <padding>
-                                    <Insets top="10.0" />
+                                    <Insets right="10.0" />
                                  </padding>
-                              </Label>
-                              <AutoCompleteInput fx:id="locationComboBox" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
+                              </VBox>
+                              <VBox>
+                                 <children>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Location:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <AutoCompleteInput fx:id="locationComboBox" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
+                                       </children>
+                                    </VBox>
+                                    <VBox alignment="CENTER">
+                                       <children>
+                                          <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Employee:">
+                                             <font>
+                                                <Font size="14.0" />
+                                             </font>
+                                          </Label>
+                                          <AutoCompleteInput fx:id="employeeNameComboBox" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
+                                       </children>
+                                    </VBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="10.0" />
+                                 </padding>
+                              </VBox>
                            </children>
-                        </VBox>
-                        <VBox alignment="CENTER">
-                           <children>
-                              <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Employee:">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <AutoCompleteInput fx:id="employeeNameComboBox" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER">
-                           <children>
-                              <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Patient First Name:">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="patientFirst" onAction="#onEnter" prefWidth="150.0" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                           </children>
-                        </VBox>
-                        <VBox alignment="CENTER">
-                           <children>
-                              <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Patient Last Name:">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="patientLast" onAction="#onEnter" prefWidth="150.0" styleClass="text-field" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                           </children>
-                        </VBox>
+                        </HBox>
                         <VBox alignment="CENTER">
                            <children>
                               <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
@@ -191,32 +211,46 @@
                            </children>
                         </VBox>
                      </children>
-                     <HBox.margin>
-                        <Insets left="20.0" />
-                     </HBox.margin>
+                  </VBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+                        </Button>
+                        <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                        <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="View Request List">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                        </Button>
+                     </children>
                   </VBox>
                </children>
-            </HBox>
-            <VBox alignment="CENTER">
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </VBox>
+            <Line endY="250.0" startY="-300.0" />
+            <VBox alignment="TOP_CENTER" >
                <children>
-                  <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit">
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </Button>
-                  <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
+                  <Label styleClass="label-major" text="MAP INTERACTION" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="View Request List">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </Button>
+                  <HospitalMap fx:id="map" minHeight="400" minWidth="400" />
                </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
             </VBox>
          </children>
-      </VBox>
+      </HBox>
    </children>
 </VBox>
