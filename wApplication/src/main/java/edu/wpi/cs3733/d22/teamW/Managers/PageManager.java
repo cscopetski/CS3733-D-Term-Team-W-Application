@@ -200,7 +200,16 @@ public class PageManager {
         switchBetween(getPreviousPane(), getCurrentPane());
 
         callAllHistoryPageChangeListeners();
+
+        checkMaxPages();
     }
+
+    private void checkMaxPages() {
+        if (parent.getChildren().size() > 5) {
+            parent.getChildren().remove(0);
+        }
+    }
+
     public Pane getCurrentPane() {
         return getOffsetPane(0);
     }
