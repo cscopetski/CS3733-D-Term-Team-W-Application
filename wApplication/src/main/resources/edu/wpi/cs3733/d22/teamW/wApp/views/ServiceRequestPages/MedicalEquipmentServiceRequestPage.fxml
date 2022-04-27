@@ -9,6 +9,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
@@ -45,71 +46,68 @@
                             </font>
                         </Label>
                         <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Select equipment from the dropdown menu." textAlignment="CENTER" wrappingWidth="265.1999969482422" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
-               <children>
-                  <Label styleClass="label-major" text="INFO" textFill="WHITE">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <VBox alignment="CENTER" fillWidth="false">
-                     <children>
-                                      <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Location:" textFill="WHITE">
-                                          <font>
-                                              <Font size="14.0" />
-                                          </font>
-                                      </Label>
-                        <AutoCompleteInput fx:id="locationComboBox" prefWidth="150.0" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" fillWidth="false">
-                     <children>
-                        <Label styleClass="label-minor" text="Employee Name:" textFill="WHITE">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
+                    </children>
+                </VBox>
+                <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
+                    <children>
+                        <Label styleClass="label-major" text="INFO" textFill="WHITE">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
                         </Label>
-                        <AutoCompleteInput fx:id="employeeNameComboBox" prefWidth="150.0" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" fillWidth="false">
-                     <children>
-                        <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Equipment:" textFill="WHITE">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <AutoCompleteInput fx:id="equipmentSelection" prefWidth="150.0" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" fillWidth="false">
-                     <children>
-                        <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
-                        <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" fillWidth="false">
-                     <children>
-                                    <Button mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
-                        <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="25.0" />
-                     </VBox.margin>
-                  </VBox>
-                              <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="View Request List" />
-               </children>
-               <padding>
-                  <Insets right="10.0" />
-               </padding>
-            </VBox>
-             <Line endY="250.0" startY="-300.0" />
+                        <VBox alignment="CENTER" fillWidth="false">
+                            <children>
+                                <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Location:" textFill="WHITE">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <AutoCompleteInput fx:id="locationComboBox" prefWidth="150.0" />
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" fillWidth="false">
+                            <children>
+                                <Label styleClass="label-minor" text="Employee Name:" textFill="WHITE">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <AutoCompleteInput fx:id="employeeNameComboBox" prefWidth="150.0" />
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" fillWidth="false">
+                            <children>
+                                <Label style="-fx-font-weight: bold;" styleClass="label-minor" text="Equipment:" textFill="WHITE">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                                <AutoCompleteInput fx:id="equipmentSelection" prefWidth="150.0" />
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" fillWidth="false">
+                            <children>
+                                <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
+                                <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" />
+                            </children>
+                        </VBox>
+                        <VBox alignment="CENTER" fillWidth="false">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
+                                <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
+                                    <font>
+                                        <Font size="14.0" />
+                                    </font>
+                                </Label>
+                            </children>
+                            <VBox.margin>
+                                <Insets top="25.0" />
+                            </VBox.margin>
+                        </VBox>
+                        <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="View Request List" />
+                    </children>
+                </VBox>
+                <Line endY="250.0" startY="-300.0" />
             <VBox alignment="TOP_CENTER" >
                <children>
                    <Label styleClass="label-major" text="MAP INTERACTION" textFill="WHITE">
@@ -123,7 +121,8 @@
                     <Insets left="10.0" />
                 </padding>
             </VBox>
-         </children>
-      </HBox>
-        </children>
-    </VBox>
+            </children>
+        </VBox>
+        <VBox />
+    </children>
+</HBox>
