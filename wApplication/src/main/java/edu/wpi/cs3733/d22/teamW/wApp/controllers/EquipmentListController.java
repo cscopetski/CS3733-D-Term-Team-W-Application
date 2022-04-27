@@ -86,6 +86,17 @@ public class EquipmentListController implements Initializable {
     }
   }
 
+  public void moveTo() throws Exception{
+    if(!location.getSelectionModel().isEmpty()) {
+      MedEquipManager.getMedEquipManager().moveTo(selected.getMedID(), locationToNodeID(location.getSelectionModel().getSelectedItem().toString()));
+      onLoad();
+    }else{
+      Alert alert =
+              new Alert(Alert.AlertType.WARNING, "Selection Location to move equipment!", ButtonType.OK);
+      alert.showAndWait();
+    }
+  }
+
   private String locationToNodeID(String target) {
     String nodeID = "FAIL";
 

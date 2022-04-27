@@ -34,17 +34,33 @@
                             </TableColumn>
                         </columns>
                     </TableView>
-                    <HBox alignment="CENTER" spacing="25">
+                    <HBox alignment="CENTER" prefHeight="25.0" prefWidth="426.0" spacing="25">
                         <Button fx:id="cleanButton" layoutX="397.0" layoutY="56.0" mnemonicParsing="false" onAction="#markClean" prefHeight="25.0" prefWidth="201.0" text="Mark Selected Clean" />
-                        <Button fx:id="inuseButton" layoutX="397.0" layoutY="94.0" mnemonicParsing="false" onAction="#markInUse" prefHeight="25.0" prefWidth="201.0" text="Mark Selected In-Use" />
+                        <Button fx:id="inuseButton" layoutX="397.0" layoutY="94.0" mnemonicParsing="false" onAction="#markInUse" prefHeight="25.0" prefWidth="201.0" text="Mark Selected In-Use">
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin></Button>
                         <Button fx:id="dirtyButton" layoutX="397.0" layoutY="131.0" mnemonicParsing="false" onAction="#markDirty" prefHeight="25.0" prefWidth="201.0" text="Mark Selected Dirty" />
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
                     </HBox>
                </children>
             </VBox>
-            <AutoCompleteInput fx:id="location" prefWidth="150.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
-               <HBox.margin>
-                  <Insets left="30.0" top="100.0" />
-               </HBox.margin></AutoCompleteInput>
+            <VBox alignment="TOP_CENTER" prefHeight="253.0" prefWidth="164.0">
+               <children>
+                  <AutoCompleteInput fx:id="location" prefWidth="150.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
+                     <VBox.margin>
+                        <Insets top="100.0" />
+                     </VBox.margin>
+                  </AutoCompleteInput>
+                  <Button fx:id="moveButton" mnemonicParsing="false" onAction="#moveTo" prefHeight="25.0" prefWidth="108.0" text="Move To" textAlignment="CENTER">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
          </children>
       </HBox>
     </children>
