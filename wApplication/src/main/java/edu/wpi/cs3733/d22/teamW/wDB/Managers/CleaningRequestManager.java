@@ -219,7 +219,7 @@ public class CleaningRequestManager {
           for (CleaningRequest cleaningRequest : cleaningRequests1) {
             listOfEquipment.add(cleaningRequest.getItemID());
           }
-          AlertInfoWrapper alertInfoWrapper1 = new AlertInfoWrapper(listOfEquipment, location, new SixDirtyBeds());
+          AlertInfoWrapper alertInfoWrapper1 = new AlertInfoWrapper(listOfEquipment, location, EquipAlertType.SixDirtyBeds);
           listOfAlerts.add(alertInfoWrapper1);
         }
         if (counter2 >= 10) {
@@ -227,7 +227,7 @@ public class CleaningRequestManager {
           for (CleaningRequest cleaningRequest : cleaningRequests2) {
             listOfEquipment2.add(cleaningRequest.getItemID());
           }
-          AlertInfoWrapper alertInfoWrapper2 = new AlertInfoWrapper(listOfEquipment2, location, new TenDirtyInfusionPumps());
+          AlertInfoWrapper alertInfoWrapper2 = new AlertInfoWrapper(listOfEquipment2, location, EquipAlertType.MoreTenDirtyInP);
           listOfAlerts.add(alertInfoWrapper2);
         }
       }
@@ -246,7 +246,7 @@ public class CleaningRequestManager {
         }
       }
       if (counter < 5) {
-        AlertInfoWrapper alertInfoWrapper3 = new AlertInfoWrapper(listOfEquipment3, location.getNodeID(), new FewerThanFiveCleanINP());
+        AlertInfoWrapper alertInfoWrapper3 = new AlertInfoWrapper(listOfEquipment3, location.getNodeID(), EquipAlertType.FewerFiveInP);
         listOfAlerts.add(alertInfoWrapper3);
       }
     }
