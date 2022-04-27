@@ -112,7 +112,6 @@ public class MedicalEquipmentServiceRequestController implements Initializable {
                         new PieChart.Data(RequestStatus.Completed.getString(), numStatus.get(RequestStatus.Completed.getValue())),
                         new PieChart.Data(RequestStatus.Cancelled.getString(), numStatus.get(RequestStatus.Cancelled.getValue())));
         requestChart.setData(pieChartData);
-        requestChart.setTitle("Medical Equipment Delivery Request Status");
         requestChart.setStyle("-fx-font: 15 arial;" + "-fx-font-weight: bold;");
         for(PieChart.Data data : requestChart.getData()){
             Tooltip toolTip = new Tooltip(String.format("%.2f",data.getPieValue()) + "%");
