@@ -50,7 +50,7 @@ public class AboutController implements Initializable {
         Tooltip jason = new Tooltip(whowieToString("Jason Odell", "CS", "The Navigator"));
         toolTipDisp(jason, jasonPic);
         //dylan:
-        Tooltip dylan = new Tooltip(whowieToString("Dylan Olmsted", "CS", "Gettin' Back to Me"));
+        Tooltip dylan = new Tooltip(whowieToString("Dylan Olmsted", "CS", "Holdin' a Chicken"));
         toolTipDisp(dylan, dylanPic);
         //hasan:
         Tooltip hasan = new Tooltip(whowieToString("Hasan Gandor", "CS", "CHEESE"));
@@ -70,7 +70,7 @@ public class AboutController implements Initializable {
     }
 
     private String whowieToString( String name, String major, String tag){
-        return ("Name: " + name + "\nMajor: " + major + "\nTag: '" + tag + "'");
+        return ("Name: " + name + "\nMajor: " + major + "\nTag: \"" + tag + '"');
     }
 
     private void toolTipDisp(Tooltip whowie, Node whowiePic){

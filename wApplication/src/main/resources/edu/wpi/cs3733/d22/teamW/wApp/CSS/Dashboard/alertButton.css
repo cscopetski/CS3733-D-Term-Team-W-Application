@@ -11,27 +11,30 @@
     -fx-padding: 5px 10px 5px 10px;
 }
 .button:hover {
+    -fx-text-base-color: #FFFFFF;
     -fx-font-weight: bold;
-    -fx-background-color: white;
+    -fx-background-color: #8B0000;
     -fx-background-radius: 15px;
     -fx-font-size: 14px;
-    -fx-text-fill: #8B0000;
+    -fx-text-fill: white;
     -fx-border-color: #8B0000;
     -fx-border-radius: 15px;
     -fx-border-width: 1px;
-    -fx-cursor: hand;
+    -fx-padding: 5px 10px 5px 10px;
 }
 
 
 .button:pressed {
+    -fx-text-base-color: #FFFFFF;
     -fx-font-weight: bold;
-    -fx-background-color: white;
+    -fx-background-color: #8B0000;
     -fx-background-radius: 15px;
     -fx-font-size: 14px;
-    -fx-text-fill: #013895;
-    -fx-border-color: #013895;
+    -fx-text-fill: white;
+    -fx-border-color: #8B0000;
     -fx-border-radius: 15px;
-    -fx-border-width: 3px;
+    -fx-border-width: 1px;
+    -fx-padding: 5px 10px 5px 10px;
 
 }
 
