@@ -31,7 +31,7 @@ public class Main {
         }
 //        EmployeeMessageManager.getEmployeeMessageManager()
 //                .sendAllEmployeesMessage(2, "Welcome to the Wumbo Whowies application!");
-
+//
 //        edu.wpi.cs3733.D22.teamB.api.DatabaseController dbController = new edu.wpi.cs3733.D22.teamB.api.DatabaseController();
 //
 //        LinkedList<edu.wpi.cs3733.D22.teamB.api.Location> APILocationList = dbController.listLocations();
@@ -57,7 +57,7 @@ public class Main {
 //            edu.wpi.cs3733.D22.teamB.api.IPTEmployee itpemployee = new edu.wpi.cs3733.D22.teamB.api.IPTEmployee(employee.getEmployeeID().toString(), employee.getLastName(), employee.getFirstName(), employee.getType().getString(), employee.getType().getString());
 //            dbController.add(itpemployee);
 //        }
-//
+
         for (int i = 1; i <= EmployeeManager.getEmployeeManager().getAllEmployees().size(); i++) {
            try {
                 HighScoreManager.getHighScoreManager().addHighScore(new HighScore(i, 0, 0));

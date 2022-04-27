@@ -8,6 +8,8 @@ public interface LocationDao {
 
   ArrayList<Location> getAllLocations() throws SQLException;
 
+  ArrayList<Location> getLocationByType(String type) throws SQLException;
+
   void changeLocation(Location location) throws SQLException;
 
   void addLocation(Location location) throws SQLException;

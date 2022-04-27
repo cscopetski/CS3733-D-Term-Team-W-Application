@@ -71,6 +71,31 @@ public class LocationDaoImpl implements LocationDao {
     return locationsList;
   }
 
+  @Override
+  public ArrayList<Location> getLocationByType(String type) throws SQLException {
+    ArrayList<Location> locationsList = new ArrayList<>();
+
+    try {
+      ResultSet locations = statement.executeQuery(String.format("SELECT * FROM LOCATIONS WHERE NODETYPE = '%s'",type));
+
+      while (locations.next()) {
+        ArrayList<String> locationData = new ArrayList<String>();
+
+        for (int i = 0; i < locations.getMetaData().getColumnCount(); i++) {
+          locationData.add(locations.getString(i + 1));
+        }
+
+        locationsList.add(new Location(locationData));
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from locations table failed");
+      throw (e);
+    }
+
+    return locationsList;
+  }
+
   public ArrayList<Location> getAllCleanLocations() throws SQLException {
     ArrayList<Location> locationsList = new ArrayList<>();
 
