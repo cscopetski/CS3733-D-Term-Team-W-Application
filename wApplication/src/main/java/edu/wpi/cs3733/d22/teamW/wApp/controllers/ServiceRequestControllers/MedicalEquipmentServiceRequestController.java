@@ -5,7 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
-import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
+//import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.InValidRequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
@@ -22,9 +22,6 @@ import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestStatus;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 
-import javafx.scene.Group;
-import javafx.scene.input.MouseEvent;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -35,14 +32,11 @@ import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public class MedicalEquipmentServiceRequestController implements Initializable {
@@ -65,8 +59,8 @@ public class MedicalEquipmentServiceRequestController implements Initializable {
     @FXML
     EmergencyButton emergencyButton;
     @FXML
-    //Pane map;
-    HospitalMap map;
+    Pane map;
+    //HospitalMap map;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -83,21 +77,7 @@ public class MedicalEquipmentServiceRequestController implements Initializable {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-//        chartLabel.setText("");
-//        chartLabel.setTextFill(Color.BLACK);
-//        chartLabel.setStyle("-fx-font: 50 arial;");
-//
-//        for (PieChart.Data data : requestChart.getData()) {
-//
-//            data.getNode().addEventHandler(MouseEvent.MOUSE_CLICKED,
-//                    (EventHandler<MouseEvent>) e -> {
-//                        chartLabel.setTranslateX(e.getX());
-//                        chartLabel.setTranslateY(e.getY());
-//                        chartLabel.setText(String.format("%.2f",data.getPieValue()) + "%");
-//                    });
-//        }
+        //map.attachOnSelectionMade(l -> locationComboBox.getSelectionModel().select(l.getLongName()));
     }
 
     public void loadPieChart() throws NonExistingMedEquip, SQLException {
@@ -150,7 +130,6 @@ public class MedicalEquipmentServiceRequestController implements Initializable {
         locationComboBox.loadValues(getLocations());
         employeeNameComboBox.loadValues(getEmployeeNames());
     }
-    map.attachOnSelectionMade(l -> locationComboBox.getSelectionModel().select(l.getLongName()));
 
     public void submitButton(ActionEvent actionEvent) throws Exception {
         if (!emptyFields()) {
