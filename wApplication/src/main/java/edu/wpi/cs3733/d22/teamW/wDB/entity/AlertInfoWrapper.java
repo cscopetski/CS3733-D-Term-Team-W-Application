@@ -1,0 +1,23 @@
+package edu.wpi.cs3733.d22.teamW.wDB.entity;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+
+
+@Getter
+@Setter
+public class AlertInfoWrapper {
+
+    ArrayList<String> listOfEquipments;
+    String location;
+    Exception exception;
+
+    public AlertInfoWrapper(ArrayList<String> listOfEquipments, String location, Exception exception){
+        this.listOfEquipments = listOfEquipments;
+        this.location = location;
+        this.exception = exception;
+    }
+
+}

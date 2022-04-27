@@ -92,4 +92,8 @@ public class LocationManager {
   public Location getLocation(String NodeID) throws SQLException {
     return ldi.getLocation(NodeID);
   }
+
+  public Location getLocation(String longName, String floor) throws SQLException {
+    return ldi.getLocation(longName,floor);
+  }
 }

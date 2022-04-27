@@ -7,15 +7,17 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" spacing="50.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.ComputerServiceRequestController">
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap?>
+<?import javafx.scene.shape.Line?>
+<VBox alignment="CENTER" spacing="50.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.ComputerServiceRequestController">
    <children>
-      <VBox alignment="TOP_CENTER" prefWidth="769.0">
+      <VBox alignment="CENTER" prefWidth="769.0">
          <children>
             <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -30,60 +32,70 @@
             <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Having trouble with a computer? Submit a request!" textAlignment="CENTER" wrappingWidth="333.5999803543091" />
          </children>
       </VBox>
-      <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
+      <HBox alignment="CENTER">
+         <VBox.margin>
+            <Insets left="10.0" right="10.0" />
+         </VBox.margin>
          <children>
-            <Label alignment="CENTER" prefHeight="31.0" prefWidth="500.0" styleClass="label-major" text="INFO" textFill="WHITE">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <VBox alignment="CENTER" fillWidth="false" prefHeight="60.0" prefWidth="490.0">
-               <children>
-                  <Pane>
-                     <children>
-                        <Pane layoutX="-14.0" prefHeight="60.0" prefWidth="436.0">
-                           <children>
-                              <Label layoutX="-19.0" layoutY="-1.0" styleClass="label-minor" text="Location:" />
-                              <AutoCompleteInput fx:id="locationComboBox" layoutX="-20.0" layoutY="28.0" />
-                              <Label layoutX="300.0" layoutY="-1.0" styleClass="label-minor" text="Employee:">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Label>
-                              <AutoCompleteInput fx:id="employee" layoutX="300.0" layoutY="28.0" />
-                           </children>
-                        </Pane>
-                     </children>
-                  </Pane>
-               </children>
-            </VBox>
             <VBox alignment="CENTER" fillWidth="false">
                <children>
-                  <Pane />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" />
-            <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
-            <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" prefHeight="32.0" prefWidth="206.0" />
-            <VBox alignment="CENTER">
-               <children>
-                  <Pane>
-                     <children>
-                        <Button layoutX="194.0" layoutY="17.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
-                        <Button layoutY="17.0" minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" prefHeight="32.0" prefWidth="179.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="View Request List" />
-                     </children>
-                  </Pane>
-                  <Label fx:id="successLabel" style="-fx-font-weight: bold;" styleClass="label-minor" text="Successfully submitted request." textFill="#3ccc63" visible="false">
+                  <Label alignment="CENTER" prefHeight="31.0" prefWidth="150.0" styleClass="label-major" text="INFO" textFill="WHITE">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
+                  <Label styleClass="label-minor" text="Location:" />
+                  <AutoCompleteInput fx:id="locationComboBox" prefWidth="150.0"/>
+                  <Label styleClass="label-minor" text="Employee:">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <AutoCompleteInput fx:id="employee" prefWidth="150.0"/>
+                  <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </Label>
+                  <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" prefHeight="32.0" prefWidth="206.0" />
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Pane>
+                           <children>
+                              <Button layoutX="194.0" layoutY="17.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
+                              <Button layoutY="17.0" minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" prefHeight="32.0" prefWidth="179.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="View Request List" />
+                           </children>
+                        </Pane>
+                        <Label fx:id="successLabel" style="-fx-font-weight: bold;" styleClass="label-minor" text="Successfully submitted request." textFill="#3ccc63" visible="false">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </VBox>
                </children>
-               <VBox.margin>
-                  <Insets top="20.0" />
-               </VBox.margin>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </VBox>
+            <Line endY="250.0" startY="-300.0" />
+            <VBox alignment="TOP_CENTER" >
+               <children>
+                  <Label styleClass="label-major" text="MAP INTERACTION" textFill="WHITE">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <HospitalMap fx:id="map" minHeight="400" minWidth="400" />
+               </children>
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
             </VBox>
          </children>
-      </VBox>
+      </HBox>
    </children>
 </VBox>

@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -33,6 +34,10 @@ public class GiftDeliveryRequestController implements Initializable {
   @FXML AutoCompleteInput employeeIDComboBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
+  @FXML
+  //Pane map;
+  HospitalMap map;
+
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
@@ -41,7 +46,7 @@ public class GiftDeliveryRequestController implements Initializable {
     if (!emptyFields()) {
       confirm.showAndWait();
       if (confirm.getResult() == ButtonType.OK) {
-        pushSanitationServiceRequestToDB();
+        pushGiftDeliveryRequestToDB();
         clearFields();
         successLabel.setVisible(true);
         fadeOut.playFromStart();
@@ -58,6 +63,7 @@ public class GiftDeliveryRequestController implements Initializable {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    map.attachOnSelectionMade(l -> locationComboBox.getSelectionModel().select(l.getLongName()));
   }
 
   public void onLoad() throws SQLException {
@@ -77,7 +83,7 @@ public class GiftDeliveryRequestController implements Initializable {
         || recipientLastName.getText().isEmpty();
   }
 
-  private void pushSanitationServiceRequestToDB() throws SQLException {
+  private void pushGiftDeliveryRequestToDB() throws SQLException {
     ArrayList<String> srFields = new ArrayList<String>();
     srFields.add(recipientFirstName.getText());
     srFields.add(recipientLastName.getText());
@@ -113,12 +119,7 @@ public class GiftDeliveryRequestController implements Initializable {
     Integer commaIndex = name.indexOf(',');
     employeeLastName = name.substring(0, commaIndex);
     employeeFirstName = name.substring(commaIndex + 2);
-
-    for (Employee e : EmployeeManager.getEmployeeManager().getAllEmployees()) {
-      if (e.getLastName().equals(employeeLastName) && e.getFirstName().equals(employeeFirstName)) {
-        employeeID = e.getEmployeeID();
-      }
-    }
+    employeeID = EmployeeManager.getEmployeeManager().getEmployeeFromName(employeeLastName,employeeFirstName).getEmployeeID();
 
     return String.format("%d", employeeID);
   }
@@ -144,18 +145,18 @@ public class GiftDeliveryRequestController implements Initializable {
   private ArrayList<String> getEmployeeNames() {
     ArrayList<String> name = new ArrayList<>();
     ArrayList<Employee> employees = null;
+    ArrayList<EmployeeType> types = new ArrayList<>();
+    types.add(EmployeeType.Nurse);
+    types.add(EmployeeType.Staff);
     try {
-      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
+      employees = EmployeeManager.getEmployeeManager().getEmployeeListByType(types);
     } catch (SQLException e) {
       System.out.println("Failed to unearth employees from database");
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      if (e.getEmployeeID() != -1
-          && (e.getType().equals(EmployeeType.Staff) || e.getType().equals(EmployeeType.Nurse))) {
-        String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
-        name.add(empName);
-      }
+      String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
+      name.add(empName);
     }
     return name;
   }

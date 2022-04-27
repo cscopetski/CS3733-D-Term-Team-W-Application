@@ -1,9 +1,12 @@
 package edu.wpi.cs3733.d22.teamW.wMid;
 
+import edu.wpi.cs3733.d22.teamW.Managers.BackgroundManager;
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import java.io.IOException;
+
+import edu.wpi.cs3733.d22.teamW.wDB.entity.InternalPatientTransportationRequest;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -52,11 +55,13 @@ public class App extends Application {
                 getClass()
                     .getResourceAsStream("/edu/wpi/cs3733/d22/teamW/wApp/assets/mgb_logo.png")));
 
+
     WindowManager.getInstance().setScene("DefaultPage.fxml");
   }
 
   @Override
   public void stop() {
+    UserImageManager.getUserImageManager().exportUserImageCSV("CSVs/UserImages.csv");
     CleaningRequestManager.getCleaningRequestManager().exportReqCSV("CSVs/CleaningRequest.csv");
     try {
       ComputerServiceRequestManager.getComputerServiceRequestManager()
@@ -102,7 +107,16 @@ public class App extends Application {
       e.printStackTrace();
     }
     LocationManager.getLocationManager().exportLocationsCSV("CSVs/TowerLocations.csv");
-
+    try {
+      ExternalTransportManager.getRequestManager().exportReqCSV("CSVs/ExternalTransportationRequests.csv");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    try {
+      InternalPatientTransportationRequestManager.getInternalPatientTransportationRequestManager().exportReqCSV("CSVs/InternalPatientTransportationRequests.csv");
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
     log.info("Shutting Down");
   }
 }

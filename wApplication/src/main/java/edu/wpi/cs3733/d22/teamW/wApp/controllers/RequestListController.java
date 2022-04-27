@@ -1,21 +1,23 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
+import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.FilterControl;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.*;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 
 public class RequestListController implements Initializable {
@@ -23,6 +25,7 @@ public class RequestListController implements Initializable {
   @FXML public TextArea moreInfo;
   @FXML public HBox selectionButtons;
   @FXML public FilterControl<RequestType> filter;
+  @FXML public CheckBox emergencyFilter;
 
   @Override
   public void initialize(URL location, ResourceBundle rb) {
@@ -50,14 +53,30 @@ public class RequestListController implements Initializable {
 
     filter.loadValues(RequestType.values());
     filter.addValuesListener(c -> resetItems());
+    emergencyFilter.selectedProperty().addListener(c -> resetItems());
     onLoad();
+    PageManager.getInstance().attachOnLoad(PageManager.Pages.RequestList, this::onLoad);
   }
 
   private void resetItems() {
     try {
-      rt.setItems(
-          RequestFacade.getRequestFacade()
-              .getRequests(filter.getEnabledValues().toArray(new RequestType[] {})));
+      ArrayList<Request> items = new ArrayList<Request>();
+
+      if(emergencyFilter.isSelected()){
+        for (Request r:RequestFacade.getRequestFacade()
+                .getRequests(filter.getEnabledValues().toArray(new RequestType[] {}))) {
+          if(r.getEmergency() == 1){
+            items.add(r);
+          }
+        }
+      }
+      else{
+        items = RequestFacade.getRequestFacade()
+                .getRequests(filter.getEnabledValues().toArray(new RequestType[] {}));
+      }
+
+      rt.setItems(items);
+
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -109,12 +128,19 @@ public class RequestListController implements Initializable {
   }
 
   public void confirm(ActionEvent event) {
+
     try {
+      String nodeID = rt.getSelection().getNodeID();
+      if(rt.getSelection().getRequestType().equals(RequestType.CleaningRequest)){
+        WindowManager.getInstance().openWindow("popUpViews/LocationChoice.fxml");
+        nodeID = (String) WindowManager.getInstance().getData("LocationChoice");
+        System.out.println(nodeID);
+      }
       RequestFacade.getRequestFacade()
           .completeRequest(
               rt.getSelection().getRequestID(),
               rt.getSelection().getRequestType(),
-              rt.getSelection().getNodeID());
+              nodeID);
     } catch (CannotComplete c) {
       Alert alert =
           new Alert(
@@ -189,4 +215,5 @@ public class RequestListController implements Initializable {
     }
     resetItems();
   }
+
 }

@@ -4,6 +4,9 @@
   <component name="FrameworkDetectionExcludesConfiguration">
     <file type="web" url="file://$PROJECT_DIR$/wApplication" />
   </component>
+  <component name="ProjectResources">
+    <resource url="http://javafx.com/fxml" location="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectRootManager" version="2" project-jdk-name="11" project-jdk-type="JavaSDK" />
   <component name="SwUserDefinedSpecifications">
     <option name="specTypeByUrl">

@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -29,13 +30,19 @@ import javafx.util.Duration;
 
 public class ComputerServiceRequestController implements Initializable {
 
+  //Fields:
   @FXML AutoCompleteInput locationComboBox;
   @FXML AutoCompleteInput employee;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
-  Alert confirm = new ConfirmAlert();
+  @FXML
+  //Pane map;
+  HospitalMap map;
 
+  //Alerts:
+  Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
+
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
@@ -59,6 +66,7 @@ public class ComputerServiceRequestController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     onLoad();
+    map.attachOnSelectionMade(l -> locationComboBox.getSelectionModel().select(l.getLongName()));
   }
 
   public void onLoad() {
@@ -102,19 +110,18 @@ public class ComputerServiceRequestController implements Initializable {
   private ArrayList<String> getEmployeeNames() {
     ArrayList<String> name = new ArrayList<>();
     ArrayList<Employee> employees = null;
+    ArrayList<EmployeeType> types = new ArrayList<>();
+    types.add(EmployeeType.Technician);
+    types.add(EmployeeType.Staff);
     try {
-      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
+      employees = EmployeeManager.getEmployeeManager().getEmployeeListByType(types);
     } catch (SQLException e) {
       System.out.println("Failed to unearth employees from database");
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      if (e.getEmployeeID() != -1
-          && (e.getType().equals(EmployeeType.Technician)
-              || e.getType().equals(EmployeeType.Staff))) {
         String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
         name.add(empName);
-      }
     }
     return name;
   }
@@ -163,12 +170,7 @@ public class ComputerServiceRequestController implements Initializable {
     Integer commaIndex = name.indexOf(',');
     employeeLastName = name.substring(0, commaIndex);
     employeeFirstName = name.substring(commaIndex + 2);
-
-    for (Employee e : EmployeeManager.getEmployeeManager().getAllEmployees()) {
-      if (e.getLastName().equals(employeeLastName) && e.getFirstName().equals(employeeFirstName)) {
-        employeeID = e.getEmployeeID();
-      }
-    }
+    employeeID = EmployeeManager.getEmployeeManager().getEmployeeFromName(employeeLastName,employeeFirstName).getEmployeeID();
 
     return String.format("%d", employeeID);
   }

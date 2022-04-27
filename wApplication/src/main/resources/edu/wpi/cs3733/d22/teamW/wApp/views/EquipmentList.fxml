@@ -1,28 +1,67 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane style="-fx-alignment: center;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.EquipmentListController">
-   <children>
-      <TableView fx:id="eqTab" layoutX="58.0" layoutY="56.0" onMouseClicked="#setSelected" prefHeight="466.0" prefWidth="305.0">
-        <columns>
-          <TableColumn prefWidth="99.0" text="MedID"><cellValueFactory>
-              <PropertyValueFactory property="MedID" />
-          </cellValueFactory> </TableColumn>
-          <TableColumn prefWidth="104.0" text="Location"><cellValueFactory>
-              <PropertyValueFactory property="Floor" />
-          </cellValueFactory> </TableColumn>
-            <TableColumn prefWidth="101.0" text="Status"><cellValueFactory>
-                <PropertyValueFactory property="Status" />
-            </cellValueFactory> </TableColumn>
-        </columns>
-      </TableView>
-      <Button fx:id="cleanButton" layoutX="397.0" layoutY="56.0" mnemonicParsing="false" onAction="#markClean" prefHeight="25.0" prefWidth="201.0" text="Mark Selected Clean" />
-      <Button fx:id="inuseButton" layoutX="397.0" layoutY="94.0" mnemonicParsing="false" onAction="#markInUse" prefHeight="25.0" prefWidth="201.0" text="Mark Selected In-Use" />
-      <Button fx:id="dirtyButton" layoutX="397.0" layoutY="131.0" mnemonicParsing="false" onAction="#markDirty" prefHeight="25.0" prefWidth="201.0" text="Mark Selected Dirty" />
-   </children>
-</AnchorPane>
+<VBox alignment="CENTER" fillWidth="false" prefHeight="339.0" prefWidth="679.0" spacing="25" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.EquipmentListController">
+    <children>
+      <HBox prefHeight="253.0" prefWidth="653.0">
+         <children>
+            <VBox prefHeight="382.0" prefWidth="472.0">
+               <children>
+                    <TableView fx:id="eqTab" onMouseClicked="#setSelected" prefHeight="214.0" prefWidth="191.0">
+                        <columns>
+                            <TableColumn prefWidth="150" text="MedID">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="MedID" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn prefWidth="150.0" text="Location">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="Floor" />
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn prefWidth="150.0" text="Status">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="Status" />
+                                </cellValueFactory>
+                            </TableColumn>
+                        </columns>
+                    </TableView>
+                    <HBox alignment="CENTER" prefHeight="25.0" prefWidth="426.0" spacing="25">
+                        <Button fx:id="cleanButton" layoutX="397.0" layoutY="56.0" mnemonicParsing="false" onAction="#markClean" prefHeight="25.0" prefWidth="201.0" text="Mark Selected Clean" />
+                        <Button fx:id="inuseButton" layoutX="397.0" layoutY="94.0" mnemonicParsing="false" onAction="#markInUse" prefHeight="25.0" prefWidth="201.0" text="Mark Selected In-Use">
+                        <HBox.margin>
+                           <Insets />
+                        </HBox.margin></Button>
+                        <Button fx:id="dirtyButton" layoutX="397.0" layoutY="131.0" mnemonicParsing="false" onAction="#markDirty" prefHeight="25.0" prefWidth="201.0" text="Mark Selected Dirty" />
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                    </HBox>
+               </children>
+            </VBox>
+            <VBox alignment="TOP_CENTER" prefHeight="253.0" prefWidth="164.0">
+               <children>
+                  <AutoCompleteInput fx:id="location" prefWidth="150.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
+                     <VBox.margin>
+                        <Insets top="100.0" />
+                     </VBox.margin>
+                  </AutoCompleteInput>
+                  <Button fx:id="moveButton" mnemonicParsing="false" onAction="#moveTo" prefHeight="25.0" prefWidth="108.0" text="Move To" textAlignment="CENTER">
+                     <VBox.margin>
+                        <Insets top="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+    </children>
+</VBox>

@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -28,16 +29,22 @@ import javafx.scene.control.Label;
 import javafx.util.Duration;
 
 public class SanitationRequestController implements Initializable {
+
+  // Fields:
   @FXML AutoCompleteInput locationComboBox;
   @FXML AutoCompleteInput employeeIDComboBox;
   @FXML AutoCompleteInput sanitationTypeBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
+  @FXML HospitalMap map;
 
+  // Alerts:
   Alert confirm = new ConfirmAlert();
-
   Alert emptyFields = new EmptyAlert();
+
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
+
+  // -----------------------------METHOD CODE STARTS HERE-----------------------------
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
     if (!emptyFields()) {
@@ -60,6 +67,7 @@ public class SanitationRequestController implements Initializable {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    map.attachOnSelectionMade(l -> locationComboBox.getSelectionModel().select(l.getLongName()));
   }
 
   public void onLoad() throws SQLException {
@@ -114,11 +122,7 @@ public class SanitationRequestController implements Initializable {
     employeeLastName = name.substring(0, commaIndex);
     employeeFirstName = name.substring(commaIndex + 2);
 
-    for (Employee e : EmployeeManager.getEmployeeManager().getAllEmployees()) {
-      if (e.getLastName().equals(employeeLastName) && e.getFirstName().equals(employeeFirstName)) {
-        employeeID = e.getEmployeeID();
-      }
-    }
+    employeeID = EmployeeManager.getEmployeeManager().getEmployeeFromName(employeeLastName,employeeFirstName).getEmployeeID();
 
     return String.format("%d", employeeID);
   }
@@ -144,17 +148,17 @@ public class SanitationRequestController implements Initializable {
   private ArrayList<String> getEmployeeNames() {
     ArrayList<String> name = new ArrayList<>();
     ArrayList<Employee> employees = null;
+    ArrayList<EmployeeType> types = new ArrayList<>();
+    types.add(EmployeeType.Sanitation);
     try {
-      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
+      employees = EmployeeManager.getEmployeeManager().getEmployeeListByType(types);
     } catch (SQLException e) {
       System.out.println("Failed to unearth employees from database");
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      if (e.getEmployeeID() != -1 && e.getType().equals(EmployeeType.Sanitation)) {
-        String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
-        name.add(empName);
-      }
+      String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
+      name.add(empName);
     }
     return name;
   }

@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LanguageInterpreterManager;
@@ -28,11 +29,17 @@ import javafx.util.Duration;
 
 public class LanguageInterpreterServiceRequestController implements Initializable {
 
+  //Fields:
   @FXML AutoCompleteInput locationSelection;
   @FXML AutoCompleteInput employeeSelection;
   @FXML AutoCompleteInput languageSelection;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
+  @FXML
+  //Pane map;
+  HospitalMap map;
+
+  //Alerts:
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
   private LanguageInterpreterManager languageInterpreterManager =
@@ -62,6 +69,7 @@ public class LanguageInterpreterServiceRequestController implements Initializabl
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    map.attachOnSelectionMade(l -> locationSelection.getSelectionModel().select(l.getLongName()));
   }
 
   public void onLoad() throws SQLException {
@@ -136,12 +144,7 @@ public class LanguageInterpreterServiceRequestController implements Initializabl
     Integer commaIndex = name.indexOf(',');
     employeeLastName = name.substring(0, commaIndex);
     employeeFirstName = name.substring(commaIndex + 2);
-
-    for (Employee e : EmployeeManager.getEmployeeManager().getAllEmployees()) {
-      if (e.getLastName().equals(employeeLastName) && e.getFirstName().equals(employeeFirstName)) {
-        employeeID = e.getEmployeeID();
-      }
-    }
+    employeeID = EmployeeManager.getEmployeeManager().getEmployeeFromName(employeeLastName,employeeFirstName).getEmployeeID();
 
     return String.format("%d", employeeID);
   }

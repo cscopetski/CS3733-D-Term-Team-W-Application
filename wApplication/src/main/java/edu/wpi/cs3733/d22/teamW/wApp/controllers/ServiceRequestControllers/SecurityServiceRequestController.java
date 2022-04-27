@@ -5,6 +5,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -28,23 +29,28 @@ import javafx.scene.control.ButtonType;
 
 public class SecurityServiceRequestController implements Initializable {
 
-  Alert confirm = new ConfirmAlert();
-  Alert emptyFields = new EmptyAlert();
-
-  @FXML AutoCompleteInput location;
+  // Fields:
+  @FXML AutoCompleteInput locationSelection;
   @FXML AutoCompleteInput threatLevel;
   @FXML AutoCompleteInput employee;
   @FXML EmergencyButton emergencyButton;
+  @FXML HospitalMap map;
+
+  // Alerts:
+  Alert confirm = new ConfirmAlert();
+  Alert emptyFields = new EmptyAlert();
 
   @Override
-  public void initialize(URL l, ResourceBundle rb) {
-    location.loadValues(getLocations());
+  public void initialize(URL location, ResourceBundle rb) {
+    locationSelection.loadValues(getLocations());
     threatLevel.loadValues(
         (ArrayList<String>)
             Arrays.stream(ThreatLevels.values())
                 .map(ThreatLevels::toString)
                 .collect(Collectors.toList()));
     employee.loadValues(getEmployeeNames());
+
+    map.attachOnSelectionMade(l -> locationSelection.getSelectionModel().select(l.getLongName()));
   }
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
@@ -60,7 +66,7 @@ public class SecurityServiceRequestController implements Initializable {
 
   private void pushSecurityRequestToDB() throws SQLException {
     ArrayList<String> ssrFields = new ArrayList<String>();
-    ssrFields.add(locationToNodeID(location.getSelectionModel().getSelectedItem()));
+    ssrFields.add(locationToNodeID(locationSelection.getSelectionModel().getSelectedItem()));
     ssrFields.add(getEmployeeID(employee.getValue())); // replace with employee id
     if (emergencyButton.getValue()) {
       ssrFields.add("1");
@@ -86,12 +92,12 @@ public class SecurityServiceRequestController implements Initializable {
   private void clearFields() {
     threatLevel.getSelectionModel().clearSelection();
     employee.getSelectionModel().clearSelection();
-    location.getSelectionModel().clearSelection();
+    locationSelection.getSelectionModel().clearSelection();
   }
 
   private boolean checkEmptyFields() {
     return threatLevel.getSelectionModel().isEmpty()
-        || location.getSelectionModel().isEmpty()
+        || locationSelection.getSelectionModel().isEmpty()
         || employee.getSelectionModel().isEmpty();
   }
 
@@ -121,12 +127,7 @@ public class SecurityServiceRequestController implements Initializable {
     Integer commaIndex = name.indexOf(',');
     employeeLastName = name.substring(0, commaIndex);
     employeeFirstName = name.substring(commaIndex + 2);
-
-    for (Employee e : EmployeeManager.getEmployeeManager().getAllEmployees()) {
-      if (e.getLastName().equals(employeeLastName) && e.getFirstName().equals(employeeFirstName)) {
-        employeeID = e.getEmployeeID();
-      }
-    }
+    employeeID = EmployeeManager.getEmployeeManager().getEmployeeFromName(employeeLastName,employeeFirstName).getEmployeeID();
 
     return String.format("%d", employeeID);
   }
@@ -152,17 +153,17 @@ public class SecurityServiceRequestController implements Initializable {
   private ArrayList<String> getEmployeeNames() {
     ArrayList<String> name = new ArrayList<>();
     ArrayList<Employee> employees = null;
+    ArrayList<EmployeeType> types = new ArrayList<>();
+    types.add(EmployeeType.Security);
     try {
-      employees = EmployeeManager.getEmployeeManager().getAllEmployees();
+      employees = EmployeeManager.getEmployeeManager().getEmployeeListByType(types);
     } catch (SQLException e) {
       System.out.println("Failed to unearth employees from database");
       e.printStackTrace();
     }
     for (Employee e : employees) {
-      if (e.getEmployeeID() != -1 && e.getType().equals(EmployeeType.Security)) {
-        String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
-        name.add(empName);
-      }
+      String empName = String.format("%s, %s", e.getLastName(), e.getFirstName());
+      name.add(empName);
     }
     return name;
   }
