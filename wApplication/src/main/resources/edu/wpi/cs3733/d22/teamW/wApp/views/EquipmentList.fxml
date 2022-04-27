@@ -9,25 +9,25 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="339.0" prefWidth="679.0" spacing="25" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.EquipmentListController">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="476.0" prefWidth="906.0" spacing="25" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.EquipmentListController">
     <children>
-      <HBox prefHeight="253.0" prefWidth="653.0">
+      <HBox prefHeight="253.0" prefWidth="874.0">
          <children>
-            <VBox prefHeight="382.0" prefWidth="472.0">
+            <VBox prefHeight="253.0" prefWidth="674.0">
                <children>
-                    <TableView fx:id="eqTab" onMouseClicked="#setSelected" prefHeight="214.0" prefWidth="191.0">
+                    <TableView fx:id="eqTab" onMouseClicked="#setSelected" prefHeight="208.0" prefWidth="564.0">
                         <columns>
                             <TableColumn prefWidth="150" text="MedID">
                                 <cellValueFactory>
                                     <PropertyValueFactory property="MedID" />
                                 </cellValueFactory>
                             </TableColumn>
-                            <TableColumn prefWidth="150.0" text="Location">
+                            <TableColumn prefWidth="286.0" text="Location">
                                 <cellValueFactory>
                                     <PropertyValueFactory property="Floor" />
                                 </cellValueFactory>
                             </TableColumn>
-                            <TableColumn prefWidth="150.0" text="Status">
+                            <TableColumn prefWidth="213.0" text="Status">
                                 <cellValueFactory>
                                     <PropertyValueFactory property="Status" />
                                 </cellValueFactory>
@@ -47,7 +47,7 @@
                     </HBox>
                </children>
             </VBox>
-            <VBox alignment="TOP_CENTER" prefHeight="253.0" prefWidth="164.0">
+            <VBox alignment="TOP_CENTER" prefHeight="253.0" prefWidth="196.0">
                <children>
                   <AutoCompleteInput fx:id="location" prefWidth="150.0" stylesheets="@../CSS/UniversalCSS/Standard.css">
                      <VBox.margin>

@@ -12,6 +12,7 @@ public class medEquip {
   private SimpleStringProperty Status = new SimpleStringProperty();
   private SimpleStringProperty Floor = new SimpleStringProperty();
   private SimpleStringProperty LocType = new SimpleStringProperty();
+  private String floorNum;
   private Location homeLoc;
 
   public medEquip(String ID, String type, Integer X, Integer Y, Location home) {
@@ -105,5 +106,13 @@ public class medEquip {
 
   public String getFloor() {
     return Floor.get();
+  }
+
+  public String getFloorNum(){
+    return floorNum;
+  }
+
+  public void setFloorNum(String floorNum){
+    this.floorNum = floorNum;
   }
 }
