@@ -30,6 +30,7 @@ public class BackgroundManager {
   }
 
   public void setContent(Pane pane) {
+    parent.getChildren().clear();
     if (parent.getChildren().size() > 0 && parent.getChildren().get(parent.getChildren().size() - 1).equals(pane)) {
       System.out.println("No Background Changed");
       return;
