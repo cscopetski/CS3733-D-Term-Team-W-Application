@@ -47,8 +47,6 @@
                                                   text="Simulations"/>
                                         <MenuItem mnemonicParsing="false" onAction="#switchToMessaging"
                                                   text="Messaging"/>
-                                        <MenuItem mnemonicParsing="false" onAction="#switchToHelp"
-                                                  text="Help"/>
                                     </items>
                                 </MenuButton>
                                 <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false"
