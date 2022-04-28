@@ -39,7 +39,7 @@ public class ComputerServiceRequestController implements Initializable {
   @FXML Label successLabel;
   @FXML
   //Pane map;
-  HospitalMap map = HospitalMap.getInstance();
+  HospitalMap map;
 @FXML
   VBox BOX;
   //Alerts:
@@ -76,7 +76,6 @@ public class ComputerServiceRequestController implements Initializable {
   }
 
   public void onLoad() {
-    BOX.getChildren().add(map);
     fadeOut.setNode(successLabel);
     fadeOut.setFromValue(1.0);
     fadeOut.setToValue(0.0);

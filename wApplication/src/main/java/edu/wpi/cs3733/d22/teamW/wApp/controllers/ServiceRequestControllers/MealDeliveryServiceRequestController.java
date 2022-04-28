@@ -45,7 +45,7 @@ public class MealDeliveryServiceRequestController implements Initializable {
   @FXML TextField patientFirst;
   @FXML TextField patientLast;
   @FXML
-  HospitalMap map = HospitalMap.getInstance();
+  HospitalMap map;
   @FXML
   VBox BOX;
 
@@ -128,7 +128,6 @@ public class MealDeliveryServiceRequestController implements Initializable {
   public void onLoad() throws SQLException {
     locationComboBox.loadValues(getLocations());
     employeeNameComboBox.loadValues(getEmployeeNames());
-    BOX.getChildren().add(map);
   }
 
   private boolean emptyFields() {
