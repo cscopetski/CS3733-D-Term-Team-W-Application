@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
+import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Floor;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Requests;
@@ -92,7 +93,19 @@ public class MapEditorController implements Initializable {
   private ArrayList<Floor> floorList = new ArrayList<>();
   private ArrayList<Floor> locEqList = new ArrayList<>();
   private boolean loaded = false;
-
+  private loadFunc l = new loadFunc();
+  private class loadFunc implements PageManager.SimpleFunction{
+    @Override
+    public void function() {
+      try {
+        swapFloor1();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      } catch (NonExistingMedEquip e) {
+        e.printStackTrace();
+      }
+    }
+  }
   private enum InteractionStates {
     None,
     Pan,
@@ -121,6 +134,7 @@ public class MapEditorController implements Initializable {
                 scrollPane.setPannable(false);
               }
             });
+    PageManager.getInstance().attachOnLoad(PageManager.getInstance().getCurrentPage(),l);
     onLoad();
   }
   public void onLoad() {
@@ -137,6 +151,7 @@ public class MapEditorController implements Initializable {
     scrollPane.setPannable(true);
     scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
     scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+    currFloor = "01";
     try {
       refresh();
     } catch (SQLException e) {
