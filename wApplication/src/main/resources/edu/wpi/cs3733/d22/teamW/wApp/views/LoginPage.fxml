@@ -10,9 +10,9 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.LoginController">
    <center>
-      <VBox alignment="CENTER" maxHeight="431.0" maxWidth="416.0" prefHeight="416.0" prefWidth="416.0" styleClass="pane" stylesheets="@../CSS/LoginPage/paneLogin.css">
+      <VBox alignment="CENTER" maxHeight="431.0" maxWidth="489.0" prefHeight="416.0" prefWidth="489.0" styleClass="pane" stylesheets="@../CSS/LoginPage/paneLogin.css">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="419.0" prefHeight="53.0" prefWidth="419.0" style="-fx-background-color: #189DA6;" text="Welcome back" textFill="WHITE">
+            <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="492.0" prefHeight="53.0" prefWidth="492.0" style="-fx-background-color: #189DA6;" text="Welcome back" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="36.0" />
                </font>
@@ -20,7 +20,7 @@
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Label>
-            <Label maxWidth="302.0" prefHeight="30.0" prefWidth="302.0" text="Username:" textFill="#18208d">
+            <Label maxWidth="384.0" prefHeight="30.0" prefWidth="384.0" text="Username:" textFill="#18208d">
                <VBox.margin>
                   <Insets />
                </VBox.margin>
@@ -28,25 +28,31 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <TextField fx:id="username" maxWidth="300.0" onAction="#onEnter" prefHeight="37.0" prefWidth="300.0" styleClass="text-field" stylesheets="@../CSS/UniversalCSS/Standard.css">
+            <TextField fx:id="username" maxWidth="377.0" onAction="#onEnter" prefHeight="46.0" prefWidth="377.0" styleClass="text-field" stylesheets="@../CSS/UniversalCSS/Standard.css">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
             </TextField>
             <Label fx:id="existCase" alignment="CENTER_RIGHT" prefWidth="225.0" text="Username does not exist." textFill="RED" visible="false">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
             </Label>
-            <Label maxWidth="304.0" prefHeight="30.0" prefWidth="304.0" text="Password:" textFill="#18208d">
+            <Label maxWidth="384.0" prefHeight="30.0" prefWidth="362.0" text="Password:" textFill="#18208d">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>
             </Label>
-            <PasswordField fx:id="password" maxWidth="304.0" onAction="#onEnter" prefHeight="39.0" prefWidth="304.0" styleClass="text-field" stylesheets="@../CSS/UniversalCSS/Standard.css">
+            <PasswordField fx:id="password" maxWidth="383.0" onAction="#onEnter" prefHeight="46.0" prefWidth="383.0" styleClass="text-field" stylesheets="@../CSS/UniversalCSS/Standard.css">
                <VBox.margin>
                   <Insets left="10.0" right="10.0" top="10.0" />
                </VBox.margin>
+               <font>
+                  <Font size="20.0" />
+               </font>
             </PasswordField>
             <Pane>
                <children>
