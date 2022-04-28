@@ -136,4 +136,8 @@ public class DefaultPageController implements Initializable {
   public void switchToDashBoard() {
     PageManager.getInstance().loadPage(PageManager.Pages.Dashboard);
   }
+
+  public void switchToHelp() {
+    PageManager.getInstance().loadPage(PageManager.Pages.Help);
+  }
 }
