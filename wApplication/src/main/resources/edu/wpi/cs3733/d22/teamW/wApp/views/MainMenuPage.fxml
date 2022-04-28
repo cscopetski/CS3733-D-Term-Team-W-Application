@@ -12,7 +12,7 @@
         <children>
          <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-               <Label alignment="CENTER" contentDisplay="TOP" graphicTextGap="10.0" prefHeight="43.0" style="-fx-background-color: #189DA6; -fx-background-radius: 15;" text="Welcome to the Brigham and Women Hospital app" textFill="WHITE">
+               <Label alignment="CENTER" contentDisplay="TOP" graphicTextGap="10.0" prefHeight="43.0" style="-fx-background-color: #189DA6; -fx-background-radius: 15;" text="Welcome to the Brigham and Women Hospital App" textFill="WHITE">
                   <font>
                      <Font name="System Bold" size="42.0" />
                   </font>

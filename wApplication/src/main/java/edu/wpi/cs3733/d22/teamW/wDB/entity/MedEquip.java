@@ -23,10 +23,19 @@ public class MedEquip extends Entity {
     this.status = null;
   }
 
+
   public MedEquip(String ID, String type, String nodeID, Integer status)
       throws StatusError, NonExistingMedEquip {
     this.medID = ID;
     this.type = MedEquipType.getMedEquipFromAbb(type);
+    this.nodeID = nodeID;
+    this.status = MedEquipStatus.getStatus(status);
+  }
+
+  public MedEquip(String ID, MedEquipType type, String nodeID, Integer status)
+          throws StatusError, NonExistingMedEquip {
+    this.medID = ID;
+    this.type = type;
     this.nodeID = nodeID;
     this.status = MedEquipStatus.getStatus(status);
   }

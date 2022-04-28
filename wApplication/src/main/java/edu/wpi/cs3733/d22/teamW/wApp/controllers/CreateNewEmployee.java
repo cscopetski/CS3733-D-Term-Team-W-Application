@@ -30,10 +30,10 @@ public class CreateNewEmployee {
   EmployeeManager em = EmployeeManager.getEmployeeManager();
 
   public void initialize() {
-    ArrayList<EmployeeType> eTypes = new ArrayList<>();
-    for (EmployeeType e : EmployeeType.values()) {
-      if(!e.equals(EmployeeType.NoOne)){
-        eTypes.add(e);
+    ArrayList<String> eTypes = new ArrayList<>();
+    for (EmployeeType eT : EmployeeType.values()){
+      if (!(eT.equals(EmployeeType.NoOne))){
+        eTypes.add(eT.getString());
       }
     }
     typebox.setItems(FXCollections.observableArrayList(eTypes));
