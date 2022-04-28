@@ -38,7 +38,8 @@ public class LanguageInterpreterServiceRequestController implements Initializabl
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
   //Pane map;
-  HospitalMap map = HospitalMap.getInstance();
+  @FXML
+  HospitalMap map;
   @FXML
   VBox BOX;
 
@@ -78,7 +79,6 @@ public class LanguageInterpreterServiceRequestController implements Initializabl
   }
 
   public void onLoad() throws SQLException {
-    BOX.getChildren().add(map);
     fadeOut.setNode(successLabel);
     fadeOut.setFromValue(1.0);
     fadeOut.setToValue(0.0);

@@ -8,13 +8,27 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER" fillWidth="false" prefHeight="476.0" prefWidth="906.0" spacing="25" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.EquipmentListController">
+<VBox alignment="CENTER" fillWidth="false" prefHeight="467.0" prefWidth="906.0" spacing="25" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.EquipmentListController">
     <children>
+      <Pane prefHeight="147.0" prefWidth="223.0">
+         <children>
+            <ImageView fitHeight="166.0" fitWidth="166.0" layoutX="38.0" layoutY="-27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../assets/Icons/PacMan/Center-01.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="19.0" layoutY="102.0" text="Equipment List" textFill="#013895">
+               <font>
+                  <Font name="System Bold" size="29.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
       <HBox prefHeight="253.0" prefWidth="874.0">
          <children>
             <VBox prefHeight="253.0" prefWidth="674.0">
                <children>
-                    <TableView fx:id="eqTab" onMouseClicked="#setSelected" prefHeight="208.0" prefWidth="564.0">
+                    <TableView fx:id="eqTab" onMouseClicked="#setSelected" prefHeight="287.0" prefWidth="674.0">
                         <columns>
                             <TableColumn prefWidth="150" text="MedID">
                                 <cellValueFactory>

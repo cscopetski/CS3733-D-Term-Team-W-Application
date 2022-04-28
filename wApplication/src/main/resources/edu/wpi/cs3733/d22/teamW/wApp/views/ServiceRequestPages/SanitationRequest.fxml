@@ -24,7 +24,7 @@
                   <Image url="@../../assets/Icons/SanitationBlue.png" />
                </image>
             </ImageView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="SANITATION SERVICES" textAlignment="CENTER" wrappingWidth="370.800048828125">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Sanitation Service" textAlignment="CENTER" wrappingWidth="370.800048828125">
                <font>
                   <Font size="30.0" />
                </font>
@@ -111,7 +111,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-<!--                  <HospitalMap fx:id="map" minHeight="400" minWidth="400" />-->
+                  <HospitalMap fx:id="map" minHeight="400" minWidth="400" />
                </children>
                <padding>
                   <Insets left="20.0" />
