@@ -1,5 +1,7 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
+import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.medEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
@@ -14,9 +16,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableView;
 
@@ -25,6 +29,10 @@ public class EquipmentListController implements Initializable {
     private TableView<medEquip> eqTab;
     @FXML
     private AutoCompleteInput location;
+@FXML
+private Button addEquipButton;
+@FXML
+private Button deleteEquipButton;
     private medEquip selected;
 
     @Override
@@ -37,8 +45,20 @@ public class EquipmentListController implements Initializable {
     }
 
     public void onLoad() throws SQLException {
+
         ArrayList<medEquip> eqList = new ArrayList<>();
         ArrayList<MedEquip> equips;
+        if(AccountManager.getInstance().getEmployee().getType().equals(EmployeeType.Admin)){
+            addEquipButton.setVisible(true);
+            deleteEquipButton.setVisible(true);
+            addEquipButton.setDisable(false);
+            deleteEquipButton.setDisable(false);
+        } else{
+            addEquipButton.setVisible(false);
+            deleteEquipButton.setVisible(false);
+            addEquipButton.setDisable(true);
+            deleteEquipButton.setDisable(true);
+        }
         try {
             equips = MedEquipManager.getMedEquipManager().getAllMedEquip();
         } catch (SQLException e) {
@@ -179,4 +199,28 @@ public class EquipmentListController implements Initializable {
         }
         return locations;
     }
+
+    public void addEquip() throws SQLException {
+        WindowManager.getInstance().openWindow("popUpViews/AddEquipmentDetail.fxml");
+        onLoad();
+    }
+
+    public void deleteEquip(){
+        if (selected != null) {
+        try {
+            MedEquipManager.getMedEquipManager().delete(selected.getMedID());
+            onLoad();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        } else {
+            Alert alert =
+                    new Alert(
+                            Alert.AlertType.WARNING,
+                            "Select an Equipment",
+                            ButtonType.OK);
+            alert.showAndWait();
+        }
+    }
+
 }
