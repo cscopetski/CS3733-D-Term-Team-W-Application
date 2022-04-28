@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.HelpController">
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.HelpController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="100.0">
+      <VBox alignment="TOP_CENTER">
          <children>
             <Text fx:id="TitleText" strokeType="OUTSIDE" strokeWidth="0.0" text="PAGE INFORMATION">
                <font>
@@ -16,16 +16,24 @@
             </Text>
          </children>
       </VBox>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-         <children>
-            <Text fx:id="DescText" text="DESCRIPTION" />
-            <BorderPane prefHeight="200.0" prefWidth="200.0">
-               <center>
-                  <ImageView fx:id="Pic" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
-               </center>
-            </BorderPane>
-         </children>
-      </VBox>
+      <ScrollPane fitToHeight="true" style="-fx-background-color: transparent;">
+         <content>
+            <VBox alignment="CENTER">
+               <children>
+                  <Text fx:id="DescText" text="DESCRIPTION">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Text>
+                  <BorderPane>
+                     <center>
+                        <ImageView fx:id="Pic" fitHeight="1000.0" fitWidth="1000.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER" />
+                     </center>
+                  </BorderPane>
+               </children>
+            </VBox>
+         </content>
+      </ScrollPane>
       <!--
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
