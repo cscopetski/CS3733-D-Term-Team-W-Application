@@ -324,8 +324,9 @@
     -fx-border-width: 1px;
     -fx-font-size: 14px;
     -fx-text-fill: -fx-button-first-font-color;
-}
+    -fx-text-background-color: #013895;
 
+}
 
 .menu-button:hover,
 .menu-button:pressed {
@@ -334,9 +335,15 @@
     -fx-background-radius: 15;
     -fx-font-size: 14px;
     -fx-text-fill: #013895;
+    -fx-text-background-color: #013895;
     -fx-border-color: #013895;
     -fx-border-radius: 15px;
     -fx-border-width: 1px;
+
+}
+.menu-item{
+    -fx-text-fill: #013895;
+    -fx-text-background-color: #013895;
 
 }
 
@@ -351,6 +358,7 @@
     -fx-border-color: #013895;
     -fx-border-radius: 15px;
     -fx-border-width: 1px;
+    -fx-text-fill: -fx-button-second-font-color;
 }
 
 .menu-item:hover,
@@ -361,6 +369,9 @@
     -fx-border-radius: 15px;
     -fx-border-width: 1px;
     -fx-cursor: hand;
+    -fx-text-fill: -fx-button-first-font-color;
+    -fx-text-background-color: white;
+
 
 }
 
@@ -373,6 +384,9 @@
 .menu-item .label {
     -fx-font-weight: bold;
     -fx-font-size: 14px;
+    -fx-text-fill: -fx-button-second-font-color;
+}
+.menu-item:hover .label {
     -fx-text-fill: -fx-button-first-font-color;
 }
 
@@ -384,13 +398,6 @@
     -fx-text-fill: -fx-button-second-font-color;
 }
 
-.menu-item:hover .label,
-.menu-item:pressed .label {
-    -fx-font-weight: bold;
-    -fx-font-size: 14px;
-    -fx-cursor: hand;
-    -fx-text-fill: -fx-button-first-font-color;
-}
 
 .toggle-button {
     -fx-text-base-color: #FFFFFF;
