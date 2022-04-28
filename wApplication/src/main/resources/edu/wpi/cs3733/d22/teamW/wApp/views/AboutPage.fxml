@@ -33,7 +33,7 @@
                   <Font name="System Bold" size="28.0" />
                </font>
             </Text>
-            <Label alignment="TOP_CENTER" prefHeight="275.0" prefWidth="667.0" text="This application was made by WPI students in Professor Wong's WPI CS3733 Software Engineering Course and in collaboration with Brigham &amp; Women’s Hospital in Boston, Massachusetts. Team W (The Wumbo Whowies) is comprised of the following: the lead software engineer Ethan Pollack, assistant lead software engineers Edison Zhang and Jason Odell, full time back-end engineers Caleb Scopetski and Hasan Gandor, full time front-end engineers Philip Bui and Jack McEvoy, Project Manager and back end engineer Charlie Kneissl-Williams, Scrum Master and front-end engineer Edward Enyedy, Product Owner and front-end engineer Leona (Nhi) Nguyen, and Documentation Analyst and front-end engineer Dylan Olmsted. We would like to thank Professor Wong for his guiding us through the software development process, our team coach Matthew Spofford for helping us when we got stuck, and the hospital representative Andrew for providing feedback and advice about how we could make our application most beneficial to the hospital." textAlignment="CENTER" wrapText="true" />
+            <Label alignment="BOTTOM_CENTER" minHeight="200.0" minWidth="700.0" prefWidth="700.0" text="This application was made by WPI students in Professor Wong's WPI CS3733 Software Engineering Course and in collaboration with Brigham &amp; Women’s Hospital in Boston, Massachusetts. Team W (The Wumbo Whowies) is comprised of the following: the lead software engineer Ethan Pollack, assistant lead software engineers Edison Zhang and Jason Odell, full time back-end engineers Caleb Scopetski and Hasan Gandor, full time front-end engineers Philip Bui and Jack McEvoy, Project Manager and back end engineer Charlie Kneissl-Williams, Scrum Master and front-end engineer Edward Enyedy, Product Owner and front-end engineer Leona (Nhi) Nguyen, and Documentation Analyst and front-end engineer Dylan Olmsted. We would like to thank Professor Wong for his guiding us through the software development process, our team coach Matthew Spofford for helping us when we got stuck, and the hospital representative Andrew for providing feedback and advice about how we could make our application most beneficial to the hospital." textAlignment="CENTER" wrapText="true" />
          </children>
          <GridPane.margin>
             <Insets bottom="50.0" left="50.0" right="50.0" />
@@ -60,7 +60,7 @@
             <Image url="@../assets/Whowies/Dylan.png" />
          </image>
          <GridPane.margin>
-            <Insets right="20.0" />
+            <Insets right="50.0" />
          </GridPane.margin>
       </ImageView>
       <ImageView fx:id="edisonPic" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -68,7 +68,7 @@
             <Image url="@../assets/Whowies/Edison.png" />
          </image>
          <GridPane.margin>
-            <Insets bottom="20.0" left="20.0" />
+            <Insets bottom="20.0" left="50.0" />
          </GridPane.margin>
       </ImageView>
       <ImageView fx:id="eddyPic" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -84,7 +84,7 @@
             <Image url="@../assets/Whowies/Hasan.png" />
          </image>
          <GridPane.margin>
-            <Insets left="20.0" />
+            <Insets left="50.0" />
          </GridPane.margin>
       </ImageView>
       <ImageView fx:id="ethanPic" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -100,7 +100,7 @@
             <Image url="@../assets/Whowies/Jack.png" />
          </image>
          <GridPane.margin>
-            <Insets bottom="20.0" right="20.0" />
+            <Insets bottom="20.0" right="50.0" />
          </GridPane.margin>
       </ImageView>
       <ImageView fx:id="jasonPic" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
