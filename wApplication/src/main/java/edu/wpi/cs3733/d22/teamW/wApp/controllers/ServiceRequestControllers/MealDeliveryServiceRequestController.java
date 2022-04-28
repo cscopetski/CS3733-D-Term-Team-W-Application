@@ -138,7 +138,7 @@ public class MealDeliveryServiceRequestController implements Initializable {
 
   private void pushMealDeliveryToDB() throws SQLException {
     ArrayList<String> mdFields = new ArrayList<String>();
-    mdFields.add(getMealTypeList().get(currentSelection));
+    mdFields.add(getMealTypeList().get(currentSelection - 1));
     mdFields.add(patientLast.getText());
     mdFields.add(patientFirst.getText());
     mdFields.add(
