@@ -54,6 +54,10 @@ public class LocationManager {
     return ldi.getAllLocations();
   }
 
+  public ArrayList<Location> getLocationByType(String type) throws SQLException {
+    return ldi.getLocationByType(type);
+  }
+
   public void clearLocations() throws Exception {
     for (int i = 0; i < getAllLocations().size(); i++) {
       if (getAllLocations().get(i).getNodeID().equalsIgnoreCase("HOLD")) {
@@ -91,5 +95,9 @@ public class LocationManager {
 
   public Location getLocation(String NodeID) throws SQLException {
     return ldi.getLocation(NodeID);
+  }
+
+  public Location getLocation(String longName, String floor) throws SQLException {
+    return ldi.getLocation(longName,floor);
   }
 }

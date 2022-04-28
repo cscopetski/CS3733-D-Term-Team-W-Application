@@ -53,4 +53,8 @@ public class LanguageInterpreterManager {
   public ArrayList<Integer> getEligibleEmployees(String lanuage) throws SQLException {
     return lid.getEligibleEmployees(lanuage);
   }
+
+  public void updateLanguageRequestWithEmployee(Integer employeeID) throws Exception {
+    lid.deleteAllLanguageInterpreter(employeeID);
+  }
 }

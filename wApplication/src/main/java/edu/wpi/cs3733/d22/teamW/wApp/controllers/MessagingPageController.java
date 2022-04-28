@@ -4,15 +4,14 @@ import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.ChatCardHBox;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.ChatManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeMessageManager;
-import edu.wpi.cs3733.d22.teamW.wDB.Managers.UnreadMessageManager;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmployeeImageView;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Chat;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.EmployeeMessage;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.UnreadMessage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
@@ -28,9 +27,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
-import javafx.geometry.NodeOrientation;
-import javafx.geometry.Orientation;
+import javafx.geometry.*;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -49,17 +47,22 @@ public class MessagingPageController implements Initializable {
 
     protected Employee currentEmployee;
     protected Integer currentChatID;
+    protected boolean displayingMessages = true;
 
     @FXML
     AutoCompleteInput employeeComboBox;
     @FXML
     Label messageTitleLabel;
     @FXML
+    Label viewMembersLabel;
+    @FXML
     VBox messagesWindow;
     @FXML
     VBox messageWindow;
     @FXML
     VBox chatCardView;
+    @FXML
+    HBox messagingControlsHBox;
     @FXML
     TextField messageTextField;
     @FXML
@@ -93,6 +96,7 @@ public class MessagingPageController implements Initializable {
             this.employeeComboBox.getSelectionModel().clearSelection();
         }
         messageWindow.setDisable(true);
+        viewMembersLabel.setVisible(false);
     }
 
     public void refreshChatCards() throws SQLException {
@@ -152,23 +156,42 @@ public class MessagingPageController implements Initializable {
         chatCardView.getChildren().clear();
     }
 
-    private ImageView generatePlaceHolderImage(boolean small) {
+    private EmployeeImageView generatePlaceHolderImage(boolean small) {
         double imageWidth = 80;
         double imageHeight = 80;
         if (small) {
             imageWidth = 40;
             imageHeight = 40;
         }
-        ImageView placeHolderImage = new ImageView();
-        placeHolderImage.setImage(
-                new Image(
-                        MessagingPageController.class
-                                .getClassLoader()
-                                .getResource("edu/wpi/cs3733/d22/teamW/wApp/assets/Icons/profilePicture.png")
-                                .toString()));
+        EmployeeImageView placeHolderImage = new EmployeeImageView();
+        placeHolderImage.setImage(EmployeeImageGenerator.generatePlaceHolderImage());
         placeHolderImage.setFitWidth(imageWidth);
         placeHolderImage.setFitHeight(imageHeight);
         return placeHolderImage;
+    }
+
+    private EmployeeImageView generateEmployeeImage(boolean small, Integer empID) {
+        Employee selectedEmployee = null;
+        try {
+            selectedEmployee = EmployeeManager.getEmployeeManager().getEmployee(empID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(selectedEmployee == null) {
+            return generatePlaceHolderImage(small);
+        }
+        double imageWidth = 80;
+        double imageHeight = 80;
+        if (small) {
+            imageWidth = 40;
+            imageHeight = 40;
+        }
+        EmployeeImageView employeeImageView = new EmployeeImageView();
+        employeeImageView.setEmpID(empID);
+        employeeImageView.setImage(EmployeeImageGenerator.generateEmployeeImage(selectedEmployee.getEmployeeID()));
+        employeeImageView.setFitWidth(imageWidth);
+        employeeImageView.setFitHeight(imageHeight);
+        return employeeImageView;
     }
 
     public void addChatCard(Integer chatID, int numUnread) throws SQLException {
@@ -184,6 +207,8 @@ public class MessagingPageController implements Initializable {
         chatCard.setPrefHeight(80);
         chatCard.setUnread(hasUnread);
         chatCard.setChatID(chatID);
+        chatCard.setCursor(Cursor.HAND);
+        chatCard.setAlignment(Pos.CENTER_LEFT);
 
         ArrayList<Employee> otherEmployeesInChat = getOtherEmployeesInChat(chatID);
 
@@ -196,22 +221,30 @@ public class MessagingPageController implements Initializable {
         ImageView placeHolderImage2 = generatePlaceHolderImage(smallImages);
         ImageView placeHolderImage3 = generatePlaceHolderImage(smallImages);
         ImageView placeHolderImage4 = generatePlaceHolderImage(smallImages);
-
         // Add images
         VBox imageHolderVBOX_1 = new VBox();
         VBox imageHolderVBOX_2 = new VBox();
         switch (otherEmployeesInChat.size()) {
             case 1:
+                placeHolderImage = generateEmployeeImage(smallImages, otherEmployeesInChat.get(0).getEmployeeID());
+
                 imageHolderVBOX_1.getChildren().add(placeHolderImage);
                 chatCard.getChildren().add(imageHolderVBOX_1);
                 break;
             case 2:
+                placeHolderImage = generateEmployeeImage(smallImages, otherEmployeesInChat.get(0).getEmployeeID());
+                placeHolderImage2 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(1).getEmployeeID());
+
                 imageHolderVBOX_1.setPrefWidth(80);
                 imageHolderVBOX_1.getChildren().add(placeHolderImage);
                 imageHolderVBOX_1.getChildren().add(placeHolderImage2);
                 chatCard.getChildren().add(imageHolderVBOX_1);
                 break;
             case 3:
+                placeHolderImage = generateEmployeeImage(smallImages, otherEmployeesInChat.get(0).getEmployeeID());
+                placeHolderImage2 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(1).getEmployeeID());
+                placeHolderImage3 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(2).getEmployeeID());
+
                 imageHolderVBOX_1.getChildren().add(placeHolderImage);
                 imageHolderVBOX_1.getChildren().add(placeHolderImage2);
                 imageHolderVBOX_2.getChildren().add(placeHolderImage3);
@@ -219,6 +252,11 @@ public class MessagingPageController implements Initializable {
                 chatCard.getChildren().add(imageHolderVBOX_2);
                 break;
             case 4:
+                placeHolderImage = generateEmployeeImage(smallImages, otherEmployeesInChat.get(0).getEmployeeID());
+                placeHolderImage2 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(1).getEmployeeID());
+                placeHolderImage3 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(2).getEmployeeID());
+                placeHolderImage4 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(3).getEmployeeID());
+
                 imageHolderVBOX_1.getChildren().add(placeHolderImage);
                 imageHolderVBOX_1.getChildren().add(placeHolderImage2);
                 imageHolderVBOX_2.getChildren().add(placeHolderImage3);
@@ -227,6 +265,10 @@ public class MessagingPageController implements Initializable {
                 chatCard.getChildren().add(imageHolderVBOX_2);
                 break;
             default:
+                placeHolderImage = generateEmployeeImage(smallImages, otherEmployeesInChat.get(0).getEmployeeID());
+                placeHolderImage2 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(1).getEmployeeID());
+                placeHolderImage3 = generateEmployeeImage(smallImages, otherEmployeesInChat.get(2).getEmployeeID());
+
                 imageHolderVBOX_1.getChildren().add(placeHolderImage);
                 imageHolderVBOX_1.getChildren().add(placeHolderImage2);
                 imageHolderVBOX_2.getChildren().add(placeHolderImage3);
@@ -282,16 +324,85 @@ public class MessagingPageController implements Initializable {
         chatCardView.getChildren().add(new Separator());
     }
 
+    public void addEmployeeCardToMessageWindow(Integer empID) {
+        Employee selectedEmployee = null;
+        try {
+            selectedEmployee = EmployeeManager.getEmployeeManager().getEmployee(empID);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        if(selectedEmployee == null) return;
+        // Initialize card and other data
+        // Card consists of:
+        //  VBOX(s)
+        //    ImageView(s)
+        //  Seperator
+        //  Label
+        ChatCardHBox employeeCard = new ChatCardHBox();
+        employeeCard.setUnread(false);
+        employeeCard.setChatID(empID);
+        employeeCard.setCursor(Cursor.HAND);
+        employeeCard.setAlignment(Pos.CENTER_LEFT);
+
+
+        // Set image
+        boolean smallImages = false;
+        ImageView placeHolderImage = generateEmployeeImage(smallImages, empID);
+
+        // Add images
+        employeeCard.getChildren().add(placeHolderImage);
+        // Add seperator
+        employeeCard.getChildren().add(new Separator(Orientation.VERTICAL));
+
+        // Add name label
+        Label employeeNameLabel = new Label(selectedEmployee.getFirstName() + " " + selectedEmployee.getLastName());
+        if(selectedEmployee.getEmployeeID().equals(this.currentEmployee.getEmployeeID())) {
+            employeeNameLabel.setText(employeeNameLabel.getText() + " (You)");
+        }
+        employeeCard.getChildren().add(employeeNameLabel);
+
+        // Add background color and mouse events
+        employeeCard.setOnMouseClicked(
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        try {
+                            displayMiniProfile(event, EmployeeManager.getEmployeeManager().getEmployee(employeeCard.getChatID()));
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        employeeCard.setOnMouseEntered(
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        mouseOverCard(event);
+                    }
+                });
+        employeeCard.setOnMouseExited(
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        mouseExitCard(event);
+                    }
+                });
+
+        // Add card to list + seperator
+        messagesWindow.getChildren().add(employeeCard);
+        messagesWindow.getChildren().add(new Separator());
+    }
+
     //TODO: Reimplement Phil's function
     public void displayMiniProfile(MouseEvent event, Employee emp) {
         if (event.getButton().equals(MouseButton.PRIMARY)) {
-            if (event.getClickCount() == 2) {
-                WindowManager.getInstance()
-                        .storeData(
-                                "employee", emp);
-                WindowManager.getInstance().openWindow(
-                        "MiniProfilePage.fxml", emp.getFirstName() + " " + emp.getLastName());
-            }
+            //if (event.getClickCount() == 2) {
+            WindowManager.getInstance()
+                    .storeData(
+                            "employee", emp);
+            WindowManager.getInstance().openWindow(
+                    "MiniProfilePage.fxml", emp.getFirstName() + " " + emp.getLastName());
+            //}
         }
     }
 
@@ -300,6 +411,12 @@ public class MessagingPageController implements Initializable {
         clearMessages();
         if (messageWindow.isDisabled()) messageWindow.setDisable(false);
         messageTitleLabel.setText(getChatTitleFromID(chatID));
+        setViewChatMembers(false);
+        if(ChatManager.getChatManager().getAllEmployeesInChat(chatID).size() > 1) {
+            viewMembersLabel.setVisible(true);
+        } else {
+            viewMembersLabel.setVisible(false);
+        }
         loadMessages(EmployeeMessageManager.getEmployeeMessageManager().getAllMessagesToChat(chatID));
     }
 
@@ -352,7 +469,7 @@ public class MessagingPageController implements Initializable {
         formattedMessageSection.setFillWidth(true);
         formattedMessageSection.setMinHeight(-1.0 / 0.0);
         formattedMessageSection.setPadding(new Insets(0, 0, 10, 0));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm a");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm a");
         String timeString = firstMsgTime.toLocalDateTime().toLocalTime().format(formatter);
         if(fromOther) {
             formattedMessageSection.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
@@ -363,7 +480,21 @@ public class MessagingPageController implements Initializable {
         }
         if(fromOther) {
             HBox containingImageBox = new HBox();
-            containingImageBox.getChildren().add(generatePlaceHolderImage(true));
+            EmployeeImageView employeeImage = generateEmployeeImage(true, sectionEmployee.getEmployeeID());
+            employeeImage.setEmpID(sectionEmployee.getEmployeeID());
+            employeeImage.setCursor(Cursor.HAND);
+            employeeImage.setOnMouseClicked(
+                    new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent event) {
+                            try {
+                                displayMiniProfile(event, EmployeeManager.getEmployeeManager().getEmployee(employeeImage.getEmpID()));
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+            containingImageBox.getChildren().add(employeeImage);
             containingImageBox.getChildren().add(currentMessageSection);
             formattedMessageSection.getChildren().add(containingImageBox);
         } else {
@@ -386,13 +517,13 @@ public class MessagingPageController implements Initializable {
             messageLabel.setStyle(
                     "-fx-background-color: #e5e5ea;"
                             + "-fx-label-padding: 5;"
-                            + "-fx-background-radius: 50;");
+                            + "-fx-background-radius: 15;");
             messageLabel.setTextFill(Paint.valueOf("#000000"));
         } else {
             messageLabel.setStyle(
                     "-fx-background-color: #248bf5;"
                             + "-fx-label-padding: 5;"
-                            + "-fx-background-radius: 50;");
+                            + "-fx-background-radius: 15;");
             messageLabel.setTextFill(Paint.valueOf("#ffffff"));
             messageLabel.setNodeOrientation(NodeOrientation.LEFT_TO_RIGHT);
 
@@ -431,7 +562,7 @@ public class MessagingPageController implements Initializable {
         return chatTitle;
     }
 
-    public void onSendButtonClick() {
+    public void onSendButtonClick() throws SQLException {
         if (messageTextField.getText().isEmpty()) {
             return;
         }
@@ -519,7 +650,7 @@ public class MessagingPageController implements Initializable {
         setCurrentChat(newChatID);
     }
 
-    public void messageTextKeyPress(KeyEvent keyEvent) {
+    public void messageTextKeyPress(KeyEvent keyEvent) throws SQLException {
         if (keyEvent.getCode().equals(KeyCode.ENTER)) {
             onSendButtonClick();
         }
@@ -564,5 +695,38 @@ public class MessagingPageController implements Initializable {
             setCurrentChat(newGroupChatID);
             refreshChatCards();
         }
+    }
+
+    private void setViewChatMembers(boolean viewMembers) {
+        if(viewMembers) {
+            displayingMessages = false;
+            viewMembersLabel.setText("Hide members in chat");
+            messagingControlsHBox.setDisable(true);
+        } else {
+            displayingMessages = true;
+            viewMembersLabel.setText("View members in chat");
+            messagingControlsHBox.setDisable(false);
+        }
+    }
+
+    public void viewMembersLabelClicked(MouseEvent mouseEvent) throws SQLException {
+        if(displayingMessages) {
+            clearMessages();
+            for(Chat chat : ChatManager.getChatManager().getAllEmployeesInChat(currentChatID)) {
+                addEmployeeCardToMessageWindow(chat.getEmpID());
+            }
+            setViewChatMembers(true);
+        } else {
+            refreshMessages();
+            setViewChatMembers(false);
+        }
+    }
+
+    public void viewMembersLabelMouseEnter(MouseEvent mouseEvent) {
+        ((Label) mouseEvent.getSource()).setStyle("-fx-text-fill: #1267bc");
+    }
+
+    public void viewMembersLabelMouseExit(MouseEvent mouseEvent) {
+        ((Label) mouseEvent.getSource()).setStyle("-fx-text-fill: #248bf5");
     }
 }

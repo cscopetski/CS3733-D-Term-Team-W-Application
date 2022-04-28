@@ -34,16 +34,15 @@ public class LoginController implements Initializable {
   }
 
   private void onLoad() {
-    BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.HospitalImage);
+    BackgroundManager.getInstance().setContent(BackgroundManager.DefaultBackgrounds.HospitalImage.getContent());
     BackgroundManager.getInstance().blur();
-    MenuBarManager.getInstance().DisableMenuBar();
-    //PageManager.getInstance().clearAllHistory();
+    MenuBarManager.getInstance().Hide();
     switchServer.setText("Embedded");
   }
 
   private void onUnload() {
     BackgroundManager.getInstance().unBlur();
-    MenuBarManager.getInstance().EnableMenuBar();
+    MenuBarManager.getInstance().Show();
     PageManager.getInstance().clearAllHistory();
   }
 

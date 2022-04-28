@@ -24,6 +24,7 @@ public class HistoryControl extends HBox {
         setSpacing(10);
 
         history = new ComboBox<>();
+        history.getStyleClass().add("history-combo-box");
         history.setVisibleRowCount(5);
         history.getSelectionModel().selectedIndexProperty().addListener((e, o, n) ->
         {
@@ -38,8 +39,11 @@ public class HistoryControl extends HBox {
         });
         history.setEditable(false);
 
-        back = new Button("<-");
-        forward = new Button("->");
+        back = new Button("    ");
+        back.getStyleClass().add("back-arrow");
+        forward = new Button("    ");
+        forward.getStyleClass().add("back-arrow");
+        forward.getStyleClass().add("flip-image");
         back.setOnAction((e) -> {
             PageManager.getInstance().goBack();
             resetSelection();

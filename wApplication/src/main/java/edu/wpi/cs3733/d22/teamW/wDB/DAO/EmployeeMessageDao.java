@@ -25,4 +25,6 @@ public interface EmployeeMessageDao {
   void changeEmployeeMessage(EmployeeMessage em) throws SQLException;
 
   void deleteEmployeeMessage(Integer messageID) throws SQLException;
+
+  Integer getMaxID() throws SQLException;
 }

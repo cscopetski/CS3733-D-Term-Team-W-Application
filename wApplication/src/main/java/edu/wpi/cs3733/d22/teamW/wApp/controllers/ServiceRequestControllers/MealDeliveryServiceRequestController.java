@@ -5,6 +5,8 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -23,6 +25,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 public class MealDeliveryServiceRequestController implements Initializable {
@@ -41,11 +44,18 @@ public class MealDeliveryServiceRequestController implements Initializable {
   @FXML Label successLabel;
   @FXML TextField patientFirst;
   @FXML TextField patientLast;
+  @FXML
+  HospitalMap map = HospitalMap.getInstance();
+  @FXML
+  VBox BOX;
 
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
 
   private int currentSelection = 0;
+
+  public MealDeliveryServiceRequestController() throws NonExistingMedEquip, SQLException {
+  }
 
   public void menuSelection0() {
     currentSelection = 0;
@@ -112,11 +122,13 @@ public class MealDeliveryServiceRequestController implements Initializable {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    map.attachOnSelectionMade(l -> locationComboBox.getSelectionModel().select(l.getLongName()));
   }
 
   public void onLoad() throws SQLException {
     locationComboBox.loadValues(getLocations());
     employeeNameComboBox.loadValues(getEmployeeNames());
+    BOX.getChildren().add(map);
   }
 
   private boolean emptyFields() {
@@ -126,7 +138,7 @@ public class MealDeliveryServiceRequestController implements Initializable {
 
   private void pushMealDeliveryToDB() throws SQLException {
     ArrayList<String> mdFields = new ArrayList<String>();
-    mdFields.add(getMealTypeList().get(currentSelection));
+    mdFields.add(getMealTypeList().get(currentSelection - 1));
     mdFields.add(patientLast.getText());
     mdFields.add(patientFirst.getText());
     mdFields.add(

@@ -24,6 +24,7 @@ public class MiniProfileController implements Initializable {
     employee =
         (Employee)
             WindowManager.getInstance().getData("employee");
+    profile.setImage(EmployeeImageGenerator.generateEmployeeImage(employee.getEmployeeID()));
     name.setText(employee.getFirstName() + " " + employee.getLastName());
     id.setText(employee.getEmployeeID().toString());
     type.setText(employee.getType().getString());

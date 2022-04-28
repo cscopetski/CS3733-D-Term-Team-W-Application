@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -23,20 +24,16 @@ public class DefaultPageController implements Initializable {
   @FXML public AnchorPane content;
   @FXML public AnchorPane background;
   @FXML public AnchorPane pages;
+    @FXML public ScrollPane scrollPane;
 
-  public void initialize(URL location, ResourceBundle rb) {
+    public void initialize(URL location, ResourceBundle rb) {
     BackgroundManager.getInstance().initialize(background);
     PageManager.getInstance().initialize(pages);
     MenuBarManager.getInstance().initialize(menuBar);
 
     PageManager.getInstance().loadPage(PageManager.Pages.Login);
+    PageManager.getInstance().attachPageChangeListener((o, n) -> scrollPane.setHvalue(0));
   }
-
-  public void createBackground() {
-    Circle c = new Circle(200, 200, 100, Color.web("#009ca8"));
-    content.getChildren().add(0, c);
-  }
-
   public void switchToMedicineDelivery() {
     PageManager.getInstance().loadPage(PageManager.Pages.MedicineDeliverySR);
   }
@@ -91,6 +88,9 @@ public class DefaultPageController implements Initializable {
 
   public void switchToMainMenu() {
     PageManager.getInstance().loadPage(PageManager.Pages.MainMenu);
+  }
+
+  public void switchToAPILandingPage(){ PageManager.getInstance().loadPage(PageManager.Pages.APILandingPage);
   }
 
   public void switchToAdminHub() {

@@ -17,8 +17,14 @@
                     <children>
                         <AnchorPane fx:id="background" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
                                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
-                        <AnchorPane fx:id="pages" AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0"
-                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
+                        <AnchorPane styleClass="page-parent" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50"
+                                    AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50"/>
+                        <ScrollPane fx:id="scrollPane"
+                                    AnchorPane.topAnchor="100" AnchorPane.bottomAnchor="100"
+                                    AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100"
+                                    fitToWidth="true" fitToHeight="true" style="-fx-background-color: transparent; -fx-border-color: transparent;">
+                            <AnchorPane fx:id="pages"/>
+                        </ScrollPane>
                     </children>
                 </AnchorPane>
             </center>
@@ -70,6 +76,7 @@
                                         <MenuItem mnemonicParsing="false" onAction="#switchToGiftService" text="Gifts"/>
                                         <MenuItem mnemonicParsing="false" onAction="#switchToSanitationService"
                                                   text="Sanitation"/>
+                                        <MenuItem mnemonicParsing="false" onAction="#switchToAPILandingPage" text="API Requests"/>
                                     </items>
                                 </MenuButton>
                                 <MenuButton alignment="CENTER" contentDisplay="BOTTOM" mnemonicParsing="false"
@@ -90,7 +97,7 @@
                                         <MenuItem mnemonicParsing="false" onAction="#switchToMapEditor"
                                                   text="View Map"/>
                                         <MenuItem mnemonicParsing="false" onAction="#switchToDashBoard"
-                                                  text="Map dashboard"/>
+                                                  text="Map Dashboard"/>
                                     </items>
                                 </MenuButton>
                                 <Button mnemonicParsing="false" onAction="#exitProgram" prefHeight="30.0"

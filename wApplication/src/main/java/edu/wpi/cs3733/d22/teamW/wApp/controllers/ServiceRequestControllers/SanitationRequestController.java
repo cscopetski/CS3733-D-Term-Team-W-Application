@@ -5,6 +5,8 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -25,19 +27,33 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 public class SanitationRequestController implements Initializable {
+
+  // Fields:
   @FXML AutoCompleteInput locationComboBox;
   @FXML AutoCompleteInput employeeIDComboBox;
   @FXML AutoCompleteInput sanitationTypeBox;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
+  @FXML
+  //Pane map;
+  HospitalMap map = HospitalMap.getInstance();
+  @FXML
+  VBox BOX;
 
+  // Alerts:
   Alert confirm = new ConfirmAlert();
-
   Alert emptyFields = new EmptyAlert();
+
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
+
+  public SanitationRequestController() throws NonExistingMedEquip, SQLException {
+  }
+
+  // -----------------------------METHOD CODE STARTS HERE-----------------------------
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
     if (!emptyFields()) {
@@ -60,6 +76,7 @@ public class SanitationRequestController implements Initializable {
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    map.attachOnSelectionMade(l -> locationComboBox.getSelectionModel().select(l.getLongName()));
   }
 
   public void onLoad() throws SQLException {
@@ -71,6 +88,7 @@ public class SanitationRequestController implements Initializable {
     locationComboBox.loadValues(getLocations());
     employeeIDComboBox.loadValues(getEmployeeNames());
     sanitationTypeBox.loadValues(getSanitationTypeList());
+    BOX.getChildren().add(map);
   }
 
   private boolean emptyFields() {

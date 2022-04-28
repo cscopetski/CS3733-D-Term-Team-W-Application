@@ -7,14 +7,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" fillWidth="false" spacing="50.0" style="-fx-alignment: center;" stylesheets="@../../CSS/UniversalCSS/Standard.css"  xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.SecurityServiceRequestController">
+<VBox alignment="CENTER" fillWidth="false" spacing="50.0" style="-fx-alignment: center;" stylesheets="@../../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.SecurityServiceRequestController">
    <children>
       <VBox alignment="CENTER" fillWidth="false">
          <children>
@@ -31,94 +30,92 @@
             <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter room number to request security personnel." wrappingWidth="265.1999969482422" />
          </children>
       </VBox>
-      <HBox alignment="TOP_CENTER" prefHeight="500.0" prefWidth="800.0" style="-fx-alignment: center;">
-         <children>
-            <VBox alignment="TOP_CENTER" fillWidth="false" spacing="10.0">
-               <children>
-                  <Label styleClass="label-major" text="INFO" />
-                  <VBox alignment="CENTER" fillWidth="false">
-                     <children>
-                        <Label styleClass="label-minor" text="Location:" textFill="WHITE">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <AutoCompleteInput fx:id="location" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" fillWidth="false">
-                     <children>
-                        <Label styleClass="label-minor" text="Threat Level:" textFill="WHITE">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <AutoCompleteInput fx:id="threatLevel" prefWidth="150.0" styleClass="AutoCompleteInput" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" fillWidth="false">
-                     <children>
-                        <Label styleClass="label-minor" text="Employee:" textFill="WHITE">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <AutoCompleteInput fx:id="employee" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" fillWidth="false">
-                     <children>
-                        <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
-                        <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="CENTER" fillWidth="false">
-                     <children>
-                        <HBox alignment="CENTER" spacing="25.0">
-                           <children>
-                              <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
-                              <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#cancelButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Cancel" />
-                           </children>
-                        </HBox>
-                        <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="View Request List" />
-                     </children>
-                     <VBox.margin>
-                        <Insets top="25.0" />
-                     </VBox.margin>
-                  </VBox>
-               </children>
-               <HBox.margin>
-                  <Insets right="20.0" />
-               </HBox.margin>
-            </VBox>
-            <Line endY="200.0" />
-            <VBox alignment="TOP_CENTER" prefHeight="344.0" prefWidth="376.0">
-               <children>
-                  <Label styleClass="label-major" text="MAP INTERACTION" textFill="WHITE">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-                  <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="You can drag the map to see and select availiable items " textAlignment="CENTER" wrappingWidth="336.800048828125" />
-                  <Label text="Map Functionality Coming Soon!">
-                     <VBox.margin>
-                        <Insets top="100.0" />
-                     </VBox.margin>
-                  </Label>
-               </children>
-               <HBox.margin>
-                  <Insets left="20.0" />
-               </HBox.margin>
-            </VBox>
-         </children>
+      <VBox>
          <VBox.margin>
             <Insets />
          </VBox.margin>
-      </HBox>
+         <children>
+            <HBox alignment="TOP_CENTER" style="-fx-alignment: center;">
+               <children>
+                  <VBox alignment="TOP_CENTER" fillWidth="false" spacing="10.0">
+                     <children>
+                        <Label styleClass="label-major" text="INFO" />
+                        <VBox alignment="CENTER" fillWidth="false">
+                           <children>
+                              <Label styleClass="label-minor" text="Location:" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <AutoCompleteInput fx:id="locationSelection" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" fillWidth="false">
+                           <children>
+                              <Label styleClass="label-minor" text="Threat Level:" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <AutoCompleteInput fx:id="threatLevel" prefWidth="150.0" styleClass="AutoCompleteInput" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" fillWidth="false">
+                           <children>
+                              <Label styleClass="label-minor" text="Employee:" textFill="WHITE">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <AutoCompleteInput fx:id="employee" prefWidth="150.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" fillWidth="false">
+                           <children>
+                              <Label style="-fx-alignment: center;" text="Click to toggle emergency" textFill="#96a1b2" />
+                              <EmergencyButton fx:id="emergencyButton" mnemonicParsing="false" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" fillWidth="false">
+                           <children>
+                              <HBox alignment="CENTER" spacing="25.0">
+                                 <children>
+                                    <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
+                                 </children>
+                              </HBox>
+                              <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." textFill="#3ccc63" visible="false">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="View Request List" />
+                           </children>
+                           <VBox.margin>
+                              <Insets top="25.0" />
+                           </VBox.margin>
+                        </VBox>
+                     </children>
+                     <HBox.margin>
+                        <Insets right="20.0" />
+                     </HBox.margin>
+                  </VBox>
+                  <Line endY="250.0" startY="-300.0" />
+                  <VBox fx:id="BOX" alignment="TOP_CENTER">
+                     <children>
+                        <Label styleClass="label-major" text="MAP INTERACTION" textFill="WHITE">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </Label>
+      <!--                  <HospitalMap fx:id="map" minHeight="400" minWidth="400" />-->
+                     </children>
+                     <HBox.margin>
+                        <Insets left="20.0" />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
    </children>
 </VBox>

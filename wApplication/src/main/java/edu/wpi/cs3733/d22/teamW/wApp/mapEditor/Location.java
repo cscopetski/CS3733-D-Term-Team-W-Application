@@ -84,7 +84,7 @@ public class Location {
     this.nodeType = nodeType;
   }
 
-  public void setLongName(String longName) {
+  public void setLongName() {
     this.longName = longName;
   }
 
@@ -94,5 +94,9 @@ public class Location {
 
   public void setOgLoc(edu.wpi.cs3733.d22.teamW.wDB.entity.Location ogLoc) {
     this.ogLoc = ogLoc;
+  }
+
+  public String getLongName() {
+    return this.longName;
   }
 }

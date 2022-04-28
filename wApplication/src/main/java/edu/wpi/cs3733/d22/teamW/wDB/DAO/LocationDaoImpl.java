@@ -71,6 +71,31 @@ public class LocationDaoImpl implements LocationDao {
     return locationsList;
   }
 
+  @Override
+  public ArrayList<Location> getLocationByType(String type) throws SQLException {
+    ArrayList<Location> locationsList = new ArrayList<>();
+
+    try {
+      ResultSet locations = statement.executeQuery(String.format("SELECT * FROM LOCATIONS WHERE NODETYPE = '%s'",type));
+
+      while (locations.next()) {
+        ArrayList<String> locationData = new ArrayList<String>();
+
+        for (int i = 0; i < locations.getMetaData().getColumnCount(); i++) {
+          locationData.add(locations.getString(i + 1));
+        }
+
+        locationsList.add(new Location(locationData));
+      }
+
+    } catch (SQLException e) {
+      System.out.println("Query from locations table failed");
+      throw (e);
+    }
+
+    return locationsList;
+  }
+
   public ArrayList<Location> getAllCleanLocations() throws SQLException {
     ArrayList<Location> locationsList = new ArrayList<>();
 
@@ -198,6 +223,21 @@ public class LocationDaoImpl implements LocationDao {
     ResultSet set =
         statement.executeQuery(
             String.format("SELECT * FROM LOCATIONS WHERE NODEID = '%s'", nodeID));
+    if(set.next()) { // bypasses column headers
+      ArrayList<String> locationFields = new ArrayList<String>();
+      for (int i = 0; i < set.getMetaData().getColumnCount(); i++) {
+        locationFields.add(set.getString(i + 1));
+      }
+      loc = new Location(locationFields);
+    }
+    return loc;
+  }
+
+  public Location getLocation(String longName, String floor) throws SQLException {
+    Location loc = null;
+    ResultSet set =
+            statement.executeQuery(
+                    String.format("SELECT * FROM LOCATIONS WHERE LONGNAME = '%s'AND FLOOR = '%s'", longName, floor));
     set.next(); // bypasses column headers
     ArrayList<String> locationFields = new ArrayList<String>();
     for (int i = 0; i < set.getMetaData().getColumnCount(); i++) {

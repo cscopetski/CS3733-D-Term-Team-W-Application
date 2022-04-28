@@ -5,7 +5,9 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.ConfirmAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
 import edu.wpi.cs3733.d22.teamW.wDB.*;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LanguageInterpreterManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
@@ -24,15 +26,23 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
 public class LanguageInterpreterServiceRequestController implements Initializable {
 
+  //Fields:
   @FXML AutoCompleteInput locationSelection;
   @FXML AutoCompleteInput employeeSelection;
   @FXML AutoCompleteInput languageSelection;
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
+  //Pane map;
+  HospitalMap map = HospitalMap.getInstance();
+  @FXML
+  VBox BOX;
+
+  //Alerts:
   Alert confirm = new ConfirmAlert();
   Alert emptyFields = new EmptyAlert();
   private LanguageInterpreterManager languageInterpreterManager =
@@ -40,9 +50,11 @@ public class LanguageInterpreterServiceRequestController implements Initializabl
 
   private FadeTransition fadeOut = new FadeTransition(Duration.millis(5000));
 
+  public LanguageInterpreterServiceRequestController() throws NonExistingMedEquip, SQLException {
+  }
+
   public void submitButton(ActionEvent actionEvent) throws SQLException {
     if (!emptyFields()) {
-      confirm.showAndWait();
       confirm.showAndWait();
       if (confirm.getResult() == ButtonType.OK) {
         pushLanguageRequestToDB();
@@ -62,9 +74,11 @@ public class LanguageInterpreterServiceRequestController implements Initializabl
     } catch (SQLException e) {
       e.printStackTrace();
     }
+    map.attachOnSelectionMade(l -> locationSelection.getSelectionModel().select(l.getLongName()));
   }
 
   public void onLoad() throws SQLException {
+    BOX.getChildren().add(map);
     fadeOut.setNode(successLabel);
     fadeOut.setFromValue(1.0);
     fadeOut.setToValue(0.0);

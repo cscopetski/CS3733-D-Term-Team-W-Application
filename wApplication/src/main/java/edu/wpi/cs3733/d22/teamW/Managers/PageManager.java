@@ -45,7 +45,8 @@ public class PageManager {
         SanitationSR("ServiceRequestPages/SanitationRequest.fxml", "Sanitation Service Request"),
         FlowerSR("ServiceRequestPages/FlowerRequestPage.fxml", "Flower Delivery Service Request"),
         GiftDeliverySR("ServiceRequestPages/GiftDeliveryRequest.fxml", "Gift Delivery Service Request"),
-        Help("HelpPage.fxml", "Help Page");
+        Help("HelpPage.fxml", "Help Page"),
+        APILandingPage("APILandingPage.fxml", "API Service Hub");
 
         private final String path;
         private final String name;
@@ -199,8 +200,17 @@ public class PageManager {
 
         switchBetween(getPreviousPane(), getCurrentPane());
 
+        checkMaxPages();
+
         callAllHistoryPageChangeListeners();
     }
+
+    private void checkMaxPages() {
+        if (parent.getChildren().size() > 5) {
+            parent.getChildren().remove(0);
+        }
+    }
+
     public Pane getCurrentPane() {
         return getOffsetPane(0);
     }

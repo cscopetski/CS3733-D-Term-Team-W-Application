@@ -1,0 +1,54 @@
+.button {
+    -fx-text-base-color: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-background-color: #8B0000;
+    -fx-background-radius: 15px;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-border-color: #8B0000;
+    -fx-border-radius: 15px;
+    -fx-border-width: 1px;
+    -fx-padding: 5px 10px 5px 10px;
+}
+.button:hover {
+    -fx-text-base-color: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-background-color: #8B0000;
+    -fx-background-radius: 15px;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-border-color: #8B0000;
+    -fx-border-radius: 15px;
+    -fx-border-width: 1px;
+    -fx-padding: 5px 10px 5px 10px;
+}
+
+
+.button:pressed {
+    -fx-text-base-color: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-background-color: #8B0000;
+    -fx-background-radius: 15px;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-border-color: #8B0000;
+    -fx-border-radius: 15px;
+    -fx-border-width: 1px;
+    -fx-padding: 5px 10px 5px 10px;
+
+}
+
+.button:focused {
+    -fx-text-base-color: #FFFFFF;
+    -fx-font-weight: bold;
+    -fx-background-color: #8B0000;
+    -fx-background-radius: 15px;
+    -fx-font-size: 14px;
+    -fx-text-fill: white;
+    -fx-border-color: #8B0000;
+    -fx-border-radius: 15px;
+    -fx-border-width: 1px;
+    -fx-padding: 5px 10px 5px 10px;
+
+}
+

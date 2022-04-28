@@ -20,9 +20,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane fx:id="page" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.MapEditorController">
@@ -35,14 +33,14 @@
          <children>
               <MenuButton fx:id="dropdown" alignment="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="300.0" styleClass="margin-10" text="Change Floor">
                   <items>
-                      <MenuItem fx:id="Side" mnemonicParsing="false" onAction="#swapSideView" text="Side View" />
+<!--                      <MenuItem fx:id="Side" mnemonicParsing="false" onAction="#swapSideView" text="Side View" />-->
+                      <MenuItem fx:id="FL1" mnemonicParsing="false" onAction="#swapFloorL1" text="Lower Floor 1" />
+                      <MenuItem fx:id="FL2" mnemonicParsing="false" onAction="#swapFloorL2" text="Lower Floor 2" />
                       <MenuItem fx:id="F1" mnemonicParsing="false" onAction="#swapFloor1" text="Floor 1" />
                       <MenuItem fx:id="F2" mnemonicParsing="false" onAction="#swapFloor2" text="Floor 2" />
                       <MenuItem fx:id="F3" mnemonicParsing="false" onAction="#swapFloor3" text="Floor 3" />
                       <MenuItem fx:id="F4" mnemonicParsing="fase" onAction="#swapFloor4" text="Floor 4" />
                       <MenuItem fx:id="F5" mnemonicParsing="false" onAction="#swapFloor5" text="Floor 5" />
-                      <MenuItem fx:id="FL1" mnemonicParsing="false" onAction="#swapFloorL1" text="Lower Floor 1" />
-                      <MenuItem fx:id="FL2" mnemonicParsing="false" onAction="#swapFloorL2" text="Lower Floor 2" />
                   </items>
               </MenuButton>
                <ScrollPane fx:id="scrollPane">
@@ -50,7 +48,7 @@
                        <Group>
                            <Group fx:id="scrollGroup">
                                <ImageView fx:id="mapList" fitHeight="1000.0" fitWidth="1000.0" layoutX="-81.0" onMouseClicked="#addLocation2" preserveRatio="true">
-                                   <Image url="@../assets/Maps/SideView.png" />
+                                   <Image url="@../assets/Maps/F1.png" />
                                </ImageView>
                            </Group>
                        </Group>
@@ -68,14 +66,35 @@
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font></Label>
-                  <Pane prefHeight="130.0" prefWidth="83.0">
+                  <VBox>
                      <children>
-                        <CheckBox fx:id="LocFilter" layoutX="1.0" mnemonicParsing="false" onAction="#refresh" prefHeight="20.0" prefWidth="82.0" selected="true" style="-fx-border-color: transparent;" text="Locations" />
-                        <CheckBox fx:id="EquipFilter" layoutY="30.0" mnemonicParsing="false" onAction="#refresh" selected="true" style="-fx-border-color: transparent;" text="Equipment" />
-                        <CheckBox fx:id="ReqFilter" layoutY="60.0" mnemonicParsing="false" onAction="#refresh" prefHeight="20.0" prefWidth="84.0" selected="true" style="-fx-border-color: transparent;" text="Requests" />
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <CheckBox fx:id="LocFilter" mnemonicParsing="false" onAction="#refresh" prefHeight="20.0" prefWidth="82.0" selected="true" style="-fx-border-color: transparent;" text="Locations" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <CheckBox fx:id="EquipFilter" mnemonicParsing="false" onAction="#refresh" selected="true" style="-fx-border-color: transparent;" text="Equipment" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <HBox alignment="CENTER_LEFT">
+                           <children>
+                              <CheckBox fx:id="ReqFilter" mnemonicParsing="false" onAction="#refresh" prefHeight="20.0" prefWidth="84.0" selected="true" style="-fx-border-color: transparent;" text="Requests" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="20.0" />
+                           </VBox.margin>
+                        </HBox>
                      </children>
-                  </Pane>
-                  <VBox alignment="TOP_CENTER" prefHeight="284.0" prefWidth="108.0" spacing="10.0">
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" spacing="10.0">
                      <children>
                           <Label text="Map Key">
                            <font>
@@ -85,31 +104,51 @@
                         <HBox alignment="CENTER_RIGHT" spacing="10.0">
                            <children>
                                 <Label text="Location:" />
-                                <Circle fill="RED" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/Maps/icons/icon_Location.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" spacing="10.0">
                            <children>
                                 <Label text="Bed:" />
-                                <Circle fill="DODGERBLUE" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/Maps/icons/icon_Bed.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" spacing="10.0">
                            <children>
                                 <Label text="X-Ray:" />
-                                <Circle fill="#00ff26" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/Maps/icons/icon_XRay.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" spacing="10.0">
                            <children>
                                 <Label text="Infusion Pump:" />
-                                <Circle fill="#6b3198" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/Maps/icons/icon_Inp.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </HBox>
                         <HBox alignment="CENTER_RIGHT" spacing="10.0">
                            <children>
                                 <Label text="Recliner:" />
-                                <Circle fill="#016673" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+                              <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../assets/Maps/icons/icon_Recliner.png" />
+                                 </image>
+                              </ImageView>
                            </children>
                         </HBox>
                      </children>
@@ -300,7 +339,7 @@
                   <Image url="@../assets/MapIcon.png" />
                </image>
             </ImageView>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome to Map Editor page." textFill="#013895">
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Welcome to the Map page." textFill="#013895">
                <font>
                   <Font name="System Bold" size="26.0" />
                </font>

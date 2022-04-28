@@ -155,4 +155,11 @@ public class EmployeeMessageDaoImpl implements EmployeeMessageDao {
     preparedStatement.setInt(1, messageID);
     preparedStatement.executeUpdate();
   }
+
+  @Override
+  public Integer getMaxID() throws SQLException {
+    ResultSet maxID = statement.executeQuery("SELECT MAX(MESSAGEID) FROM EMPLOYEEMESSAGES");
+    maxID.next();
+    return maxID.getInt(1);
+  }
 }

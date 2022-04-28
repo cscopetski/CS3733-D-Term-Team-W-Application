@@ -53,4 +53,8 @@ public class EmployeeTable extends TableView<Employee> {
     }
     getSelectionModel().clearSelection();
   }
+
+  public Employee getSelection() {
+    return getSelectionModel().getSelectedItem();
+  }
 }

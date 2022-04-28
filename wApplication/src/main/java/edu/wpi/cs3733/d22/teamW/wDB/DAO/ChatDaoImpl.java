@@ -87,4 +87,11 @@ public class ChatDaoImpl implements ChatDao {
     statement.executeUpdate(
         String.format("DELETE FROM CHATS WHERE CHATID=%d AND EMPLOYEEID=%d", chatID, empID));
   }
+
+  @Override
+  public Integer getMaxID() throws SQLException {
+    ResultSet maxID = statement.executeQuery("SELECT MAX(CHATID) FROM CHATS");
+    maxID.next();
+    return maxID.getInt(1);
+  }
 }

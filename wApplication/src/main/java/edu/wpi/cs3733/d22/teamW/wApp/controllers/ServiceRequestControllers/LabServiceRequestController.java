@@ -4,6 +4,8 @@ import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.EmptyAlert;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.AutoCompleteInput;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmergencyButton;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
@@ -21,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
 
 public class LabServiceRequestController implements Initializable {
 
@@ -34,12 +37,19 @@ public class LabServiceRequestController implements Initializable {
   @FXML CheckBox mriBox;
   @FXML CheckBox xRayBox;
   @FXML CheckBox catBox;
+  @FXML
+  HospitalMap map = HospitalMap.getInstance();
+  @FXML
+  VBox BOX;
 
   int emergency = 0;
   @FXML EmergencyButton emergencyButton;
 
   // Alerts:
   Alert emptyFields = new EmptyAlert();
+
+  public LabServiceRequestController() throws NonExistingMedEquip, SQLException {
+  }
 
   public void submitButton(ActionEvent actionEvent) throws SQLException {
     createRequest();
@@ -49,11 +59,13 @@ public class LabServiceRequestController implements Initializable {
   @Override
   public void initialize(URL location, ResourceBundle resources) {
     onLoad();
+    map.attachOnSelectionMade(l -> locationCBox.getSelectionModel().select(l.getLongName()));
   }
 
   public void onLoad() {
     locationCBox.loadValues(getLocations());
     employeeIDCBox.loadValues(getEmployeeNames());
+    BOX.getChildren().add(map);
   }
 
   // ----------------------- HELPERS -------------------
