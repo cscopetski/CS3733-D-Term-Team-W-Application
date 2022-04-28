@@ -140,7 +140,7 @@
                                    <Font size="14.0" />
                                </font>
                            </Label>
-                           <HospitalMap fx:id="map" minHeight="400" minWidth="400" />
+<!--                           <HospitalMap fx:id="map" minHeight="400" minWidth="400" />-->
                        </children>
                        <padding>
                            <Insets left="10.0" />

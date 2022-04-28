@@ -1,6 +1,5 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls;
 
-import edu.wpi.cs3733.d22.teamW.Managers.MapManager;
 import edu.wpi.cs3733.d22.teamW.wApp.mapEditor.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
@@ -18,14 +17,20 @@ import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class HospitalMap extends VBox {
+    public interface LocationSelectionMade {
+        void selectionMade(Location l);
+    }
 
     Integer size = 0;
     @FXML public ScrollPane scrollPane;
     @FXML public Slider scaleSlider;
     @FXML public Group scrollGroup;
+    ArrayList<Circle> locDots = new ArrayList<>();
+    private String currFloor = "0";
+    private ArrayList<Location> currFloorLoc = new ArrayList<>();
+    private ArrayList<String> currFloorNodeID = new ArrayList<>();
     @FXML private ImageView mapList;
     @FXML private MenuItem F1;
     @FXML private MenuItem F2;
@@ -42,14 +47,16 @@ public class HospitalMap extends VBox {
     Image imgL2 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/LL2.png");
     Image img4 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F4.png");
     Image img5 = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/F5.png");
-
-    String currFloor = "0";
-    ArrayList<Circle> locDots = new ArrayList<>();
-    ArrayList<Location> currFloorLoc = new ArrayList<>();
-    ArrayList<String> currFloorNodeID = new ArrayList<>();
-
-
-    public HospitalMap() throws SQLException {
+    private static HospitalMap instance = null;
+    public static HospitalMap getInstance() throws NonExistingMedEquip, SQLException {
+        if(instance == null){
+            return instance = new HospitalMap();
+        }
+        else{
+            return instance;
+        }
+    }
+    private HospitalMap() throws NonExistingMedEquip, SQLException {
         setAlignment(Pos.CENTER);
         setSpacing(10);
         setMargin(this, new Insets(10));
@@ -145,8 +152,8 @@ public class HospitalMap extends VBox {
         swapFloor1();
     }
 
-    private ArrayList<MapManager.LocationSelectionMade> lsmListeners = new ArrayList<>();
-    public void attachOnSelectionMade(MapManager.LocationSelectionMade lsm) {
+    private ArrayList<LocationSelectionMade> lsmListeners = new ArrayList<>();
+    public void attachOnSelectionMade(LocationSelectionMade lsm) {
         lsmListeners.add(lsm);
     }
 

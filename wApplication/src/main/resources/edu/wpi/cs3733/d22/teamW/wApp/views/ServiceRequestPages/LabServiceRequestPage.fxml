@@ -28,7 +28,7 @@
                         <Image url="@../../assets/labIcon-01.png" />
                      </image>
                   </ImageView>
-                  <Label text="Lab Services">
+                  <Label text="Lab Service Request ">
                      <font>
                         <Font name="System Bold" size="31.0" />
                      </font>
@@ -205,7 +205,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <HospitalMap fx:id="map" minHeight="400" minWidth="400" />
+<!--                  <HospitalMap fx:id="map" minHeight="400" minWidth="400" />-->
                </children>
                <padding>
                   <Insets left="10.0" />

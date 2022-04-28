@@ -24,7 +24,7 @@
                         <Image url="@../../assets/Icons/Icons-05.png" />
                     </image>
                 </ImageView>
-                <Label text="Language Interpreter Service">
+                <Label text="Language Interpreter">
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>
@@ -107,7 +107,7 @@
                            <Font size="14.0" />
                        </font>
                    </Label>
-                   <HospitalMap fx:id="map" minHeight="400" minWidth="400" />
+<!--                   <HospitalMap fx:id="map" minHeight="400" minWidth="400" />-->
                </children>
                <HBox.margin>
                   <Insets left="10.0" />

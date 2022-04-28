@@ -40,7 +40,7 @@ public class SanitationRequestController implements Initializable {
   @FXML Label successLabel;
   @FXML
   //Pane map;
-  HospitalMap map;
+  HospitalMap map = HospitalMap.getInstance();
   @FXML
   VBox BOX;
 
@@ -88,6 +88,7 @@ public class SanitationRequestController implements Initializable {
     locationComboBox.loadValues(getLocations());
     employeeIDComboBox.loadValues(getEmployeeNames());
     sanitationTypeBox.loadValues(getSanitationTypeList());
+    BOX.getChildren().add(map);
   }
 
   private boolean emptyFields() {

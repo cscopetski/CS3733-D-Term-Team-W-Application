@@ -24,7 +24,7 @@
                   <Image url="@../../assets/Icons/ComputerBlue.png" />
                </image>
             </ImageView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Computer Service" textAlignment="CENTER" wrappingWidth="370.800048828125">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="COMPUTER SERVICES" textAlignment="CENTER" wrappingWidth="370.800048828125">
                <font>
                   <Font size="30.0" />
                </font>
@@ -89,7 +89,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <HospitalMap fx:id="map" minHeight="400" minWidth="400" />
+<!--                  <HospitalMap fx:id="map" minHeight="400" minWidth="400" />-->
                </children>
                <padding>
                   <Insets left="10.0" />
