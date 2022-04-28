@@ -595,17 +595,17 @@ public class MapEditorController implements Initializable {
         ImagePattern bedPattern = new ImagePattern(bedIcon);
         circle = new Circle(10, Color.BLUE);
         circle.setFill(bedPattern);
-      } else if (equipList.get(i).getType().equalsIgnoreCase("XRY")) {
+      } else if (equipList.get(i).getType().equalsIgnoreCase("X-Ray")) {
         Image xRayIcon = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_XRay.png");
         ImagePattern xRayPattern = new ImagePattern(xRayIcon);
         circle = new Circle(10, Color.GREEN);
         circle.setFill(xRayPattern);
-      } else if (equipList.get(i).getType().equalsIgnoreCase("INP")) {
+      } else if (equipList.get(i).getType().equalsIgnoreCase("Infusion Pump")) {
         Image INPIcon = new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Inp.png");
         ImagePattern INPPattern = new ImagePattern(INPIcon);
         circle = new Circle(10, Color.VIOLET);
         circle.setFill(INPPattern);
-      } else if (equipList.get(i).getType().equalsIgnoreCase("REC")) {
+      } else if (equipList.get(i).getType().equalsIgnoreCase("Recliners")) {
         Image reclinerIcon =
             new Image("edu/wpi/cs3733/d22/teamW/wApp/assets/Maps/icons/icon_Recliner.png");
         ImagePattern ReclinerPattern = new ImagePattern(reclinerIcon);
