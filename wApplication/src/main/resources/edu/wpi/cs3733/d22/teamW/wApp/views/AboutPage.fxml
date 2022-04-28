@@ -23,7 +23,7 @@
       <RowConstraints vgrow="SOMETIMES" />
       <RowConstraints vgrow="SOMETIMES" />
       <RowConstraints vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+      <RowConstraints minHeight="50.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
       <VBox alignment="CENTER" spacing="25.0" style="-fx-alignment: center;" GridPane.columnIndex="2">
@@ -60,7 +60,7 @@
             <Image url="@../assets/Whowies/Dylan.png" />
          </image>
          <GridPane.margin>
-            <Insets right="50.0" />
+            <Insets right="70.0" />
          </GridPane.margin>
       </ImageView>
       <ImageView fx:id="edisonPic" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -68,7 +68,7 @@
             <Image url="@../assets/Whowies/Edison.png" />
          </image>
          <GridPane.margin>
-            <Insets bottom="20.0" left="50.0" />
+            <Insets bottom="20.0" left="70.0" />
          </GridPane.margin>
       </ImageView>
       <ImageView fx:id="eddyPic" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -84,7 +84,7 @@
             <Image url="@../assets/Whowies/Hasan.png" />
          </image>
          <GridPane.margin>
-            <Insets left="50.0" />
+            <Insets left="70.0" />
          </GridPane.margin>
       </ImageView>
       <ImageView fx:id="ethanPic" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
@@ -100,7 +100,7 @@
             <Image url="@../assets/Whowies/Jack.png" />
          </image>
          <GridPane.margin>
-            <Insets bottom="20.0" right="50.0" />
+            <Insets bottom="20.0" right="70.0" />
          </GridPane.margin>
       </ImageView>
       <ImageView fx:id="jasonPic" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER">
