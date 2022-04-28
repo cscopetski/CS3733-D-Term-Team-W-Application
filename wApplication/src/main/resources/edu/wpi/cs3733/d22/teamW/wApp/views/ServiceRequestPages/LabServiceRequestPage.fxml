@@ -28,7 +28,7 @@
                         <Image url="@../../assets/labIcon-01.png" />
                      </image>
                   </ImageView>
-                  <Label text="Lab Service Request ">
+                  <Label text="Lab Services">
                      <font>
                         <Font name="System Bold" size="31.0" />
                      </font>

@@ -25,7 +25,7 @@
                   <Image url="@../../assets/mealicon.png" />
                </image>
             </ImageView>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="MEAL DELIVERY SERVICE" textAlignment="CENTER" wrappingWidth="370.800048828125">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-weight: bold;" text="Meal Delivery Service" textAlignment="CENTER" wrappingWidth="370.800048828125">
                <font>
                   <Font size="30.0" />
                </font>

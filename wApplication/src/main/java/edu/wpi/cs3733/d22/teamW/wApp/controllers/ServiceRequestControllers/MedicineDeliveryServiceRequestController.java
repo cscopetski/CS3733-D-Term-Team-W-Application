@@ -29,7 +29,6 @@ import javafx.scene.layout.VBox;
 public class MedicineDeliveryServiceRequestController implements Initializable {
   // Buttons:
   @FXML Button submitButton;
-  @FXML Button cancelButton;
   int emergency = 0;
   @FXML EmergencyButton emergencyButton;
 

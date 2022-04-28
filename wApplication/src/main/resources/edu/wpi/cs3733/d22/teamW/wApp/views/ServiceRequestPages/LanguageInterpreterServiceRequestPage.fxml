@@ -24,7 +24,7 @@
                         <Image url="@../../assets/Icons/Icons-05.png" />
                     </image>
                 </ImageView>
-                <Label text="Language Interpreter">
+                <Label text="Language Interpreter Service">
                     <VBox.margin>
                         <Insets />
                     </VBox.margin>

@@ -22,7 +22,7 @@
                   <Image url="@../../assets/Icons/Icons-06.png" />
                </image>
             </ImageView>
-            <Label prefHeight="46.0" prefWidth="116.0" text="Security" textAlignment="CENTER">
+            <Label prefHeight="46.0" prefWidth="225" text="Security Service" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
