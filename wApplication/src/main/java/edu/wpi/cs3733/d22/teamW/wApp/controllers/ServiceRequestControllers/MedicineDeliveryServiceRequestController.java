@@ -44,7 +44,7 @@ public class MedicineDeliveryServiceRequestController implements Initializable {
 
   @FXML
   //Pane map;
-  HospitalMap map;
+  HospitalMap map = HospitalMap.getInstance();
   @FXML
   VBox BOX;
 
@@ -72,6 +72,7 @@ public class MedicineDeliveryServiceRequestController implements Initializable {
     locationCBox.loadValues(getLocations());
     unitCBox.loadValues(getListOfUnits());
     employee.loadValues(getEmployeeNames());
+    BOX.getChildren().add(map);
   }
 
   public void submitButton() {

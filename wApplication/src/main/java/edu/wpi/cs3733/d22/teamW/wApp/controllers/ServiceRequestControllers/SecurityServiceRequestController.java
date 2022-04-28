@@ -38,7 +38,7 @@ public class SecurityServiceRequestController implements Initializable {
   @FXML EmergencyButton emergencyButton;
   @FXML
   //Pane map;
-  HospitalMap map;
+  HospitalMap map = HospitalMap.getInstance();
   @FXML
   VBox BOX;
 
@@ -58,6 +58,7 @@ public class SecurityServiceRequestController implements Initializable {
                 .map(ThreatLevels::toString)
                 .collect(Collectors.toList()));
     employee.loadValues(getEmployeeNames());
+    BOX.getChildren().add(map);
     map.attachOnSelectionMade(l -> locationSelection.getSelectionModel().select(l.getLongName()));
   }
 

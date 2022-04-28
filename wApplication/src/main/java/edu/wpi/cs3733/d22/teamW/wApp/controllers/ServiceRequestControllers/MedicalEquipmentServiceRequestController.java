@@ -58,7 +58,7 @@ public class MedicalEquipmentServiceRequestController implements Initializable {
     @FXML
     EmergencyButton emergencyButton;
     @FXML
-    HospitalMap map;
+    HospitalMap map = HospitalMap.getInstance();
     @FXML
     VBox BOX;
 
@@ -131,6 +131,7 @@ public class MedicalEquipmentServiceRequestController implements Initializable {
         equipmentSelection.loadValues(getEquipList());
         locationComboBox.loadValues(getLocations());
         employeeNameComboBox.loadValues(getEmployeeNames());
+        BOX.getChildren().add(map);
     }
 
     public void submitButton(ActionEvent actionEvent) throws Exception {

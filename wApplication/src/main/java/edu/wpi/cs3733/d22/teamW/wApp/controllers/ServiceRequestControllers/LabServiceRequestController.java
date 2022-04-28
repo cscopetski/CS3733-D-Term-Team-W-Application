@@ -38,7 +38,7 @@ public class LabServiceRequestController implements Initializable {
   @FXML CheckBox xRayBox;
   @FXML CheckBox catBox;
   @FXML
-  HospitalMap map;
+  HospitalMap map = HospitalMap.getInstance();
   @FXML
   VBox BOX;
 
@@ -65,6 +65,7 @@ public class LabServiceRequestController implements Initializable {
   public void onLoad() {
     locationCBox.loadValues(getLocations());
     employeeIDCBox.loadValues(getEmployeeNames());
+    BOX.getChildren().add(map);
   }
 
   // ----------------------- HELPERS -------------------

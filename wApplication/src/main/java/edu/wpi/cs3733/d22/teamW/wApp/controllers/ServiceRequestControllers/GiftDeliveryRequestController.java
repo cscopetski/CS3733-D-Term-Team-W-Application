@@ -36,7 +36,7 @@ public class GiftDeliveryRequestController implements Initializable {
   @FXML EmergencyButton emergencyButton;
   @FXML Label successLabel;
   @FXML
-  HospitalMap map;
+  HospitalMap map = HospitalMap.getInstance();
   @FXML
   VBox BOX;
 
@@ -79,6 +79,7 @@ public class GiftDeliveryRequestController implements Initializable {
     fadeOut.setAutoReverse(false);
     locationComboBox.loadValues(getLocations());
     employeeIDComboBox.loadValues(getEmployeeNames());
+    BOX.getChildren().add(map);
   }
 
   private boolean emptyFields() {

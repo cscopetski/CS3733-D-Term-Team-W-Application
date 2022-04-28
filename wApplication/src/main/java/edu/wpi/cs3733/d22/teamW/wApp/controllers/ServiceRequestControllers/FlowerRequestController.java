@@ -38,7 +38,7 @@ public class FlowerRequestController implements Initializable {
     @FXML
     AutoCompleteInput locationComboBox;
     @FXML
-    HospitalMap map;
+    HospitalMap map = HospitalMap.getInstance();
     @FXML
     VBox BOX;
     @FXML
@@ -98,7 +98,7 @@ public class FlowerRequestController implements Initializable {
         locationComboBox.loadValues(getLocations());
         employeeIDComboBox.loadValues(getEmployeeNames());
         flowerTypeBox.loadValues(getFlowerTypeList());
-        //BOX.getChildren().add(HospitalMap.getInstance());
+        BOX.getChildren().add(HospitalMap.getInstance());
 
     }
 

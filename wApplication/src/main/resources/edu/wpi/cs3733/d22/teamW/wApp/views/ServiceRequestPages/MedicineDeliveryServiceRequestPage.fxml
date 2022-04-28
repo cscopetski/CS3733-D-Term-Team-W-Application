@@ -30,7 +30,7 @@
                   <Font size="30.0" />
                </font>
             </Text>
-            <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Need medicine? Submit a request!" textAlignment="CENTER" wrappingWidth="333.5999803543091" />
+            <Text fill="#013a96" strokeType="OUTSIDE" strokeWidth="0.0" text="Need to deliver medicine? Submit a request!" textAlignment="CENTER" wrappingWidth="333.5999803543091" />
          </children>
       </VBox>
       <HBox alignment="TOP_CENTER" fillHeight="false" spacing="25.0">
@@ -162,7 +162,7 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <HospitalMap fx:id="map" minHeight="400" minWidth="400" />
+<!--                  <HospitalMap fx:id="map" minHeight="400" minWidth="400" />-->
                </children>
             </VBox>
          </children>
