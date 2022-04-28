@@ -45,6 +45,7 @@ public class PageManager {
         SanitationSR("ServiceRequestPages/SanitationRequest.fxml", "Sanitation Service Request"),
         FlowerSR("ServiceRequestPages/FlowerRequestPage.fxml", "Flower Delivery Service Request"),
         GiftDeliverySR("ServiceRequestPages/GiftDeliveryRequest.fxml", "Gift Delivery Service Request"),
+        Help("HelpPage.fxml", "Help Page"),
         APILandingPage("APILandingPage.fxml", "API Service Hub");
 
         private final String path;
@@ -248,6 +249,11 @@ public class PageManager {
     public ArrayList<String> getHistory() {
         return (ArrayList<String>) parent.getChildren().stream().map(n -> Pages.getPageType(n).getName()).collect(Collectors.toList());
     }
+
+    public ArrayList<Pages> getHistoryPages() {
+        return (ArrayList<Pages>) parent.getChildren().stream().map(n -> Pages.getPageType(n)).collect(Collectors.toList());
+    }
+
     public void clearAllHistory() {
         clearBackHistory();
         clearForwardHistory();

@@ -2,6 +2,8 @@ package edu.wpi.cs3733.d22.teamW.wDB.Managers;
 
 import edu.wpi.cs3733.d22.teamW.wDB.DAO.MedEquipDao;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.MarkingInUseEquipmentAsClean;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.NonExistingMedEquip;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.StatusError;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.AlertInfoWrapper;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.CleaningRequest;
@@ -13,10 +15,21 @@ import edu.wpi.cs3733.d22.teamW.wDB.enums.MedEquipType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.TreeSet;
 
 public class MedEquipManager {
 
   private MedEquipDao medi;
+
+  private static HashMap<MedEquipType, TreeSet<Integer>> equipID = new HashMap<>();
+
+  static{
+    for(MedEquipType type : MedEquipType.values()){
+      equipID.put(type, new TreeSet<Integer>());
+    }
+  }
+
 
   private final String noneEquipment = "NONE";
   private final String deletedEquipment = "DELETED";
@@ -116,7 +129,29 @@ public class MedEquipManager {
   }
 
   public void add(MedEquip medEquip) throws SQLException {
+    if((medEquip.getMedID().equals("DELETED") || medEquip.getMedID().equals("NONE"))) {
+      medi.addMedEquip(medEquip);
+    } else{
+      if (equipID.get(medEquip.getType()).add(Integer.parseInt(medEquip.getMedID().substring(3)))) {
+        medi.addMedEquip(medEquip);
+      }
+    }
+  }
+
+  public MedEquip add(MedEquipType medEquipType, String nodeID) throws SQLException, NonExistingMedEquip, StatusError {
+    Integer num = (equipID.get(medEquipType).last() + 1);
+    equipID.get(medEquipType).add(num);
+    String idNum = String.format("%d", num);
+    if(num < 100){
+      idNum = "0" +idNum;
+      if(num < 10){
+        idNum = "0" +idNum;
+      }
+    }
+    idNum = medEquipType.getAbb()+idNum;
+    MedEquip medEquip = new MedEquip(idNum, medEquipType, nodeID, 0);
     medi.addMedEquip(medEquip);
+    return medEquip;
   }
 
   public void change(MedEquip medEquip) throws SQLException {
