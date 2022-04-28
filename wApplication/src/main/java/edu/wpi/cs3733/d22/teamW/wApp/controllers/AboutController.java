@@ -33,7 +33,7 @@ public class AboutController implements Initializable {
         loadToolTips();
     }
 
-    public void loadToolTips(){
+    private void loadToolTips(){
         //ethan:
         Tooltip ethan = new Tooltip(whowieToString("Ethan Pollack", "CS", "The Tea guy"));
         toolTipDisp(ethan, ethanPic);

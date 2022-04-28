@@ -12,131 +12,106 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox spacing="25.0" style="-fx-alignment: center;" xmlns="http://javafx.com/javafx/17"
-      xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.RequestHubController">
+<VBox spacing="25.0" style="-fx-alignment: center;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.RequestHubController">
     <VBox alignment="CENTER" fillWidth="false" style="-fx-alignment: center;">
         <children>
             <Label alignment="CENTER" prefHeight="46.0" prefWidth="360.0" text="Service Request Systems">
                 <font>
-                    <Font name="System Bold" size="31.0"/>
+                    <Font name="System Bold" size="31.0" />
                 </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="16.0" prefWidth="200.0" style="-fx-alignment: center;"
-                   text="Find everything here" textAlignment="CENTER" textFill="#013895"/>
+            <Label alignment="CENTER" prefHeight="16.0" prefWidth="200.0" style="-fx-alignment: center;" text="Find everything here" textAlignment="CENTER" textFill="#013895" />
         </children>
     </VBox>
     <GridPane alignment="CENTER">
         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES"/>
-            <ColumnConstraints hgrow="SOMETIMES"/>
-            <ColumnConstraints hgrow="SOMETIMES"/>
-            <ColumnConstraints hgrow="SOMETIMES"/>
-            <ColumnConstraints hgrow="SOMETIMES"/>
+            <ColumnConstraints hgrow="SOMETIMES" />
+            <ColumnConstraints hgrow="SOMETIMES" />
+            <ColumnConstraints hgrow="SOMETIMES" />
+            <ColumnConstraints hgrow="SOMETIMES" />
+            <ColumnConstraints hgrow="SOMETIMES" />
         </columnConstraints>
         <rowConstraints>
-            <RowConstraints vgrow="SOMETIMES"/>
-            <RowConstraints vgrow="SOMETIMES"/>
+            <RowConstraints vgrow="SOMETIMES" />
+            <RowConstraints vgrow="SOMETIMES" />
         </rowConstraints>
         <children>
             <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="1">
                 <children>
-                    <Button alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false"
-                            onAction="#switchToGiftDelivery" stylesheets="@../CSS/RequestHubPage/buttonGift.css"
-                            text="Gift Delivery "/>
-                    <Label fx:id="giftDeliveryCredit" text="Caleb Scopetski"/>
+                    <Button fx:id="buttonGift" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToGiftDelivery" stylesheets="@../CSS/RequestHubPage/buttonGift.css" text="Gift Delivery " />
+                    <Label fx:id="giftDeliveryCredit" text="Caleb Scopetski" />
                 </children>
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
                 <children>
-                    <Button alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false"
-                            onAction="#switchToSanitationService"
-                            stylesheets="@../CSS/RequestHubPage/buttonSanitation.css" text="Sanitation Service"/>
-                    <Label fx:id="sanitationServiceCredit" text="Edison Zhang"/>
+                    <Button fx:id="buttonSanitation" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToSanitationService" stylesheets="@../CSS/RequestHubPage/buttonSanitation.css" text="Sanitation Service" />
+                    <Label fx:id="sanitationServiceCredit" text="Edison Zhang" />
                 </children>
             </VBox>
             <VBox alignment="CENTER">
                 <children>
-                    <Button alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false"
-                            onAction="#switchToMedicalEquipmentDelivery"
-                            stylesheets="@../CSS/RequestHubPage/buttonMedEquip.css" text="Medical Equipment"/>
-                    <Label fx:id="medEquipCredit" text="Philip Bui"/>
+                    <Button fx:id="buttonMedEq" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToMedicalEquipmentDelivery" stylesheets="@../CSS/RequestHubPage/buttonMedEquip.css" text="Medical Equipment" />
+                    <Label fx:id="medEquipCredit" text="Philip Bui" />
                 </children>
             </VBox>
             <VBox alignment="CENTER" GridPane.hgrow="SOMETIMES" GridPane.rowIndex="1">
                 <children>
-                    <Button alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false"
-                            onAction="#switchToLanguageInterpreter" text="Language Interpreters">
+                    <Button fx:id="buttonLangInt" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToLanguageInterpreter" text="Language Interpreters">
                         <stylesheets>
-                            <URL value="@../CSS/RequestHubPage/buttonMeal.css"/>
-                            <URL value="@../CSS/RequestHubPage/buttonLanguage.css"/>
+                            <URL value="@../CSS/RequestHubPage/buttonMeal.css" />
+                            <URL value="@../CSS/RequestHubPage/buttonLanguage.css" />
                         </stylesheets>
                         <font>
-                            <Font size="2.0"/>
+                            <Font size="2.0" />
                         </font>
                     </Button>
-                    <Label fx:id="languageCredit" text="Dylan Olmsted"/>
+                    <Label fx:id="languageCredit" text="Dylan Olmsted" />
                 </children>
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="1">
                 <children>
-                    <Button alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false"
-                            onAction="#switchToMedicineDelivery" stylesheets="@../CSS/RequestHubPage/buttonMedicine.css"
-                            text="Medicine Delivery"/>
-                    <Label fx:id="medicineCredit" text="Edward Enyedy"/>
+                    <Button fx:id="buttonMedDel" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToMedicineDelivery" stylesheets="@../CSS/RequestHubPage/buttonMedicine.css" text="Medicine Delivery" />
+                    <Label fx:id="medicineCredit" text="Edward Enyedy" />
                 </children>
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                 <children>
-                    <Button alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false"
-                            onAction="#switchToSecurity" stylesheets="@../CSS/RequestHubPage/buttonSecurity.css"
-                            text="Security Services"/>
-                    <Label fx:id="securityCredit" text="Jack McEvoy"/>
+                    <Button fx:id="buttonSecSer" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToSecurity" stylesheets="@../CSS/RequestHubPage/buttonSecurity.css" text="Security Services" />
+                    <Label fx:id="securityCredit" text="Jack McEvoy" />
                 </children>
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="2">
                 <children>
-                    <Button alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false"
-                            onAction="#switchToLab" stylesheets="@../CSS/RequestHubPage/buttonLab.css"
-                            text="Lab Service"/>
-                    <Label fx:id="labCredit" text="Leona Nhi Nguyen"/>
+                    <Button fx:id="buttonLabSer" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToLab" stylesheets="@../CSS/RequestHubPage/buttonLab.css" text="Lab Service" />
+                    <Label fx:id="labCredit" text="Leona Nhi Nguyen" />
                 </children>
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
                 <children>
-                    <Button alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false"
-                            onAction="#switchToMealDelivery" stylesheets="@../CSS/RequestHubPage/buttonMeal.css"
-                            text="Meal Service"/>
-                    <Label fx:id="mealCredit" text="Philip Bui"/>
+                    <Button fx:id="buttonMeal" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToMealDelivery" stylesheets="@../CSS/RequestHubPage/buttonMeal.css" text="Meal Service" />
+                    <Label fx:id="mealCredit" text="Philip Bui" />
                 </children>
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="3">
                 <children>
-                    <Button alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false"
-                            onAction="#switchToComputerService" stylesheets="@../CSS/RequestHubPage/buttonComputer.css"
-                            text="Computer Service"/>
-                    <Label fx:id="computerCredit" text="Hasan Gandor"/>
+                    <Button fx:id="buttonCompSer" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToComputerService" stylesheets="@../CSS/RequestHubPage/buttonComputer.css" text="Computer Service" />
+                    <Label fx:id="computerCredit" text="Hasan Gandor" />
                 </children>
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="4">
                 <children>
-                    <Button alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false"
-                            onAction="#switchToFlowerDelivery" stylesheets="@../CSS/RequestHubPage/buttonFlower.css"
-                            text="Flower Delivery"/>
-                    <Label fx:id="flowerCredit" text="Charlie Kneissl-Williams"/>
+                    <Button fx:id="buttonFlower" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToFlowerDelivery" stylesheets="@../CSS/RequestHubPage/buttonFlower.css" text="Flower Delivery" />
+                    <Label fx:id="flowerCredit" text="Charlie Kneissl-Williams" />
                 </children>
             </VBox>
         </children>
     </GridPane>
     <HBox alignment="CENTER" fillHeight="false">
         <children>
-            <ToggleButton fx:id="toggleButton" mnemonicParsing="false" onAction="#creditsToggle"
-                          stylesheets="@../CSS/UniversalCSS/Standard.css" text="Hide Credits"/>
-            <Button alignment="CENTER" mnemonicParsing="false" onAction="#switchToRequestList"
-                    stylesheets="@../CSS/UniversalCSS/Standard.css" text="View Request List">
+            <ToggleButton fx:id="toggleButton" mnemonicParsing="false" onAction="#creditsToggle" stylesheets="@../CSS/UniversalCSS/Standard.css" text="Hide Credits" />
+            <Button alignment="CENTER" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../CSS/UniversalCSS/Standard.css" text="View Request List">
                 <HBox.margin>
-                    <Insets left="275.0"/>
+                    <Insets left="275.0" />
                 </HBox.margin>
             </Button>
         </children>
