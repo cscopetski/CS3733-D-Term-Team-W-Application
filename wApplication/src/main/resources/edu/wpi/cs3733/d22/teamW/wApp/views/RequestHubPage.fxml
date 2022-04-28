@@ -38,13 +38,13 @@
         <children>
             <VBox alignment="CENTER" GridPane.columnIndex="4" GridPane.rowIndex="1">
                 <children>
-                    <Button fx:id="buttonGift" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToGiftDelivery" stylesheets="@../CSS/RequestHubPage/buttonGift.css" text="Gift Delivery " />
+                    <Button fx:id="buttonGift" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToGiftDelivery" stylesheets="@../CSS/RequestHubPage/buttonGift.css" text="Gift Delivery" />
                     <Label fx:id="giftDeliveryCredit" text="Caleb Scopetski" />
                 </children>
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="3" GridPane.rowIndex="1">
                 <children>
-                    <Button fx:id="buttonSanitation" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToSanitationService" stylesheets="@../CSS/RequestHubPage/buttonSanitation.css" text="Sanitation Service" />
+                    <Button fx:id="buttonSanitation" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToSanitationService" stylesheets="@../CSS/RequestHubPage/buttonSanitation.css" text="Sanitation Services" />
                     <Label fx:id="sanitationServiceCredit" text="Edison Zhang" />
                 </children>
             </VBox>
@@ -82,19 +82,19 @@
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="2">
                 <children>
-                    <Button fx:id="buttonLabSer" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToLab" stylesheets="@../CSS/RequestHubPage/buttonLab.css" text="Lab Service" />
+                    <Button fx:id="buttonLabSer" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToLab" stylesheets="@../CSS/RequestHubPage/buttonLab.css" text="Lab Services" />
                     <Label fx:id="labCredit" text="Leona Nhi Nguyen" />
                 </children>
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
                 <children>
-                    <Button fx:id="buttonMeal" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToMealDelivery" stylesheets="@../CSS/RequestHubPage/buttonMeal.css" text="Meal Service" />
+                    <Button fx:id="buttonMeal" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToMealDelivery" stylesheets="@../CSS/RequestHubPage/buttonMeal.css" text="Meal Services" />
                     <Label fx:id="mealCredit" text="Philip Bui" />
                 </children>
             </VBox>
             <VBox alignment="CENTER" GridPane.columnIndex="3">
                 <children>
-                    <Button fx:id="buttonCompSer" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToComputerService" stylesheets="@../CSS/RequestHubPage/buttonComputer.css" text="Computer Service" />
+                    <Button fx:id="buttonCompSer" alignment="BOTTOM_CENTER" minHeight="150.0" minWidth="150.0" mnemonicParsing="false" onAction="#switchToComputerService" stylesheets="@../CSS/RequestHubPage/buttonComputer.css" text="Computer Services" />
                     <Label fx:id="computerCredit" text="Hasan Gandor" />
                 </children>
             </VBox>

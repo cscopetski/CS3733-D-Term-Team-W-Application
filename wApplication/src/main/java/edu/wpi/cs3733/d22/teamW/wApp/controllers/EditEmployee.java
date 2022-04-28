@@ -27,13 +27,21 @@ public class EditEmployee {
   Employee employee = null;
 
   public void initialize() {
-    ArrayList<EmployeeType> eTypes = new ArrayList<>();
+    ArrayList<String> eTypes = new ArrayList<>();
     int counter = 0;
     employee = (Employee) WindowManager.getInstance().getData("employee");
+    /*
     for (int i = 0; i < EmployeeType.values().length; i++) {
       eTypes.add(EmployeeType.values()[i]);
       if (EmployeeType.values()[i] == employee.getType()){
         counter = i;
+      }
+    }
+
+     */
+    for (EmployeeType eT : EmployeeType.values()){
+      if (!(eT.equals(employee.getType()) || eT.equals(EmployeeType.NoOne))){
+        eTypes.add(eT.getString());
       }
     }
     typebox.setItems(FXCollections.observableArrayList(eTypes));
@@ -43,7 +51,7 @@ public class EditEmployee {
     lastNametxt.setText(employee.getLastName());
     addresstxt.setText(employee.getAddress());
     emailtxt.setText(employee.getEmail());
-    typebox.setValue(employee.getType());
+    typebox.setValue(employee.getType().getString());
     phonetxt.setText(employee.getPhoneNumber());
   }
 
@@ -53,12 +61,13 @@ public class EditEmployee {
               new Alert(Alert.AlertType.WARNING, "Please fill in all the fields", ButtonType.OK);
       warningAlert.showAndWait();
     } else {
+      System.out.println(EmployeeType.getEmployeeType(typebox.getSelectionModel().getSelectedItem().toString()).getString());
       Employee newEmployee =
               new Employee(
                       employee.getEmployeeID(),
                       firstNametxt.getText(),
                       lastNametxt.getText(),
-                      typebox.getSelectionModel().getSelectedItem().toString(),
+                      EmployeeType.getEmployeeType(typebox.getSelectionModel().getSelectedItem().toString()).getString(),
                       emailtxt.getText(),
                       phonetxt.getText(),
                       addresstxt.getText(),
