@@ -7,6 +7,8 @@ import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -53,5 +55,10 @@ public class MainMenuController implements Initializable {
 
   public void switchToMessagesPage() {
     PageManager.getInstance().loadPage(PageManager.Pages.Messaging);
+  }
+
+  public void switchToDashboard(ActionEvent actionEvent) {
+    PageManager.getInstance().loadPage(PageManager.Pages.Dashboard);
+
   }
 }
