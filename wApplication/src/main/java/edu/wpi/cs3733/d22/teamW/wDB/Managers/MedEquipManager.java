@@ -188,4 +188,12 @@ public class MedEquipManager {
   public void exportMedicalEquipmentCSV(String filename) {
     medi.exportMedCSV(filename);
   }
+
+  public void resetTreeSets(){
+    equipID = new HashMap<>();
+    for(MedEquipType type : MedEquipType.values()){
+      equipID.put(type, new TreeSet<Integer>());
+    }
+  }
+
 }
