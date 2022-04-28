@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -60,7 +61,11 @@
                                 <Font size="14.0" />
                             </font>
                         </Label>
-                        <TextArea fx:id="moreInfo" prefColumnCount="20" scaleZ="0.0" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" />
+                  <ScrollPane>
+                     <content>
+                              <TextArea fx:id="moreInfo" prefColumnCount="20" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" />
+                     </content>
+                  </ScrollPane>
                     </children>
                     <HBox.margin>
                         <Insets />

@@ -2,10 +2,16 @@ package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
 import com.sun.jdi.InvalidTypeException;
 import edu.wpi.cs3733.d22.teamW.Managers.AccountManager;
+import edu.wpi.cs3733.d22.teamW.Managers.PageManager;
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.EmployeeImageView;
+import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.FilterControl;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
+import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.MedicalEquipmentSR;
+import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.SR;
+import edu.wpi.cs3733.d22.teamW.wDB.Errors.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.UserImageManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
@@ -14,17 +20,19 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.UserImage;
+import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 
 public class ProfileController implements Initializable {
@@ -43,13 +51,48 @@ public class ProfileController implements Initializable {
     Label phoneNumber;
     @FXML
     Label address;
+    @FXML
+    public TextArea moreInfo;
+    @FXML
+    public FilterControl<RequestType> filter;
+    @FXML
+    public CheckBox emergencyFilter;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        rt.getSelectionModel()
+                .selectedItemProperty()
+                .addListener(
+                        (obs, oldSelection, newSelection) -> {
+                            if (newSelection == null) {
+                                moreInfo.setText("Select a request to view details.");
+                            }
+                            SR request = rt.getSelection();
+                            if (request != null) {
+                                try {
+                                    moreInfo.setText(request.getFormattedInfo());
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                    moreInfo.setText("Error loading request details.");
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                        });
+
+        filter.loadValues(RequestType.values());
+        filter.addValuesListener(c -> resetItems());
+        emergencyFilter.selectedProperty().addListener(c -> resetItems());
+        PageManager.getInstance().attachOnLoad(PageManager.Pages.Profile, this::onLoad);
         onLoad();
     }
 
     public void onLoad() {
+        rt.distributeColumnWidths();
+        moreInfo.setText("Select a request to view details.");
+        resetItems();
+
         Employee employee = AccountManager.getInstance().getEmployee();
         profile.setImage(EmployeeImageGenerator.generateEmployeeImage(employee.getEmployeeID()));
         name.setText(employee.getFirstName() + " " + employee.getLastName());
@@ -160,4 +203,39 @@ public class ProfileController implements Initializable {
   }
 
    */
+
+    private void resetItems() {
+        try {
+            ArrayList<Request> employeeItems = new ArrayList<Request>();
+
+            if (emergencyFilter.isSelected()) {
+                for (Request r : RequestFacade.getRequestFacade()
+                        .getRequests(filter.getEnabledValues().toArray(new RequestType[]{}))) {
+                    if (r.getEmergency() == 1) {
+                        if (r.getEmployeeID().equals(AccountManager.getInstance().getEmployee().getEmployeeID())) {
+                            employeeItems.add(r);
+                        }
+                    }
+                }
+            } else {
+                ArrayList<Request> items = RequestFacade.getRequestFacade()
+                        .getRequests(filter.getEnabledValues().toArray(new RequestType[]{}));
+                for (Request r : items) {
+                    if (r.getEmployeeID().equals(AccountManager.getInstance().getEmployee().getEmployeeID())) {
+                        employeeItems.add(r);
+                    }
+                }
+            }
+
+            rt.setItems(employeeItems);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void clearSelection() {
+        rt.getSelectionModel().clearSelection();
+        resetItems();
+    }
 }
