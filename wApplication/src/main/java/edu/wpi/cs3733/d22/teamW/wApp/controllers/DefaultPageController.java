@@ -24,13 +24,15 @@ public class DefaultPageController implements Initializable {
   @FXML public AnchorPane content;
   @FXML public AnchorPane background;
   @FXML public AnchorPane pages;
+    @FXML public ScrollPane scrollPane;
 
-  public void initialize(URL location, ResourceBundle rb) {
+    public void initialize(URL location, ResourceBundle rb) {
     BackgroundManager.getInstance().initialize(background);
     PageManager.getInstance().initialize(pages);
     MenuBarManager.getInstance().initialize(menuBar);
 
     PageManager.getInstance().loadPage(PageManager.Pages.Login);
+    PageManager.getInstance().attachPageChangeListener((o, n) -> scrollPane.setHvalue(0));
   }
   public void switchToMedicineDelivery() {
     PageManager.getInstance().loadPage(PageManager.Pages.MedicineDeliverySR);

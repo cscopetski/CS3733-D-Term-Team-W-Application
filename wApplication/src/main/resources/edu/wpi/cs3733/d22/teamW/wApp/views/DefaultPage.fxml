@@ -19,7 +19,8 @@
                                     AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"/>
                         <AnchorPane styleClass="page-parent" AnchorPane.topAnchor="50" AnchorPane.bottomAnchor="50"
                                     AnchorPane.leftAnchor="50" AnchorPane.rightAnchor="50"/>
-                        <ScrollPane AnchorPane.topAnchor="100" AnchorPane.bottomAnchor="100"
+                        <ScrollPane fx:id="scrollPane"
+                                    AnchorPane.topAnchor="100" AnchorPane.bottomAnchor="100"
                                     AnchorPane.leftAnchor="100" AnchorPane.rightAnchor="100"
                                     fitToWidth="true" fitToHeight="true" style="-fx-background-color: transparent; -fx-border-color: transparent;">
                             <AnchorPane fx:id="pages"/>
