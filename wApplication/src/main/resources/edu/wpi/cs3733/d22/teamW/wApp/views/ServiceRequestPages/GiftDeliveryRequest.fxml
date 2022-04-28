@@ -9,13 +9,11 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.HospitalMap?>
-<?import javafx.scene.shape.Line?>
 <VBox alignment="CENTER" fillWidth="false" spacing="50.0" style="-fx-alignment: center;" stylesheets="@../../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ServiceRequestControllers.GiftDeliveryRequestController">
    <children>
       <VBox fx:id="patientFieldsBox" alignment="CENTER" fillWidth="false">
@@ -95,24 +93,24 @@
                   <VBox alignment="CENTER">
                      <children>
                         <Button mnemonicParsing="false" onAction="#submitButton" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Submit" />
-                        <Label fx:id="successLabel1" text="Successfully submitted request." textFill="#3ccc63" visible="false">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
                      </children>
                      <VBox.margin>
                         <Insets top="20.0" />
                      </VBox.margin>
                   </VBox>
                   <Button minHeight="30.0" minWidth="60.0" mnemonicParsing="false" onAction="#switchToRequestList" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="View Request List" />
+                  <Label fx:id="successLabel" style="-fx-font-weight: bold;" text="Successfully submitted request." visible="false">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
                <padding>
                   <Insets left="10.0" right="10.0" />
                </padding>
             </VBox>
             <Line endY="250.0" startY="-300.0" />
-            <VBox fx:id = "BOX" alignment="TOP_CENTER" >
+            <VBox fx:id="BOX" alignment="TOP_CENTER">
                <children>
                   <Label styleClass="label-major" text="MAP INTERACTION" textFill="WHITE">
                      <font>
