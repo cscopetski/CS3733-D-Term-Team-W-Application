@@ -7,6 +7,8 @@ import edu.wpi.cs3733.d22.teamW.wDB.Managers.*;
 import java.io.IOException;
 
 import edu.wpi.cs3733.d22.teamW.wDB.entity.InternalPatientTransportationRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.LanguageRequest;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -61,62 +63,135 @@ public class App extends Application {
 
   @Override
   public void stop() {
-    UserImageManager.getUserImageManager().exportUserImageCSV("CSVs/UserImages.csv");
-    CleaningRequestManager.getCleaningRequestManager().exportReqCSV("CSVs/CleaningRequest.csv");
+
+    final String locationNewFileName = "TowerLocations_teamW_new.csv";
+    final String medEquipNewFileName = "MedicalEquipment_teamW_new.csv";
+    final String medEquipRequestNewFileName = "MedicalEquipmentRequest_teamW_new.csv";
+    final String labServiceRequestNewFileName = "LabRequests_teamW_new.csv";
+    final String employeeNewFileName = "Employees_teamW_new.csv";
+    final String medRequestNewFileName = "MedRequests_teamW_new.csv";
+    final String flowerRequestNewFileName = "FlowerRequests_teamW_new.csv";
+    final String computerServiceRequestNewFileName = "ComputerServiceRequest_teamW_new.csv";
+    final String sanitationRequestNewFileName = "SanitationRequests_teamW_new.csv";
+    final String languageNewFileName = "Languages_teamW_new.csv";
+    final String languageInterpNewFileName = "LanguageInterpreter_teamW_new.csv";
+    final String giftDeliveryRequestNewFileName = "GiftDeliveryRequest_teamW_new.csv";
+    final String cleaningRequestNewFileName = "CleaningRequest_teamW_new.csv";
+    final String mealRequestNewFileName = "MealRequest_teamW_new.csv";
+    final String securityRequestNewFileName = "SecurityRequest_teamW_new.csv";
+    final String languageRequestNewFileName = "LanguageRequests_teamW_new.csv";
+    final String userImageNewFileName = "UserImages_teamW_new.csv";
+    final String internalPatientTransportationRequestNewFileName = "InternalPatientTransportationRequests_teamW_new.csv";
+    final String externalTransporationRequestNewFileName = "ExternalTransportationRequests_teamW_new.csv";
+
+    LocationManager.getLocationManager().exportLocationsCSV(locationNewFileName);
+    MedEquipManager.getMedEquipManager().exportMedicalEquipmentCSV(medEquipNewFileName);
     try {
-      ComputerServiceRequestManager.getComputerServiceRequestManager()
-          .exportReqCSV("CSVs/ComputerServiceRequest.csv");
-    } catch (Exception e) {
+      MedEquipRequestManager.getMedEquipRequestManager().exportReqCSV(medEquipRequestNewFileName);
+    } catch (NonExistingMedEquip e) {
       e.printStackTrace();
     }
-    EmployeeManager.getEmployeeManager().exportEmpCSV("CSVs/Employees.csv");
-    FlowerRequestManager.getFlowerRequestManager().exportReqCSV("CSVs/FlowerRequests.csv");
+    LabServiceRequestManager.getLabServiceRequestManager().exportReqCSV(labServiceRequestNewFileName);
+    EmployeeManager.getEmployeeManager().exportEmpCSV(employeeNewFileName);
+    MedRequestManager.getMedRequestManager().exportReqCSV(medRequestNewFileName);
+    FlowerRequestManager.getFlowerRequestManager().exportReqCSV(flowerRequestNewFileName);
     try {
-      GiftDeliveryRequestManager.getGiftDeliveryRequestManager()
-          .exportReqCSV("CSVs/GiftDeliveryRequest.csv");
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    LabServiceRequestManager.getLabServiceRequestManager().exportReqCSV("CSVs/LabRequests.csv");
-    LanguageInterpreterManager.getLanguageInterpreterManager()
-        .exportReqCSV("CSVs/LanguageInterpreter.csv");
-    LanguageRequestManager.getLanguageRequestManager().exportReqCSV("CSVs/LanguageRequests.csv");
-    LanguageManager.getLanguageManager().exportLocationsCSV("CSVs/Languages.csv");
-    try {
-      MealRequestManager.getMealRequestManager().exportReqCSV("CSVs/MealRequest.csv");
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    MedEquipManager.getMedEquipManager().exportMedicalEquipmentCSV("CSVs/MedicalEquipment.csv");
-    try {
-      MedEquipRequestManager.getMedEquipRequestManager()
-          .exportReqCSV("CSVs/MedicalEquipmentRequest.csv");
-    } catch (NonExistingMedEquip ex) {
-      ex.printStackTrace();
-    }
-    MedRequestManager.getMedRequestManager().exportReqCSV("CSVs/MedRequests.csv");
-    try {
-      SanitationRequestManager.getSanitationRequestManager()
-          .exportReqCSV("CSVs/SanitationRequests.csv");
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    try {
-      SecurityRequestManager.getSecurityRequestManager().exportReqCSV("CSVs/SecurityRequest.csv");
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    LocationManager.getLocationManager().exportLocationsCSV("CSVs/TowerLocations.csv");
-    try {
-      ExternalTransportManager.getRequestManager().exportReqCSV("CSVs/ExternalTransportationRequests.csv");
+      ComputerServiceRequestManager.getComputerServiceRequestManager().exportReqCSV(computerServiceRequestNewFileName);
     } catch (Exception e) {
       e.printStackTrace();
     }
     try {
-      InternalPatientTransportationRequestManager.getInternalPatientTransportationRequestManager().exportReqCSV("CSVs/InternalPatientTransportationRequests.csv");
+      SanitationRequestManager.getSanitationRequestManager().exportReqCSV(sanitationRequestNewFileName);
     } catch (Exception e) {
       e.printStackTrace();
     }
+    LanguageManager.getLanguageManager().exportLocationsCSV(languageNewFileName);
+    LanguageInterpreterManager.getLanguageInterpreterManager().exportReqCSV(languageInterpNewFileName);
+    try {
+      GiftDeliveryRequestManager.getGiftDeliveryRequestManager().exportReqCSV(giftDeliveryRequestNewFileName);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    CleaningRequestManager.getCleaningRequestManager().exportReqCSV(cleaningRequestNewFileName);
+    try {
+      MealRequestManager.getMealRequestManager().exportReqCSV(mealRequestNewFileName);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    try {
+      SecurityRequestManager.getSecurityRequestManager().exportReqCSV(securityRequestNewFileName);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    LanguageRequestManager.getLanguageRequestManager().exportReqCSV(languageRequestNewFileName);
+    UserImageManager.getUserImageManager().exportUserImageCSV(userImageNewFileName);
+    try {
+      InternalPatientTransportationRequestManager.getInternalPatientTransportationRequestManager().exportReqCSV(internalPatientTransportationRequestNewFileName);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    try {
+      ExternalTransportManager.getRequestManager().exportReqCSV(externalTransporationRequestNewFileName);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+//    UserImageManager.getUserImageManager().exportUserImageCSV("CSVs/UserImages.csv");
+//    CleaningRequestManager.getCleaningRequestManager().exportReqCSV("CSVs/CleaningRequest.csv");
+//    try {
+//      ComputerServiceRequestManager.getComputerServiceRequestManager()
+//          .exportReqCSV("CSVs/ComputerServiceRequest.csv");
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//    EmployeeManager.getEmployeeManager().exportEmpCSV("CSVs/Employees.csv");
+//    FlowerRequestManager.getFlowerRequestManager().exportReqCSV("CSVs/FlowerRequests.csv");
+//    try {
+//      GiftDeliveryRequestManager.getGiftDeliveryRequestManager()
+//          .exportReqCSV("CSVs/GiftDeliveryRequest.csv");
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//    LabServiceRequestManager.getLabServiceRequestManager().exportReqCSV("CSVs/LabRequests.csv");
+//    LanguageInterpreterManager.getLanguageInterpreterManager()
+//        .exportReqCSV("CSVs/LanguageInterpreter.csv");
+//    LanguageRequestManager.getLanguageRequestManager().exportReqCSV("CSVs/LanguageRequests.csv");
+//    LanguageManager.getLanguageManager().exportLocationsCSV("CSVs/Languages.csv");
+//    try {
+//      MealRequestManager.getMealRequestManager().exportReqCSV("CSVs/MealRequest.csv");
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//    MedEquipManager.getMedEquipManager().exportMedicalEquipmentCSV("CSVs/MedicalEquipment.csv");
+//    try {
+//      MedEquipRequestManager.getMedEquipRequestManager()
+//          .exportReqCSV("CSVs/MedicalEquipmentRequest.csv");
+//    } catch (NonExistingMedEquip ex) {
+//      ex.printStackTrace();
+//    }
+//    MedRequestManager.getMedRequestManager().exportReqCSV("CSVs/MedRequests.csv");
+//    try {
+//      SanitationRequestManager.getSanitationRequestManager()
+//          .exportReqCSV("CSVs/SanitationRequests.csv");
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//    try {
+//      SecurityRequestManager.getSecurityRequestManager().exportReqCSV("CSVs/SecurityRequest.csv");
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//    LocationManager.getLocationManager().exportLocationsCSV("CSVs/TowerLocations.csv");
+//    try {
+//      ExternalTransportManager.getRequestManager().exportReqCSV("CSVs/ExternalTransportationRequests.csv");
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
+//    try {
+//      InternalPatientTransportationRequestManager.getInternalPatientTransportationRequestManager().exportReqCSV("CSVs/InternalPatientTransportationRequests.csv");
+//    } catch (Exception e) {
+//      e.printStackTrace();
+//    }
     log.info("Shutting Down");
   }
 }

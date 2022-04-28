@@ -30,47 +30,72 @@ public class CSVController {
   final String internalPatientTransportationRequestFileName = "InternalPatientTransportationRequests.csv";
   final String externalTransporationRequestFileName = "ExternalTransportationRequests.csv";
 
+  final String locationNewFileName = "TowerLocations_teamW_new.csv";
+  final String medEquipNewFileName = "MedicalEquipment_teamW_new.csv";
+  final String medEquipRequestNewFileName = "MedicalEquipmentRequest_teamW_new.csv";
+  final String labServiceRequestNewFileName = "LabRequests_teamW_new.csv";
+  final String employeeNewFileName = "Employees_teamW_new.csv";
+  final String medRequestNewFileName = "MedRequests_teamW_new.csv";
+  final String flowerRequestNewFileName = "FlowerRequests_teamW_new.csv";
+  final String computerServiceRequestNewFileName = "ComputerServiceRequest_teamW_new.csv";
+  final String sanitationRequestNewFileName = "SanitationRequests_teamW_new.csv";
+  final String languageNewFileName = "Languages_teamW_new.csv";
+  final String languageInterpNewFileName = "LanguageInterpreter_teamW_new.csv";
+  final String giftDeliveryRequestNewFileName = "GiftDeliveryRequest_teamW_new.csv";
+  final String cleaningRequestNewFileName = "CleaningRequest_teamW_new.csv";
+  final String mealRequestNewFileName = "MealRequest_teamW_new.csv";
+  final String securityRequestNewFileName = "SecurityRequest_teamW_new.csv";
+  final String languageRequestNewFileName = "LanguageRequests_teamW_new.csv";
+  final String userImageNewFileName = "UserImages_teamW_new.csv";
+  final String internalPatientTransportationRequestNewFileName = "InternalPatientTransportationRequests_teamW_new.csv";
+  final String externalTransporationRequestNewFileName = "ExternalTransportationRequests_teamW_new.csv";
+
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 
   public CSVController() {}
 
   public void populateTables() throws Exception {
-    insertIntoEmpTable(importCSV(employeeFileName));
-    insertIntoLocationsTable(importCSV(locationFileName));
-    insertIntoMedEquipTable(importCSV(medEquipFileName));
-    insertIntoLanguagesTable(importCSV(languageFileName));
-    insertIntoLanguageInterpreterTable(importCSV(languageInterpFileName));
+    insertIntoEmpTable(importCSV(employeeFileName, employeeNewFileName));
+    insertIntoLocationsTable(importCSV(locationFileName, locationNewFileName));
+    insertIntoMedEquipTable(importCSV(medEquipFileName, medEquipNewFileName));
+    insertIntoLanguagesTable(importCSV(languageFileName, languageNewFileName));
+    insertIntoLanguageInterpreterTable(importCSV(languageInterpFileName, languageInterpNewFileName));
 
-    insertIntoMedEquipReqTable(importCSV(medEquipRequestFileName));
-    insertIntoLabReqTable(importCSV(labServiceRequestFileName));
-    insertMedRequestTable(importCSV(medRequestFileName));
-    insertFlowerRequestTable(importCSV(flowerRequestFileName));
-    insertComputerServiceRequestTable(importCSV(computerServiceRequestFileName));
-    insertSanitationServiceRequestTable(importCSV(sanitationRequestFileName));
-    insertCleaningRequestTable(importCSV(cleaningRequestFileName));
-    insertGiftDeliveryRequestTable(importCSV(giftDeliveryRequestFileName));
-    insertMealRequestTable(importCSV(mealRequestFileName));
-    insertSecurityRequestTable(importCSV(securityRequestFileName));
-    insertLanguageRequestTable(importCSV(languageRequestFileName));
-    insertUserImageTable(importCSV(userImageFileName));
-    insertInternalPatientTransportationRequestTable(importCSV(internalPatientTransportationRequestFileName));
-    insertExternatlTransportationRequestTable(importCSV(externalTransporationRequestFileName));
+    insertIntoMedEquipReqTable(importCSV(medEquipRequestFileName, medEquipRequestNewFileName));
+    insertIntoLabReqTable(importCSV(labServiceRequestFileName, labServiceRequestNewFileName));
+    insertMedRequestTable(importCSV(medRequestFileName, medRequestNewFileName));
+    insertFlowerRequestTable(importCSV(flowerRequestFileName, flowerRequestNewFileName));
+    insertComputerServiceRequestTable(importCSV(computerServiceRequestFileName, computerServiceRequestNewFileName));
+    insertSanitationServiceRequestTable(importCSV(sanitationRequestFileName, sanitationRequestNewFileName));
+    insertCleaningRequestTable(importCSV(cleaningRequestFileName, cleaningRequestNewFileName));
+    insertGiftDeliveryRequestTable(importCSV(giftDeliveryRequestFileName, giftDeliveryRequestNewFileName));
+    insertMealRequestTable(importCSV(mealRequestFileName, mealRequestNewFileName));
+    insertSecurityRequestTable(importCSV(securityRequestFileName, securityRequestNewFileName));
+    insertLanguageRequestTable(importCSV(languageRequestFileName, languageRequestNewFileName));
+    insertUserImageTable(importCSV(userImageFileName, userImageNewFileName));
+    insertInternalPatientTransportationRequestTable(importCSV(internalPatientTransportationRequestFileName, internalPatientTransportationRequestNewFileName));
+    insertExternatlTransportationRequestTable(importCSV(externalTransporationRequestFileName, externalTransporationRequestNewFileName));
   }
 
-  public ArrayList<String[]> importCSV(String fileName) throws FileNotFoundException {
+  public ArrayList<String[]> importCSV(String backupFileName, String newFileName)
+          throws FileNotFoundException {
 
-    InputStream in =
-        getClass()
-            .getClassLoader()
-            .getResourceAsStream("edu/wpi/cs3733/d22/teamW/wDB/original/CSVs/" + fileName);
-    // InputStream in = new FileInputStream("CSVs/" + fileName);
-    /*getClass()
-    .getClassLoader()
-    .getResourceAsStream("edu/wpi/cs3733/d22/teamW/wDB/CSVs/" + fileName);*/
-    if (in == null) {
+    String fileName = newFileName;
+
+    InputStream in;
+    try {
+      in = new FileInputStream(fileName);
+    } catch (FileNotFoundException e) {
       System.out.println("Failed to find file " + fileName);
-      throw (new FileNotFoundException());
+      fileName = backupFileName;
+
+      in = getClass().getClassLoader().getResourceAsStream("edu/wpi/cs3733/d22/teamW/wDB/original/CSVs/" + fileName);
+      if (in == null) {
+        System.err.println("Failed to find file " + fileName);
+        throw (new FileNotFoundException());
+      }
     }
+
     Scanner sc = new Scanner(in);
     System.out.println("Found File" + fileName);
     // Skip headers
