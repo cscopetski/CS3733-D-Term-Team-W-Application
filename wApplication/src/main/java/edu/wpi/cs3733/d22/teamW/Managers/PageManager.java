@@ -12,6 +12,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 
 public class PageManager {
+
     //Pages Enum:
     public interface PageChangeFunction {
         void changed(PageManager.Pages oldPage, PageManager.Pages newPage);
@@ -23,12 +24,12 @@ public class PageManager {
 
     public enum Pages {
         None("nopath", "none"),
-        MainMenu("MainMenuPage.fxml", "Main Menu", true),
-        MapEditor("MapEditorPage.fxml", "Map Editor", true),
+        MainMenu("MainMenuPage.fxml", "Main Menu"),
+        MapEditor("MapEditorPage.fxml", "Map Editor"),
         RequestList("RequestListPage.fxml", "Request List"),
-        RequestHub("RequestHubPage.fxml", "Request Hub", true),
+        RequestHub("RequestHubPage.fxml", "Request Hub"),
         Login("LoginPage.fxml", "Login"),
-        About("AboutPage.fxml", "About", true),
+        About("AboutPage.fxml", "About"),
         Profile("ProfilePage.fxml", "Profile"),
         AdminHub("AdminHub.fxml", "Admin"),
         Messaging("MessagingPage.fxml", "Messaging"),
@@ -49,19 +50,14 @@ public class PageManager {
 
         private final String path;
         private final String name;
-        private final boolean isPersistent;
 
-        private Pane persistentControl;
+        private Pane content;
 
         Pages(String path, String name) {
-            this(path, name, false);
-        }
-
-        Pages(String path, String name, boolean isPersistent) {
             this.path = path;
             this.name = name;
-            this.isPersistent = isPersistent;
-            this.persistentControl = null;
+            ;
+            this.content = null;
         }
 
         public String getPath() {
@@ -77,13 +73,9 @@ public class PageManager {
             return getName();
         }
 
-        public boolean isPersistent() {
-            return isPersistent;
-        }
-
         public Pane loadPage() {
-            if (isPersistent && persistentControl != null) {
-                return persistentControl;
+            if (content != null) {
+                return content;
             }
 
             Pane p;
@@ -102,9 +94,7 @@ public class PageManager {
 
             p.getProperties().put("PageType", this);
             System.out.println(getName() + " Loaded");
-            if (isPersistent) {
-                persistentControl = p;
-            }
+            content = p;
             return p;
         }
 
@@ -132,7 +122,10 @@ public class PageManager {
 
     // PageManager Class:
     private AnchorPane parent;
-    private int offset = 0;
+    private Pages current;
+    private final ArrayList<Pages> historyF = new ArrayList<>();
+    private final ArrayList<Pages> historyB = new ArrayList<>();
+    //private int offset = 0;
     private final ArrayList<PageChangeFunction> pageChangeListeners = new ArrayList<>();
     private final ArrayList<SimpleFunction> historyChangeListeners = new ArrayList<>();
 
@@ -143,20 +136,45 @@ public class PageManager {
 
     public void attachOnLoad(final Pages page, SimpleFunction sf) {
         attachPageChangeListener((o, n) -> {
-            if (n.equals(page)) {
+            if (n != null && n.equals(page)) {
                 sf.function();
             }
         });
     }
+
     public void attachOnUnload(final Pages page, SimpleFunction sf) {
         attachPageChangeListener((o, n) -> {
-            if (o.equals(page)) {
+            if (o != null && o.equals(page)) {
                 sf.function();
             }
         });
     }
+
     public void attachPageChangeListener(PageChangeFunction pageChangeListener) {
         pageChangeListeners.add(pageChangeListener);
+    }
+
+    private Pages pageIndexOf(int index) {
+        if (index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (index < historyB.size()) {
+            return historyB.get(index);
+        }
+        index -= historyB.size();
+        if (index == 0) {
+            return current;
+        }
+        index--;
+        if (index < historyF.size()) {
+            return historyF.get(index);
+        }
+        throw new IndexOutOfBoundsException();
+    }
+
+    private void callAllPageChangeListeners(int o, int n) {
+        callAllPageChangeListeners(pageIndexOf(o), pageIndexOf(n));
     }
     private void callAllPageChangeListeners(Pages o, Pages n) {
         pageChangeListeners.forEach(pcl -> pcl.changed(o, n));
@@ -164,42 +182,151 @@ public class PageManager {
     public void attachHistoryChangeListener(SimpleFunction sf) {
         historyChangeListeners.add(sf);
     }
+
     private void callAllHistoryPageChangeListeners() {
         historyChangeListeners.forEach(SimpleFunction::function);
     }
 
+
+    public void loadPage(Pages page) {
+        if (historyB.contains(page)) {
+            setActiveIndex(historyB.indexOf(page));
+            return;
+        }
+        if (current == page) {
+            return;
+        }
+        if (historyF.contains(page)) {
+            setActiveIndex(historyB.size() + 1 + historyF.indexOf(page));
+            return;
+        }
+
+        //add at end
+        Pages prev = current;
+        if (!parent.getChildren().isEmpty()) {
+            Node c = parent.getChildren().get(parent.getChildren().size() - 1);
+            int index = historyB.size();
+            TransitionManager.createTransition(
+                    TransitionManager.Transitions.FadeOut, (Pane) c, () -> {
+                        parent.getChildren().remove(c);
+                        historyB.add(index, current);
+                    }).play();
+        }
+        historyB.addAll(historyF);
+        historyF.clear();
+
+        Node p = page.loadPage();
+        TransitionManager.createTransition(
+                TransitionManager.Transitions.FadeIn, (Pane) p, () -> {
+                }).play();
+        parent.getChildren().add(p);
+        current = page;
+
+        callAllPageChangeListeners(prev, page);
+        callAllHistoryPageChangeListeners();
+    }
+    public int getActiveIndex() {
+        return historyB.size();
+    }
+    public void setActiveIndex(int index) {
+        int o = getActiveIndex();
+        int n = index;
+        if (index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        if (index < historyB.size()) {
+            //move pages in historyB after index to historyF
+            var historyToMove = historyB.subList(index, historyB.size());
+            historyB.removeAll(historyToMove);
+            historyF.addAll(0, historyToMove);
+
+            Node c = parent.getChildren().get(parent.getChildren().size() - 1);
+            TransitionManager.createTransition(
+                    TransitionManager.Transitions.FadeOut, (Pane) c, () -> {
+                        parent.getChildren().remove(c);
+                        historyF.add(0, current);
+                    }).play();
+
+            //move current page to historyF properly
+            Pages page = historyB.remove(index);
+            Node p = page.loadPage();
+            TransitionManager.createTransition(
+                    TransitionManager.Transitions.FadeIn, (Pane) p, () -> {
+                    }).play();
+            parent.getChildren().add(p);
+
+            callAllPageChangeListeners(o, n);
+            //callAllHistoryPageChangeListeners();
+            return;
+        }
+        index -= historyB.size();
+        if (index == 0) {
+            return;//current index is active
+        }
+        index--;
+        if (index < historyF.size()) {
+            //show page at index
+            //move all other pages to historyB
+            //move current page to historyB properly
+
+
+            //callAllPageChangeListeners(o, n);
+            //callAllHistoryPageChangeListeners();
+        }
+        throw new IndexOutOfBoundsException();
+    }
+
+    public boolean canGoBack() {
+        return !historyB.isEmpty();
+    }
+    public void goBack() {
+        setActiveIndex(historyB.size() - 1);
+    }
+    public boolean canGoForward() {
+        return !historyF.isEmpty();
+    }
+    public void goForward() {
+        setActiveIndex(historyB.size() + 2);
+    }
+
+    public ArrayList<String> getHistory() {
+        ArrayList<String> values = historyB.stream().map(Pages::toString).collect(Collectors.toCollection(ArrayList::new));
+        values.add(current.toString());
+        values.addAll(historyF.stream().map(Pages::toString).collect(Collectors.toList()));
+        return values;
+    }
+
+    public void clearAllHistory() {
+        historyB.clear();
+        historyF.clear();
+
+        System.out.println("Cleared Page History");
+        callAllHistoryPageChangeListeners();
+    }
+
+    /*
     public void loadPage(Pages page) {
         Pane p = page.loadPage();
         if (p == null) {
             return;
         }
 
-        if (page.isPersistent()) {
-            if (page == getCurrentPage()) {
-                return;
-            }
-            AtomicInteger indexOf = new AtomicInteger(-1);
-            parent.getChildren().removeIf(t -> {
-                if (Pages.getPageType(t) == page) {
-                    indexOf.set(parent.getChildren().indexOf(t));
-                    return true;
-                }
-                return false;
-            });
-            if (indexOf.get() != -1) {
-                if (getActiveIndex() < indexOf.get()) {
-                    offset--;
-                }
-            }
+        if (page == getCurrentPage()) {
+            return;
         }
 
-        clearForwardHistory();
+        historyF.remove(page);
+        historyB.remove(page);
+
+        //clearForwardHistory();
 
         parent.getChildren().add(p);
 
-        switchBetween(getPreviousPane(), getCurrentPane());
+        switchPage();
+        //switchBetween(getPreviousPane(), getCurrentPane());
 
-        checkMaxPages();
+        //checkMaxPages();
 
         callAllHistoryPageChangeListeners();
     }
@@ -211,49 +338,110 @@ public class PageManager {
     }
 
     public Pane getCurrentPane() {
-        return getOffsetPane(0);
+        return (Pane) parent.getChildren().get(parent.getChildren().size() - 1);
     }
+
     public Pages getCurrentPage() {
-        return Pages.getPageType(getCurrentPane());
+        return current;
     }
 
     public int getActiveIndex() {
-        return parent.getChildren().size() - 1 - offset;
+        return historyB.size();
     }
+
+    int numShifted = 0;
     public void setActiveIndex(int index) {
-        if (index < 0 || index >= parent.getChildren().size()) {
+        if (index < 0 || index >= historyB.size() + 1 + historyF.size()) {
             throw new IndexOutOfBoundsException();
         }
         if (index == getActiveIndex()) {
             return;
         }
 
-        switchBetween(getActiveIndex(), index);
-        offset += getActiveIndex() - index;
+        if (index < historyB.size()) {
+            //shift back and forward history around
+
+            //numShifted = historyB.size() - index - 1;
+
+            loadPage(historyB.remove(index));
+            return;
+        }
+        index -= historyB.size();
+        if (index == 0) {
+            return;
+        }
+        index--;
+        if (index < historyF.size()) {
+            loadPage(historyF.remove(index));
+        }
+        //switchBetween(getActiveIndex(), index);
+        //offset += getActiveIndex() - index;
     }
 
     public void goBack() {
         setActiveIndex(getActiveIndex() - 1);
     }
+
     public void goForward() {
         setActiveIndex(getActiveIndex() + 1);
     }
+
     public boolean canGoBack() {
-        return getActiveIndex() > 0;
+        return historyB.size() > 0;
     }
+
     public boolean canGoForward() {
-        return offset > 0;
+        return historyF.size() > 0;
     }
 
     public ArrayList<String> getHistory() {
-        return (ArrayList<String>) parent.getChildren().stream().map(n -> Pages.getPageType(n).getName()).collect(Collectors.toList());
+        ArrayList<String> values = new ArrayList<>();
+        values.addAll(historyB.stream().map(p -> p.toString()).collect(Collectors.toList()));
+        values.add(current.toString());
+        values.addAll(historyF.stream().map(p -> p.toString()).collect(Collectors.toList()));
+        return values;
+        //return (ArrayList<String>) parent.getChildren().stream().map(n -> Pages.getPageType(n).getName()).collect(Collectors.toList());
     }
+
     public void clearAllHistory() {
-        clearBackHistory();
-        clearForwardHistory();
+        historyB.clear();
+        historyF.clear();
+
+        //clearBackHistory();
+        //clearForwardHistory();
 
         System.out.println("Cleared Page History");
         callAllHistoryPageChangeListeners();
+    }
+
+
+    private void showPage(Pages p) {
+        TransitionManager.createTransition(TransitionManager.Transitions.FadeIn, p.loadPage()).play();
+    }
+
+    private void switchPage() {
+        Node o = parent.getChildren().get(0);
+        Node n = parent.getChildren().size() > 1 ? parent.getChildren().get(1) : null;
+
+        callAllPageChangeListeners(Pages.getPageType(o), Pages.getPageType(n));
+
+        if (o != null) {
+            final Node prevF = o;
+            Pages p = Pages.getPageType(prevF);
+            TransitionManager.createTransition(
+                    TransitionManager.Transitions.FadeOut, (Pane) o, () -> {
+                        //hide(prevF);
+                        parent.getChildren().remove(prevF);
+                        historyB.add(p);
+                        System.out.println(p + ": hidden complete");
+                    }).play();
+            System.out.println(p + ": hidden started");
+        }
+        TransitionManager.createTransition(TransitionManager.Transitions.FadeIn, (Pane) n).play();
+
+        //show(n);
+        current = Pages.getPageType(n);
+        System.out.println(Pages.getPageType(o) + " -> " + Pages.getPageType(n));
     }
 
     private void switchBetween(int o, int n) {
@@ -264,12 +452,15 @@ public class PageManager {
 
         if (o != null) {
             final Node prevF = o;
+            Pages p = Pages.getPageType(prevF);
             TransitionManager.createTransition(
                     TransitionManager.Transitions.FadeOut, o, () -> {
                         hide(prevF);
-                        System.out.println(Pages.getPageType(prevF) + ": hidden complete");
+                        parent.getChildren().remove(prevF);
+                        historyB.add(p);
+                        System.out.println(p + ": hidden complete");
                     }).play();
-            System.out.println(Pages.getPageType(prevF) + ": hidden started");
+            System.out.println(p + ": hidden started");
             o.setDisable(true);
         }
         TransitionManager.createTransition(TransitionManager.Transitions.FadeIn, n).play();
@@ -295,6 +486,7 @@ public class PageManager {
             clearForwardHistory();
         }
     }
+
     private void show(Node n) {
         n.setVisible(true);
         n.setDisable(false);
@@ -302,14 +494,18 @@ public class PageManager {
     }
 
     private void clearBackHistory() {
+        historyB.clear();
         if (canGoBack()) {
             parent.getChildren().remove(0, getActiveIndex());
         }
     }
+
     private void clearForwardHistory() {
+        historyF.clear();
         if (canGoForward()) {
             parent.getChildren().remove(getActiveIndex() + 1, parent.getChildren().size());
         }
         offset = 0;
     }
+    */
 }

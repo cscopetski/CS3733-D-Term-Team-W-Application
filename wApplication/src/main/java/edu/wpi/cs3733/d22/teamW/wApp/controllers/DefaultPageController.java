@@ -32,7 +32,11 @@ public class DefaultPageController implements Initializable {
     MenuBarManager.getInstance().initialize(menuBar);
 
     PageManager.getInstance().loadPage(PageManager.Pages.Login);
-    PageManager.getInstance().attachPageChangeListener((o, n) -> scrollPane.setHvalue(0));
+    PageManager.getInstance().attachPageChangeListener((o, n) -> {
+      scrollPane.setHvalue(0);
+      scrollPane.autosize();
+      scrollPane.getContent().autosize();
+    });
   }
   public void switchToMedicineDelivery() {
     PageManager.getInstance().loadPage(PageManager.Pages.MedicineDeliverySR);
