@@ -297,16 +297,12 @@
     -fx-background-radius: 5px;
 }
 .table-row-cell:focused {
-    -fx-background-color: #013895;
-    -fx-background-radius: 15px;
-}
-.table-row-cell:pressed {
+    -fx-text-background-color: black;
     -fx-background-color: white;
     -fx-background-radius: 15px;
     -fx-border-color: #013895;
     -fx-border-radius: 15px;
-    -fx-border-width: 3px;
-    -fx-text-fill: black;
+    -fx-border-width: 1px;
 }
 
 .emergency-row {

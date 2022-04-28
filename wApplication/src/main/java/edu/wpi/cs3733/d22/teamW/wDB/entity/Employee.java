@@ -36,7 +36,15 @@ public class Employee extends Entity {
     this.lastName = lName;
     this.type = EmployeeType.getEmployeeType(type);
     this.email = email;
-    this.phoneNumber = phoneNumber;
+    String pn = phoneNumber.replaceAll("[-() ]*", "");
+    if(pn.length() < 10){
+      this.phoneNumber = pn;
+    }
+    else{
+      this.phoneNumber = '(' + pn.substring(0,3) + ") "
+              + pn.substring(3,6) + '-'
+              + pn.substring(6);
+    }
     this.address = address;
     this.username = username;
     this.password = password;
@@ -58,7 +66,15 @@ public class Employee extends Entity {
     this.lastName = lName;
     this.type = EmployeeType.getEmployeeType(type);
     this.email = email;
-    this.phoneNumber = phoneNumber;
+    String pn = phoneNumber.replaceAll("[-() ]*", "");
+    if(pn.length() < 10){
+      this.phoneNumber = pn;
+    }
+    else{
+      this.phoneNumber = '(' + pn.substring(0,3) + ") "
+              + pn.substring(3,6) + '-'
+              + pn.substring(6);
+    }
     this.address = address;
     this.username = username;
     this.password = password;
@@ -71,7 +87,16 @@ public class Employee extends Entity {
     this.lastName = employeeData.get(2);
     this.type = EmployeeType.getEmployeeType(employeeData.get(3));
     this.email = employeeData.get(4);
-    this.phoneNumber = employeeData.get(5);
+    String pn = employeeData.get(5).replaceAll("[-() ]*", "");
+    if(pn.length() < 10){
+      this.phoneNumber = pn;
+    }
+    else{
+      this.phoneNumber = '(' + pn.substring(0,3) + ") "
+              + pn.substring(3,6) + '-'
+              + pn.substring(6);
+    }
+//    this.phoneNumber = employeeData.get(5);
     this.address = employeeData.get(6);
     this.username = employeeData.get(7);
     this.password = employeeData.get(8);

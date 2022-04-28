@@ -1,5 +1,6 @@
 package edu.wpi.cs3733.d22.teamW.wApp.controllers;
 
+import edu.wpi.cs3733.D22.teamB.api.IPTEmployee;
 import edu.wpi.cs3733.D22.teamZ.api.entity.ExternalTransportRequest;
 import edu.wpi.cs3733.D22.teamB.api.DatabaseController;
 import edu.wpi.cs3733.D22.teamB.api.Request;
@@ -10,8 +11,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import edu.wpi.cs3733.d22.teamW.Managers.WindowManager;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.EmployeeManager;
 import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFactory;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
+import edu.wpi.cs3733.d22.teamW.wDB.entity.Location;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.TransportType;
 import edu.wpi.teamW.API;
@@ -35,6 +39,30 @@ public class APILandingPageController {
     boolean isEmergency = false;
 
     public void launchInternalTransportAPI() throws Exception {
+        edu.wpi.cs3733.D22.teamB.api.DatabaseController dbController = new edu.wpi.cs3733.D22.teamB.api.DatabaseController();
+
+        LinkedList<edu.wpi.cs3733.D22.teamB.api.Location> APILocationList = dbController.listLocations();
+                for (edu.wpi.cs3733.D22.teamB.api.Location l : APILocationList) {
+            dbController.delete(l);
+        }
+
+        LinkedList<IPTEmployee> employees = dbController.listEmployees();
+        for (IPTEmployee employee : employees) {
+            dbController.delete(employee);
+        }
+
+        for (Location location : LocationManager.getLocationManager().getLocationByType("PATI")) {
+            edu.wpi.cs3733.D22.teamB.api.Location loc = new edu.wpi.cs3733.D22.teamB.api.Location(location.getNodeID(), location.getxCoord(), location.getyCoord(), location.getFloor(), location.getBuilding(), location.getNodeType(), location.getLongName(), location.getShortName());
+            int result = dbController.add(loc);
+            if (result == -1) {
+                System.out.println("Failed");
+            }
+        }
+
+        for (Employee employee : EmployeeManager.getEmployeeManager().getAllEmployees()) {
+            edu.wpi.cs3733.D22.teamB.api.IPTEmployee itpemployee = new edu.wpi.cs3733.D22.teamB.api.IPTEmployee(employee.getEmployeeID().toString(), employee.getLastName(), employee.getFirstName(), employee.getType().getString(), employee.getType().getString());
+            dbController.add(itpemployee);
+        }
         edu.wpi.cs3733.D22.teamB.api.API api = new edu.wpi.cs3733.D22.teamB.api.API();
         try {
             api.run(0,0,500,500,"edu/wpi/cs3733/d22/teamW/wApp/CSS/UniversalCSS/Standard.css",null,null);
@@ -49,15 +77,19 @@ public class APILandingPageController {
                 EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().set(request.getRequestID(),request.getStartLocation().getLongName(), request.getFinishLocation().getLongName(), String.valueOf(request.getPriority()));
                 WindowManager.getInstance().openWindow("popUpViews/EmployeeChoiceIPT.fxml");
             }
-            LocationManager.getLocationManager().getLocation(request.getStartLocation().getLongName(), request.getStartLocation().getFloor()).getNodeID();
+            String startFloor = request.getStartLocation().getFloor();
+            String finishFloor = request.getFinishLocation().getFloor();
+
             fields.add(
-                    LocationManager.getLocationManager().getLocation(request.getStartLocation().getLongName(), request.getStartLocation().getFloor()).getNodeID());
+                    LocationManager.getLocationManager().getLocation(request.getStartLocation().getLongName(), startFloor).getNodeID());
             fields.add(
-                    LocationManager.getLocationManager().getLocation(request.getFinishLocation().getLongName(), request.getFinishLocation().getFloor()).getNodeID());
+                    LocationManager.getLocationManager().getLocation(request.getFinishLocation().getLongName(), finishFloor).getNodeID());
             fields.add(EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().getEmployeeID());
             fields.add(String.format("%d",(request.getPriority()/3)));
             if(EmployeeChoiceIPTSingleton.getEmployeeChoiceIPTSingleton().isConfirm()){
                 edu.wpi.cs3733.d22.teamW.wDB.entity.Request request1 = RequestFactory.getRequestFactory().getRequest(RequestType.InternalPatientTransportationRequest, fields, false);
+
+                System.out.println(request1.toValuesString());
             }
         }
         databaseController.reset();
