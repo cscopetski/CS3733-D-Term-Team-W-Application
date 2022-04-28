@@ -19,7 +19,7 @@
 
 <AnchorPane style="-fx-alignment: center;" stylesheets="@../CSS/UniversalCSS/Standard.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.ProfileController">
     <children>
-        <AnchorPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <AnchorPane minHeight="-Infinity" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <VBox layoutX="250.0" layoutY="200.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <children>
@@ -166,7 +166,7 @@
                                <RequestTable fx:id="rt" minHeight="175.0" minWidth="440.0" prefHeight="380.0" prefWidth="440.0" />
                            </children>
                            <HBox.margin>
-                              <Insets />
+                              <Insets right="20.0" />
                            </HBox.margin>
                         </VBox>
                         <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
@@ -189,7 +189,7 @@
                               </Label>
                               <ScrollPane>
                                  <content>
-                                    <TextArea fx:id="moreInfo" prefColumnCount="20" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" />
+                                    <TextArea fx:id="moreInfo" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="20" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" />
                                  </content>
                               </ScrollPane>
                            </children>

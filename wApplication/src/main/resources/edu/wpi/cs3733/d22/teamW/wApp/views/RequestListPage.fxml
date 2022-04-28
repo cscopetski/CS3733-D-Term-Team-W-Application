@@ -43,7 +43,7 @@
                         <Insets right="20.0" />
                     </HBox.margin>
                 </VBox>
-                <VBox alignment="CENTER" fillWidth="false" spacing="10.0">
+                <VBox alignment="CENTER" fillWidth="false" minHeight="-Infinity" spacing="10.0">
                     <children>
                         <Label styleClass="label-major" text="FILTER" textFill="WHITE">
                             <font>
@@ -63,7 +63,7 @@
                         </Label>
                   <ScrollPane>
                      <content>
-                              <TextArea fx:id="moreInfo" prefColumnCount="20" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" />
+                              <TextArea fx:id="moreInfo" minHeight="-Infinity" minWidth="-Infinity" prefColumnCount="20" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: white; -fx-border-color: #013895; -fx-border-radius: 4;" />
                      </content>
                   </ScrollPane>
                     </children>
