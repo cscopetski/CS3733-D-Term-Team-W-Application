@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.IllegalFormatException;
 
 public class UserImageDaoImpl implements UserImageDao {
+    //directory should be a folder and you can do userImageDir/image.png
+    final String userImageDir = "UserImages";
     Statement statement;
 
     public UserImageDaoImpl(Statement statement) {
@@ -104,7 +106,7 @@ public class UserImageDaoImpl implements UserImageDao {
                 throw new InvalidTypeException("Saved image must be a png.");
             }
             //Save image
-            String savedFilePath = String.format("wApplication/UserImages/%s.png", userImage.getEmployeeUsername());
+            String savedFilePath = String.format("%s/%s.png", userImageDir, userImage.getEmployeeUsername());
             File savedFile = new File(savedFilePath);
             Files.copy(userImageFile.toPath(), savedFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             if(savedFile.exists()) {
@@ -132,7 +134,7 @@ public class UserImageDaoImpl implements UserImageDao {
 
     @Override
     public void deleteUserImage(String employeeUsername) throws SQLException {
-        String savedFilePath = String.format("wApplication/UserImages/%s.png", employeeUsername);
+        String savedFilePath = String.format("%s/%s.png", userImageDir, employeeUsername);
         File savedFile = new File(savedFilePath);
         savedFile.delete();
         statement.executeUpdate(String.format("DELETE FROM USERIMAGES WHERE EMPLOYEEUSERNAME='%s'", employeeUsername));
