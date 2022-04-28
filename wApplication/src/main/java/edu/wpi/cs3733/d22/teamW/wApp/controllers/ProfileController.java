@@ -128,8 +128,8 @@ public class ProfileController implements Initializable {
             try {
                 UserImageManager.getUserImageManager().deleteUserImage(AccountManager.getInstance().getEmployee().getUsername());
             } catch (SQLException e) {
-                System.out.println("Deleted old picture.");
             }
+            System.out.println("Deleted old picture.");
             //Add new photo
             try {
                 UserImageManager.getUserImageManager().addNewUserImage(new UserImage(AccountManager.getInstance().getEmployee().getUsername(), selectedFile.toPath().toString()));

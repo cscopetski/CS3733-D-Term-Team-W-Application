@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
@@ -107,12 +108,21 @@ public class UserImageDaoImpl implements UserImageDao {
             }
             //Save image
             String savedFilePath = String.format("%s/%s.png", userImageDir, userImage.getEmployeeUsername());
+//            //To resources folder
+//            try {
+//                File savedFileResources = new File(UserImageDaoImpl.class.getClassLoader().getResource(String.format("edu/wpi/cs3733/d22/teamW/wDB/original/%s", savedFilePath)).toURI());
+//                Files.copy(userImageFile.toPath(), savedFileResources.toPath(), StandardCopyOption.REPLACE_EXISTING);
+//                System.out.println(String.format("Successfully saved image for %s into resources folder.", userImage.getEmployeeUsername()));
+//            } catch (Exception e) {
+//                System.out.println("Unable to save image to resources folder.");
+//            }
+            //To outside folder
             File savedFile = new File(savedFilePath);
             Files.copy(userImageFile.toPath(), savedFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
             if(savedFile.exists()) {
                 UserImage savedUserImage = new UserImage(userImage.getEmployeeUsername(), savedFilePath);
                 addUserImage(savedUserImage);
-                System.out.println("Successfully saved user image in the database.");
+                System.out.println(String.format("Successfully saved image for %s into outside folder.", userImage.getEmployeeUsername()));
             } else {
                 System.out.println("Saved image not copied properly.");
             }
@@ -134,9 +144,23 @@ public class UserImageDaoImpl implements UserImageDao {
 
     @Override
     public void deleteUserImage(String employeeUsername) throws SQLException {
-        String savedFilePath = String.format("%s/%s.png", userImageDir, employeeUsername);
+        String savedFilePath = getUserImagePath(employeeUsername);
+//        try {
+//            File savedFileResources = new File(UserImageDaoImpl.class.getClassLoader().getResource(String.format("edu/wpi/cs3733/d22/teamW/wDB/original/%s", savedFilePath)).toURI());
+//            if(savedFileResources.delete()) {
+//                System.out.println(String.format("Successfully deleted image for %s from resources folder.", employeeUsername));
+//            } else {
+//                System.out.println(String.format("Could not delete image for %s from resources folder.", employeeUsername));
+//            }
+//        } catch (Exception e) {
+//            System.out.println(String.format("Could not delete image for %s from resources folder.", employeeUsername));
+//        }
         File savedFile = new File(savedFilePath);
-        savedFile.delete();
+        if(savedFile.delete()) {
+            System.out.println(String.format("Successfully deleted image for %s from outside folder.", employeeUsername));
+        } else {
+            System.out.println(String.format("Could not delete image for %s from outside folder.", employeeUsername));
+        }
         statement.executeUpdate(String.format("DELETE FROM USERIMAGES WHERE EMPLOYEEUSERNAME='%s'", employeeUsername));
     }
 

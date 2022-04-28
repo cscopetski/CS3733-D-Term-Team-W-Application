@@ -6,6 +6,7 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import javafx.scene.image.Image;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 
 public class EmployeeImageGenerator {
@@ -30,7 +31,7 @@ public class EmployeeImageGenerator {
         }
         File employeeImageFile;
         try {
-            employeeImageFile = new File(UserImageManager.getUserImageManager().getUserImagePath(selectedEmployee.getUsername()));
+            employeeImageFile = new File(Paths.get(UserImageManager.getUserImageManager().getUserImagePath(selectedEmployee.getUsername())).toUri());
         } catch (SQLException e) {
             return generatePlaceHolderImage();
         }

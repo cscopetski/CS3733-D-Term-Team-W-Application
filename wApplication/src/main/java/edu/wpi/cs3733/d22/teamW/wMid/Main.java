@@ -11,6 +11,12 @@ import edu.wpi.cs3733.d22.teamW.wDB.entity.Employee;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.DBConnectionMode;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.EmployeeType;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.nio.file.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -65,6 +71,23 @@ public class Main {
                 e.printStackTrace();
            }
        }
+
+        //Create outside folder to store images, and load images from resources into it if they dont exist
+        try {
+            Files.createDirectory(Paths.get("UserImages"));
+            for(UserImage userImage : UserImageManager.getUserImageManager().getALlUserImages()) {
+                InputStream in = Main.class.getClassLoader().getResourceAsStream(String.format("edu/wpi/cs3733/d22/teamW/wDB/original/%s", userImage.getPathToImage()));
+                File savedImageOutside = new File(userImage.getPathToImage());
+                OutputStream outStream = new FileOutputStream(savedImageOutside);
+                try {
+                    outStream.write(in.readAllBytes());
+                } catch (Exception e) {
+                    System.out.println(String.format("Unable to locate resource for %s", userImage.getPathToImage()));
+                }
+            }
+        } catch (FileAlreadyExistsException e) {
+            System.out.println("Images already loaded.");
+        }
 
         App.launch(App.class, args);
     }
