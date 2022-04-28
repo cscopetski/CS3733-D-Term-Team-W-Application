@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="426.0" prefWidth="708.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.newLocationPageController">
+<AnchorPane style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.newLocationPageController">
     <children>
         <TextField fx:id="nodeField" layoutX="135.0" layoutY="96.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" />
         <TextField layoutX="135.0" layoutY="138.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" fx:id="xField" />
@@ -24,7 +24,7 @@
         <Label layoutX="292.0" layoutY="184.0" text="Long Name:" />
         <Label layoutX="291.0" layoutY="219.0" text="Short Name:" />
         <Label layoutX="320.0" layoutY="142.0" text="Type:" />
-        <Button fx:id="addButton" layoutX="98.0" layoutY="279.0" mnemonicParsing="false" onAction="#addLoc" prefHeight="32.0" prefWidth="80.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Add" />
+        <Button fx:id="addButton" layoutX="129.0" layoutY="279.0" mnemonicParsing="false" onAction="#addLoc" prefHeight="27.0" prefWidth="49.0" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Add" />
         <Button fx:id="resetButton" layoutX="187.0" layoutY="279.0" mnemonicParsing="false" onAction="#resetFields" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Reset" />
         <Button fx:id="cancelButton" layoutX="314.0" layoutY="279.0" mnemonicParsing="false" onAction="#cancelUpdate" stylesheets="@../../CSS/UniversalCSS/Standard.css" text="Exit" />
     </children>
