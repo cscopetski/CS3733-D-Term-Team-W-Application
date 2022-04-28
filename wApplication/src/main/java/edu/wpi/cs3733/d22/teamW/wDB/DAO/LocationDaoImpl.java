@@ -223,12 +223,13 @@ public class LocationDaoImpl implements LocationDao {
     ResultSet set =
         statement.executeQuery(
             String.format("SELECT * FROM LOCATIONS WHERE NODEID = '%s'", nodeID));
-    set.next(); // bypasses column headers
-    ArrayList<String> locationFields = new ArrayList<String>();
-    for (int i = 0; i < set.getMetaData().getColumnCount(); i++) {
-      locationFields.add(set.getString(i + 1));
+    if(set.next()) { // bypasses column headers
+      ArrayList<String> locationFields = new ArrayList<String>();
+      for (int i = 0; i < set.getMetaData().getColumnCount(); i++) {
+        locationFields.add(set.getString(i + 1));
+      }
+      loc = new Location(locationFields);
     }
-    loc = new Location(locationFields);
     return loc;
   }
 

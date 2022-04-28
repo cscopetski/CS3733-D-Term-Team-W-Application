@@ -7,6 +7,7 @@ import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.FilterControl;
 import edu.wpi.cs3733.d22.teamW.wApp.controllers.customControls.RequestTable;
 import edu.wpi.cs3733.d22.teamW.wApp.serviceRequests.*;
 import edu.wpi.cs3733.d22.teamW.wDB.Errors.*;
+import edu.wpi.cs3733.d22.teamW.wDB.Managers.LocationManager;
 import edu.wpi.cs3733.d22.teamW.wDB.RequestFacade;
 import edu.wpi.cs3733.d22.teamW.wDB.entity.Request;
 import edu.wpi.cs3733.d22.teamW.wDB.enums.RequestType;
@@ -136,11 +137,26 @@ public class RequestListController implements Initializable {
         nodeID = (String) WindowManager.getInstance().getData("LocationChoice");
         System.out.println(nodeID);
       }
-      RequestFacade.getRequestFacade()
-          .completeRequest(
-              rt.getSelection().getRequestID(),
-              rt.getSelection().getRequestType(),
-              nodeID);
+      try {
+        if (LocationManager.getLocationManager().getLocation(nodeID) != null) {
+          RequestFacade.getRequestFacade()
+                  .completeRequest(
+                          rt.getSelection().getRequestID(),
+                          rt.getSelection().getRequestType(),
+                          nodeID);
+        }else{
+          Alert alert =
+                  new Alert(
+                          Alert.AlertType.WARNING,
+                          "Must select a valid location",
+                          ButtonType.OK);
+          alert.showAndWait();
+
+        }
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+
     } catch (CannotComplete c) {
       Alert alert =
           new Alert(

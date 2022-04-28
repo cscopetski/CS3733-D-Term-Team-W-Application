@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.wpi.cs3733.d22.teamW.wApp.controllers.LoginController">
    <center>
       <VBox alignment="CENTER" maxHeight="300.0" maxWidth="300.0" prefHeight="300.0" prefWidth="300.0" styleClass="pane" stylesheets="@../CSS/LoginPage/paneLogin.css">
@@ -70,7 +69,7 @@
    </center>
    <bottom>
       <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="5.0" BorderPane.alignment="BOTTOM_LEFT">
-         <Label layoutX="28.0" layoutY="6.0" style="-fx-padding: 2px 0 0 10px" text="Server: " textFill="WHITE">
+         <Label layoutX="28.0" layoutY="6.0" style="-fx-padding: 2px 0 0 10px" text="Server: " textFill="#013895">
             <font>
                <Font name="System Bold" size="15.0" />
             </font>

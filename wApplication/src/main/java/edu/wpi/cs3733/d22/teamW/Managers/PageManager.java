@@ -60,7 +60,7 @@ public class PageManager {
         Pages(String path, String name, boolean isPersistent) {
             this.path = path;
             this.name = name;
-            this.isPersistent = true;
+            this.isPersistent = isPersistent;
             this.persistentControl = null;
         }
 
