@@ -30,25 +30,25 @@ public class CSVController {
   final String internalPatientTransportationRequestFileName = "InternalPatientTransportationRequests.csv";
   final String externalTransporationRequestFileName = "ExternalTransportationRequests.csv";
 
-  final String locationNewFileName = "TowerLocations_teamW_new.csv";
-  final String medEquipNewFileName = "MedicalEquipment_teamW_new.csv";
-  final String medEquipRequestNewFileName = "MedicalEquipmentRequest_teamW_new.csv";
-  final String labServiceRequestNewFileName = "LabRequests_teamW_new.csv";
-  final String employeeNewFileName = "Employees_teamW_new.csv";
-  final String medRequestNewFileName = "MedRequests_teamW_new.csv";
-  final String flowerRequestNewFileName = "FlowerRequests_teamW_new.csv";
-  final String computerServiceRequestNewFileName = "ComputerServiceRequest_teamW_new.csv";
-  final String sanitationRequestNewFileName = "SanitationRequests_teamW_new.csv";
-  final String languageNewFileName = "Languages_teamW_new.csv";
-  final String languageInterpNewFileName = "LanguageInterpreter_teamW_new.csv";
-  final String giftDeliveryRequestNewFileName = "GiftDeliveryRequest_teamW_new.csv";
-  final String cleaningRequestNewFileName = "CleaningRequest_teamW_new.csv";
-  final String mealRequestNewFileName = "MealRequest_teamW_new.csv";
-  final String securityRequestNewFileName = "SecurityRequest_teamW_new.csv";
-  final String languageRequestNewFileName = "LanguageRequests_teamW_new.csv";
-  final String userImageNewFileName = "UserImages_teamW_new.csv";
-  final String internalPatientTransportationRequestNewFileName = "InternalPatientTransportationRequests_teamW_new.csv";
-  final String externalTransporationRequestNewFileName = "ExternalTransportationRequests_teamW_new.csv";
+  final String locationNewFileName = "CSVs/TowerLocations_teamW_new.csv";
+  final String medEquipNewFileName = "CSVs/MedicalEquipment_teamW_new.csv";
+  final String medEquipRequestNewFileName = "CSVs/MedicalEquipmentRequest_teamW_new.csv";
+  final String labServiceRequestNewFileName = "CSVs/LabRequests_teamW_new.csv";
+  final String employeeNewFileName = "CSVs/Employees_teamW_new.csv";
+  final String medRequestNewFileName = "CSVs/MedRequests_teamW_new.csv";
+  final String flowerRequestNewFileName = "CSVs/FlowerRequests_teamW_new.csv";
+  final String computerServiceRequestNewFileName = "CSVs/ComputerServiceRequest_teamW_new.csv";
+  final String sanitationRequestNewFileName = "CSVs/SanitationRequests_teamW_new.csv";
+  final String languageNewFileName = "CSVs/Languages_teamW_new.csv";
+  final String languageInterpNewFileName = "CSVs/LanguageInterpreter_teamW_new.csv";
+  final String giftDeliveryRequestNewFileName = "CSVs/GiftDeliveryRequest_teamW_new.csv";
+  final String cleaningRequestNewFileName = "CSVs/CleaningRequest_teamW_new.csv";
+  final String mealRequestNewFileName = "CSVs/MealRequest_teamW_new.csv";
+  final String securityRequestNewFileName = "CSVs/SecurityRequest_teamW_new.csv";
+  final String languageRequestNewFileName = "CSVs/LanguageRequests_teamW_new.csv";
+  final String userImageNewFileName = "CSVs/UserImages_teamW_new.csv";
+  final String internalPatientTransportationRequestNewFileName = "CSVs/InternalPatientTransportationRequests_teamW_new.csv";
+  final String externalTransporationRequestNewFileName = "CSVs/ExternalTransportationRequests_teamW_new.csv";
 
   private RequestFactory requestFactory = RequestFactory.getRequestFactory();
 

@@ -72,6 +72,9 @@ public class Main {
            }
        }
 
+        //Create folder to store CSVs in on exit
+        Files.createDirectories(Paths.get("CSVs"));
+
         //Create outside folder to store images, and load images from resources into it if they dont exist
         try {
             Files.createDirectory(Paths.get("UserImages"));
